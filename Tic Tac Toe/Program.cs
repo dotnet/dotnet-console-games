@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static System.Console;
 
 class Program
 {
@@ -21,28 +22,28 @@ class Program
 
         void RenderBoard()
         {
-            Console.WriteLine();
-            Console.WriteLine(" " + board[0, 0] + "  |  " + board[0, 1] + "  | " + board[0, 2]);
-            Console.WriteLine("    |     |");
-            Console.WriteLine(" ---+-----+---");
-            Console.WriteLine("    |     |");
-            Console.WriteLine(" " + board[1, 0] + "  |  " + board[1, 1] + "  | " + board[1, 2]);
-            Console.WriteLine("    |     |");
-            Console.WriteLine(" ---+-----+---");
-            Console.WriteLine("    |     |");
-            Console.WriteLine(" " + board[2, 0] + "  |  " + board[2, 1] + "  | " + board[2, 2]);
+            WriteLine();
+            WriteLine(" " + board[0, 0] + "  |  " + board[0, 1] + "  | " + board[0, 2]);
+            WriteLine("    |     |");
+            WriteLine(" ---+-----+---");
+            WriteLine("    |     |");
+            WriteLine(" " + board[1, 0] + "  |  " + board[1, 1] + "  | " + board[1, 2]);
+            WriteLine("    |     |");
+            WriteLine(" ---+-----+---");
+            WriteLine("    |     |");
+            WriteLine(" " + board[2, 0] + "  |  " + board[2, 1] + "  | " + board[2, 2]);
         }
 
         void PlayerMove()
         {
             var (row, column) = (0, 0);
         PlayerMove:
-            Console.Clear();
+            Clear();
             RenderBoard();
-            Console.WriteLine();
-            Console.WriteLine("Choose a valid position and press enter.");
-            Console.SetCursorPosition(column * 6 + 1, row * 4 + 1);
-            switch (Console.ReadKey(true).Key)
+            WriteLine();
+            WriteLine("Choose a valid position and press enter.");
+            SetCursorPosition(column * 6 + 1, row * 4 + 1);
+            switch (ReadKey(true).Key)
             {
                 case ConsoleKey.UpArrow: row = Math.Abs((row - 1) % 3); goto PlayerMove;
                 case ConsoleKey.DownArrow: row = Math.Abs((row + 1) % 3); goto PlayerMove;
@@ -50,8 +51,8 @@ class Program
                 case ConsoleKey.RightArrow: column = Math.Abs((column + 1) % 3); goto PlayerMove;
                 case ConsoleKey.Enter: break;
                 case ConsoleKey.Escape:
-                    Console.Clear();
-                    Console.Write("Tic Tac Toe was closed.");
+                    Clear();
+                    Write("Tic Tac Toe was closed.");
                     gameOver = true;
                     break;
                 default: goto PlayerMove;
@@ -103,20 +104,20 @@ class Program
 
             if (CheckForThree(X))
             {
-                Console.Clear();
-                Console.Write("You Win.");
+                Clear();
+                Write("You Win.");
                 gameOver = true;
             }
             else if (CheckForThree(O))
             {
-                Console.Clear();
-                Console.Write("You Lose.");
+                Clear();
+                Write("You Lose.");
                 gameOver = true;
             }
             else if (CheckForDraw())
             {
-                Console.Clear();
-                Console.Write("Draw.");
+                Clear();
+                Write("Draw.");
                 gameOver = true;
             }
         }

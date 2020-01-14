@@ -42,9 +42,9 @@ class Program
                 }
             }
             int index = random.Next(possibleCoordinates.Count);
-            (int X, int Y) position = possibleCoordinates[index];
-            map[position.X, position.Y] = Tile.Food;
-            Console.SetCursorPosition(position.X, position.Y);
+            (int X, int Y) = possibleCoordinates[index];
+            map[X, Y] = Tile.Food;
+            Console.SetCursorPosition(X, Y);
             Console.Write('+');
         }
 
@@ -100,9 +100,9 @@ class Program
             }
             else
             {
-                (int X, int Y) tail = snake.Dequeue();
-                map[tail.X, tail.Y] = Tile.Open;
-                Console.SetCursorPosition(tail.X, tail.Y);
+                (int X, int Y) = snake.Dequeue();
+                map[X, Y] = Tile.Open;
+                Console.SetCursorPosition(X, Y);
                 Console.Write(' ');
             }
             map[snakePosition.X, snakePosition.Y] = Tile.Snake;
