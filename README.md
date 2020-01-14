@@ -1,2 +1,3 @@
-# dotnet-console-games
-Game examples implemented in .NET console applications primarily for educational purposes.
+- [Tic Tac Toe](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Tic%20Tac%20Toe)
+- [Snake](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Snake)
+- [Wumpus World](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Wumpus%20World)
