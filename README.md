@@ -15,6 +15,6 @@ This repository is a collection of games implemented as .NET Core console applic
 2. Try to code the game yourself from scratch
 3. Compare it to the provided example
 
-### Want To Contribute?
+#### Want To Contribute?
 
 This repository welcome contributions. :) Notice anything you think can be improved? Have a console game you want to share? Just fork the repo, make your changes, and open a pull request.
