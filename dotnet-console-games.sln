@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pong", "Pong\Pong.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tetris", "Tetris\Tetris.csproj", "{0E3C1182-BDC8-4A14-887F-175B68FD363E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hurdles", "Hurdles\Hurdles.csproj", "{58D52662-6928-4978-9F3D-967444E505A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{0E3C1182-BDC8-4A14-887F-175B68FD363E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E3C1182-BDC8-4A14-887F-175B68FD363E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E3C1182-BDC8-4A14-887F-175B68FD363E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58D52662-6928-4978-9F3D-967444E505A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58D52662-6928-4978-9F3D-967444E505A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58D52662-6928-4978-9F3D-967444E505A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58D52662-6928-4978-9F3D-967444E505A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
