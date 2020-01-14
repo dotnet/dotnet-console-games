@@ -1,3 +1,3 @@
-- [Tic Tac Toe](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Tic%20Tac%20Toe/Program.cs)
-- [Snake](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Snake/Program.cs)
-- [Wumpus World](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Wumpus%20World/Program.cs)
+- [Tic Tac Toe](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Tic%20Tac%20Toe)
+- [Snake](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Snake)
+- [Wumpus World](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Wumpus%20World)
