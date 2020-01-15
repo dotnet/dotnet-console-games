@@ -1,5 +1,7 @@
 # Hurdles
 
+![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Hurdles%20Build/badge.svg)
+
 **[Source Code](Program.cs)**
 
 Hurdles is a game where you run and jump over as many hurdles as possible. You may not change your speed or stop once you have started. If you collide with the center of a hurdle _(the `.` period)_ then your run is over.
