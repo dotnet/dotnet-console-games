@@ -21,6 +21,7 @@ Wumpus World is a game where you explore a dark, dangerous cave in search of gol
 - If you moved onto the `B2` cell, the Wumpus would eat you
 - If you moved onto the `A0`, `C3`, or `D0` cells, you would fall to your death
 - If you try to move outside the grid, you will hit a wall and remain where you were
+- If you moved onto the `B0` cell, find the gold and win the game
 
 ## Input
 
