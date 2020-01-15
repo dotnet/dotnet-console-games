@@ -217,6 +217,15 @@ class Program
 			Render(playerFrame, true);
 			RenderHurdles(true);
 
+			if (position % 50 == 5)
+			{
+				Console.SetCursorPosition(0, 13);
+				Render(
+					@"       " + '\n' +
+					@"       " + '\n' +
+					@"       ", true);
+			}
+
 			if (position % 50 < 3)
 			{
 				Console.SetCursorPosition(4, 10);
