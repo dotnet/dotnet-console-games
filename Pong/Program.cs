@@ -6,6 +6,42 @@ namespace Pong
 	{
 		static void Main()
 		{
+			Console.WriteLine("Still in development...");
+
+#if false
+			static bool Intersect(
+			((float X, float Y) A, (float X, float Y) B) A,
+			((float X, float Y) A, (float X, float Y) B) B)
+			{
+				var intersection = Intersection(A, B);
+				if (!intersection.HasValue)
+				{
+					return false;
+				}
+				else
+				{
+					var (X, Y) = intersection.Value;
+					return X >= A.A.X && X <= A.B.X;
+				}
+			}
+
+			static (float X, float Y)? Intersection(
+				((float X, float Y) A, (float X, float Y) B) A,
+				((float X, float Y) A, (float X, float Y) B) B)
+			{
+				var a = A.B.Y - A.A.Y;
+				var b = A.A.X - A.B.X;
+				var c = a * (A.A.X) + b * (A.A.Y);
+				var d = B.B.Y - B.A.Y;
+				var e = B.A.X - B.B.X;
+				var f = d * (B.A.X) + e * (B.A.Y);
+				var g = a * e - d * b;
+				return g == 0
+					? ((float X, float Y)?)null
+					: ((e * c - b * f) / g, (a * f - d * c) / g);
+			}
+
+
 			int width = Console.WindowWidth;
 			int height = Console.WindowHeight;
 
@@ -51,38 +87,7 @@ namespace Pong
 					}
 				}
 			}
-		}
-
-		public static bool Intersect(
-			((float X, float Y) A, (float X, float Y) B) A,
-			((float X, float Y) A, (float X, float Y) B) B)
-		{
-			var intersection = Intersection(A, B);
-			if (!intersection.HasValue)
-			{
-				return false;
-			}
-			else
-			{
-				var (X, Y) = intersection.Value;
-				return X >= A.A.X && X <= A.B.X;
-			}
-		}
-
-		public static (float X, float Y)? Intersection(
-			((float X, float Y) A, (float X, float Y) B) A,
-			((float X, float Y) A, (float X, float Y) B) B)
-		{
-			var a = A.B.Y - A.A.Y;
-			var b = A.A.X - A.B.X;
-			var c = a * (A.A.X) + b * (A.A.Y);
-			var d = B.B.Y - B.A.Y;
-			var e = B.A.X - B.B.X;
-			var f = d * (B.A.X) + e * (B.A.Y);
-			var g = a * e - d * b;
-			return g == 0
-				? ((float X, float Y)?)null
-				: ((e * c - b * f) / g, (a * f - d * c) / g);
+#endif
 		}
 	}
 }
