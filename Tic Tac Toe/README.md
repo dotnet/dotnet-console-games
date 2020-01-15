@@ -38,6 +38,16 @@ X Wins (Diagonal):
 |**1**||~~X~~||
 |**2**|~~X~~|||
 
+### Draw Condition Examples
+
+X Wins (Row):
+
+||0|1|2|
+|-|-|-|-|
+|**0**|X|O|X|
+|**1**|O|O|X|
+|**2**|X|X|O|
+
 ## Input
 
 The **arrow keys (↑, ↓, ←, →)** are used to change the selected cell on the grid. The **enter** key is used to mark the selected cell with your mark. The **escape** key may be used to close the game at any time. If you **resize** the console widow the game will be closed.
