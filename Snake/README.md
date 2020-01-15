@@ -1,5 +1,7 @@
 # Snake
 
+![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Snake%20Build/badge.svg)
+
 **[Source Code](Program.cs)**
 
 Snake is a game where you play as a snake and try to eat as much food as possible. Once you start moving you may not stop. You lose if you fall out of bounds or attempt to eat yourself. Every time you eat food, you grow in length, making it harder to avoid auto-cannibalism. The bounds are the edges of the console window.
