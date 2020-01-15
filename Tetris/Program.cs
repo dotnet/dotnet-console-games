@@ -15,6 +15,9 @@ class Program
 
     static void Main()
     {
+        Console.WriteLine("Still in development...");
+
+#if false
         int originalWidth = Console.WindowWidth;
         int originalHeight = Console.WindowHeight;
         ConsoleColor originalColor = Console.ForegroundColor;
@@ -89,5 +92,6 @@ class Program
         Console.ForegroundColor = originalColor;
         Console.WindowWidth = originalWidth;
         Console.WindowHeight = originalHeight;
+#endif
     }
 }
