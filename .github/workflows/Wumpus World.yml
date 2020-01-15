@@ -1,4 +1,4 @@
-name: Tic Tac Toe Build
+name: Wumpus World Build
 
 on: [push]
 
@@ -14,4 +14,4 @@ jobs:
       with:
         dotnet-version: 3.1.100
     - name: Build with dotnet
-      run: dotnet build "Tic Tac Toe\Tic Tac Toe.csproj" --configuration Release
+      run: dotnet build "Wumpus World\Wumpus World.csproj" --configuration Release
