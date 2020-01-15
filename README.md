@@ -4,10 +4,10 @@ This repository is a collection of games implemented as .NET Core console applic
 
 |Game|Complexity|Topic Notes|
 |:-|:-|:-|
-|[Tic Tac Toe](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Tic%20Tac%20Toe)|1|Console Input/Output, Random Selection, Game States|
-|[Wumpus World](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Wumpus%20World)|2|Console Input/Output, Random Generation, Game States|
-|[Snake](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Snake)|3|Timed Updates, Collision Detection, Queue\<T\>|
-|[Hurdles](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Hurdles)|3|Timed Updates, Animation Cycles, Collision Detection|
+|[Tic Tac Toe](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Tic%20Tac%20Toe)|1|`Console Input/Output`, `Random Selection`, `Game States`|
+|[Wumpus World](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Wumpus%20World)|2|`Console Input/Output`, `Random Generation`, `Game States`|
+|[Snake](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Snake)|3|`Timed Updates`, `Collision Detection`, `Queue\<T\>`|
+|[Hurdles](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Hurdles)|3|`Timed Updates`, `Animation Cycles`, `Collision Detection`|
 
 #### Use These Games As Learning Exercises
 
