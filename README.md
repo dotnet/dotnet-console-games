@@ -16,7 +16,7 @@ Install [.NET Core](https://docs.microsoft.com/dotnet/core/)
 Choose a development environment:
 
 <details>
-<summary>Visual Studio</summary>
+<summary>Visual Studio [click to expand]</summary>
 <p>
 
 Install [Visual Studio](https://visualstudio.microsoft.com/)
@@ -29,7 +29,7 @@ Open the **dotnet-console-games.sln** solution file in Visual Studio.
 </details>
 
 <details>
-<summary>Visual Studio Code</summary>
+<summary>Visual Studio Code [click to expand]</summary>
 <p>
 
 Install [Visual Studio Code](https://visualstudio.microsoft.com/)
