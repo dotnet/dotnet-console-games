@@ -54,5 +54,18 @@
             ],
             "problemMatcher": "$msCompile",
         },
+        {
+            "label": "Build Maze",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Maze/Maze.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
     ],
 }
