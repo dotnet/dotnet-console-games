@@ -55,9 +55,9 @@ public static class Maze
 		end_column ??= columns - 1;
 
 		#region Exceptions
-		if (rows <= 0)
+		if (rows <= 1)
 			throw new ArgumentOutOfRangeException(nameof(rows));
-		if (columns <= 0)
+		if (columns <= 1)
 			throw new ArgumentOutOfRangeException(nameof(columns));
 		if (start_row < 0 || rows < start_row)
 			throw new ArgumentOutOfRangeException(nameof(start_row));
@@ -65,7 +65,7 @@ public static class Maze
 			throw new ArgumentOutOfRangeException(nameof(end_row));
 		if (start_column < 0 || columns < start_column)
 			throw new ArgumentOutOfRangeException(nameof(start_column));
-		if (end_column < 0 || rows < end_column || start_column == end_column)
+		if (end_column < 0 || columns < end_column || start_column == end_column)
 			throw new ArgumentOutOfRangeException(nameof(end_column));
 		#endregion
 

@@ -46,5 +46,16 @@
 			"console": "externalTerminal",
 			"stopAtEntry": false,
 		},
+		{
+			"name": "Maze",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Maze",
+			"program": "${workspaceFolder}/Maze/bin/Debug/netcoreapp3.1/Maze.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Maze/bin/Debug/netcoreapp3.1",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
 	],
 }
