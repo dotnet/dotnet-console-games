@@ -1,0 +1,11 @@
+{
+	"files.exclude":
+	{
+		".gitignore": true,
+		".vs": true,
+		"**/bin": true,
+		"**/obj": true,
+		"LICENSE": true,
+		".github": true,
+	},
+}
