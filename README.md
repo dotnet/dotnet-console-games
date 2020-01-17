@@ -2,13 +2,13 @@
 
 This repository is a collection of games implemented as .NET Core console applications primarily for providing education and inspiration. :)
 
-|Game|Status|Complexity|Topic Notes|
-|:-|:-|:-|:-|
-|[Tic Tac Toe](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Tic%20Tac%20Toe)|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Tic%20Tac%20Toe%20Build/badge.svg)|1|`Console Input/Output`, `Random Selection`, `Game States`|
-|[Wumpus World](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Wumpus%20World)|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Wumpus%20World%20Build/badge.svg)|2|`Console Input/Output`, `Random Generation`, `Game States`|
-|[Snake](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Snake)|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Snake%20Build/badge.svg)|3|`Timed Updates`, `Collision Detection`, `Queue<T>`|
-|[Hurdles](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Hurdles)|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Hurdles%20Build/badge.svg)|3|`Timed Updates`, `Animation Cycles`, `Collision Detection`|
-|[Maze](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Maze)|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Maze%20Build/badge.svg)|4|`Random Generation`, `Stack<T>`|
+|Game|Complexity|Notes|
+|:-|:-|:-|
+|[Tic Tac Toe](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Tic%20Tac%20Toe)|1|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Tic%20Tac%20Toe%20Build/badge.svg)<br>`Console Input/Output`, `Random Selection`, `Game States`|
+|[Wumpus World](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Wumpus%20World)|2|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Wumpus%20World%20Build/badge.svg)<br>`Console Input/Output`, `Random Generation`, `Game States`|
+|[Snake](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Snake)|3|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Snake%20Build/badge.svg)<br>`Timed Updates`, `Collision Detection`, `Queue<T>`|
+|[Hurdles](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Hurdles)|3|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Hurdles%20Build/badge.svg)<br>`Timed Updates`, `Animation Cycles`, `Collision Detection`|
+|[Maze](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Maze)|4|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Maze%20Build/badge.svg)<br>`Random Generation`, `Stack<T>`|
 
 ## Getting Started
 
