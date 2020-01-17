@@ -230,11 +230,11 @@ class Program
 			{
 				Console.SetCursorPosition(4, 10);
 				Render(playerFrame, false);
-				RenderHurdles(true);
+				RenderHurdles(false);
 			}
 			else
 			{
-				RenderHurdles(true);
+				RenderHurdles(false);
 				Console.SetCursorPosition(4, 10);
 				Render(playerFrame, false);
 			}
