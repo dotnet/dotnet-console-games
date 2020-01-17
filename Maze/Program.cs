@@ -1,19 +1,71 @@
-﻿using System;
+﻿//#define MazeGenertorLoop // uncomment to run the generator in a loop
+//#define DebugRandomMazeGeneration // uncomment me to watch the maze being built node-by-node
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+
+#if DebugRandomMazeGeneration || MazeGenertorLoop
+using System.Diagnostics;
+#endif
 
 class Program
 {
 	static void Main()
 	{
-		Maze.Tile[,] maze = Maze.Generate(10, 10);
-		Console.WindowHeight = 35;
+		Console.WindowHeight = 32;
+		const int rows = 8;
+		const int columns = 20;
+#if MazeGenertorLoop
+		while (true)
+		{
+			Maze.Tile[,] maze = Maze.Generate(rows, columns);
+			Console.Clear();
+			Console.WriteLine(Maze.Render(maze));
+			Debugger.Break();
+		}
+#else
+		Console.CursorVisible = true;
+		Maze.Tile[,] maze = Maze.Generate(rows, columns);
 		Console.Clear();
-		Console.WriteLine("This game is still in development, but the random maze generator works. :)");
-		Console.WriteLine();
 		Console.WriteLine(Maze.Render(maze));
-		Console.ReadLine();
+		Console.WriteLine();
+		Console.WriteLine("Maze");
+		Console.WriteLine("Solve the maze by using the arrow keys.");
+		Console.WriteLine("Press escape to quit.");
+		int row = 0;
+		int column = 0;
+		while ((row != rows - 1 || column != columns - 1))
+		{
+			Console.SetCursorPosition(column * 3 + 1, row * 3 + 1);
+			switch (Console.ReadKey().Key)
+			{
+				case ConsoleKey.UpArrow:
+					if (maze[row, column].HasFlag(Maze.Tile.Up))
+						row--;
+					break;
+				case ConsoleKey.DownArrow:
+					if (maze[row, column].HasFlag(Maze.Tile.Down))
+						row++;
+					break;
+				case ConsoleKey.LeftArrow:
+					if (maze[row, column].HasFlag(Maze.Tile.Left))
+						column--;
+					break;
+				case ConsoleKey.RightArrow:
+					if (maze[row, column].HasFlag(Maze.Tile.Right))
+						column++;
+					break;
+				case ConsoleKey.Escape:
+					Console.Clear();
+					Console.Write("MMaze was closed.");
+					return;
+			}
+		}
+		Console.Clear();
+		Console.Write("You Win.");
+#endif
 	}
 }
 
@@ -54,7 +106,7 @@ public static class Maze
 		end_row ??= rows - 1;
 		end_column ??= columns - 1;
 
-		#region Exceptions
+#region Exceptions
 		if (rows <= 1)
 			throw new ArgumentOutOfRangeException(nameof(rows));
 		if (columns <= 1)
@@ -67,7 +119,7 @@ public static class Maze
 			throw new ArgumentOutOfRangeException(nameof(start_column));
 		if (end_column < 0 || columns < end_column || start_column == end_column)
 			throw new ArgumentOutOfRangeException(nameof(end_column));
-		#endregion
+#endregion
 
 		Tile[,] maze = new Tile[rows, columns];
 		Random random = new Random();
@@ -85,7 +137,23 @@ public static class Maze
 				Column = start_column.Value,
 			});
 
-			bool NullOrEnd(Tile tile) => tile is Tile.Null || tile is Tile.End;
+#region Optimizations
+
+			// optimizations to prevent the algorithm from exploring unnecessary isolations
+			// that will never reach the end of the maze. these currently depend on using the
+			// default start/end locations, but they could be improved to help with custom
+			// locations too. I am just lazy and didn't care enough to make a more general
+			// purpose algorithm...
+
+			bool DefaultLocations() =>
+				start_row == 0 && start_column == 0 &&
+				end_row == rows - 1 && end_column == columns - 1;
+			bool UpOptimization(int column) => !(DefaultLocations() && column == columns - 1 || column == 0);
+			bool LeftOptimization(int row) => !(DefaultLocations() && row == rows - 1 || row == 0);
+
+#endregion
+
+			static bool NullOrEnd(Tile tile) => tile is Tile.Null || tile is Tile.End;
 
 			bool MoveRandom()
 			{
@@ -94,9 +162,9 @@ public static class Maze
 				// populate possible moves
 				if (node.Row != rows - 1 && NullOrEnd(maze[node.Row + 1, node.Column]) && !node.DownExplored)
 					directionBuffer[i++] = (node.Row + 1, node.Column);
-				if (node.Row != 0 && NullOrEnd(maze[node.Row - 1, node.Column]) && !node.UpExplored)
+				if (node.Row != 0 && NullOrEnd(maze[node.Row - 1, node.Column]) && !node.UpExplored && UpOptimization(node.Column))
 					directionBuffer[i++] = (node.Row - 1, node.Column);
-				if (node.Column != 0 && NullOrEnd(maze[node.Row, node.Column - 1]) && !node.LeftExplored)
+				if (node.Column != 0 && NullOrEnd(maze[node.Row, node.Column - 1]) && !node.LeftExplored && LeftOptimization(node.Row))
 					directionBuffer[i++] = (node.Row, node.Column - 1);
 				if (node.Column != columns - 1 && NullOrEnd(maze[node.Row, node.Column + 1]) && !node.RightExplored)
 					directionBuffer[i++] = (node.Row, node.Column + 1);
@@ -152,9 +220,11 @@ public static class Maze
 					if (move.Column == parent.Column - 1) maze[parent.Row, parent.Column] &= ~Tile.Left;
 				}
 
-				//// Debugging Write
-				//Console.Clear();
-				//Console.WriteLine(Render(maze));
+#if DebugRandomMazeGeneration
+				Console.Clear();
+				Console.WriteLine(Render(maze));
+				Debugger.Break();
+#endif
 			}
 		}
 
@@ -277,9 +347,11 @@ public static class Maze
 						}
 					}
 
-					//// Debugging Write
-					//Console.Clear();
-					//Console.WriteLine(Render(maze));
+#if DebugRandomMazeGeneration
+					Console.Clear();
+					Console.WriteLine(Render(maze));
+					Debugger.Break();
+#endif
 				}
 			}
 		}
