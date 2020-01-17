@@ -8,6 +8,7 @@ This repository is a collection of games implemented as .NET Core console applic
 |[Wumpus World](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Wumpus%20World)|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Wumpus%20World%20Build/badge.svg)|2|`Console Input/Output`, `Random Generation`, `Game States`|
 |[Snake](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Snake)|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Snake%20Build/badge.svg)|3|`Timed Updates`, `Collision Detection`, `Queue<T>`|
 |[Hurdles](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Hurdles)|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Hurdles%20Build/badge.svg)|3|`Timed Updates`, `Animation Cycles`, `Collision Detection`|
+|[Maze](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Maze)|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Maze%20Build/badge.svg)|4|`Random Generation`, `Stack<T>`|
 
 ## Getting Started
 
