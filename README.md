@@ -12,6 +12,8 @@ This repository is a collection of games implemented as .NET Core console applic
 
 ## Getting Started
 
+[Download](https://github.com/ZacharyPatten/dotnet-console-games/archive/master.zip) this repository and unzip the contents
+
 Install [.NET Core](https://docs.microsoft.com/dotnet/core/)
 
 Choose a development environment:
