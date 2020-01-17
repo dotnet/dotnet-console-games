@@ -40,5 +40,5 @@ The **arrow keys (↑, ↓, ←, →)** are used to change the direction you are
 ## Notes
 
 At the top of the **[source code](Program.cs)** you will see two compiler directives...
-- `MazeGenertorLoop`: Uncomment this directive and you can watch the code generate mazes infinitely inside a `while (true)` loop.
-- `DebugRandomMazeGeneration`: Uncomment this directive and you can watch the maze generation algorithm step-by-step.
+- `#define MazeGenertorLoop`: Uncomment this directive and you can watch the code generate mazes infinitely inside a `while (true)` loop.
+- `#define DebugRandomMazeGeneration`: Uncomment this directive and you can watch the maze generation algorithm step-by-step.
