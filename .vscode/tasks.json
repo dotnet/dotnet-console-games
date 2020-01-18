@@ -67,5 +67,18 @@
             ],
             "problemMatcher": "$msCompile",
         },
+        {
+            "label": "Build Tanks",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Tanks/Tanks.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
     ],
 }
