@@ -174,15 +174,8 @@ static class Program
 
 		#endregion
 
-		int iterations = 0;
-
 		while (Tanks.Contains(Player) && Tanks.Count > 1)
 		{
-			if (iterations++ == 20)
-			{
-				Console.ReadLine();
-			}
-
 			#region Tank Updates
 
 			foreach (var tank in Tanks)
