@@ -2,7 +2,7 @@
 
 This repository is a collection of games implemented as .NET Core console applications primarily for providing education and inspiration. :)
 
-|Game|Complexity|Notes|
+|Game|\*Complexity|Notes|
 |:-|:-|:-|
 |[Tic Tac Toe](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Tic%20Tac%20Toe)|1|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Tic%20Tac%20Toe%20Build/badge.svg)<br>`Console Input/Output`, `Random Selection`, `Game States`|
 |[Wumpus World](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Wumpus%20World)|2|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Wumpus%20World%20Build/badge.svg)<br>`Console Input/Output`, `Random Generation`, `Game States`|
@@ -10,6 +10,8 @@ This repository is a collection of games implemented as .NET Core console applic
 |[Hurdles](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Hurdles)|3|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Hurdles%20Build/badge.svg)<br>`Timed Updates`, `Animation Cycles`, `Collision Detection`|
 |[Tanks](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Tanks)|4|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Tanks%20Build/badge.svg)<br>`Collision Detection`, `Health/Damage Tracking`, `Removing Dead Objects`|
 |[Maze](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Maze)|5|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Maze%20Build/badge.svg)<br>`Random Generation`, `Stack<T>`|
+
+_\***Complexity**: a relative rating for how complex/advanced the source code is._
 
 ## Getting Started
 
@@ -47,4 +49,7 @@ Open the **root folder** of the of this repository in Visual Studio Code.
 
 ## Contributing
 
-This repository welcomes contributions. :) Notice anything you think can be improved? Have a console game you want to share? Just fork the repo, make your changes, and open a pull request.
+This repository welcomes contributions. :)
+
+- Notice anything you think can be improved? **[Open an issue](https://github.com/ZacharyPatten/dotnet-console-games/issues/new)**.
+- Want to contribute to the code? Have a game you want to share? Sign up with a GitHub account, fork the code, make some code changes, and open a pull request.

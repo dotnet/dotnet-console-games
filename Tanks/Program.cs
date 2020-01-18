@@ -158,7 +158,7 @@ static class Program
 		Console.SetCursorPosition(0, 0);
 		Render(Ascii.Map);
 		Console.WriteLine();
-		Console.WriteLine("Use the (W, A, S, D) keys to move and the (↑, ↓, ←, →) arrow keys to shoot.");
+		Console.WriteLine("Use the (W, A, S, D) keys to move and the arrow keys to shoot.");
 
 		#region Render
 
