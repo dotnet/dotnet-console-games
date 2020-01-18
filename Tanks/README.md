@@ -4,7 +4,7 @@
 
 **[Source Code](Program.cs)**
 
-Tanks is a game where you play as a tank and try to shoot and destroy other tanks before you get destroyed yourself. You always start in the top left corner. You may only shoot one bullet at a time; aim carefully.
+Tanks is a game where you play as a tank and try to shoot and destroy other tanks before you get destroyed yourself. You always start in the top left corner. You may only shoot one bullet at a time; aim carefully. The other three tanks are controlled by basic contitional logic (AI).
 
 ```
 ╔═════════════════════════════════════════════════════════════════════════╗
