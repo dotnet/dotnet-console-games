@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurdles", "Hurdles\Hurdles.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maze", "Maze\Maze.csproj", "{414D90B3-F940-45A9-B0F7-185B212D0999}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tanks", "Tanks\Tanks.csproj", "{098346BB-BF44-4727-8A16-A152C3953AB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tanks", "Tanks\Tanks.csproj", "{098346BB-BF44-4727-8A16-A152C3953AB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simon", "Simon\Simon.csproj", "{A028AED2-8EC6-4C0C-B4C7-59FF438308CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{098346BB-BF44-4727-8A16-A152C3953AB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{098346BB-BF44-4727-8A16-A152C3953AB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{098346BB-BF44-4727-8A16-A152C3953AB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A028AED2-8EC6-4C0C-B4C7-59FF438308CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A028AED2-8EC6-4C0C-B4C7-59FF438308CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A028AED2-8EC6-4C0C-B4C7-59FF438308CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A028AED2-8EC6-4C0C-B4C7-59FF438308CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
