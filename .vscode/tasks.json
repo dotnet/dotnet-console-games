@@ -80,5 +80,18 @@
             ],
             "problemMatcher": "$msCompile",
         },
+        {
+            "label": "Build Simon",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Simon/Simon.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
     ],
 }

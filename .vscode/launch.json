@@ -14,6 +14,17 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Simon",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Simon",
+			"program": "${workspaceFolder}/Simon/bin/Debug/netcoreapp3.1/Simon.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Simon/bin/Debug/netcoreapp3.1",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Wumpus World",
 			"type": "coreclr",
 			"request": "launch",
