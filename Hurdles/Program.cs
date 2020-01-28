@@ -3,178 +3,146 @@ using System.Threading;
 
 class Program
 {
+	static readonly string[] runningAnimation = new string[]
+	{
+		#region Frames
+
+		// 0
+		@"       " + '\n' +
+		@"       " + '\n' +
+		@"  __O  " + '\n' +
+		@" / /\_," + '\n' +
+		@"__/\   " + '\n' +
+		@"    \  ",
+		// 1
+		@"       " + '\n' +
+		@"       " + '\n' +
+		@"   _O  " + '\n' +
+		@"  |/|_ " + '\n' +
+		@"  /\   " + '\n' +
+		@" /  |  ",
+		// 2
+		@"       " + '\n' +
+		@"       " + '\n' +
+		@"    O  " + '\n' +
+		@"  </L  " + '\n' +
+		@"   \   " + '\n' +
+		@"   /|  ",
+		// 3
+		@"       " + '\n' +
+		@"       " + '\n' +
+		@"   O   " + '\n' +
+		@"   |_  " + '\n' +
+		@"   |>  " + '\n' +
+		@"  /|   ",
+		// 4
+		@"       " + '\n' +
+		@"       " + '\n' +
+		@"   O   " + '\n' +
+		@"  <|L  " + '\n' +
+		@"   |_  " + '\n' +
+		@"   |/  ",
+		// 5
+		@"       " + '\n' +
+		@"       " + '\n' +
+		@"   O   " + '\n' +
+		@"  L|L  " + '\n' +
+		@"   |_  " + '\n' +
+		@"  /  | ",
+		// 6
+		@"       " + '\n' +
+		@"       " + '\n' +
+		@"  _O   " + '\n' +
+		@" | |L  " + '\n' +
+		@"   /-- " + '\n' +
+		@"  /   |",
+
+		#endregion
+	};
+
+	static readonly string[] jumpingAnimation = new string[]
+	{
+		#region Frames
+
+		// 0
+		@"       " + '\n' +
+		@"       " + '\n' +
+		@"   _O  " + '\n' +
+		@"  |/|_ " + '\n' +
+		@"  /\   " + '\n' +
+		@" /  |  ",
+		// 1
+		@"       " + '\n' +
+		@"       " + '\n' +
+		@"       " + '\n' +
+		@"    O  " + '\n' +
+		@"  </L  " + '\n' +
+		@"   /|  ",
+		// 2
+		@"       " + '\n' +
+		@"    /O/" + '\n' +
+		@"    /  " + '\n' +
+		@"   //  " + '\n' +
+		@"  //   " + '\n' +
+		@"       ",
+		// 3
+		@"  __O__" + '\n' +
+		@" /     " + '\n' +
+		@"//     " + '\n' +
+		@"       " + '\n' +
+		@"       " + '\n' +
+		@"       ",
+		// 4
+		@"  __   " + '\n' +
+		@" // \O " + '\n' +
+		@"     \\" + '\n' +
+		@"       " + '\n' +
+		@"       " + '\n' +
+		@"       ",
+		// 5
+		@"  __   " + '\n' +
+		@" //_O\ " + '\n' +
+		@"       " + '\n' +
+		@"       " + '\n' +
+		@"       " + '\n' +
+		@"       ",
+		// 6
+		@"  __\  " + '\n' +
+		@" _O/   " + '\n' +
+		@"       " + '\n' +
+		@"       " + '\n' +
+		@"       " + '\n' +
+		@"       ",
+		// 7
+		@" \O\__ " + '\n' +
+		@"     \\" + '\n' +
+		@"       " + '\n' +
+		@"       " + '\n' +
+		@"       ",
+		// 8
+		@"       " + '\n' +
+		@"       " + '\n' +
+		@"   O   " + '\n' +
+		@"  L|L  " + '\n' +
+		@"   |_  " + '\n' +
+		@"  /  | ",
+
+		#endregion
+	};
+
+	static readonly string hurdleFrame =
+		#region Frame
+		@"  ___  " + '\n' +
+		@" |   | " + '\n' +
+		@" | . | ";
+	#endregion
+
+	static int position = 0;
+	static int? runningFrame = 0;
+	static int? jumpingFrame = null;
+
 	static void Main()
 	{
-		string[] runningAnimation = new string[]
-		{
-			#region Frames
-
-			// 0
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"  __O  " + '\n' +
-			@" / /\_," + '\n' +
-			@"__/\   " + '\n' +
-			@"    \  ",
-            // 1
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"   _O  " + '\n' +
-			@"  |/|_ " + '\n' +
-			@"  /\   " + '\n' +
-			@" /  |  ",
-            // 2
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"    O  " + '\n' +
-			@"  </L  " + '\n' +
-			@"   \   " + '\n' +
-			@"   /|  ",
-            // 3
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"   O   " + '\n' +
-			@"   |_  " + '\n' +
-			@"   |>  " + '\n' +
-			@"  /|   ",
-            // 4
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"   O   " + '\n' +
-			@"  <|L  " + '\n' +
-			@"   |_  " + '\n' +
-			@"   |/  ",
-            // 5
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"   O   " + '\n' +
-			@"  L|L  " + '\n' +
-			@"   |_  " + '\n' +
-			@"  /  | ",
-            // 6
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"  _O   " + '\n' +
-			@" | |L  " + '\n' +
-			@"   /-- " + '\n' +
-			@"  /   |",
-
-			#endregion
-		};
-
-		string[] jumpingAnimation = new string[]
-		{
-			#region Frames
-
-			// 0
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"   _O  " + '\n' +
-			@"  |/|_ " + '\n' +
-			@"  /\   " + '\n' +
-			@" /  |  ",
-            // 1
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"    O  " + '\n' +
-			@"  </L  " + '\n' +
-			@"   /|  ",
-            // 2
-			@"       " + '\n' +
-			@"    /O/" + '\n' +
-			@"    /  " + '\n' +
-			@"   //  " + '\n' +
-			@"  //   " + '\n' +
-			@"       ",
-			// 3
-			@"  __O__" + '\n' +
-			@" /     " + '\n' +
-			@"//     " + '\n' +
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"       ",
-			// 4
-			@"  __   " + '\n' +
-			@" // \O " + '\n' +
-			@"     \\" + '\n' +
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"       ",
-			// 5
-			@"  __   " + '\n' +
-			@" //_O\ " + '\n' +
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"       ",
-			// 6
-			@"  __\  " + '\n' +
-			@" _O/   " + '\n' +
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"       ",
-			// 7
-			@" \O\__ " + '\n' +
-			@"     \\" + '\n' +
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"       ",
-            // 8
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"   O   " + '\n' +
-			@"  L|L  " + '\n' +
-			@"   |_  " + '\n' +
-			@"  /  | ",
-
-			#endregion
-		};
-
-		string hurdleFrame =
-			#region Frame
-			@"  ___  " + '\n' +
-			@" |   | " + '\n' +
-			@" | . | ";
-			#endregion
-
-		int position = 0;
-		int? runningFrame = 0;
-		int? jumpingFrame = null;
-
-		static void Render(string @string, bool renderSpace)
-		{
-			int x = Console.CursorLeft;
-			int y = Console.CursorTop;
-			foreach (char c in @string)
-				if (c is '\n')
-				{
-					Console.SetCursorPosition(x, ++y);
-				}
-				else if (!(c is ' ') || renderSpace)
-				{
-					Console.Write(c);
-				}
-				else
-				{
-					Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop);
-				}
-		}
-
-		void RenderHurdles(bool renderSpace)
-		{
-			for (int i = 5; i < Console.WindowWidth - 5; i++)
-			{
-				if (position + i >= 100 &&
-					(position + i - 7) % 50 == 0)
-				{
-					Console.SetCursorPosition(i - 3, 13);
-					Render(hurdleFrame, renderSpace);
-				}
-			}
-		}
-
 		Console.CursorVisible = false;
 		Console.WindowWidth = 120;
 		Console.WindowHeight = 20;
@@ -255,5 +223,27 @@ class Program
 		}
 		Console.Clear();
 		Console.Write("You Win.");
+	}
+
+	static void Render(string @string, bool renderSpace)
+	{
+		int x = Console.CursorLeft;
+		int y = Console.CursorTop;
+		foreach (char c in @string)
+			if (c is '\n') Console.SetCursorPosition(x, ++y);
+			else if (!(c is ' ') || renderSpace) Console.Write(c);
+			else Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop);
+	}
+
+	static void RenderHurdles(bool renderSpace)
+	{
+		for (int i = 5; i < Console.WindowWidth - 5; i++)
+		{
+			if (position + i >= 100 && (position + i - 7) % 50 == 0)
+			{
+				Console.SetCursorPosition(i - 3, 13);
+				Render(hurdleFrame, renderSpace);
+			}
+		}
 	}
 }
