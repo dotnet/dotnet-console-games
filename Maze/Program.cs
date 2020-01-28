@@ -32,7 +32,7 @@ class Program
 		Console.WriteLine("Press escape to quit.");
 		int row = 0;
 		int column = 0;
-		while ((row != rows - 1 || column != columns - 1))
+		while (row != rows - 1 || column != columns - 1)
 		{
 			Console.SetCursorPosition(column * 3 + 1, row * 3 + 1);
 			switch (Console.ReadKey().Key)

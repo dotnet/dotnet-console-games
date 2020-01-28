@@ -141,7 +141,6 @@ static class Program
 	{
 		var Tanks = new List<Tank>();
 		var AllTanks = new List<Tank>();
-		//var Bullets = new List<(int X, int Y)>();
 		var Player = new Tank() { X = 08, Y = 05, IsPlayer = true };
 		var random = new Random();
 
@@ -409,7 +408,7 @@ static class Program
 			bool BulletCollisionCheck(Bullet bullet, out Tank collidingTank)
 			{
 				collidingTank = null;
-				foreach (var tank in AllTanks)
+				foreach (var tank in Tanks)
 				{
 					if (Math.Abs(bullet.X - tank.X) < 3 && Math.Abs(bullet.Y - tank.Y) < 2)
 					{
@@ -440,7 +439,7 @@ static class Program
 				return false;
 			}
 
-			foreach (var tank in Tanks)
+			foreach (var tank in AllTanks)
 			{
 				if (!(tank.Bullet is null))
 				{
@@ -497,4 +496,3 @@ static class Program
 		Console.ReadLine();
 	}
 }
-
