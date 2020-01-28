@@ -2,20 +2,20 @@
 
 class Program
 {
-    enum Tetromino
-    {
-        I = 1,
-        O = 2,
-        T = 3,
-        S = 4,
-        Z = 5,
-        J = 6,
-        L = 7,
-    }
+	enum Tetromino
+	{
+		I = 1,
+		O = 2,
+		T = 3,
+		S = 4,
+		Z = 5,
+		J = 6,
+		L = 7,
+	}
 
-    static void Main()
-    {
-        Console.WriteLine("Still in development...");
+	static void Main()
+	{
+		Console.WriteLine("Still in development...");
 
 #if false
         int originalWidth = Console.WindowWidth;
@@ -93,5 +93,5 @@ class Program
         Console.WindowWidth = originalWidth;
         Console.WindowHeight = originalHeight;
 #endif
-    }
+	}
 }

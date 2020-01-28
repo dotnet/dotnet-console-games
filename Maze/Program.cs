@@ -106,7 +106,7 @@ public static class Maze
 		end_row ??= rows - 1;
 		end_column ??= columns - 1;
 
-#region Exceptions
+		#region Exceptions
 		if (rows <= 1)
 			throw new ArgumentOutOfRangeException(nameof(rows));
 		if (columns <= 1)
@@ -119,7 +119,7 @@ public static class Maze
 			throw new ArgumentOutOfRangeException(nameof(start_column));
 		if (end_column < 0 || columns < end_column || start_column == end_column)
 			throw new ArgumentOutOfRangeException(nameof(end_column));
-#endregion
+		#endregion
 
 		Tile[,] maze = new Tile[rows, columns];
 		Random random = new Random();
@@ -137,7 +137,7 @@ public static class Maze
 				Column = start_column.Value,
 			});
 
-#region Optimizations
+			#region Optimizations
 
 			// optimizations to prevent the algorithm from exploring unnecessary isolations
 			// that will never reach the end of the maze. these currently depend on using the
@@ -151,7 +151,7 @@ public static class Maze
 			bool UpOptimization(int column) => !(DefaultLocations() && column == columns - 1 || column == 0);
 			bool LeftOptimization(int row) => !(DefaultLocations() && row == rows - 1 || row == 0);
 
-#endregion
+			#endregion
 
 			static bool NullOrEnd(Tile tile) => tile is Tile.Null || tile is Tile.End;
 

@@ -1,6 +1,6 @@
 ## dotnet-console-games
 
-This repository is a collection of games implemented as .NET Core console applications primarily for providing education and inspiration. :)
+This repository is a collection of game examples implemented as .NET Core console applications primarily for providing education and inspiration. :)
 
 |Game|\*Complexity|Notes|
 |:-|:-|:-|
@@ -50,7 +50,7 @@ Open the **root folder** of the of this repository in Visual Studio Code.
 
 ## Contributing
 
-This repository welcomes contributions. :)
+This repository welcomes contributions.
 
 - Notice anything you think can be improved? **[Open an issue](https://github.com/ZacharyPatten/dotnet-console-games/issues/new)**.
 - Want to contribute to the code? Have a game you want to share? Sign up with a GitHub account, fork the code, make some code changes, and open a pull request.
