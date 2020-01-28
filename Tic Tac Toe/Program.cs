@@ -4,10 +4,6 @@ using static System.Console;
 
 class Program
 {
-	const char X = 'X';
-	const char O = 'O';
-	const char _ = ' ';
-
 	static bool gameOver = false;
 	static bool playerTurn = true;
 
@@ -15,23 +11,17 @@ class Program
 
 	static readonly char[,] board = new char[3, 3]
 	{
-		{ _, _, _, },
-		{ _, _, _, },
-		{ _, _, _, },
+		{ ' ', ' ', ' ', },
+		{ ' ', ' ', ' ', },
+		{ ' ', ' ', ' ', },
 	};
 
 	static void Main()
 	{
 		while (!gameOver)
 		{
-			if (playerTurn)
-			{
-				PlayerMove();
-			}
-			else
-			{
-				ComputerMove();
-			}
+			if (playerTurn) PlayerMove();
+			else ComputerMove();
 			Check();
 			playerTurn = !playerTurn;
 		}
@@ -48,19 +38,19 @@ class Program
 		board[2, 0] == c && board[1, 1] == c && board[0, 2] == c;
 
 	static bool CheckForFullBoard() =>
-		board[0, 0] != _ && board[1, 0] != _ && board[2, 0] != _ &&
-		board[0, 1] != _ && board[1, 1] != _ && board[2, 1] != _ &&
-		board[0, 2] != _ && board[1, 2] != _ && board[2, 2] != _;
+		board[0, 0] != ' ' && board[1, 0] != ' ' && board[2, 0] != ' ' &&
+		board[0, 1] != ' ' && board[1, 1] != ' ' && board[2, 1] != ' ' &&
+		board[0, 2] != ' ' && board[1, 2] != ' ' && board[2, 2] != ' ';
 
 	static void Check()
 	{
-		if (CheckForThree(X))
+		if (CheckForThree('X'))
 		{
 			Clear();
 			Write("You Win.");
 			gameOver = true;
 		}
-		else if (CheckForThree(O))
+		else if (CheckForThree('O'))
 		{
 			Clear();
 			Write("You Lose.");
@@ -78,18 +68,12 @@ class Program
 	{
 		var possibleMoves = new List<(int X, int Y)>();
 		for (int i = 0; i < 3; i++)
-		{
 			for (int j = 0; j < 3; j++)
-			{
-				if (board[i, j] == _)
-				{
+				if (board[i, j] == ' ')
 					possibleMoves.Add((i, j));
-				}
-			}
-		}
 		int index = random.Next(0, possibleMoves.Count);
 		var (X, Y) = possibleMoves[index];
-		board[X, Y] = O;
+		board[X, Y] = 'O';
 	}
 
 	static void PlayerMove()
@@ -117,11 +101,8 @@ class Program
 		}
 		if (!gameOver)
 		{
-			if (board[row, column] != _)
-			{
-				goto PlayerMove;
-			}
-			board[row, column] = X;
+			if (board[row, column] != ' ') goto PlayerMove;
+			board[row, column] = 'X';
 		}
 	}
 

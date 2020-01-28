@@ -4,11 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading;
-
-#if DebugRandomMazeGeneration || MazeGenertorLoop
-using System.Diagnostics;
-#endif
 
 class Program
 {
@@ -23,7 +18,8 @@ class Program
 			Maze.Tile[,] maze = Maze.Generate(rows, columns);
 			Console.Clear();
 			Console.WriteLine(Maze.Render(maze));
-			Debugger.Break();
+			Console.WriteLine("Press Enter To Continue...");
+			Console.ReadLine();
 		}
 #else
 		Console.CursorVisible = true;
@@ -223,7 +219,8 @@ public static class Maze
 #if DebugRandomMazeGeneration
 				Console.Clear();
 				Console.WriteLine(Render(maze));
-				Debugger.Break();
+				Console.WriteLine("Press Enter To Continue...");
+				Console.ReadLine();
 #endif
 			}
 		}
@@ -350,7 +347,8 @@ public static class Maze
 #if DebugRandomMazeGeneration
 					Console.Clear();
 					Console.WriteLine(Render(maze));
-					Debugger.Break();
+					Console.WriteLine("Press Enter To Continue...");
+					Console.ReadLine();
 #endif
 				}
 			}
@@ -366,9 +364,11 @@ public static class Maze
 			tile.HasFlag(Tile.Start) ? 'S' :
 			tile.HasFlag(Tile.End) ? 'E' :
 			/* default */ ' ';
+
 		static char Side(Tile tile, Tile flag) =>
 			tile.HasFlag(flag) ? ' ' : '█';
-		char[,] RenderTile(Tile tile) => new char[,]
+
+		static char[,] RenderTile(Tile tile) => new char[,]
 		{
 			{ '█', Side(tile, Tile.Up), '█' },
 			{ Side(tile, Tile.Left), Center(tile), Side(tile, Tile.Right) },

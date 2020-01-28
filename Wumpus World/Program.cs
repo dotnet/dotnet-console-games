@@ -182,25 +182,23 @@ class Program
 
 	static void GenerateCave()
 	{
+#pragma warning disable IDE0042 // Deconstruct variable declaration
 		const int width = 4;
 		const int height = 4;
-
 		Map = new Tile[width, height];
-
 		// Get Random Locations
 		Random random = new Random();
 		(int X, int Y)[] randomCoordinates = random.UniqueInts(5, 1..(width * height)).Select(i => (i / width, i % width)).ToArray();
 		var wumpusLocation = randomCoordinates[0];
 		var goldLocation = randomCoordinates[1];
 		var pitLocations = randomCoordinates[2..^0];
-
 		// Place Randomized Locations On Map
 		Map[wumpusLocation.X, wumpusLocation.Y] = Tile.Wumpus;
 		Map[goldLocation.X, goldLocation.Y] = Tile.Gold;
 		Array.ForEach(pitLocations, pit => Map[pit.X, pit.Y] = Tile.Pit);
-
 		// Default Player Location
 		PlayerLocation = default;
+#pragma warning restore IDE0042 // Deconstruct variable declaration
 	}
 }
 
