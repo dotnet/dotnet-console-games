@@ -355,6 +355,10 @@ static class Program
 								Console.Write("Tanks was closed.");
 								return;
 						}
+						while (Console.KeyAvailable)
+						{
+							Console.ReadKey(true);
+						}
 					}
 
 					tank.IsShooting = shoot.HasValue && !(shoot.Value is Direction.Null) && tank.Bullet is null;
