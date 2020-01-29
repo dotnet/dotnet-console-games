@@ -3,7 +3,7 @@ name: Wumpus World Build
 on:
   push:
     paths:
-    - 'Wumpus World\**'
+    - 'Wumpus World/**'
 
 jobs:
   build:

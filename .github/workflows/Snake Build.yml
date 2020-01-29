@@ -3,7 +3,7 @@ name: Snake Build
 on:
   push:
     paths:
-    - 'Snake\**'
+    - 'Snake/**'
 
 jobs:
   build:

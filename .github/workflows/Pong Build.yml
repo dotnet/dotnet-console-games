@@ -3,7 +3,7 @@ name: Pong Build
 on:
   push:
     paths:
-    - 'Pong\**'
+    - 'Pong/**'
 
 jobs:
   build:

@@ -3,7 +3,7 @@ name: Simon Build
 on:
   push:
     paths:
-    - 'Simon\**'
+    - 'Simon/**'
 
 jobs:
   build:

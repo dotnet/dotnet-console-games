@@ -3,7 +3,7 @@ name: Hurdles Build
 on:
   push:
     paths:
-    - 'Hurdles\**'
+    - 'Hurdles/**'
 
 jobs:
   build:

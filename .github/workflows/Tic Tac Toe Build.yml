@@ -3,7 +3,7 @@ name: Tic Tac Toe Build
 on:
   push:
     paths:
-    - 'Tic Tac Toe\**'
+    - 'Tic Tac Toe/**'
 
 jobs:
   build:

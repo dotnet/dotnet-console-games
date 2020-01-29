@@ -3,7 +3,7 @@ name: Maze Build
 on:
   push:
     paths:
-    - 'Maze\**'
+    - 'Maze/**'
 
 jobs:
   build:
