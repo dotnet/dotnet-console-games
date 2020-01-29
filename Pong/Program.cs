@@ -14,7 +14,6 @@ class Program
 
 	static readonly int width = Console.WindowWidth;
 	static readonly int height = Console.WindowHeight;
-
 	static readonly float multiplier = 1.1f;
 	static readonly Random random = new Random();
 	static readonly TimeSpan delay = TimeSpan.FromMilliseconds(10);
