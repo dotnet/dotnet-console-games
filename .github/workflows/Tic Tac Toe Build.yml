@@ -1,6 +1,9 @@
 name: Tic Tac Toe Build
 
-on: [push]
+on:
+  push:
+    paths:
+    - 'Tic Tac Toe\**'
 
 jobs:
   build:

@@ -1,6 +1,9 @@
 name: Wumpus World Build
 
-on: [push]
+on:
+  push:
+    paths:
+    - 'Wumpus World\**'
 
 jobs:
   build:

@@ -1,6 +1,9 @@
 name: Maze Build
 
-on: [push]
+on:
+  push:
+    paths:
+    - 'Maze\**'
 
 jobs:
   build:

@@ -93,5 +93,18 @@
             ],
             "problemMatcher": "$msCompile",
         },
+        {
+            "label": "Build Pong",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Pong/Pong.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
     ],
 }

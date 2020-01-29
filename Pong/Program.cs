@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 
 class Program
@@ -14,49 +15,73 @@ class Program
 	static readonly int width = Console.WindowWidth;
 	static readonly int height = Console.WindowHeight;
 
-	//static readonly float multiplier = 1.25f;
+	static readonly float multiplier = 1.1f;
 	static readonly Random random = new Random();
-	static readonly TimeSpan delay = TimeSpan.FromMilliseconds(70);
+	static readonly TimeSpan delay = TimeSpan.FromMilliseconds(10);
+	static readonly TimeSpan enemyInputDelay = TimeSpan.FromMilliseconds(100);
 	static readonly int paddleSize = height / 4;
-
+	static readonly Stopwatch stopwatch = new Stopwatch();
+	static readonly Stopwatch enemyStopwatch = new Stopwatch();
 	static int scoreA = 0;
 	static int scoreB = 0;
 	static Ball ball;
 	static int paddleA = height / 3;
 	static int paddleB = height / 3;
-	
+
 	static void Main()
 	{
-		Console.WriteLine("This game is still in development...");
-		Console.WriteLine("It is playable at the moment but has issues.");
-		Console.WriteLine("Press Enter To Continue...");
-		Console.ReadLine();
-
+		Console.Clear();
+		stopwatch.Restart();
+		enemyStopwatch.Restart();
 		Console.CursorVisible = false;
 		while (scoreA < 3 && scoreB < 3)
 		{
 			ball = CreateNewBall();
 			while (true)
 			{
-				Console.Clear();
-
 				#region Update Ball
 
-				var (X2, Y2) = (ball.X + ball.dX, ball.Y + ball.dY);
+				// Compute Time And New Ball Position
+				float time = (float)stopwatch.Elapsed.TotalSeconds * 15;
+				var (X2, Y2) = (ball.X + (time * ball.dX), ball.Y + (time * ball.dY));
+
 				// Collisions With Up/Down Walls
 				if (Y2 < 0 || Y2 > height)
 				{
 					ball.dY = -ball.dY;
 					Y2 = ball.Y + ball.dY;
 				}
-				// Collisions With Paddles
-				if (((int)X2 == 2 && (int)Y2 >= paddleA && (int)Y2 <= paddleA + paddleSize) ||
-					((int)X2 == width - 2 && (int)Y2 >= paddleB && (int)Y2 <= paddleB + paddleSize))
+
+				// Collision With Paddle A
+				if (Math.Min(ball.X, X2) <= 2 && 2 <= Math.Max(ball.X, X2))
 				{
-					ball.dX = -ball.dX;
-					//ball.dX *= multiplier;
-					//ball.dY *= multiplier;
+					int ballPathAtPaddleA = height - (int)GetLineValue(((ball.X, height - ball.Y), (X2, height - Y2)), 2);
+					ballPathAtPaddleA = Math.Max(0, ballPathAtPaddleA);
+					ballPathAtPaddleA = Math.Min(height - 1, ballPathAtPaddleA);
+					if (paddleA <= ballPathAtPaddleA && ballPathAtPaddleA <= paddleA + paddleSize)
+					{
+						ball.dX = -ball.dX;
+						ball.dX *= multiplier;
+						ball.dY *= multiplier;
+						X2 = ball.X + (time * ball.dX);
+					}
 				}
+
+				// Collision With Paddle B
+				if (Math.Min(ball.X, X2) <= width - 2 && width - 2 <= Math.Max(ball.X, X2))
+				{
+					int ballPathAtPaddleB = height - (int)GetLineValue(((ball.X, height - ball.Y), (X2, height - Y2)), width - 2);
+					ballPathAtPaddleB = Math.Max(0, ballPathAtPaddleB);
+					ballPathAtPaddleB = Math.Min(height - 1, ballPathAtPaddleB);
+					if (paddleB <= ballPathAtPaddleB && ballPathAtPaddleB <= paddleB + paddleSize)
+					{
+						ball.dX = -ball.dX;
+						ball.dX *= multiplier;
+						ball.dY *= multiplier;
+						X2 = ball.X + (time * ball.dX);
+					}
+				}
+
 				// Collisions With Left/Right Walls
 				if (X2 < 0)
 				{
@@ -68,9 +93,12 @@ class Program
 					scoreA++;
 					break;
 				}
-				// Updading Ball Position
-				ball.X += ball.dX;
-				ball.Y += ball.dY;
+
+				// Updating Ball Position
+				Console.SetCursorPosition((int)ball.X, (int)ball.Y);
+				Console.Write(' ');
+				ball.X += time * ball.dX;
+				ball.Y += time * ball.dY;
 				Console.SetCursorPosition((int)ball.X, (int)ball.Y);
 				Console.Write('O');
 
@@ -83,7 +111,7 @@ class Program
 					switch (Console.ReadKey(true).Key)
 					{
 						case ConsoleKey.UpArrow: paddleA = Math.Max(paddleA - 1, 0); break;
-						case ConsoleKey.DownArrow: paddleA = Math.Min(paddleA + 1, height - paddleSize); break;
+						case ConsoleKey.DownArrow: paddleA = Math.Min(paddleA + 1, height - paddleSize - 1); break;
 						case ConsoleKey.Escape:
 							Console.Clear();
 							Console.Write("Pong was closed.");
@@ -99,45 +127,38 @@ class Program
 
 				#region Update Computer Paddle
 
-				if (random.Next(3) == 0)
+				if (enemyStopwatch.Elapsed > enemyInputDelay)
 				{
-					if (ball.Y < paddleB + (paddleSize / 2))
+					if (ball.Y < paddleB + (paddleSize / 2) && ball.dY < 0)
 					{
 						paddleB = Math.Max(paddleB - 1, 0);
 					}
-					else if (ball.Y > paddleB + (paddleSize / 2))
+					else if (ball.Y > paddleB + (paddleSize / 2) && ball.dY > 0)
 					{
-						paddleB = Math.Min(paddleB + 1, height - paddleSize);
+						paddleB = Math.Min(paddleB + 1, height - paddleSize - 1);
 					}
-				}
-				else if (random.Next(10) == 0)
-				{
-					if (ball.Y < paddleB + (paddleSize / 2))
-					{
-						paddleB = Math.Min(paddleB + 1, height - paddleSize);
-					}
-					else if (ball.Y > paddleB + (paddleSize / 2))
-					{
-						paddleB = Math.Max(paddleB - 1, 0);
-					}
+					enemyStopwatch.Restart();
 				}
 
 				#endregion
 
 				#region Render Paddles
 
-				for (int i = 0; i < paddleSize; i++)
+				for (int i = 0; i < height; i++)
 				{
-					Console.SetCursorPosition(2, paddleA + i);
-					Console.Write('█');
-					Console.SetCursorPosition(width - 2, paddleB + i);
-					Console.Write('█');
+					Console.SetCursorPosition(2, i);
+					Console.Write(paddleA <= i && i <= paddleA + paddleSize ? '█' : ' ');
+					Console.SetCursorPosition(width - 2, i);
+					Console.Write(paddleB <= i && i <= paddleB + paddleSize ? '█' : ' ');
 				}
 
 				#endregion
 
+				stopwatch.Restart();
 				Thread.Sleep(delay);
 			}
+			Console.SetCursorPosition((int)ball.X, (int)ball.Y);
+			Console.Write(' ');
 		}
 		Console.Clear();
 		if (scoreA > scoreB)
@@ -172,5 +193,22 @@ class Program
 			dX = dx,
 			dY = dy,
 		};
+	}
+
+	static float GetLineValue(((float X, float Y) A, (float X, float Y) B) line, float x)
+	{
+		// order points from least to greatest X
+		if (line.B.X < line.A.X)
+		{
+			var temp = line.B;
+			line.B = line.A;
+			line.A = temp;
+		}
+		// find the slope
+		float slope = (line.B.X - line.A.X) / (line.B.Y - line.A.Y);
+		// find the y-intercept
+		float yIntercept = line.A.Y - line.A.X * slope;
+		// find the function's value at parameter "x"
+		return x * slope + yIntercept;
 	}
 }
