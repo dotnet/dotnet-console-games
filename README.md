@@ -9,6 +9,7 @@ This repository is a collection of game examples implemented as .NET Core consol
 |[Wumpus World](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Wumpus%20World)|2|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Wumpus%20World%20Build/badge.svg)<br>`Console Input/Output`, `Random Generation`, `Game States`|
 |[Snake](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Snake)|3|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Snake%20Build/badge.svg)<br>`Timed Updates`, `Collision Detection`, `Queue<T>`|
 |[Hurdles](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Hurdles)|3|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Hurdles%20Build/badge.svg)<br>`Timed Updates`, `Animation Cycles`, `Collision Detection`|
+|[Pong](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Pong)|3|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Pong%20Build/badge.svg)<br>`Velocity & Acceleration`, `Collision Detection`|
 |[Tanks](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Tanks)|4|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Tanks%20Build/badge.svg)<br>`AI Enemies`, `Health/Damage Tracking`|
 |[Maze](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Maze)|5|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Maze%20Build/badge.svg)<br>`Random Generation`, `Stack<T>`|
 

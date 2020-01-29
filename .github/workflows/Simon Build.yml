@@ -1,6 +1,9 @@
 name: Simon Build
 
-on: [push]
+on:
+  push:
+    paths:
+    - 'Simon\**'
 
 jobs:
   build:

@@ -58,6 +58,17 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Pong",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Pong",
+			"program": "${workspaceFolder}/Pong/bin/Debug/netcoreapp3.1/Pong.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Pong/bin/Debug/netcoreapp3.1",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Tanks",
 			"type": "coreclr",
 			"request": "launch",
