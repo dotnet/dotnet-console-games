@@ -3,7 +3,7 @@ name: Tanks Build
 on:
   push:
     paths:
-    - 'Tanks\**'
+    - 'Tanks/**'
 
 jobs:
   build:
