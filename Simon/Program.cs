@@ -4,75 +4,76 @@ using System.Threading;
 
 class Program
 {
-	enum Direction { Up = 1, Right = 2, Down = 3, Left = 4, }
-	static int score = 0;
+	enum Direction
+	{
+		Up = 1,
+		Right = 2,
+		Down = 3,
+		Left = 4,
+	}
+
 	static readonly Random random = new Random();
 	static readonly TimeSpan buttonPress = TimeSpan.FromMilliseconds(500);
 	static readonly TimeSpan animationDelay = TimeSpan.FromMilliseconds(200);
+
+	static int score = 0;
 	static readonly List<Direction> pattern = new List<Direction>();
-	static readonly Dictionary<Direction, string> simonRenders = new Dictionary<Direction, string>()
+
+	static readonly string[] simonRenders = new string[]
 	{
 		#region Renders
-		{
-			default,
-			@"     _.-""""""-._" + '\n' +
-			@"   .'         `." + '\n' +
-			@"  /  '.     .'  \" + '\n' +
-			@" |     '. .'     |" + '\n' +
-			@" |       X       |" + '\n' +
-			@" |     .' '.     |" + '\n' +
-			@"  \  .'     '.  /" + '\n' +
-			@"   `._       _.'" + '\n' +
-			@"      `-...-'"
-		},
-		{
-			Direction.Up,
-			@"     _.-""""""-._" + '\n' +
-			@"   .'█████████`." + '\n' +
-			@"  /  '███████'  \" + '\n' +
-			@" |     '███'     |" + '\n' +
-			@" |       █       |" + '\n' +
-			@" |     .' '.     |" + '\n' +
-			@"  \  .'     '.  /" + '\n' +
-			@"   `._       _.'" + '\n' +
-			@"      `-...-'"
-		},
-		{
-			Direction.Right,
-			@"     _.-""""""-._" + '\n' +
-			@"   .'         `." + '\n' +
-			@"  /  '.     .'██\" + '\n' +
-			@" |     '. .'█████|" + '\n' +
-			@" |       ████████|" + '\n' +
-			@" |     .' '.█████|" + '\n' +
-			@"  \  .'     '.██/" + '\n' +
-			@"   `._       _.'" + '\n' +
-			@"      `-...-'"
-		},
-		{
-			Direction.Down,
-			@"     _.-""""""-._" + '\n' +
-			@"   .'         `." + '\n' +
-			@"  /  '.     .'  \" + '\n' +
-			@" |     '. .'     |" + '\n' +
-			@" |       █       |" + '\n' +
-			@" |     .███.     |" + '\n' +
-			@"  \  .███████.  /" + '\n' +
-			@"   `.█████████.'" + '\n' +
-			@"      `-...-'"
-		},
-		{
-			Direction.Left,
-			@"     _.-""""""-._" + '\n' +
-			@"   .'         `." + '\n' +
-			@"  /██'.     .'  \" + '\n' +
-			@" |█████'. .'     |" + '\n' +
-			@" |████████       |" + '\n' +
-			@" |█████.' '.     |" + '\n' +
-			@"  \██.'     '.  /" + '\n' +
-			@"   `._       _.'" + '\n' +
-			@"      `-...-'"
-		},
+
+		// 0
+		@"     _.-""""""-._"  + '\n' +
+		@"   .'         `."   + '\n' +
+		@"  /  '.     .'  \"  + '\n' +
+		@" |     '. .'     |" + '\n' +
+		@" |       X       |" + '\n' +
+		@" |     .' '.     |" + '\n' +
+		@"  \  .'     '.  /"  + '\n' +
+		@"   `._       _.'"   + '\n' +
+		@"      `-...-'",
+		// 1
+		@"     _.-""""""-._"  + '\n' +
+		@"   .'█████████`."   + '\n' +
+		@"  /  '███████'  \"  + '\n' +
+		@" |     '███'     |" + '\n' +
+		@" |       █       |" + '\n' +
+		@" |     .' '.     |" + '\n' +
+		@"  \  .'     '.  /"  + '\n' +
+		@"   `._       _.'"   + '\n' +
+		@"      `-...-'",
+		// 2
+		@"     _.-""""""-._"  + '\n' +
+		@"   .'         `."   + '\n' +
+		@"  /  '.     .'██\"  + '\n' +
+		@" |     '. .'█████|" + '\n' +
+		@" |       ████████|" + '\n' +
+		@" |     .' '.█████|" + '\n' +
+		@"  \  .'     '.██/"  + '\n' +
+		@"   `._       _.'"   + '\n' +
+		@"      `-...-'",
+		// 3
+		@"     _.-""""""-._"  + '\n' +
+		@"   .'         `."   + '\n' +
+		@"  /  '.     .'  \"  + '\n' +
+		@" |     '. .'     |" + '\n' +
+		@" |       █       |" + '\n' +
+		@" |     .███.     |" + '\n' +
+		@"  \  .███████.  /"  + '\n' +
+		@"   `.█████████.'"   + '\n' +
+		@"      `-...-'",
+		// 4
+		@"     _.-""""""-._"  + '\n' +
+		@"   .'         `."   + '\n' +
+		@"  /██'.     .'  \"  + '\n' +
+		@" |█████'. .'     |" + '\n' +
+		@" |████████       |" + '\n' +
+		@" |█████.' '.     |" + '\n' +
+		@"  \██.'     '.  /"  + '\n' +
+		@"   `._       _.'"   + '\n' +
+		@"      `-...-'",
+
 		#endregion
 	};
 
@@ -109,7 +110,7 @@ class Program
 				}
 				score++;
 				Clear();
-				Render(simonRenders[pattern[i]]);
+				Render(simonRenders[(int)pattern[i]]);
 				Thread.Sleep(buttonPress);
 				Clear();
 				Render(simonRenders[default]);
@@ -132,7 +133,7 @@ class Program
 		for (int i = 0; i < pattern.Count; i++)
 		{
 			Clear();
-			Render(simonRenders[pattern[i]]);
+			Render(simonRenders[(int)pattern[i]]);
 			Thread.Sleep(buttonPress);
 			Clear();
 			Render(simonRenders[default]);
