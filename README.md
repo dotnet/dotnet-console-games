@@ -4,14 +4,14 @@ This repository is a collection of game examples implemented as .NET Core consol
 
 |Game|\*Complexity|Notes|
 |:-|:-|:-|
-|[Tic Tac Toe](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Tic%20Tac%20Toe)|1|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Tic%20Tac%20Toe%20Build/badge.svg)<br>`Console Input/Output`, `Random Selection`, `Game States`|
-|[Simon](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Simon)|1|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Simon%20Build/badge.svg)<br>`Console Input/Output`, `List<T>`, `Dictionary<K, V>`, `Random Selection`|
-|[Wumpus World](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Wumpus%20World)|2|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Wumpus%20World%20Build/badge.svg)<br>`Console Input/Output`, `Random Generation`, `Game States`|
-|[Snake](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Snake)|3|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Snake%20Build/badge.svg)<br>`Timed Updates`, `Collision Detection`, `Queue<T>`|
-|[Hurdles](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Hurdles)|3|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Hurdles%20Build/badge.svg)<br>`Timed Updates`, `Animation Cycles`, `Collision Detection`|
-|[Pong](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Pong)|3|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Pong%20Build/badge.svg)<br>`Velocity & Acceleration`, `Collision Detection`|
-|[Tanks](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Tanks)|4|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Tanks%20Build/badge.svg)<br>`AI Enemies`, `Health/Damage Tracking`|
-|[Maze](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Maze)|5|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Maze%20Build/badge.svg)<br>`Random Generation`, `Stack<T>`|
+|[Tic Tac Toe](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Tic%20Tac%20Toe)|1|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Tic%20Tac%20Toe%20Build/badge.svg)<br>`Console Input/Output`, `Random`, `2D char Array`|
+|[Simon](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Simon)|1|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Simon%20Build/badge.svg)<br>`Console Input/Output`, `List<T>`, `enum`, `Random`|
+|[Wumpus World](https://github.com/ZacharyPatten/dotnet-console-games/tree/master/Wumpus%20World)|2|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Wumpus%20World%20Build/badge.svg)<br>`Console Input/Output`, `Random (multiple unique)`, `2D enum Array`|
+|[Snake](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Snake)|3|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Snake%20Build/badge.svg)<br>`TimeSpan`, `Collision Detection`, `Queue<T>`|
+|[Hurdles](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Hurdles)|3|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Hurdles%20Build/badge.svg)<br>`TimeSpan`, `Animation Cycles`, `Collision Detection`|
+|[Pong](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Pong)|3|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Pong%20Build/badge.svg)<br>`TimeSpan`, `Velocity & Acceleration`, `Collision Detection`|
+|[Tanks](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Tanks)|4|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Tanks%20Build/badge.svg)<br>`AI Enemies`, `Health/Damage Tracking`, `Random Enemy AI`|
+|[Maze](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Maze)|5|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Maze%20Build/badge.svg)<br>`Random Path Finding`, `Stack<T>`, `StringBuilder`|
 
 _\***Complexity**: a relative rating for how complex/advanced the source code is._
 
