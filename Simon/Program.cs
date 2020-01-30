@@ -6,10 +6,10 @@ class Program
 {
 	enum Direction
 	{
-		Up = 1,
+		Up    = 1,
 		Right = 2,
-		Down = 3,
-		Left = 4,
+		Down  = 3,
+		Left  = 4,
 	}
 
 	static readonly Random random = new Random();

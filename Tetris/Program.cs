@@ -15,7 +15,10 @@ class Program
 
 	static void Main()
 	{
-		Console.WriteLine("Still in development...");
+		Console.WriteLine("This game is still in development and is not functional yet.");
+        Console.WriteLine("Press Enter To Close.");
+        Console.ReadLine();
+        return;
 
 #if false
         int originalWidth = Console.WindowWidth;
@@ -93,5 +96,5 @@ class Program
         Console.WindowWidth = originalWidth;
         Console.WindowHeight = originalHeight;
 #endif
-	}
+    }
 }
