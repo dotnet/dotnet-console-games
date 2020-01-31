@@ -80,6 +80,17 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Helicopter",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Helicopter",
+			"program": "${workspaceFolder}/Helicopter/bin/Debug/netcoreapp3.1/Helicopter.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Helicopter/bin/Debug/netcoreapp3.1",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Maze",
 			"type": "coreclr",
 			"request": "launch",

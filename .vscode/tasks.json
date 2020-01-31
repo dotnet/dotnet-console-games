@@ -106,5 +106,18 @@
             ],
             "problemMatcher": "$msCompile",
         },
+        {
+            "label": "Build Helicopter",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Helicopter/Helicopter.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
     ],
 }
