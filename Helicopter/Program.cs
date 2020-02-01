@@ -167,11 +167,7 @@ class Program
 
 	static void Main()
 	{
-		Console.WriteLine("This game is still in development.");
-		Console.WriteLine("Press Enter To Continue...");
-		Console.ReadLine();
 		Console.Clear();
-
 		Console.WindowWidth = 100;
 		Console.WindowHeight = 30;
 		Console.CursorVisible = false;
