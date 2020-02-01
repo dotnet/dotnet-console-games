@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tanks", "Tanks\Tanks.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simon", "Simon\Simon.csproj", "{A028AED2-8EC6-4C0C-B4C7-59FF438308CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helicopter", "Helicopter\Helicopter.csproj", "{71BB3D33-F6CE-46FD-B36A-7D323F4934C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helicopter", "Helicopter\Helicopter.csproj", "{71BB3D33-F6CE-46FD-B36A-7D323F4934C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fighter", "Fighter\Fighter.csproj", "{2B4FE5A8-EF33-4B63-9F29-0721E192D0FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{71BB3D33-F6CE-46FD-B36A-7D323F4934C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71BB3D33-F6CE-46FD-B36A-7D323F4934C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71BB3D33-F6CE-46FD-B36A-7D323F4934C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B4FE5A8-EF33-4B63-9F29-0721E192D0FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B4FE5A8-EF33-4B63-9F29-0721E192D0FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B4FE5A8-EF33-4B63-9F29-0721E192D0FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B4FE5A8-EF33-4B63-9F29-0721E192D0FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
