@@ -22,4 +22,4 @@ Fighter is a 2D fighting game where you fight an opponent in the dangerous art o
 
 ## Input
 
-The **right and left arrow keys (,)** are used to move your fighter. The **F key** is punch. The **D key** is block. The **S key** is jumping kick. The **escape** key may be used to close the game at any time. If you **resize** the console widow the game will be closed.
+The **right and left arrow keys (←, →)** are used to move your fighter. The **F key** is punch. The **D key** is block. The **S key** is jumping kick. The **escape** key may be used to close the game at any time. If you **resize** the console widow the game will be closed.
