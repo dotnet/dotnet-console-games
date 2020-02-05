@@ -10,8 +10,9 @@ This repository is a collection of game examples implemented as .NET Core consol
 |[Snake](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Snake)|3|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Snake%20Build/badge.svg)<br>`TimeSpan`, `Collision Detection`, `Queue<T>`|
 |[Hurdles](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Hurdles)|3|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Hurdles%20Build/badge.svg)<br>`TimeSpan`, `Animation Cycles`, `Collision Detection`|
 |[Pong](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Pong)|3|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Pong%20Build/badge.svg)<br>`TimeSpan`, `Velocity & Acceleration`, `Collision Detection`|
-|[Tanks](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Tanks)|4|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Tanks%20Build/badge.svg)<br>`AI Enemies`, `Health/Damage Tracking`, `Random Enemy AI`|
+|[Tanks](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Tanks)|4|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Tanks%20Build/badge.svg)<br>`Health/Damage Tracking`, `Random Enemy AI`|
 |[Helicopter](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Helicopter)|4|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Helicopter%20Build/badge.svg)<br>`Health/Damage Tracking`, `Collision Detection`|
+|[Fighter](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Fighter)|5|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Fighter%20Build/badge.svg)<br>`Health/Damage Tracking`, `Random Enemy AI`|
 |[Maze](https://github.com/ZacharyPatten/dotnet-console-games/blob/master/Maze)|5|![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Maze%20Build/badge.svg)<br>`Random Path Finding`, `Stack<T>`, `StringBuilder`|
 
 _\***Complexity**: a relative rating for how complex/advanced the source code is._

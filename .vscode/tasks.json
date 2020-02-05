@@ -119,5 +119,18 @@
             ],
             "problemMatcher": "$msCompile",
         },
+        {
+            "label": "Build Fighter",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Fighter/Fighter.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
     ],
 }
