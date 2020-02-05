@@ -101,5 +101,16 @@
 			"console": "externalTerminal",
 			"stopAtEntry": false,
 		},
+		{
+			"name": "Fighter",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Fighter",
+			"program": "${workspaceFolder}/Fighter/bin/Debug/netcoreapp3.1/Fighter.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Fighter/bin/Debug/netcoreapp3.1",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
 	],
 }
