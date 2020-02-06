@@ -9,6 +9,7 @@ class Program
 	static readonly int width = Console.WindowWidth;
 	static readonly Random random = new Random();
 	static readonly float mineRatio = .1f;
+	static readonly int mineCount = (int)(width * height * mineRatio);
 	static (int Value, bool Visible)[,] board;
 	static (int Column, int Row) position = (width / 2, height / 2);
 
@@ -68,18 +69,18 @@ class Program
 							board[position.Column, position.Row].Visible = true;
 							RenderBoard();
 						}
-						bool allVisible = true;
-						for (int column = 0; column < width && allVisible; column++)
+						int visibleCount = 0;
+						for (int column = 0; column < width; column++)
 						{
-							for (int row = 0; row < height && allVisible; row++)
+							for (int row = 0; row < height; row++)
 							{
-								if (!board[column, row].Visible)
+								if (board[column, row].Visible)
 								{
-									allVisible = false;
+									visibleCount++;
 								}
 							}
 						}
-						if (allVisible)
+						if (visibleCount == width * height - mineCount)
 						{
 							Console.SetCursorPosition(0, height - 1);
 							Console.Write("You Win. Press Enter To Exit...");
@@ -116,7 +117,6 @@ class Program
 	static void GenerateBoard()
 	{
 		board = new (int Value, bool Visible)[width, height];
-		int mineCount = (int)(width * height * mineRatio);
 		var coordinates = new List<(int Row, int Column)>();
 		for (int column = 0; column < width; column++)
 		{
