@@ -168,7 +168,7 @@ class Program
 					? Render(board[column, row].Value)
 					: '█');
 			}
-			stringBuilder.AppendLine();
+			//stringBuilder.AppendLine();
 		}
 		Console.CursorVisible = false;
 		Console.SetCursorPosition(0, 0);
