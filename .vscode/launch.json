@@ -25,6 +25,17 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Minesweeper",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Minesweeper",
+			"program": "${workspaceFolder}/Minesweeper/bin/Debug/netcoreapp3.1/Minesweeper.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Minesweeper/bin/Debug/netcoreapp3.1",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Wumpus World",
 			"type": "coreclr",
 			"request": "launch",

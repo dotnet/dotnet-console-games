@@ -132,5 +132,18 @@
             ],
             "problemMatcher": "$msCompile",
         },
+        {
+            "label": "Build Minesweeper",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Minesweeper/Minesweeper.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
     ],
 }
