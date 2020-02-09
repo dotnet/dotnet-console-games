@@ -12,18 +12,19 @@ class Program
 	static readonly Random random = new Random();
 	static (int X, int Y) Position;
 
-	static readonly int[] frequencies = new int[]
-	{
-		100,
-		200,
-		300,
-		400,
-		500,
-		600,
-		700,
-		800,
-		900,
-	};
+    // C major scale, starting with middle C
+    static readonly int[] frequencies = new int[]
+    {
+        262,
+        294,
+        330,
+        349,
+        392,
+        440,
+        494,
+        523,
+        587,
+    };
 
 	static void Main()
 	{
