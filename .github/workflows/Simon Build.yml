@@ -3,7 +3,7 @@ name: Simon Build
 on:
   push:
     paths:
-    - 'Simon/**'
+    - 'Projects/Simon/**'
 
 jobs:
   build:
@@ -17,4 +17,4 @@ jobs:
       with:
         dotnet-version: 3.1.100
     - name: Build with dotnet
-      run: dotnet build "Simon\Simon.csproj" --configuration Release
+      run: dotnet build "Projects\Simon\Simon.csproj" --configuration Release

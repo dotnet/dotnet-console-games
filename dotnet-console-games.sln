@@ -3,31 +3,31 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snake", "Snake\Snake.csproj", "{C94F5FD4-AEF3-4399-8D28-1CB14B47C205}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snake", "Projects\Snake\Snake.csproj", "{C94F5FD4-AEF3-4399-8D28-1CB14B47C205}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tic Tac Toe", "Tic Tac Toe\Tic Tac Toe.csproj", "{831FF624-D04B-4272-9AAA-D8ECBDB54ED8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tic Tac Toe", "Projects\Tic Tac Toe\Tic Tac Toe.csproj", "{831FF624-D04B-4272-9AAA-D8ECBDB54ED8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wumpus World", "Wumpus World\Wumpus World.csproj", "{4ED9D4FD-E1D3-4B90-B01A-C73CE7DEA2AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wumpus World", "Projects\Wumpus World\Wumpus World.csproj", "{4ED9D4FD-E1D3-4B90-B01A-C73CE7DEA2AF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pong", "Pong\Pong.csproj", "{F9B2A471-640A-4EC1-8068-E811A62F54FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pong", "Projects\Pong\Pong.csproj", "{F9B2A471-640A-4EC1-8068-E811A62F54FB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tetris", "Tetris\Tetris.csproj", "{0E3C1182-BDC8-4A14-887F-175B68FD363E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tetris", "Projects\Tetris\Tetris.csproj", "{0E3C1182-BDC8-4A14-887F-175B68FD363E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurdles", "Hurdles\Hurdles.csproj", "{58D52662-6928-4978-9F3D-967444E505A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurdles", "Projects\Hurdles\Hurdles.csproj", "{58D52662-6928-4978-9F3D-967444E505A3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maze", "Maze\Maze.csproj", "{414D90B3-F940-45A9-B0F7-185B212D0999}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maze", "Projects\Maze\Maze.csproj", "{414D90B3-F940-45A9-B0F7-185B212D0999}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tanks", "Tanks\Tanks.csproj", "{098346BB-BF44-4727-8A16-A152C3953AB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tanks", "Projects\Tanks\Tanks.csproj", "{098346BB-BF44-4727-8A16-A152C3953AB6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simon", "Simon\Simon.csproj", "{A028AED2-8EC6-4C0C-B4C7-59FF438308CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simon", "Projects\Simon\Simon.csproj", "{A028AED2-8EC6-4C0C-B4C7-59FF438308CD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helicopter", "Helicopter\Helicopter.csproj", "{71BB3D33-F6CE-46FD-B36A-7D323F4934C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helicopter", "Projects\Helicopter\Helicopter.csproj", "{71BB3D33-F6CE-46FD-B36A-7D323F4934C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fighter", "Fighter\Fighter.csproj", "{2B4FE5A8-EF33-4B63-9F29-0721E192D0FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fighter", "Projects\Fighter\Fighter.csproj", "{2B4FE5A8-EF33-4B63-9F29-0721E192D0FF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minesweeper", "Minesweeper\Minesweeper.csproj", "{5FDB14F3-893E-4DAD-AFE6-B6B181FEA099}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minesweeper", "Projects\Minesweeper\Minesweeper.csproj", "{5FDB14F3-893E-4DAD-AFE6-B6B181FEA099}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beep Pad", "Beep Pad\Beep Pad.csproj", "{BDFDD453-E6A3-4056-A484-897726053ACA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beep Pad", "Projects\Beep Pad\Beep Pad.csproj", "{BDFDD453-E6A3-4056-A484-897726053ACA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

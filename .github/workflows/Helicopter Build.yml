@@ -3,7 +3,7 @@ name: Helicopter Build
 on:
   push:
     paths:
-    - 'Helicopter/**'
+    - 'Projects/Helicopter/**'
 
 jobs:
   build:
@@ -17,4 +17,4 @@ jobs:
       with:
         dotnet-version: 3.1.100
     - name: Build with dotnet
-      run: dotnet build "Helicopter\Helicopter.csproj" --configuration Release
+      run: dotnet build "Projects\Helicopter\Helicopter.csproj" --configuration Release

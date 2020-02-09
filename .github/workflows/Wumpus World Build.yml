@@ -3,7 +3,7 @@ name: Wumpus World Build
 on:
   push:
     paths:
-    - 'Wumpus World/**'
+    - 'Projects/Wumpus World/**'
 
 jobs:
   build:
@@ -17,4 +17,4 @@ jobs:
       with:
         dotnet-version: 3.1.100
     - name: Build with dotnet
-      run: dotnet build "Wumpus World\Wumpus World.csproj" --configuration Release
+      run: dotnet build "Projects\Wumpus World\Wumpus World.csproj" --configuration Release

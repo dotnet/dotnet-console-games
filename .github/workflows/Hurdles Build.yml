@@ -3,7 +3,7 @@ name: Hurdles Build
 on:
   push:
     paths:
-    - 'Hurdles/**'
+    - 'Projects/Hurdles/**'
 
 jobs:
   build:
@@ -17,4 +17,4 @@ jobs:
       with:
         dotnet-version: 3.1.100
     - name: Build with dotnet
-      run: dotnet build "Hurdles\Hurdles.csproj" --configuration Release
+      run: dotnet build "Projects\Hurdles\Hurdles.csproj" --configuration Release

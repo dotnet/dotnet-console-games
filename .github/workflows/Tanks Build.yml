@@ -3,7 +3,7 @@ name: Tanks Build
 on:
   push:
     paths:
-    - 'Tanks/**'
+    - 'Projects/Tanks/**'
 
 jobs:
   build:
@@ -17,4 +17,4 @@ jobs:
       with:
         dotnet-version: 3.1.100
     - name: Build with dotnet
-      run: dotnet build "Tanks\Tanks.csproj" --configuration Release
+      run: dotnet build "Projects\Tanks\Tanks.csproj" --configuration Release

@@ -3,7 +3,7 @@ name: Pong Build
 on:
   push:
     paths:
-    - 'Pong/**'
+    - 'Projects/Pong/**'
 
 jobs:
   build:
@@ -17,4 +17,4 @@ jobs:
       with:
         dotnet-version: 3.1.100
     - name: Build with dotnet
-      run: dotnet build "Pong\Pong.csproj" --configuration Release
+      run: dotnet build "Projects\Pong\Pong.csproj" --configuration Release
