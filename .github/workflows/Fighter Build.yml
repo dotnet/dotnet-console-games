@@ -3,7 +3,7 @@ name: Fighter Build
 on:
   push:
     paths:
-    - 'Fighter/**'
+    - 'Projects/Fighter/**'
 
 jobs:
   build:
@@ -17,4 +17,4 @@ jobs:
       with:
         dotnet-version: 3.1.100
     - name: Build with dotnet
-      run: dotnet build "Fighter\Fighter.csproj" --configuration Release
+      run: dotnet build "Projects\Fighter\Fighter.csproj" --configuration Release

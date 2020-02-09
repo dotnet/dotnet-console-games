@@ -3,7 +3,7 @@ name: Maze Build
 on:
   push:
     paths:
-    - 'Maze/**'
+    - 'Projects/Maze/**'
 
 jobs:
   build:
@@ -17,4 +17,4 @@ jobs:
       with:
         dotnet-version: 3.1.100
     - name: Build with dotnet
-      run: dotnet build "Maze\Maze.csproj" --configuration Release
+      run: dotnet build "Projects\Maze\Maze.csproj" --configuration Release

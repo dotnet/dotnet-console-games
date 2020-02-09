@@ -9,7 +9,7 @@
             "args":
             [
                 "build",
-                "${workspaceFolder}/Hurdles/Hurdles.csproj",
+                "${workspaceFolder}/Projects/Hurdles/Hurdles.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary",
             ],
@@ -22,7 +22,7 @@
             "args":
             [
                 "build",
-                "${workspaceFolder}/Snake/Snake.csproj",
+                "${workspaceFolder}/Projects/Snake/Snake.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary",
             ],
@@ -35,7 +35,7 @@
             "args":
             [
                 "build",
-                "${workspaceFolder}/Tic Tac Toe/Tic Tac Toe.csproj",
+                "${workspaceFolder}/Projects/Tic Tac Toe/Tic Tac Toe.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary",
             ],
@@ -48,7 +48,7 @@
             "args":
             [
                 "build",
-                "${workspaceFolder}/Wumpus World/Wumpus World.csproj",
+                "${workspaceFolder}/Projects/Wumpus World/Wumpus World.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary",
             ],
@@ -61,7 +61,7 @@
             "args":
             [
                 "build",
-                "${workspaceFolder}/Maze/Maze.csproj",
+                "${workspaceFolder}/Projects/Maze/Maze.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary",
             ],
@@ -74,7 +74,7 @@
             "args":
             [
                 "build",
-                "${workspaceFolder}/Tanks/Tanks.csproj",
+                "${workspaceFolder}/Projects/Tanks/Tanks.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary",
             ],
@@ -87,7 +87,7 @@
             "args":
             [
                 "build",
-                "${workspaceFolder}/Simon/Simon.csproj",
+                "${workspaceFolder}/Projects/Simon/Simon.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary",
             ],
@@ -100,7 +100,7 @@
             "args":
             [
                 "build",
-                "${workspaceFolder}/Pong/Pong.csproj",
+                "${workspaceFolder}/Projects/Pong/Pong.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary",
             ],
@@ -113,7 +113,7 @@
             "args":
             [
                 "build",
-                "${workspaceFolder}/Helicopter/Helicopter.csproj",
+                "${workspaceFolder}/Projects/Helicopter/Helicopter.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary",
             ],
@@ -126,7 +126,7 @@
             "args":
             [
                 "build",
-                "${workspaceFolder}/Fighter/Fighter.csproj",
+                "${workspaceFolder}/Projects/Fighter/Fighter.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary",
             ],
@@ -139,7 +139,7 @@
             "args":
             [
                 "build",
-                "${workspaceFolder}/Minesweeper/Minesweeper.csproj",
+                "${workspaceFolder}/Projects/Minesweeper/Minesweeper.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary",
             ],
@@ -152,7 +152,7 @@
             "args":
             [
                 "build",
-                "${workspaceFolder}/Beep Pad/Beep Pad.csproj",
+                "${workspaceFolder}/Projects/Beep Pad/Beep Pad.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary",
             ],

@@ -14,15 +14,15 @@ class Program
 
 	static readonly int[] frequencies = new int[]
 	{
-		100,
-		200,
-		300,
-		400,
-		500,
-		600,
-		700,
-		800,
-		900,
+		262,
+		294,
+		330,
+		349,
+		392,
+		440,
+		494,
+		523,
+		587,
 	};
 
 	static void Main()

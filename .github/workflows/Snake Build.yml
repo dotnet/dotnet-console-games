@@ -3,7 +3,7 @@ name: Snake Build
 on:
   push:
     paths:
-    - 'Snake/**'
+    - 'Projects/Snake/**'
 
 jobs:
   build:
@@ -17,4 +17,4 @@ jobs:
       with:
         dotnet-version: 3.1.100
     - name: Build with dotnet
-      run: dotnet build "Snake\Snake.csproj" --configuration Release
+      run: dotnet build "Projects\Snake\Snake.csproj" --configuration Release

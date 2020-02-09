@@ -3,7 +3,7 @@ name: Tic Tac Toe Build
 on:
   push:
     paths:
-    - 'Tic Tac Toe/**'
+    - 'Projects/Tic Tac Toe/**'
 
 jobs:
   build:
@@ -17,4 +17,4 @@ jobs:
       with:
         dotnet-version: 3.1.100
     - name: Build with dotnet
-      run: dotnet build "Tic Tac Toe\Tic Tac Toe.csproj" --configuration Release
+      run: dotnet build "Projects\Tic Tac Toe\Tic Tac Toe.csproj" --configuration Release

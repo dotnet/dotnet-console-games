@@ -3,7 +3,7 @@ name: Beep Pad Build
 on:
   push:
     paths:
-    - 'Beep Pad/**'
+    - 'Projects/Beep Pad/**'
 
 jobs:
   build:
@@ -17,4 +17,4 @@ jobs:
       with:
         dotnet-version: 3.1.100
     - name: Build with dotnet
-      run: dotnet build "Beep Pad\Beep Pad.csproj" --configuration Release
+      run: dotnet build "Projects\Beep Pad\Beep Pad.csproj" --configuration Release

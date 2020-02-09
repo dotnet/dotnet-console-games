@@ -3,7 +3,7 @@ name: Minesweeper Build
 on:
   push:
     paths:
-    - 'Minesweeper/**'
+    - 'Projects/Minesweeper/**'
 
 jobs:
   build:
@@ -17,4 +17,4 @@ jobs:
       with:
         dotnet-version: 3.1.100
     - name: Build with dotnet
-      run: dotnet build "Minesweeper\Minesweeper.csproj" --configuration Release
+      run: dotnet build "Projects\Minesweeper\Minesweeper.csproj" --configuration Release
