@@ -145,5 +145,18 @@
             ],
             "problemMatcher": "$msCompile",
         },
+        {
+            "label": "Build Beep Pad",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Beep Pad/Beep Pad.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
     ],
 }

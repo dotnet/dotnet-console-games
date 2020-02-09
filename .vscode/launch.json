@@ -25,6 +25,17 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Beep Pad",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Beep Pad",
+			"program": "${workspaceFolder}/Beep Pad/bin/Debug/netcoreapp3.1/Beep Pad.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Beep Pad/bin/Debug/netcoreapp3.1",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Minesweeper",
 			"type": "coreclr",
 			"request": "launch",
