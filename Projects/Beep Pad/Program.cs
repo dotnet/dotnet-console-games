@@ -40,17 +40,16 @@ class Program
 			PlayAnswerAudio(answerCode);
 			while (true)
 			{
-				Continue:
 				RenderGame();
 				Console.SetCursorPosition(Position.X * 4 + 6, Position.Y * 2 + 4);
 				Console.CursorVisible = true;
 				switch (Console.ReadKey(true).Key)
 				{
-					case ConsoleKey.UpArrow:    Position.Y = Position.Y == 0 ? 2 : Position.Y - 1; goto Continue;
-					case ConsoleKey.DownArrow:  Position.Y = Position.Y == 2 ? 0 : Position.Y + 1; goto Continue;
-					case ConsoleKey.LeftArrow:  Position.X = Position.X == 0 ? 2 : Position.X - 1; goto Continue;
-					case ConsoleKey.RightArrow: Position.X = Position.X == 2 ? 0 : Position.X + 1; goto Continue;
-					case ConsoleKey.Spacebar:   PlayAnswerAudio(answerCode); goto Continue;
+					case ConsoleKey.UpArrow:    Position.Y = Position.Y == 0 ? 2 : Position.Y - 1; break;
+					case ConsoleKey.DownArrow:  Position.Y = Position.Y == 2 ? 0 : Position.Y + 1; break;
+					case ConsoleKey.LeftArrow:  Position.X = Position.X == 0 ? 2 : Position.X - 1; break;
+					case ConsoleKey.RightArrow: Position.X = Position.X == 2 ? 0 : Position.X + 1; break;
+					case ConsoleKey.Spacebar:   PlayAnswerAudio(answerCode); break;
 					case ConsoleKey.Enter:
 						int button = GetButton(Position);
 						Console.Write('█');
@@ -61,21 +60,21 @@ class Program
 						{
 							inputedCode.Dequeue();
 						}
+						if (InputMatchesAnswer(inputedCode, answerCode))
+						{
+							RenderGame(false);
+							Console.WriteLine("    You Win!");
+							Console.WriteLine();
+							Console.WriteLine("    Press Enter To Close...");
+							Console.ReadLine();
+							Console.Clear();
+							return;
+						}
 						break;
 					case ConsoleKey.Escape:
 						Console.Clear();
 						Console.Write("BeepPad was closed.");
 						return;
-				}
-				if (InputMatchesAnswer(inputedCode, answerCode))
-				{
-					RenderGame(false);
-					Console.WriteLine("    You Win!");
-					Console.WriteLine();
-					Console.WriteLine("    Press Enter To Close...");
-					Console.ReadLine();
-					Console.Clear();
-					return;
 				}
 			}
 		}
