@@ -7,7 +7,7 @@ class Program
 	static readonly ConsoleColor ForegroundColor = Console.ForegroundColor;
 	static readonly ConsoleColor BackgroundColor = Console.BackgroundColor;
 
-	static readonly int ButtonTimeSpan = (int)TimeSpan.FromMilliseconds(700).TotalMilliseconds;
+	static readonly int ButtonTimeSpan = 500; // milliseconds
 	static readonly int CodeLength = 5;
 	static readonly Random random = new Random();
 	static (int X, int Y) Position;
@@ -90,7 +90,7 @@ class Program
 	{
 		Console.Clear();
 		Console.WriteLine();
-		Console.WriteLine("    BeepPad");
+		Console.WriteLine("    Beep Pad");
 		Console.WriteLine();
 		Console.WriteLine("    ╔═══╦═══╦═══╗");
 		Console.WriteLine("    ║ 7 ║ 8 ║ 9 ║");
