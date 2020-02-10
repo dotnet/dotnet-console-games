@@ -135,7 +135,7 @@ class Program
 		@"  ___  " + '\n' +
 		@" |   | " + '\n' +
 		@" | . | ";
-	#endregion
+		#endregion
 
 	static int position = 0;
 	static int? runningFrame = 0;
