@@ -1,4 +1,4 @@
-# Fighter
+# Hangman
 
 ![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Hangman%20Build/badge.svg)
 
