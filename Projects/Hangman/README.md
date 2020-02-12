@@ -6,6 +6,8 @@
 
 Hangman is a game that chooses a random word from the english language, and you try to guess the word. If you make too many incorrect guesses you lose.
 
+**_This game is depended on a "Words.txt" embedded resource file to provide the pool of possible random words. If you copy the code without the embedded resource it will not work._**
+
 ```
 
       ╔═══╗
