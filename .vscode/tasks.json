@@ -158,5 +158,18 @@
             ],
             "problemMatcher": "$msCompile",
         },
+        {
+            "label": "Build Hangman",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/Hangman/Hangman.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
     ],
 }

@@ -123,12 +123,11 @@ class Program
 				switch (ReadKey(true).Key)
 				{
 					case ConsoleKey.Enter: break;
-					case ConsoleKey.Escape: closeRequested = true; break;
+					case ConsoleKey.Escape:
+						closeRequested = true;
+						Clear();
+						break;
 					default: goto GetInput;
-				}
-				if (closeRequested)
-				{
-					Clear();
 				}
 			}
 
