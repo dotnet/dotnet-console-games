@@ -36,6 +36,17 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Hangman",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Hangman",
+			"program": "${workspaceFolder}/Projects/Hangman/bin/Debug/netcoreapp3.1/Hangman.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Projects/Hangman/bin/Debug/netcoreapp3.1",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Minesweeper",
 			"type": "coreclr",
 			"request": "launch",

@@ -27,7 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fighter", "Projects\Fighter
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minesweeper", "Projects\Minesweeper\Minesweeper.csproj", "{5FDB14F3-893E-4DAD-AFE6-B6B181FEA099}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beep Pad", "Projects\Beep Pad\Beep Pad.csproj", "{BDFDD453-E6A3-4056-A484-897726053ACA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Beep Pad", "Projects\Beep Pad\Beep Pad.csproj", "{BDFDD453-E6A3-4056-A484-897726053ACA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman", "Projects\Hangman\Hangman.csproj", "{454CB84A-2271-4F27-B163-2CA5B3517F7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,10 @@ Global
 		{BDFDD453-E6A3-4056-A484-897726053ACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDFDD453-E6A3-4056-A484-897726053ACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDFDD453-E6A3-4056-A484-897726053ACA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{454CB84A-2271-4F27-B163-2CA5B3517F7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{454CB84A-2271-4F27-B163-2CA5B3517F7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{454CB84A-2271-4F27-B163-2CA5B3517F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{454CB84A-2271-4F27-B163-2CA5B3517F7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
