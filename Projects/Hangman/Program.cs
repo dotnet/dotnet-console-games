@@ -16,26 +16,26 @@ static class Program
 	static void Main()
 	{
 		#region Load Word Library
-
-		const string wordsResource = "Hangman.Words.txt";
-		Assembly assembly = Assembly.GetExecutingAssembly();
-		using Stream stream = assembly.GetManifestResourceStream(wordsResource);
-		if (stream is null)
 		{
-			Console.WriteLine("Error: Missing \"Words.txt\" embedded resource.");
-			Console.WriteLine("Press enter to continue...");
-			Console.ReadLine();
-			return;
+			const string wordsResource = "Hangman.Words.txt";
+			Assembly assembly = Assembly.GetExecutingAssembly();
+			using Stream stream = assembly.GetManifestResourceStream(wordsResource);
+			if (stream is null)
+			{
+				Console.WriteLine("Error: Missing \"Words.txt\" embedded resource.");
+				Console.WriteLine("Press enter to continue...");
+				Console.ReadLine();
+				return;
+			}
+			List<string> words = new List<string>();
+			using StreamReader streamReader = new StreamReader(stream);
+			while (!streamReader.EndOfStream)
+			{
+				string word = streamReader.ReadLine();
+				words.Add(word);
+			}
+			Words = words.ToArray();
 		}
-		List<string> words = new List<string>();
-		using StreamReader streamReader = new StreamReader(stream);
-		while (!streamReader.EndOfStream)
-		{
-			string word = streamReader.ReadLine();
-			words.Add(word);
-		}
-		Words = words.ToArray();
-
 		#endregion
 
 		PlayAgain:
