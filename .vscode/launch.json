@@ -102,6 +102,17 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Flappy Bird",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Flappy Bird",
+			"program": "${workspaceFolder}/Projects/Flappy Bird/bin/Debug/netcoreapp3.1/Flappy Bird.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Projects/Flappy Bird/bin/Debug/netcoreapp3.1",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Tanks",
 			"type": "coreclr",
 			"request": "launch",
