@@ -29,7 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minesweeper", "Projects\Min
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Beep Pad", "Projects\Beep Pad\Beep Pad.csproj", "{BDFDD453-E6A3-4056-A484-897726053ACA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman", "Projects\Hangman\Hangman.csproj", "{454CB84A-2271-4F27-B163-2CA5B3517F7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangman", "Projects\Hangman\Hangman.csproj", "{454CB84A-2271-4F27-B163-2CA5B3517F7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flappy Bird", "Projects\Flappy Bird\Flappy Bird.csproj", "{EAD4A294-7F71-49F3-AAA0-5BB1CE638001}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,10 @@ Global
 		{454CB84A-2271-4F27-B163-2CA5B3517F7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{454CB84A-2271-4F27-B163-2CA5B3517F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{454CB84A-2271-4F27-B163-2CA5B3517F7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAD4A294-7F71-49F3-AAA0-5BB1CE638001}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAD4A294-7F71-49F3-AAA0-5BB1CE638001}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAD4A294-7F71-49F3-AAA0-5BB1CE638001}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAD4A294-7F71-49F3-AAA0-5BB1CE638001}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -171,5 +171,18 @@
             ],
             "problemMatcher": "$msCompile",
         },
+        {
+            "label": "Build Flappy Bird",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/Flappy Bird/Flappy Bird.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
     ],
 }
