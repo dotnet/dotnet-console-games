@@ -185,13 +185,13 @@ class Program
 							skipPlayerUpdate = true;
 						}
 						break;
-					case ConsoleKey.Q:
-						if (player.Action == Action.Idle)
-						{
-							Trigger(player, Action.Owned);
-							skipPlayerUpdate = true;
-						}
-						break;
+					//case ConsoleKey.Q:
+					//	if (player.Action == Action.Idle)
+					//	{
+					//		Trigger(player, Action.Owned);
+					//		skipPlayerUpdate = true;
+					//	}
+					//	break;
 					case ConsoleKey.LeftArrow:
 						if (player.Action == Action.Idle)
 						{
