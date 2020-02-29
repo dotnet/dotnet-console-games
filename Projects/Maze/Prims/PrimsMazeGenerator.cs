@@ -29,13 +29,13 @@ namespace Prims
                     if (row + 1 < rows)
                         n.Add(Index(row + 1, col), random.NextDouble());
 
-                    if (row - 1 > 0)
+                    if (row - 1 >= 0)
                         n.Add(Index(row - 1, col), random.NextDouble());
 
                     if (col + 1 < columns)
                         n.Add(Index(row, col + 1), random.NextDouble());
 
-                    if (col - 1 > 0)
+                    if (col - 1 >= 0)
                         n.Add(Index(row, col - 1), random.NextDouble());
 
                     grid[Index(row, col)] = n;
