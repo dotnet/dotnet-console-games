@@ -4,7 +4,7 @@ namespace Prims
 {
     public class PrimsMazeGenerator
     {
-        public static Maze.Tile[,] GeneratePrims(
+        public static Maze.Tile[,] Generate(
             int rows, int columns,
             int? start_row = null, int? start_column = null,
             int? end_row = null, int? end_column = null)
