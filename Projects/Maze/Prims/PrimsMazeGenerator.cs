@@ -27,16 +27,16 @@ namespace Prims
                     var n = new Graph.Node(Index(row, col));
 
                     if (row + 1 < rows)
-                        n.Add(Index(row + 1, col), random.NextDouble() * 10);
+                        n.Add(Index(row + 1, col), random.NextDouble());
 
                     if (row - 1 > 0)
-                        n.Add(Index(row - 1, col), random.NextDouble() * 10);
+                        n.Add(Index(row - 1, col), random.NextDouble());
 
                     if (col + 1 < columns)
-                        n.Add(Index(row, col + 1), random.NextDouble() * 10);
+                        n.Add(Index(row, col + 1), random.NextDouble());
 
                     if (col - 1 > 0)
-                        n.Add(Index(row, col - 1), random.NextDouble() * 10);
+                        n.Add(Index(row, col - 1), random.NextDouble());
 
                     grid[Index(row, col)] = n;
                 }
