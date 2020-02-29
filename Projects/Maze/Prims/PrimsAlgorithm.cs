@@ -1,5 +1,6 @@
 ﻿
 using System;
+using Towel.DataStructures;
 
 public static class PrimsAlgorithm
 {
@@ -16,7 +17,7 @@ public static class PrimsAlgorithm
             Cost = cost;
         }
 
-        public int CompareTo(TwoWayConnection other) => other.Cost.CompareTo(Cost); // inversed because PriorityQueue
+        public int CompareTo(TwoWayConnection other) => other.Cost.CompareTo(Cost); // inversed because of how the heap works
     }
 
     public static Graph SimplePrims(Graph graph)
@@ -26,23 +27,23 @@ public static class PrimsAlgorithm
         var current = nodes[0];
         newGraph.Nodes[0] = new Graph.Node(0);
 
-        var priorityQueue = new PriorityQueue<TwoWayConnection>();
+        var heap = new HeapArray<TwoWayConnection>();
 
 
         while(true)
         {
             for (int i = 0; i < current.Connections.Count; i++)
             {
-                priorityQueue.Enqueue(new TwoWayConnection(current.OwnIndex, current.Connections[i], current.Costs[i]));
+                heap.Enqueue(new TwoWayConnection(current.OwnIndex, current.Connections[i], current.Costs[i]));
             }
 
             TwoWayConnection c;
             do
             {
-                if (priorityQueue.Count() == 0)
+                if (heap.Count == 0)
                     return newGraph;
-
-                c = priorityQueue.Dequeue();
+                
+                c = heap.Dequeue();
             }
             while (newGraph.Nodes[c.IndexB] != null);
 
