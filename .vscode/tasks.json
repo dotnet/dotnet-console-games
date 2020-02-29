@@ -184,5 +184,18 @@
             ],
             "problemMatcher": "$msCompile",
         },
+        {
+            "label": "Build PacMan",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/PacMan/PacMan (Work In Progress).csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
     ],
 }
