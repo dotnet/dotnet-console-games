@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wumpus World", "Projects\Wu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pong", "Projects\Pong\Pong.csproj", "{F9B2A471-640A-4EC1-8068-E811A62F54FB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tetris", "Projects\Tetris\Tetris.csproj", "{0E3C1182-BDC8-4A14-887F-175B68FD363E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tetris (Work In Progress)", "Projects\Tetris\Tetris (Work In Progress).csproj", "{0E3C1182-BDC8-4A14-887F-175B68FD363E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hurdles", "Projects\Hurdles\Hurdles.csproj", "{58D52662-6928-4978-9F3D-967444E505A3}"
 EndProject
@@ -31,7 +31,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Beep Pad", "Projects\Beep P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangman", "Projects\Hangman\Hangman.csproj", "{454CB84A-2271-4F27-B163-2CA5B3517F7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flappy Bird", "Projects\Flappy Bird\Flappy Bird.csproj", "{EAD4A294-7F71-49F3-AAA0-5BB1CE638001}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flappy Bird", "Projects\Flappy Bird\Flappy Bird.csproj", "{EAD4A294-7F71-49F3-AAA0-5BB1CE638001}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hearts (Work In Progress)", "Projects\Hearts\Hearts (Work In Progress).csproj", "{0A7EE167-1B80-4673-8510-8716A8B78AD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PacMan (Work In Progress)", "Projects\PacMan\PacMan (Work In Progress).csproj", "{30D6C5DB-92D5-4D5A-979E-80F198ED0D44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +103,14 @@ Global
 		{EAD4A294-7F71-49F3-AAA0-5BB1CE638001}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAD4A294-7F71-49F3-AAA0-5BB1CE638001}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAD4A294-7F71-49F3-AAA0-5BB1CE638001}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A7EE167-1B80-4673-8510-8716A8B78AD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A7EE167-1B80-4673-8510-8716A8B78AD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A7EE167-1B80-4673-8510-8716A8B78AD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A7EE167-1B80-4673-8510-8716A8B78AD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30D6C5DB-92D5-4D5A-979E-80F198ED0D44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30D6C5DB-92D5-4D5A-979E-80F198ED0D44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30D6C5DB-92D5-4D5A-979E-80F198ED0D44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30D6C5DB-92D5-4D5A-979E-80F198ED0D44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

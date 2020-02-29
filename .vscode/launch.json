@@ -156,5 +156,16 @@
 			"console": "externalTerminal",
 			"stopAtEntry": false,
 		},
+		{
+			"name": "PacMan (Work In Progress)",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build PacMan",
+			"program": "${workspaceFolder}/Projects/PacMan/bin/Debug/netcoreapp3.1/PacMan (Work In Progress).dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Projects/PacMan/bin/Debug/netcoreapp3.1",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
 	],
 }
