@@ -1,27 +1,60 @@
-﻿//#define MazeGenertorLoop // uncomment to run the generator in a loop
-//#define DebugRandomMazeGeneration // uncomment me to watch the maze being built node-by-node
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
 class Program
 {
-	static void Main()
+	public enum Mode
 	{
+		Default,
+		Prims
+	}
+
+	public static bool Loop;
+	public static bool DebugMazeGeneration;
+	public static Mode GeneratorMode;
+	
+	static void Main(string[] args)
+	{
+		
+		if (args.Length > 0)
+		{
+			var mode = args[0];
+
+			GeneratorMode = mode switch
+			{
+				"default" => Mode.Default,
+				"prims" => Mode.Prims,
+				_ => Mode.Default
+			};
+			
+			if (args.Length > 1)
+			{
+				switch (args[1].ToLower())
+				{
+					case "loop":
+						Loop = true;
+						break;
+					case "debug":
+						DebugMazeGeneration = true;
+						break;
+				}
+			}
+		}
+		
 		Console.WindowHeight = 32;
 		const int rows = 8;
 		const int columns = 20;
-#if MazeGenertorLoop
-		while (true)
+		
+		while (Loop)
 		{
-			Maze.Tile[,] maze = Maze.Generate(rows, columns);
+			Maze.Tile[,] m = Maze.Generate(rows, columns);
 			Console.Clear();
-			Console.WriteLine(Maze.Render(maze));
+			Console.WriteLine(Maze.Render(m));
 			Console.WriteLine("Press Enter To Continue...");
 			Console.ReadLine();
 		}
-#else
+		
 		Console.CursorVisible = true;
 		Maze.Tile[,] maze = Maze.Generate(rows, columns);
 		Console.Clear();
@@ -61,7 +94,6 @@ class Program
 		}
 		Console.Clear();
 		Console.Write("You Win.");
-#endif
 	}
 }
 
@@ -216,12 +248,13 @@ public static class Maze
 					if (move.Column == parent.Column - 1) maze[parent.Row, parent.Column] &= ~Tile.Left;
 				}
 
-#if DebugRandomMazeGeneration
-				Console.Clear();
-				Console.WriteLine(Render(maze));
-				Console.WriteLine("Press Enter To Continue...");
-				Console.ReadLine();
-#endif
+				if (Program.DebugMazeGeneration)
+				{
+					Console.Clear();
+					Console.WriteLine(Render(maze));
+					Console.WriteLine("Press Enter To Continue...");
+					Console.ReadLine();
+				}
 			}
 		}
 
@@ -344,12 +377,13 @@ public static class Maze
 						}
 					}
 
-#if DebugRandomMazeGeneration
-					Console.Clear();
-					Console.WriteLine(Render(maze));
-					Console.WriteLine("Press Enter To Continue...");
-					Console.ReadLine();
-#endif
+					if (Program.DebugMazeGeneration)
+					{
+						Console.Clear();
+						Console.WriteLine(Render(maze));
+						Console.WriteLine("Press Enter To Continue...");
+						Console.ReadLine();
+					}
 				}
 			}
 		}
