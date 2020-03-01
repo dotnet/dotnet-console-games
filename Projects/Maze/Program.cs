@@ -5,9 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-#if UsePrims
-using Prims;
-#endif
+using Towel.DataStructures;
 
 class Program
 {
@@ -18,7 +16,7 @@ class Program
 		const int columns = 20;
 		static Maze.Tile[,] GenerateMaze() =>
 #if UsePrims
-			PrimsMazeGenerator.Generate(rows, columns);
+			Maze.GeneratePrims(rows, columns);
 #else
 			Maze.Generate(rows, columns);
 #endif
@@ -88,6 +86,8 @@ public static class Maze
 		Start = 16,
 		End = 32,
 	}
+
+	#region Algorithm 1
 
 	internal class Node
 	{
@@ -367,6 +367,212 @@ public static class Maze
 		return maze;
 #pragma warning restore IDE0042 // Deconstruct variable declaration
 	}
+
+	#endregion
+
+	#region Algorithm 2 (Prims)
+
+	public class Graph
+	{
+		public class Node
+		{
+			public int OwnIndex { get; }
+			public List<int> Connections { get; }
+			public List<double> Costs { get; }
+
+			public void Add(int other, double cost)
+			{
+				Connections.Add(other);
+				Costs.Add(cost);
+			}
+
+			public Node(int ownIndex)
+			{
+				OwnIndex = ownIndex;
+				Connections = new List<int>();
+				Costs = new List<double>();
+			}
+		}
+
+		public Node[] Nodes { get; }
+
+		public Graph(Node[] nodes)
+		{
+			Nodes = nodes ?? throw new ArgumentNullException(nameof(nodes));
+		}
+
+		public static Maze.Tile[,] ConvertToGrid(Graph graph, int rows, int columns, Func<int, int, int> index, int start_row, int start_column, int end_row, int end_column)
+		{
+			var tiles = new Maze.Tile[rows, columns];
+
+			foreach (var node in graph.Nodes)
+			{
+				if (node == null)
+					continue;
+
+				(int, int) Unpack(int i) => (i % rows, i / rows);
+
+				var (row, col) = Unpack(node.OwnIndex);
+
+				// directional
+				if (node.Connections.Contains(index(row - 1, col)))
+				{
+					tiles[row, col] |= Maze.Tile.Up;
+					tiles[row - 1, col] |= Maze.Tile.Down;
+				}
+				if (node.Connections.Contains(index(row + 1, col)))
+				{
+					tiles[row, col] |= Maze.Tile.Down;
+					tiles[row + 1, col] |= Maze.Tile.Up;
+				}
+				if (node.Connections.Contains(index(row, col - 1)))
+				{
+					tiles[row, col] |= Maze.Tile.Left;
+					tiles[row, col - 1] |= Maze.Tile.Right;
+				}
+				if (node.Connections.Contains(index(row, col + 1)))
+				{
+					tiles[row, col] |= Maze.Tile.Right;
+					tiles[row, col + 1] |= Maze.Tile.Left;
+				}
+
+				// start/end
+				if (row == start_row && col == start_column)
+				{
+					tiles[row, col] |= Maze.Tile.Start;
+				}
+				if (row == end_row && col == end_column)
+				{
+					tiles[row, col] |= Maze.Tile.End;
+				}
+			}
+			return tiles;
+		}
+	}
+
+	public static Tile[,] GeneratePrims(
+		int rows, int columns,
+		int? start_row = null, int? start_column = null,
+		int? end_row = null, int? end_column = null)
+	{
+		start_row ??= 0;
+		start_column ??= 0;
+		end_row ??= rows - 1;
+		end_column ??= columns - 1;
+
+		var grid = new Graph.Node[rows * columns];
+
+		int Index(int row, int col) => row + rows * col;
+
+		var random = new Random();
+
+		for (int row = 0; row < rows; row++)
+		{
+			for (int col = 0; col < columns; col++)
+			{
+				var n = new Graph.Node(Index(row, col));
+				if (row + 1 < rows)
+				{
+					n.Add(Index(row + 1, col), random.NextDouble());
+				}
+				if (row - 1 >= 0)
+				{
+					n.Add(Index(row - 1, col), random.NextDouble());
+				}
+				if (col + 1 < columns)
+				{
+					n.Add(Index(row, col + 1), random.NextDouble());
+				}
+				if (col - 1 >= 0)
+				{
+					n.Add(Index(row, col - 1), random.NextDouble());
+				}
+				grid[Index(row, col)] = n;
+			}
+		}
+
+		var graph = new Graph(grid);
+
+#if DebugRandomMazeGeneration
+			
+		Console.Clear();
+		Console.WriteLine(Maze.Render(Graph.ConvertToGrid(graph, rows, columns, Index, start_row.Value, start_column.Value, end_row.Value, end_column.Value)));
+		Console.WriteLine("Press Enter To Continue...");
+		Console.ReadLine();
+		var res = SimplePrims(graph, rows, columns, Index, start_row.Value, start_column.Value, end_row.Value, end_column.Value);
+#else
+		var res = SimplePrims(graph);
+#endif
+
+		return Graph.ConvertToGrid(res, rows, columns, Index, start_row.Value, start_column.Value, end_row.Value, end_column.Value);
+	}
+
+	private readonly struct TwoWayConnection : IComparable<TwoWayConnection>
+	{
+		public readonly int IndexA;
+		public readonly int IndexB;
+		public readonly double Cost;
+
+		public TwoWayConnection(int indexA, int indexB, double cost)
+		{
+			IndexA = indexA;
+			IndexB = indexB;
+			Cost = cost;
+		}
+
+		public int CompareTo(TwoWayConnection other) => other.Cost.CompareTo(Cost); // inversed because of how the heap works
+	}
+
+	public static Graph SimplePrims(Graph graph
+#if DebugRandomMazeGeneration
+		, int rows, int columns, Func<int, int, int> index, int start_row, int start_column, int end_row, int end_column
+#endif
+
+	)
+	{
+		var newGraph = new Graph(new Graph.Node[graph.Nodes.Length]);
+		var nodes = graph.Nodes;
+		var current = nodes[0];
+		newGraph.Nodes[0] = new Graph.Node(0);
+
+		var heap = new HeapArray<TwoWayConnection>();
+
+		while (true)
+		{
+			for (int i = 0; i < current.Connections.Count; i++)
+			{
+				heap.Enqueue(new TwoWayConnection(current.OwnIndex, current.Connections[i], current.Costs[i]));
+			}
+
+			TwoWayConnection c;
+			do
+			{
+				if (heap.Count == 0)
+				{
+					return newGraph;
+				}
+				c = heap.Dequeue();
+			}
+			while (newGraph.Nodes[c.IndexB] != null);
+
+			newGraph.Nodes[c.IndexA].Add(c.IndexB, c.Cost);
+
+			newGraph.Nodes[c.IndexB] = new Graph.Node(c.IndexB);
+			current = graph.Nodes[c.IndexB];
+			newGraph.Nodes[c.IndexB].Add(c.IndexA, c.Cost);
+
+#if DebugRandomMazeGeneration
+			
+			Console.Clear();
+			Console.WriteLine(Maze.Render(Graph.ConvertToGrid(newGraph, rows, columns, index, start_row, start_column, end_row, end_column)));
+			Console.WriteLine("Press Enter To Continue...");
+			Console.ReadLine();
+			
+#endif
+		}
+	}
+
+	#endregion
 
 	public static string Render(Tile[,] maze)
 	{
