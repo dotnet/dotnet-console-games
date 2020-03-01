@@ -1,11 +1,13 @@
 ﻿//#define MazeGenertorLoop // uncomment to run the generator in a loop
 //#define DebugRandomMazeGeneration // uncomment me to watch the maze being built node-by-node
-//#define UsePrims
+//#define UsePrims // uncomment me to use an alternate algorithm for maze generation
 
 using System;
 using System.Collections.Generic;
 using System.Text;
+#if UsePrims
 using Prims;
+#endif
 
 class Program
 {
@@ -19,7 +21,7 @@ class Program
 			PrimsMazeGenerator.Generate(rows, columns);
 #else
 			Maze.Generate(rows, columns);
-			#endif
+#endif
 #if MazeGenertorLoop
 		while (true)
 		{
