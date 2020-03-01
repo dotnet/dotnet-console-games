@@ -1,4 +1,6 @@
-﻿using System;
+﻿// #define DebugMazeGeneration
+using System;
+using Towel.DataStructures;
 
 namespace Prims
 {
@@ -45,49 +47,85 @@ namespace Prims
 				}
 			}
 
-			var res = PrimsAlgorithm.SimplePrims(new Graph(grid));
+			var graph = new Graph(grid);
+			
+			#if DebugMazeGeneration
+			
+			Console.Clear();
+			Console.WriteLine(Maze.Render(Graph.ConvertToGrid(graph, rows, columns, Index, start_row.Value, start_column.Value, end_row.Value, end_column.Value)));
+			Console.WriteLine("Press Enter To Continue...");
+			Console.ReadLine();
+			var res = SimplePrims(graph, rows, columns, Index, start_row.Value, start_column.Value, end_row.Value, end_column.Value);
+			#else
+			var res = SimplePrims(graph);
+			#endif
 
-			var tiles = new Maze.Tile[rows, columns];
+			return Graph.ConvertToGrid(res, rows, columns, Index, start_row.Value, start_column.Value, end_row.Value, end_column.Value);
+		}
+		
+		private readonly struct TwoWayConnection : IComparable<TwoWayConnection>
+		{
+			public readonly int IndexA;
+			public readonly int IndexB;
+			public readonly double Cost;
 
-			foreach (var node in res.Nodes)
+			public TwoWayConnection(int indexA, int indexB, double cost)
 			{
-				(int, int) Unpack(int i) => (i % rows, i / rows);
-
-				var (row, col) = Unpack(node.OwnIndex);
-
-				// directional
-				if (node.Connections.Contains(Index(row - 1, col)))
-				{
-					tiles[row, col] |= Maze.Tile.Up;
-					tiles[row - 1, col] |= Maze.Tile.Down;
-				}
-				if (node.Connections.Contains(Index(row + 1, col)))
-				{
-					tiles[row, col] |= Maze.Tile.Down;
-					tiles[row + 1, col] |= Maze.Tile.Up;
-				}
-				if (node.Connections.Contains(Index(row, col - 1)))
-				{
-					tiles[row, col] |= Maze.Tile.Left;
-					tiles[row, col - 1] |= Maze.Tile.Right;
-				}
-				if (node.Connections.Contains(Index(row, col + 1)))
-				{
-					tiles[row, col] |= Maze.Tile.Right;
-					tiles[row, col + 1] |= Maze.Tile.Left;
-				}
-
-				// start/end
-				if (row == start_row.Value && col == start_column.Value)
-				{
-					tiles[row, col] |= Maze.Tile.Start;
-				}
-				if (row == end_row.Value && col == end_column.Value)
-				{
-					tiles[row, col] |= Maze.Tile.End;
-				}
+				IndexA = indexA;
+				IndexB = indexB;
+				Cost = cost;
 			}
-			return tiles;
+
+			public int CompareTo(TwoWayConnection other) => other.Cost.CompareTo(Cost); // inversed because of how the heap works
+		}
+
+		public static Graph SimplePrims(Graph graph
+#if DebugMazeGeneration
+			, int rows, int columns, Func<int, int, int> index, int start_row, int start_column, int end_row, int end_column
+#endif
+
+		)
+		{
+			var newGraph = new Graph(new Graph.Node[graph.Nodes.Length]);
+			var nodes = graph.Nodes;
+			var current = nodes[0];
+			newGraph.Nodes[0] = new Graph.Node(0);
+
+			var heap = new HeapArray<TwoWayConnection>();
+
+			while (true)
+			{
+				for (int i = 0; i < current.Connections.Count; i++)
+				{
+					heap.Enqueue(new TwoWayConnection(current.OwnIndex, current.Connections[i], current.Costs[i]));
+				}
+
+				TwoWayConnection c;
+				do
+				{
+					if (heap.Count == 0)
+					{
+						return newGraph;
+					}
+					c = heap.Dequeue();
+				}
+				while (newGraph.Nodes[c.IndexB] != null);
+
+				newGraph.Nodes[c.IndexA].Add(c.IndexB, c.Cost);
+
+				newGraph.Nodes[c.IndexB] = new Graph.Node(c.IndexB);
+				current = graph.Nodes[c.IndexB];
+				newGraph.Nodes[c.IndexB].Add(c.IndexA, c.Cost);
+				
+#if DebugMazeGeneration
+			
+				Console.Clear();
+				Console.WriteLine(Maze.Render(Graph.ConvertToGrid(newGraph, rows, columns, index, start_row, start_column, end_row, end_column)));
+				Console.WriteLine("Press Enter To Continue...");
+				Console.ReadLine();
+			
+#endif
+			}
 		}
 	}
 }
