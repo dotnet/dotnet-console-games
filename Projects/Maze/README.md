@@ -42,6 +42,8 @@ The **arrow keys (↑, ↓, ←, →)** are used to change the direction you are
 At the top of the **[source code](Program.cs)** you will see two compiler directives...
 - `#define MazeGenertorLoop`: Uncomment this directive and you can watch the code generate mazes infinitely inside a `while (true)` loop.
 - `#define DebugRandomMazeGeneration`: Uncomment this directive and you can watch the maze generation algorithm step-by-step.
+- `#define UsePrims`: Uncomment this directive to use an alternative algorithm for generating mazes.
+	- [Known Issue](https://github.com/ZacharyPatten/dotnet-console-games/issues/8): the `UsePrims` directive currently doesn't also support the `DebugRandomMazeGeneration` yet.
 
 ## Dependencies
 
