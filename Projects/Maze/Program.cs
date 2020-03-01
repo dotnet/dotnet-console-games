@@ -1,6 +1,8 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Text;
+#if UsePrims
+using Prims;
+#endif
 
 class Program
 {
@@ -45,10 +47,15 @@ class Program
 		Console.WindowHeight = 32;
 		const int rows = 8;
 		const int columns = 20;
-		
 		while (Loop)
 		{
-			Maze.Tile[,] m = Maze.Generate(rows, columns);
+		static Maze.Tile[,] GenerateMaze() =>
+			GeneratorMode switch 
+      {
+          GeneratorMode.Prims => PrimsMazeGenerator.Generate(rows, columns),
+			    GeneratorMode.Default => Maze.Generate(rows, columns);
+      };
+			Maze.Tile[,] maze = GenerateMaze();
 			Console.Clear();
 			Console.WriteLine(Maze.Render(m));
 			Console.WriteLine("Press Enter To Continue...");
@@ -56,7 +63,7 @@ class Program
 		}
 		
 		Console.CursorVisible = true;
-		Maze.Tile[,] maze = Maze.Generate(rows, columns);
+		Maze.Tile[,] maze = GenerateMaze();
 		Console.Clear();
 		Console.WriteLine(Maze.Render(maze));
 		Console.WriteLine();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using static System.Console;
+using Towel;
 
 class Program
 {
@@ -188,7 +189,7 @@ class Program
 		Map = new Tile[width, height];
 		// Get Random Locations
 		Random random = new Random();
-		(int X, int Y)[] randomCoordinates = random.UniqueInts(5, 1..(width * height)).Select(i => (i / width, i % width)).ToArray();
+		(int X, int Y)[] randomCoordinates = random.NextUnique(5, 1, (width * height)).Select(i => (i / width, i % width)).ToArray();
 		var wumpusLocation = randomCoordinates[0];
 		var goldLocation = randomCoordinates[1];
 		var pitLocations = randomCoordinates[2..^0];
@@ -216,47 +217,4 @@ enum Tile
 	Wumpus,
 	Gold,
 	Pit,
-}
-
-public static class Helpers
-{
-	internal class Node
-	{
-		internal int Value;
-		internal Node Next;
-	}
-
-	public static IEnumerable<int> UniqueInts(this Random random, int count, Range range)
-	{
-		if (random is null)
-			throw new ArgumentNullException(nameof(random));
-		(int a, int b) = range.End.Value < range.Start.Value
-			? (range.End.Value, range.Start.Value)
-			: (range.Start.Value, range.End.Value);
-		if (count < 0)
-			throw new ArgumentOutOfRangeException(nameof(count) + " < 0");
-		if (b - a < count)
-			throw new ArgumentOutOfRangeException(nameof(count) + " is larger than " + nameof(range));
-
-		Node head = null;
-		for (int i = 0; i < count; i++)
-		{
-			int roll = random.Next(a, b - i);
-			Node node = head;
-			Node previous = null;
-			while (!(node is null))
-			{
-				if (node.Value > roll)
-					break;
-				roll++;
-				previous = node;
-				node = node.Next;
-			}
-			yield return roll;
-			if (previous is null)
-				head = new Node() { Value = roll, Next = head, };
-			else
-				previous.Next = new Node() { Value = roll, Next = previous.Next };
-		}
-	}
 }
