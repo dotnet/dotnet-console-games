@@ -40,4 +40,4 @@ This game uses commands. Each screen will give you the list of available command
 
 Don't forget these dependencies if you copy the code:
 
-- [Towel](https://github.com/ZacharyPatten/Towel) nuget package _(referenced in [Wumpus World.csproj](Wumpus World.csproj))_
+- [Towel](https://github.com/ZacharyPatten/Towel) nuget package _(referenced in [Wumpus World.csproj](Wumpus%20World.csproj))_
