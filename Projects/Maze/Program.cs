@@ -1,9 +1,11 @@
 ﻿//#define MazeGenertorLoop // uncomment to run the generator in a loop
 //#define DebugRandomMazeGeneration // uncomment me to watch the maze being built node-by-node
+//#define UsePrims
 
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Prims;
 
 class Program
 {
@@ -12,10 +14,16 @@ class Program
 		Console.WindowHeight = 32;
 		const int rows = 8;
 		const int columns = 20;
+		static Maze.Tile[,] GenerateMaze() =>
+#if UsePrims
+			PrimsMazeGenerator.Generate(rows, columns);
+#else
+			Maze.Generate(rows, columns);
+			#endif
 #if MazeGenertorLoop
 		while (true)
 		{
-			Maze.Tile[,] maze = Maze.Generate(rows, columns);
+			Maze.Tile[,] maze = GenerateMaze();
 			Console.Clear();
 			Console.WriteLine(Maze.Render(maze));
 			Console.WriteLine("Press Enter To Continue...");
@@ -23,7 +31,7 @@ class Program
 		}
 #else
 		Console.CursorVisible = true;
-		Maze.Tile[,] maze = Maze.Generate(rows, columns);
+		Maze.Tile[,] maze = GenerateMaze();
 		Console.Clear();
 		Console.WriteLine(Maze.Render(maze));
 		Console.WriteLine();
