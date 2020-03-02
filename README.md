@@ -64,3 +64,7 @@ This repository welcomes contributions.
 
 - Notice anything you think can be improved? **[Open an issue](https://github.com/ZacharyPatten/dotnet-console-games/issues/new)**.
 - Want to contribute to the code? Have a game you want to share? Sign up with a GitHub account, fork the code, make some code changes, and open a pull request.
+
+## Contact
+
+You can chat with the developers via [Discord](https://discord.gg/4XbQbwF).
