@@ -85,7 +85,7 @@ class Program
 
 	#endregion
 
-	static readonly bool CursorVisible = Console.CursorVisible;
+	static readonly bool CursorVisible = GetConsoleCursorVisible();
 	static readonly Random random = new Random();
 	static readonly TimeSpan buttonPress = TimeSpan.FromMilliseconds(500);
 	static readonly TimeSpan animationDelay = TimeSpan.FromMilliseconds(200);
@@ -186,6 +186,19 @@ class Program
 			{
 				Console.Write(c);
 			}
+		}
+	}
+
+	static bool GetConsoleCursorVisible()
+	{
+		try
+		{
+			return Console.CursorVisible;
+		}
+		catch (PlatformNotSupportedException)
+		{
+			// Non-Windows OS. Assume true.
+			return true;
 		}
 	}
 }
