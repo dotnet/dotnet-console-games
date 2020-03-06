@@ -37,7 +37,26 @@ class Program
 			ShuffleFrequencies();
 			RenderGame();
 			Console.CursorVisible = false;
-			PlayAnswerAudio(answerCode);
+			try
+			{
+				PlayAnswerAudio(answerCode);
+			}
+			catch (PlatformNotSupportedException)
+			{
+				Console.WriteLine();
+				Console.WriteLine("Unfortunately this game is not supported");
+				Console.WriteLine("on your operating system. :(");
+				Console.WriteLine("Press enter to close...");
+			GetInput:
+				switch (Console.ReadKey(true).Key)
+				{
+					case ConsoleKey.Enter: break;
+					case ConsoleKey.Escape: return;
+					default: goto GetInput;
+				}
+				Console.Clear();
+				return;
+			}
 			while (true)
 			{
 				RenderGame();
