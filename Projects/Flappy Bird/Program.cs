@@ -13,7 +13,7 @@ class Program
 
 	static readonly int OriginalWidth = Console.WindowWidth;
 	static readonly int OriginalHeight = Console.WindowHeight;
-	static readonly bool OriginalCursorVisible = Console.CursorVisible;
+	static readonly bool OriginalCursorVisible = GetConsoleCursorVisible();
 
 	static readonly TimeSpan Sleep = TimeSpan.FromMilliseconds(90);
 	static readonly Random Random = new Random();
@@ -34,8 +34,17 @@ class Program
 		PlayAgain:
 			Console.Clear();
 			Pipes.Clear();
-			Width = Console.WindowWidth = 120;
-			Height = Console.WindowHeight = 30;
+			try
+			{
+				Width = Console.WindowWidth = 120;
+				Height = Console.WindowHeight = 30;
+			}
+			catch (PlatformNotSupportedException)
+			{
+				// not Windows OS
+				Width = Console.WindowWidth;
+				Height = Console.WindowHeight;
+			}
 			BirdX = Width / 6;
 			BirdY = Height / 2;
 			BirdDY = 0;
@@ -202,6 +211,19 @@ class Program
 			bool verticalVelocity = BirdDY < 0;
 			Console.SetCursorPosition((int)BirdX - 3, (int)BirdY);
 			Console.Write(verticalVelocity ? BirdUp : BirdDown);
+		}
+	}
+
+	static bool GetConsoleCursorVisible()
+	{
+		try
+		{
+			return Console.CursorVisible;
+		}
+		catch (PlatformNotSupportedException)
+		{
+			// Non-Windows OS. Assume true.
+			return true;
 		}
 	}
 }
