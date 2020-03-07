@@ -51,7 +51,7 @@ Open the **dotnet-console-games.sln** solution file in Visual Studio.
 
 Install [Visual Studio Code](https://visualstudio.microsoft.com/)
 
-Install the `ms-vscode.csharp` extension inside Visual Studio Code.
+Install the `ms-dotnettools.csharp` extension inside Visual Studio Code.
 
 Open the **root folder** of the of this repository in Visual Studio Code.
 
