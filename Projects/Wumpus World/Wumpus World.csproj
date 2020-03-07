@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Towel" Version="1.0.10-alpha" />
+    <PackageReference Include="Towel" Version="1.0.11-alpha" />
   </ItemGroup>
 
 </Project>
