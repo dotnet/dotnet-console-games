@@ -204,7 +204,7 @@ class Program
 			line.A = temp;
 		}
 		// find the slope
-		float slope = (line.B.X - line.A.X) / (line.B.Y - line.A.Y);
+		float slope = (line.B.Y - line.A.Y) / (line.B.X - line.A.X);
 		// find the y-intercept
 		float yIntercept = line.A.Y - line.A.X * slope;
 		// find the function's value at parameter "x"
