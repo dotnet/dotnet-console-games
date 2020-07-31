@@ -164,7 +164,7 @@ class Program
 		{
 			Console.Write("You win.");
 		}
-		if (scoreA > scoreB)
+		if (scoreA < scoreB)
 		{
 			Console.Write("You lose.");
 		}
@@ -172,7 +172,7 @@ class Program
 
 	static Ball CreateNewBall()
 	{
-		float randomFloat = (float)random.NextDouble() * 0.9f;
+		float randomFloat = (float)random.NextDouble() * 2f;
 		float dx = Math.Max(randomFloat, 1f - randomFloat);
 		float dy = 1f - dx;
 		float x = width / 2;
