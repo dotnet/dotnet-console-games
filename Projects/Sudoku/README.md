@@ -24,7 +24,7 @@ Sudoku is a randomly generated number puzzle game.The goal is to fill in the ent
 
 ## Input
 
-The * *arrow keys(↑, ↓, ←, →) * *are used to change the selected cell.The * *1 - 9 number keys * *are used to insert a value into the current cell(if the move is valid). The * *\[delete\] and \[backspace\] keys** will remove values from the board. The **\[end\] key** will generate a new puzzle if you get stuck. The * *\[enter\] key** will generate a new puzzle after you win.The **\[escape\] key** will exit the game.
+The **arrow keys(↑, ↓, ←, →)** are used to change the selected cell.The **1 - 9 number keys** are used to insert a value into the current cell(if the move is valid). The **\[delete\] and \[backspace\] keys** will remove values from the board. The **\[end\] key** will generate a new puzzle if you get stuck. The **\[enter\] key** will generate a new puzzle after you win.The **\[escape\] key** will exit the game.
 
 ## Notes
 
