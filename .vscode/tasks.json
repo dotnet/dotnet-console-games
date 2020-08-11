@@ -120,6 +120,19 @@
             "problemMatcher": "$msCompile",
         },
         {
+            "label": "Build Sudoku",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/Sudoku/Sudoku.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
+        {
             "label": "Build Fighter",
             "command": "dotnet",
             "type": "process",

@@ -135,6 +135,17 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Sudoku",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Sudoku",
+			"program": "${workspaceFolder}/Projects/Sudoku/bin/Debug/netcoreapp3.1/Sudoku.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Projects/Sudoku/bin/Debug/netcoreapp3.1",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Maze",
 			"type": "coreclr",
 			"request": "launch",
