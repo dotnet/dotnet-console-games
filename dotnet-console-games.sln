@@ -33,9 +33,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangman", "Projects\Hangman
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flappy Bird", "Projects\Flappy Bird\Flappy Bird.csproj", "{EAD4A294-7F71-49F3-AAA0-5BB1CE638001}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hearts (Work In Progress)", "Projects\Hearts\Hearts (Work In Progress).csproj", "{0A7EE167-1B80-4673-8510-8716A8B78AD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hearts (Work In Progress)", "Projects\Hearts\Hearts (Work In Progress).csproj", "{0A7EE167-1B80-4673-8510-8716A8B78AD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PacMan (Work In Progress)", "Projects\PacMan\PacMan (Work In Progress).csproj", "{30D6C5DB-92D5-4D5A-979E-80F198ED0D44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PacMan (Work In Progress)", "Projects\PacMan\PacMan (Work In Progress).csproj", "{30D6C5DB-92D5-4D5A-979E-80F198ED0D44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku", "Projects\Sudoku\Sudoku.csproj", "{DC5A75DD-AE7B-4545-B640-CF422BCF000A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +113,10 @@ Global
 		{30D6C5DB-92D5-4D5A-979E-80F198ED0D44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30D6C5DB-92D5-4D5A-979E-80F198ED0D44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30D6C5DB-92D5-4D5A-979E-80F198ED0D44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC5A75DD-AE7B-4545-B640-CF422BCF000A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC5A75DD-AE7B-4545-B640-CF422BCF000A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC5A75DD-AE7B-4545-B640-CF422BCF000A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC5A75DD-AE7B-4545-B640-CF422BCF000A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
