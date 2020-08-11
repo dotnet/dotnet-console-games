@@ -29,7 +29,7 @@ The **arrow keys(↑, ↓, ←, →)** are used to change the selected cell.The 
 ## Notes
 
 At the top of the **[source code](Program.cs)** you will see compiler directive(s):
-- `#define DebugRandomMazeGeneration`: Uncomment this directive and you can watch the sudoku generation algorithm step-by-step.
+- `#define DebugAlgorithm`: Uncomment this directive and you can watch the sudoku generation algorithm step-by-step.
 
 ## Dependencies
 
