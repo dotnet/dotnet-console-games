@@ -4,7 +4,7 @@
 
 **[Source Code](Program.cs)**
 
-Sudoku is a randomly generated number puzzle game.The goal is to fill in the entire board with the numbers 1 - 9. However, you cannot duplicate the values within the same row, column or 3x3 square.
+Sudoku is a randomly generated number puzzle game.The goal is to fill in the entire board with the numbers 1 through 9. However, you cannot duplicate the values within the same row, column, or 3x3 square.
 
 ```
 ╔═══════╦═══════╦═══════╗
