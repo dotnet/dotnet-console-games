@@ -4,7 +4,7 @@
 
 **[Source Code](Program.cs)**
 
-2048 is a sliding number puzzle game. Slide all the tiles on the board on one direction: up, down, left, or right. If two like numbers collide, they will combine into a higher value tile. The goal is toget a "2048" value tile on the board, but you can even keep played after that to try to get a high score.
+2048 is a sliding number puzzle game. Slide all the tiles on the board in one direction: up, down, left, or right. If two like numbers collide, they will combine into a higher value tile. The goal is to get a "2048" value tile on the board, but you can even keep played after that to try to get a high score.
 
 ```
 2048
@@ -25,4 +25,4 @@ Score: 774
 
 ## Input
 
-The **arrow keys (↑, ↓, ←, →)** are used to slide the tiles on the board. The **[end] key will end the current game and start a new one. The **escape** key may be used to close the game.
+The **arrow keys (↑, ↓, ←, →)** are used to slide the tiles on the board. The **[end] key** will end the current game and start a new one. The **escape** key may be used to close the game.

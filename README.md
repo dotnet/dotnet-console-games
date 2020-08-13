@@ -42,7 +42,7 @@ Install [Visual Studio](https://visualstudio.microsoft.com/)
 
 Make sure you select the `.NET Core` options during installation. If you forget, you can modify your installation using the Visual Studio Installer to add them.
 
-Open the **dotnet-console-games.sln** solution file in Visual Studio.
+Open the **`dotnet-console-games.sln`** solution file in Visual Studio.
 
 </p>
 </details>
