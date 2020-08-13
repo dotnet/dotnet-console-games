@@ -1,0 +1,20 @@
+name: 2048 Build
+
+on:
+  push:
+    paths:
+    - 'Projects/2048/**'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.100
+    - name: Build with dotnet
+      run: dotnet build "Projects\2048\2048.csproj" --configuration Release

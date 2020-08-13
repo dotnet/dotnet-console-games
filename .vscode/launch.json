@@ -135,6 +135,17 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "2048",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build 2048",
+			"program": "${workspaceFolder}/Projects/2048/bin/Debug/netcoreapp3.1/2048.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Projects/2048/bin/Debug/netcoreapp3.1",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Sudoku",
 			"type": "coreclr",
 			"request": "launch",

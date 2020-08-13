@@ -210,5 +210,18 @@
             ],
             "problemMatcher": "$msCompile",
         },
+        {
+            "label": "Build 2048",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/2048/2048.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
     ],
 }

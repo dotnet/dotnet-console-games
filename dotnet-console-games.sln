@@ -37,7 +37,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hearts (Work In Progress)",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PacMan (Work In Progress)", "Projects\PacMan\PacMan (Work In Progress).csproj", "{30D6C5DB-92D5-4D5A-979E-80F198ED0D44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku", "Projects\Sudoku\Sudoku.csproj", "{DC5A75DD-AE7B-4545-B640-CF422BCF000A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sudoku", "Projects\Sudoku\Sudoku.csproj", "{DC5A75DD-AE7B-4545-B640-CF422BCF000A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2048", "Projects\2048\2048.csproj", "{52E8BFD3-9F2A-4375-9F51-48BD1C88F274}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +119,10 @@ Global
 		{DC5A75DD-AE7B-4545-B640-CF422BCF000A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC5A75DD-AE7B-4545-B640-CF422BCF000A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC5A75DD-AE7B-4545-B640-CF422BCF000A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52E8BFD3-9F2A-4375-9F51-48BD1C88F274}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52E8BFD3-9F2A-4375-9F51-48BD1C88F274}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52E8BFD3-9F2A-4375-9F51-48BD1C88F274}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52E8BFD3-9F2A-4375-9F51-48BD1C88F274}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
