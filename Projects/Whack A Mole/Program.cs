@@ -46,8 +46,7 @@ public class Program
 			Console.WriteLine();
 			Console.WriteLine(
 				$"You have {(int)playTime.TotalSeconds} seconds to whack as many Java noobs as you " +
-				"can before the timer runs out. You have 60 seconds. Use " +
-				"the number keys 1-9 to whack. Are you ready? ");
+				"can before the timer runs out. Use the number keys 1-9 to whack. Are you ready? ");
 			Console.WriteLine();
 			Console.WriteLine("Play [enter], or quit [escape]?");
 		GetInput:
