@@ -3,6 +3,17 @@
 	"configurations":
 	[
 		{
+			"name": "Whack A Mole",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Whack A Mole",
+			"program": "${workspaceFolder}/Projects/Whack A Mole/bin/Debug/netcoreapp3.1/Whack A Mole.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Projects/Whack A Mole/bin/Debug/netcoreapp3.1",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Tic Tac Toe",
 			"type": "coreclr",
 			"request": "launch",

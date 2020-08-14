@@ -39,7 +39,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PacMan (Work In Progress)",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sudoku", "Projects\Sudoku\Sudoku.csproj", "{DC5A75DD-AE7B-4545-B640-CF422BCF000A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2048", "Projects\2048\2048.csproj", "{52E8BFD3-9F2A-4375-9F51-48BD1C88F274}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2048", "Projects\2048\2048.csproj", "{52E8BFD3-9F2A-4375-9F51-48BD1C88F274}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Whack A Mole", "Projects\Whack A Mole\Whack A Mole.csproj", "{7BF11797-832F-4D9E-A92B-EA97C5A5EF1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +125,10 @@ Global
 		{52E8BFD3-9F2A-4375-9F51-48BD1C88F274}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52E8BFD3-9F2A-4375-9F51-48BD1C88F274}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52E8BFD3-9F2A-4375-9F51-48BD1C88F274}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BF11797-832F-4D9E-A92B-EA97C5A5EF1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BF11797-832F-4D9E-A92B-EA97C5A5EF1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BF11797-832F-4D9E-A92B-EA97C5A5EF1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BF11797-832F-4D9E-A92B-EA97C5A5EF1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

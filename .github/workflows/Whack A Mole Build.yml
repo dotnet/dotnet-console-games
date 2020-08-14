@@ -1,0 +1,20 @@
+name: Whack A Mole Build
+
+on:
+  push:
+    paths:
+    - 'Projects/Whack A Mole/**'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.100
+    - name: Build with dotnet
+      run: dotnet build "Projects\Whack A Mole\Whack A Mole.csproj" --configuration Release
