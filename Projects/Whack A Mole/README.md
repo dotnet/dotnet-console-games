@@ -1,4 +1,4 @@
-# Tic Tac Toe
+# Whack A Mole
 
 ![](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Whack%20A%20Mole%20Build/badge.svg)
 
