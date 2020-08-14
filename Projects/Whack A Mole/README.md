@@ -4,7 +4,7 @@
 
 **[Source Code](Program.cs)**
 
-Whack A Mole (Java Noob Edition) is a reaction-based game. Whack as Java noobs as you can before time is up.
+Whack A Mole (Java Noob Edition) is a reaction-based game. Whack as many Java noobs as you can before time is up.
 
 ```cs
  ╔═══╦═══════╗ ╔═══╦═══════╗ ╔═══╦═══════╗
