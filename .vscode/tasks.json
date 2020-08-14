@@ -223,5 +223,18 @@
             ],
             "problemMatcher": "$msCompile",
         },
+        {
+            "label": "Build Whack A Mole",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/Whack A Mole/Whack A Mole.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
     ],
 }
