@@ -106,6 +106,7 @@ public class Program
 			}
 			if (moleLocation == selection)
 			{
+				score++;
 				Console.SetCursorPosition(left, top);
 				Render(Empty);
 				moleLocation = random.Next(1, 10);
