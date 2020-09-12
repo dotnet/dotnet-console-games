@@ -41,7 +41,7 @@ _\***Complexity**: a relative rating for how complex/advanced the source code is
 
 [Download](https://github.com/ZacharyPatten/dotnet-console-games/archive/master.zip) this repository and unzip the contents
 
-There are no custom build processes. `dotnet-Console-games` should build with any standard .NET build process, but one of the following is recommended:
+There are no custom build processes. `dotnet-console-games` should build with any standard .NET build process, but one of the following is recommended:
 
 <details>
 <summary>
