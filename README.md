@@ -70,10 +70,10 @@ Install [Visual Studio Code](https://visualstudio.microsoft.com/) if not already
 
 Open the :file_folder: **`root folder`** of the `dotnet-console-games` repository in Visual Studio Code.
 
-> _**Note** Towel includes the following:_
+> _**Note** `dotnet-console-games` includes the following:_
 > - `.vscode/extensions.json`<sub>recommends Vistual Studio Code extension dependencies</sub>
 > - `.vscode/launch.json`<sub>includes the configurations for debugging the examples</sub>
-> - `.vscode/settings.json`<sub>automatically applies settings to the workspaces</sub>
+> - `.vscode/settings.json`<sub>automatically applies settings to the workspace</sub>
 > - `.vscode/tasks.json`<sub>includes the commands to build the projects</sub>
 
 > _**Note** Visual Studio Code Extensions (will be prompted to install these when you open the folder):_
@@ -84,9 +84,12 @@ Open the :file_folder: **`root folder`** of the `dotnet-console-games` repositor
 
 ## Get Involved
 
-The easiest way to support Towel is to star the github repository.
+The easiest way to support `dotnet-console-games` is to star the github repository.
 
 Have a sugguestion? **[Open an issue](https://github.com/ZacharyPatten/dotnet-console-games/issues/new)**.
+
+You can chat with the developer(s) on discord:</br>
+<a href="https://discord.gg/4XbQbwF" alt="chat on Discord"><img src="https://img.shields.io/discord/557244925712924684?logo=discord" /></a>
 
 Want to contribute? This repository welcomes contributions.
 1. Fork this repository
