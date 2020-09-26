@@ -76,7 +76,7 @@ public class Program
 			Console.Clear();
 			Console.WriteLine("Rythm");
 			Console.WriteLine();
-			Console.WriteLine("Time you button presses...");
+			Console.WriteLine("Time your button presses...");
 			foreach (var (Top, Key) in tracks)
 			{
 				Console.SetCursorPosition(0, Top - 1);
