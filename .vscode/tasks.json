@@ -236,5 +236,18 @@
             ],
             "problemMatcher": "$msCompile",
         },
+        {
+            "label": "Build Rythm",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/Rythm/Rythm.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
     ],
 }
