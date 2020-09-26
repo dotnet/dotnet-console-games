@@ -1,13 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>Wumpus_World</RootNamespace>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Towel" Version="1.0.11-alpha" />
-  </ItemGroup>
-
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<RootNamespace>Wumpus_World</RootNamespace>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Towel" Version="1.0.18-alpha" />
+	</ItemGroup>
 </Project>
