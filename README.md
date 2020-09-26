@@ -1,4 +1,8 @@
 <h1 align="center">
+	<img src="https://raw.githubusercontent.com/ZacharyPatten/dotnet-console-games/master/Resources/banner1.png" />
+</h1>
+
+<h1 align="center">
 	dotnet-console-games
 </h1>
 
