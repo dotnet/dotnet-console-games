@@ -41,7 +41,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sudoku", "Projects\Sudoku\S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2048", "Projects\2048\2048.csproj", "{52E8BFD3-9F2A-4375-9F51-48BD1C88F274}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Whack A Mole", "Projects\Whack A Mole\Whack A Mole.csproj", "{7BF11797-832F-4D9E-A92B-EA97C5A5EF1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Whack A Mole", "Projects\Whack A Mole\Whack A Mole.csproj", "{7BF11797-832F-4D9E-A92B-EA97C5A5EF1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rythm", "Projects\Rythm\Rythm.csproj", "{613A6324-C192-49C2-B39C-9475EF14F551}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -129,6 +131,10 @@ Global
 		{7BF11797-832F-4D9E-A92B-EA97C5A5EF1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BF11797-832F-4D9E-A92B-EA97C5A5EF1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BF11797-832F-4D9E-A92B-EA97C5A5EF1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{613A6324-C192-49C2-B39C-9475EF14F551}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{613A6324-C192-49C2-B39C-9475EF14F551}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{613A6324-C192-49C2-B39C-9475EF14F551}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{613A6324-C192-49C2-B39C-9475EF14F551}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

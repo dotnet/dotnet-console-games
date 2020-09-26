@@ -80,6 +80,17 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Rythm",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Rythm",
+			"program": "${workspaceFolder}/Projects/Rythm/bin/Debug/netcoreapp3.1/Rythm.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Projects/Rythm/bin/Debug/netcoreapp3.1",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Hurdles",
 			"type": "coreclr",
 			"request": "launch",
