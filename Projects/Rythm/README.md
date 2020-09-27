@@ -18,7 +18,7 @@ Rythm is a timing based game where press the proper input when the relative note
 ```
 Rythm
 
-Time you button presses...
+Time your button presses...
 ________________________________________________________________________________
                                                                                 
      ^ UpArrow                                                                  
