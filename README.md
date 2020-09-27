@@ -1,5 +1,5 @@
 <h1 align="center">
-	<img src="https://raw.githubusercontent.com/ZacharyPatten/dotnet-console-games/master/Resources/banner1.png" />
+	<img src="https://github.com/ZacharyPatten/dotnet-console-games/blob/master/.github/resources/banner1.png?raw=true" />
 </h1>
 
 <h1 align="center">
