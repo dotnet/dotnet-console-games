@@ -32,7 +32,6 @@ public class Program
 			TimeSpan spawnTime;
 			int score;
 			int misses;
-			bool gameOver;
 
 			void NewNote()
 			{
