@@ -291,7 +291,7 @@ public static class Sudoku
 			}
 		}
 
-		foreach (int i in random.NextUnique(blanks.Value, 0, 81))
+		foreach (int i in random.NextUnique(Math.Min(80, blanks.Value), 0, 81))
 		{
 			int row = i / 9;
 			int column = i % 9;
