@@ -98,3 +98,6 @@ Want to contribute? This repository welcomes contributions.
 1. Fork this repository
 2. Make some changes
 3. Open a pull request
+
+> If you like this repo, you may also be intersted in:<br>
+> https://github.com/ZacharyPatten/dotnet-blazor-games
