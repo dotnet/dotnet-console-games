@@ -80,7 +80,7 @@ There are no custom build processes. `dotnet-console-games` should build with an
 > > - `.vscode/tasks.json`<sub>includes the commands to build the projects</sub>
 >
 > > **Note** Visual Studio Code Extensions (will be prompted to install these when you open the folder):
-> > - **ms-vscode.csharp** <sub>C# support</sub>
+> > - **ms-dotnettools.csharp** <sub>C# support</sub>
 
 </p>
 </details>
