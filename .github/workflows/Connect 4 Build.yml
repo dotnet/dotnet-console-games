@@ -15,6 +15,6 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0
+        dotnet-version: 5.0.100
     - name: Build with dotnet
       run: dotnet build "Projects\Connect 4\Connect 4.csproj" --configuration Release
