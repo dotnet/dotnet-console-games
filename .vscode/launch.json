@@ -58,6 +58,17 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Connect 4",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Connect 4",
+			"program": "${workspaceFolder}/Projects/Connect 4/bin/Debug/net5.0/Connect 4.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Projects/Connect 4/bin/Debug/net5.0",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Minesweeper",
 			"type": "coreclr",
 			"request": "launch",
