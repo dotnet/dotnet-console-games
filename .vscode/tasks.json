@@ -249,5 +249,18 @@
             ],
             "problemMatcher": "$msCompile",
         },
+        {
+            "label": "Build Connect 4",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/Connect 4/Connect 4.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
     ],
 }
