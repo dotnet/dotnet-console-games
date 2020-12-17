@@ -17,7 +17,7 @@ PlayAgain:
 	player1Turn = player1MovesFirst;
 	player1MovesFirst = !player1MovesFirst;
 	ResetBoard();
-	while (player1Wins is null)
+	while (true)
 	{
 		(int I, int J) move = default;
 		if (player1Turn)
