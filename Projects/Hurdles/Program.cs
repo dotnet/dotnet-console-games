@@ -144,8 +144,11 @@ class Program
 	static void Main()
 	{
 		Console.CursorVisible = false;
-		Console.WindowWidth = 120;
-		Console.WindowHeight = 20;
+		if (OperatingSystem.IsWindows())
+		{
+			Console.WindowWidth = 120;
+			Console.WindowHeight = 20;
+		}
 		Console.Clear();
 		while (position < int.MaxValue)
 		{

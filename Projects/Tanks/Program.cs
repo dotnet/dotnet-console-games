@@ -151,8 +151,11 @@ static class Program
 		AllTanks.AddRange(Tanks);
 
 		Console.CursorVisible = false;
-		Console.WindowWidth = Math.Max(Console.WindowWidth, 90);
-		Console.WindowHeight = Math.Max(Console.WindowHeight, 35);
+		if (OperatingSystem.IsWindows())
+		{
+			Console.WindowWidth = Math.Max(Console.WindowWidth, 90);
+			Console.WindowHeight = Math.Max(Console.WindowHeight, 35);
+		}
 		Console.Clear();
 		Console.SetCursorPosition(0, 0);
 		Render(Ascii.Map);
