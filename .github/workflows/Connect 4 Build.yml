@@ -1,15 +1,12 @@
 name: Connect 4 Build
-
 on:
   push:
     paths:
     - 'Projects/Connect 4/**'
-
+  workflow_dispatch:
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
     - name: Setup .NET Core
