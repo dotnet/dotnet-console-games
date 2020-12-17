@@ -30,6 +30,7 @@ class Program
 		if (InvalidInput)
 		{
 			WriteLine("Invalid Input. Try again...");
+			InvalidInput = false;
 		}
 		Write(">");
 		switch (ReadLine())
@@ -78,6 +79,7 @@ class Program
 		if (InvalidInput)
 		{
 			WriteLine("Invalid Input. Try again...");
+			InvalidInput = false;
 		}
 		Write(">");
 		switch (ReadLine())
@@ -137,6 +139,7 @@ class Program
 		if (InvalidInput)
 		{
 			WriteLine("Invalid Input. Try again...");
+			InvalidInput = false;
 		}
 		Write(">");
 		Direction movement;

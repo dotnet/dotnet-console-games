@@ -4,7 +4,6 @@ using System.Linq;
 bool?[,] board = new bool?[7, 6];
 bool player1Turn;
 bool player1MovesFirst = true;
-bool? player1Wins = default;
 Random random = new Random();
 
 const int moveMinI = 5;

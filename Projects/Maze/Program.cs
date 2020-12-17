@@ -11,7 +11,10 @@ class Program
 {
 	static void Main()
 	{
-		Console.WindowHeight = 32;
+		if (OperatingSystem.IsWindows())
+		{
+			Console.WindowHeight = 32;
+		}
 		const int rows = 8;
 		const int columns = 20;
 		static Maze.Tile[,] GenerateMaze() =>
