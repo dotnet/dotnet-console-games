@@ -79,7 +79,6 @@ class Program
 		if (InvalidInput)
 		{
 			WriteLine("Invalid Input. Try again...");
-			//InvalidInput = false;
 		}
 		Write(">");
 		switch (ReadLine())

@@ -179,7 +179,9 @@ public static class Maze
 					directionBuffer[i++] = (node.Row, node.Column + 1);
 				// if no possibilities return false
 				if (i is 0)
+				{
 					return false;
+				}
 				// get a random move from the possibilities
 				var move = directionBuffer[random.Next(0, i)];
 				// mark the move as explored
@@ -497,7 +499,6 @@ public static class Maze
 		var graph = new Graph(grid);
 
 #if DebugRandomMazeGeneration
-			
 		Console.Clear();
 		Console.WriteLine(Maze.Render(Graph.ConvertToGrid(graph, rows, columns, Index, start_row.Value, start_column.Value, end_row.Value, end_column.Value)));
 		Console.WriteLine("Press Enter To Continue...");
@@ -530,8 +531,7 @@ public static class Maze
 #if DebugRandomMazeGeneration
 		, int rows, int columns, Func<int, int, int> index, int start_row, int start_column, int end_row, int end_column
 #endif
-
-	)
+		)
 	{
 		var newGraph = new Graph(new Graph.Node[graph.Nodes.Length]);
 		var nodes = graph.Nodes;
@@ -565,12 +565,10 @@ public static class Maze
 			newGraph.Nodes[c.IndexB].Add(c.IndexA, c.Cost);
 
 #if DebugRandomMazeGeneration
-			
 			Console.Clear();
 			Console.WriteLine(Maze.Render(Graph.ConvertToGrid(newGraph, rows, columns, index, start_row, start_column, end_row, end_column)));
 			Console.WriteLine("Press Enter To Continue...");
 			Console.ReadLine();
-			
 #endif
 		}
 	}

@@ -42,7 +42,7 @@ try
 		}
 		if (X < 0 || X >= width ||
 			Y < 0 || Y >= height ||
-			map[X, Y] == Tile.Snake)
+			map[X, Y] is Tile.Snake)
 		{
 			Console.Clear();
 			Console.Write("Game Over. Score: " + (snake.Count - 1) + ".");
@@ -95,7 +95,7 @@ void PositionFood()
 	{
 		for (int j = 0; j < height; j++)
 		{
-			if (map[i, j] == Tile.Open)
+			if (map[i, j] is Tile.Open)
 			{
 				possibleCoordinates.Add((i, j));
 			}

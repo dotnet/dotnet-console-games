@@ -6,7 +6,6 @@ class Program
 	static readonly string[] runningAnimation = new string[]
 	{
 		#region Frames
-
 		// 0
 		@"       " + '\n' +
 		@"       " + '\n' +
@@ -56,14 +55,12 @@ class Program
 		@" | |L  " + '\n' +
 		@"   /-- " + '\n' +
 		@"  /   |",
-
 		#endregion
 	};
 
 	static readonly string[] jumpingAnimation = new string[]
 	{
 		#region Frames
-
 		// 0
 		@"       " + '\n' +
 		@"       " + '\n' +
@@ -126,7 +123,6 @@ class Program
 		@"  L|L  " + '\n' +
 		@"   |_  " + '\n' +
 		@"  /  | ",
-
 		#endregion
 	};
 
