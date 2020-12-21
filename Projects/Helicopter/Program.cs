@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 
-int height = Console.WindowHeight;
-int width = Console.WindowWidth;
-
 TimeSpan threadSleepTimeSpan = TimeSpan.FromMilliseconds(10);
 TimeSpan helicopterTimeSpan = TimeSpan.FromMilliseconds(70);
 TimeSpan ufoMovementTimeSpan = TimeSpan.FromMilliseconds(100);
 TimeSpan enemySpawnTimeSpan = TimeSpan.FromSeconds(1.75);
 
-Player player = new Player { Left = 2, Top = height / 2, };
 List<UFO> ufos = new List<UFO>();
 List<Bullet> bullets = new List<Bullet>();
 List<Explosion> explosions = new List<Explosion>();
@@ -29,101 +25,101 @@ bool helicopterRender = default;
 
 string[] bulletRenders = new string[]
 {
-			" ", // 0
-			"-", // 1
-			"~", // 2
-			"█", // 3
+	" ", // 0
+	"-", // 1
+	"~", // 2
+	"█", // 3
 };
 
 string[] helicopterRenders = new string[]
 {
-			// 0
-			@"             " + '\n' +
-			@"             " + '\n' +
-			@"             ",
-			// 1
-			@"  ~~~~~+~~~~~" + '\n' +
-			@"'\===<[_]L)  " + '\n' +
-			@"     -'-`-   ",
-			// 2
-			@"  -----+-----" + '\n' +
-			@"*\===<[_]L)  " + '\n' +
-			@"     -'-`-   ",
+	// 0
+	@"             " + '\n' +
+	@"             " + '\n' +
+	@"             ",
+	// 1
+	@"  ~~~~~+~~~~~" + '\n' +
+	@"'\===<[_]L)  " + '\n' +
+	@"     -'-`-   ",
+	// 2
+	@"  -----+-----" + '\n' +
+	@"*\===<[_]L)  " + '\n' +
+	@"     -'-`-   ",
 };
 
 string[] ufoRenders = new string[]
 {
-			// 0
-			@"   __O__   " + '\n' +
-			@"-=<_‗_‗_>=-",
-			// 1
-			@"     _!_     " + '\n' +
-			@"    /_O_\    " + '\n' +
-			@"-==<_‗_‗_>==-",
-			// 2
-			@"  _/\_  " + '\n' +
-			@" /_OO_\ " + '\n' +
-			@"() () ()",
-			// 3
-			@" _!_!_ " + '\n' +
-			@"|_o-o_|" + '\n' +
-			@" ^^^^^ ",
-			// 4
-			@" _!_ " + '\n' +
-			@"(_o_)" + '\n' +
-			@" ^^^ ",
+	// 0
+	@"   __O__   " + '\n' +
+	@"-=<_‗_‗_>=-",
+	// 1
+	@"     _!_     " + '\n' +
+	@"    /_O_\    " + '\n' +
+	@"-==<_‗_‗_>==-",
+	// 2
+	@"  _/\_  " + '\n' +
+	@" /_OO_\ " + '\n' +
+	@"() () ()",
+	// 3
+	@" _!_!_ " + '\n' +
+	@"|_o-o_|" + '\n' +
+	@" ^^^^^ ",
+	// 4
+	@" _!_ " + '\n' +
+	@"(_o_)" + '\n' +
+	@" ^^^ ",
 };
 
 string[] explosionRenders = new string[]
 {
-			// 0
-			@"           " + '\n' +
-			@"   █████   " + '\n' +
-			@"   █████   " + '\n' +
-			@"   █████   " + '\n' +
-			@"           ",
-			// 1
-			@"           " + '\n' +
-			@"           " + '\n' +
-			@"     *     " + '\n' +
-			@"           " + '\n' +
-			@"           ",
-			// 2
-			@"           " + '\n' +
-			@"     *     " + '\n' +
-			@"    *#*    " + '\n' +
-			@"     *     " + '\n' +
-			@"           ",
-			// 3
-			@"           " + '\n' +
-			@"    *#*    " + '\n' +
-			@"   *#*#*   " + '\n' +
-			@"    *#*    " + '\n' +
-			@"           ",
-			// 4
-			@"     *     " + '\n' +
-			@"   *#*#*   " + '\n' +
-			@"  *#* *#*  " + '\n' +
-			@"   *#*#*   " + '\n' +
-			@"     *     ",
-			// 5
-			@"    *#*    " + '\n' +
-			@"  *#* *#*  " + '\n' +
-			@" *#*   *#* " + '\n' +
-			@"  *#* *#*  " + '\n' +
-			@"    *#*    ",
-			// 6
-			@"   *   *   " + '\n' +
-			@" **     ** " + '\n' +
-			@"**       **" + '\n' +
-			@" **     ** " + '\n' +
-			@"   *   *   ",
-			// 7
-			@"   *   *   " + '\n' +
-			@" *       * " + '\n' +
-			@"*         *" + '\n' +
-			@" *       * " + '\n' +
-			@"   *   *   ",
+	// 0
+	@"           " + '\n' +
+	@"   █████   " + '\n' +
+	@"   █████   " + '\n' +
+	@"   █████   " + '\n' +
+	@"           ",
+	// 1
+	@"           " + '\n' +
+	@"           " + '\n' +
+	@"     *     " + '\n' +
+	@"           " + '\n' +
+	@"           ",
+	// 2
+	@"           " + '\n' +
+	@"     *     " + '\n' +
+	@"    *#*    " + '\n' +
+	@"     *     " + '\n' +
+	@"           ",
+	// 3
+	@"           " + '\n' +
+	@"    *#*    " + '\n' +
+	@"   *#*#*   " + '\n' +
+	@"    *#*    " + '\n' +
+	@"           ",
+	// 4
+	@"     *     " + '\n' +
+	@"   *#*#*   " + '\n' +
+	@"  *#* *#*  " + '\n' +
+	@"   *#*#*   " + '\n' +
+	@"     *     ",
+	// 5
+	@"    *#*    " + '\n' +
+	@"  *#* *#*  " + '\n' +
+	@" *#*   *#* " + '\n' +
+	@"  *#* *#*  " + '\n' +
+	@"    *#*    ",
+	// 6
+	@"   *   *   " + '\n' +
+	@" **     ** " + '\n' +
+	@"**       **" + '\n' +
+	@" **     ** " + '\n' +
+	@"   *   *   ",
+	// 7
+	@"   *   *   " + '\n' +
+	@" *       * " + '\n' +
+	@"*         *" + '\n' +
+	@" *       * " + '\n' +
+	@"   *   *   ",
 };
 
 #endregion
@@ -134,6 +130,11 @@ if (OperatingSystem.IsWindows())
 	Console.WindowWidth = 100;
 	Console.WindowHeight = 30;
 }
+
+int height = Console.WindowHeight;
+int width = Console.WindowWidth;
+Player player = new Player { Left = 2, Top = height / 2, };
+
 Console.CursorVisible = false;
 stopwatchGame.Restart();
 stopwatchUFOSpawn.Restart();
