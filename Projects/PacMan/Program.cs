@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 
 class Program
@@ -31,56 +32,55 @@ class Program
 	// ║ · · · · · · · · · · · · · · · · · · · ║
 	// ╚═══════════════════════════════════════╝
 
-	static readonly string WallsString = @"
-╔═══════════════════╦═══════════════════╗
-║                   ║                   ║
-║   ╔═╗   ╔═════╗   ║   ╔═════╗   ╔═╗   ║
-║   ╚═╝   ╚═════╝   ╨   ╚═════╝   ╚═╝   ║
-║                                       ║
-║   ═══   ╥   ══════╦══════   ╥   ═══   ║
-║         ║         ║         ║         ║
-╚═════╗   ╠══════   ╨   ══════╣   ╔═════╝
-      ║   ║                   ║   ║      
-══════╝   ╨   ╔════   ════╗   ╨   ╚══════
-              ║           ║              
-══════╗   ╥   ║           ║   ╥   ╔══════
-      ║   ║   ╚═══════════╝   ║   ║      
-      ║   ║                   ║   ║      
-╔═════╝   ╨   ══════╦══════   ╨   ╚═════╗
-║                   ║                   ║
-║   ══╗   ═══════   ╨   ═══════   ╔══   ║
-║     ║                           ║     ║
-╠══   ╨   ╥   ══════╦══════   ╥   ╨   ══╣
-║         ║         ║         ║         ║
-║   ══════╩══════   ╨   ══════╩══════   ║
-║                                       ║
-╚═══════════════════════════════════════╝
-".Trim();
+	static readonly string WallsString =
+		"╔═══════════════════╦═══════════════════╗\n" +
+		"║                   ║                   ║\n" +
+		"║   ╔═╗   ╔═════╗   ║   ╔═════╗   ╔═╗   ║\n" +
+		"║   ╚═╝   ╚═════╝   ╨   ╚═════╝   ╚═╝   ║\n" +
+		"║                                       ║\n" +
+		"║   ═══   ╥   ══════╦══════   ╥   ═══   ║\n" +
+		"║         ║         ║         ║         ║\n" +
+		"╚═════╗   ╠══════   ╨   ══════╣   ╔═════╝\n" +
+		"      ║   ║                   ║   ║      \n" +
+		"══════╝   ╨   ╔════   ════╗   ╨   ╚══════\n" +
+		"              ║           ║              \n" +
+		"══════╗   ╥   ║           ║   ╥   ╔══════\n" +
+		"      ║   ║   ╚═══════════╝   ║   ║      \n" +
+		"      ║   ║                   ║   ║      \n" +
+		"╔═════╝   ╨   ══════╦══════   ╨   ╚═════╗\n" +
+		"║                   ║                   ║\n" +
+		"║   ══╗   ═══════   ╨   ═══════   ╔══   ║\n" +
+		"║     ║                           ║     ║\n" +
+		"╠══   ╨   ╥   ══════╦══════   ╥   ╨   ══╣\n" +
+		"║         ║         ║         ║         ║\n" +
+		"║   ══════╩══════   ╨   ══════╩══════   ║\n" +
+		"║                                       ║\n" +
+		"╚═══════════════════════════════════════╝";
 
 	static readonly string DotsString =
-@"                                         
-  · · · · · · · · ·   · · · · · · · · ·  
-  ·     ·         ·   ·         ·     ·  
-  +     ·         ·   ·         ·     +  
-  · · · · · · · · · · · · · · · · · · ·  
-  ·     ·   ·               ·   ·     ·  
-  · · · ·   · · · ·   · · · ·   · · · ·  
-        ·                       ·        
-        ·                       ·        
-        ·                       ·        
-        ·                       ·        
-        ·                       ·        
-        ·                       ·        
-        ·                       ·        
-        ·                       ·        
-  · · · · · · · · ·   · · · · · · · · ·  
-  ·     ·         ·   ·         ·     ·  
-  + ·   · · · · · ·   · · · · · ·   · +  
-    ·   ·   ·               ·   ·   ·    
-  · · · ·   · · · ·   · · · ·   · · · ·  
-  ·               ·   ·               ·  
-  · · · · · · · · · · · · · · · · · · ·  
-                                         ";
+		"                                         \n" +
+		"  · · · · · · · · ·   · · · · · · · · ·  \n" +
+		"  ·     ·         ·   ·         ·     ·  \n" +
+		"  +     ·         ·   ·         ·     +  \n" +
+		"  · · · · · · · · · · · · · · · · · · ·  \n" +
+		"  ·     ·   ·               ·   ·     ·  \n" +
+		"  · · · ·   · · · ·   · · · ·   · · · ·  \n" +
+		"        ·                       ·        \n" +
+		"        ·                       ·        \n" +
+		"        ·                       ·        \n" +
+		"        ·                       ·        \n" +
+		"        ·                       ·        \n" +
+		"        ·                       ·        \n" +
+		"        ·                       ·        \n" +
+		"        ·                       ·        \n" +
+		"  · · · · · · · · ·   · · · · · · · · ·  \n" +
+		"  ·     ·         ·   ·         ·     ·  \n" +
+		"  + ·   · · · · · ·   · · · · · ·   · +  \n" +
+		"    ·   ·   ·               ·   ·   ·    \n" +
+		"  · · · ·   · · · ·   · · · ·   · · · ·  \n" +
+		"  ·               ·   ·               ·  \n" +
+		"  · · · · · · · · · · · · · · · · · · ·  \n" +
+		"                                         ";
 
 	static readonly string[] PacManAnimations =
 	{
@@ -93,7 +93,6 @@ class Program
 	#endregion
 
 	// Console Settings When Launched
-	static readonly bool OriginalCursorVisible = Console.CursorVisible;
 	static readonly int OriginalWindowWidth = Console.WindowWidth;
 	static readonly int OriginalWindowHeight = Console.WindowHeight;
 	static readonly ConsoleColor OriginalBackgroundColor = Console.BackgroundColor;
@@ -169,9 +168,12 @@ class Program
 		finally
 		{
 			// Revert Changes To Console
-			Console.CursorVisible = OriginalCursorVisible;
-			Console.WindowWidth = OriginalWindowWidth;
-			Console.WindowHeight = OriginalWindowHeight;
+			Console.CursorVisible = true;
+			if (OperatingSystem.IsWindows())
+			{
+				Console.WindowWidth = OriginalWindowWidth;
+				Console.WindowHeight = OriginalWindowHeight;
+			}
 			Console.BackgroundColor = OriginalBackgroundColor;
 			Console.ForegroundColor = OriginalForegroundColor;
 		}
@@ -211,11 +213,14 @@ class Program
 		{
 			switch (Console.ReadKey(true).Key)
 			{
-				case ConsoleKey.UpArrow: TrySetPacManDirection(Direction.Up); break;
-				case ConsoleKey.DownArrow: TrySetPacManDirection(Direction.Down); break;
-				case ConsoleKey.LeftArrow: TrySetPacManDirection(Direction.Left); break;
+				case ConsoleKey.UpArrow:    TrySetPacManDirection(Direction.Up);    break;
+				case ConsoleKey.DownArrow:  TrySetPacManDirection(Direction.Down);  break;
+				case ConsoleKey.LeftArrow:  TrySetPacManDirection(Direction.Left);  break;
 				case ConsoleKey.RightArrow: TrySetPacManDirection(Direction.Right); break;
-				case ConsoleKey.Escape: Console.Clear(); Console.Write("PPacMan was closed."); return true;
+				case ConsoleKey.Escape:
+					Console.Clear();
+					Console.Write("PPacMan was closed.");
+					return true;
 			}
 		}
 		return false;
@@ -225,7 +230,7 @@ class Program
 
 	#region Helpers
 
-	static char BoardAt(int x, int y) => WallsString[y * 43 + x];
+	static char BoardAt(int x, int y) => WallsString[y * 42 + x];
 	static bool IsWall(int x, int y) => !(BoardAt(x, y) is ' ');
 	static bool CanMove(int x, int y, Direction direction) => direction switch
 	{
@@ -246,7 +251,7 @@ class Program
 
 	static void SetUpDots()
 	{
-		string[] rows = DotsString.Split("\r\n");
+		string[] rows = DotsString.Split("\n");
 		int rowCount = rows.Length;
 		int columnCount = rows[0].Length;
 		Dots = new char[columnCount, rowCount];
