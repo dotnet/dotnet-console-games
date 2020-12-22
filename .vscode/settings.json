@@ -6,7 +6,7 @@
 		"**/bin": true,
 		"**/obj": true,
 		"LICENSE": true,
-		".github": true,
+		".github": true
 	},
 	"workbench.colorTheme": "Default Dark+",
 	"csharp.semanticHighlighting.enabled": true,
