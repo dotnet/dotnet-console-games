@@ -185,7 +185,7 @@ class Program
 			d.Position = d.StartPosition = (24, 10);
 			d.Color = ConsoleColor.DarkCyan;
 			d.Destination = GetRandomLocation();
-			d.FramesToUpdate = 6;
+			d.FramesToUpdate = 12;
 			d.Update = () => UpdateGhost(d);
 
 			Ghosts = new Ghost[] { a, b, c, d, };
@@ -304,7 +304,7 @@ class Program
 
 	static char BoardAt(int x, int y) => WallsString[y * 42 + x];
 
-	static bool IsWall(int x, int y) => !(BoardAt(x, y) is ' ');
+	static bool IsWall(int x, int y) => BoardAt(x, y) is not ' ';
 
 	static bool CanMove(int x, int y, Direction direction) => direction switch
 	{
@@ -317,9 +317,9 @@ class Program
 			!IsWall(x, y + 1) &&
 			!IsWall(x + 1, y + 1),
 		Direction.Left =>
-			!IsWall(x - 2, y),
+			x - 2 < 0 || !IsWall(x - 2, y),
 		Direction.Right =>
-			!IsWall(x + 2, y),
+			x + 2 > 40 || !IsWall(x + 2, y),
 		_ => throw new NotImplementedException(),
 	};
 
@@ -375,6 +375,14 @@ class Program
 				Console.SetCursorPosition(PacManPosition.X, PacManPosition.Y);
 				Console.Write(" ");
 				PacManPosition = (PacManPosition.X + x_adjust, PacManPosition.Y + y_adjust);
+				if (PacManPosition.X < 0)
+				{
+					PacManPosition.X = 40;
+				}
+				else if (PacManPosition.X > 40)
+				{
+					PacManPosition.X = 0;
+				}
 				if (Dots[PacManPosition.X, PacManPosition.Y] is '·')
 				{
 					Dots[PacManPosition.X, PacManPosition.Y] = ' ';
@@ -593,7 +601,7 @@ class Program
 
 		static char BoardAt(int x, int y) => GhostWallsString[y * 42 + x];
 
-		static bool IsWall(int x, int y) => !(BoardAt(x, y) is ' ');
+		static bool IsWall(int x, int y) => BoardAt(x, y) is not ' ';
 
 		void Neighbors((int X, int Y) currentLocation, Action<(int X, int Y)> neighbors)
 		{
