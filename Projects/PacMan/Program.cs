@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
+using Towel;
+using static Towel.Statics;
 
 class Program
 {
@@ -55,6 +56,31 @@ class Program
 		"║         ║         ║         ║         ║\n" +
 		"║   ══════╩══════   ╨   ══════╩══════   ║\n" +
 		"║                                       ║\n" +
+		"╚═══════════════════════════════════════╝";
+
+	static readonly string GhostWallsString =
+		"╔═══════════════════╦═══════════════════╗\n" +
+		"║█                 █║█                 █║\n" +
+		"║█ █╔═╗█ █╔═════╗█ █║█ █╔═════╗█ █╔═╗█ █║\n" +
+		"║█ █╚═╝█ █╚═════╝█ █╨█ █╚═════╝█ █╚═╝█ █║\n" +
+		"║█                                     █║\n" +
+		"║█ █═══█ █╥█ █══════╦══════█ █╥█ █═══█ █║\n" +
+		"║█       █║        █║█       █║█       █║\n" +
+		"╚═════╗█ █╠══════█ █╨█ █══════╣█ █╔═════╝\n" +
+		"██████║█ █║█                 █║█ █║██████\n" +
+		"══════╝█ █╨█ █╔════█ █════╗█ █╨█ █╚══════\n" +
+		"             █║█         █║█             \n" +
+		"══════╗█  ╥█ █║███████████║█ █╥█ █╔══════\n" +
+		"██████║█  ║█ █╚═══════════╝█ █║█ █║██████\n" +
+		"██████║█  ║█                 █║█ █║██████\n" +
+		"╔═════╝█  ╨█ █══════╦══════█ █╨█ █╚═════╗\n" +
+		"║█                 █║█                 █║\n" +
+		"║█ █══╗█ █═══════█ █╨█ █═══════█ █╔══█ █║\n" +
+		"║█   █║█                         █║█   █║\n" +
+		"╠══█ █╨█ █╥█ █══════╦══════█ █╥█ █╨█ █══╣\n" +
+		"║█       █║█       █║█       █║█       █║\n" +
+		"║█ █══════╩══════█ █╨█ █══════╩══════█ █║\n" +
+		"║█                                     █║\n" +
 		"╚═══════════════════════════════════════╝";
 
 	static readonly string DotsString =
@@ -111,34 +137,59 @@ class Program
 	static (int X, int Y) PacManPosition;
 	static Direction? PacManMovingDirection;
 	static int? PacManMovingFrame;
-	const int NumberOfGhosts = 4;
 	const int FramesToMoveHorizontal = 6;
 	const int FramesToMoveVertical = 6;
-	static (int X, int Y)[] GhostPositions;
+	static Ghost[] Ghosts;
+	const int GhostWeakTime = 200;
+	static readonly Random Random = new Random();
 
 	static void Main()
 	{
 		Console.Clear();
-		Console.WriteLine("NOTE: This game is still in development.");
-		Console.WriteLine("Press Enter To Continue...");
-		Console.ReadLine();
 		try
 		{
+			if (OperatingSystem.IsWindows())
+			{
+				Console.WindowWidth = 50;
+				Console.WindowHeight = 30;
+			}
 			Console.CursorVisible = false;
 			Console.BackgroundColor = ConsoleColor.Black;
 			Console.ForegroundColor = ConsoleColor.White;
 			Score = 0;
-			NextRound:
+		NextRound:
 			Console.Clear();
 			SetUpDots();
 			PacManPosition = (20, 17);
-			GhostPositions = new (int X, int Y)[]
-			{
-				(16, 10),
-				(18, 10),
-				(22, 10),
-				(24, 10),
-			};
+
+			Ghost a = new Ghost();
+			a.Position = a.StartPosition = (16, 10);
+			a.Color = ConsoleColor.Red;
+			a.FramesToUpdate = 6;
+			a.Update = () => UpdateGhost(a);
+
+			Ghost b = new Ghost();
+			b.Position = b.StartPosition = (18, 10);
+			b.Color = ConsoleColor.DarkGreen;
+			b.Destination = GetRandomLocation();
+			b.FramesToUpdate = 6;
+			b.Update = () => UpdateGhost(b);
+
+			Ghost c = new Ghost();
+			c.Position = c.StartPosition = (22, 10);
+			c.Color = ConsoleColor.Magenta;
+			c.FramesToUpdate = 12;
+			c.Update = () => UpdateGhost(c);
+
+			Ghost d = new Ghost();
+			d.Position = d.StartPosition = (24, 10);
+			d.Color = ConsoleColor.DarkCyan;
+			d.Destination = GetRandomLocation();
+			d.FramesToUpdate = 6;
+			d.Update = () => UpdateGhost(d);
+
+			Ghosts = new Ghost[] { a, b, c, d, };
+
 			RenderWalls();
 			RenderGate();
 			RenderDots();
@@ -159,15 +210,42 @@ class Program
 					return; // user hit escape
 				}
 				UpdatePacMan();
+				UpdateGhosts();
 				RenderScore();
+				RenderDots();
 				RenderPacMan();
+				RenderGhosts();
+				foreach (Ghost ghost in Ghosts)
+				{
+					if (ghost.Position == PacManPosition)
+					{
+						if (ghost.Weak)
+						{
+							ghost.Position = ghost.StartPosition;
+							ghost.Weak = false;
+							Score += 10;
+						}
+						else
+						{
+							Console.SetCursorPosition(0, 24);
+							Console.WriteLine("Game Over!");
+							Console.WriteLine("Play Again [enter], or quit [escape]?");
+						GetInput:
+							switch (Console.ReadKey(true).Key)
+							{
+								case ConsoleKey.Enter: goto NextRound;
+								case ConsoleKey.Escape: Console.Clear(); return;
+								default: goto GetInput;
+							}
+						}
+					}
+				}
 				Thread.Sleep(TimeSpan.FromMilliseconds(50));
 			}
 			goto NextRound;
 		}
 		finally
 		{
-			// Revert Changes To Console
 			Console.CursorVisible = true;
 			if (OperatingSystem.IsWindows())
 			{
@@ -178,8 +256,6 @@ class Program
 			Console.ForegroundColor = OriginalForegroundColor;
 		}
 	}
-
-	#region Input Handling
 
 	static bool GetStartingDirectionInput()
 	{
@@ -213,9 +289,9 @@ class Program
 		{
 			switch (Console.ReadKey(true).Key)
 			{
-				case ConsoleKey.UpArrow:    TrySetPacManDirection(Direction.Up);    break;
-				case ConsoleKey.DownArrow:  TrySetPacManDirection(Direction.Down);  break;
-				case ConsoleKey.LeftArrow:  TrySetPacManDirection(Direction.Left);  break;
+				case ConsoleKey.UpArrow: TrySetPacManDirection(Direction.Up); break;
+				case ConsoleKey.DownArrow: TrySetPacManDirection(Direction.Down); break;
+				case ConsoleKey.LeftArrow: TrySetPacManDirection(Direction.Left); break;
 				case ConsoleKey.RightArrow: TrySetPacManDirection(Direction.Right); break;
 				case ConsoleKey.Escape:
 					Console.Clear();
@@ -226,23 +302,21 @@ class Program
 		return false;
 	}
 
-	#endregion
-
-	#region Helpers
-
 	static char BoardAt(int x, int y) => WallsString[y * 42 + x];
+
 	static bool IsWall(int x, int y) => !(BoardAt(x, y) is ' ');
+
 	static bool CanMove(int x, int y, Direction direction) => direction switch
 	{
-		Direction.Up    =>
+		Direction.Up =>
 			!IsWall(x - 1, y - 1) &&
-			!IsWall(x,     y - 1) &&
+			!IsWall(x, y - 1) &&
 			!IsWall(x + 1, y - 1),
-		Direction.Down  =>
+		Direction.Down =>
 			!IsWall(x - 1, y + 1) &&
-			!IsWall(x,     y + 1) &&
+			!IsWall(x, y + 1) &&
 			!IsWall(x + 1, y + 1),
-		Direction.Left  =>
+		Direction.Left =>
 			!IsWall(x - 2, y),
 		Direction.Right =>
 			!IsWall(x + 2, y),
@@ -282,10 +356,6 @@ class Program
 		return count;
 	}
 
-	#endregion
-
-	#region Updating
-
 	static void UpdatePacMan()
 	{
 		if (PacManMovingDirection.HasValue)
@@ -312,6 +382,11 @@ class Program
 				}
 				if (Dots[PacManPosition.X, PacManPosition.Y] is '+')
 				{
+					foreach (Ghost ghost in Ghosts)
+					{
+						ghost.Weak = true;
+						ghost.WeakTime = 0;
+					}
 					Dots[PacManPosition.X, PacManPosition.Y] = ' ';
 					Score += 3;
 				}
@@ -326,11 +401,6 @@ class Program
 			}
 		}
 	}
-
-
-	#endregion
-
-	#region Rendering
 
 	static void RenderReady()
 	{
@@ -376,7 +446,17 @@ class Program
 		Console.SetCursorPosition(0, 0);
 		WithColors(ConsoleColor.DarkYellow, ConsoleColor.Black, () =>
 		{
-			Render(DotsString, false);
+			for (int row = 0; row < Dots.GetLength(1); row++)
+			{
+				for (int column = 0; column < Dots.GetLength(0); column++)
+				{
+					if (!char.IsWhiteSpace(Dots[column, row]))
+					{
+						Console.SetCursorPosition(column, row);
+						Console.Write(Dots[column, row]);
+					}
+				}
+			}
 		});
 	}
 
@@ -399,18 +479,10 @@ class Program
 
 	static void RenderGhosts()
 	{
-		for (int i = 0; i < NumberOfGhosts; i++)
+		foreach (Ghost ghost in Ghosts)
 		{
-			Console.SetCursorPosition(GhostPositions[i].X, GhostPositions[i].Y);
-			var ghostColor = i switch
-			{
-				0 => ConsoleColor.Red,
-				1 => ConsoleColor.DarkGreen,
-				2 => ConsoleColor.Magenta,
-				3 => ConsoleColor.DarkCyan,
-				_ => throw new NotImplementedException(),
-			};
-			WithColors(ConsoleColor.White, ghostColor, () => Console.Write('"'));
+			Console.SetCursorPosition(ghost.Position.X, ghost.Position.Y);
+			WithColors(ConsoleColor.White, ghost.Weak ? ConsoleColor.Blue : ghost.Color, () => Console.Write('"'));
 		}
 	}
 
@@ -452,5 +524,118 @@ class Program
 		}
 	}
 
-	#endregion
+	static void UpdateGhosts()
+	{
+		foreach (Ghost ghost in Ghosts)
+		{
+			ghost.Update();
+		}
+	}
+
+	static void UpdateGhost(Ghost ghost)
+	{
+		if (ghost.Destination.HasValue && ghost.Destination == ghost.Position)
+		{
+			ghost.Destination = GetRandomLocation();
+		}
+		if (ghost.Weak)
+		{
+			ghost.WeakTime++;
+			if (ghost.WeakTime > GhostWeakTime)
+			{
+				ghost.Weak = false;
+			}
+		}
+		else if (ghost.UpdateFrame < ghost.FramesToUpdate)
+		{
+			ghost.UpdateFrame++;
+		}
+		else
+		{
+			Console.SetCursorPosition(ghost.Position.X, ghost.Position.Y);
+			Console.Write(' ');
+			ghost.Position = GetGhostNextMove(ghost.Position, ghost.Destination ?? PacManPosition);
+			ghost.UpdateFrame = 0;
+		}
+	}
+
+	static readonly (int X, int Y)[] Locations = GetLocations();
+
+	static (int X, int Y)[] GetLocations()
+	{
+		List<(int X, int Y)> list = new();
+		int x = 0;
+		int y = 0;
+		foreach (char c in GhostWallsString)
+		{
+			if (c is '\n')
+			{
+				x = 0;
+				y++;
+			}
+			else
+			{
+				if (c is ' ')
+				{
+					list.Add((x, y));
+				}
+				x++;
+			}
+		}
+		return list.ToArray();
+	}
+
+	static (int X, int Y) GetRandomLocation() => Random.Choose(Locations);
+
+	static (int X, int Y) GetGhostNextMove((int X, int Y) position, (int X, int Y) destination)
+	{
+		HashSet<(int X, int Y)> alreadyUsed = new();
+
+		static char BoardAt(int x, int y) => GhostWallsString[y * 42 + x];
+
+		static bool IsWall(int x, int y) => !(BoardAt(x, y) is ' ');
+
+		void Neighbors((int X, int Y) currentLocation, Action<(int X, int Y)> neighbors)
+		{
+			void HandleNeighbor(int x, int y)
+			{
+				if (!alreadyUsed.Contains((x, y)) && !IsWall(x, y))
+				{
+					alreadyUsed.Add((x, y));
+					neighbors((x, y));
+				}
+			}
+
+			int x = currentLocation.X;
+			int y = currentLocation.Y;
+			HandleNeighbor(x - 1, y); // left
+			HandleNeighbor(x, y + 1); // up
+			HandleNeighbor(x + 1, y); // right
+			HandleNeighbor(x, y - 1); // down
+		}
+
+		int Heuristic((int X, int Y) node)
+		{
+			int x = node.X - PacManPosition.X;
+			int y = node.Y - PacManPosition.Y;
+			return x * x + y * y;
+		}
+
+		Action<Action<(int X, int Y)>> path = SearchGraph(position, Neighbors, Heuristic, node => node == destination);
+		(int X, int Y)[] array = path.ToArray();
+		return array[1];
+	}
+}
+
+class Ghost
+{
+	public (int X, int Y) StartPosition;
+	public (int X, int Y) Position;
+	public bool Weak;
+	public int WeakTime;
+	public ConsoleColor Color;
+	public Action Update;
+	public int UpdateFrame;
+	public int FramesToUpdate;
+	public (int X, int Y)? Destination;
 }

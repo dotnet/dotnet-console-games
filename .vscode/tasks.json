@@ -204,7 +204,7 @@
             "args":
             [
                 "build",
-                "${workspaceFolder}/Projects/PacMan/PacMan (Work In Progress).csproj",
+                "${workspaceFolder}/Projects/PacMan/PacMan.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary",
             ],
