@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flappy Bird", "Projects\Fla
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hearts (Work In Progress)", "Projects\Hearts\Hearts (Work In Progress).csproj", "{0A7EE167-1B80-4673-8510-8716A8B78AD9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PacMan (Work In Progress)", "Projects\PacMan\PacMan (Work In Progress).csproj", "{30D6C5DB-92D5-4D5A-979E-80F198ED0D44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PacMan", "Projects\PacMan\PacMan.csproj", "{30D6C5DB-92D5-4D5A-979E-80F198ED0D44}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sudoku", "Projects\Sudoku\Sudoku.csproj", "{DC5A75DD-AE7B-4545-B640-CF422BCF000A}"
 EndProject
@@ -45,7 +45,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Whack A Mole", "Projects\Wh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rythm", "Projects\Rythm\Rythm.csproj", "{613A6324-C192-49C2-B39C-9475EF14F551}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connect 4", "Projects\Connect 4\Connect 4.csproj", "{E83ED595-D857-48ED-862A-F6D1427FD459}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Connect 4", "Projects\Connect 4\Connect 4.csproj", "{E83ED595-D857-48ED-862A-F6D1427FD459}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

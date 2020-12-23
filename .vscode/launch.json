@@ -212,11 +212,11 @@
 			"stopAtEntry": false,
 		},
 		{
-			"name": "PacMan (Work In Progress)",
+			"name": "PacMan",
 			"type": "coreclr",
 			"request": "launch",
 			"preLaunchTask": "Build PacMan",
-			"program": "${workspaceFolder}/Projects/PacMan/bin/Debug/net5.0/PacMan (Work In Progress).dll",
+			"program": "${workspaceFolder}/Projects/PacMan/bin/Debug/net5.0/PacMan.dll",
 			"args": [],
 			"cwd": "${workspaceFolder}/Projects/PacMan/bin/Debug/net5.0",
 			"console": "externalTerminal",
