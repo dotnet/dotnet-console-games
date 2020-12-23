@@ -599,7 +599,7 @@ class Program
 		{
 			void HandleNeighbor(int x, int y)
 			{
-				if (!alreadyUsed.Contains((x, y)) && !IsWall(x, y))
+				if (!alreadyUsed.Contains((x, y)) && x >= 0 && x <= 40 && !IsWall(x, y))
 				{
 					alreadyUsed.Add((x, y));
 					neighbors((x, y));
