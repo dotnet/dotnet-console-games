@@ -5,259 +5,246 @@ using System.Threading;
 using Towel;
 using static Towel.Statics;
 
-class Program
+#region Ascii
+
+// ╔═══════════════════╦═══════════════════╗
+// ║ · · · · · · · · · ║ · · · · · · · · · ║
+// ║ · ╔═╗ · ╔═════╗ · ║ · ╔═════╗ · ╔═╗ · ║
+// ║ + ╚═╝ · ╚═════╝ · ╨ · ╚═════╝ · ╚═╝ + ║
+// ║ · · · · · · · · · · · · · · · · · · · ║
+// ║ · ═══ · ╥ · ══════╦══════ · ╥ · ═══ · ║
+// ║ · · · · ║ · · · · ║ · · · · ║ · · · · ║
+// ╚═════╗ · ╠══════   ╨   ══════╣ · ╔═════╝
+//       ║ · ║                   ║ · ║
+// ══════╝ · ╨   ╔════---════╗   ╨ · ╚══════
+//         ·     ║ █ █   █ █ ║     ·        
+// ══════╗ · ╥   ║           ║   ╥ · ╔══════
+//       ║ · ║   ╚═══════════╝   ║ · ║
+//       ║ · ║       READY       ║ · ║
+// ╔═════╝ · ╨   ══════╦══════   ╨ · ╚═════╗
+// ║ · · · · · · · · · ║ · · · · · · · · · ║
+// ║ · ══╗ · ═══════ · ╨ · ═══════ · ╔══ · ║
+// ║ + · ║ · · · · · · █ · · · · · · ║ · + ║
+// ╠══ · ╨ · ╥ · ══════╦══════ · ╥ · ╨ · ══╣
+// ║ · · · · ║ · · · · ║ · · · · ║ · · · · ║
+// ║ · ══════╩══════ · ╨ · ══════╩══════ · ║
+// ║ · · · · · · · · · · · · · · · · · · · ║
+// ╚═══════════════════════════════════════╝
+
+string WallsString =
+	"╔═══════════════════╦═══════════════════╗\n" +
+	"║                   ║                   ║\n" +
+	"║   ╔═╗   ╔═════╗   ║   ╔═════╗   ╔═╗   ║\n" +
+	"║   ╚═╝   ╚═════╝   ╨   ╚═════╝   ╚═╝   ║\n" +
+	"║                                       ║\n" +
+	"║   ═══   ╥   ══════╦══════   ╥   ═══   ║\n" +
+	"║         ║         ║         ║         ║\n" +
+	"╚═════╗   ╠══════   ╨   ══════╣   ╔═════╝\n" +
+	"      ║   ║                   ║   ║      \n" +
+	"══════╝   ╨   ╔════   ════╗   ╨   ╚══════\n" +
+	"              ║           ║              \n" +
+	"══════╗   ╥   ║           ║   ╥   ╔══════\n" +
+	"      ║   ║   ╚═══════════╝   ║   ║      \n" +
+	"      ║   ║                   ║   ║      \n" +
+	"╔═════╝   ╨   ══════╦══════   ╨   ╚═════╗\n" +
+	"║                   ║                   ║\n" +
+	"║   ══╗   ═══════   ╨   ═══════   ╔══   ║\n" +
+	"║     ║                           ║     ║\n" +
+	"╠══   ╨   ╥   ══════╦══════   ╥   ╨   ══╣\n" +
+	"║         ║         ║         ║         ║\n" +
+	"║   ══════╩══════   ╨   ══════╩══════   ║\n" +
+	"║                                       ║\n" +
+	"╚═══════════════════════════════════════╝";
+
+string GhostWallsString =
+	"╔═══════════════════╦═══════════════════╗\n" +
+	"║█                 █║█                 █║\n" +
+	"║█ █╔═╗█ █╔═════╗█ █║█ █╔═════╗█ █╔═╗█ █║\n" +
+	"║█ █╚═╝█ █╚═════╝█ █╨█ █╚═════╝█ █╚═╝█ █║\n" +
+	"║█                                     █║\n" +
+	"║█ █═══█ █╥█ █══════╦══════█ █╥█ █═══█ █║\n" +
+	"║█       █║█       █║█       █║█       █║\n" +
+	"╚═════╗█ █╠══════█ █╨█ █══════╣█ █╔═════╝\n" +
+	"██████║█ █║█                 █║█ █║██████\n" +
+	"══════╝█ █╨█ █╔════█ █════╗█ █╨█ █╚══════\n" +
+	"             █║█         █║█             \n" +
+	"══════╗█  ╥█ █║███████████║█ █╥█ █╔══════\n" +
+	"██████║█  ║█ █╚═══════════╝█ █║█ █║██████\n" +
+	"██████║█  ║█                 █║█ █║██████\n" +
+	"╔═════╝█  ╨█ █══════╦══════█ █╨█ █╚═════╗\n" +
+	"║█                 █║█                 █║\n" +
+	"║█ █══╗█ █═══════█ █╨█ █═══════█ █╔══█ █║\n" +
+	"║█   █║█                         █║█   █║\n" +
+	"╠══█ █╨█ █╥█ █══════╦══════█ █╥█ █╨█ █══╣\n" +
+	"║█       █║█       █║█       █║█       █║\n" +
+	"║█ █══════╩══════█ █╨█ █══════╩══════█ █║\n" +
+	"║█                                     █║\n" +
+	"╚═══════════════════════════════════════╝";
+
+string DotsString =
+	"                                         \n" +
+	"  · · · · · · · · ·   · · · · · · · · ·  \n" +
+	"  ·     ·         ·   ·         ·     ·  \n" +
+	"  +     ·         ·   ·         ·     +  \n" +
+	"  · · · · · · · · · · · · · · · · · · ·  \n" +
+	"  ·     ·   ·               ·   ·     ·  \n" +
+	"  · · · ·   · · · ·   · · · ·   · · · ·  \n" +
+	"        ·                       ·        \n" +
+	"        ·                       ·        \n" +
+	"        ·                       ·        \n" +
+	"        ·                       ·        \n" +
+	"        ·                       ·        \n" +
+	"        ·                       ·        \n" +
+	"        ·                       ·        \n" +
+	"        ·                       ·        \n" +
+	"  · · · · · · · · ·   · · · · · · · · ·  \n" +
+	"  ·     ·         ·   ·         ·     ·  \n" +
+	"  + ·   · · · · · ·   · · · · · ·   · +  \n" +
+	"    ·   ·   ·               ·   ·   ·    \n" +
+	"  · · · ·   · · · ·   · · · ·   · · · ·  \n" +
+	"  ·               ·   ·               ·  \n" +
+	"  · · · · · · · · · · · · · · · · · · ·  \n" +
+	"                                         ";
+
+string[] PacManAnimations =
 {
-	#region Ascii
+	"\"' '\"",
+	"n. .n",
+	")>- ->",
+	"(<- -<",
+};
 
-	// ╔═══════════════════╦═══════════════════╗
-	// ║ · · · · · · · · · ║ · · · · · · · · · ║
-	// ║ · ╔═╗ · ╔═════╗ · ║ · ╔═════╗ · ╔═╗ · ║
-	// ║ + ╚═╝ · ╚═════╝ · ╨ · ╚═════╝ · ╚═╝ + ║
-	// ║ · · · · · · · · · · · · · · · · · · · ║
-	// ║ · ═══ · ╥ · ══════╦══════ · ╥ · ═══ · ║
-	// ║ · · · · ║ · · · · ║ · · · · ║ · · · · ║
-	// ╚═════╗ · ╠══════   ╨   ══════╣ · ╔═════╝
-	//       ║ · ║                   ║ · ║
-	// ══════╝ · ╨   ╔════---════╗   ╨ · ╚══════
-	//         ·     ║ █ █   █ █ ║     ·        
-	// ══════╗ · ╥   ║           ║   ╥ · ╔══════
-	//       ║ · ║   ╚═══════════╝   ║ · ║
-	//       ║ · ║       READY       ║ · ║
-	// ╔═════╝ · ╨   ══════╦══════   ╨ · ╚═════╗
-	// ║ · · · · · · · · · ║ · · · · · · · · · ║
-	// ║ · ══╗ · ═══════ · ╨ · ═══════ · ╔══ · ║
-	// ║ + · ║ · · · · · · █ · · · · · · ║ · + ║
-	// ╠══ · ╨ · ╥ · ══════╦══════ · ╥ · ╨ · ══╣
-	// ║ · · · · ║ · · · · ║ · · · · ║ · · · · ║
-	// ║ · ══════╩══════ · ╨ · ══════╩══════ · ║
-	// ║ · · · · · · · · · · · · · · · · · · · ║
-	// ╚═══════════════════════════════════════╝
+#endregion
 
-	static readonly string WallsString =
-		"╔═══════════════════╦═══════════════════╗\n" +
-		"║                   ║                   ║\n" +
-		"║   ╔═╗   ╔═════╗   ║   ╔═════╗   ╔═╗   ║\n" +
-		"║   ╚═╝   ╚═════╝   ╨   ╚═════╝   ╚═╝   ║\n" +
-		"║                                       ║\n" +
-		"║   ═══   ╥   ══════╦══════   ╥   ═══   ║\n" +
-		"║         ║         ║         ║         ║\n" +
-		"╚═════╗   ╠══════   ╨   ══════╣   ╔═════╝\n" +
-		"      ║   ║                   ║   ║      \n" +
-		"══════╝   ╨   ╔════   ════╗   ╨   ╚══════\n" +
-		"              ║           ║              \n" +
-		"══════╗   ╥   ║           ║   ╥   ╔══════\n" +
-		"      ║   ║   ╚═══════════╝   ║   ║      \n" +
-		"      ║   ║                   ║   ║      \n" +
-		"╔═════╝   ╨   ══════╦══════   ╨   ╚═════╗\n" +
-		"║                   ║                   ║\n" +
-		"║   ══╗   ═══════   ╨   ═══════   ╔══   ║\n" +
-		"║     ║                           ║     ║\n" +
-		"╠══   ╨   ╥   ══════╦══════   ╥   ╨   ══╣\n" +
-		"║         ║         ║         ║         ║\n" +
-		"║   ══════╩══════   ╨   ══════╩══════   ║\n" +
-		"║                                       ║\n" +
-		"╚═══════════════════════════════════════╝";
+int OriginalWindowWidth = Console.WindowWidth;
+int OriginalWindowHeight = Console.WindowHeight;
+ConsoleColor OriginalBackgroundColor = Console.BackgroundColor;
+ConsoleColor OriginalForegroundColor = Console.ForegroundColor;
 
-	static readonly string GhostWallsString =
-		"╔═══════════════════╦═══════════════════╗\n" +
-		"║█                 █║█                 █║\n" +
-		"║█ █╔═╗█ █╔═════╗█ █║█ █╔═════╗█ █╔═╗█ █║\n" +
-		"║█ █╚═╝█ █╚═════╝█ █╨█ █╚═════╝█ █╚═╝█ █║\n" +
-		"║█                                     █║\n" +
-		"║█ █═══█ █╥█ █══════╦══════█ █╥█ █═══█ █║\n" +
-		"║█       █║█       █║█       █║█       █║\n" +
-		"╚═════╗█ █╠══════█ █╨█ █══════╣█ █╔═════╝\n" +
-		"██████║█ █║█                 █║█ █║██████\n" +
-		"══════╝█ █╨█ █╔════█ █════╗█ █╨█ █╚══════\n" +
-		"             █║█         █║█             \n" +
-		"══════╗█  ╥█ █║███████████║█ █╥█ █╔══════\n" +
-		"██████║█  ║█ █╚═══════════╝█ █║█ █║██████\n" +
-		"██████║█  ║█                 █║█ █║██████\n" +
-		"╔═════╝█  ╨█ █══════╦══════█ █╨█ █╚═════╗\n" +
-		"║█                 █║█                 █║\n" +
-		"║█ █══╗█ █═══════█ █╨█ █═══════█ █╔══█ █║\n" +
-		"║█   █║█                         █║█   █║\n" +
-		"╠══█ █╨█ █╥█ █══════╦══════█ █╥█ █╨█ █══╣\n" +
-		"║█       █║█       █║█       █║█       █║\n" +
-		"║█ █══════╩══════█ █╨█ █══════╩══════█ █║\n" +
-		"║█                                     █║\n" +
-		"╚═══════════════════════════════════════╝";
+char[,] Dots;
+int Score;
+(int X, int Y) PacManPosition;
+Direction? PacManMovingDirection = default;
+int? PacManMovingFrame = default;
+const int FramesToMoveHorizontal = 6;
+const int FramesToMoveVertical = 6;
+Ghost[] Ghosts;
+const int GhostWeakTime = 200;
+Random Random = new Random();
+(int X, int Y)[] Locations = GetLocations();
 
-	static readonly string DotsString =
-		"                                         \n" +
-		"  · · · · · · · · ·   · · · · · · · · ·  \n" +
-		"  ·     ·         ·   ·         ·     ·  \n" +
-		"  +     ·         ·   ·         ·     +  \n" +
-		"  · · · · · · · · · · · · · · · · · · ·  \n" +
-		"  ·     ·   ·               ·   ·     ·  \n" +
-		"  · · · ·   · · · ·   · · · ·   · · · ·  \n" +
-		"        ·                       ·        \n" +
-		"        ·                       ·        \n" +
-		"        ·                       ·        \n" +
-		"        ·                       ·        \n" +
-		"        ·                       ·        \n" +
-		"        ·                       ·        \n" +
-		"        ·                       ·        \n" +
-		"        ·                       ·        \n" +
-		"  · · · · · · · · ·   · · · · · · · · ·  \n" +
-		"  ·     ·         ·   ·         ·     ·  \n" +
-		"  + ·   · · · · · ·   · · · · · ·   · +  \n" +
-		"    ·   ·   ·               ·   ·   ·    \n" +
-		"  · · · ·   · · · ·   · · · ·   · · · ·  \n" +
-		"  ·               ·   ·               ·  \n" +
-		"  · · · · · · · · · · · · · · · · · · ·  \n" +
-		"                                         ";
-
-	static readonly string[] PacManAnimations =
+Console.Clear();
+try
+{
+	if (OperatingSystem.IsWindows())
 	{
-		"\"' '\"",
-		"n. .n",
-		")>- ->",
-		"(<- -<",
-	};
-
-	#endregion
-
-	// Console Settings When Launched
-	static readonly int OriginalWindowWidth = Console.WindowWidth;
-	static readonly int OriginalWindowHeight = Console.WindowHeight;
-	static readonly ConsoleColor OriginalBackgroundColor = Console.BackgroundColor;
-	static readonly ConsoleColor OriginalForegroundColor = Console.ForegroundColor;
-
-	enum Direction
-	{
-		Up = 0,
-		Down = 1,
-		Left = 2,
-		Right = 3,
+		Console.WindowWidth = 50;
+		Console.WindowHeight = 30;
 	}
+	Console.CursorVisible = false;
+	Console.BackgroundColor = ConsoleColor.Black;
+	Console.ForegroundColor = ConsoleColor.White;
+	Score = 0;
+NextRound:
+	Console.Clear();
+	SetUpDots();
+	PacManPosition = (20, 17);
 
-	static char[,] Dots;
-	static int Score;
-	static (int X, int Y) PacManPosition;
-	static Direction? PacManMovingDirection;
-	static int? PacManMovingFrame;
-	const int FramesToMoveHorizontal = 6;
-	const int FramesToMoveVertical = 6;
-	static Ghost[] Ghosts;
-	const int GhostWeakTime = 200;
-	static readonly Random Random = new Random();
+	Ghost a = new Ghost();
+	a.Position = a.StartPosition = (16, 10);
+	a.Color = ConsoleColor.Red;
+	a.FramesToUpdate = 6;
+	a.Update = () => UpdateGhost(a);
 
-	static void Main()
+	Ghost b = new Ghost();
+	b.Position = b.StartPosition = (18, 10);
+	b.Color = ConsoleColor.DarkGreen;
+	b.Destination = GetRandomLocation();
+	b.FramesToUpdate = 6;
+	b.Update = () => UpdateGhost(b);
+
+	Ghost c = new Ghost();
+	c.Position = c.StartPosition = (22, 10);
+	c.Color = ConsoleColor.Magenta;
+	c.FramesToUpdate = 12;
+	c.Update = () => UpdateGhost(c);
+
+	Ghost d = new Ghost();
+	d.Position = d.StartPosition = (24, 10);
+	d.Color = ConsoleColor.DarkCyan;
+	d.Destination = GetRandomLocation();
+	d.FramesToUpdate = 12;
+	d.Update = () => UpdateGhost(d);
+
+	Ghosts = new Ghost[] { a, b, c, d, };
+
+	RenderWalls();
+	RenderGate();
+	RenderDots();
+	RenderReady();
+	RenderPacMan();
+	RenderGhosts();
+	RenderScore();
+	if (GetStartingDirectionInput())
 	{
-		Console.Clear();
-		try
+		return; // user hit escape
+	}
+	PacManMovingFrame = 0;
+	EraseReady();
+	while (CountDots() > 0)
+	{
+		if (HandleInput())
 		{
-			if (OperatingSystem.IsWindows())
+			return; // user hit escape
+		}
+		UpdatePacMan();
+		UpdateGhosts();
+		RenderScore();
+		RenderDots();
+		RenderPacMan();
+		RenderGhosts();
+		foreach (Ghost ghost in Ghosts)
+		{
+			if (ghost.Position == PacManPosition)
 			{
-				Console.WindowWidth = 50;
-				Console.WindowHeight = 30;
-			}
-			Console.CursorVisible = false;
-			Console.BackgroundColor = ConsoleColor.Black;
-			Console.ForegroundColor = ConsoleColor.White;
-			Score = 0;
-		NextRound:
-			Console.Clear();
-			SetUpDots();
-			PacManPosition = (20, 17);
-
-			Ghost a = new Ghost();
-			a.Position = a.StartPosition = (16, 10);
-			a.Color = ConsoleColor.Red;
-			a.FramesToUpdate = 6;
-			a.Update = () => UpdateGhost(a);
-
-			Ghost b = new Ghost();
-			b.Position = b.StartPosition = (18, 10);
-			b.Color = ConsoleColor.DarkGreen;
-			b.Destination = GetRandomLocation();
-			b.FramesToUpdate = 6;
-			b.Update = () => UpdateGhost(b);
-
-			Ghost c = new Ghost();
-			c.Position = c.StartPosition = (22, 10);
-			c.Color = ConsoleColor.Magenta;
-			c.FramesToUpdate = 12;
-			c.Update = () => UpdateGhost(c);
-
-			Ghost d = new Ghost();
-			d.Position = d.StartPosition = (24, 10);
-			d.Color = ConsoleColor.DarkCyan;
-			d.Destination = GetRandomLocation();
-			d.FramesToUpdate = 12;
-			d.Update = () => UpdateGhost(d);
-
-			Ghosts = new Ghost[] { a, b, c, d, };
-
-			RenderWalls();
-			RenderGate();
-			RenderDots();
-			RenderReady();
-			RenderPacMan();
-			RenderGhosts();
-			RenderScore();
-			if (GetStartingDirectionInput())
-			{
-				return; // user hit escape
-			}
-			PacManMovingFrame = 0;
-			EraseReady();
-			while (CountDots() > 0)
-			{
-				if (HandleInput())
+				if (ghost.Weak)
 				{
-					return; // user hit escape
+					ghost.Position = ghost.StartPosition;
+					ghost.Weak = false;
+					Score += 10;
 				}
-				UpdatePacMan();
-				UpdateGhosts();
-				RenderScore();
-				RenderDots();
-				RenderPacMan();
-				RenderGhosts();
-				foreach (Ghost ghost in Ghosts)
+				else
 				{
-					if (ghost.Position == PacManPosition)
+					Console.SetCursorPosition(0, 24);
+					Console.WriteLine("Game Over!");
+					Console.WriteLine("Play Again [enter], or quit [escape]?");
+				GetInput:
+					switch (Console.ReadKey(true).Key)
 					{
-						if (ghost.Weak)
-						{
-							ghost.Position = ghost.StartPosition;
-							ghost.Weak = false;
-							Score += 10;
-						}
-						else
-						{
-							Console.SetCursorPosition(0, 24);
-							Console.WriteLine("Game Over!");
-							Console.WriteLine("Play Again [enter], or quit [escape]?");
-						GetInput:
-							switch (Console.ReadKey(true).Key)
-							{
-								case ConsoleKey.Enter: goto NextRound;
-								case ConsoleKey.Escape: Console.Clear(); return;
-								default: goto GetInput;
-							}
-						}
+						case ConsoleKey.Enter: goto NextRound;
+						case ConsoleKey.Escape: Console.Clear(); return;
+						default: goto GetInput;
 					}
 				}
-				Thread.Sleep(TimeSpan.FromMilliseconds(50));
 			}
-			goto NextRound;
 		}
-		finally
-		{
-			Console.CursorVisible = true;
-			if (OperatingSystem.IsWindows())
-			{
-				Console.WindowWidth = OriginalWindowWidth;
-				Console.WindowHeight = OriginalWindowHeight;
-			}
-			Console.BackgroundColor = OriginalBackgroundColor;
-			Console.ForegroundColor = OriginalForegroundColor;
-		}
+		Thread.Sleep(TimeSpan.FromMilliseconds(50));
 	}
+	goto NextRound;
+}
+finally
+{
+	Console.CursorVisible = true;
+	if (OperatingSystem.IsWindows())
+	{
+		Console.WindowWidth = OriginalWindowWidth;
+		Console.WindowHeight = OriginalWindowHeight;
+	}
+	Console.BackgroundColor = OriginalBackgroundColor;
+	Console.ForegroundColor = OriginalForegroundColor;
+}
 
-	static bool GetStartingDirectionInput()
+	bool GetStartingDirectionInput()
 	{
 	GetInput:
 		ConsoleKey key = Console.ReadKey(true).Key;
@@ -271,7 +258,7 @@ class Program
 		return false;
 	}
 
-	static bool HandleInput()
+	bool HandleInput()
 	{
 		bool moved = false;
 		void TrySetPacManDirection(Direction direction)
@@ -302,11 +289,11 @@ class Program
 		return false;
 	}
 
-	static char BoardAt(int x, int y) => WallsString[y * 42 + x];
+	char BoardAt(int x, int y) => WallsString[y * 42 + x];
 
-	static bool IsWall(int x, int y) => BoardAt(x, y) is not ' ';
+	bool IsWall(int x, int y) => BoardAt(x, y) is not ' ';
 
-	static bool CanMove(int x, int y, Direction direction) => direction switch
+	bool CanMove(int x, int y, Direction direction) => direction switch
 	{
 		Direction.Up =>
 			!IsWall(x - 1, y - 1) &&
@@ -323,7 +310,7 @@ class Program
 		_ => throw new NotImplementedException(),
 	};
 
-	static void SetUpDots()
+	void SetUpDots()
 	{
 		string[] rows = DotsString.Split("\n");
 		int rowCount = rows.Length;
@@ -338,7 +325,7 @@ class Program
 		}
 	}
 
-	static int CountDots()
+	int CountDots()
 	{
 		int count = 0;
 		int columnCount = Dots.GetLength(0);
@@ -356,7 +343,7 @@ class Program
 		return count;
 	}
 
-	static void UpdatePacMan()
+	void UpdatePacMan()
 	{
 		if (PacManMovingDirection.HasValue)
 		{
@@ -410,7 +397,7 @@ class Program
 		}
 	}
 
-	static void RenderReady()
+	void RenderReady()
 	{
 		Console.SetCursorPosition(18, 13);
 		WithColors(ConsoleColor.White, ConsoleColor.Black, () =>
@@ -419,19 +406,19 @@ class Program
 		});
 	}
 
-	static void EraseReady()
+	void EraseReady()
 	{
 		Console.SetCursorPosition(18, 13);
 		Console.Write("     ");
 	}
 
-	static void RenderScore()
+	void RenderScore()
 	{
 		Console.SetCursorPosition(0, 23);
 		Console.Write("Score: " + Score);
 	}
 
-	static void RenderGate()
+	void RenderGate()
 	{
 		Console.SetCursorPosition(19, 9);
 		WithColors(ConsoleColor.Magenta, ConsoleColor.Black, () =>
@@ -440,7 +427,7 @@ class Program
 		});
 	}
 
-	static void RenderWalls()
+	void RenderWalls()
 	{
 		Console.SetCursorPosition(0, 0);
 		WithColors(ConsoleColor.Blue, ConsoleColor.Black, () =>
@@ -449,7 +436,7 @@ class Program
 		});
 	}
 
-	static void RenderDots()
+	void RenderDots()
 	{
 		Console.SetCursorPosition(0, 0);
 		WithColors(ConsoleColor.DarkYellow, ConsoleColor.Black, () =>
@@ -468,7 +455,7 @@ class Program
 		});
 	}
 
-	static void RenderPacMan()
+	void RenderPacMan()
 	{
 		Console.SetCursorPosition(PacManPosition.X, PacManPosition.Y);
 		WithColors(ConsoleColor.Black, ConsoleColor.Yellow, () =>
@@ -485,7 +472,7 @@ class Program
 		});
 	}
 
-	static void RenderGhosts()
+	void RenderGhosts()
 	{
 		foreach (Ghost ghost in Ghosts)
 		{
@@ -494,7 +481,7 @@ class Program
 		}
 	}
 
-	static void WithColors(ConsoleColor foreground, ConsoleColor background, Action action)
+	void WithColors(ConsoleColor foreground, ConsoleColor background, Action action)
 	{
 		ConsoleColor originalForeground = Console.ForegroundColor;
 		ConsoleColor originalBackground = Console.BackgroundColor;
@@ -511,7 +498,7 @@ class Program
 		}
 	}
 
-	static void Render(string @string, bool renderSpace = true)
+	void Render(string @string, bool renderSpace = true)
 	{
 		int x = Console.CursorLeft;
 		int y = Console.CursorTop;
@@ -532,7 +519,7 @@ class Program
 		}
 	}
 
-	static void UpdateGhosts()
+	void UpdateGhosts()
 	{
 		foreach (Ghost ghost in Ghosts)
 		{
@@ -540,7 +527,7 @@ class Program
 		}
 	}
 
-	static void UpdateGhost(Ghost ghost)
+	void UpdateGhost(Ghost ghost)
 	{
 		if (ghost.Destination.HasValue && ghost.Destination == ghost.Position)
 		{
@@ -567,9 +554,9 @@ class Program
 		}
 	}
 
-	static readonly (int X, int Y)[] Locations = GetLocations();
+	
 
-	static (int X, int Y)[] GetLocations()
+	(int X, int Y)[] GetLocations()
 	{
 		List<(int X, int Y)> list = new();
 		int x = 0;
@@ -593,15 +580,15 @@ class Program
 		return list.ToArray();
 	}
 
-	static (int X, int Y) GetRandomLocation() => Random.Choose(Locations);
+	(int X, int Y) GetRandomLocation() => Random.Choose(Locations);
 
-	static (int X, int Y) GetGhostNextMove((int X, int Y) position, (int X, int Y) destination)
+	(int X, int Y) GetGhostNextMove((int X, int Y) position, (int X, int Y) destination)
 	{
 		HashSet<(int X, int Y)> alreadyUsed = new();
 
-		static char BoardAt(int x, int y) => GhostWallsString[y * 42 + x];
+		char BoardAt(int x, int y) => GhostWallsString[y * 42 + x];
 
-		static bool IsWall(int x, int y) => BoardAt(x, y) is not ' ';
+		bool IsWall(int x, int y) => BoardAt(x, y) is not ' ';
 
 		void Neighbors((int X, int Y) currentLocation, Action<(int X, int Y)> neighbors)
 		{
@@ -633,7 +620,6 @@ class Program
 		(int X, int Y)[] array = path.ToArray();
 		return array[1];
 	}
-}
 
 class Ghost
 {
@@ -646,4 +632,12 @@ class Ghost
 	public int UpdateFrame;
 	public int FramesToUpdate;
 	public (int X, int Y)? Destination;
+}
+
+enum Direction
+{
+	Up = 0,
+	Down = 1,
+	Left = 2,
+	Right = 3,
 }
