@@ -10,6 +10,7 @@ List<Direction> pattern = new List<Direction>();
 
 string[] Renders = new string[]
 {
+	#region Frames
 	// 0
 	@"           ╔══════╗        " + '\n' +
 	@"           ║      ║        " + '\n' +
@@ -70,6 +71,7 @@ string[] Renders = new string[]
 	@"           ╔╝    ╚╗        " + '\n' +
 	@"           ║      ║        " + '\n' +
 	@"           ╚══════╝        ",
+	#endregion
 };
 
 try
