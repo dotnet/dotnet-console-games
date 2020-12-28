@@ -9,7 +9,7 @@ while (true)
 	Console.WriteLine("Rock, Paper, Scissors");
 	Console.WriteLine();
 GetInput:
-	Console.Write(@"Choose [r]ock, [p]aper, [s]cissors, or [e]xit:");
+	Console.Write("Choose [r]ock, [p]aper, [s]cissors, or [e]xit:");
 	Move playerMove;
 	switch(Console.ReadLine().ToLower())
 	{
@@ -36,7 +36,7 @@ GetInput:
 			wins++;
 			break;
 		default:
-			Console.WriteLine($"This game was a draw.");
+			Console.WriteLine("This game was a draw.");
 			break;
 	}
 	Console.WriteLine($"Score: {wins} wins, {losses} losses");
