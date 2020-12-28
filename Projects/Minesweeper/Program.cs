@@ -1,47 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 const int mine = -1;
+Random random = new Random();
+(int Value, bool Visible)[,] board;
+
+Console.WriteLine("Minesweeper");
+Console.WriteLine();
+int selectedWidth = GetIntegerInput($"Enter board width (10-{Math.Min(Console.LargestWindowWidth, 50)}): ", 10, Math.Min(Console.LargestWindowWidth, 50));
+int selectedHeight = GetIntegerInput($"Enter board height (10-{Math.Min(Console.LargestWindowHeight, 50)}): ", 10, Math.Min(Console.LargestWindowHeight, 50));
+double mineRatio = GetMineRatio("Enter mine ratio (example: 0.1): ");
+int mineCount = (int)(selectedWidth * selectedHeight * mineRatio);
+if (OperatingSystem.IsWindows())
+{
+	Console.WindowHeight = selectedHeight;
+	Console.WindowWidth = selectedWidth;
+}
+(int Column, int Row) = (selectedWidth / 2, selectedHeight / 2);
+GenerateBoard();
+Console.Clear();
+RenderBoard();
 int height = Console.WindowHeight;
 int width = Console.WindowWidth;
-Random random = new Random();
-float mineRatio = .1f;
-int mineCount = (int)(width * height * mineRatio);
-(int Value, bool Visible)[,] board;
-(int Column, int Row) = (width / 2, height / 2);
-
-GenerateBoard();
-RenderBoard();
 while (true)
 {
 	if (Console.WindowHeight != height || Console.WindowWidth != width)
 	{
-		Console.Clear();
-		Console.Write("Console resized. Minesweeper was closed.");
-		return;
+		RenderBoard();
 	}
 	Console.SetCursorPosition(Column, Row);
 	switch (Console.ReadKey(true).Key)
 	{
 		case ConsoleKey.UpArrow:    Row = Math.Max(Row - 1, 0); break;
-		case ConsoleKey.DownArrow:  Row = Math.Min(Row + 1, height - 1); break;
+		case ConsoleKey.DownArrow:  Row = Math.Min(Row + 1, selectedHeight - 1); break;
 		case ConsoleKey.LeftArrow:  Column = Math.Max(Column - 1, 0); break;
-		case ConsoleKey.RightArrow: Column = Math.Min(Column + 1, width - 1); break;
+		case ConsoleKey.RightArrow: Column = Math.Min(Column + 1, selectedWidth - 1); break;
 		case ConsoleKey.Enter:
 			if (!board[Column, Row].Visible)
 			{
 				if (board[Column, Row].Value == mine)
 				{
-					for (int column = 0; column < width; column++)
+					for (int column = 0; column < selectedWidth; column++)
 					{
-						for (int row = 0; row < height; row++)
+						for (int row = 0; row < selectedHeight; row++)
 						{
 							board[column, row].Visible = true;
 						}
 					}
 					RenderBoard();
-					Console.SetCursorPosition(0, height - 1);
+					Console.SetCursorPosition(0, selectedHeight - 1);
 					Console.Write("You Lose. Press Enter To Exit...");
 					Console.ReadLine();
 					Console.Clear();
@@ -58,9 +65,9 @@ while (true)
 					RenderBoard();
 				}
 				int visibleCount = 0;
-				for (int column = 0; column < width; column++)
+				for (int column = 0; column < selectedWidth; column++)
 				{
-					for (int row = 0; row < height; row++)
+					for (int row = 0; row < selectedHeight; row++)
 					{
 						if (board[column, row].Visible)
 						{
@@ -68,9 +75,9 @@ while (true)
 						}
 					}
 				}
-				if (visibleCount == width * height - mineCount)
+				if (visibleCount == selectedWidth * selectedHeight - mineCount)
 				{
-					Console.SetCursorPosition(0, height - 1);
+					Console.SetCursorPosition(0, selectedHeight - 1);
 					Console.Write("You Win. Press Enter To Exit...");
 					Console.ReadLine();
 					Console.Clear();
@@ -93,21 +100,45 @@ IEnumerable<(int Row, int Column)> AdjacentTiles(int column, int row)
 
 	/* A */ if (row > 0 && column > 0) yield return (row - 1, column - 1);
 	/* B */ if (row > 0) yield return (row - 1, column);
-	/* C */ if (row > 0 && column < width - 1) yield return (row - 1, column + 1);
+	/* C */ if (row > 0 && column < selectedWidth - 1) yield return (row - 1, column + 1);
 	/* D */ if (column > 0) yield return (row, column - 1);
-	/* E */ if (column < width - 1) yield return (row, column + 1);
-	/* F */ if (row < height - 1 && column > 0) yield return (row + 1, column - 1);
-	/* G */ if (row < height - 1) yield return (row + 1, column);
-	/* H */ if (row < height - 1 && column < width - 1) yield return (row + 1, column + 1);
+	/* E */ if (column < selectedWidth - 1) yield return (row, column + 1);
+	/* F */ if (row < selectedHeight - 1 && column > 0) yield return (row + 1, column - 1);
+	/* G */ if (row < selectedHeight - 1) yield return (row + 1, column);
+	/* H */ if (row < selectedHeight - 1 && column < selectedWidth - 1) yield return (row + 1, column + 1);
+}
+
+int GetIntegerInput(string prompt, int min, int max)
+{
+	int inputValue;
+	Console.Write(prompt);
+	while (!int.TryParse(Console.ReadLine(), out inputValue) || inputValue < min || max < inputValue)
+	{
+		Console.WriteLine("Invalid Input. Try Again...");
+		Console.Write(prompt);
+	}
+	return inputValue;
+}
+
+double GetMineRatio(string prompt)
+{
+	double inputValue;
+	Console.Write(prompt);
+	while (!double.TryParse(Console.ReadLine(), out inputValue) || (mineCount = (int)(selectedWidth * selectedHeight * inputValue)) < 0 || mineCount > selectedHeight * selectedWidth)
+	{
+		Console.WriteLine("Invalid Input. Try Again...");
+		Console.Write(prompt);
+	}
+	return inputValue;
 }
 
 void GenerateBoard()
 {
-	board = new (int Value, bool Visible)[width, height];
+	board = new (int Value, bool Visible)[selectedWidth, selectedHeight];
 	var coordinates = new List<(int Row, int Column)>();
-	for (int column = 0; column < width; column++)
+	for (int column = 0; column < selectedWidth; column++)
 	{
-		for (int row = 0; row < height; row++)
+		for (int row = 0; row < selectedHeight; row++)
 		{
 			coordinates.Add((column, row));
 		}
@@ -145,22 +176,16 @@ char Render(int value) => value switch
 
 void RenderBoard()
 {
-	StringBuilder stringBuilder = new StringBuilder(width * height);
-	for (int row = 0; row < height; row++)
+	for (int row = 0; row < selectedHeight; row++)
 	{
-		for (int column = 0; column < width; column++)
+		for (int column = 0; column < selectedWidth; column++)
 		{
-			stringBuilder.Append(
-				board[column, row].Visible
+			Console.SetCursorPosition(column, row);
+			Console.Write(board[column, row].Visible
 				? Render(board[column, row].Value)
 				: '█');
 		}
-		//stringBuilder.AppendLine();
 	}
-	Console.CursorVisible = false;
-	Console.SetCursorPosition(0, 0);
-	Console.Write(stringBuilder.ToString());
-	Console.CursorVisible = true;
 }
 
 void Reveal(int column, int row)
