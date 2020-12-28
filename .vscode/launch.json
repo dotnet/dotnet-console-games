@@ -3,6 +3,17 @@
 	"configurations":
 	[
 		{
+			"name": "Rock Paper Scissors",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Rock Paper Scissors",
+			"program": "${workspaceFolder}/Projects/Rock Paper Scissors/bin/Debug/net5.0/Rock Paper Scissors.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Projects/Rock Paper Scissors/bin/Debug/net5.0",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Whack A Mole",
 			"type": "coreclr",
 			"request": "launch",
