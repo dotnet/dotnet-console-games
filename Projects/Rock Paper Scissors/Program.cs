@@ -26,13 +26,13 @@ GetInput:
 		case (Move.Rock,     Move.Paper):
 		case (Move.Paper,    Move.Scissors):
 		case (Move.Scissors, Move.Rock):
-			Console.WriteLine($"You lose.");
+			Console.WriteLine("You lose.");
 			losses++;
 			break;
 		case (Move.Rock,     Move.Scissors):
 		case (Move.Paper,    Move.Rock):
 		case (Move.Scissors, Move.Paper):
-			Console.WriteLine($"You win.");
+			Console.WriteLine("You win.");
 			wins++;
 			break;
 		default:
