@@ -113,6 +113,17 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Type",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Type",
+			"program": "${workspaceFolder}/Projects/Type/bin/Debug/net5.0/Type.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Projects/Type/bin/Debug/net5.0",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Hurdles",
 			"type": "coreclr",
 			"request": "launch",

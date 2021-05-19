@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Remove="Words.txt" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Words.txt" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Towel" Version="1.0.24-alpha" />
+	</ItemGroup>
+</Project>
