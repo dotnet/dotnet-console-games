@@ -130,7 +130,7 @@ const int FramesToMoveHorizontal = 6;
 const int FramesToMoveVertical = 6;
 Ghost[] Ghosts;
 const int GhostWeakTime = 200;
-Random Random = new Random();
+Random Random = new();
 (int X, int Y)[] Locations = GetLocations();
 
 Console.Clear();
@@ -150,26 +150,26 @@ NextRound:
 	SetUpDots();
 	PacManPosition = (20, 17);
 
-	Ghost a = new Ghost();
+	Ghost a = new();
 	a.Position = a.StartPosition = (16, 10);
 	a.Color = ConsoleColor.Red;
 	a.FramesToUpdate = 6;
 	a.Update = () => UpdateGhost(a);
 
-	Ghost b = new Ghost();
+	Ghost b = new();
 	b.Position = b.StartPosition = (18, 10);
 	b.Color = ConsoleColor.DarkGreen;
 	b.Destination = GetRandomLocation();
 	b.FramesToUpdate = 6;
 	b.Update = () => UpdateGhost(b);
 
-	Ghost c = new Ghost();
+	Ghost c = new();
 	c.Position = c.StartPosition = (22, 10);
 	c.Color = ConsoleColor.Magenta;
 	c.FramesToUpdate = 12;
 	c.Update = () => UpdateGhost(c);
 
-	Ghost d = new Ghost();
+	Ghost d = new();
 	d.Position = d.StartPosition = (24, 10);
 	d.Color = ConsoleColor.DarkCyan;
 	d.Destination = GetRandomLocation();

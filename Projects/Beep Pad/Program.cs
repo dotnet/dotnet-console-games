@@ -6,7 +6,7 @@ ConsoleColor BackgroundColor = Console.BackgroundColor;
 
 int ButtonTimeSpan = 500; // milliseconds
 int CodeLength = 5;
-Random random = new Random();
+Random random = new();
 (int X, int Y) Position = default;
 
 // C major scale, starting with middle C
@@ -44,7 +44,7 @@ try
 	Console.CursorVisible = false;
 	Console.BackgroundColor = ConsoleColor.Black;
 	Console.ForegroundColor = ConsoleColor.White;
-	Queue<int> inputedCode = new Queue<int>();
+	Queue<int> inputedCode = new();
 	int[] answerCode = GetRandomCode();
 	ShuffleFrequencies();
 	RenderGame();

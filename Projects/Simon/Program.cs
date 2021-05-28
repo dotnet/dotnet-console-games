@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Threading;
 
-Random random = new Random();
+Random random = new();
 TimeSpan buttonPress = TimeSpan.FromMilliseconds(500);
 TimeSpan animationDelay = TimeSpan.FromMilliseconds(200);
 int score = 0;
-List<Direction> pattern = new List<Direction>();
+List<Direction> pattern = new();
 
 string[] Renders = new string[]
 {

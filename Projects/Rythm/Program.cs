@@ -21,7 +21,7 @@ int remainingMisses = 5;
 
 try
 {
-	Random random = new Random();
+	Random random = new();
 	int bufferwidth = Console.BufferWidth;
 	Console.CursorVisible = false;
 	DateTime lastSpawn;

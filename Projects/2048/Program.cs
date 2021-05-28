@@ -18,7 +18,7 @@ ConsoleColor[] Colors =
 try
 {
 	Console.CursorVisible = false;
-	Random random = new Random();
+	Random random = new();
 	while (true)
 	{
 	NewBoard:
@@ -172,8 +172,8 @@ ConsoleColor GetColor(int? value) =>
 void Render(int?[,] board, int score)
 {
 	int horizontal = board.GetLength(0) * 8;
-	string horizontalBar = new string('═', horizontal);
-	string horizontalSpace = new string(' ', horizontal);
+	string horizontalBar = new('═', horizontal);
+	string horizontalSpace = new(' ', horizontal);
 
 	Console.SetCursorPosition(0, 0);
 	Console.WriteLine("2048");

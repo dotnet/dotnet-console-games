@@ -16,7 +16,7 @@ class Program
 	const int FullHandCount = 13;
 	const int PlaysPerRound = 13;
 
-	static readonly Random Random = new Random();
+	static readonly Random Random = new();
 	static readonly Player[] Players = new Player[]
 	{
 		new Player() { Name = "You" }, /*            0 (Human) */
@@ -211,7 +211,7 @@ class Program
 		public Value Value;
 		public Suit Suit;
 		public override string ToString() =>
-			new string(new char[] { (char)Value, (char)Suit });
+			new(new char[] { (char)Value, (char)Suit });
 	}
 
 	public enum Value

@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Threading;
 using System.Linq;
 
-Random Random = new Random();
+Random Random = new();
 
 string[] Renders =
 {
@@ -373,8 +373,8 @@ if (stream is null)
 	Console.ReadLine();
 	return;
 }
-List<string> words = new List<string>();
-using StreamReader streamReader = new StreamReader(stream);
+List<string> words = new();
+using StreamReader streamReader = new(stream);
 while (!streamReader.EndOfStream)
 {
 	string word = streamReader.ReadLine();

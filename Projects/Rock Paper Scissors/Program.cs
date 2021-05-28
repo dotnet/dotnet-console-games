@@ -1,6 +1,6 @@
 ﻿using System;
 
-Random random = new Random();
+Random random = new();
 int wins = 0;
 int losses = 0;
 while (true)

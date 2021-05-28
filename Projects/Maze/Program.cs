@@ -131,7 +131,7 @@ public static class Maze
 		#endregion
 
 		Tile[,] maze = new Tile[rows, columns];
-		Random random = new Random();
+		Random random = new();
 		var directionBuffer = new (int Row, int Column)[4];
 
 		maze[start_row.Value, start_column.Value] = Tile.Start;
@@ -603,7 +603,7 @@ public static class Maze
 		}
 		int rowsX3 = rows * 3;
 		int columnsX3 = columns * 3;
-		StringBuilder stringBuilder = new StringBuilder();
+		StringBuilder stringBuilder = new();
 		for (int row = 0; row < rowsX3; row++)
 		{
 			for (int column = 0; column < columnsX3; column++)

@@ -13,8 +13,8 @@ int OriginalWidth = Console.WindowWidth;
 int OriginalHeight = Console.WindowHeight;
 
 TimeSpan Sleep = TimeSpan.FromMilliseconds(90);
-Random Random = new Random();
-List<(int X, int GapY)> Pipes = new List<(int, int)>();
+Random Random = new();
+List<(int X, int GapY)> Pipes = new();
 
 int Width;
 int Height;

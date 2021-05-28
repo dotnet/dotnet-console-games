@@ -19,7 +19,7 @@ class Program
 	static readonly TimeSpan timeSpanGround = TimeSpan.FromMilliseconds(600);
 	static readonly TimeSpan timeSpanGetUp = TimeSpan.FromMilliseconds(80);
 
-	static readonly Random random = new Random();
+	static readonly Random random = new();
 
 	enum Action
 	{
@@ -37,7 +37,7 @@ class Program
 		public Action Action = Action.Idle;
 		public int Frame = 0;
 		public int Position;
-		public Stopwatch Stopwatch = new Stopwatch();
+		public Stopwatch Stopwatch = new();
 		public int MaxEnergy = 60;
 		public int Energy = 40;
 		public int MaxHealth = 10;
@@ -56,7 +56,7 @@ class Program
 		Console.Clear();
 		Console.CursorVisible = false;
 
-		Fighter player = new Fighter()
+		Fighter player = new()
 		{
 			Position = width / 3,
 			IdleAnimation = Ascii.Player.IdleAnimation,
@@ -68,7 +68,7 @@ class Program
 			GetUpAnimation = Ascii.Player.GetUpAnimation,
 		};
 
-		Fighter enemy = new Fighter()
+		Fighter enemy = new()
 		{
 			Position = (width / 3) * 2,
 			IdleAnimation = Ascii.Enemy.IdleAnimation,
