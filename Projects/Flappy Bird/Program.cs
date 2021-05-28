@@ -181,8 +181,11 @@ StartingInput:
 finally
 {
 	Console.CursorVisible = true;
-	Console.WindowWidth = OriginalWidth;
-	Console.WindowHeight = OriginalHeight;
+	if (OperatingSystem.IsWindows())
+	{
+		Console.WindowWidth = OriginalWidth;
+		Console.WindowHeight = OriginalHeight;
+	}
 }
 
 bool IsBirdCollidingWithPipe()
