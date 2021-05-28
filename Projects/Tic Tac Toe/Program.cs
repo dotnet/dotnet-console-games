@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 bool closeRequested = false;
 bool playerTurn = true;
-Random random = new Random();
+Random random = new();
 char[,] board;
 
 while (!closeRequested)

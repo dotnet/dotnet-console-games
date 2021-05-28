@@ -73,7 +73,7 @@ void Play()
 	Console.WriteLine(Board);
 	DateTime start = DateTime.Now;
 	int score = 0;
-	Random random = new Random();
+	Random random = new();
 	int moleLocation = random.Next(1, 10);
 	Console.CursorVisible = false;
 	while (DateTime.Now - start < playTime)

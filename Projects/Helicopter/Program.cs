@@ -8,14 +8,14 @@ TimeSpan helicopterTimeSpan = TimeSpan.FromMilliseconds(70);
 TimeSpan ufoMovementTimeSpan = TimeSpan.FromMilliseconds(100);
 TimeSpan enemySpawnTimeSpan = TimeSpan.FromSeconds(1.75);
 
-List<UFO> ufos = new List<UFO>();
-List<Bullet> bullets = new List<Bullet>();
-List<Explosion> explosions = new List<Explosion>();
-Stopwatch stopwatchGame = new Stopwatch();
-Stopwatch stopwatchUFOSpawn = new Stopwatch();
-Stopwatch stopwatchHelicopter = new Stopwatch();
-Stopwatch stopwatchUFO = new Stopwatch();
-Random random = new Random();
+List<UFO> ufos = new();
+List<Bullet> bullets = new();
+List<Explosion> explosions = new();
+Stopwatch stopwatchGame = new();
+Stopwatch stopwatchUFOSpawn = new();
+Stopwatch stopwatchHelicopter = new();
+Stopwatch stopwatchUFO = new();
+Random random = new();
 
 int score = 0;
 bool bulletFrame = default;
@@ -133,7 +133,7 @@ if (OperatingSystem.IsWindows())
 
 int height = Console.WindowHeight;
 int width = Console.WindowWidth;
-Player player = new Player { Left = 2, Top = height / 2, };
+Player player = new() { Left = 2, Top = height / 2, };
 
 Console.CursorVisible = false;
 stopwatchGame.Restart();
@@ -231,7 +231,7 @@ while (true)
 
 	#region Update Bullets
 
-	HashSet<Bullet> bulletRemovals = new HashSet<Bullet>();
+	HashSet<Bullet> bulletRemovals = new();
 	foreach (Bullet bullet in bullets)
 	{
 		Console.SetCursorPosition(bullet.Left, bullet.Top);
@@ -241,7 +241,7 @@ while (true)
 		{
 			bulletRemovals.Add(bullet);
 		}
-		HashSet<UFO> ufoRemovals = new HashSet<UFO>();
+		HashSet<UFO> ufoRemovals = new();
 		foreach (UFO ufo in ufos)
 		{
 			if (ufo.Left <= bullet.Left &&
@@ -274,7 +274,7 @@ while (true)
 
 	#region Update & Render Explosions
 
-	HashSet<Explosion> explosionRemovals = new HashSet<Explosion>();
+	HashSet<Explosion> explosionRemovals = new();
 	foreach (Explosion explosion in explosions)
 	{
 		if (explosion.Frame > 0)

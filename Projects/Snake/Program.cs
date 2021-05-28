@@ -5,10 +5,10 @@ char[] DirectionChars = { '^', 'v', '<', '>', };
 TimeSpan sleep = TimeSpan.FromMilliseconds(70);
 int width = Console.WindowWidth;
 int height = Console.WindowHeight;
-Random random = new Random();
+Random random = new();
 Tile[,] map = new Tile[width, height];
 Direction? direction = null;
-Queue<(int X, int Y)> snake = new Queue<(int X, int Y)>();
+Queue<(int X, int Y)> snake = new();
 (int X, int Y) = (width / 2, height / 2);
 bool closeRequested = false;
 
@@ -90,7 +90,7 @@ void GetDirection()
 
 void PositionFood()
 {
-	List<(int X, int Y)> possibleCoordinates = new List<(int X, int Y)>();
+	List<(int X, int Y)> possibleCoordinates = new();
 	for (int i = 0; i < width; i++)
 	{
 		for (int j = 0; j < height; j++)

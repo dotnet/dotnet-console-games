@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 const int mine = -1;
-Random random = new Random();
+Random random = new();
 (int Value, bool Visible)[,] board;
 
 Console.WriteLine("Minesweeper");
