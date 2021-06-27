@@ -10,6 +10,6 @@
 		<EmbeddedResource Include="Words.txt" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Towel" Version="1.0.24-alpha" />
+		<PackageReference Include="Towel" Version="1.0.30" />
 	</ItemGroup>
 </Project>
