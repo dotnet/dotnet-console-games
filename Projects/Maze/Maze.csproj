@@ -10,6 +10,6 @@
 		<NoWarn>1701;1702;CA1050</NoWarn>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Towel" Version="1.0.18-alpha" />
+		<PackageReference Include="Towel" Version="1.0.30" />
 	</ItemGroup>
 </Project>

@@ -538,7 +538,7 @@ public static class Maze
 		var current = nodes[0];
 		newGraph.Nodes[0] = new Graph.Node(0);
 
-		var heap = new HeapArray<TwoWayConnection>();
+		var heap = HeapArray.New<TwoWayConnection>();
 
 		while (true)
 		{

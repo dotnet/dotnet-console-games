@@ -115,7 +115,7 @@ void GetWord()
 	string w = Random.Choose(WordPool);
 	int width = Math.Min(Console.BufferWidth, Console.WindowWidth) - w.Length;
 	int height = Math.Min(Console.BufferHeight, Console.WindowHeight);
-	SetHashLinked<(int Left, int Top)> set = new();
+	var set = SetHashLinked.New<(int Left, int Top)>();
 	ListArray<(int Left, int Top)> list = new(expectedCount: width * height);
 	foreach (var word in Words)
 	{
