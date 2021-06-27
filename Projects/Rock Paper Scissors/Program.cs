@@ -2,6 +2,7 @@
 
 Random random = new();
 int wins = 0;
+int draws = 0;
 int losses = 0;
 while (true)
 {
@@ -37,9 +38,10 @@ GetInput:
 			break;
 		default:
 			Console.WriteLine("This game was a draw.");
+			draws++;
 			break;
 	}
-	Console.WriteLine($"Score: {wins} wins, {losses} losses");
+	Console.WriteLine($"Score: {wins} wins, {losses} losses, {draws} draws");
 	Console.WriteLine($"Press Enter To Continue...");
 	Console.ReadLine();
 }
