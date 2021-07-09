@@ -57,7 +57,7 @@ There are no custom build processes. `dotnet-console-games` should build with an
 
 > 1. Install [Visual Studio](https://visualstudio.microsoft.com/) if not already installed.
 >
-> 2. Open the <sub><a href="dotnet-console-games.sln"><img src="https://raw.githubusercontent.com/ZacharyPatten/dotnet-console-games/main/.github/Resources/file-16.svg" title="File"></a></sub> **`dotnet-console-games.sln`** file in Visual Studio.
+> 2. Open the <sub><a href="dotnet-console-games.sln"><img src="https://raw.githubusercontent.com/ZacharyPatten/dotnet-console-games/main/.github/resources/file-16.svg" title="File"></a></sub> **`dotnet-console-games.sln`** file in Visual Studio.
 >
 > **Note** This is optional, but [here are some recommended settings you change in Visual Studio](https://gist.github.com/ZacharyPatten/693f35653f6c21fbe6c85444792e524b).
 
@@ -74,7 +74,7 @@ There are no custom build processes. `dotnet-console-games` should build with an
 >
 > 2. Install [Visual Studio Code](https://visualstudio.microsoft.com/) if not already installed.
 >
-> 3. Open the <sub><a href="#"><img src="https://raw.githubusercontent.com/ZacharyPatten/dotnet-console-games/main/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> **`root folder`** of the repository in Visual Studio Code.
+> 3. Open the <sub><a href="#"><img src="https://raw.githubusercontent.com/ZacharyPatten/dotnet-console-games/main/.github/resources/file-directory-16.svg" title="Directory"></a></sub> **`root folder`** of the repository in Visual Studio Code.
 >
 > _**Note** The following files are included in the repository:_
 > - `.vscode/extensions.json` <sub>recommends Vistual Studio Code extension dependencies</sub>
