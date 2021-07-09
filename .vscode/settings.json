@@ -5,11 +5,12 @@
 		".vs": true,
 		"**/bin": true,
 		"**/obj": true,
-		"LICENSE": true,
 		".github": true
 	},
-	"workbench.colorTheme": "Default Dark+",
 	"csharp.semanticHighlighting.enabled": true,
+
+	// color/theme settings
+	"workbench.colorTheme": "Default Dark+",
 	"editor.semanticTokenColorCustomizations":
 	{
 		"[Default Dark+]":
@@ -31,7 +32,7 @@
 				"keyword": "#569CD6",
 				"label": "#ffffff",
 				"local": "#ffffff",
-				"member": "#BD6380",
+				"method": "#BD6380",
 				"namespace": "#ffffff",
 				"number": "#B8D7A3",
 				"operator": "#ffffff",
