@@ -4,7 +4,4 @@
 		<TargetFramework>net5.0</TargetFramework>
 		<RootNamespace>Role_Playing_Game</RootNamespace>
 	</PropertyGroup>
-	<ItemGroup>
-		<PackageReference Include="Towel" Version="1.0.37" />
-	</ItemGroup>
 </Project>
