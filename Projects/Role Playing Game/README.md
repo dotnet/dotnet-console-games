@@ -56,4 +56,4 @@ Quit: [escape]
 
 ## Input
 
-The **arrow keys (↑, ↓, ←, →)** are used to move. You will need to occasionally press **enter** to confirm prompts. The **escape** key may be used to close the game at any time.
+The **arrow keys (↑, ↓, ←, →)** are used to move. Use **enter** to confirm prompts and check character status. The **escape** key may be used to close the game at any time.

@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Role_Playing_Game
+﻿namespace Role_Playing_Game
 {
 	public class Character
 	{
-		public int Level { get; set; }
+		public int Level { get; set; } = 1;
 		public int Experience { get; set; }
-		public int ExperienceToNextLevel { get; set; }
-		public int Health { get; set; }
-		public int MaxHealth { get; set; }
+		public int ExperienceToNextLevel { get; set; } = 10;
+		public int Health { get; set; } = 10;
+		public int MaxHealth { get; set; } = 10;
 		public int Gold { get; set; }
 		public int I { get; set; }
 		public int J { get; set; }
