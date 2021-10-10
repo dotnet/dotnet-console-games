@@ -1,11 +1,11 @@
 {
 	"files.exclude":
 	{
-		".gitignore": true,
+		//".gitignore": true,
 		".vs": true,
 		"**/bin": true,
 		"**/obj": true,
-		".github": true
+		//".github": true
 	},
 	"csharp.semanticHighlighting.enabled": true,
 

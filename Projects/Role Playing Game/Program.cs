@@ -262,19 +262,12 @@ namespace Role_Playing_Game
 			}
 			switch (map[tileJ][tileI])
 			{
-				case 'w': return false;
-				case 'W': return false;
-				case 'b': return false;
-				case 't': return false;
 				case ' ': return true;
 				case 'i': return true;
 				case 's': return true;
-				case 'f': return false;
 				case 'c': return true;
 				case 'e': return true;
 				case '1': return true;
-				case 'p': return false;
-				case 'B': return false;
 				case '0': return true;
 				case 'g': return true;
 				case '2': return true;
@@ -335,6 +328,7 @@ namespace Role_Playing_Game
 				case 'g': return Sprites.Guard;
 				case '2': return Sprites.Castle;
 				case 'p': return Sprites.Mountain2;
+				case 'T': return Sprites.Tree2;
 				default: return Sprites.Error;
 			}
 		}
