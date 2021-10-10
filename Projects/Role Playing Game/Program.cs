@@ -30,11 +30,14 @@ namespace Role_Playing_Game
 		{
 			try
 			{
-				character = new();
-				character.I = 126;
-				character.J = 24;
-				character.MapAnimation = Sprites.IdleRight;
 				map = Maps.Town;
+				character = new();
+				{
+					var (i, j) = FindTileInMap(map, 'X').Value;
+					character.I = i * 7;
+					character.J = j * 4;
+				}
+				character.MapAnimation = Sprites.IdleRight;
 
 				Console.SetCursorPosition(0, 0);
 				Console.Clear();
@@ -46,18 +49,9 @@ namespace Role_Playing_Game
 				Console.WriteLine(" Note: This game is a work in progress.");
 				Console.WriteLine();
 				Console.Write(" Press [enter] to begin...");
+				if (!PressEnterToContiue())
 				{
-				GetInput:
-					ConsoleKey key = Console.ReadKey(true).Key;
-					switch (key)
-					{
-						case ConsoleKey.Enter: break;
-						case ConsoleKey.Escape:
-							Console.Clear();
-							Console.WriteLine("Role Playing Game was closed.");
-							return;
-						default: goto GetInput;
-					}
+					return;
 				}
 
 				while (true)
@@ -86,18 +80,9 @@ namespace Role_Playing_Game
 									Console.WriteLine();
 									Console.Write(" Press [enter] to continue...");
 									character.Health = character.MaxHealth;
+									if (!PressEnterToContiue())
 									{
-									GetInput:
-										ConsoleKey key = Console.ReadKey(true).Key;
-										switch (key)
-										{
-											case ConsoleKey.Enter: break;
-											case ConsoleKey.Escape:
-												Console.Clear();
-												Console.WriteLine("Role Playing Game was closed.");
-												return;
-											default: goto GetInput;
-										}
+										return;
 									}
 									break;
 								case 's':
@@ -109,18 +94,9 @@ namespace Role_Playing_Game
 									Console.WriteLine();
 									Console.Write(" Press [enter] to continue...");
 									character.Health = character.MaxHealth;
+									if (!PressEnterToContiue())
 									{
-									GetInput:
-										ConsoleKey key = Console.ReadKey(true).Key;
-										switch (key)
-										{
-											case ConsoleKey.Enter: break;
-											case ConsoleKey.Escape:
-												Console.Clear();
-												Console.WriteLine("Role Playing Game was closed.");
-												return;
-											default: goto GetInput;
-										}
+										return;
 									}
 									break;
 								case 'c':
@@ -129,9 +105,9 @@ namespace Role_Playing_Game
 								case '1':
 									map = Maps.Field;
 									{
-										var coordinates = FindTileInMap(map, '0');
-										character.I = coordinates.Value.I * 7;
-										character.J = coordinates.Value.J * 4;
+										var (i, j) = FindTileInMap(map, '0').Value;
+										character.I = i * 7;
+										character.J = j * 4;
 									}
 									character.Moved = false;
 									break;
@@ -144,18 +120,18 @@ namespace Role_Playing_Game
 								case '0':
 									map = Maps.Town;
 									{
-										var coordinates = FindTileInMap(map, '1');
-										character.I = coordinates.Value.I * 7;
-										character.J = coordinates.Value.J * 4;
+										var (i, j) = FindTileInMap(map, '1').Value;
+										character.I = i * 7;
+										character.J = j * 4;
 									}
 									character.Moved = false;
 									break;
 								case '2':
 									map = Maps.Castle;
 									{
-										var coordinates = FindTileInMap(map, '1');
-										character.I = coordinates.Value.I * 7;
-										character.J = coordinates.Value.J * 4;
+										var (i, j) = FindTileInMap(map, '1').Value;
+										character.I = i * 7;
+										character.J = j * 4;
 									}
 									character.Moved = false;
 									break;
@@ -174,9 +150,9 @@ namespace Role_Playing_Game
 								case '1':
 									map = Maps.Field;
 									{
-										var coordinates = FindTileInMap(map, '2');
-										character.I = coordinates.Value.I * 7;
-										character.J = coordinates.Value.J * 4;
+										var (i, j) = FindTileInMap(map, '2').Value;
+										character.I = i * 7;
+										character.J = j * 4;
 									}
 									character.Moved = false;
 									break;
@@ -190,42 +166,57 @@ namespace Role_Playing_Game
 						ConsoleKey key = Console.ReadKey(true).Key;
 						switch (key)
 						{
-							case ConsoleKey.UpArrow or ConsoleKey.W:
+							case
+								ConsoleKey.UpArrow    or ConsoleKey.W or
+								ConsoleKey.DownArrow  or ConsoleKey.S or
+								ConsoleKey.LeftArrow  or ConsoleKey.A or
+								ConsoleKey.RightArrow or ConsoleKey.D:
 								if (character.IsIdle)
 								{
-									if (IsValidCharacterMapTile(character.TileI, character.TileJ - 1))
+									var (tileI, tileJ) = key switch
 									{
-										character.MapAnimation = Sprites.RunUp;
-										character.J--;
+										ConsoleKey.UpArrow    or ConsoleKey.W => (character.TileI, character.TileJ - 1),
+										ConsoleKey.DownArrow  or ConsoleKey.S => (character.TileI, character.TileJ + 1),
+										ConsoleKey.LeftArrow  or ConsoleKey.A => (character.TileI - 1, character.TileJ),
+										ConsoleKey.RightArrow or ConsoleKey.D => (character.TileI + 1, character.TileJ),
+										_ => throw new Exception("bug"),
+									};
+									if (IsValidCharacterMapTile(tileI, tileJ))
+									{
+										switch (key)
+										{
+											case ConsoleKey.UpArrow or ConsoleKey.W:
+												character.J--;
+												character.MapAnimation = Sprites.RunUp;
+												break;
+											case ConsoleKey.DownArrow or ConsoleKey.S:
+												character.J++;
+												character.MapAnimation = Sprites.RunDown;
+												break;
+											case ConsoleKey.LeftArrow or ConsoleKey.A:
+												character.MapAnimation = Sprites.RunLeft;
+												break;
+											case ConsoleKey.RightArrow or ConsoleKey.D:
+												character.MapAnimation = Sprites.RunRight;
+												break;
+										}
 									}
 								}
 								break;
-							case ConsoleKey.DownArrow or ConsoleKey.S:
-								if (character.IsIdle)
+							case ConsoleKey.Enter:
+								Console.Clear();
+								Console.WriteLine();
+								Console.WriteLine(" Status");
+								Console.WriteLine();
+								Console.WriteLine($" Level:      {character.Level}");
+								Console.WriteLine($" Experience: {character.Experience}/{character.ExperienceToNextLevel}");
+								Console.WriteLine($" Health:     {character.Health}/{character.MaxHealth}");
+								Console.WriteLine($" Gold:       {character.Gold}");
+								Console.WriteLine();
+								Console.Write(" Press [enter] to continue...");
+								if (!PressEnterToContiue())
 								{
-									if (IsValidCharacterMapTile(character.TileI, character.TileJ + 1))
-									{
-										character.MapAnimation = Sprites.RunDown;
-										character.J++;
-									}
-								}
-								break;
-							case ConsoleKey.LeftArrow or ConsoleKey.A:
-								if (character.IsIdle)
-								{
-									if (IsValidCharacterMapTile(character.TileI - 1, character.TileJ))
-									{
-										character.MapAnimation = Sprites.RunLeft;
-									}
-								}
-								break;
-							case ConsoleKey.RightArrow or ConsoleKey.D:
-								if (character.IsIdle)
-								{
-									if (IsValidCharacterMapTile(character.TileI + 1, character.TileJ))
-									{
-										character.MapAnimation = Sprites.RunRight;
-									}
+									return;
 								}
 								break;
 							case ConsoleKey.Escape:
@@ -236,7 +227,8 @@ namespace Role_Playing_Game
 					}
 					RenderWorldMapView();
 
-					// control frame rate (currently targeting 20 frames per second)
+					// frame rate control
+					// world map is crrently targeting 20 frames per second
 					DateTime now = DateTime.Now;
 					TimeSpan sleep = TimeSpan.FromMilliseconds(50) - (now - previoiusRender);
 					if (sleep > TimeSpan.Zero)
@@ -271,8 +263,26 @@ namespace Role_Playing_Game
 				case '0': return true;
 				case 'g': return true;
 				case '2': return true;
+				case 'X': return true;
+				case 'k': return true;
 				default:  return false;
 			}
+		}
+
+		static bool PressEnterToContiue()
+		{
+			GetInput:
+				ConsoleKey key = Console.ReadKey(true).Key;
+				switch (key)
+				{
+					case ConsoleKey.Enter:
+						return true;
+					case ConsoleKey.Escape:
+						Console.Clear();
+						Console.WriteLine("Role Playing Game was closed.");
+						return false;
+					default: goto GetInput;
+				}
 		}
 
 		static void OpenChest()
@@ -283,20 +293,13 @@ namespace Role_Playing_Game
 			Console.WriteLine();
 			Console.WriteLine(" You found a chest! You open it and find some gold. :)");
 			Console.WriteLine();
+			Console.WriteLine($" Gold: {character.Gold}");
+			Console.WriteLine();
 			Console.Write(" Press [enter] to continue...");
 			character.Health = character.MaxHealth;
+			if (!PressEnterToContiue())
 			{
-			GetInput:
-				ConsoleKey key = Console.ReadKey(true).Key;
-				switch (key)
-				{
-					case ConsoleKey.Enter: break;
-					case ConsoleKey.Escape:
-						Console.Clear();
-						Console.WriteLine("Role Playing Game was closed.");
-						return;
-					default: goto GetInput;
-				}
+				return;
 			}
 		}
 
@@ -315,20 +318,21 @@ namespace Role_Playing_Game
 				case 'W': return Sprites.Wall_0000;
 				case 'b': return Sprites.Building;
 				case 't': return Sprites.Tree;
-				case ' ': return Sprites.Open;
+				case ' ' or 'X': return Sprites.Open;
 				case 'i': return Sprites.Inn;
 				case 's': return Sprites.Store;
 				case 'f': return Sprites.Fence;
 				case 'c': return Sprites.Chest;
 				case 'e': return Sprites.EmptyChest;
 				case 'B': return Sprites.Barrels1;
-				case '1': return tileJ is 0 ? Sprites.ArrowUp : Sprites.ArrowDown;
+				case '1': return tileJ < Maps.Town.Length / 2 ? Sprites.ArrowUp : Sprites.ArrowDown;
 				case 'm': return Sprites.Mountain;
 				case '0': return Sprites.Town;
 				case 'g': return Sprites.Guard;
 				case '2': return Sprites.Castle;
 				case 'p': return Sprites.Mountain2;
 				case 'T': return Sprites.Tree2;
+				case 'k': return Sprites.King;
 				default: return Sprites.Error;
 			}
 		}

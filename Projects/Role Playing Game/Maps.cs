@@ -4,6 +4,7 @@
 	{
 		public static char[][] Town = new char[][]
 		{
+			// X: player start position
 			// 1: field
 			// b: building
 			// B: barrels
@@ -12,17 +13,17 @@
 			// s: store
 			// w: water
 			// W: wall
-			"WWWWWWWWWWWWWWWWW111WWWWWWWWWWWWWWWWW".ToCharArray(),
-			"WbbbfbbbB             Bbffbffbffb  cW".ToCharArray(),
-			"W                                   W".ToCharArray(),
-			"W     Bbfb                          W".ToCharArray(),
-			"Wcb                          BbbbB  W".ToCharArray(),
-			"W           Bi    c    sB           W".ToCharArray(),
-			"W                                  cW".ToCharArray(),
-			"Wb   t                        BbfbfbW".ToCharArray(),
-			"W                                  cW".ToCharArray(),
-			"Wbffbfbffbfbfbbfb   bbfbfbffbfbbfbfbW".ToCharArray(),
-			"WWWWWWWWWWWWWWWWW111WWWWWWWWWWWWWWWWW".ToCharArray(),
+			"   WWWWWWWWWWWWWWWWW111WWWWWWWWWWWWWWWWW   ".ToCharArray(),
+			"wwwWbbbfbbbB             Bbffbffbffb  cWwww".ToCharArray(),
+			"wwwW                                   Wwww".ToCharArray(),
+			"wwwW     Bbfb                          Wwww".ToCharArray(),
+			"wwwWcb                          BbbbB  Wwww".ToCharArray(),
+			"wwwW           Bi    c    sB           Wwww".ToCharArray(),
+			"wwwW                                  cWwww".ToCharArray(),
+			"wwwWb   T            X           BbfbfbWwww".ToCharArray(),
+			"wwwW                                  cWwww".ToCharArray(),
+			"wwwWbffbfbffbfbfbbfb   bbfbfbffbfbbfbfbWwww".ToCharArray(),
+			"   WWWWWWWWWWWWWWWWW111WWWWWWWWWWWWWWWWW   ".ToCharArray(),
 			// out of bounds: open
 		};
 
@@ -63,8 +64,8 @@
 			// t: tree
 			// w: water
 			"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW".ToCharArray(),
-			"WWWWWWWWWWWWWWWWWWWW3WWWWWWWWWWWWWWWWWWWW".ToCharArray(),
-			"WWc                W W                cWW".ToCharArray(),
+			"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW".ToCharArray(),
+			"WWc                WkW                cWW".ToCharArray(),
 			"WW                 W W                 WW".ToCharArray(),
 			"WW                                     WW".ToCharArray(),
 			"WW       W      W       W      W       WW".ToCharArray(),
