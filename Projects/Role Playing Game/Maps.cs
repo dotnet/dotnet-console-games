@@ -37,8 +37,8 @@
 			// w: water
 			"mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm".ToCharArray(),
 			"mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm".ToCharArray(),
-			"mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm".ToCharArray(),
-			"tttttc     mmmmc    tt           m2mcmmmm".ToCharArray(),
+			"mmmmmmmmpmppmmpmpmmmmmmmmmmmmmmmmmmmmmmmm".ToCharArray(),
+			"tttttc     mpmmc    tt           m2mcmmmm".ToCharArray(),
 			"tttt        mm                    g   mmm".ToCharArray(),
 			"ttt   tt                 mm           mmm".ToCharArray(),
 			"ttt           ttt      mmmm     tt    mmm".ToCharArray(),

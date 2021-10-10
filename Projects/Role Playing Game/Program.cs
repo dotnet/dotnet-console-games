@@ -128,8 +128,11 @@ namespace Role_Playing_Game
 									break;
 								case '1':
 									map = Maps.Field;
-									character.I = 49;
-									character.J = 40;
+									{
+										var coordinates = FindTileInMap(map, '0');
+										character.I = coordinates.Value.I * 7;
+										character.J = coordinates.Value.J * 4;
+									}
 									character.Moved = false;
 									break;
 							}
@@ -140,14 +143,20 @@ namespace Role_Playing_Game
 							{
 								case '0':
 									map = Maps.Town;
-									character.I = 126;
-									character.J = 36;
+									{
+										var coordinates = FindTileInMap(map, '1');
+										character.I = coordinates.Value.I * 7;
+										character.J = coordinates.Value.J * 4;
+									}
 									character.Moved = false;
 									break;
 								case '2':
 									map = Maps.Castle;
-									character.I = 140;
-									character.J = 56;
+									{
+										var coordinates = FindTileInMap(map, '1');
+										character.I = coordinates.Value.I * 7;
+										character.J = coordinates.Value.J * 4;
+									}
 									character.Moved = false;
 									break;
 								case 'c':
@@ -164,8 +173,11 @@ namespace Role_Playing_Game
 									break;
 								case '1':
 									map = Maps.Field;
-									character.I = 238;
-									character.J = 12;
+									{
+										var coordinates = FindTileInMap(map, '2');
+										character.I = coordinates.Value.I * 7;
+										character.J = coordinates.Value.J * 4;
+									}
 									character.Moved = false;
 									break;
 							}
@@ -261,6 +273,7 @@ namespace Role_Playing_Game
 				case 'c': return true;
 				case 'e': return true;
 				case '1': return true;
+				case 'p': return false;
 				case 'B': return false;
 				case '0': return true;
 				case 'g': return true;
@@ -321,8 +334,24 @@ namespace Role_Playing_Game
 				case '0': return Sprites.Town;
 				case 'g': return Sprites.Guard;
 				case '2': return Sprites.Castle;
+				case 'p': return Sprites.Mountain2;
 				default: return Sprites.Error;
 			}
+		}
+
+		static (int I, int J)? FindTileInMap(char[][] map, char c)
+		{
+			for (int j = 0; j < map.Length; j++)
+			{
+				for (int i = 0; i < map[j].Length; i++)
+				{
+					if (map[j][i] == c)
+					{
+						return (i, j);
+					}
+				}
+			}
+			return null;
 		}
 
 		static void RenderWorldMapView()
