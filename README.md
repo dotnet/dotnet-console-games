@@ -39,7 +39,7 @@
 |[Fighter](https://github.com/ZacharyPatten/dotnet-console-games/blob/main/Projects/Fighter)|5|<a href="https://docs.microsoft.com/en-us/dotnet/csharp/"><img src="https://img.shields.io/badge/language-C%23-%23178600" title="Language C#" alt="Language C#"></a>&nbsp;<a href="https://dotnet.microsoft.com/download"><img src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2Fdotnet-console-games%2Fmain%2FProjects%2FFighter%2FFighter.csproj&logo=.net" title="Target Framework" alt="Target Framework"></a>&nbsp;<a href="https://github.com/ZacharyPatten/dotnet-console-games/actions"><img src="https://github.com/ZacharyPatten/dotnet-console-games/workflows/Fighter%20Build/badge.svg" title="Goto Build" alt="Build"></a>|
 |[Maze](https://github.com/ZacharyPatten/dotnet-console-games/blob/main/Projects/Maze)|5|<a href="https://docs.microsoft.com/en-us/dotnet/csharp/"><img src="https://img.shields.io/badge/language-C%23-%23178600" title="Language C#" alt="Language C#"></a>&nbsp;<a href="https://dotnet.microsoft.com/download"><img src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2Fdotnet-console-games%2Fmain%2FProjects%2FMaze%2FMaze.csproj&logo=.net" title="Target Framework" alt="Target Framework"></a>&nbsp;<a href="https://github.com/ZacharyPatten/dotnet-console-games/actions"><img src="https://github.com/ZacharyPatten/dotnet-console-games/workflows/Maze%20Build/badge.svg" title="Goto Build" alt="Build"></a>|
 |[PacMan](https://github.com/ZacharyPatten/dotnet-console-games/blob/main/Projects/PacMan)|5|<a href="https://docs.microsoft.com/en-us/dotnet/csharp/"><img src="https://img.shields.io/badge/language-C%23-%23178600" title="Language C#" alt="Language C#"></a>&nbsp;<a href="https://dotnet.microsoft.com/download"><img src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2Fdotnet-console-games%2Fmain%2FProjects%2FPacMan%2FPacMan.csproj&logo=.net" title="Target Framework" alt="Target Framework"></a>&nbsp;<a href="https://github.com/ZacharyPatten/dotnet-console-games/actions"><img src="https://github.com/ZacharyPatten/dotnet-console-games/workflows/PacMan%20Build/badge.svg" title="Goto Build" alt="Build"></a>|
-|[Role Playing Game](https://github.com/ZacharyPatten/dotnet-console-games/blob/main/Projects/Role%20Playing%20Game)|N/A|**_still in development_**<br/><a href="https://docs.microsoft.com/en-us/dotnet/csharp/"><img src="https://img.shields.io/badge/language-C%23-%23178600" title="Language C#" alt="Language C#"></a>&nbsp;<a href="https://img.shields.io/badge/dynamic/xml?color=512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2Fdotnet-console-games%2Fmain%2FProjects%2FRole%2520Playing%2520Game%2FRole%2520Playing%2520Game.csproj&logo=.net" title="Target Framework" alt="Target Framework"></a>&nbsp;<a href="https://github.com/ZacharyPatten/dotnet-console-games/actions"><img src="https://github.com/ZacharyPatten/dotnet-console-games/workflows/Role%20Playing%20Game%20Build/badge.svg" title="Goto Build" alt="Build"></a>|
+|[Role Playing Game](https://github.com/ZacharyPatten/dotnet-console-games/blob/main/Projects/Role%20Playing%20Game)|N/A|**_still in development_**<br/><a href="https://docs.microsoft.com/en-us/dotnet/csharp/"><img src="https://img.shields.io/badge/language-C%23-%23178600" title="Language C#" alt="Language C#"></a>&nbsp;<a href="https://dotnet.microsoft.com/download" title="Target Framework" alt="Target Framework"><img src="https://img.shields.io/badge/dynamic/xml?color=512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2Fdotnet-console-games%2Fmain%2FProjects%2FRole%2520Playing%2520Game%2FRole%2520Playing%2520Game.csproj&logo=.net" /></a>&nbsp;<a href="https://github.com/ZacharyPatten/dotnet-console-games/actions"><img src="https://github.com/ZacharyPatten/dotnet-console-games/workflows/Role%20Playing%20Game%20Build/badge.svg" title="Goto Build" alt="Build"></a>|
 |Hearts|N/A|**_still in development_**|
 |Tetris|N/A|**_still in development_**|
 
@@ -53,7 +53,7 @@ There are no custom build processes. `dotnet-console-games` should build with an
 
 <details>
 <summary>
-:page_facing_up: <strong>Visual Studio <em>(Click To Expand)</em></strong>
+:page_facing_up: Visual Studio <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -68,7 +68,7 @@ There are no custom build processes. `dotnet-console-games` should build with an
 
 <details>
 <summary>
-:page_facing_up: <strong>Visual Studio Code <em>(Click To Expand)</em></strong>
+:page_facing_up: Visual Studio Code <sub>[Expand]</sub>
 </summary>
 <p>
 
