@@ -167,11 +167,21 @@
 			@" /_ _\ " + "\n" +
 			@"  | |  " + "\n" +
 			@"  |_|  ";
+		//public const string Mountain =
+		//	@" /_\   " + "\n" +
+		//	@"/   /_\" + "\n" +
+		//	@"/_\/   " + "\n" +
+		//	@"   \   ";
 		public const string Mountain =
-			@" /_\   " + "\n" +
-			@"/   /_\" + "\n" +
-			@"/_\/   " + "\n" +
-			@"   \   ";
+			@"   /\  " + "\n" +
+			@"  /--\ " + "\n" +
+			@" /    \" + "\n" +
+			@"/      ";
+		public const string Mountain2 =
+            @"   /\  " + "\n" +
+            @"  /\/\ " + "\n" +
+            @" /    \" + "\n" +
+            @"/      ";
 		public const string Guard =
 			@" ^  O  " + "\n" +
 			@" |--|> " + "\n" +
