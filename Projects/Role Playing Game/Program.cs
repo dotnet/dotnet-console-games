@@ -10,14 +10,9 @@ namespace Role_Playing_Game
 		static char[][] map;
 		static DateTime previoiusRender = DateTime.Now;
 
-		const string moveString =         "Move: arrow keys or (w, a, s, d)";
-		const string statusString =       "Check Status: [enter]";
-		const string quitString =         "Quit: [escape]";
-		const string waterBlockedString = "You were blocked by a large body of water.";
-		const string innString1 =         "You found an inn and stayed the night";
-		const string innString2 =         "to regain your strength.";
-		const string storeString1 =       "You found a store and bought some magic";
-		const string storeString2 =       "potions to increase your strength.";
+		const string moveString =   "Move: arrow keys or (w, a, s, d)";
+		const string statusString = "Check Status: [enter]";
+		const string quitString =   "Quit: [escape]";
 
 		public static string[] text = new[]
 		{
@@ -57,9 +52,9 @@ namespace Role_Playing_Game
 				while (true)
 				{
 					// update character animation
-					if (character.MapAnimation == Sprites.RunUp   && character.MapAnimationFrame is 2 or 4 or 6) character.J--;
+					if (character.MapAnimation == Sprites.RunUp && character.MapAnimationFrame is 2 or 4 or 6) character.J--;
 					if (character.MapAnimation == Sprites.RunDown && character.MapAnimationFrame is 2 or 4 or 6) character.J++;
-					if (character.MapAnimation == Sprites.RunLeft)  character.I--;
+					if (character.MapAnimation == Sprites.RunLeft) character.I--;
 					if (character.MapAnimation == Sprites.RunRight) character.I++;
 					character.MapAnimationFrame++;
 
@@ -248,41 +243,39 @@ namespace Role_Playing_Game
 		{
 			if (tileJ < 0 || tileJ >= map.Length || tileI < 0 || tileI >= map[tileJ].Length)
 			{
-				if (map == Maps.Town) return false;
-				if (map == Maps.Field) return false;
-				if (map == Maps.Town) return false;
+				return false;
 			}
-			switch (map[tileJ][tileI])
+			return map[tileJ][tileI] switch
 			{
-				case ' ': return true;
-				case 'i': return true;
-				case 's': return true;
-				case 'c': return true;
-				case 'e': return true;
-				case '1': return true;
-				case '0': return true;
-				case 'g': return true;
-				case '2': return true;
-				case 'X': return true;
-				case 'k': return true;
-				default:  return false;
-			}
+				' ' => true,
+				'i' => true,
+				's' => true,
+				'c' => true,
+				'e' => true,
+				'1' => true,
+				'0' => true,
+				'g' => true,
+				'2' => true,
+				'X' => true,
+				'k' => true,
+				_ => false,
+			};
 		}
 
 		static bool PressEnterToContiue()
 		{
-			GetInput:
-				ConsoleKey key = Console.ReadKey(true).Key;
-				switch (key)
-				{
-					case ConsoleKey.Enter:
-						return true;
-					case ConsoleKey.Escape:
-						Console.Clear();
-						Console.WriteLine("Role Playing Game was closed.");
-						return false;
-					default: goto GetInput;
-				}
+		GetInput:
+			ConsoleKey key = Console.ReadKey(true).Key;
+			switch (key)
+			{
+				case ConsoleKey.Enter:
+					return true;
+				case ConsoleKey.Escape:
+					Console.Clear();
+					Console.WriteLine("Role Playing Game was closed.");
+					return false;
+				default: goto GetInput;
+			}
 		}
 
 		static void OpenChest()
@@ -307,9 +300,8 @@ namespace Role_Playing_Game
 		{
 			if (tileJ < 0 || tileJ >= map.Length || tileI < 0 || tileI >= map[tileJ].Length)
 			{
-				if (map == Maps.Town) return Sprites.Open;
 				if (map == Maps.Field) return Sprites.Mountain;
-				if (map == Maps.Castle) return Sprites.Open;
+				return Sprites.Open;
 			}
 
 			switch (map[tileJ][tileI])
@@ -356,7 +348,7 @@ namespace Role_Playing_Game
 		{
 			Console.CursorVisible = false;
 
-			RestartRender:
+		RestartRender:
 
 			int width = Console.WindowWidth;
 			int height = Console.WindowHeight;
