@@ -244,5 +244,16 @@
 			"console": "externalTerminal",
 			"stopAtEntry": false,
 		},
+		{
+			"name": "Role Playing Game",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Role Playing Game",
+			"program": "${workspaceFolder}/Projects/Role Playing Game/bin/Debug/net5.0/Role Playing Game.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Projects/Role Playing Game/bin/Debug/net5.0",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
 	],
 }
