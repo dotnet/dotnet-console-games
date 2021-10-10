@@ -137,6 +137,11 @@
 			@" \___/ " + "\n" +
 			@"  | |  " + "\n" +
 			@"  / \  ";
+		public const string Tree2 =
+            @"  (@@) " + "\n" +
+            @" (@@@@)" + "\n" +
+            @"   ||  " + "\n" +
+            @"   ||  ";
 		public const string Barrels1 =
 			@"       " + "\n" +
 			@"  /---\ " + "\n" +
