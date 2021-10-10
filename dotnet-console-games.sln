@@ -49,7 +49,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Connect 4", "Projects\Conne
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rock Paper Scissors", "Projects\Rock Paper Scissors\Rock Paper Scissors.csproj", "{03669942-4A7A-4675-9D7A-507B7B85C5F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Type", "Projects\Type\Type.csproj", "{18B534F9-8175-44F8-A558-0F53D4D99EC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Type", "Projects\Type\Type.csproj", "{18B534F9-8175-44F8-A558-0F53D4D99EC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Role Playing Game", "Projects\Role Playing Game\Role Playing Game.csproj", "{65E8EA9C-4DBD-406B-8D65-6E9569726F3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -153,6 +155,10 @@ Global
 		{18B534F9-8175-44F8-A558-0F53D4D99EC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18B534F9-8175-44F8-A558-0F53D4D99EC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18B534F9-8175-44F8-A558-0F53D4D99EC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65E8EA9C-4DBD-406B-8D65-6E9569726F3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65E8EA9C-4DBD-406B-8D65-6E9569726F3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65E8EA9C-4DBD-406B-8D65-6E9569726F3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65E8EA9C-4DBD-406B-8D65-6E9569726F3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

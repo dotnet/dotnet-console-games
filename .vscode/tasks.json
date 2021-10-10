@@ -276,6 +276,19 @@
             "problemMatcher": "$msCompile",
         },
         {
+            "label": "Build Role Playing Game",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/Role Playing Game/Role Playing Game.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
+        {
             "label": "Build Type",
             "command": "dotnet",
             "type": "process",
