@@ -2,7 +2,7 @@
 {
 	public static class Maps
 	{
-		public static char[][] Town = new char[][]
+		public static readonly char[][] Town = new char[][]
 		{
 			// X: player start position
 			// 1: field
@@ -27,7 +27,7 @@
 			// out of bounds: open
 		};
 
-		public static char[][] Field = new char[][]
+		public static readonly char[][] Field = new char[][]
 		{
 			// 0: town
 			// 2: castle
@@ -54,7 +54,7 @@
 			// out of bounds: mountin
 		};
 
-		public static char[][] Castle = new char[][]
+		public static readonly char[][] Castle = new char[][]
 		{
 			// 0: town
 			// 2: castle

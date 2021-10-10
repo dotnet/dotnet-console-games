@@ -6,20 +6,26 @@ namespace Role_Playing_Game
 {
 	public partial class Program
 	{
+		static readonly Random random = new();
 		static Character character;
 		static char[][] map;
 		static DateTime previoiusRender = DateTime.Now;
+		static int movesSinceLastBattle;
+		const double randomBattleChance = 1d/10d;
+		const int movesBeforeRandomBattle = 5;
 
 		const string moveString =   "Move: arrow keys or (w, a, s, d)";
 		const string statusString = "Check Status: [enter]";
 		const string quitString =   "Quit: [escape]";
 
-		public static string[] text = new[]
+		private static string[] text = new[]
 		{
 			moveString,
 			statusString,
 			quitString,
 		};
+
+		private static string[] combatText;
 
 		public static void Main()
 		{
@@ -51,8 +57,7 @@ namespace Role_Playing_Game
 
 				while (true)
 				{
-					// update character animation
-					if (character.MapAnimation == Sprites.RunUp && character.MapAnimationFrame is 2 or 4 or 6) character.J--;
+					if (character.MapAnimation == Sprites.RunUp   && character.MapAnimationFrame is 2 or 4 or 6) character.J--;
 					if (character.MapAnimation == Sprites.RunDown && character.MapAnimationFrame is 2 or 4 or 6) character.J++;
 					if (character.MapAnimation == Sprites.RunLeft) character.I--;
 					if (character.MapAnimation == Sprites.RunRight) character.I++;
@@ -60,6 +65,7 @@ namespace Role_Playing_Game
 
 					if (character.Moved)
 					{
+						movesSinceLastBattle++;
 						if (map == Maps.Town)
 						{
 							switch (map[character.TileJ][character.TileI])
@@ -133,6 +139,12 @@ namespace Role_Playing_Game
 								case 'c':
 									OpenChest();
 									break;
+								case ' ':
+									if (movesSinceLastBattle > movesBeforeRandomBattle && random.NextDouble() < randomBattleChance)
+									{
+										Battle();
+									}
+									break;
 							}
 						}
 						else if (map == Maps.Castle)
@@ -150,6 +162,12 @@ namespace Role_Playing_Game
 										character.J = j * 4;
 									}
 									character.Moved = false;
+									break;
+								case ' ':
+									if (movesSinceLastBattle > movesBeforeRandomBattle && random.NextDouble() < randomBattleChance)
+									{
+										Battle();
+									}
 									break;
 							}
 						}
@@ -223,7 +241,7 @@ namespace Role_Playing_Game
 					RenderWorldMapView();
 
 					// frame rate control
-					// world map is crrently targeting 20 frames per second
+					// world map is currently targeting 20 frames per second
 					DateTime now = DateTime.Now;
 					TimeSpan sleep = TimeSpan.FromMilliseconds(50) - (now - previoiusRender);
 					if (sleep > TimeSpan.Zero)
@@ -296,6 +314,53 @@ namespace Role_Playing_Game
 			}
 		}
 
+		static void Battle()
+		{
+			movesSinceLastBattle = 0;
+
+			combatText = new string[]
+			{
+				"You were attacked!",
+				"1) punch attack",
+				"2) kick attack",
+				"3) run",
+				"",
+				"COMBAT STILL IN DEVELOPMENT",
+				"Press [enter] to return to map...",
+			};
+
+			int frame = 0;
+			while (true)
+			{
+				frame++;
+				if (frame >= Sprites.IdleRight.Length) frame = 0;
+
+				while (Console.KeyAvailable)
+				{
+					ConsoleKey key = Console.ReadKey(true).Key;
+					switch (key)
+					{
+						case ConsoleKey.Enter:
+							return;
+						case ConsoleKey.Escape:
+							return;
+					}
+				}
+
+				RenderBattleView(Sprites.IdleRight[frame], Sprites.IdleLeft[frame]);
+
+				// frame rate control
+				// battle view is currently targeting 20 frames per second
+				DateTime now = DateTime.Now;
+				TimeSpan sleep = TimeSpan.FromMilliseconds(50) - (now - previoiusRender);
+				if (sleep > TimeSpan.Zero)
+				{
+					Thread.Sleep(sleep);
+				}
+				previoiusRender = DateTime.Now;
+			}
+		}
+
 		static string GetMapTileRender(int tileI, int tileJ)
 		{
 			if (tileJ < 0 || tileJ >= map.Length || tileI < 0 || tileI >= map[tileJ].Length)
@@ -303,30 +368,29 @@ namespace Role_Playing_Game
 				if (map == Maps.Field) return Sprites.Mountain;
 				return Sprites.Open;
 			}
-
-			switch (map[tileJ][tileI])
+			return map[tileJ][tileI] switch
 			{
-				case 'w': return Sprites.Water;
-				case 'W': return Sprites.Wall_0000;
-				case 'b': return Sprites.Building;
-				case 't': return Sprites.Tree;
-				case ' ' or 'X': return Sprites.Open;
-				case 'i': return Sprites.Inn;
-				case 's': return Sprites.Store;
-				case 'f': return Sprites.Fence;
-				case 'c': return Sprites.Chest;
-				case 'e': return Sprites.EmptyChest;
-				case 'B': return Sprites.Barrels1;
-				case '1': return tileJ < Maps.Town.Length / 2 ? Sprites.ArrowUp : Sprites.ArrowDown;
-				case 'm': return Sprites.Mountain;
-				case '0': return Sprites.Town;
-				case 'g': return Sprites.Guard;
-				case '2': return Sprites.Castle;
-				case 'p': return Sprites.Mountain2;
-				case 'T': return Sprites.Tree2;
-				case 'k': return Sprites.King;
-				default: return Sprites.Error;
-			}
+				'w' => Sprites.Water,
+				'W' => Sprites.Wall_0000,
+				'b' => Sprites.Building,
+				't' => Sprites.Tree,
+				' ' or 'X' => Sprites.Open,
+				'i' => Sprites.Inn,
+				's' => Sprites.Store,
+				'f' => Sprites.Fence,
+				'c' => Sprites.Chest,
+				'e' => Sprites.EmptyChest,
+				'B' => Sprites.Barrels1,
+				'1' => tileJ < Maps.Town.Length / 2 ? Sprites.ArrowUp : Sprites.ArrowDown,
+				'm' => Sprites.Mountain,
+				'0' => Sprites.Town,
+				'g' => Sprites.Guard,
+				'2' => Sprites.Castle,
+				'p' => Sprites.Mountain2,
+				'T' => Sprites.Tree2,
+				'k' => Sprites.King,
+				_ => Sprites.Error,
+			};
 		}
 
 		static (int I, int J)? FindTileInMap(char[][] map, char c)
@@ -357,14 +421,8 @@ namespace Role_Playing_Game
 			{
 				try
 				{
-					if (Console.BufferHeight != height)
-					{
-						Console.BufferHeight = height;
-					}
-					if (Console.BufferWidth != width)
-					{
-						Console.BufferWidth = width;
-					}
+					if (Console.BufferHeight != height) Console.BufferHeight = height;
+					if (Console.BufferWidth != width)   Console.BufferWidth = width;
 				}
 				catch (ArgumentOutOfRangeException)
 				{
@@ -474,17 +532,87 @@ namespace Role_Playing_Game
 			Console.SetCursorPosition(0, 0);
 			Console.Write(sb);
 		}
-	}
-}
 
-public enum CharacterMapAnimation
-{
-	IdleLeft,
-	IdleRight,
-	IdleUp,
-	IdleDown,
-	RunningLeft,
-	RunningRight,
-	RunningUp,
-	RunningDown,
+		static void RenderBattleView(string spriteLeft, string spriteRight)
+		{
+			Console.CursorVisible = false;
+
+		RestartRender:
+
+			int width = Console.WindowWidth;
+			int height = Console.WindowHeight;
+
+			if (OperatingSystem.IsWindows())
+			{
+				try
+				{
+					if (Console.BufferHeight != height) Console.BufferHeight = height;
+					if (Console.BufferWidth != width)   Console.BufferWidth = width;
+				}
+				catch (ArgumentOutOfRangeException)
+				{
+					Console.Clear();
+					goto RestartRender;
+				}
+			}
+
+			int midWidth = width / 2;
+			//int midHeight = height / 2;
+			int thirdHeight = height / 3;
+			int textStartJ = thirdHeight + 7;
+
+			StringBuilder sb = new(width * height);
+			for (int j = 0; j < height; j++)
+			{
+				if (OperatingSystem.IsWindows() && j == height - 1)
+				{
+					break;
+				}
+
+				for (int i = 0; i < width; i++)
+				{
+					// console area (below map)
+					if (j >= textStartJ)
+					{
+						int line = j - textStartJ - 1;
+						int character = i - 1;
+						if (i < width - 1 && character >= 0 && line >= 0 && line < combatText.Length && character < combatText[line].Length)
+						{
+							char ch = combatText[line][character];
+							sb.Append(char.IsWhiteSpace(ch) ? ' ' : ch);
+							continue;
+						}
+					}
+
+					// character
+					if (i > midWidth - 4 - 10 && i < midWidth + 4 - 10 && j > thirdHeight - 2 && j < thirdHeight + 3)
+					{
+						int ci = i - (midWidth - 3) + 10;
+						int cj = j - (thirdHeight - 1);
+						string characterMapRender = spriteLeft;
+						sb.Append(characterMapRender[cj * 8 + ci]);
+						continue;
+					}
+
+					// enemy
+					if (i > midWidth - 4 + 10 && i < midWidth + 4 + 10 && j > thirdHeight - 2 && j < thirdHeight + 3)
+					{
+						int ci = i - (midWidth - 3) - 10;
+						int cj = j - (thirdHeight - 1);
+						string characterMapRender = spriteRight;
+						sb.Append(characterMapRender[cj * 8 + ci]);
+						continue;
+					}
+
+					sb.Append(' ');
+				}
+				if (!OperatingSystem.IsWindows() && j < height - 1)
+				{
+					sb.AppendLine();
+				}
+			}
+			Console.SetCursorPosition(0, 0);
+			Console.Write(sb);
+		}
+	}
 }
