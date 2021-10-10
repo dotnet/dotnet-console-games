@@ -139,10 +139,14 @@ namespace Role_Playing_Game
 								case 'c':
 									OpenChest();
 									break;
+								case 'g':
+									Battle(EnemyType.GuardBoss);
+									map[character.TileJ][character.TileI] = ' ';
+									break;
 								case ' ':
 									if (movesSinceLastBattle > movesBeforeRandomBattle && random.NextDouble() < randomBattleChance)
 									{
-										Battle();
+										Battle(EnemyType.Boar);
 									}
 									break;
 							}
@@ -163,10 +167,14 @@ namespace Role_Playing_Game
 									}
 									character.Moved = false;
 									break;
+								case 'k':
+									Battle(EnemyType.FinalBoss);
+									map[character.TileJ][character.TileI] = ' ';
+									break;
 								case ' ':
 									if (movesSinceLastBattle > movesBeforeRandomBattle && random.NextDouble() < randomBattleChance)
 									{
-										Battle();
+										Battle(EnemyType.Guard);
 									}
 									break;
 							}
@@ -314,7 +322,7 @@ namespace Role_Playing_Game
 			}
 		}
 
-		static void Battle()
+		static void Battle(EnemyType enemyType)
 		{
 			movesSinceLastBattle = 0;
 
@@ -329,11 +337,25 @@ namespace Role_Playing_Game
 				"Press [enter] to return to map...",
 			};
 
-			int frame = 0;
+			int idleframeLeft = 0;
+			int idleframeRight = 0;
+
+			string[] idleAnimationLeft = Sprites.IdleRight;
+			string[] idleAnimationRight =enemyType switch
+				{
+					EnemyType.Boar => Sprites.IdleBoar,
+					EnemyType.Guard => Sprites.IdleLeft,
+					EnemyType.GuardBoss => Sprites.IdleLeft,
+					EnemyType.FinalBoss => Sprites.IdleLeft,
+					_ => new[] { Sprites.Error },
+				};
+
 			while (true)
 			{
-				frame++;
-				if (frame >= Sprites.IdleRight.Length) frame = 0;
+				idleframeLeft++;
+				if (idleframeLeft >= idleAnimationLeft.Length) idleframeLeft = 0;
+				idleframeRight++;
+				if (idleframeRight >= idleAnimationRight.Length) idleframeRight = 0;
 
 				while (Console.KeyAvailable)
 				{
@@ -347,7 +369,7 @@ namespace Role_Playing_Game
 					}
 				}
 
-				RenderBattleView(Sprites.IdleRight[frame], Sprites.IdleLeft[frame]);
+				RenderBattleView(idleAnimationLeft[idleframeLeft], idleAnimationRight[idleframeRight]);
 
 				// frame rate control
 				// battle view is currently targeting 20 frames per second
@@ -614,5 +636,13 @@ namespace Role_Playing_Game
 			Console.SetCursorPosition(0, 0);
 			Console.Write(sb);
 		}
+	}
+
+	public enum EnemyType
+	{
+		Boar,
+		Guard,
+		GuardBoss,
+		FinalBoss,
 	}
 }
