@@ -8,8 +8,12 @@
 		public int Health { get; set; } = 10;
 		public int MaxHealth { get; set; } = 10;
 		public int Gold { get; set; }
+		// I & J represent the character's position in pixel coordinates
+		// relative to the current map
 		public int I { get; set; }
 		public int J { get; set; }
+		// TileI and TileJ represent the character's position in tile coordinates
+		// relative to the current map
 		public int TileI => I < 0 ? (I - 6) / 7 : I / 7;
 		public int TileJ => J < 0 ? (J - 3) / 4 : J / 4;
 		private string[] _mapAnaimation;
