@@ -254,15 +254,7 @@ namespace Role_Playing_Game
 					}
 					RenderWorldMapView();
 
-					// frame rate control
-					// world map is currently targeting 20 frames per second
-					DateTime now = DateTime.Now;
-					TimeSpan sleep = TimeSpan.FromMilliseconds(50) - (now - previoiusRender);
-					if (sleep > TimeSpan.Zero)
-					{
-						Thread.Sleep(sleep);
-					}
-					previoiusRender = DateTime.Now;
+					SleepAfterRender();
 				}
 			}
 			finally
@@ -377,16 +369,21 @@ namespace Role_Playing_Game
 
 				RenderBattleView(idleAnimationLeft[idleframeLeft], idleAnimationRight[idleframeRight]);
 
-				// frame rate control
-				// battle view is currently targeting 20 frames per second
-				DateTime now = DateTime.Now;
-				TimeSpan sleep = TimeSpan.FromMilliseconds(50) - (now - previoiusRender);
-				if (sleep > TimeSpan.Zero)
-				{
-					Thread.Sleep(sleep);
-				}
-				previoiusRender = DateTime.Now;
+				SleepAfterRender();
 			}
+		}
+
+		static void SleepAfterRender()
+		{
+			// frame rate control
+			// battle view is currently targeting 30 frames per second
+			DateTime now = DateTime.Now;
+			TimeSpan sleep = TimeSpan.FromMilliseconds(33) - (now - previoiusRender);
+			if (sleep > TimeSpan.Zero)
+			{
+				Thread.Sleep(sleep);
+			}
+			previoiusRender = DateTime.Now;
 		}
 
 		static string GetMapTileRender(int tileI, int tileJ)
@@ -450,7 +447,7 @@ namespace Role_Playing_Game
 				try
 				{
 					if (Console.BufferHeight != height) Console.BufferHeight = height;
-					if (Console.BufferWidth != width)   Console.BufferWidth = width;
+					if (Console.BufferWidth  != width)  Console.BufferWidth  = width;
 				}
 				catch (ArgumentOutOfRangeException)
 				{
@@ -543,7 +540,7 @@ namespace Role_Playing_Game
 					int tileI = mapI < 0 ? (mapI - 6) / 7 : mapI / 7;
 					int tileJ = mapJ < 0 ? (mapJ - 3) / 4 : mapJ / 4;
 
-					// compute the coordinates of the pixel within the tile
+					// compute the coordinates of the pixel within the tile's sprite
 					int pixelI = mapI < 0 ? 6 + ((mapI + 1) % 7) : (mapI % 7);
 					int pixelJ = mapJ < 0 ? 3 + ((mapJ + 1) % 4) : (mapJ % 4);
 
