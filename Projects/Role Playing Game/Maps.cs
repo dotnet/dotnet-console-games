@@ -5,10 +5,11 @@
 		public static readonly char[][] Town = new char[][]
 		{
 			// X: player start position
-			// 1: field
+			// 1: field (switches map to Field)
 			// b: building
 			// B: barrels
 			// c: chest
+			// f: fence
 			// i: inn
 			// s: store
 			// w: water
@@ -29,20 +30,21 @@
 
 		public static readonly char[][] Field = new char[][]
 		{
-			// 0: town
-			// 2: castle
+			// 0: town (switches map to Town)
+			// 2: castle (switches map to Castle)
 			// c: chest
-			// g: guard (boss)
+			// g: guard (mini boss)
 			// m: mountain
+			// p: mountain
 			// t: tree
 			// w: water
-			"mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm".ToCharArray(),
-			"mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm".ToCharArray(),
-			"mmmmmmmmpmppmmpmpmmmmmmmmmmmmmmmmmmmmmmmm".ToCharArray(),
-			"TTTTTc     mpmmc    TT           m2mcmmmm".ToCharArray(),
+			"mmmpmmmmpmmmmmpmmmmmpmmmmmpmmmpmmmpmmmpmm".ToCharArray(),
+			"mmpppppppmmmpppmmmpppppmmppmmmpmmmmpppmmm".ToCharArray(),
+			"mmpmmpmmpmppmmpmpmmpmmpmmmmmmpppmmpmpmmmp".ToCharArray(),
+			"TTTTTc     mpmmc    TT           m2mcmmpp".ToCharArray(),
 			"TTTT        mm                    g   mmm".ToCharArray(),
-			"TTT   TT                 mm           mmm".ToCharArray(),
-			"TTT           TTT      mmmm     TT    mmm".ToCharArray(),
+			"TTT   TT                 mm           mpm".ToCharArray(),
+			"TTT           TTT      mmmm     TT    ppm".ToCharArray(),
 			"www      T              mm     TTT    www".ToCharArray(),
 			"www          TT    ww           T     www".ToCharArray(),
 			"www                 ww  TTT         wwwww".ToCharArray(),
@@ -51,18 +53,17 @@
 			"wwwwwwwwwwwwwwwwwwwwwTTTTTTTTTTTTmmmmmmmm".ToCharArray(),
 			"wwwwwwwwwwwwwwwwwwwwTTTTTTTTTTTTTTmmmmmmm".ToCharArray(),
 			"wwwwwwwwwwwwwwwwwwwTTTTTTTTTTTTTTTTmmmmmm".ToCharArray(),
-			// out of bounds: mountin
+			// out of bounds: mountain
 		};
 
 		public static readonly char[][] Castle = new char[][]
 		{
-			// 0: town
-			// 2: castle
+			// 1: arrow (switches map to Field)
 			// c: chest
-			// g: guard (boss)
 			// m: mountain
 			// t: tree
-			// w: water
+			// W: wall
+			// k: final boss (boss)
 			"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW".ToCharArray(),
 			"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW".ToCharArray(),
 			"WWc                WkW                cWW".ToCharArray(),

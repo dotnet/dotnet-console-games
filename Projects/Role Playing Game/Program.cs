@@ -2,6 +2,10 @@
 using System.Text;
 using System.Threading;
 
+// NOTE:
+// Most of the magic numbers are related to the sizes
+// of the sprites, which are 7 width by 4 height.
+
 namespace Role_Playing_Game
 {
 	public partial class Program
@@ -11,14 +15,14 @@ namespace Role_Playing_Game
 		static char[][] map;
 		static DateTime previoiusRender = DateTime.Now;
 		static int movesSinceLastBattle;
-		const double randomBattleChance = 1d/10d;
-		const int movesBeforeRandomBattle = 5;
+		const double randomBattleChance = 1d / 10d;
+		const int movesBeforeRandomBattle = 4;
 
 		const string moveString =   "Move: arrow keys or (w, a, s, d)";
 		const string statusString = "Check Status: [enter]";
 		const string quitString =   "Quit: [escape]";
 
-		private static string[] text = new[]
+		private static readonly string[] maptext = new[]
 		{
 			moveString,
 			statusString,
@@ -47,6 +51,8 @@ namespace Role_Playing_Game
 				Console.WriteLine();
 				Console.WriteLine(" You are about to embark on an epic adventure.");
 				Console.WriteLine();
+				Console.WriteLine(" Go find and kill the king in the castle... because why not?");
+				Console.WriteLine();
 				Console.WriteLine(" Note: This game is a work in progress.");
 				Console.WriteLine();
 				Console.Write(" Press [enter] to begin...");
@@ -59,7 +65,7 @@ namespace Role_Playing_Game
 				{
 					if (character.MapAnimation == Sprites.RunUp   && character.MapAnimationFrame is 2 or 4 or 6) character.J--;
 					if (character.MapAnimation == Sprites.RunDown && character.MapAnimationFrame is 2 or 4 or 6) character.J++;
-					if (character.MapAnimation == Sprites.RunLeft) character.I--;
+					if (character.MapAnimation == Sprites.RunLeft)  character.I--;
 					if (character.MapAnimation == Sprites.RunRight) character.I++;
 					character.MapAnimationFrame++;
 
@@ -473,9 +479,9 @@ namespace Role_Playing_Game
 					{
 						int line = j - heightCutOff - 1;
 						int character = i - 1;
-						if (i < width - 1 && character >= 0 && line >= 0 && line < text.Length && character < text[line].Length)
+						if (i < width - 1 && character >= 0 && line >= 0 && line < maptext.Length && character < maptext[line].Length)
 						{
-							char ch = text[line][character];
+							char ch = maptext[line][character];
 							sb.Append(char.IsWhiteSpace(ch) ? ' ' : ch);
 						}
 						else
@@ -579,7 +585,6 @@ namespace Role_Playing_Game
 			}
 
 			int midWidth = width / 2;
-			//int midHeight = height / 2;
 			int thirdHeight = height / 3;
 			int textStartJ = thirdHeight + 7;
 
