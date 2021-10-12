@@ -5,9 +5,10 @@
 		public int Level { get; set; } = 1;
 		public int Experience { get; set; }
 		public int ExperienceToNextLevel { get; set; } = 10;
-		public int Health { get; set; } = 10;
-		public int MaxHealth { get; set; } = 10;
+		public int Health { get; set; } = 5;
+		public int MaxHealth => Level * 5;
 		public int Gold { get; set; }
+		public int Damage { get; set; } = 1;
 		// I & J represent the character's position in pixel coordinates
 		// relative to the current map
 		public int I { get; set; }
