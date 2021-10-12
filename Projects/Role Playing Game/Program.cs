@@ -614,6 +614,10 @@ namespace Role_Playing_Game
 								}
 								if (enemyHealth <= 0)
 								{
+									if (enemyType is EnemyType.FinalBoss)
+									{
+										return (true, false);
+									}
 									int experienceGain = enemyType switch
 									{
 										EnemyType.Boar => 1,
