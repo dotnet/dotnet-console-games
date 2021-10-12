@@ -30,7 +30,32 @@
 				'p' => Sprites.Mountain2,
 				'T' => Sprites.Tree2,
 				'k' => Sprites.King,
+				'h' => Sprites.Wall_0000,
 				_ => Sprites.Error,
+			};
+		}
+
+		public static bool IsValidCharacterMapTile(char[][] map, int tileI, int tileJ)
+		{
+			if (tileJ < 0 || tileJ >= map.Length || tileI < 0 || tileI >= map[tileJ].Length)
+			{
+				return false;
+			}
+			return map[tileJ][tileI] switch
+			{
+				' ' => true,
+				'i' => true,
+				's' => true,
+				'c' => true,
+				'e' => true,
+				'1' => true,
+				'0' => true,
+				'g' => true,
+				'2' => true,
+				'X' => true,
+				'k' => true,
+				'h' => true,
+				_ => false,
 			};
 		}
 
@@ -75,7 +100,7 @@
 			"WWc                WkW                cWW".ToCharArray(),
 			"WW                 W W                 WW".ToCharArray(),
 			"WW                                     WW".ToCharArray(),
-			"WW       W      W       W      W       WW".ToCharArray(),
+			"WW       W      h       W      W       WW".ToCharArray(),
 			"WW                                     WW".ToCharArray(),
 			"WW                                     WW".ToCharArray(),
 			"WW       W      W       W      W       WW".ToCharArray(),
