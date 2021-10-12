@@ -239,6 +239,22 @@ namespace Role_Playing_Game
 										return;
 									}
 									break;
+								case 'h':
+									Console.Clear();
+									Console.WriteLine();
+									Console.WriteLine(" You walked into the wall and found");
+									Console.WriteLine(" a hidden water fountain that sprays");
+									Console.WriteLine(" Hawaiian Punch.");
+									Console.WriteLine();
+									Console.WriteLine(" Your health is restored.");
+									Console.WriteLine();
+									Console.Write(" Press [enter] to continue...");
+									character.Health = character.MaxHealth;
+									if (!PressEnterToContiue())
+									{
+										return;
+									}
+									break;
 								case ' ':
 									if (movesSinceLastBattle > movesBeforeRandomBattle && random.NextDouble() < randomBattleChance)
 									{
@@ -275,7 +291,7 @@ namespace Role_Playing_Game
 										ConsoleKey.RightArrow or ConsoleKey.D => (character.TileI + 1, character.TileJ),
 										_ => throw new Exception("bug"),
 									};
-									if (IsValidCharacterMapTile(tileI, tileJ))
+									if (Maps.IsValidCharacterMapTile(map, tileI, tileJ))
 									{
 										switch (key)
 										{
@@ -350,29 +366,6 @@ namespace Role_Playing_Game
 			PressEnterToContiue();
 		}
 
-		static bool IsValidCharacterMapTile(int tileI, int tileJ)
-		{
-			if (tileJ < 0 || tileJ >= map.Length || tileI < 0 || tileI >= map[tileJ].Length)
-			{
-				return false;
-			}
-			return map[tileJ][tileI] switch
-			{
-				' ' => true,
-				'i' => true,
-				's' => true,
-				'c' => true,
-				'e' => true,
-				'1' => true,
-				'0' => true,
-				'g' => true,
-				'2' => true,
-				'X' => true,
-				'k' => true,
-				_ => false,
-			};
-		}
-
 		static bool PressEnterToContiue()
 		{
 		GetInput:
@@ -415,7 +408,7 @@ namespace Role_Playing_Game
 				EnemyType.Boar      => 03,
 				EnemyType.GuardBoss => 20,
 				EnemyType.Guard     => 10,
-				EnemyType.FinalBoss => 30,
+				EnemyType.FinalBoss => 60,
 				_ => 1,
 			};
 
@@ -561,12 +554,36 @@ namespace Role_Playing_Game
 						case ConsoleKey.D2 or ConsoleKey.NumPad2:
 							if (!pendingConfirmation)
 							{
-								Console.Clear();
-								Console.WriteLine();
-								Console.WriteLine(" You ran away.");
-								Console.WriteLine();
-								Console.Write(" Press [enter] to continue...");
-								return (PressEnterToContiue(), true);
+								bool success = enemyType switch
+								{
+									EnemyType.Boar => random.Next(10) < 9,
+									EnemyType.Guard => random.Next(10) < 7,
+									_ => true,
+								};
+								if (success)
+								{
+									Console.Clear();
+									Console.WriteLine();
+									Console.WriteLine(" You ran away.");
+									Console.WriteLine();
+									Console.Write(" Press [enter] to continue...");
+									return (PressEnterToContiue(), true);
+								}
+								else
+								{
+									frameLeft = 0;
+									animationLeft = Sprites.FallLeft;
+									combatText = new string[]
+									{
+										"You tried to run away but the enemy",
+										"attacked you from behind and you took",
+										"damage.",
+										"",
+										"Press [enter] to continue...",
+									};
+									character.Health--;
+									pendingConfirmation = true;
+								}
 							}
 							break;
 						case ConsoleKey.D3 or ConsoleKey.NumPad3:
