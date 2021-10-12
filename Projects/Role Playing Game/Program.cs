@@ -18,15 +18,18 @@ namespace Role_Playing_Game
 		const double randomBattleChance = 1d / 10d;
 		const int movesBeforeRandomBattle = 4;
 
-		const string moveString =   "Move: arrow keys or (w, a, s, d)";
-		const string statusString = "Check Status: [enter]";
-		const string quitString =   "Quit: [escape]";
-
 		private static readonly string[] maptext = new[]
 		{
-			moveString,
-			statusString,
-			quitString,
+			"Move: arrow keys or (w, a, s, d)",
+			"Check Status: [enter]",
+			"Quit: [escape]",
+		};
+
+		private static readonly string[] defaultCombatText = new string[]
+		{
+			"1) attack",
+			"2) run",
+			"3) check status",
 		};
 
 		private static string[] combatText;
@@ -44,6 +47,7 @@ namespace Role_Playing_Game
 				}
 				character.MapAnimation = Sprites.IdleRight;
 
+				Console.CursorVisible = false;
 				Console.SetCursorPosition(0, 0);
 				Console.Clear();
 				Console.WriteLine();
@@ -97,10 +101,25 @@ namespace Role_Playing_Game
 									Console.WriteLine();
 									Console.WriteLine(" You enter the store...");
 									Console.WriteLine();
-									Console.WriteLine(" \"My store isn't ready yet! Get out!,\" yelled the shop keeper.");
+									if (character.Gold >= 6)
+									{
+										int damage = character.Gold / 6;
+										character.Gold -= damage * 6;
+										character.Damage += damage;
+										Console.WriteLine($" You pay {damage * 6} gold to train your kung fu.");
+										Console.WriteLine();
+										Console.WriteLine($" You gained +{damage} damage on your attacks.");
+									}
+									else if (character.Damage >= 3)
+									{
+										Console.WriteLine($" \"You have learned all that I can teach you.\"");
+									}
+									else
+									{
+										Console.WriteLine($" \"Bring me 6 gold and I will teach you kung fu.\"");
+									}
 									Console.WriteLine();
 									Console.Write(" Press [enter] to continue...");
-									character.Health = character.MaxHealth;
 									if (!PressEnterToContiue())
 									{
 										return;
@@ -146,13 +165,32 @@ namespace Role_Playing_Game
 									OpenChest();
 									break;
 								case 'g':
-									Battle(EnemyType.GuardBoss);
-									map[character.TileJ][character.TileI] = ' ';
+									var (continueGame, ranAway) = Battle(EnemyType.GuardBoss);
+									if (!continueGame)
+									{
+										Console.Clear();
+										Console.WriteLine("Role Playing Game was closed.");
+										return;
+									}
+									else if (ranAway)
+									{
+										character.J++;
+										character.MapAnimation = Sprites.RunDown;
+									}
+									else
+									{
+										map[character.TileJ][character.TileI] = ' ';
+									}
 									break;
 								case ' ':
 									if (movesSinceLastBattle > movesBeforeRandomBattle && random.NextDouble() < randomBattleChance)
 									{
-										Battle(EnemyType.Boar);
+										if (!Battle(EnemyType.Boar).Continue)
+										{
+											Console.Clear();
+											Console.WriteLine("Role Playing Game was closed.");
+											return;
+										}
 									}
 									break;
 							}
@@ -174,13 +212,42 @@ namespace Role_Playing_Game
 									character.Moved = false;
 									break;
 								case 'k':
-									Battle(EnemyType.FinalBoss);
-									map[character.TileJ][character.TileI] = ' ';
+									var (continueGame, ranAway) = Battle(EnemyType.FinalBoss);
+									if (!continueGame)
+									{
+										Console.Clear();
+										Console.WriteLine("Role Playing Game was closed.");
+										return;
+									}
+									else if (ranAway)
+									{
+										character.J++;
+										character.MapAnimation = Sprites.RunDown;
+									}
+									else
+									{
+										Console.Clear();
+										Console.WriteLine();
+										Console.WriteLine(" You beat the king!");
+										Console.WriteLine();
+										Console.WriteLine(" Woohoo! Good job or whatever.");
+										Console.WriteLine();
+										Console.WriteLine(" Game Over.");
+										Console.WriteLine();
+										Console.Write(" Press [enter] to continue...");
+										PressEnterToContiue();
+										return;
+									}
 									break;
 								case ' ':
 									if (movesSinceLastBattle > movesBeforeRandomBattle && random.NextDouble() < randomBattleChance)
 									{
-										Battle(EnemyType.Guard);
+										if (!Battle(EnemyType.Guard).Continue)
+										{
+											Console.Clear();
+											Console.WriteLine("Role Playing Game was closed.");
+											return;
+										}
 									}
 									break;
 							}
@@ -231,18 +298,10 @@ namespace Role_Playing_Game
 								}
 								break;
 							case ConsoleKey.Enter:
-								Console.Clear();
-								Console.WriteLine();
-								Console.WriteLine(" Status");
-								Console.WriteLine();
-								Console.WriteLine($" Level:      {character.Level}");
-								Console.WriteLine($" Experience: {character.Experience}/{character.ExperienceToNextLevel}");
-								Console.WriteLine($" Health:     {character.Health}/{character.MaxHealth}");
-								Console.WriteLine($" Gold:       {character.Gold}");
-								Console.WriteLine();
-								Console.Write(" Press [enter] to continue...");
-								if (!PressEnterToContiue())
+								if (!RenderStatusString())
 								{
+									Console.Clear();
+									Console.WriteLine("Role Playing Game was closed.");
 									return;
 								}
 								break;
@@ -261,6 +320,34 @@ namespace Role_Playing_Game
 			{
 				Console.CursorVisible = true;
 			}
+		}
+
+		static bool RenderStatusString()
+		{
+			Console.Clear();
+			Console.WriteLine();
+			Console.WriteLine(" Status");
+			Console.WriteLine();
+			Console.WriteLine($" Level:      {character.Level}");
+			Console.WriteLine($" Experience: {character.Experience}/{character.ExperienceToNextLevel}");
+			Console.WriteLine($" Health:     {character.Health}/{character.MaxHealth}");
+			Console.WriteLine($" Gold:       {character.Gold}");
+			Console.WriteLine($" Damage:     {character.Damage}");
+			Console.WriteLine();
+			Console.Write(" Press [enter] to continue...");
+			return PressEnterToContiue();
+		}
+
+		static void RenderDeathScreen()
+		{
+			Console.Clear();
+			Console.WriteLine();
+			Console.WriteLine(" You died...");
+			Console.WriteLine();
+			Console.WriteLine(" Game Over.");
+			Console.WriteLine();
+			Console.Write(" Press [enter] to continue...");
+			PressEnterToContiue();
 		}
 
 		static bool IsValidCharacterMapTile(int tileI, int tileJ)
@@ -313,33 +400,102 @@ namespace Role_Playing_Game
 			Console.WriteLine($" Gold: {character.Gold}");
 			Console.WriteLine();
 			Console.Write(" Press [enter] to continue...");
-			character.Health = character.MaxHealth;
 			if (!PressEnterToContiue())
 			{
 				return;
 			}
 		}
 
-		static void Battle(EnemyType enemyType)
+		static (bool Continue, bool RanAway) Battle(EnemyType enemyType)
 		{
 			movesSinceLastBattle = 0;
 
-			combatText = new string[]
+			int enemyHealth = enemyType switch
 			{
-				"You were attacked!",
-				"1) punch attack",
-				"2) kick attack",
-				"3) run",
-				"",
-				"COMBAT STILL IN DEVELOPMENT",
-				"Press [enter] to return to map...",
+				EnemyType.Boar      => 03,
+				EnemyType.GuardBoss => 20,
+				EnemyType.Guard     => 10,
+				EnemyType.FinalBoss => 30,
+				_ => 1,
 			};
 
-			int idleframeLeft = 0;
-			int idleframeRight = 0;
+			switch (enemyType)
+			{
+				case EnemyType.Boar:
+					combatText = new string[]
+					{
+						"You were attacked by a wild boar!",
+						"1) attack",
+						"2) run",
+						"3) check status",
+					};
+					break;
+				case EnemyType.GuardBoss:
+					if (character.Level < 2)
+					{
+						combatText = new string[]
+						{
+							"You approached the castle guard.",
+							"He looks tough. You should probably",
+							"run away and come back when you are",
+							"stronger.",
+							"1) attack",
+							"2) run",
+							"3) check status",
+						};
+					}
+					else
+					{
+						combatText = new string[]
+						{
+							"You approached the castle guard.",
+							"1) attack",
+							"2) run",
+							"3) check status",
+						};
+					}
+					break;
+				case EnemyType.Guard:
+					combatText = new string[]
+					{
+						"You were attacked by a castle guard!",
+						"1) attack",
+						"2) run",
+						"3) check status",
+					};
+					break;
+				case EnemyType.FinalBoss:
+					if (character.Level < 3)
+					{
+						combatText = new string[]
+						{
+							"You approached the evil king.",
+							"He looks tough. You should probably",
+							"run away and come back when you are",
+							"stronger.",
+							"1) attack",
+							"2) run",
+							"3) check status",
+						};
+					}
+					else
+					{
+						combatText = new string[]
+						{
+							"You approached the evil king.",
+							"1) attack",
+							"2) run",
+							"3) check status",
+						};
+					}
+					break;
+			}
 
-			string[] idleAnimationLeft = Sprites.IdleRight;
-			string[] idleAnimationRight =enemyType switch
+			int frameLeft = 0;
+			int frameRight = 0;
+
+			string[] animationLeft = Sprites.IdleRight;
+			string[] animationRight = enemyType switch
 				{
 					EnemyType.Boar => Sprites.IdleBoar,
 					EnemyType.Guard => Sprites.IdleLeft,
@@ -348,27 +504,133 @@ namespace Role_Playing_Game
 					_ => new[] { Sprites.Error },
 				};
 
+			bool pendingConfirmation = false;
+
 			while (true)
 			{
-				idleframeLeft++;
-				if (idleframeLeft >= idleAnimationLeft.Length) idleframeLeft = 0;
-				idleframeRight++;
-				if (idleframeRight >= idleAnimationRight.Length) idleframeRight = 0;
-
+				if (animationLeft == Sprites.GetUpAnimationRight && frameLeft == animationLeft.Length - 1)
+				{
+					frameLeft = 0;
+					animationLeft = Sprites.IdleRight;
+				}
+				else if (animationLeft == Sprites.IdleRight || frameLeft < animationLeft.Length - 1)
+				{
+					frameLeft++;
+				}
+				if (frameLeft >= animationLeft.Length) frameLeft = 0;
+				frameRight++;
+				if (frameRight >= animationRight.Length) frameRight = 0;
 				while (Console.KeyAvailable)
 				{
 					ConsoleKey key = Console.ReadKey(true).Key;
 					switch (key)
 					{
+						case ConsoleKey.D1 or ConsoleKey.NumPad1:
+							if (!pendingConfirmation)
+							{
+								switch (random.Next(2))
+								{
+									case 0:
+										frameLeft = 0;
+										animationLeft = Sprites.PunchRight;
+										combatText = new string[]
+										{
+											"You attacked and did damage!",
+											"",
+											"Press [enter] to continue...",
+										};
+										enemyHealth -= character.Damage;
+										pendingConfirmation = true;
+										break;
+									case 1:
+										frameLeft = 0;
+										animationLeft = Sprites.FallLeft;
+										combatText = new string[]
+										{
+											"You were attacked, but the enemy was",
+											"faster and you took damage!",
+											"",
+											"Press [enter] to continue...",
+										};
+										character.Health--;
+										pendingConfirmation = true;
+										break;
+								}
+							}
+							break;
+						case ConsoleKey.D2 or ConsoleKey.NumPad2:
+							if (!pendingConfirmation)
+							{
+								Console.Clear();
+								Console.WriteLine();
+								Console.WriteLine(" You ran away.");
+								Console.WriteLine();
+								Console.Write(" Press [enter] to continue...");
+								return (PressEnterToContiue(), true);
+							}
+							break;
+						case ConsoleKey.D3 or ConsoleKey.NumPad3:
+							if (!pendingConfirmation && !RenderStatusString())
+							{
+								return (false, false);
+							}
+							break;
 						case ConsoleKey.Enter:
-							return;
+							if (pendingConfirmation)
+							{
+								pendingConfirmation = false;
+								if (animationLeft == Sprites.FallLeft && frameLeft == animationLeft.Length - 1)
+								{
+									frameLeft = 0;
+									animationLeft = Sprites.GetUpAnimationRight;
+								}
+								else
+								{
+									frameLeft = 0;
+									animationLeft = Sprites.IdleRight;
+								}
+								combatText = defaultCombatText;
+								if (character.Health <= 0)
+								{
+									RenderDeathScreen();
+									return (false, false);
+								}
+								if (enemyHealth <= 0)
+								{
+									int experienceGain = enemyType switch
+									{
+										EnemyType.Boar => 1,
+										EnemyType.GuardBoss => 20,
+										EnemyType.Guard => 10,
+										EnemyType.FinalBoss => 9001, // ITS OVER 9000!
+										_ => 0,
+									};
+									Console.Clear();
+									Console.WriteLine();
+									Console.WriteLine(" You defeated the enemy!");
+									Console.WriteLine();
+									Console.WriteLine($" You gained {experienceGain} experience.");
+									Console.WriteLine();
+									character.Experience += experienceGain;
+									if (character.Experience >= character.ExperienceToNextLevel)
+									{
+										character.Level++;
+										character.Experience = 0;
+										character.ExperienceToNextLevel *= 2;
+										Console.WriteLine($" You grew to level {character.Level}.");
+										Console.WriteLine();
+									}
+									Console.WriteLine();
+									Console.Write(" Press [enter] to continue...");
+									return (PressEnterToContiue(), false);
+								}
+							}
+							break;
 						case ConsoleKey.Escape:
-							return;
+							return (false, false);
 					}
 				}
-
-				RenderBattleView(idleAnimationLeft[idleframeLeft], idleAnimationRight[idleframeRight]);
-
+				RenderBattleView(animationLeft[frameLeft], animationRight[frameRight]);
 				SleepAfterRender();
 			}
 		}
@@ -384,38 +646,6 @@ namespace Role_Playing_Game
 				Thread.Sleep(sleep);
 			}
 			previoiusRender = DateTime.Now;
-		}
-
-		static string GetMapTileRender(int tileI, int tileJ)
-		{
-			if (tileJ < 0 || tileJ >= map.Length || tileI < 0 || tileI >= map[tileJ].Length)
-			{
-				if (map == Maps.Field) return Sprites.Mountain;
-				return Sprites.Open;
-			}
-			return map[tileJ][tileI] switch
-			{
-				'w' => Sprites.Water,
-				'W' => Sprites.Wall_0000,
-				'b' => Sprites.Building,
-				't' => Sprites.Tree,
-				' ' or 'X' => Sprites.Open,
-				'i' => Sprites.Inn,
-				's' => Sprites.Store,
-				'f' => Sprites.Fence,
-				'c' => Sprites.Chest,
-				'e' => Sprites.EmptyChest,
-				'B' => Sprites.Barrels1,
-				'1' => tileJ < Maps.Town.Length / 2 ? Sprites.ArrowUp : Sprites.ArrowDown,
-				'm' => Sprites.Mountain,
-				'0' => Sprites.Town,
-				'g' => Sprites.Guard,
-				'2' => Sprites.Castle,
-				'p' => Sprites.Mountain2,
-				'T' => Sprites.Tree2,
-				'k' => Sprites.King,
-				_ => Sprites.Error,
-			};
 		}
 
 		static (int I, int J)? FindTileInMap(char[][] map, char c)
@@ -437,27 +667,8 @@ namespace Role_Playing_Game
 		{
 			Console.CursorVisible = false;
 
-		RestartRender:
-
-			int width = Console.WindowWidth;
-			int height = Console.WindowHeight;
-
-			if (OperatingSystem.IsWindows())
-			{
-				try
-				{
-					if (Console.BufferHeight != height) Console.BufferHeight = height;
-					if (Console.BufferWidth  != width)  Console.BufferWidth  = width;
-				}
-				catch (ArgumentOutOfRangeException)
-				{
-					Console.Clear();
-					goto RestartRender;
-				}
-			}
-
+			var (width, height) = GetWidthAndHeight();
 			int heightCutOff = (int)(height * .80);
-
 			int midWidth = width / 2;
 			int midHeight = heightCutOff / 2;
 
@@ -545,7 +756,7 @@ namespace Role_Playing_Game
 					int pixelJ = mapJ < 0 ? 3 + ((mapJ + 1) % 4) : (mapJ % 4);
 
 					// render pixel from map tile
-					string tileRender = GetMapTileRender(tileI, tileJ);
+					string tileRender = Maps.GetMapTileRender(map, tileI, tileJ);
 					char c = tileRender[pixelJ * 8 + pixelI];
 					sb.Append(char.IsWhiteSpace(c) ? ' ' : c);
 				}
@@ -562,25 +773,7 @@ namespace Role_Playing_Game
 		{
 			Console.CursorVisible = false;
 
-		RestartRender:
-
-			int width = Console.WindowWidth;
-			int height = Console.WindowHeight;
-
-			if (OperatingSystem.IsWindows())
-			{
-				try
-				{
-					if (Console.BufferHeight != height) Console.BufferHeight = height;
-					if (Console.BufferWidth != width)   Console.BufferWidth = width;
-				}
-				catch (ArgumentOutOfRangeException)
-				{
-					Console.Clear();
-					goto RestartRender;
-				}
-			}
-
+			var (width, height) = GetWidthAndHeight();
 			int midWidth = width / 2;
 			int thirdHeight = height / 3;
 			int textStartJ = thirdHeight + 7;
@@ -637,6 +830,27 @@ namespace Role_Playing_Game
 			}
 			Console.SetCursorPosition(0, 0);
 			Console.Write(sb);
+		}
+
+		static (int Width, int Height) GetWidthAndHeight()
+		{
+			RestartRender:
+			int width = Console.WindowWidth;
+			int height = Console.WindowHeight;
+			if (OperatingSystem.IsWindows())
+			{
+				try
+				{
+					if (Console.BufferHeight != height) Console.BufferHeight = height;
+					if (Console.BufferWidth != width)   Console.BufferWidth = width;
+				}
+				catch (ArgumentOutOfRangeException)
+				{
+					Console.Clear();
+					goto RestartRender;
+				}
+			}
+			return (width, height);
 		}
 	}
 
