@@ -124,6 +124,17 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Drive",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Drive",
+			"program": "${workspaceFolder}/Projects/Drive/bin/Debug/net5.0/Drive.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Projects/Drive/bin/Debug/net5.0",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Hurdles",
 			"type": "coreclr",
 			"request": "launch",
