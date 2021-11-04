@@ -1,8 +1,8 @@
-name: Helicopter Build
+name: Drive Build
 on:
   push:
     paths:
-    - 'Projects/Helicopter/**'
+    - 'Projects/Drive/**'
   workflow_dispatch:
 jobs:
   build:
@@ -14,4 +14,4 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Build with dotnet
-      run: dotnet build "Projects\Helicopter\Helicopter.csproj" --configuration Release
+      run: dotnet build "Projects\Drive\Drive.csproj" --configuration Release
