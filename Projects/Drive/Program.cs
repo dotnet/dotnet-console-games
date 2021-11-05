@@ -229,7 +229,7 @@ class Program
 		}
 		previousRoadUpdate = roadUpdate;
 		carPosition += carVelocity;
-		if (scene[1, carPosition] is not ' ')
+		if (carPosition < 0 || carPosition >= width || scene[1, carPosition] is not ' ')
 		{
 			gameRunning = false;
 		}
