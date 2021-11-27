@@ -10,16 +10,18 @@ float multiplier = 1.1f;
 Random random = new();
 TimeSpan delay = TimeSpan.FromMilliseconds(3);
 TimeSpan enemyInputDelay = TimeSpan.FromMilliseconds(100);
-int paddleSize = height / 4;
+int paddleSizeDenom = 4;
+int paddleSize = screen.h / paddleSizeDenom;
 Stopwatch stopwatch = new();
 Stopwatch enemyStopwatch = new();
 int scoreA = 0;
 int scoreB = 0;
 Ball ball;
-Player aPlayer = new(screen, screen.h / 4);
-Player bPlayer = new(screen, screen.h / 4);
-int paddleA = height / 3;
-int paddleB = height / 3;
+Player PlayerA = new(screen, paddleSize); 
+Player PlayerB = new(screen, paddleSize); // enemy
+int startPaddlePos = screen.h / 2 - paddleSize / 2;
+int paddleA = startPaddlePos; // height / 3; // paddle position
+int paddleB = startPaddlePos;
 
 Console.Clear();
 stopwatch.Restart();
@@ -105,8 +107,8 @@ while (scoreA < 3 && scoreB < 3)
 				case ConsoleKey.DownArrow: paddleA = Math.Min(paddleA + 1, height - paddleSize - 1); break;
 				case ConsoleKey.Escape:
 					Console.Clear();
-					Console.CursorVisible = true;
 					Console.Write("Pong was closed.");
+					Console.CursorVisible = true;
 					return;
 			}
 		}
