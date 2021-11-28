@@ -142,7 +142,10 @@ class Program
 					stringBuilder.Append(scene[i, j]);
 				}
 			}
-			stringBuilder.AppendLine();
+			if (i > 0)
+			{
+				stringBuilder.AppendLine();
+			}
 		}
 		Console.SetCursorPosition(0, 0);
 		Console.Write(stringBuilder);
