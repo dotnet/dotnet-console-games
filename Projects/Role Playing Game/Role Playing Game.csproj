@@ -1,7 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net5.0</TargetFramework>
+		<RollForward>LatestMajor</RollForward>
 		<RootNamespace>Role_Playing_Game</RootNamespace>
 	</PropertyGroup>
 </Project>
