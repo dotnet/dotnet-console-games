@@ -8,7 +8,7 @@ Debug.Print("OOProgram start.");
 int width = Console.WindowWidth;
 int height = Console.WindowHeight;
 Screen screen = new();
-
+Debug.WriteLine($"screen size is w(x axis): {screen.w} and h(y axis): {screen.h}.");
 float multiplier = 1.1f;
 Random random = new();
 TimeSpan delay = TimeSpan.FromMilliseconds(100);
@@ -20,16 +20,22 @@ Stopwatch enemyStopwatch = new();
 int scoreA = 0;
 int scoreB = 0;
 Ball ball;
-Player PlayerA = new(paddleSize..screen.h); 
-Player PlayerB = new(paddleSize..screen.h); // enemy
+Player playerA = new(paddleSize..screen.h); 
+Player playerB = new(paddleSize..screen.h); // enemy
 int startPaddlePos = screen.h / 2 - paddleSize / 2;
 int paddleA = startPaddlePos; // height / 3; // paddle position
 int paddleB = startPaddlePos;
+var pAp_is_set = playerA.paddle.Set(startPaddlePos);
+if (pAp_is_set)
+	Debug.WriteLine($"playerA.paddle.pos is set as: {playerA.paddle.pos}");
+else
+	Debug.Print("playerA.paddle is not set!");
 
 Console.Clear();
 stopwatch.Restart();
 enemyStopwatch.Restart();
 Console.CursorVisible = false;
+int ball_speed = 15;
 while (scoreA < 3 && scoreB < 3)
 {
 	ball = CreateNewBall();
@@ -38,7 +44,7 @@ while (scoreA < 3 && scoreB < 3)
 		#region Update Ball
 
 		// Compute Time And New Ball Position
-		float time = (float)stopwatch.Elapsed.TotalSeconds * 15;
+		float time = (float)stopwatch.Elapsed.TotalSeconds * ball_speed;
 		var (X2, Y2) = (ball.X + (time * ball.dX), ball.Y + (time * ball.dY));
 
 		// Collisions With Up/Down Walls
@@ -117,7 +123,7 @@ while (scoreA < 3 && scoreB < 3)
 		}
 		while (Console.KeyAvailable)
 		{
-			Console.ReadKey(true);
+			Console.ReadKey(true); // Drop excessive key hits.
 		}
 
 		#endregion
@@ -254,9 +260,6 @@ public class Paddle {
 
     }
 
-	public int Pos(){
-		return _pos.Value;
-	}
     public bool Up() {
         return _pos.Dec();
     }
@@ -264,8 +267,12 @@ public class Paddle {
         return _pos.Inc();
     }
 
+	public bool Set(int n) {
+		return _pos.set(n);
+	}
+
 	public bool Hit(int p) {
-		if (p >= Pos() && p < (Pos() + size))
+		if (p >= pos && p < (pos + size))
 			return true;
 		return false;
 	}
