@@ -2,14 +2,17 @@
 using System.Diagnostics;
 using System.Threading;
 
+Debug.Print("OOProgram start.");
+// Environment.Exit(0);
+
 int width = Console.WindowWidth;
 int height = Console.WindowHeight;
 Screen screen = new();
 
 float multiplier = 1.1f;
 Random random = new();
-TimeSpan delay = TimeSpan.FromMilliseconds(3);
-TimeSpan enemyInputDelay = TimeSpan.FromMilliseconds(100);
+TimeSpan delay = TimeSpan.FromMilliseconds(100);
+TimeSpan enemyInputDelay = TimeSpan.FromMilliseconds(150);
 int paddleSizeDenom = 4;
 int paddleSize = screen.h / paddleSizeDenom;
 Stopwatch stopwatch = new();
@@ -17,8 +20,8 @@ Stopwatch enemyStopwatch = new();
 int scoreA = 0;
 int scoreB = 0;
 Ball ball;
-Player PlayerA = new(screen, paddleSize); 
-Player PlayerB = new(screen, paddleSize); // enemy
+Player PlayerA = new(paddleSize..screen.h); 
+Player PlayerB = new(paddleSize..screen.h); // enemy
 int startPaddlePos = screen.h / 2 - paddleSize / 2;
 int paddleA = startPaddlePos; // height / 3; // paddle position
 int paddleB = startPaddlePos;
@@ -207,15 +210,14 @@ float GetLineValue(((float X, float Y) A, (float X, float Y) B) line, float x)
 }
 
 public class Screen {
-	public int w {get; private set;}
-	public int h {get; private set;}
+	public int w {get; init;}
+	public int h {get; init;}
 	public Screen() {
 		w = Console.WindowWidth;
 		h = Console.WindowHeight;
-
 	}
-
 }
+
 public class Ball
 {
 	public float X;
@@ -225,9 +227,9 @@ public class Ball
 }
 public class Player {
     public int Score {get; set;} = 0;
-    public Paddle paddle;
-	public Player(Screen scr, int paddleWidth) {
-		paddle = new(scr, paddleWidth);
+    public Paddle paddle {get;}
+	public Player(Range range) { // Screen scr, int paddleWidth) {
+		paddle = new Paddle(range);
 	}
 }
 public class Paddle {
@@ -240,16 +242,15 @@ public class Paddle {
 		}
 	}
     Clamp _pos;
-    int wid;
-    public Paddle(Screen scr, int w) {
-        if (w > scr.h) {
-            throw new ArgumentOutOfRangeException("Width must not be more than _pos max!");
+    public int size {get; init;}
+	/// <summary>range Start is paddle size, range end is screen height.</sammary>
+    public Paddle(Range range) {
+        if (range.Start.Value == 0)
+        {
+            throw new ArgumentOutOfRangeException("Paddle size must be more than 0!");
         }
-        if (w <= 0) {
-            throw new ArgumentOutOfRangeException("Width must be plus value!");
-        }
-        wid = w;
-        _pos = new(scr.h - w);
+        size = range.Start.Value;
+        _pos = new(range.End.Value - range.Start.Value);
 
     }
 
@@ -264,7 +265,7 @@ public class Paddle {
     }
 
 	public bool Hit(int p) {
-		if (p >= Pos() && p < (Pos() + wid))
+		if (p >= Pos() && p < (Pos() + size))
 			return true;
 		return false;
 	}
