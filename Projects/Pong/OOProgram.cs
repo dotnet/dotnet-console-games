@@ -20,11 +20,11 @@ Stopwatch enemyStopwatch = new();
 int scoreA = 0;
 int scoreB = 0;
 Ball ball;
-Player playerA = new(paddleSize..screen.h); 
-Player playerB = new(paddleSize..screen.h); // enemy
 int startPaddlePos = screen.h / 2 - paddleSize / 2;
 int paddleA = startPaddlePos; // height / 3; // paddle position
 int paddleB = startPaddlePos;
+Player playerA = new(0, new(paddleSize..screen.h, startPaddlePos)); 
+Player playerB = new(0, new(paddleSize..screen.h, startPaddlePos)); 
 var pAp_is_set = playerA.paddle.Set(startPaddlePos);
 if (pAp_is_set)
 	Debug.WriteLine($"playerA.paddle.pos is set as: {playerA.paddle.pos}");
@@ -232,10 +232,11 @@ public class Ball
 	public float dY;
 }
 public class Player {
-    public int Score {get; set;} = 0;
+    public int score {get; set;}
     public Paddle paddle {get;}
-	public Player(Range range) { // Screen scr, int paddleWidth) {
-		paddle = new Paddle(range);
+	public Player(int scr, Paddle pdl) { // Screen scr, int paddleWidth) {
+		score = scr;
+		paddle = pdl;
 	}
 }
 public class Paddle {
@@ -250,13 +251,13 @@ public class Paddle {
     Clamp _pos;
     public int size {get; init;}
 	/// <summary>range Start is paddle size, range end is screen height.</sammary>
-    public Paddle(Range range) {
+    public Paddle(Range range, int start_pos = 0) {
         if (range.Start.Value == 0)
         {
             throw new ArgumentOutOfRangeException("Paddle size must be more than 0!");
         }
         size = range.Start.Value;
-        _pos = new(range.End.Value - range.Start.Value);
+        _pos = new(range.End.Value - range.Start.Value, start_pos);
 
     }
 
@@ -284,12 +285,14 @@ public class Clamp
     public int Value {get; private set;}
     public int Max {get; private set;}
 
-    public Clamp(int ma) {
-        if (ma <= 0){
-            throw new Exception("Max must not minus nor 0!");
+    public Clamp(int ma, int start = 0) {
+        if (ma < 0){
+            throw new ArgumentOutOfRangeException("Max must not minus!");
         }
         Max = ma;
-        Value = 0;
+        if (!(0..Max).Contains(start)) 
+            throw new ArgumentOutOfRangeException($"start value({start}) is not in [0..{Max}]. ");           
+        Value = start;
     }
 
     public bool Inc(){
