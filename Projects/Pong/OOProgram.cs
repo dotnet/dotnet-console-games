@@ -1,30 +1,33 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Collections.Generic;
 
 Debug.Print("OOProgram start.");
 // Environment.Exit(0);
-
-int width = Console.WindowWidth;
-int height = Console.WindowHeight;
-Screen screen = new();
-Debug.WriteLine($"screen size is w(x axis): {screen.w} and h(y axis): {screen.h}.");
+var screen_wh = OnScreen.init();
+Debug.WriteLine($"screen size is w(x axis): {screen_wh.W} and h(y axis): {screen_wh.H}.");
+int width = screen_wh.W; // Console.WindowWidth;
+int height = screen_wh.H; // Console.WindowHeight;
+// Screen screen = new();
+// OnScreen.W = screen.w;
+// OnScreen.H = screen.h;
 float multiplier = 1.1f;
 Random random = new();
 TimeSpan delay = TimeSpan.FromMilliseconds(100);
 TimeSpan enemyInputDelay = TimeSpan.FromMilliseconds(150);
 int paddleSizeDenom = 4;
-int paddleSize = screen.h / paddleSizeDenom;
+int paddleSize = screen_wh.H / paddleSizeDenom;
 Stopwatch stopwatch = new();
 Stopwatch enemyStopwatch = new();
 int scoreA = 0;
 int scoreB = 0;
 Ball ball;
-int startPaddlePos = screen.h / 2 - paddleSize / 2;
+int startPaddlePos = screen_wh.H / 2 - paddleSize / 2;
 int paddleA = startPaddlePos; // height / 3; // paddle position
 int paddleB = startPaddlePos;
-Player playerA = new(0, new(paddleSize..screen.h, startPaddlePos)); 
-Player playerB = new(0, new(paddleSize..screen.h, startPaddlePos)); 
+Player playerA = new(0, new(paddleSize..screen_wh.H, startPaddlePos)); 
+Player playerB = new(0, new(paddleSize..screen_wh.H, startPaddlePos)); 
 var pAp_is_set = playerA.paddle.Set(startPaddlePos);
 if (pAp_is_set)
 	Debug.WriteLine($"playerA.paddle.pos is set as: {playerA.paddle.pos}");
@@ -215,13 +218,18 @@ float GetLineValue(((float X, float Y) A, (float X, float Y) B) line, float x)
 	return x * slope + yIntercept;
 }
 
-public class Screen {
+public class Screen : OnScreen {
 	public int w {get; init;}
 	public int h {get; init;}
 	public Screen() {
-		w = Console.WindowWidth;
-		h = Console.WindowHeight;
+		OnScreen.init();
+		OnScreen.W = w = Console.WindowWidth;
+		OnScreen.H = h = Console.WindowHeight;
 	}
+	void show(){
+
+	}
+
 }
 
 public class Ball
@@ -239,7 +247,37 @@ public class Player {
 		paddle = pdl;
 	}
 }
+/* public class Paddle : PaddleBase {
+	public Direction direction {get; init;}
+    public Paddle(Range range, int start_pos = 0, Direction direc = Direction.V) : PaddleBase(range, start_pos) 
+	{
+		direction = direc;
+	}
+} */
+
+record W_H(int W, int H);
+record X_Y(int X, int Y);
+interface OnScreen {
+	static int W; // width
+	static int H; // height
+
+	static W_H init() {
+		W = Console.WindowWidth;
+		H = Console.WindowHeight;
+		return new W_H(W, H);
+	}
+}
+enum ScreenChar {O = 'O', C = ' ', B = '█'}
+
+interface Movable {
+	void move_to(int x, int y); // move to (x, y) and redraw
+	void move_by(int x, int y);
+}
+
+public enum Direction {V, H}
+public enum HPos {Start, End}
 public class Paddle {
+	public bool atLeft {get; init;} // Position is at left edge(if not, right edge).
 	public int pos {
 		get {
 			return _pos.Value;
@@ -248,19 +286,30 @@ public class Paddle {
 			this._pos.set(value);
 		}
 	}
-    Clamp _pos;
+    public Clamp _pos;
     public int size {get; init;}
 	/// <summary>range Start is paddle size, range end is screen height.</sammary>
-    public Paddle(Range range, int start_pos = 0) {
+    public Paddle(Range range, int start_pos = 0, bool at_left = true) {
         if (range.Start.Value == 0)
         {
             throw new ArgumentOutOfRangeException("Paddle size must be more than 0!");
         }
         size = range.Start.Value;
         _pos = new(range.End.Value - range.Start.Value, start_pos);
-
+		atLeft = at_left;
     }
 
+	public void show(){
+		Console.SetCursorPosition(atLeft ? 0 : OnScreen.W - 1, pos);
+		Console.Write(ScreenChar.B);
+
+	}
+	public void move_to(int y) {
+		var old_pos = pos;
+		pos = y;
+		
+
+	}
     public bool Up() {
         return _pos.Dec();
     }
@@ -289,9 +338,9 @@ public class Clamp
         if (ma < 0){
             throw new ArgumentOutOfRangeException("Max must not minus!");
         }
-        Max = ma;
-        if (!(0..Max).Contains(start)) 
+        if (start < 0 || start >= ma)// !(0..Max).Contains(start)) 
             throw new ArgumentOutOfRangeException($"start value({start}) is not in [0..{Max}]. ");           
+        Max = ma;
         Value = start;
     }
 
