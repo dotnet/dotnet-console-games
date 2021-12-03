@@ -255,20 +255,27 @@ public class Player {
 	}
 } */
 
-record W_H(int W, int H);
-record X_Y(int X, int Y);
+record Dim2(int W, int H);
+record Cood2(int X, int Y);
 interface OnScreen {
 	static int W; // width
 	static int H; // height
 
-	static W_H init() {
+	static Dim2 init() {
 		W = Console.WindowWidth;
 		H = Console.WindowHeight;
-		return new W_H(W, H);
+		return new Dim2(W, H);
 	}
 }
-enum ScreenChar {O = 'O', C = ' ', B = '█'}
-
+public enum ScreenChar {O = '\u25CB',
+ C = ' ', 
+ B = '\u25AE' }
+interface Cood2Listable {
+	List<Cood2> Cood2List();
+}
+interface HasDispChar {
+	char DispChar();
+}
 interface Movable {
 	void move_to(int x, int y); // move to (x, y) and redraw
 	void move_by(int x, int y);
@@ -276,7 +283,10 @@ interface Movable {
 
 public enum Direction {V, H}
 public enum HPos {Start, End}
-public class Paddle {
+public class Paddle : HasDispChar {
+	public char DispChar() {
+		return (char)ScreenChar.B;
+	}
 	public bool atLeft {get; init;} // Position is at left edge(if not, right edge).
 	public int pos {
 		get {
@@ -370,6 +380,34 @@ public class Clamp
     }
 
 
+}
+
+public class NestedRange {
+	public Range inner {get; private set;}
+	public Range outer {get; init;}
+	public NestedRange(Range _inner, Range _outer) {
+		if (_inner.Start.Value < _outer.Start.Value || _inner.End.Value > _outer.End.Value)
+            throw new ArgumentOutOfRangeException("Inner range out of outer range!");
+		inner = _inner;
+		outer = _outer;
+	}
+	public int shift(int d) {
+		if (d == 0)
+			return 0;
+		if (d > 0) {
+			var s = outer.End.Value - inner.End.Value;
+			if (s < d)
+				d = s;
+		}
+		else {
+			var s = inner.Start.Value - outer.Start.Value;
+			if (s < -d)
+				d = -s;
+		}
+		inner = (inner.Start.Value + d)..(inner.End.Value + d);
+		return d;
+	}
+	
 }
 static class RangeExtention
 {
