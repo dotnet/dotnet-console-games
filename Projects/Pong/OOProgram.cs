@@ -4,9 +4,9 @@ using System.Threading;
 using System.Collections.Generic;
 
 Debug.Print("OOProgram start.");
-// Environment.Exit(0);
+Environment.Exit(0);
 var screen_wh = OnScreen.init();
-Debug.WriteLine($"screen size is w(x axis): {screen_wh.W} and h(y axis): {screen_wh.H}.");
+Debug.Print($"screen size is w(x axis): {screen_wh.W} and h(y axis): {screen_wh.H}.");
 int width = screen_wh.W; // Console.WindowWidth;
 int height = screen_wh.H; // Console.WindowHeight;
 // Screen screen = new();
@@ -117,8 +117,7 @@ while (scoreA < 3 && scoreB < 3)
 			{
 				case ConsoleKey.UpArrow: paddleA = Math.Max(paddleA - 1, 0); break;
 				case ConsoleKey.DownArrow: paddleA = Math.Min(paddleA + 1, height - paddleSize - 1); break;
-				case ConsoleKey.Escape:
-					Console.Clear();
+				case ConsoleKey.Escape: Console.Clear();
 					Console.Write("Pong was closed.");
 					Console.CursorVisible = true;
 					return;
@@ -158,8 +157,7 @@ while (scoreA < 3 && scoreB < 3)
 			Console.Write(paddleB <= i && i <= paddleB + paddleSize ? '█' : ' ');
 		}
 
-		#endregion
-
+		#endregion+
 		stopwatch.Restart();
 		Thread.Sleep(delay);
 	}
@@ -173,6 +171,7 @@ if (scoreA > scoreB)
 }
 if (scoreA < scoreB)
 {
+                             VTGB AN Ngb 6yh
 	Console.Write("You lose.");
 }
 Console.CursorVisible = true;
@@ -242,10 +241,6 @@ public class Ball
 public class Player {
     public int score {get; set;}
     public Paddle paddle {get;}
-	public Player(int scr, Paddle pdl) { // Screen scr, int paddleWidth) {
-		score = scr;
-		paddle = pdl;
-	}
 }
 /* public class Paddle : PaddleBase {
 	public Direction direction {get; init;}
@@ -276,6 +271,7 @@ interface Cood2Listable {
 interface HasDispChar {
 	char DispChar();
 }
+
 interface Movable {
 	void move_to(int x, int y); // move to (x, y) and redraw
 	void move_by(int x, int y);
@@ -355,7 +351,7 @@ public class Clamp
     }
 
     public bool Inc(){
-        if ((0..Max).Contains(Value + 1)) { // Value < Max - 1) {
+        if ((0..Max).Contains(Value + 1)) {
             Value += 1;
 			return true;
 		}
@@ -378,7 +374,6 @@ public class Clamp
 		else
 			return false;
     }
-
 
 }
 
@@ -406,6 +401,14 @@ public class NestedRange {
 		}
 		inner = (inner.Start.Value + d)..(inner.End.Value + d);
 		return d;
+	}
+
+	public char[] render(char shape){
+		var cc = new char[outer.End.Value - outer.Start.Value];
+		var nn = cc[inner];
+		for(int i = 0; i < nn.Length; ++i)
+			nn[i] = shape;
+		return cc;
 	}
 	
 }
