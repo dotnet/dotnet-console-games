@@ -4,7 +4,6 @@ using System.Threading;
 using System.Collections.Generic;
 
 Debug.Print("OOProgram start.");
-Environment.Exit(0);
 var screen_wh = OnScreen.init();
 Debug.Print($"screen size is w(x axis): {screen_wh.W} and h(y axis): {screen_wh.H}.");
 int width = screen_wh.W; // Console.WindowWidth;
@@ -12,6 +11,51 @@ int height = screen_wh.H; // Console.WindowHeight;
 // Screen screen = new();
 // OnScreen.W = screen.w;
 // OnScreen.H = screen.h;
+var ar = Environment.GetCommandLineArgs();
+// foreach(var a in ar) Console.WriteLine(a);
+// Console.ReadKey();
+var speed_ratio = 1;
+if (ar.Length > 2)
+	speed_ratio = Convert.ToInt32(ar[2]);
+mock(speed_ratio);
+Environment.Exit(0);
+void mock(int speed_ratio = 1){
+	TimeSpan delay = TimeSpan.FromMilliseconds(200);
+	var pdl = new NestedRange(0..(width / 3), 0..width);
+	Console.CancelKeyPress += delegate {
+		Console.CursorVisible = true;
+	};
+	Console.CursorVisible = false;
+	Console.Clear();
+	while(true){
+		if (Console.KeyAvailable)
+		{
+			switch (Console.ReadKey(true).Key)
+			{
+				case ConsoleKey.LeftArrow: pdl.shift(-speed_ratio); break;
+				case ConsoleKey.RightArrow: pdl.shift(speed_ratio); break;
+				case ConsoleKey.Escape:  // Console.Clear();
+					goto exit;
+			}
+			while(Console.KeyAvailable)
+				Console.ReadKey(true);
+		}
+		var pdlArry = pdl.render('-');
+		var pdlStr = new string(pdlArry);
+		pdlStr = pdlStr.Replace('\0', ' ');
+		Console.SetCursorPosition(0, 0);
+		Console.Write(pdlStr);
+		Thread.Sleep(delay);
+	}
+	exit:
+	Console.CursorVisible = true;
+}
+game(width, height);
+void game(int width, int height, int ball_speed = 15)
+{
+	Console.CancelKeyPress += delegate {
+		Console.CursorVisible = true;
+	};
 float multiplier = 1.1f;
 Random random = new();
 TimeSpan delay = TimeSpan.FromMilliseconds(100);
@@ -26,19 +70,17 @@ Ball ball;
 int startPaddlePos = screen_wh.H / 2 - paddleSize / 2;
 int paddleA = startPaddlePos; // height / 3; // paddle position
 int paddleB = startPaddlePos;
-Player playerA = new(0, new(paddleSize..screen_wh.H, startPaddlePos)); 
-Player playerB = new(0, new(paddleSize..screen_wh.H, startPaddlePos)); 
-var pAp_is_set = playerA.paddle.Set(startPaddlePos);
-if (pAp_is_set)
-	Debug.WriteLine($"playerA.paddle.pos is set as: {playerA.paddle.pos}");
-else
-	Debug.Print("playerA.paddle is not set!");
+// Player playerA = new(0, new(paddleSize..screen_wh.H, startPaddlePos)); 
+// var pAp_is_set = playerA.paddle.Set(startPaddlePos);
+//if (pAp_is_set)
+//	Debug.WriteLine($"playerA.paddle.pos is set as: {playerA.paddle.pos}");
+//else
+	// Debug.Print("playerA.paddle is not set!");
 
 Console.Clear();
 stopwatch.Restart();
 enemyStopwatch.Restart();
 Console.CursorVisible = false;
-int ball_speed = 15;
 while (scoreA < 3 && scoreB < 3)
 {
 	ball = CreateNewBall();
@@ -171,7 +213,6 @@ if (scoreA > scoreB)
 }
 if (scoreA < scoreB)
 {
-                             VTGB AN Ngb 6yh
 	Console.Write("You lose.");
 }
 Console.CursorVisible = true;
@@ -216,6 +257,8 @@ float GetLineValue(((float X, float Y) A, (float X, float Y) B) line, float x)
 	// find the function's value at parameter "x"
 	return x * slope + yIntercept;
 }
+
+} // end game
 
 public class Screen : OnScreen {
 	public int w {get; init;}
@@ -405,7 +448,7 @@ public class NestedRange {
 
 	public char[] render(char shape){
 		var cc = new char[outer.End.Value - outer.Start.Value];
-		var nn = cc[inner];
+		var nn = cc.AsSpan()[inner];
 		for(int i = 0; i < nn.Length; ++i)
 			nn[i] = shape;
 		return cc;
