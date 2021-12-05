@@ -2,26 +2,30 @@
 using System.Diagnostics;
 using System.Threading;
 using System.Collections.Generic;
-
-Debug.Print("OOProgram start.");
-var screen_wh = OnScreen.init();
-Debug.Print($"screen size is w(x axis): {screen_wh.W} and h(y axis): {screen_wh.H}.");
-int width = screen_wh.W; // Console.WindowWidth;
-int height = screen_wh.H; // Console.WindowHeight;
-// Screen screen = new();
-// OnScreen.W = screen.w;
-// OnScreen.H = screen.h;
-var ar = Environment.GetCommandLineArgs();
-// foreach(var a in ar) Console.WriteLine(a);
-// Console.ReadKey();
+using CommandLineParser;
+var clargs = Environment.GetCommandLineArgs();
+var pArgs = clargs[1..];
+var parseResult = Parser.Parse<Options>(pArgs);
 var speed_ratio = 1;
-if (ar.Length > 2)
-	speed_ratio = Convert.ToInt32(ar[2]);
-mock(speed_ratio);
-Environment.Exit(0);
-void mock(int speed_ratio = 1){
+var screen_width = 30;
+if (parseResult.Tag == ParserResultType.Parsed){
+	speed_ratio = parseResult.Value.speed;
+	screen_width = parseResult.Value.width;
+}
+var (screen_w, screen_h) = OnScreen.init();
+int width = screen_w; // Console.WindowWidth;
+int height = screen_h; // Console.WindowHeight;
+Debug.Print("OOProgram start.");
+Debug.Print($"speed ratio: {speed_ratio}");
+Debug.Print($"screen size is w(x axis): {screen_w} and h(y axis): {screen_h}.");
+Debug.Print($"option width is w(x axis): {screen_width}");
+// if (ar.Length > 2) speed_ratio = Convert.ToInt32(ar[2]);
+mock(speed_ratio, screen_width);
+void mock(int speed_ratio, int screen_width){
 	TimeSpan delay = TimeSpan.FromMilliseconds(200);
-	var pdl = new NestedRange(0..(width / 3), 0..width);
+	var scrn = new Screen();
+	scrn = new Screen(screen_width, scrn.w);
+	var pdl = new Paddle(scrn); // NestedRange(0..(width / 3), 0..width);
 	Console.CancelKeyPress += delegate {
 		Console.CursorVisible = true;
 	};
@@ -40,7 +44,7 @@ void mock(int speed_ratio = 1){
 			while(Console.KeyAvailable)
 				Console.ReadKey(true);
 		}
-		var pdlArry = pdl.render('-');
+		var pdlArry = pdl.render();
 		var pdlStr = new string(pdlArry);
 		pdlStr = pdlStr.Replace('\0', ' ');
 		Console.SetCursorPosition(0, 0);
@@ -50,7 +54,7 @@ void mock(int speed_ratio = 1){
 	exit:
 	Console.CursorVisible = true;
 }
-game(width, height);
+// game(width, height);
 void game(int width, int height, int ball_speed = 15)
 {
 	Console.CancelKeyPress += delegate {
@@ -61,13 +65,13 @@ Random random = new();
 TimeSpan delay = TimeSpan.FromMilliseconds(100);
 TimeSpan enemyInputDelay = TimeSpan.FromMilliseconds(150);
 int paddleSizeDenom = 4;
-int paddleSize = screen_wh.H / paddleSizeDenom;
+int paddleSize = screen_w / paddleSizeDenom;
 Stopwatch stopwatch = new();
 Stopwatch enemyStopwatch = new();
 int scoreA = 0;
 int scoreB = 0;
 Ball ball;
-int startPaddlePos = screen_wh.H / 2 - paddleSize / 2;
+int startPaddlePos = screen_h / 2 - paddleSize / 2;
 int paddleA = startPaddlePos; // height / 3; // paddle position
 int paddleB = startPaddlePos;
 // Player playerA = new(0, new(paddleSize..screen_wh.H, startPaddlePos)); 
@@ -260,13 +264,21 @@ float GetLineValue(((float X, float Y) A, (float X, float Y) B) line, float x)
 
 } // end game
 
+class Options {
+	[Option('s', "speed", Required =false, HelpText = "speed: 1")]
+	public int speed { get; set;}
+	[Option('w', "width", Required =false, HelpText = "width: 80")]
+	public int width {get; set;}
+}
 public class Screen : OnScreen {
-	public int w {get; init;}
-	public int h {get; init;}
+	public int w {get; private set;}
+	public int h {get; private set;}
+	public Screen(int x = 80, int y = 25) {
+		(w, h) = OnScreen.init(x, y);
+	}
+
 	public Screen() {
-		OnScreen.init();
-		OnScreen.W = w = Console.WindowWidth;
-		OnScreen.H = h = Console.WindowHeight;
+		(w, h) = OnScreen.init();
 	}
 	void show(){
 
@@ -285,29 +297,23 @@ public class Player {
     public int score {get; set;}
     public Paddle paddle {get;}
 }
-/* public class Paddle : PaddleBase {
-	public Direction direction {get; init;}
-    public Paddle(Range range, int start_pos = 0, Direction direc = Direction.V) : PaddleBase(range, start_pos) 
-	{
-		direction = direc;
-	}
-} */
 
-record Dim2(int W, int H);
-record Cood2(int X, int Y);
+record struct Dim2(int W, int H);
+record struct Cood2(int X, int Y);
 interface OnScreen {
-	static int W; // width
-	static int H; // height
+	public static Cood2 dim;
 
-	static Dim2 init() {
-		W = Console.WindowWidth;
-		H = Console.WindowHeight;
-		return new Dim2(W, H);
+	static (int, int) init(int x = 0, int y = 0) {
+		var W = Console.WindowWidth;
+		var H = Console.WindowHeight;
+		dim = new(x > 0 ? x : W, y > 0 ? y : H);
+		return (dim.X, dim.Y);
 	}
 }
 public enum ScreenChar {O = '\u25CB',
  C = ' ', 
- B = '\u25AE' }
+ B = '\u25A0', // Black square
+}
 interface Cood2Listable {
 	List<Cood2> Cood2List();
 }
@@ -322,112 +328,41 @@ interface Movable {
 
 public enum Direction {V, H}
 public enum HPos {Start, End}
-public class Paddle : HasDispChar {
+
+interface IRender {
+	char[] render(char shape);
+}
+
+public class Paddle : NestedRange, HasDispChar, IRender {
 	public char DispChar() {
 		return (char)ScreenChar.B;
 	}
-	public bool atLeft {get; init;} // Position is at left edge(if not, right edge).
-	public int pos {
-		get {
-			return _pos.Value;
-		}
-		private set {
-			this._pos.set(value);
-		}
-	}
-    public Clamp _pos;
-    public int size {get; init;}
-	/// <summary>range Start is paddle size, range end is screen height.</sammary>
-    public Paddle(Range range, int start_pos = 0, bool at_left = true) {
-        if (range.Start.Value == 0)
-        {
-            throw new ArgumentOutOfRangeException("Paddle size must be more than 0!");
-        }
-        size = range.Start.Value;
-        _pos = new(range.End.Value - range.Start.Value, start_pos);
-		atLeft = at_left;
-    }
 
-	public void show(){
-		Console.SetCursorPosition(atLeft ? 0 : OnScreen.W - 1, pos);
-		Console.Write(ScreenChar.B);
-
-	}
-	public void move_to(int y) {
-		var old_pos = pos;
-		pos = y;
-		
-
-	}
-    public bool Up() {
-        return _pos.Dec();
-    }
-    public bool Down() {
-        return _pos.Inc();
-    }
-
-	public bool Set(int n) {
-		return _pos.set(n);
+	public Paddle(Screen scr, int quot = 3) {
+		inner = 0..(scr.w / quot);
+		outer = 0..(scr.w);
 	}
 
-	public bool Hit(int p) {
-		if (p >= pos && p < (pos + size))
-			return true;
-		return false;
+	public char[] render() {
+		return base.render(DispChar());
 	}
 
-}
-
-public class Clamp
-{
-    public int Value {get; private set;}
-    public int Max {get; private set;}
-
-    public Clamp(int ma, int start = 0) {
-        if (ma < 0){
-            throw new ArgumentOutOfRangeException("Max must not minus!");
-        }
-        if (start < 0 || start >= ma)// !(0..Max).Contains(start)) 
-            throw new ArgumentOutOfRangeException($"start value({start}) is not in [0..{Max}]. ");           
-        Max = ma;
-        Value = start;
-    }
-
-    public bool Inc(){
-        if ((0..Max).Contains(Value + 1)) {
-            Value += 1;
-			return true;
-		}
-		else
-			return false;
-    }
-    public bool Dec(){
-        if (Value > 0) {
-            Value -= 1;
-			return true;
-		}
-		else
-			return false;
-    }
-    public bool set(int nv){
-        if ((0..Max).Contains(nv)) {
-            Value  = nv;
-			return true;
-		}
-		else
-			return false;
-    }
 
 }
 
 public class NestedRange {
-	public Range inner {get; private set;}
-	public Range outer {get; init;}
+	public Range inner {get; protected set;}
+	public Range outer {get; protected set;}
 	public NestedRange(Range _inner, Range _outer) {
 		if (_inner.Start.Value < _outer.Start.Value || _inner.End.Value > _outer.End.Value)
             throw new ArgumentOutOfRangeException("Inner range out of outer range!");
 		inner = _inner;
 		outer = _outer;
+	}
+
+	public NestedRange() {
+		inner = (0..1);
+		outer = (0..1);
 	}
 	public int shift(int d) {
 		if (d == 0)
@@ -466,3 +401,4 @@ static class RangeExtention
         return start <= value && value < end;
     }
 }
+
