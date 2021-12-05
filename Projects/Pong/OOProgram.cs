@@ -32,23 +32,26 @@ void mock(int speed_ratio, int screen_width){
 	Console.CursorVisible = false;
 	Console.Clear();
 	while(true){
+		bool moved = false;
 		if (Console.KeyAvailable)
 		{
-			switch (Console.ReadKey(true).Key)
+			var key = Console.ReadKey(true).Key;
+			switch (key)
 			{
-				case ConsoleKey.LeftArrow: pdl.shift(-speed_ratio); break;
-				case ConsoleKey.RightArrow: pdl.shift(speed_ratio); break;
 				case ConsoleKey.Escape:  // Console.Clear();
 					goto exit;
 			}
+			moved = pdl.manipulate(key);
 			while(Console.KeyAvailable)
 				Console.ReadKey(true);
 		}
+		if (moved) {
 		var pdlArry = pdl.render();
 		var pdlStr = new string(pdlArry);
 		pdlStr = pdlStr.Replace('\0', ' ');
 		Console.SetCursorPosition(0, 0);
 		Console.Write(pdlStr);
+		}
 		Thread.Sleep(delay);
 	}
 	exit:
@@ -333,18 +336,34 @@ interface IRender {
 	char[] render(char shape);
 }
 
-public class Paddle : NestedRange, HasDispChar, IRender {
+interface KeyManipulate { // key manipulate-able
+	bool manipulate(System.ConsoleKey key);
+}
+
+public class Paddle : NestedRange, HasDispChar, IRender, KeyManipulate {
+	public int speed_ratio {get; private set;}
+	public Dictionary<System.ConsoleKey, Func<int, int>> manipDict = new();
 	public char DispChar() {
 		return (char)ScreenChar.B;
 	}
 
-	public Paddle(Screen scr, int quot = 3) {
+	public Paddle(Screen scr, int quot = 3, int speed_ratio_ = 1) {
 		inner = 0..(scr.w / quot);
 		outer = 0..(scr.w);
+		speed_ratio = speed_ratio_;
+		manipDict.Add(ConsoleKey.LeftArrow, speed_ratio => shift(-speed_ratio));
 	}
 
 	public char[] render() {
 		return base.render(DispChar());
+	}
+
+	public bool manipulate(System.ConsoleKey key) {
+		switch(key) {
+			case ConsoleKey.LeftArrow: shift(-speed_ratio); return true;
+			case ConsoleKey.RightArrow: shift(speed_ratio); return true;
+		}
+		return false;
 	}
 
 
