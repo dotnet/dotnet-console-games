@@ -49,10 +49,10 @@ void mock(int speed_ratio, int screen_width){
 			var old_buffer = scrn.new_buffer();
 			Array.Copy(pdlArry[0], pdl.atTop ? scrn.buffer[0] : scrn.buffer[scrn.h - 1], pdlArry[0].Length);
 		
-		// var pdlStr = new string(pdlArry[0]);
-		// pdlStr = pdlStr.Replace('\0', ' ');
+		var pdlStr = new string(pdlArry[0]);
+		pdlStr = pdlStr.Replace('\0', ' ');
 		 Console.SetCursorPosition(0, pdl.atTop ? 0 : scrn.h - 1);
-		 Console.Write(pdlArry[0]);
+		 Console.Write(pdlStr);
 		}
 		Thread.Sleep(delay);
 	}
