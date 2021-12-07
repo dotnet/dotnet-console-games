@@ -2,7 +2,8 @@
 using System.Diagnostics;
 using System.Threading;
 using System.Collections.Generic;
-using CommandLineParser;
+using CommandLineParser; // Original source code: https://github.com/wertrain/command-line-parser-cs (Version 0.1)
+
 var clargs = Environment.GetCommandLineArgs();
 var pArgs = clargs[1..];
 var parseResult = Parser.Parse<Options>(pArgs);
@@ -25,32 +26,33 @@ void mock(int speed_ratio, int screen_width){
 	TimeSpan delay = TimeSpan.FromMilliseconds(200);
 	var scrn = new Screen();
 	scrn = new Screen(screen_width, scrn.w);
-	var pdl = new Paddle(scrn); // NestedRange(0..(width / 3), 0..width);
+	var pdl = new HPaddle(scrn); // NestedRange(0..(width / 3), 0..width);
 	Console.CancelKeyPress += delegate {
 		Console.CursorVisible = true;
 	};
-	Console.CursorVisible = false;
+	Console.CursorVisible = false; // hide cursor
 	Console.Clear();
 	while(true){
 		bool moved = false;
 		if (Console.KeyAvailable)
 		{
 			var key = Console.ReadKey(true).Key;
-			switch (key)
-			{
-				case ConsoleKey.Escape:  // Console.Clear();
-					goto exit;
-			}
+			if (key == ConsoleKey.Escape)
+				goto exit;
 			moved = pdl.manipulate(key);
-			while(Console.KeyAvailable)
+			// else if (pdl.manipDict.ContainsKey(key)) moved = pdl.manipDict[key]() != 0;
+			while(Console.KeyAvailable) // clear over input
 				Console.ReadKey(true);
 		}
 		if (moved) {
-		var pdlArry = pdl.render();
-		var pdlStr = new string(pdlArry);
-		pdlStr = pdlStr.Replace('\0', ' ');
-		Console.SetCursorPosition(0, 0);
-		Console.Write(pdlStr);
+			var pdlArry = pdl.render();
+			var old_buffer = scrn.new_buffer();
+			Array.Copy(pdlArry[0], pdl.atTop ? scrn.buffer[0] : scrn.buffer[scrn.h - 1], pdlArry[0].Length);
+		
+		// var pdlStr = new string(pdlArry[0]);
+		// pdlStr = pdlStr.Replace('\0', ' ');
+		 Console.SetCursorPosition(0, pdl.atTop ? 0 : scrn.h - 1);
+		 Console.Write(pdlArry[0]);
 		}
 		Thread.Sleep(delay);
 	}
@@ -276,12 +278,24 @@ class Options {
 public class Screen : OnScreen {
 	public int w {get; private set;}
 	public int h {get; private set;}
+	public char [][] buffer {get; private set;} // [h][w]
 	public Screen(int x = 80, int y = 25) {
 		(w, h) = OnScreen.init(x, y);
+		buffer = new char[h][];
+		for(int i = 0; i < h; ++i) 
+			buffer[i] = new char[w];
 	}
 
 	public Screen() {
 		(w, h) = OnScreen.init();
+	}
+
+	public char [][] new_buffer() {
+		var old_buffer = buffer;
+		buffer = new char[h][];
+		for(int i = 0; i < h; ++i) 
+			buffer[i] = new char[w];
+		return old_buffer;
 	}
 	void show(){
 
@@ -298,7 +312,7 @@ public class Ball
 }
 public class Player {
     public int score {get; set;}
-    public Paddle paddle {get;}
+    public PaddleBase paddle {get;}
 }
 
 record struct Dim2(int W, int H);
@@ -333,32 +347,68 @@ public enum Direction {V, H}
 public enum HPos {Start, End}
 
 interface IRender {
-	char[] render(char shape);
+	char[][] render();
 }
 
 interface KeyManipulate { // key manipulate-able
 	bool manipulate(System.ConsoleKey key);
 }
 
-public class Paddle : NestedRange, HasDispChar, IRender, KeyManipulate {
-	public int speed_ratio {get; private set;}
-	public Dictionary<System.ConsoleKey, Func<int, int>> manipDict = new();
-	public char DispChar() {
-		return (char)ScreenChar.B;
-	}
+interface IDrawOnScreen : OnScreen {
+	void draw(char [][] buffer);
+}
 
-	public Paddle(Screen scr, int quot = 3, int speed_ratio_ = 1) {
+public class PaddleBase : NestedRange, HasDispChar, KeyManipulate {
+	protected Screen scr {get; set;}
+	public int speed_ratio {get; protected set;}
+	public Dictionary<System.ConsoleKey, Func<int>> manipDict = new();
+	virtual public char DispChar() {
+		return '+';
+	}
+	public PaddleBase(Screen scr_, int quot, int speed_ratio_) {
+		scr = scr_;
 		inner = 0..(scr.w / quot);
 		outer = 0..(scr.w);
 		speed_ratio = speed_ratio_;
-		manipDict.Add(ConsoleKey.LeftArrow, speed_ratio => shift(-speed_ratio));
 	}
 
-	public char[] render() {
-		return base.render(DispChar());
+
+	virtual public char [][] render() {
+		char[][] buffer = new char[scr.h][];
+		for (int i = 0; i < scr.h; ++i)
+			buffer[i] = new char[scr.w];
+		buffer[0][0] = DispChar(); // only at base point
+		return buffer;
 	}
 
-	public bool manipulate(System.ConsoleKey key) {
+	virtual public bool manipulate(System.ConsoleKey key) {
+		return false;
+	}
+
+}
+
+public class HPaddle : PaddleBase {
+
+	public bool atTop {get; private set;}
+	public HPaddle(Screen scr, int quot = 3, int speed_ratio_ = 1, bool atTop_ = true) : base(scr, quot, speed_ratio_) {
+		atTop = atTop_;
+		manipDict.Add(ConsoleKey.LeftArrow, () => shift(-speed_ratio));
+		manipDict.Add(ConsoleKey.RightArrow, () => shift(speed_ratio));
+	}
+
+	override public char DispChar() {
+		return (char)ScreenChar.B;
+	}
+
+	override public char [][] render() {
+		char [][] buffer = new char[1][];
+		buffer[0] = new char[scr.w];
+		for (int x = inner.Start.Value; x < inner.End.Value; ++x) 
+			buffer[0][x] = DispChar();
+		return buffer;
+	}
+
+	override public bool manipulate(System.ConsoleKey key) {
 		switch(key) {
 			case ConsoleKey.LeftArrow: shift(-speed_ratio); return true;
 			case ConsoleKey.RightArrow: shift(speed_ratio); return true;
@@ -366,9 +416,23 @@ public class Paddle : NestedRange, HasDispChar, IRender, KeyManipulate {
 		return false;
 	}
 
-
 }
+public class EscKeyPressedException : Exception
+{
+    public EscKeyPressedException()
+    {
+    }
 
+    public EscKeyPressedException(string message)
+        : base(message)
+    {
+    }
+
+    public EscKeyPressedException(string message, Exception inner)
+        : base(message, inner)
+    {
+    }
+}
 public class NestedRange {
 	public Range inner {get; protected set;}
 	public Range outer {get; protected set;}
@@ -388,11 +452,15 @@ public class NestedRange {
 			return 0;
 		if (d > 0) {
 			var s = outer.End.Value - inner.End.Value;
+			if (s == 0)
+				return 0;
 			if (s < d)
 				d = s;
 		}
 		else {
 			var s = inner.Start.Value - outer.Start.Value;
+			if (s == 0)
+				return 0;
 			if (s < -d)
 				d = -s;
 		}
@@ -400,11 +468,11 @@ public class NestedRange {
 		return d;
 	}
 
-	public char[] render(char shape){
+	public char[] render(char element){
 		var cc = new char[outer.End.Value - outer.Start.Value];
 		var nn = cc.AsSpan()[inner];
 		for(int i = 0; i < nn.Length; ++i)
-			nn[i] = shape;
+			nn[i] = element;
 		return cc;
 	}
 	
