@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Collections;
 using System.Collections.Generic;
 using CommandLineParser; // Original source code: https://github.com/wertrain/command-line-parser-cs (Version 0.1)
 
@@ -474,6 +475,11 @@ public class NestedRange {
 		for(int i = 0; i < nn.Length; ++i)
 			nn[i] = element;
 		return cc;
+	}
+	public BitArray ToBitArray(){
+		var all = new BitArray(outer.End.Value - outer.Start.Value, false);
+		var part = new BitArray(inner.End.Value - inner.Start.Value, true);
+		return all.Or(part.RightShift(inner.Start.Value));
 	}
 	
 }
