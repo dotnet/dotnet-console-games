@@ -8,11 +8,12 @@ var pArgs = clargs[1..];
 var parseResult = Parser.Parse<Options>(pArgs);
 var speed_ratio = 1;
 var screen_width = 40;
+var paddle_width = 8;
 if (parseResult.Tag == ParserResultType.Parsed){
 	speed_ratio = parseResult.Value.speed;
 	screen_width = parseResult.Value.width;
 }
-var (screen_w, screen_h) = OnScreen.init();
+var (screen_w, screen_h) = OnScreen.init(screen_width, 24);
 int width = screen_w; // Console.WindowWidth;
 int height = screen_h; // Console.WindowHeight;
 Debug.Print("OOProgram start.");
@@ -23,9 +24,9 @@ Debug.Print($"option width is w(x axis): {screen_width}");
 mock(speed_ratio, screen_width);
 void mock(int speed_ratio, int screen_width){
 	TimeSpan delay = TimeSpan.FromMilliseconds(200);
-	var scrn = new Screen();
-	scrn = new Screen(screen_width, scrn.w);
-	var pdl = new HPaddle(scrn); // NestedRange(0..(width / 3), 0..width);
+	var scrn = new Screen(screen_w, screen_h);
+	var pdl = new HPaddle(scrn.w, paddle_width); // NestedRange(0..(width / 3), 0..width);
+	var pdl_barr = pdl.ToBitArray();
 	Console.CancelKeyPress += delegate {
 		Console.CursorVisible = true;
 	};
@@ -54,11 +55,11 @@ void mock(int speed_ratio, int screen_width){
 		if (moved) {
 			var pdlArry = pdl.render();
 			var old_buffer = scrn.new_buffer();
-			Array.Copy(pdlArry[0], pdl.atTop ? scrn.buffer[0] : scrn.buffer[scrn.h - 1], pdlArry[0].Length);
+			Array.Copy(pdlArry[0], pdl.AtTop ? scrn.buffer[0] : scrn.buffer[scrn.h - 1], pdlArry[0].Length);
 		
 		var pdlStr = new string(pdlArry[0]);
 		pdlStr = pdlStr.Replace('\0', ' ');
-		 Console.SetCursorPosition(0, pdl.atTop ? 0 : scrn.h - 1);
+		 Console.SetCursorPosition(0, pdl.AtTop ? 0 : scrn.h - 1);
 		 Console.Write(pdlStr);
 		}
 		Thread.Sleep(delay);
