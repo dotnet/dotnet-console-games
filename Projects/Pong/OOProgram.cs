@@ -7,7 +7,7 @@ var clargs = Environment.GetCommandLineArgs();
 var pArgs = clargs[1..];
 var parseResult = Parser.Parse<Options>(pArgs);
 var speed_ratio = 1;
-var screen_width = 30;
+var screen_width = 40;
 if (parseResult.Tag == ParserResultType.Parsed){
 	speed_ratio = parseResult.Value.speed;
 	screen_width = parseResult.Value.width;
@@ -68,8 +68,8 @@ void mock(int speed_ratio, int screen_width){
 }
 
 class Options {
-	[Option('s', "speed", Required =false, HelpText = "speed: 1")]
+	[Option('s', "speed", Required =false, HelpText = "--speed 4")]
 	public int speed { get; set;}
-	[Option('w', "width", Required =false, HelpText = "width: 80")]
+	[Option('w', "width", Required =false, HelpText = "--width 80")]
 	public int width {get; set;}
 }

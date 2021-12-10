@@ -1,0 +1,60 @@
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Diagnostics;
+
+//TaskTrain.taskTrain();
+public class TaskTrain
+{
+    public static void taskTrain()
+    {
+        Console.WriteLine("taskTrain started..");
+        TimeSpan delay = TimeSpan.FromMilliseconds(500);
+        const int repeat = 10;
+        bool terminate = false;
+        bool toggle = false;
+        Stopwatch stopwatch = new();
+        stopwatch.Restart();
+        Task clockTask = Task.Run(() => {
+            Console.WriteLine("clockTask started.");
+            for (int i = 0; i < repeat; ++i) {
+                if (stopwatch.Elapsed > delay) {
+                    toggle = !toggle;
+                    Console.WriteLine("toggled.");
+                    stopwatch.Restart();
+                }
+                Thread.Sleep(100);
+                if (terminate) {
+                    Console.WriteLine("break since terminate is true.");
+                    break;
+                }
+            }
+            Console.WriteLine("clockTask end.");
+        });
+        Task keyTask = Task.Run(() => {
+            Console.WriteLine("keyTask started.");
+            for(int i = 0; i < repeat; ++i) {
+                if (Console.KeyAvailable) {
+                    if (Console.ReadKey(true).Key == ConsoleKey.Escape){
+                        terminate = true;
+                        Console.WriteLine("terminate turned true.");
+                    }
+                }
+                Thread.Sleep(300);
+            }
+            Console.WriteLine("keyTask end.");
+        });
+        Task dispTask = Task.Run(() => {
+            Console.WriteLine("dispTask start.");
+            bool last_toggle = toggle;
+            for(int i = 0; i < repeat; ++i) {
+                if (toggle != last_toggle) {
+                    last_toggle = toggle;
+                    Console.WriteLine("last_togle is set as toggle.");
+                }
+                Thread.Sleep(450);
+            }
+            Console.WriteLine("dispTask end.");
+        });
+    }
+}
