@@ -1,16 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
+public enum Rotation {
+	Horizontal, Vertical
+}
 public class Screen : OnScreen {
-	public int w {get; private set;}
-	public int h {get; private set;}
+	public bool isRotated {get; init;} // 90 degree
+	public int w {get; init;}
+	public int h {get; init;}
 	public char [][] buffer {get; private set;} // [h][w]
-	public Screen(int x = 80, int y = 24) {
+	public Screen(int x = 80, int y = 24, bool rotate = false) {
 		(w, h) = OnScreen.init(x, y);
-		buffer = new char[h][];
-		for(int i = 0; i < h; ++i) 
-			buffer[i] = new char[w];
+		buffer = new char[rotate ? w : h][];
+		for(int i = 0; i < (rotate ? w :h); ++i) 
+			buffer[i] = new char[rotate ? h :w];
+		isRotated = rotate;
 	}
 
 	public Screen() {
@@ -23,6 +29,22 @@ public class Screen : OnScreen {
 		for(int i = 0; i < h; ++i) 
 			buffer[i] = new char[w];
 		return old_buffer;
+	}
+
+	public (BitArray added, BitArray deleted) replaceLine(int n, char[] new_contents) {
+		Debug.Assert(new_contents.Length <= buffer[n].Length);
+		BitArray old_line = new BitArray(buffer[n].Length);
+		for (int i = 0; i < buffer[n].Length; ++i)
+			old_line[i] = buffer[n][i] != '\0';
+		BitArray new_line = new BitArray(buffer[n].Length);
+		for (int i = 0; i < new_contents.Length; ++i)
+			new_line[i] = new_contents[i] != '\0';
+		BitArray xor = old_line.Xor(new_line);
+		BitArray added = xor.And(new_line);
+		BitArray deleted = xor.And(old_line);
+		for(int i = 0; i < new_contents.Length; ++i)
+			buffer[n][i] = new_contents[i];
+		return (added, deleted);
 	}
 	void show(){
 
@@ -84,28 +106,23 @@ interface KeyManipulate { // key manipulate-able
 }
 
 interface IDrawOnScreen : OnScreen {
-	void draw(char [][] buffer);
+	void draw(in char [][] buffer);
 }
 
 public class PaddleBase : NestedRange, HasDispChar, KeyManipulate {
-	protected Screen scr {get; set;}
 	public int Speed_ratio {get; protected set;}
 	public Dictionary<System.ConsoleKey, Func<int>> manipDict = new();
 	virtual public char DispChar() {
 		return '+';
 	}
-	public int Width {get; protected set;}
-	public PaddleBase(int screen_width, int width, int speed_ratio) : base(0..screen_width, 0..width) {
+	public PaddleBase(int segment_length, int width, int speed_ratio) : base(0..segment_length, 0..width) {
 		// inner = 0..(scr.w / quot); outer = 0..(scr.w);
 		Speed_ratio = speed_ratio;
-		Width = width;
 	}
 
-
-	virtual public char [][] render() {
-		char[][] buffer = new char[scr.h][];
-		for (int i = 0; i < scr.h; ++i)
-			buffer[i] = new char[scr.w];
+	virtual public char [][] render() { 
+	  char[][] buffer = new char[1][];
+		buffer[0] = new char[1];
 		buffer[0][0] = DispChar(); // only at base point
 		return buffer;
 	}
@@ -118,26 +135,40 @@ public class PaddleBase : NestedRange, HasDispChar, KeyManipulate {
 
 public class HPaddle : PaddleBase {
 
-	public bool AtTop {get; private set;}
-	public HPaddle(int screen_width, int width, int speed_ratio = 1, bool atTop = true) : base(screen_width, width, speed_ratio) {
-		AtTop = atTop;
-		manipDict.Add(ConsoleKey.LeftArrow, () => shift(-speed_ratio));
-		manipDict.Add(ConsoleKey.RightArrow, () => shift(speed_ratio));
+	public Screen screen {get; init;}
+	public bool atHome {get; private set;}
+	public char dispChar {get; private set;}
+	public HPaddle(Screen screen_, int width, int speed_ratio = 1, bool at_home = true, char disp_char = (char)ScreenChar.B) : 
+	base(screen_.isRotated ? screen_.h : screen_.w, width, speed_ratio) {
+		atHome = at_home;
+		dispChar = disp_char;
+		if (screen_.isRotated) {
+			manipDict.Add(ConsoleKey.DownArrow, () => shift(-speed_ratio));
+			manipDict.Add(ConsoleKey.UpArrow, () => shift(speed_ratio));
+		} else {
+			manipDict.Add(ConsoleKey.LeftArrow, () => shift(-speed_ratio));
+			manipDict.Add(ConsoleKey.RightArrow, () => shift(speed_ratio));
+		}
 	}
 
 	override public char DispChar() {
-		return (char)ScreenChar.B;
+		return dispChar;
 	}
 
 	override public char [][] render() {
 		char [][] buffer = new char[1][];
-		buffer[0] = new char[scr.w];
+		buffer[0] = new char[screen.isRotated ? screen.h : screen.w];
 		for (int x = inner.Start.Value; x < inner.End.Value; ++x) 
 			buffer[0][x] = DispChar();
 		return buffer;
 	}
 
 	override public bool manipulate(System.ConsoleKey key) {
+		if (screen.isRotated)
+		switch(key) {
+			case ConsoleKey.UpArrow: shift(-Speed_ratio); return true;
+			case ConsoleKey.RightArrow: shift(Speed_ratio); return true;
+		}
 		switch(key) {
 			case ConsoleKey.LeftArrow: shift(-Speed_ratio); return true;
 			case ConsoleKey.RightArrow: shift(Speed_ratio); return true;

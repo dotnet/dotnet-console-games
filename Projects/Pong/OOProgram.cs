@@ -7,22 +7,23 @@ var clargs = Environment.GetCommandLineArgs();
 var pArgs = clargs[1..];
 var parseResult = Parser.Parse<Options>(pArgs);
 var speed_ratio = 1;
-var screen_width = 40;
+var screen_width = 72;
+var screen_height = 24;
 var paddle_width = 8;
 if (parseResult.Tag == ParserResultType.Parsed){
 	speed_ratio = parseResult.Value.speed;
 	screen_width = parseResult.Value.width;
 }
-var (screen_w, screen_h) = OnScreen.init(screen_width, 24);
-int width = screen_w; // Console.WindowWidth;
-int height = screen_h; // Console.WindowHeight;
+var (screen_w, screen_h) = OnScreen.init(screen_width, screen_height);
+// int width = screen_w; // Console.WindowWidth;
+// int height = screen_h; // Console.WindowHeight;
 Debug.Print("OOProgram start.");
 Debug.Print($"speed ratio: {speed_ratio}");
 Debug.Print($"screen size is w(x axis): {screen_w} and h(y axis): {screen_h}.");
 Debug.Print($"option width is w(x axis): {screen_width}");
 // if (ar.Length > 2) speed_ratio = Convert.ToInt32(ar[2]);
-mock(speed_ratio, screen_width);
-void mock(int speed_ratio, int screen_width){
+mock(speed_ratio, screen_w, screen_h);
+void mock(int speed_ratio, int screen_width, int screen_height){
 	TimeSpan delay = TimeSpan.FromMilliseconds(200);
 	var scrn = new Screen(screen_w, screen_h);
 	var pdl = new HPaddle(scrn.w, paddle_width); // NestedRange(0..(width / 3), 0..width);
@@ -74,3 +75,4 @@ class Options {
 	[Option('w', "width", Required =false, HelpText = "--width 80")]
 	public int width {get; set;}
 }
+
