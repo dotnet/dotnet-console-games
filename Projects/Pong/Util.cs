@@ -7,49 +7,53 @@ public enum Rotation {
 	Horizontal, Vertical
 }
 public class Screen : OnScreen {
+	public Action<int, BitArray, BitArray, char> redrawLine; // (Line, this_array, new_array, c='+')
 	public bool isRotated {get; init;} // 90 degree
 	public int w {get; init;}
 	public int h {get; init;}
-	public char [][] buffer {get; private set;} // [h][w]
+	public BitArray [] Lines {get; private set;} // [h][w]
 	public Screen(int x = 80, int y = 24, bool rotate = false) {
 		(w, h) = OnScreen.init(x, y);
-		buffer = new char[rotate ? w : h][];
-		for(int i = 0; i < (rotate ? w :h); ++i) 
-			buffer[i] = new char[rotate ? h :w];
 		isRotated = rotate;
+		Lines = new BitArray[isRotated ? w : h];
+		// for(int i = 0; i < (rotate ? w :h); ++i) buffer[i] = new BitArray(rotate ? h :w);
+		if (isRotated)
+			redrawLine = (line, this_buff, new_buff, c)=>{
+				var (added, deleted) = this_buff.ToAddedDeleted(new_buff);
+				VPutCn(line, added., c, n)
+
+
+
+			};
 	}
 
 	public Screen() {
 		(w, h) = OnScreen.init();
 	}
 
-	public char [][] new_buffer() {
-		var old_buffer = buffer;
-		buffer = new char[h][];
-		for(int i = 0; i < h; ++i) 
-			buffer[i] = new char[w];
+	public BitArray [] new_buffer() {
+		var old_buffer = Lines;
+		Lines = new BitArray[isRotated ? w : h];
+		// for(int i = 0; i < h; ++i) buffer[i] = new char[w];
 		return old_buffer;
 	}
 
-	public (BitArray added, BitArray deleted) replaceLine(int n, char[] new_contents) {
-		Debug.Assert(new_contents.Length <= buffer[n].Length);
-		BitArray old_line = new BitArray(buffer[n].Length);
-		for (int i = 0; i < buffer[n].Length; ++i)
-			old_line[i] = buffer[n][i] != '\0';
-		BitArray new_line = new BitArray(buffer[n].Length);
-		for (int i = 0; i < new_contents.Length; ++i)
-			new_line[i] = new_contents[i] != '\0';
-		BitArray xor = old_line.Xor(new_line);
-		BitArray added = xor.And(new_line);
-		BitArray deleted = xor.And(old_line);
-		for(int i = 0; i < new_contents.Length; ++i)
-			buffer[n][i] = new_contents[i];
-		return (added, deleted);
-	}
 	void show(){
 
 	}
 
+	public static void VPutCn(int x, int y, char c, int n) {
+		for(int i = 0; i < n; ++i){ 
+			Console.SetCursorPosition(x, y + i);
+			Console.Write(c);
+		}
+	}
+	public static void HPutCn(int x, int y, char c, int n) {
+		for(int i = 0; i < n; ++i){ 
+			Console.SetCursorPosition(x + i, y);
+			Console.Write(c);
+		}
+	}
 }
 
 public class Ball
@@ -314,3 +318,11 @@ static class RangeExtention
         return start <= value && value < end;
     }
 }
+
+static class BitArrayExtention {
+	public static Tuple<BitArray, BitArray> ToAddedDeleted (this BitArray this_one, BitArray new_one) {
+		var xor = this_one.Xor(new_one);
+		return Tuple.Create(xor.And(new_one), xor.And(this_one));
+	}
+}
+
