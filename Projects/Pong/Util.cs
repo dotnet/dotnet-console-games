@@ -7,7 +7,7 @@ public enum Rotation {
 	Horizontal, Vertical
 }
 public class Screen : OnScreen {
-	public Action<int, BitArray, BitArray, char> redrawLine; // (Line, this_array, new_array, c='+')
+	public Action<int, BitArray, char> redrawLine; // (Line, this_array, new_array, c='+')
 	public bool isRotated {get; init;} // 90 degree
 	public int w {get; init;}
 	public int h {get; init;}
@@ -17,13 +17,10 @@ public class Screen : OnScreen {
 		isRotated = rotate;
 		Lines = new BitArray[isRotated ? w : h];
 		// for(int i = 0; i < (rotate ? w :h); ++i) buffer[i] = new BitArray(rotate ? h :w);
-		if (isRotated)
-			redrawLine = (line, this_buff, new_buff, c)=>{
-				var (added, deleted) = this_buff.ToAddedDeleted(new_buff);
-				VPutCn(line, added., c, n)
-
-
-
+			redrawLine = (line, new_buff, c)=>{
+				var (added, deleted) = Lines[line].ToAddedDeleted(new_buff);
+				PutCasBitArray(isRotated, line, c, added);
+				PutCasBitArray(isRotated,line, ' ', deleted);
 			};
 	}
 
@@ -42,15 +39,24 @@ public class Screen : OnScreen {
 
 	}
 
-	public static void VPutCn(int x, int y, char c, int n) {
-		for(int i = 0; i < n; ++i){ 
-			Console.SetCursorPosition(x, y + i);
+	public static void PutCasBitArray(Rotation rot, int line, char c, BitArray bb) {
+		if(rot)
+			HPutCasBitArray(line, c, bb);
+		else
+			VPutCasBitArray(line, c, bb);
+
+	}
+	public static void VPutCasBitArray(int x, char c, BitArray bb) {
+		for(int i = 0; i < bb.Length; ++i)
+		if(bb[i]){ 
+			Console.SetCursorPosition(x, i);
 			Console.Write(c);
 		}
 	}
-	public static void HPutCn(int x, int y, char c, int n) {
-		for(int i = 0; i < n; ++i){ 
-			Console.SetCursorPosition(x + i, y);
+	public static void HPutCasBitArray(int y, char c, BitArray bb) {
+				for(int i = 0; i < bb.Length; ++i)
+		if(bb[i]){ 
+			Console.SetCursorPosition(i, y);
 			Console.Write(c);
 		}
 	}
