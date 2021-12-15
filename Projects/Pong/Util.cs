@@ -6,8 +6,9 @@ using System.Diagnostics;
 public enum Rotation {
 	Horizontal, Vertical
 }
+
 public class Screen : OnScreen {
-	public Action<int, BitArray, char> redrawLine; // (Line, this_array, new_array, c='+')
+	public Action<int, BitArray, char> redrawPaddle; // (Line, this_array, new_array, c='+')
 	public bool isRotated {get; init;} // 90 degree
 	public int w {get; init;}
 	public int h {get; init;}
@@ -17,11 +18,16 @@ public class Screen : OnScreen {
 		isRotated = rotate;
 		Lines = new BitArray[isRotated ? w : h];
 		// for(int i = 0; i < (rotate ? w :h); ++i) buffer[i] = new BitArray(rotate ? h :w);
-			redrawLine = (line, new_buff, c)=>{
+			redrawPaddle = isRotated ? (line, new_buff, c)=>{
 				var (added, deleted) = Lines[line].ToAddedDeleted(new_buff);
-				PutCasBitArray(isRotated, line, c, added);
-				PutCasBitArray(isRotated,line, ' ', deleted);
+				VPutCasBitArray(line, c, added);
+				VPutCasBitArray(line, ' ', deleted);
+			} : (line, new_buff, c)=>{
+				var (added, deleted) = Lines[line].ToAddedDeleted(new_buff);
+				HPutCasBitArray(line, c, added);
+				HPutCasBitArray(line, ' ', deleted);
 			};
+
 	}
 
 	public Screen() {
@@ -35,11 +41,7 @@ public class Screen : OnScreen {
 		return old_buffer;
 	}
 
-	void show(){
-
-	}
-
-	public static void PutCasBitArray(Rotation rot, int line, char c, BitArray bb) {
+	public static void PutCasBitArray(Boolean rot, int line, char c, BitArray bb) {
 		if(rot)
 			HPutCasBitArray(line, c, bb);
 		else
@@ -329,6 +331,40 @@ static class BitArrayExtention {
 	public static Tuple<BitArray, BitArray> ToAddedDeleted (this BitArray this_one, BitArray new_one) {
 		var xor = this_one.Xor(new_one);
 		return Tuple.Create(xor.And(new_one), xor.And(this_one));
+	}
+	public static void Shift(this BitArray this_one, int d) {
+		if (d < 0)
+			this_one.RightShift(d);
+		else if (d > 0)
+			this_one.LeftShift(d);
+	}
+
+	public static int ClampShift(this BitArray this_one, int n) {
+		if (n < 0) {
+			for(var m = 0; m < -n; ++m)
+				if (!this_one.ClampRightShift1())
+					break;
+			return -m;
+		}
+		else if (n > 0) {
+			for(var m = 0; m < n; ++m)
+				if (!this_one.ClampRightShift1())
+					break;
+			return m;
+		}
+		return 0;
+	}
+	public static bool ClampRightShift1(this BitArray this_one) {
+		if (this_one[0])
+			return false;
+		this_one.RightShift(1);
+		return true;
+	}
+	public static bool ClampLeftShift1(this BitArray this_one) {
+		if (this_one[^1])
+			return false;
+		this_one.LeftShift(1);
+		return true;
 	}
 }
 
