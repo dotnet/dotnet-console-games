@@ -302,6 +302,19 @@
             "problemMatcher": "$msCompile",
         },
         {
+            "label": "Build Memory",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/Memory/Memory.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
+        {
             "label": "Build Type",
             "command": "dotnet",
             "type": "process",
