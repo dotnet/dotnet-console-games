@@ -32,7 +32,7 @@ Memory is a game where you flip over cards and try to find all the matches. Card
 
 ## Input
 
-The **arrow keys (↑, ↓, ←, →)** are used to select a card. The **enter** key is used to confirm a selection and acknoledge prompts. The **escape** key may be used to close the game at any time.
+The **arrow keys (↑, ↓, ←, →)** are used to select a card. The **enter** key is used to confirm selections and acknowledge matches or miss-matches. The **escape** key may be used to close the game at any time.
 
 ## Dependencies
 
