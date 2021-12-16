@@ -1,8 +1,8 @@
-name: Drive Build
+name: Memory Build
 on:
   push:
     paths:
-    - 'Projects/Drive/**'
+    - 'Projects/Memory/**'
   workflow_dispatch:
 jobs:
   build:
@@ -14,4 +14,4 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Build with dotnet
-      run: dotnet build "Projects\Drive\Drive.csproj" --configuration Release
+      run: dotnet build "Projects\Memory\Memory.csproj" --configuration Release
