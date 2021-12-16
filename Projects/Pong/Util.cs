@@ -12,7 +12,7 @@ public class Screen : OnScreen {
 	public bool isRotated {get; init;} // 90 degree
 	public int w {get; init;}
 	public int h {get; init;}
-	public BitArray [] Lines {get; private set;} // [h][w]
+	public BitArray[] Lines {get; private set;} // [h][w]
 	public Screen(int x = 80, int y = 24, bool rotate = false) {
 		(w, h) = OnScreen.init(x, y);
 		isRotated = rotate;
@@ -340,17 +340,19 @@ static class BitArrayExtention {
 	}
 
 	public static int ClampShift(this BitArray this_one, int n) {
+		int i = 0;
 		if (n < 0) {
-			for(var m = 0; m < -n; ++m)
+			n = -n;
+			for(; i < n; ++i)
 				if (!this_one.ClampRightShift1())
 					break;
-			return -m;
+			return -i;
 		}
 		else if (n > 0) {
-			for(var m = 0; m < n; ++m)
+			for(; i < n; ++i)
 				if (!this_one.ClampRightShift1())
 					break;
-			return m;
+			return i;
 		}
 		return 0;
 	}
@@ -367,4 +369,3 @@ static class BitArrayExtention {
 		return true;
 	}
 }
-
