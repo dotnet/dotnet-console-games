@@ -21,16 +21,19 @@ try
 		Console.Clear();
 		RandomizeBoard();
 		EnsureConsoleSize();
-		while (!closeRequested && !AllTilesVisible() || pendingConfirmation)
+		while ((!closeRequested && !AllTilesVisible()) || pendingConfirmation)
 		{
-			Render();
-			GetInput();
+			EnsureConsoleSize();
+			if (!closeRequested)
+			{
+				Render();
+				GetInput();
+			}
 		}
 		if (!closeRequested)
 		{
 			selection = (-1, -1);
 			Render();
-			Console.WriteLine();
 			Console.WriteLine();
 			Console.WriteLine(" You Win!");
 			Console.WriteLine(" Play again [enter] or exit [escape]?");
@@ -84,13 +87,13 @@ void EnsureConsoleSize()
 	int width = Console.WindowWidth;
 	int height = Console.WindowHeight;
 	int minWidth = board.GetLength(1) * 3 + 4;
-	int minHeight = board.GetLength(0) * 2 + 10;
-	while (width < minWidth || height < minHeight)
+	int minHeight = board.GetLength(0) * 2 + 13;
+	while (!closeRequested && (width < minWidth || height < minHeight))
 	{
 		Console.Clear();
 		Console.WriteLine("Increase console size and press [enter]...");
 		bool enter = false;
-		while (!enter)
+		while (!closeRequested && !enter)
 		{
 			switch (Console.ReadKey(true).Key)
 			{
@@ -110,7 +113,6 @@ void EnsureConsoleSize()
 
 void Render()
 {
-	EnsureConsoleSize();
 	Console.CursorVisible = false;
 	Console.BackgroundColor = ConsoleColor.Black;
 	Console.ForegroundColor = ConsoleColor.White;
