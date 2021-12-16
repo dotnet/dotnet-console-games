@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,9 +13,6 @@ var speed_ratio = 1;
 var screen_width = 72;
 var screen_height = 24;
 var paddle_width = 8;
-Paddle pdl = new Paddle(width=paddle_width, screen_height);
-int n = pdl.Shift(8);
-n = pdl.Shift(-9);
 if (parseResult.Tag == ParserResultType.Parsed){
 	speed_ratio = parseResult.Value.speed;
 	screen_width = parseResult.Value.width;
@@ -27,21 +25,28 @@ Debug.Print($"speed ratio: {speed_ratio}");
 Debug.Print($"screen size is w(x axis): {screen_w} and h(y axis): {screen_h}.");
 Debug.Print($"option width is w(x axis): {screen_width}");
 // if (ar.Length > 2) speed_ratio = Convert.ToInt32(ar[2]);
-var game = new Game(speed_ratio, screen_w, screen_h);
+var game = new Game(speed_ratio, screen_w, screen_h, paddle_width);
 // game.run();
 public class Game {
 	Screen scrn;
-	PaddleBase pdl;
-	Paddle[] Paddles = new();
+	// PaddleBase pdl;
+	// Paddle[] Paddles = new Paddle[2];
+	Paddle SelfPaddle, OpponentPaddle;
+	// BitArray[] PaddleImages = new BitArray[2];
+	BitArray SelfOutput, OpponentOutput;
 	enum Side {Home = 0, Away = 1}
+	public int PaddleWidth {get; init;}
 
-	public Game(int speed_ratio, int screen_w, int screen_h){
-		for (int i = 0; i < 2; ++i)
-			Paddles[i] = new Paddle(8, 24);
+	public Game(int speed_ratio, int screen_w, int screen_h, int paddleWidth){
+		scrn = new Screen(screen_w, screen_h);
+		PaddleWidth = paddleWidth;
+		SelfPaddle = new Paddle(8, 24);
+		OpponentPaddle = new Paddle(8, 24);
+	SelfOutput = SelfPaddle.buffer.Clone() as BitArray;
+	OpponentOutput = OpponentPaddle.buffer.Clone() as BitArray;
 	TimeSpan delay = TimeSpan.FromMilliseconds(200);
-	scrn = new Screen(screen_w, screen_h);
-	pdl = new VPaddle(scrn.w, paddle_width); // NestedRange(0..(width / 3), 0..width);
-	var pdl_barr = pdl.ToBitArray();
+	// pdl = new VPaddle(scrn.w, paddle_width); // NestedRange(0..(width / 3), 0..width);
+	SelfOutput = 
 	Console.CancelKeyPress += delegate {
 		Console.CursorVisible = true;
 	};
@@ -83,21 +88,28 @@ public class Game {
 	Console.CursorVisible = true;
 	}
 
-}
 	public class Paddle {
-		public BitArray buffer {get; init;}
-		public int Width {get; init;}
+		BitArray buffer {get; init;}
+		public int Width {get {
+			var trues = (from bool m in buffer
+           where m
+           select m).Count();
+			return trues;
+		}}
 		public Paddle(int width, int range) {
 			buffer = new BitArray(range);
 			for (int i = 0; i < width; ++i)
 				buffer[i] = true;
-			Width = width;
 		}
 		public int Shift(int n) {
 			return buffer.ClampShift(n);
 		}
+		public BitArray GetBitArray() {
+			return buffer.Clone() as BitArray;
+		}
 	}
 
+}
 class Options {
 	[Option('s', "speed", Required =false, HelpText = "--speed 4")]
 	public int speed { get; set;}
