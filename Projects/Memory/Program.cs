@@ -177,7 +177,7 @@ void Render()
 	Console.WriteLine();
 	Console.WriteLine(" Controls...");
 	Console.WriteLine(" - arrow keys: change selction");
-	Console.WriteLine(" - enter: confirm selections and prompts");
+	Console.WriteLine(" - enter: confirm & acknowledge");
 	Console.WriteLine(" - escape: exit");
 }
 
