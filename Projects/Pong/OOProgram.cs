@@ -33,17 +33,17 @@ public class Game {
 	// Paddle[] Paddles = new Paddle[2];
 	Paddle SelfPaddle, OpponentPaddle;
 	// BitArray[] PaddleImages = new BitArray[2];
-	BitArray SelfOutput, OpponentOutput;
-	enum Side {Home = 0, Away = 1}
+	BitArray SelfOutputImage, OpponentOutputImage;
 	public int PaddleWidth {get; init;}
 
 	public Game(int speed_ratio, int screen_w, int screen_h, int paddleWidth){
 		scrn = new Screen(screen_w, screen_h);
 		PaddleWidth = paddleWidth;
-		SelfPaddle = new Paddle(8, 24);
-		OpponentPaddle = new Paddle(8, 24);
-	SelfOutput = SelfPaddle.buffer.Clone() as BitArray;
-	OpponentOutput = OpponentPaddle.buffer.Clone() as BitArray;
+		SelfPaddle = new Paddle(PaddleWidth, screen_h);
+		OpponentPaddle = new Paddle(PaddleWidth, screen_h);
+		var SelfImage = SelfPaddle.GetImage();
+		scrn.Draw(Side.Home, SelfPaddle);
+		var OpponentImage = OpponentPaddle.GetImage();
 	TimeSpan delay = TimeSpan.FromMilliseconds(200);
 	// pdl = new VPaddle(scrn.w, paddle_width); // NestedRange(0..(width / 3), 0..width);
 	SelfOutput = 
@@ -88,28 +88,36 @@ public class Game {
 	Console.CursorVisible = true;
 	}
 
-	public class Paddle {
-		BitArray buffer {get; init;}
-		public int Width {get {
-			var trues = (from bool m in buffer
-           where m
-           select m).Count();
-			return trues;
-		}}
-		public Paddle(int width, int range) {
-			buffer = new BitArray(range);
-			for (int i = 0; i < width; ++i)
-				buffer[i] = true;
-		}
-		public int Shift(int n) {
-			return buffer.ClampShift(n);
-		}
-		public BitArray GetBitArray() {
-			return buffer.Clone() as BitArray;
-		}
-	}
-
 }
+public class Paddle
+{
+    BitArray buffer { get; init; }
+    public int Width
+    {
+        get
+        {
+            var trues = (from bool m in buffer
+                         where m
+                         select m).Count();
+            return trues;
+        }
+    }
+    public Paddle(int width, int range)
+    {
+        buffer = new BitArray(range);
+        for (int i = 0; i < width; ++i)
+            buffer[i] = true;
+    }
+    public int Shift(int n)
+    {
+        return buffer.ClampShift(n);
+    }
+    public BitArray GetImage()
+    {
+        return buffer.Clone() as BitArray;
+    }
+}
+
 class Options {
 	[Option('s', "speed", Required =false, HelpText = "--speed 4")]
 	public int speed { get; set;}
