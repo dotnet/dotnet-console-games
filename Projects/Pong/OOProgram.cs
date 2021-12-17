@@ -89,6 +89,15 @@ public class Game {
 	}
 
 }
+
+/// <summary>Screen with Paddle Sides(Home/Away)</summary>
+public class PaddleScreen : Screen {
+	public char PaddleChar = '+';
+	public Dictionary<Side, int> SideToLine = new();
+
+
+
+}
 public class Paddle
 {
     BitArray buffer { get; init; }
@@ -104,10 +113,14 @@ public class Paddle
     }
     public Paddle(int width, int range)
     {
+		Debug.Assert(width > 0 && range > 0 && range > width);
         buffer = new BitArray(range);
         for (int i = 0; i < width; ++i)
             buffer[i] = true;
     }
+	
+/// <summary>Manipulate</summary>
+/// <returns>0 if no reaction</returns> 
     public int Shift(int n)
     {
         return buffer.ClampShift(n);

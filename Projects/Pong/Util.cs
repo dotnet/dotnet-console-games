@@ -10,19 +10,20 @@ public enum Rotation {
 public enum Side {Home = 0, Away = 1}
 
 public class Screen : OnScreen {
-	char PaddleChar = '+';
-	public Action<Side, Paddle> Draw;
-	public Action<int, BitArray, char> RedrawPaddle; // (Line, this_array, new_array, c='+')
+	public Action<Side, Paddle> DrawPaddle;
+	public Action<int, BitArray, char> RedrawImage; // (Line, this_array, new_array, c='+')
 	public bool isRotated {get; init;} // 90 degree
 	public int w {get; init;}
 	public int h {get; init;}
 	public BitArray[] Lines {get; private set;} // [h][w]
 	public Screen(int x = 80, int y = 24, bool rotate = false) {
 		(w, h) = OnScreen.init(x, y);
+		SideToLine.Add(Side.Home, 0);
 		isRotated = rotate;
+		SideToLine.Add(Side.Away, isRotated ? h - 1 : w - 1);
 		Lines = new BitArray[isRotated ? w : h];
 		// for(int i = 0; i < (rotate ? w :h); ++i) buffer[i] = new BitArray(rotate ? h :w);
-			RedrawPaddle = isRotated ? (line, new_buff, c)=>{
+			RedrawImage = isRotated ? (line, new_buff, c)=>{
 				var (added, deleted) = Lines[line].ToAddedDeleted(new_buff);
 				VPutCasBitArray(line, c, added);
 				VPutCasBitArray(line, ' ', deleted);
@@ -31,10 +32,10 @@ public class Screen : OnScreen {
 				HPutCasBitArray(line, c, added);
 				HPutCasBitArray(line, ' ', deleted);
 			};
-		Draw = isRotated ? (side, paddle)=>{
-			VPutCasBitArray((int)side, PaddleChar, paddle.GetImage());
+		DrawPaddle = isRotated ? (side, paddle)=>{
+			VPutCasBitArray(SideToLine[side], PaddleChar, paddle.GetImage());
 		} : (side, paddle)=>{
-			HPutCasBitArray((int)side, PaddleChar, paddle.GetImage());
+			HPutCasBitArray(SideToLine[side], PaddleChar, paddle.GetImage());
 
 		};
 
@@ -59,14 +60,16 @@ public class Screen : OnScreen {
 
 	}
 	public static void VPutCasBitArray(int x, char c, BitArray bb) {
-		for(int i = 0; i < bb.Length; ++i)
+			for(int i = 0; i < bb.Length; ++i)
 		if(bb[i]){ 
 			Console.SetCursorPosition(x, i);
 			Console.Write(c);
 		}
 	}
+
+	// public void HDrawImage(Side side, BitArray image){ HPutCasBitArray(SideToLine(side), SideToChar(side), image); }
 	public static void HPutCasBitArray(int y, char c, BitArray bb) {
-				for(int i = 0; i < bb.Length; ++i)
+			for(int i = 0; i < bb.Length; ++i)
 		if(bb[i]){ 
 			Console.SetCursorPosition(i, y);
 			Console.Write(c);
