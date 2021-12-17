@@ -7,8 +7,12 @@ public enum Rotation {
 	Horizontal, Vertical
 }
 
+public enum Side {Home = 0, Away = 1}
+
 public class Screen : OnScreen {
-	public Action<int, BitArray, char> redrawPaddle; // (Line, this_array, new_array, c='+')
+	char PaddleChar = '+';
+	public Action<Side, Paddle> Draw;
+	public Action<int, BitArray, char> RedrawPaddle; // (Line, this_array, new_array, c='+')
 	public bool isRotated {get; init;} // 90 degree
 	public int w {get; init;}
 	public int h {get; init;}
@@ -18,7 +22,7 @@ public class Screen : OnScreen {
 		isRotated = rotate;
 		Lines = new BitArray[isRotated ? w : h];
 		// for(int i = 0; i < (rotate ? w :h); ++i) buffer[i] = new BitArray(rotate ? h :w);
-			redrawPaddle = isRotated ? (line, new_buff, c)=>{
+			RedrawPaddle = isRotated ? (line, new_buff, c)=>{
 				var (added, deleted) = Lines[line].ToAddedDeleted(new_buff);
 				VPutCasBitArray(line, c, added);
 				VPutCasBitArray(line, ' ', deleted);
@@ -27,6 +31,12 @@ public class Screen : OnScreen {
 				HPutCasBitArray(line, c, added);
 				HPutCasBitArray(line, ' ', deleted);
 			};
+		Draw = isRotated ? (side, paddle)=>{
+			VPutCasBitArray((int)side, PaddleChar, paddle.GetImage());
+		} : (side, paddle)=>{
+			HPutCasBitArray((int)side, PaddleChar, paddle.GetImage());
+
+		};
 
 	}
 
