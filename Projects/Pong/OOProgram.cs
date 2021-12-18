@@ -28,63 +28,53 @@ Debug.Print($"option width is w(x axis): {screen_width}");
 var game = new Game(speed_ratio, screen_w, screen_h, paddle_width);
 // game.run();
 public class Game {
-	Screen screen;
-	// PaddleBase pdl;
-	Paddle[] Paddles = new Paddle[2];
-	Paddle SelfPaddle, OpponentPaddle;
+	PaddleScreen screen;
+	// PaddleBase pdl; Paddle[] Paddles = new Paddle[2];
+	SelfPaddle selfPadl;
+	OpponentPaddle oppoPadl;
 	// BitArray[] PaddleImages = new BitArray[2];
 	BitArray SelfOutputImage, OpponentOutputImage;
 	public int PaddleWidth {get; init;}
-	
+	public Dictionary<System.ConsoleKey, Func<int>> manipDict = new();	
+	public Rotation rotation {get; init;}
+	public Game(int speed_ratio, int screen_w, int screen_h, int paddleWidth, Rotation rot){
+		screen = new(screen_w, screen_h, rot == Rotation.Vertical ? true : false);
+		selfPadl = new(width: paddleWidth, range: screen.PaddleRange, manipDict);
+		oppoPadl = new(width: paddleWidth, range: screen.PaddleRange);
+		if (rot == Rotation.Vertical){
+			manipDict[ConsoleKey.UpArrow] = ()=>{ return selfPadl.Shift(-1); };
+			manipDict[ConsoleKey.DownArrow] = ()=>{ return selfPadl.Shift(1); };
+		}else{
+			manipDict[ConsoleKey.LeftArrow] = ()=>{ return selfPadl.Shift(-1); };
+			manipDict[ConsoleKey.RightArrow] = ()=>{ return selfPadl.Shift(1); };
+		}
 
-	public Game(int speed_ratio, int screen_w, int screen_h, int paddleWidth){
-		screen = new Screen(screen_w, screen_h);
-		screen.DrawPaddle(Side.Home);
+		screen.DrawPaddle(selfPadl);
+		screen.DrawPaddle(oppoPadl);
 		
-		PaddleWidth = paddleWidth;
-		SelfPaddle = new Paddle(PaddleWidth, screen_h);
-		
-		OpponentPaddle = new Paddle(PaddleWidth, screen_h);
-		var SelfImage = SelfPaddle.GetImage();
-		screen.Draw(Side.Home, SelfPaddle);
-		var OpponentImage = OpponentPaddle.GetImage();
 	TimeSpan delay = TimeSpan.FromMilliseconds(200);
 	// pdl = new VPaddle(screen.w, paddle_width); // NestedRange(0..(width / 3), 0..width);
-	SelfOutput = 
 	Console.CancelKeyPress += delegate {
 		Console.CursorVisible = true;
 	};
 	Console.CursorVisible = false; // hide cursor
 	Console.Clear();
 	while(true){
-		bool moved = false;
+		int react;
 		if (Console.KeyAvailable)
 		{
 			System.ConsoleKey key = Console.ReadKey(true).Key;
 			if (key == ConsoleKey.Escape)
 				goto exit;
-			if (pdl.manipDict.ContainsKey(key)) {
-				var old_bits = pdl.ToBitArray();
-				pdl.manipDict[key](); // execute key proc.
-				var new_bits = pdl.ToBitArray();
-				var bits_diff = old_bits.Xor(new_bits);
-				var disappeared_bits = bits_diff.And(old_bits);
-				var appeared_bits = bits_diff.And(new_bits);
+			if (selfPadl.ManipDict.ContainsKey(key)) {
+				react = selfPadl.ReactKey(key);
+				if(react != 0){
+					screen.RedrawPaddle(selfPadl);
+				}
 			}
-			moved = pdl.manipulate(key);
 			// else if (pdl.manipDict.ContainsKey(key)) moved = pdl.manipDict[key]() != 0;
 			while(Console.KeyAvailable) // clear over input
 				Console.ReadKey(true);
-		}
-		if (moved) {
-			var pdlArry = pdl.render();
-			var old_buffer = screen.new_buffer();
-			Array.Copy(pdlArry[0], pdl.AtTop ? screen.buffer[0] : screen.buffer[screen.h - 1], pdlArry[0].Length);
-		
-		var pdlStr = new string(pdlArry[0]);
-		pdlStr = pdlStr.Replace('\0', CharCode.SPC);
-		 Console.SetCursorPosition(0, pdl.AtTop ? 0 : screen.h - 1);
-		 Console.Write(pdlStr);
 		}
 		Thread.Sleep(delay);
 	}
@@ -92,58 +82,13 @@ public class Game {
 	Console.CursorVisible = true;
 	}
 
-	void drawPaddle(Side side, Paddle padl){
-		var image = padl.GetImage();
-	}
-	bool redrawPaddle(Side side, Paddle padl){
-
-	}
 
 }
 
-/// <summary>Screen with Paddle Sides(Home/Away)</summary>
-public class VPaddleScreen : PaddleScreen {
-	public Dictionary<Side, int> SideToLine = new();
-	public Action<Side, Paddle> DrawPaddle;
-	public Action<Side, Paddle> RedrawPaddle;
-	public int PaddleRange {get {
-		return isRotated ? h : w;
-	}}
-
-    public override bool isRotated {
-		get {return true;}
-	}
-	public VPaddleScreen(int x = 64, int y = 23, Char padlc = '+') : base(x, y, rotate=true) 
-	{
-		PaddleChar = padlc;
-		Paddles[0] = new Paddle(w, PaddleRange);
-		SideToLine.Add(Side.Home, 0); // first element for Self/Home buffer
-		SideToLine.Add(Side.Away, isRotated ? h - 1 : w - 1); // last element for Opponent/Away buffer
-		DrawPaddle = isRotated ? (side, paddle)=>
-			VPutCasBitArray(SideToLine[side], PaddleChar, paddle.GetImage())
-		 : (side, paddle)=>
-			HPutCasBitArray(SideToLine[side], PaddleChar, paddle.GetImage());
-		RedrawPaddle = isRotated ? (side, paddle) =>
-        {
-			var line = SideToLine[side];
-            var (added, deleted) = Lines[line].ToAddedDeleted(paddle.GetImage());
-            VPutCasBitArray(line, PaddleChar, added);
-            VPutCasBitArray(line, (Char)CharCode.SPC, deleted);
-        }
-        : (side, paddle) =>
-        {
-			var line = SideToLine[side];
-            var (added, deleted) = Lines[line].ToAddedDeleted(paddle.GetImage());
-            HPutCasBitArray(line, PaddleChar, added);
-            HPutCasBitArray(line, (Char)CharCode.SPC, deleted);
-        };
-
-	}
-
-}
 
 public class OpponentPaddle : Paddle {
 
+	override public PaddleSide Side {get{return PaddleSide.Away;}}
     public OpponentPaddle(int width, int range) : base(width, range){
 
 	}
@@ -151,14 +96,19 @@ public class OpponentPaddle : Paddle {
 
 public class SelfPaddle : Paddle {
 
-    public SelfPaddle(int width, int range): base(width, range){
+	public Dictionary<System.ConsoleKey, Func<int>> ManipDict;
+	override public PaddleSide Side {get{return PaddleSide.Home;}}
+    public SelfPaddle(int width, int range, Dictionary<System.ConsoleKey, Func<int>> manipDict): base(width, range){
+		ManipDict = manipDict;
 	}
-	public bool ReactKey(System.ConsoleKey key) {
-
+	public int ReactKey(System.ConsoleKey key) {
+		return ManipDict[key]();
 	}
 }
-public class Paddle
+public class Paddle : ScreenDrawItem
 {
+	virtual public PaddleSide Side {get;}
+	public virtual char DispChar{get{return '+';}}
     BitArray buffer { get; init; }
     public int Width
     {

@@ -7,10 +7,28 @@ public enum Rotation {
 	Horizontal, Vertical
 }
 
-public enum Side {Home = 0, Away = 1}
+interface ScreenDrawItem {
+	BitArray GetImage();
+	// void Draw(int lineNum, BitArray image, char dispChar);
+}
+public enum PaddleSide {Home = 0, Away = -1}
 public class PaddleScreen : Screen {
-	public Paddle[] Paddles = new Paddle[2]; // 0: self, 1: opponent
-	virtual public char PaddleChar() => '+';
+	public int PaddleRange {get{return AwayLineNum + 1;}}
+	public int AwayLineNum {get;init;}
+	public const int HomeLineNum = 0;
+	// public Paddle[] Paddles = new Paddle[2]; // 0: self, 1: opponent
+	public PaddleScreen(int x, int y, bool rotate) : base(x,y,rotate) {
+		AwayLineNum = this.EndOfLines; // Lines.Length - 1;
+	}
+	public void DrawPaddle(Paddle paddle){
+		BitArray image = paddle.GetImage();
+		drawImage(paddle.Side == PaddleSide.Home ? HomeLineNum : AwayLineNum, image, paddle.DispChar);
+	}
+	public void RedrawPaddle(Paddle paddle){
+		BitArray image = paddle.GetImage();
+		redrawImage(paddle.Side == PaddleSide.Home ? HomeLineNum : AwayLineNum, image, paddle.DispChar);
+	}
+
 }
 public class Screen : OnScreen {
 	public enum CharCode {ESC = '\x1b', SPC = '\x20'}
@@ -21,6 +39,7 @@ public class Screen : OnScreen {
 	public virtual bool isRotated {get; init;} // 90 degree
 	public int w {get; init;}
 	public int h {get; init;}
+	public int EndOfLines {get{return Lines.Length - 1;}}
 	public BitArray[] Lines {get; private set;} // [h][w]
 	public Screen(int x = 80, int y = 24, bool rotate = false) {
 		(w, h) = OnScreen.init(x, y);
@@ -31,13 +50,13 @@ public class Screen : OnScreen {
         {
             var (added, deleted) = Lines[line].ToAddedDeleted(new_buff);
             VPutCasBitArray(line, c, added);
-            VPutCasBitArray(line, CharCode.SPC, deleted);
+            VPutCasBitArray(line, (char)CharCode.SPC, deleted);
         }
         : (line, new_buff, c) =>
         {
             var (added, deleted) = Lines[line].ToAddedDeleted(new_buff);
             HPutCasBitArray(line, c, added);
-            HPutCasBitArray(line, CharCode.SPC, deleted);
+            HPutCasBitArray(line, (char)CharCode.SPC, deleted);
         };
         DrawImage = isRotated ? (line, buff, c) =>
             VPutCasBitArray(line, c, buff)
@@ -55,6 +74,20 @@ public class Screen : OnScreen {
 		Lines = new BitArray[isRotated ? w : h];
 		// for(int i = 0; i < h; ++i) buffer[i] = new char[w];
 		return old_buffer;
+	}
+	public void drawImage(int n, BitArray image, char c){
+		PutCasBitArray(this.isRotated, n, c, image);
+	}
+	public void redrawImage(int n, BitArray image, char c){
+        var (added, deleted) = Lines[n].ToAddedDeleted(image);
+        if(this.isRotated ) {
+            VPutCasBitArray(n, c, added);
+            VPutCasBitArray(n, (char)CharCode.SPC, deleted);
+        }
+		else {
+            HPutCasBitArray(n, c, added);
+            HPutCasBitArray(n, (char)CharCode.SPC, deleted);
+        }
 	}
 
 	public static void PutCasBitArray(Boolean rot, int line, char c, BitArray bb) {
