@@ -8,36 +8,41 @@ public enum Rotation {
 }
 
 public enum Side {Home = 0, Away = 1}
-
+public class PaddleScreen : Screen {
+	public Paddle[] Paddles = new Paddle[2]; // 0: self, 1: opponent
+	virtual public char PaddleChar() => '+';
+}
 public class Screen : OnScreen {
-	public Action<Side, Paddle> DrawPaddle;
+	public enum CharCode {ESC = '\x1b', SPC = '\x20'}
+	public Dictionary<System.ConsoleKey, Func<int>> KeyManipDict;
+
+	public Action<int, BitArray, char> DrawImage;
 	public Action<int, BitArray, char> RedrawImage; // (Line, this_array, new_array, c='+')
-	public bool isRotated {get; init;} // 90 degree
+	public virtual bool isRotated {get; init;} // 90 degree
 	public int w {get; init;}
 	public int h {get; init;}
 	public BitArray[] Lines {get; private set;} // [h][w]
 	public Screen(int x = 80, int y = 24, bool rotate = false) {
 		(w, h) = OnScreen.init(x, y);
-		SideToLine.Add(Side.Home, 0);
 		isRotated = rotate;
-		SideToLine.Add(Side.Away, isRotated ? h - 1 : w - 1);
 		Lines = new BitArray[isRotated ? w : h];
-		// for(int i = 0; i < (rotate ? w :h); ++i) buffer[i] = new BitArray(rotate ? h :w);
-			RedrawImage = isRotated ? (line, new_buff, c)=>{
-				var (added, deleted) = Lines[line].ToAddedDeleted(new_buff);
-				VPutCasBitArray(line, c, added);
-				VPutCasBitArray(line, ' ', deleted);
-			} : (line, new_buff, c)=>{
-				var (added, deleted) = Lines[line].ToAddedDeleted(new_buff);
-				HPutCasBitArray(line, c, added);
-				HPutCasBitArray(line, ' ', deleted);
-			};
-		DrawPaddle = isRotated ? (side, paddle)=>{
-			VPutCasBitArray(SideToLine[side], PaddleChar, paddle.GetImage());
-		} : (side, paddle)=>{
-			HPutCasBitArray(SideToLine[side], PaddleChar, paddle.GetImage());
-
-		};
+        // for(int i = 0; i < (rotate ? w :h); ++i) buffer[i] = new BitArray(rotate ? h :w);
+        RedrawImage = isRotated ? (line, new_buff, c) =>
+        {
+            var (added, deleted) = Lines[line].ToAddedDeleted(new_buff);
+            VPutCasBitArray(line, c, added);
+            VPutCasBitArray(line, CharCode.SPC, deleted);
+        }
+        : (line, new_buff, c) =>
+        {
+            var (added, deleted) = Lines[line].ToAddedDeleted(new_buff);
+            HPutCasBitArray(line, c, added);
+            HPutCasBitArray(line, CharCode.SPC, deleted);
+        };
+        DrawImage = isRotated ? (line, buff, c) =>
+            VPutCasBitArray(line, c, buff)
+        : (line, buff, c) =>
+            HPutCasBitArray(line, c, buff);
 
 	}
 
