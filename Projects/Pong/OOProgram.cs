@@ -31,17 +31,12 @@ var (screen_w, screen_h) = OnScreen.init(screen_width, screen_height);
 // Console.ReadKey();
 // if (ar.Length > 2) speed_ratio = Convert.ToInt32(ar[2]);
 var game = new Game(speed_ratio, screen_w, screen_h, paddle_width, rotation);
-Trace.Write($"selfPadl:{game.selfPadl.GetImage().renderImage()}");
+var imageCc = game.selfPadl.GetImage().renderImage();
+Trace.Write($"selfPadl:{imageCc}");
 game.selfPadl.Shift(-1);
 Trace.Write($"selfPadl:{game.selfPadl.GetImage().renderImage()}");
 game.Run();
 // game.run();
-char[] renderImage(BitArray image){
-	char[] cc = new char[image.Length];
-	for(int i=0; i < cc.Length; ++i)
-		cc[i] = image[i] ? '+' : '_';
-	return cc;
-}
 public class Game {
 	public PaddleScreen screen;
 	// PaddleBase pdl; Paddle[] Paddles = new Paddle[2];
@@ -53,7 +48,7 @@ public class Game {
 	public Dictionary<System.ConsoleKey, Func<int>> manipDict = new();	
 	public Rotation rotation {get; init;}
 	public Game(int speed_ratio, int screen_w, int screen_h, int paddleWidth, Rotation rot){
-		screen = new(screen_w, screen_h, rot == Rotation.Vertical ? true : false);
+				screen = new(screen_w, screen_h, rot == Rotation.Vertical ? true : false);
 		selfPadl = new(width: paddleWidth, range: screen.PaddleRange, manipDict);
 		oppoPadl = new(width: paddleWidth, range: screen.PaddleRange);
 		if (rot == Rotation.Vertical){

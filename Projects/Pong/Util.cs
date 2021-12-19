@@ -77,8 +77,10 @@ public class Screen : OnScreen {
 	}
 	public void drawImage(int n, BitArray image, char c){
 		PutCasBitArray(this.isRotated, n, c, image);
+		Lines[n] = image;
 	}
 	public void redrawImage(int n, BitArray image, char c){
+		Trace.Assert(Lines[n] != null);
         var (added, deleted) = Lines[n].ToAddedDeleted(image);
         if(this.isRotated ) {
             VPutCasBitArray(n, c, added);
@@ -88,6 +90,7 @@ public class Screen : OnScreen {
             HPutCasBitArray(n, c, added);
             HPutCasBitArray(n, (char)CharCode.SPC, deleted);
         }
+		Lines[n] = image;
 	}
 
 	public static void PutCasBitArray(Boolean rot, int line, char c, BitArray bb) {
@@ -95,7 +98,6 @@ public class Screen : OnScreen {
 			VPutCasBitArray(line, c, bb);
 		else
 			HPutCasBitArray(line, c, bb);
-
 	}
 	public static void VPutCasBitArray(int x, char c, BitArray bb) {
 		Trace.Write(bb.renderImage());
@@ -383,6 +385,8 @@ static class RangeExtention
 
 static class BitArrayExtention {
 	public static Tuple<BitArray, BitArray> ToAddedDeleted (this BitArray this_one, BitArray new_one) {
+		Trace.Assert(new_one != null);
+		Trace.Assert(this_one != null);
 		var xor = this_one.Xor(new_one);
 		return Tuple.Create(xor.And(new_one), xor.And(this_one));
 	}
