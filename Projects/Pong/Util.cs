@@ -429,10 +429,10 @@ static class BitArrayExtention {
 		this_one.LeftShift(1);
 		return true;
 	}
-	public static char[] renderImage(this BitArray image){
+	public static string renderImage(this BitArray image){
 	char[] cc = new char[image.Length];
 	for(int i=0; i < cc.Length; ++i)
 		cc[i] = image[i] ? '+' : '_';
-	return cc;
+	return new String(cc);
 	}
 }
