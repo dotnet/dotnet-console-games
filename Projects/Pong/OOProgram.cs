@@ -9,7 +9,7 @@ using CommandLineParser; // Original source code: https://github.com/wertrain/co
 
     ConsoleTraceListener myWriter = new GonsoleTraceListener();
     Trace.Listeners.Add(myWriter);
-Trace.Write("OOProgram start.");
+Debug.Write("OOProgram start.");
 var rotation = Rotation.Vertical;
 var clargs = Environment.GetCommandLineArgs();
 var pArgs = clargs[1..];
@@ -61,10 +61,6 @@ public class Game {
 	}
 
 	public void Run(){
-
-		screen.DrawPaddle(selfPadl);
-		screen.DrawPaddle(oppoPadl);
-		
 	TimeSpan delay = TimeSpan.FromMilliseconds(200);
 	// pdl = new VPaddle(screen.w, paddle_width); // NestedRange(0..(width / 3), 0..width);
 	Console.CancelKeyPress += delegate {
@@ -72,6 +68,8 @@ public class Game {
 	};
 	Console.CursorVisible = false; // hide cursor
 	Console.Clear();
+		screen.DrawPaddle(selfPadl);
+		screen.DrawPaddle(oppoPadl);
 	while(true){
 		int react;
 		if (Console.KeyAvailable)
