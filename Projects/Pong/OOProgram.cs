@@ -1,4 +1,5 @@
-﻿using System;
+﻿#define TRACE
+using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,6 +7,10 @@ using System.Diagnostics;
 using System.Threading;
 using CommandLineParser; // Original source code: https://github.com/wertrain/command-line-parser-cs (Version 0.1)
 
+    ConsoleTraceListener myWriter = new GonsoleTraceListener();
+    Trace.Listeners.Add(myWriter);
+Trace.Write("OOProgram start.");
+var rotation = Rotation.Vertical;
 var clargs = Environment.GetCommandLineArgs();
 var pArgs = clargs[1..];
 var parseResult = Parser.Parse<Options>(pArgs);
@@ -20,20 +25,30 @@ if (parseResult.Tag == ParserResultType.Parsed){
 var (screen_w, screen_h) = OnScreen.init(screen_width, screen_height);
 // int width = screen_w; // Console.WindowWidth;
 // int height = screen_h; // Console.WindowHeight;
-Debug.Print("OOProgram start.");
-Debug.Print($"speed ratio: {speed_ratio}");
-Debug.Print($"screen size is w(x axis): {screen_w} and h(y axis): {screen_h}.");
-Debug.Print($"option width is w(x axis): {screen_width}");
+// Debug.Print($"speed ratio: {speed_ratio}");
+// Debug.Print($"screen size is w(x axis): {screen_w} and h(y axis): {screen_h}.");
+// Debug.Print($"option width is w(x axis): {screen_width}");
+// Console.ReadKey();
 // if (ar.Length > 2) speed_ratio = Convert.ToInt32(ar[2]);
-var game = new Game(speed_ratio, screen_w, screen_h, paddle_width);
+var game = new Game(speed_ratio, screen_w, screen_h, paddle_width, rotation);
+Trace.Write($"selfPadl:{game.selfPadl.GetImage().renderImage()}");
+game.selfPadl.Shift(-1);
+Trace.Write($"selfPadl:{game.selfPadl.GetImage().renderImage()}");
+game.Run();
 // game.run();
+char[] renderImage(BitArray image){
+	char[] cc = new char[image.Length];
+	for(int i=0; i < cc.Length; ++i)
+		cc[i] = image[i] ? '+' : '_';
+	return cc;
+}
 public class Game {
-	PaddleScreen screen;
+	public PaddleScreen screen;
 	// PaddleBase pdl; Paddle[] Paddles = new Paddle[2];
-	SelfPaddle selfPadl;
-	OpponentPaddle oppoPadl;
+	public SelfPaddle selfPadl;
+	public OpponentPaddle oppoPadl;
 	// BitArray[] PaddleImages = new BitArray[2];
-	BitArray SelfOutputImage, OpponentOutputImage;
+	public BitArray SelfOutputImage, OpponentOutputImage;
 	public int PaddleWidth {get; init;}
 	public Dictionary<System.ConsoleKey, Func<int>> manipDict = new();	
 	public Rotation rotation {get; init;}
@@ -48,6 +63,9 @@ public class Game {
 			manipDict[ConsoleKey.LeftArrow] = ()=>{ return selfPadl.Shift(-1); };
 			manipDict[ConsoleKey.RightArrow] = ()=>{ return selfPadl.Shift(1); };
 		}
+	}
+
+	public void Run(){
 
 		screen.DrawPaddle(selfPadl);
 		screen.DrawPaddle(oppoPadl);
@@ -81,10 +99,7 @@ public class Game {
 	exit:
 	Console.CursorVisible = true;
 	}
-
-
 }
-
 
 public class OpponentPaddle : Paddle {
 
@@ -109,7 +124,7 @@ public class Paddle : ScreenDrawItem
 {
 	virtual public PaddleSide Side {get;}
 	public virtual char DispChar{get{return '+';}}
-    BitArray buffer { get; init; }
+    public BitArray buffer { get; init; }
     public int Width
     {
         get
@@ -147,3 +162,13 @@ class Options {
 	public int width {get; set;}
 }
 
+public class GonsoleTraceListener : ConsoleTraceListener {
+	public override void Write(string s){
+		var (x,y) = Console.GetCursorPosition();
+		Console.SetCursorPosition(0, 0);
+		Trace.WriteLine(s);
+		Console.ReadKey();
+		Console.SetCursorPosition(x,y);
+	}
+
+}
