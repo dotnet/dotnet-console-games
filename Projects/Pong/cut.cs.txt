@@ -1,0 +1,107 @@
+
+
+public class OldPaddle : HasDispChar {
+	public char DispChar() {
+		return (char)ScreenChar.B;
+	}
+	public bool atLeft {get; init;} // Position is at left edge(if not, right edge).
+	public int pos {
+		get {
+			return _pos.Value;
+		}
+		private set {
+			this._pos.set(value);
+		}
+	}
+    public Clamp _pos;
+    public int size {get; init;}
+	/// <summary>range Start is paddle size, range end is screen height.</sammary>
+    public OldPaddle(Range range, int start_pos = 0, bool at_left = true) {
+        if (range.Start.Value == 0)
+        {
+            throw new ArgumentOutOfRangeException("Paddle size must be more than 0!");
+        }
+        size = range.Start.Value;
+        _pos = new(range.End.Value - range.Start.Value, start_pos);
+		atLeft = at_left;
+    }
+
+	public void show(){
+		Console.SetCursorPosition(atLeft ? 0 : OnScreen.W - 1, pos);
+		Console.Write(ScreenChar.B);
+
+	}
+	public void move_to(int y) {
+		var old_pos = pos;
+		pos = y;
+		
+
+	}
+    public bool Up() {
+        return _pos.Dec();
+    }
+    public bool Down() {
+        return _pos.Inc();
+    }
+
+	public bool Set(int n) {
+		return _pos.set(n);
+	}
+
+	public bool Hit(int p) {
+		if (p >= pos && p < (pos + size))
+			return true;
+		return false;
+	}
+
+}
+using System.CommandLine;
+using System.CommandLine.Invocation;
+using System.IO;
+var ar = Environment.GetCommandLineArgs(); // dotnet add package System.CommandLine --prerelease
+        var rootCommand = new RootCommand
+        {
+            new Option<int>(
+                "--width",
+                getDefaultValue: () => 80,
+                description: "Screen width: 80"),
+			new Option<int>(
+				"--speed",
+				getDefaultValue: () => 1,
+				description: "Ball speed ratio: 1"),
+            new Option<bool>(
+                "--debug",
+                "debug on"),
+            new Option<FileInfo>(
+                "--file",
+                "load FileInfo")
+        };
+
+        rootCommand.Description = "Object-oriented Pong game";
+
+using System.CommandLine;
+using System.CommandLine.Invocation;
+using System.IO;
+var ar = Environment.GetCommandLineArgs(); // dotnet add package System.CommandLine --prerelease
+        var rootCommand = new RootCommand
+        {
+            new Option<int>(
+                "--width",
+                getDefaultValue: () => 80,
+                description: "Screen width: 80"),
+			new Option<int>(
+				"--speed",
+				getDefaultValue: () => 1,
+				description: "Ball speed ratio: 1"),
+            new Option<bool>(
+                "--debug",
+                "debug on"),
+            new Option<FileInfo>(
+                "--file",
+                "load FileInfo")
+        };
+
+        rootCommand.Description = "Object-oriented Pong game";
+
+
+}); // end rootcommand
