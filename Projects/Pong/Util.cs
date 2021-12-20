@@ -12,6 +12,7 @@ interface ScreenDrawItem {
 	// void Draw(int lineNum, BitArray image, char dispChar);
 }
 public enum PaddleSide {Home = 0, Away = -1}
+public enum PaddleLine {Self = 0, Opponent = -1}
 public class PaddleScreen : Screen {
 	public int PaddleRange {get{return AwayLineNum + 1;}}
 	public int AwayLineNum {get;init;}
@@ -19,6 +20,17 @@ public class PaddleScreen : Screen {
 	// public Paddle[] Paddles = new Paddle[2]; // 0: self, 1: opponent
 	public PaddleScreen(int x, int y, bool rotate) : base(x,y,rotate) {
 		AwayLineNum = this.EndOfLines; // Lines.Length - 1;
+	}
+	public void draw(Paddle padl, bool replace_buffer = true) {
+		var side = padl.Side;
+		int n = (side == PaddleSide.Home) ? 0 : AwayLineNum;
+		var image = padl.GetImage();
+		if(Lines[n] == null)
+			drawImage(n, image, padl.DispChar);
+		else
+			redrawImage(n, image, padl.DispChar);
+		if(replace_buffer)
+			Lines[n] = image;
 	}
 	public void DrawPaddle(Paddle paddle){
 		BitArray image = paddle.GetImage();
@@ -30,6 +42,7 @@ public class PaddleScreen : Screen {
 	}
 
 }
+public record struct Dimention ( int x, int y);
 public class Screen : OnScreen {
 	public enum CharCode {ESC = '\x1b', SPC = '\x20'}
 	public Dictionary<System.ConsoleKey, Func<int>> KeyManipDict;
@@ -39,10 +52,12 @@ public class Screen : OnScreen {
 	public virtual bool isRotated {get; init;} // 90 degree
 	public int w {get; init;}
 	public int h {get; init;}
+	public Dimention dim {get; init;}
 	public int EndOfLines {get{return Lines.Length - 1;}}
 	public BitArray[] Lines {get; private set;} // [h][w]
 	public Screen(int x = 80, int y = 24, bool rotate = false) {
 		(w, h) = OnScreen.init(x, y);
+		dim = new(w, h);
 		isRotated = rotate;
 		Lines = new BitArray[isRotated ? h : w];
         // for(int i = 0; i < (rotate ? w :h); ++i) buffer[i] = new BitArray(rotate ? h :w);
@@ -77,10 +92,10 @@ public class Screen : OnScreen {
 	}
 	public void drawImage(int n, BitArray image, char c){
 		PutCasBitArray(this.isRotated, n, c, image);
-		Lines[n] = image;
+		// Lines[n] = image;
 	}
 	public void redrawImage(int n, BitArray image, char c){
-		Trace.Assert(Lines[n] != null);
+		Debug.Assert(Lines[n] != null);
         var (added, deleted) = Lines[n].ToAddedDeleted(image);
         if(this.isRotated ) {
             VPutCasBitArray(n, c, added);
@@ -90,7 +105,7 @@ public class Screen : OnScreen {
             HPutCasBitArray(n, c, added);
             HPutCasBitArray(n, (char)CharCode.SPC, deleted);
         }
-		Lines[n] = image;
+		// Lines[n] = image;
 	}
 
 	public static void PutCasBitArray(Boolean rot, int line, char c, BitArray bb) {
@@ -100,7 +115,7 @@ public class Screen : OnScreen {
 			HPutCasBitArray(line, c, bb);
 	}
 	public static void VPutCasBitArray(int x, char c, BitArray bb) {
-		Trace.Write(bb.renderImage());
+		Debug.Write(bb.renderImage());
 		for(int i = 0; i < bb.Length; ++i)
             if (bb[i])
             {
@@ -385,10 +400,11 @@ static class RangeExtention
 
 static class BitArrayExtention {
 	public static Tuple<BitArray, BitArray> ToAddedDeleted (this BitArray this_one, BitArray new_one) {
-		Trace.Assert(new_one != null);
-		Trace.Assert(this_one != null);
-		var xor = this_one.Xor(new_one);
-		return Tuple.Create(xor.And(new_one), xor.And(this_one));
+		Debug.Assert(new_one != null);
+		Debug.Assert(this_one != null);
+		BitArray org = this_one.Clone() as BitArray;
+		this_one.Xor(new_one);
+		return Tuple.Create(new_one.And(this_one), org.And(this_one));
 	}
 	public static void Shift(this BitArray this_one, int d) {
 		if (d < 0)
@@ -398,7 +414,7 @@ static class BitArrayExtention {
 	}
 
 	public static int ClampShift(this BitArray this_one, int n) {
-		Trace.Write($"ClampSHift:{this_one.renderImage()}");
+		Debug.Write($"ClampSHift:{this_one.renderImage()}");
 		int i = 0;
 		if (n < 0) {
 			n = -n;
@@ -416,14 +432,14 @@ static class BitArrayExtention {
 		return 0;
 	}
 	public static bool ClampRightShift1(this BitArray this_one) {
-		Trace.Write($"ClampRightShift1:{this_one.renderImage()}");
+		Debug.Write($"ClampRightShift1:{this_one.renderImage()}");
 		if (this_one[0])
 			return false;
 		this_one.RightShift(1);
 		return true;
 	}
 	public static bool ClampLeftShift1(this BitArray this_one) {
-		Trace.Write($"ClampLeftShift1:{this_one.renderImage()}");
+		Debug.Write($"ClampLeftShift1:{this_one.renderImage()}");
 		if (this_one[^1])
 			return false;
 		this_one.LeftShift(1);
