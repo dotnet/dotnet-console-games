@@ -1,5 +1,4 @@
-﻿#define TRACE
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,8 +6,8 @@ using System.Diagnostics;
 using System.Threading;
 using CommandLineParser; // Original source code: https://github.com/wertrain/command-line-parser-cs (Version 0.1)
 
-    ConsoleTraceListener myWriter = new GonsoleTraceListener();
-    Trace.Listeners.Add(myWriter);
+//    ConsoleTraceListener myWriter = new GonsoleTraceListener();
+//    Trace.Listeners.Add(myWriter);
 Debug.Write("OOProgram start.");
 var rotation = Rotation.Vertical;
 var clargs = Environment.GetCommandLineArgs();
@@ -23,26 +22,12 @@ if (parseResult.Tag == ParserResultType.Parsed){
 	screen_width = parseResult.Value.width;
 }
 var (screen_w, screen_h) = OnScreen.init(screen_width, screen_height);
-// int width = screen_w; // Console.WindowWidth;
-// int height = screen_h; // Console.WindowHeight;
-// Debug.Print($"speed ratio: {speed_ratio}");
-// Debug.Print($"screen size is w(x axis): {screen_w} and h(y axis): {screen_h}.");
-// Debug.Print($"option width is w(x axis): {screen_width}");
-// Console.ReadKey();
-// if (ar.Length > 2) speed_ratio = Convert.ToInt32(ar[2]);
 var game = new Game(speed_ratio, screen_w, screen_h, paddle_width, rotation);
-var imageCc = game.selfPadl.GetImage().renderImage();
-Trace.Write($"selfPadl:{imageCc}");
-game.selfPadl.Shift(-1);
-Trace.Write($"selfPadl:{game.selfPadl.GetImage().renderImage()}");
 game.Run();
-// game.run();
 public class Game {
 	public PaddleScreen screen;
-	// PaddleBase pdl; Paddle[] Paddles = new Paddle[2];
 	public SelfPaddle selfPadl;
 	public OpponentPaddle oppoPadl;
-	// BitArray[] PaddleImages = new BitArray[2];
 	public BitArray SelfOutputImage, OpponentOutputImage;
 	public int PaddleWidth {get; init;}
 	public Dictionary<System.ConsoleKey, Func<int>> manipDict = new();	
@@ -68,8 +53,8 @@ public class Game {
 	};
 	Console.CursorVisible = false; // hide cursor
 	Console.Clear();
-		screen.DrawPaddle(selfPadl);
-		screen.DrawPaddle(oppoPadl);
+		screen.draw(selfPadl);
+		screen.draw(oppoPadl);
 	while(true){
 		int react;
 		if (Console.KeyAvailable)
@@ -80,7 +65,7 @@ public class Game {
 			if (selfPadl.ManipDict.ContainsKey(key)) {
 				react = selfPadl.ReactKey(key);
 				if(react != 0){
-					screen.RedrawPaddle(selfPadl);
+					screen.draw(selfPadl);
 				}
 			}
 			// else if (pdl.manipDict.ContainsKey(key)) moved = pdl.manipDict[key]() != 0;
