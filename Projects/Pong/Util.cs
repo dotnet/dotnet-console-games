@@ -63,15 +63,15 @@ public class Screen : OnScreen {
         // for(int i = 0; i < (rotate ? w :h); ++i) buffer[i] = new BitArray(rotate ? h :w);
         RedrawImage = isRotated ? (line, new_buff, c) =>
         {
-            var (added, deleted) = Lines[line].ToAddedDeleted(new_buff);
-            VPutCasBitArray(line, c, added);
-            VPutCasBitArray(line, (char)CharCode.SPC, deleted);
+            var ad = Lines[line].ToAddedDeleted(new_buff);
+            VPutCasBitArray(line, c, ad.Added);
+            VPutCasBitArray(line, (char)CharCode.SPC, ad.Deleted);
         }
         : (line, new_buff, c) =>
         {
-            var (added, deleted) = Lines[line].ToAddedDeleted(new_buff);
-            HPutCasBitArray(line, c, added);
-            HPutCasBitArray(line, (char)CharCode.SPC, deleted);
+            var ad = Lines[line].ToAddedDeleted(new_buff);
+            HPutCasBitArray(line, c, ad.Added);
+            HPutCasBitArray(line, (char)CharCode.SPC, ad.Deleted);
         };
         DrawImage = isRotated ? (line, buff, c) =>
             VPutCasBitArray(line, c, buff)
@@ -96,14 +96,14 @@ public class Screen : OnScreen {
 	}
 	public void redrawImage(int n, BitArray image, char c){
 		Debug.Assert(Lines[n] != null);
-        var (added, deleted) = Lines[n].ToAddedDeleted(image);
+        var ad = Lines[n].ToAddedDeleted(image);
         if(this.isRotated ) {
-            VPutCasBitArray(n, c, added);
-            VPutCasBitArray(n, (char)CharCode.SPC, deleted);
+            VPutCasBitArray(n, c, ad.Added);
+            VPutCasBitArray(n, (char)CharCode.SPC, ad.Deleted);
         }
 		else {
-            HPutCasBitArray(n, c, added);
-            HPutCasBitArray(n, (char)CharCode.SPC, deleted);
+            HPutCasBitArray(n, c, ad.Added);
+            HPutCasBitArray(n, (char)CharCode.SPC, ad.Deleted);
         }
 		// Lines[n] = image;
 	}
@@ -398,13 +398,16 @@ static class RangeExtention
     }
 }
 
+record AddedDeleted(BitArray Added, BitArray Deleted);
 static class BitArrayExtention {
-	public static Tuple<BitArray, BitArray> ToAddedDeleted (this BitArray this_one, BitArray new_one) {
+	// <summary>Breaks this_one</summary>
+	public static AddedDeleted ToAddedDeleted (this BitArray this_one, BitArray new_one) {
 		Debug.Assert(new_one != null);
 		Debug.Assert(this_one != null);
-		BitArray org = this_one.Clone() as BitArray;
-		this_one.Xor(new_one);
-		return Tuple.Create(new_one.And(this_one), org.And(this_one));
+		BitArray clone = this_one.Clone() as BitArray; // Clone old image1
+		clone.Xor(new_one);
+		return new AddedDeleted(Deleted: this_one.And(clone), Added: clone.And(new_one));
+		// return new Tuple(new_one.And(this_one), clone.And(this_one));
 	}
 	public static void Shift(this BitArray this_one, int d) {
 		if (d < 0)
