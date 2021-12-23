@@ -34,9 +34,9 @@ public class PaddleScreen : Screen {
 }
 public record struct Dimention ( int x, int y);
 public class Screen : OnScreen {
-	public enum CharCode {ESC = '\x1b', SPC = '\x20'}
+	public enum CharCode {ESC = '\x1b', SPC = '\x20', VBAR = '|', HBAR = '-', DOT = '.'}
 	public Dictionary<System.ConsoleKey, Func<int>> KeyManipDict;
-
+	public const char BlankChar = (char)CharCode.SPC;
 	public Action<int, BitArray, char> DrawImage;
 	public Action<int, BitArray, char> RedrawImage; // (Line, this_array, new_array, c='+')
 	public virtual bool isRotated {get; init;} // 90 degree
@@ -55,13 +55,13 @@ public class Screen : OnScreen {
         {
             var ad = Lines[line].ToAddedDeleted(new_buff);
             VPutCasBitArray(line, c, ad.Added);
-            VPutCasBitArray(line, (char)CharCode.SPC, ad.Deleted);
+            VPutCasBitArray(line, BlankChar, ad.Deleted);
         }
         : (line, new_buff, c) =>
         {
             var ad = Lines[line].ToAddedDeleted(new_buff);
             HPutCasBitArray(line, c, ad.Added);
-            HPutCasBitArray(line, (char)CharCode.SPC, ad.Deleted);
+            HPutCasBitArray(line, BlankChar, ad.Deleted);
         };
         DrawImage = isRotated ? (line, buff, c) =>
             VPutCasBitArray(line, c, buff)
@@ -84,16 +84,16 @@ public class Screen : OnScreen {
 		PutCasBitArray(this.isRotated, n, c, image);
 		// Lines[n] = image;
 	}
-	public void redrawImage(int n, BitArray image, char c){
+	public void redrawImage(int n, BitArray image, char c, char b = BlankChar){
 		Debug.Assert(Lines[n] != null);
         var ad = Lines[n].ToAddedDeleted(image);
         if(this.isRotated ) {
             VPutCasBitArray(n, c, ad.Added);
-            VPutCasBitArray(n, (char)CharCode.SPC, ad.Deleted);
+            VPutCasBitArray(n, b, ad.Deleted);
         }
 		else {
             HPutCasBitArray(n, c, ad.Added);
-            HPutCasBitArray(n, (char)CharCode.SPC, ad.Deleted);
+            HPutCasBitArray(n, b, ad.Deleted);
         }
 		// Lines[n] = image;
 	}
