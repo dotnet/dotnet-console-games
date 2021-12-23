@@ -9,7 +9,7 @@ using CommandLineParser; // Original source code: https://github.com/wertrain/co
 //    ConsoleTraceListener myWriter = new GonsoleTraceListener();
 //    Trace.Listeners.Add(myWriter);
 Debug.Write("OOProgram start.");
-var rotation = Rotation.Vertical;
+var rotation = Rotation.Horizontal;
 var clargs = Environment.GetCommandLineArgs();
 var pArgs = clargs[1..];
 var parseResult = Parser.Parse<Options>(pArgs);
@@ -20,6 +20,9 @@ var paddle_width = 8;
 if (parseResult.Tag == ParserResultType.Parsed){
 	speed_ratio = parseResult.Value.speed;
 	screen_width = parseResult.Value.width;
+	screen_height = parseResult.Value.height;
+	paddle_width = parseResult.Value.paddle;
+	rotation = parseResult.Value.rotation ? Rotation.Vertical : Rotation.Horizontal;
 }
 var (screen_w, screen_h) = OnScreen.init(screen_width, screen_height);
 var game = new Game(speed_ratio, screen_w, screen_h, paddle_width, rotation);
@@ -29,7 +32,7 @@ public class Game {
 	public SelfPaddle selfPadl;
 	public OpponentPaddle oppoPadl;
 	public BitArray SelfOutputImage, OpponentOutputImage;
-	public int PaddleWidth {get; init;}
+	// public int PaddleWidth {get; init;}
 	public Dictionary<System.ConsoleKey, Func<int>> manipDict = new();	
 	public Rotation rotation {get; init;}
 	public Game(int speed_ratio, int screen_w, int screen_h, int paddleWidth, Rotation rot){
@@ -79,65 +82,19 @@ public class Game {
 	}
 }
 
-public class OpponentPaddle : Paddle {
 
-	override public PaddleSide Side {get{return PaddleSide.Away;}}
-    public OpponentPaddle(int width, int range) : base(width, range){
-
-	}
-}
-
-public class SelfPaddle : Paddle {
-
-	public Dictionary<System.ConsoleKey, Func<int>> ManipDict;
-	override public PaddleSide Side {get{return PaddleSide.Home;}}
-    public SelfPaddle(int width, int range, Dictionary<System.ConsoleKey, Func<int>> manipDict): base(width, range){
-		ManipDict = manipDict;
-	}
-	public int ReactKey(System.ConsoleKey key) {
-		return ManipDict[key]();
-	}
-}
-public class Paddle : ScreenDrawItem
-{
-	virtual public PaddleSide Side {get;}
-	public virtual char DispChar{get{return '+';}}
-    public BitArray buffer { get; init; }
-    public int Width
-    {
-        get
-        {
-            var trues = (from bool m in buffer
-                         where m
-                         select m).Count();
-            return trues;
-        }
-    }
-    public Paddle(int width, int range)
-    {
-		Debug.Assert(width > 0 && range > 0 && range > width);
-        buffer = new BitArray(range);
-        for (int i = 0; i < width; ++i)
-            buffer[i] = true;
-    }
-	
-/// <summary>Manipulate</summary>
-/// <returns>0 if no reaction</returns> 
-    public int Shift(int n)
-    {
-        return buffer.ClampShift(n);
-    }
-    public BitArray GetImage()
-    {
-        return buffer.Clone() as BitArray;
-    }
-}
 
 class Options {
-	[Option('s', "speed", Required =false, HelpText = "--speed 4")]
+	[Option('r', "rotation", Required =false, HelpText = "rotation default false(not rotated)")]
+	public bool rotation { get; set;}
+	[Option('s', "speed", Required =false, HelpText = "paddle speed default 4")]
 	public int speed { get; set;}
-	[Option('w', "width", Required =false, HelpText = "--width 80")]
+	[Option('w', "width", Required =false, HelpText = "screen width default 64")]
 	public int width {get; set;}
+	[Option('h', "height", Required =false, HelpText = "screen height default 24")]
+	public int height {get; set;}
+	[Option('p', "paddle", Required =false, HelpText = "paddle width default 8")]
+	public int paddle {get; set;}
 }
 
 public class GonsoleTraceListener : ConsoleTraceListener {
