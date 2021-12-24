@@ -6,8 +6,7 @@ using System.Diagnostics;
 public class OpponentPaddle : Paddle {
 
 	override public PaddleSide Side {get{return PaddleSide.Away;}}
-    public OpponentPaddle(int width, int range) : base(width, range){
-
+    public OpponentPaddle(Range range,int width): base(range, width) {
 	}
 }
 
@@ -15,7 +14,7 @@ public class SelfPaddle : Paddle {
 
 	public Dictionary<System.ConsoleKey, Func<int>> ManipDict;
 	override public PaddleSide Side {get{return PaddleSide.Home;}}
-    public SelfPaddle(int width, int range, Dictionary<System.ConsoleKey, Func<int>> manipDict): base(width, range){
+    public SelfPaddle(Range range, int width, Dictionary<System.ConsoleKey, Func<int>> manipDict): base(range, width) {
 		ManipDict = manipDict;
 	}
 	public int ReactKey(System.ConsoleKey key) {
@@ -26,17 +25,19 @@ public class Paddle : ScreenDrawItem
 {
 	virtual public PaddleSide Side {get;}
 	public virtual char DispChar{get{return '+';}}
+	public virtual char BlankChar{get{return '|';}}
     // BitArray buffer { get; init; }
     public int Width { get;
         // { return (from bool m in buffer where m select m).Count(); }
         init; }
     
     public Slider Offset{get; init;}
-    public Paddle(int width, int range)
+    public Paddle(Range range, int width)
     {
-		Debug.Assert(width > 0 && range > 0 && range > width);
+		Debug.Assert(width > 0);
+        Debug.Assert(range.End.Value > width);
         Width = width;
-        Offset = new(range - width);
+        Offset = new(0..(range.End.Value - width));
         // buffer = new BitArray(range);
         // for (int i = 0; i < width; ++i) buffer[i] = true;
     }
@@ -49,8 +50,8 @@ public class Paddle : ScreenDrawItem
         // return buffer.ClampShift(n);
     }
     public BitArray GetImage() {
-        BitArray buff = new BitArray(Offset.Max + Width);
-        for (int i = Offset.Value; i <= Offset.Value + Width; ++i)
+        BitArray buff = new BitArray(Offset.Max + Width + 1);
+        for (int i = Offset.Value; i < Offset.Value + Width; ++i)
             buff[i] = true;
         return buff; // er.Clone() as BitArray;
     }
