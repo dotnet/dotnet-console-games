@@ -46,15 +46,15 @@ public class PaddleScreen : Screen {
 	public void drawWalls() {
 		// enum Pos {NEAR, FAR}
 		void drawV(int x){
-			for (int y = 1; y < h - 1; ++y){
+			for (int y = 1; y < h; ++y){
 				Console.SetCursorPosition(x, y);
-				Console.Write('.');
+				Console.Write('|');
 			}
 		}
 		void drawH(int y){
-			for (int x = 1; x < w - 1; ++x){
+			for (int x = 1; x < w; ++x){
 				Console.SetCursorPosition(x, y);
-				Console.Write('.');
+				Console.Write('-');
 			}
 		}
 		// if (isRotated) // walls are horizontal
