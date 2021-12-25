@@ -4,12 +4,23 @@ using System.Collections.Generic;
 using System.Diagnostics;
 
 public class PaddleScreen : Screen {
-	public int PaddleRange {get{return AwayLineNum + 1;}} // 0 <= Paddle < PaddleRange
+	public Range PaddleRange {get{
+		return new Range(0, isRotated ? h : w);}} // 0 <= Paddle < PaddleRange
 	public int AwayLineNum {get;init;}
 	public const int HomeLineNum = 0;
+	// public Wall[] Walls = new Wall[2];
+	// public int[] WallLocations = new int[2];
+	enum WallSide {Left, Right};
+	SideWall[] SideWalls = new SideWall[2];
+	record SideWall(WallSide Side, Wall wall);
 	// public Paddle[] Paddles = new Paddle[2]; // 0: self, 1: opponent
+	List<ScreenDrawItem> DrawItems = new();
 	public PaddleScreen(int x, int y, bool rotate) : base(x,y,rotate) {
 		AwayLineNum = this.EndOfLines; // Lines.Length - 1;
+		// for (int i = 0; i < Walls.Length; ++i) Walls[i] = new Wall(1..EndOfLines);
+		// WallLocations = {0, EndOfLines - 1};
+		SideWalls[0] = new SideWall(WallSide.Left, new Wall(1..EndOfLines));
+		SideWalls[1] = new SideWall(WallSide.Right, new Wall(1..EndOfLines));
 	}
 	public void draw(Paddle padl, bool replace_buffer = true) {
 		var side = padl.Side;
@@ -22,6 +33,7 @@ public class PaddleScreen : Screen {
 		if(replace_buffer)
 			Lines[n] = image;
 	}
+	/*
 	public void DrawPaddle(Paddle paddle){
 		BitArray image = paddle.GetImage();
 		drawImage(paddle.Side == PaddleSide.Home ? HomeLineNum : AwayLineNum, image, paddle.DispChar);
@@ -30,8 +42,43 @@ public class PaddleScreen : Screen {
 		BitArray image = paddle.GetImage();
 		redrawImage(paddle.Side == PaddleSide.Home ? HomeLineNum : AwayLineNum, image, paddle.DispChar);
 	}
-
+	*/
+	public void drawWalls() {
+		// enum Pos {NEAR, FAR}
+		void drawV(int x){
+			for (int y = 1; y < h - 1; ++y){
+				Console.SetCursorPosition(x, y);
+				Console.Write('.');
+			}
+		}
+		void drawH(int y){
+			for (int x = 1; x < w - 1; ++x){
+				Console.SetCursorPosition(x, y);
+				Console.Write('.');
+			}
+		}
+		// if (isRotated) // walls are horizontal
+		Action<int> draw = isRotated ? (x)=> drawH(x) : (x)=> drawV(x);
+		draw(0);
+		draw((isRotated ? h : w) - 1);
+	}
+	public class Wall : ScreenDrawItem {
+		DrawDirection drawDirection {get{return DrawDirection.Rotating;}}
+		public char DispChar {get { return '.';}}
+		public Range range{get; init;}
+		bool isRotating{get; init;}
+		public Wall(Range _range) {
+			range = _range;
+		}
+		public BitArray GetImage() {
+			var buff = new BitArray(range.End.Value + 2);
+			for (int i = 1; i < range.End.Value; ++i)
+				buff[i] = true;
+			return buff;
+		}
+	}
 }
+enum DrawDirection {Normal, Rotating}
 public record struct Dimention ( int x, int y);
 public class Screen : OnScreen {
 	public enum CharCode {ESC = '\x1b', SPC = '\x20', VBAR = '|', HBAR = '-', DOT = '.'}
@@ -49,7 +96,7 @@ public class Screen : OnScreen {
 		(w, h) = OnScreen.init(x, y);
 		dim = new(w, h);
 		isRotated = rotate;
-		Lines = new BitArray[isRotated ? h : w];
+		Lines = new BitArray[isRotated ? w : h];
         // for(int i = 0; i < (rotate ? w :h); ++i) buffer[i] = new BitArray(rotate ? h :w);
         RedrawImage = isRotated ? (line, new_buff, c) =>
         {
