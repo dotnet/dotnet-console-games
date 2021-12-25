@@ -35,10 +35,11 @@ public class Game {
 	// public int PaddleWidth {get; init;}
 	public Dictionary<System.ConsoleKey, Func<int>> manipDict = new();	
 	public Rotation rotation {get; init;}
+	TimeSpan delay;
 	public Game(int speed_ratio, int screen_w, int screen_h, int paddleWidth, Rotation rot){
-				screen = new(screen_w, screen_h, rot == Rotation.Vertical ? true : false);
-		selfPadl = new(width: paddleWidth, range: screen.PaddleRange, manipDict);
-		oppoPadl = new(width: paddleWidth, range: screen.PaddleRange);
+		screen = new(screen_w, screen_h, rot == Rotation.Vertical ? true : false);
+		selfPadl = new(range: screen.PaddleRange, width: paddleWidth, manipDict);
+		oppoPadl = new(range: screen.PaddleRange, width: paddleWidth);
 		if (rot == Rotation.Vertical){
 			manipDict[ConsoleKey.UpArrow] = ()=>{ return selfPadl.Shift(-1); };
 			manipDict[ConsoleKey.DownArrow] = ()=>{ return selfPadl.Shift(1); };
@@ -46,18 +47,25 @@ public class Game {
 			manipDict[ConsoleKey.LeftArrow] = ()=>{ return selfPadl.Shift(-1); };
 			manipDict[ConsoleKey.RightArrow] = ()=>{ return selfPadl.Shift(1); };
 		}
-	}
-
-	public void Run(){
-	TimeSpan delay = TimeSpan.FromMilliseconds(200);
+	delay = TimeSpan.FromMilliseconds(200);
 	// pdl = new VPaddle(screen.w, paddle_width); // NestedRange(0..(width / 3), 0..width);
 	Console.CancelKeyPress += delegate {
 		Console.CursorVisible = true;
 	};
 	Console.CursorVisible = false; // hide cursor
 	Console.Clear();
+	Debug.WriteLine($"screen.isRotated={screen.isRotated}");
+	Debug.WriteLine($"selfPadl range: 0..{selfPadl.Offset.Max + selfPadl.Width + 1}");
+	Debug.Write($"screen.w={screen.w}, ");
+	Debug.WriteLine($"screen.h={screen.h}");
+	Debug.WriteLine($"screen.EndOfLines={screen.EndOfLines}");
+		screen.drawWalls();
 		screen.draw(selfPadl);
 		screen.draw(oppoPadl);
+
+	}
+
+	public void Run(){
 	while(true){
 		int react;
 		if (Console.KeyAvailable)
