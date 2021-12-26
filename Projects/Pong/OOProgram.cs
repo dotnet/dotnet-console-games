@@ -40,6 +40,8 @@ public class Game {
 		screen = new(screen_w, screen_h, rot == Rotation.Vertical ? true : false);
 		selfPadl = new(range: screen.PaddleRange, width: paddleWidth, manipDict);
 		oppoPadl = new(range: screen.PaddleRange, width: paddleWidth);
+		screen.Paddles[0] = selfPadl;
+		screen.Paddles[1] = oppoPadl;
 		if (rot == Rotation.Vertical){
 			manipDict[ConsoleKey.UpArrow] = ()=>{ return selfPadl.Shift(-1); };
 			manipDict[ConsoleKey.DownArrow] = ()=>{ return selfPadl.Shift(1); };
