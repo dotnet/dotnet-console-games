@@ -15,20 +15,14 @@ interface ScreenDrawItem {
 public enum PaddleSide {Home = 0, Away = -1}
 public enum PaddleLine {Self = 0, Opponent = -1}
 
-public class Ball
-{
-	public float X;
-	public float Y;
-	public float dX;
-	public float dY;
-}
+
 public class Player {
     public int score {get; set;}
-    public PaddleBase paddle {get;}
+    public Paddle paddle {get;}
 }
 
-record struct Dim2(int W, int H);
-record struct Cood2(int X, int Y);
+public record Dim2(int W, int H);
+public record Cood2(int X, int Y);
 interface OnScreen {
 	public static Cood2 dim;
 
@@ -72,74 +66,6 @@ interface IDrawOnScreen : OnScreen {
 	void draw(in char [][] buffer);
 }
 
-public class PaddleBase : NestedRange, HasDispChar, KeyManipulate {
-	public int Speed_ratio {get; protected set;}
-	public Dictionary<System.ConsoleKey, Func<int>> manipDict = new();
-	virtual public char DispChar() {
-		return '+';
-	}
-	public PaddleBase(int segment_length, int width, int speed_ratio) : base(0..segment_length, 0..width) {
-		// inner = 0..(scr.w / quot); outer = 0..(scr.w);
-		Speed_ratio = speed_ratio;
-	}
-
-	virtual public char [][] render() { 
-	  char[][] buffer = new char[1][];
-		buffer[0] = new char[1];
-		buffer[0][0] = DispChar(); // only at base point
-		return buffer;
-	}
-
-	virtual public bool manipulate(System.ConsoleKey key) {
-		return false;
-	}
-
-}
-
-public class HPaddle : PaddleBase {
-
-	public Screen screen {get; init;}
-	public bool atHome {get; private set;}
-	public char dispChar {get; private set;}
-	public HPaddle(Screen screen_, int width, int speed_ratio = 1, bool at_home = true, char disp_char = (char)ScreenChar.B) : 
-	base(screen_.isRotated ? screen_.h : screen_.w, width, speed_ratio) {
-		atHome = at_home;
-		dispChar = disp_char;
-		if (screen_.isRotated) {
-			manipDict.Add(ConsoleKey.DownArrow, () => shift(-speed_ratio));
-			manipDict.Add(ConsoleKey.UpArrow, () => shift(speed_ratio));
-		} else {
-			manipDict.Add(ConsoleKey.LeftArrow, () => shift(-speed_ratio));
-			manipDict.Add(ConsoleKey.RightArrow, () => shift(speed_ratio));
-		}
-	}
-
-	override public char DispChar() {
-		return dispChar;
-	}
-
-	override public char [][] render() {
-		char [][] buffer = new char[1][];
-		buffer[0] = new char[screen.isRotated ? screen.h : screen.w];
-		for (int x = inner.Start.Value; x < inner.End.Value; ++x) 
-			buffer[0][x] = DispChar();
-		return buffer;
-	}
-
-	override public bool manipulate(System.ConsoleKey key) {
-		if (screen.isRotated)
-		switch(key) {
-			case ConsoleKey.UpArrow: shift(-Speed_ratio); return true;
-			case ConsoleKey.RightArrow: shift(Speed_ratio); return true;
-		}
-		switch(key) {
-			case ConsoleKey.LeftArrow: shift(-Speed_ratio); return true;
-			case ConsoleKey.RightArrow: shift(Speed_ratio); return true;
-		}
-		return false;
-	}
-
-}
 public class EscKeyPressedException : Exception
 {
     public EscKeyPressedException()
@@ -199,7 +125,7 @@ public class NestedRange {
 		return all;
 	}
 	
-}
+} 
 
 public class Slider
 {
@@ -261,11 +187,14 @@ public class Slider
 		return 0;
 	}
     public bool set(int nv) {
-        if (nv < 0 || nv >= end)
-            throw new ArgumentOutOfRangeException("Out of clamp range!");
         if (nv == Value)
             return false;
-        Value = nv;
+        if (nv < 0)
+			Value = 0;
+		else if (nv > Max)
+			Value = Max;
+		else
+        	Value = nv;
         return true;
     }
 
