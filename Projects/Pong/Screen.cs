@@ -14,6 +14,7 @@ public class PaddleScreen : Screen {
 	SideWall[] SideWalls = new SideWall[2];
 	record SideWall(WallSide Side, Wall wall);
 	// public Paddle[] Paddles = new Paddle[2]; // 0: self, 1: opponent
+	public Paddle[] Paddles = new Paddle[2];
 	List<ScreenDrawItem> DrawItems = new();
 	public PaddleScreen(int x, int y, bool rotate) : base(x,y,rotate) {
 		AwayLineNum = this.EndOfLines; // Lines.Length - 1;
@@ -44,6 +45,17 @@ public class PaddleScreen : Screen {
 	}
 	*/
 	public void drawWalls() {
+		char c = isRotated ? '-' : '|';
+		void drawVLine(int fromLeft) {
+			for (int y = 0; y < h; ++y){
+				SetCursorPosition(fromLeft, y);
+				Console.Write(c);
+			}
+		}
+		drawVLine(0);
+		drawVLine(w - 1);
+	}
+	/* public void drawWalls() {
 		// enum Pos {NEAR, FAR}
 		void drawV(int x){
 			for (int y = 1; y < h; ++y){
@@ -61,7 +73,7 @@ public class PaddleScreen : Screen {
 		Action<int> draw = isRotated ? (x)=> drawH(x) : (x)=> drawV(x);
 		draw(0);
 		draw((isRotated ? h : w) - 1);
-	}
+	} */
 	public class Wall : ScreenDrawItem {
 		DrawDirection drawDirection {get{return DrawDirection.Rotating;}}
 		public char DispChar {get { return '.';}}
@@ -92,10 +104,14 @@ public class Screen : OnScreen {
 	public Dimention dim {get; init;}
 	public int EndOfLines {get{return Lines.Length - 1;}}
 	public BitArray[] Lines {get; private set;} // [h][w]
+	// Gonsole console;
+	Action<int, int> setCursorPosition;
 	public Screen(int x = 80, int y = 24, bool rotate = false) {
 		(w, h) = OnScreen.init(x, y);
 		dim = new(w, h);
 		isRotated = rotate;
+		// console = isRotated ? new VGonsole() : HGonsole();
+		setCursorPosition = isRotated ? (x, y) => Console.SetCursorPosition(y, x) : (x, y) => Console.SetCursorPosition(x, y);
 		Lines = new BitArray[isRotated ? w : h];
         // for(int i = 0; i < (rotate ? w :h); ++i) buffer[i] = new BitArray(rotate ? h :w);
         RedrawImage = isRotated ? (line, new_buff, c) =>
@@ -127,13 +143,18 @@ public class Screen : OnScreen {
 		// for(int i = 0; i < h; ++i) buffer[i] = new char[w];
 		return old_buffer;
 	}
-	public void drawImage(int n, BitArray image, char c){
+	/* public void drawImage(int n, BitArray image, char c){
 		PutCasBitArray(this.isRotated, n, c, image);
 		// Lines[n] = image;
-	}
+	} */
+
+	/// <summary>Breaks image</summary>
 	public void redrawImage(int n, BitArray image, char c, char b = BlankChar){
 		Debug.Assert(Lines[n] != null);
         var ad = Lines[n].ToAddedDeleted(image);
+		drawImage(n, ad.Added, c);
+		drawImage(n, ad.Deleted, b);
+		/*
         if(this.isRotated ) {
             VPutCasBitArray(n, c, ad.Added);
             VPutCasBitArray(n, b, ad.Deleted);
@@ -141,7 +162,7 @@ public class Screen : OnScreen {
 		else {
             HPutCasBitArray(n, c, ad.Added);
             HPutCasBitArray(n, b, ad.Deleted);
-        }
+        } */
 		// Lines[n] = image;
 	}
 
@@ -151,6 +172,19 @@ public class Screen : OnScreen {
 		else
 			HPutCasBitArray(line, c, bb);
 	}
+	public void drawImage(int line, BitArray bb, char c) {
+		// Debug.Write(bb.renderImage());
+		for(int i = 0; i < bb.Length; ++i)
+            if (bb[i])
+            {
+				if(isRotated)
+                	SetCursorPosition(i, line);
+				else
+                	SetCursorPosition(line, i);
+                Console.Write(c);
+            }
+    }
+
 	public static void VPutCasBitArray(int x, char c, BitArray bb) {
 		Debug.Write(bb.renderImage());
 		for(int i = 0; i < bb.Length; ++i)
@@ -169,5 +203,14 @@ public class Screen : OnScreen {
                 Console.SetCursorPosition(i, y);
                 Console.Write(c);
             }
+    }
+
+    public void SetCursorPosition(int x, int y){
+		if(isRotated)
+			(y, x) = (x, y);
+		else {
+			y = h - 1 -y;
+		}
+        Console.SetCursorPosition(x, y);
     }
 }
