@@ -17,15 +17,18 @@ var speed_ratio = 1;
 var screen_width = 72;
 var screen_height = 24;
 var paddle_width = 8;
+var refresh_delay = 200;
 if (parseResult.Tag == ParserResultType.Parsed){
 	speed_ratio = parseResult.Value.speed;
 	screen_width = parseResult.Value.width;
 	screen_height = parseResult.Value.height;
 	paddle_width = parseResult.Value.paddle;
 	rotation = parseResult.Value.rotation ? Rotation.Vertical : Rotation.Horizontal;
+	if(parseResult.Value.delay > 0)
+		refresh_delay = parseResult.Value.delay;
 }
 var (screen_w, screen_h) = OnScreen.init(screen_width, screen_height);
-var game = new Game(speed_ratio, screen_w, screen_h, paddle_width, rotation);
+var game = new Game(speed_ratio, screen_w, screen_h, paddle_width, rotation, refresh_delay);
 game.Run();
 public class Game {
 	// public Ball ball;
@@ -37,7 +40,7 @@ public class Game {
 	public Dictionary<System.ConsoleKey, Func<int>> manipDict = new();	
 	public Rotation rotation {get; init;}
 	TimeSpan delay;
-	public Game(int speed_ratio, int screen_w, int screen_h, int paddleWidth, Rotation rot){
+	public Game(int speed_ratio, int screen_w, int screen_h, int paddleWidth, Rotation rot, int refresh_delay){
 		screen = new(screen_w, screen_h, rot == Rotation.Vertical ? true : false);
 		selfPadl = new(range: screen.PaddleRange, width: paddleWidth, manipDict);
 		oppoPadl = new(range: screen.PaddleRange, width: paddleWidth);
@@ -50,7 +53,7 @@ public class Game {
 			manipDict[ConsoleKey.LeftArrow] = ()=>{ return selfPadl.Shift(-1); };
 			manipDict[ConsoleKey.RightArrow] = ()=>{ return selfPadl.Shift(1); };
 		}
-	delay = TimeSpan.FromMilliseconds(200);
+	delay = TimeSpan.FromMilliseconds(refresh_delay);
 	// pdl = new VPaddle(screen.w, paddle_width); // NestedRange(0..(width / 3), 0..width);
 	Console.CancelKeyPress += delegate {
 		Console.CursorVisible = true;
@@ -91,7 +94,10 @@ public class Game {
 			var selfPadlStart = selfPadl.Offset.Value; 
 			var selfPadlEnd = selfPadlStart + selfPadl.Width;
 			if(!(selfPadlStart..selfPadlEnd).Contains(offsets.x)) {
+				screen.SetCursorPosition(0, 0);
+				Console.Write("Your paddle failed to hit the ball!: Hit any key..");
 				Console.ReadKey();
+				goto exit;
 			}
 
 		}
@@ -116,6 +122,8 @@ class Options {
 	public int height {get; set;}
 	[Option('p', "paddle", Required =false, HelpText = "paddle width default 8")]
 	public int paddle {get; set;}
+	[Option('d', "delay", Required =false, HelpText = "ball refresh rate. default 200")]
+	public int delay {get; set;}
 }
 
 public class GonsoleTraceListener : ConsoleTraceListener {
