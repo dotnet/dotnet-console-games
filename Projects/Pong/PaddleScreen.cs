@@ -11,7 +11,7 @@ public class PaddleScreen : Screen {
 		return isRotated ? h - 1: w - 1;
 	}}
 	public Range PaddleRange {get{
-		return new Range(0, SideToSide + 2);}} // 0 <= Paddle < PaddleRange
+		return new Range(0, SideToSide + 1);}} // 0 <= Paddle < PaddleRange
 	public int AwayLineNum {get;init;}
 	public const int HomeLineNum = 0;
 	// public Wall[] Walls = new Wall[2];
@@ -74,7 +74,7 @@ public class PaddleScreen : Screen {
 			range = _range;
 		}
 		public BitArray GetImage() {
-			var buff = new BitArray(range.End.Value + 2);
+			var buff = new BitArray(range.End.Value);
 			for (int i = 1; i < range.End.Value; ++i)
 				buff[i] = true;
 			return buff;
