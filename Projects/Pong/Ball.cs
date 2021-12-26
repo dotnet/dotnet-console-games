@@ -12,7 +12,7 @@ public class Ball // : ScreenDrawItem
 	float dX;
 	float dY;
 	public Offsets offsets {get {
-		return new Offsets(XOffset.Value, YOffset.Value);
+		return new Offsets(XOffset.Value + 1, YOffset.Value + 1);
 	}}
 	public Slider XOffset{get; init;}
 	public Slider YOffset{get; init;}
@@ -27,17 +27,16 @@ public class Ball // : ScreenDrawItem
 		dx = -dx;
 	if (random.Next(2) == 0)
 		dy = -dy;
-	/* if (rotate) {
-		(Y, X) = (x, y);
+	if (rotate) {
+	//	(Y, X) = (x, y);
 		(dY, dX) = (dx, dy);
-		YOffset = new Slider(x_range, (int)x);
-		XOffset = new Slider(y_range, (int)y);
 	}
-	else { */
-		(X, Y) = (x, y);
+	else {
+		//(X, Y) = (x, y);
 		(dX, dY) = (dx, dy);
-		XOffset = new Slider(x_range, (int)x);
-		YOffset = new Slider(y_range, (int)y);
+	}
+		XOffset = new Slider(0..(x_range.End.Value - 2), (int)x);
+		YOffset = new Slider(0..(y_range.End.Value - 2), (int)y);
 	}
 
 	public Offsets Move() {
