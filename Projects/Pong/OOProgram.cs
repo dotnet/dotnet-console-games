@@ -86,7 +86,16 @@ public class Game {
 			while(Console.KeyAvailable) // clear over input
 				Console.ReadKey(true);
 		}
-		screen.drawBall(); // screen.Ball.Move();
+		var offsets = screen.drawBall(); // screen.Ball.Move();
+		if(offsets.y == 1){
+			var selfPadlStart = selfPadl.Offset.Value; 
+			var selfPadlEnd = selfPadlStart + selfPadl.Width;
+			if(!(selfPadlStart..selfPadlEnd).Contains(offsets.x)) {
+				Console.ReadKey();
+			}
+
+		}
+
 		Thread.Sleep(delay);
 	}
 	exit:
