@@ -5,13 +5,13 @@ using System.Diagnostics;
 
 public class PaddleScreen : Screen {
 	public int HomeToAway {get{
-		return isRotated ? w : h;
+		return isRotated ? w - 1 : h - 1;
 	}}
 	public int SideToSide {get{
-		return isRotated ? h : w;
+		return isRotated ? h - 1: w - 1;
 	}}
 	public Range PaddleRange {get{
-		return new Range(0, SideToSide);}} // 0 <= Paddle < PaddleRange
+		return new Range(0, SideToSide + 2);}} // 0 <= Paddle < PaddleRange
 	public int AwayLineNum {get;init;}
 	public const int HomeLineNum = 0;
 	// public Wall[] Walls = new Wall[2];
@@ -33,6 +33,7 @@ public class PaddleScreen : Screen {
 		var side = padl.Side;
 		int n = (side == PaddleSide.Home) ? 0 : AwayLineNum;
 		var image = padl.GetImage();
+		Debug.WriteLine($"Pad bitimage Length:{image.Length}, Width: {padl.Width}, Offset Max: {padl.Offset.Max}.");
 		if(Lines[n] == null)
 			drawImage(n, image, padl.DispChar);
 		else
@@ -53,13 +54,15 @@ public class PaddleScreen : Screen {
 	public void drawWalls() {
 		char c = isRotated ? '-' : '|';
 		void drawVLine(int fromLeft) {
-			for (int y = 0; y < HomeToAway; ++y){
+			Debug.WriteLine($"Walls y: from 1 to {HomeToAway}.");
+			for (int y = 1; y <= HomeToAway; ++y){
 				SetCursorPosition(fromLeft, y);
 				Console.Write(c);
 			}
 		}
 		drawVLine(0);
-		drawVLine(SideToSide - 1);
+		Debug.WriteLine($"Walls x: 0 and {SideToSide}.");
+		drawVLine(SideToSide);
 	}
 
 	public class Wall : ScreenDrawItem {
