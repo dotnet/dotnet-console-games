@@ -26,6 +26,7 @@ if (parseResult.Tag == ParserResultType.Parsed){
 	rotation = parseResult.Value.rotation ? Rotation.Vertical : Rotation.Horizontal;
 	if(parseResult.Value.delay > 0)
 		refresh_delay = parseResult.Value.delay;
+
 }
 var (screen_w, screen_h) = OnScreen.init(screen_width, screen_height);
 var game = new Game(speed_ratio, screen_w, screen_h, paddle_width, rotation, refresh_delay);
@@ -40,6 +41,8 @@ public class Game {
 	public Dictionary<System.ConsoleKey, Func<int>> manipDict = new();	
 	public Rotation rotation {get; init;}
 	TimeSpan delay;
+	Stopwatch opponentStopwatch = new();
+	TimeSpan opponentInputDelay = TimeSpan.FromMilliseconds(100);
 	public Game(int speed_ratio, int screen_w, int screen_h, int paddleWidth, Rotation rot, int refresh_delay){
 		screen = new(screen_w, screen_h, rot == Rotation.Vertical ? true : false);
 		selfPadl = new(range: screen.PaddleRange, width: paddleWidth, manipDict);
@@ -72,6 +75,7 @@ public class Game {
 	}
 
 	public void Run(){
+		opponentStopwatch.Restart();
 	while(true){
 		int react;
 		if (Console.KeyAvailable)
@@ -99,7 +103,25 @@ public class Game {
 				Console.ReadKey();
 				goto exit;
 			}
+		}
+		else if (offsets.y == screen.HomeToAway - 2){
+			var PadlStart = oppoPadl.Offset.Value; 
+			var PadlEnd = PadlStart + oppoPadl.Width;
+			if(!(PadlStart..PadlEnd).Contains(offsets.x)) {
+				screen.SetCursorPosition(0, 0);
+				Console.Write("Opponent's paddle failed to hit the ball!: Hit any key..");
+				Console.ReadKey();
+				goto exit;
+			}
 
+		}
+		if(opponentStopwatch.Elapsed > opponentInputDelay){
+			var diff = screen.Ball.offsets.x - oppoPadl.Offset.Value;
+			if (Math.Abs(diff) > 2){
+				oppoPadl.Shift(diff);
+				screen.draw(oppoPadl);
+			}
+			opponentStopwatch.Restart();
 		}
 
 		Thread.Sleep(delay);
