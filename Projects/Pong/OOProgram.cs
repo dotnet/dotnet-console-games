@@ -28,6 +28,7 @@ var (screen_w, screen_h) = OnScreen.init(screen_width, screen_height);
 var game = new Game(speed_ratio, screen_w, screen_h, paddle_width, rotation);
 game.Run();
 public class Game {
+	// public Ball ball;
 	public PaddleScreen screen;
 	public SelfPaddle selfPadl;
 	public OpponentPaddle oppoPadl;
@@ -85,6 +86,7 @@ public class Game {
 			while(Console.KeyAvailable) // clear over input
 				Console.ReadKey(true);
 		}
+		screen.drawBall(); // screen.Ball.Move();
 		Thread.Sleep(delay);
 	}
 	exit:
