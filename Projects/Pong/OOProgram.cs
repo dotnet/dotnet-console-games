@@ -58,8 +58,8 @@ public class Game {
 	Console.Clear();
 	Debug.WriteLine($"screen.isRotated={screen.isRotated}");
 	Debug.WriteLine($"selfPadl range: 0..{selfPadl.Offset.Max + selfPadl.Width + 1}");
-	Debug.Write($"screen.w={screen.w}, ");
-	Debug.WriteLine($"screen.h={screen.h}");
+	Debug.Write($"screen.SideToSide={screen.SideToSide}, ");
+	Debug.WriteLine($"screen.HomeToAway={screen.HomeToAway}");
 	Debug.WriteLine($"screen.EndOfLines={screen.EndOfLines}");
 		screen.drawWalls();
 		screen.draw(selfPadl);
