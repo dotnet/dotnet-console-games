@@ -37,7 +37,7 @@ public class Paddle : ScreenDrawItem
 		Debug.Assert(width > 0);
         Debug.Assert(range.End.Value > width);
         Width = width;
-        Offset = new(0..(range.End.Value - width));
+        Offset = new(0..(range.End.Value - width + 1));
         // buffer = new BitArray(range);
         // for (int i = 0; i < width; ++i) buffer[i] = true;
     }
