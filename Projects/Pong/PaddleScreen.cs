@@ -20,6 +20,7 @@ public class PaddleScreen : Screen {
 	SideWall[] SideWalls = new SideWall[2];
 	record SideWall(WallSide Side, Wall wall);
 	// public Paddle[] Paddles = new Paddle[2]; // 0: self, 1: opponent
+	public Ball Ball;
 	public Paddle[] Paddles = new Paddle[2];
 	List<ScreenDrawItem> DrawItems = new();
 	public PaddleScreen(int x, int y, bool rotate) : base(x,y,rotate) {
@@ -28,6 +29,7 @@ public class PaddleScreen : Screen {
 		// WallLocations = {0, EndOfLines - 1};
 		SideWalls[0] = new SideWall(WallSide.Left, new Wall(1..EndOfLines));
 		SideWalls[1] = new SideWall(WallSide.Right, new Wall(1..EndOfLines));
+		Ball = new(0..SideToSide, 0..HomeToAway, rotate);
 	}
 	public void draw(Paddle padl, bool replace_buffer = true) {
 		var side = padl.Side;
@@ -41,16 +43,16 @@ public class PaddleScreen : Screen {
 		if(replace_buffer)
 			Lines[n] = image;
 	}
-	/*
-	public void DrawPaddle(Paddle paddle){
-		BitArray image = paddle.GetImage();
-		drawImage(paddle.Side == PaddleSide.Home ? HomeLineNum : AwayLineNum, image, paddle.DispChar);
+	public void drawBall() {
+		var offsets = Ball.offsets;
+		var new_offsets = Ball.Move();
+		if (new_offsets != offsets) {
+			SetCursorPosition(offsets.x, offsets.y);
+			Console.Write((char)CharCode.SPC);
+			SetCursorPosition(new_offsets.x, new_offsets.y);
+			Console.Write(Ball.DispChar);
+		}
 	}
-	public void RedrawPaddle(Paddle paddle){
-		BitArray image = paddle.GetImage();
-		redrawImage(paddle.Side == PaddleSide.Home ? HomeLineNum : AwayLineNum, image, paddle.DispChar);
-	}
-	*/
 	public void drawWalls() {
 		char c = isRotated ? '-' : '|';
 		void drawVLine(int fromLeft) {
