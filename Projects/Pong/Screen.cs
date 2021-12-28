@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 
 enum DrawDirection {Normal, Rotating}
+public enum CharCode {ESC = '\x1b', SPC = '\x20', VBAR = '|', HBAR = '-', DOT = '.'}
 public record struct Dimention ( int x, int y);
 public class Screen : OnScreen {
-	public enum CharCode {ESC = '\x1b', SPC = '\x20', VBAR = '|', HBAR = '-', DOT = '.'}
 	public Dictionary<System.ConsoleKey, Func<int>> KeyManipDict;
 	public const char BlankChar = (char)CharCode.SPC;
 	public Action<int, BitArray, char> DrawImage;
