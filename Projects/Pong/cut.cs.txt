@@ -1,3 +1,38 @@
+/// <summary>Screen with Paddle Sides(Home/Away)</summary>
+public class VPaddleScreen : PaddleScreen {
+	// public int PaddleRange {get { return isRotated ? h : w; }}
+    public override bool isRotated {
+		get {return true;}
+	}
+	// public override Char PaddleChar {get{return _paddleChar;}}
+	// Char _paddleChar;
+	public VPaddleScreen(int x = 64, int y = 23) : base(x, y, true) 
+	{
+		Paddles[0] = new Paddle(w, PaddleRange);
+		SideToLine.Add(Side.Home, 0); // first element for Self/Home buffer
+		SideToLine.Add(Side.Away, isRotated ? h - 1 : w - 1); // last element for Opponent/Away buffer
+		DrawPaddle = isRotated ? (side, paddle)=>
+			VPutCasBitArray(SideToLine[side], PaddleChar, paddle.GetImage())
+		 : (side, paddle)=>
+			HPutCasBitArray(SideToLine[side], PaddleChar, paddle.GetImage());
+		RedrawPaddle = isRotated ? (side, paddle) =>
+        {
+			var line = SideToLine[side];
+            var (added, deleted) = Lines[line].ToAddedDeleted(paddle.GetImage());
+            VPutCasBitArray(line, PaddleChar, added);
+            VPutCasBitArray(line, (Char)CharCode.SPC, deleted);
+        }
+        : (side, paddle) =>
+        {
+			var line = SideToLine[side];
+            var (added, deleted) = Lines[line].ToAddedDeleted(paddle.GetImage());
+            HPutCasBitArray(line, PaddleChar, added);
+            HPutCasBitArray(line, (Char)CharCode.SPC, deleted);
+        };
+
+	}
+
+}
 
 
 public class OldPaddle : HasDispChar {
