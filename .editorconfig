@@ -1,0 +1,8 @@
+# You can learn more about editorconfig here: https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference
+[*.cs]
+
+#use hard tabs for indentation
+indent_style = tab
+
+# IDE0160: Convert to file-scoped namespace
+csharp_style_namespace_declarations = file_scoped:warning

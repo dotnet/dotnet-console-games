@@ -63,6 +63,16 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Wordle",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Wordle",
+			"program": "${workspaceFolder}/Projects/Wordle/bin/Debug/Wordle.dll",
+			"cwd": "${workspaceFolder}/Projects/Wordle/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Memory",
 			"type": "coreclr",
 			"request": "launch",

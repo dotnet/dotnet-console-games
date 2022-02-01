@@ -315,6 +315,19 @@
             "problemMatcher": "$msCompile",
         },
         {
+            "label": "Build Wordle",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/Wordle/Wordle.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
+        {
             "label": "Build Type",
             "command": "dotnet",
             "type": "process",
