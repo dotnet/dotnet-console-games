@@ -153,18 +153,24 @@ bool Move(int pit)
 	if (isOpponent && j > 6 && j < 13 && pitsBefore[j] is 0)
 	{
 		int mirrorPit = 13 - j - 1;
-		pitsAndStores[13] += pitsAndStores[mirrorPit];
-		pitsAndStores[13] += pitsAndStores[j];
-		pitsAndStores[mirrorPit] = 0;
-		pitsAndStores[j] = 0;
+		if (pitsAndStores[mirrorPit] > 0)
+		{
+			pitsAndStores[13] += pitsAndStores[mirrorPit];
+			pitsAndStores[13] += pitsAndStores[j];
+			pitsAndStores[mirrorPit] = 0;
+			pitsAndStores[j] = 0;
+		}
 	}
 	if (!isOpponent && j < 6 && j >= 0 && pitsBefore[j] is 0)
 	{
 		int mirrorPit = 6 - j + 6;
-		pitsAndStores[6] += pitsAndStores[mirrorPit];
-		pitsAndStores[6] += pitsAndStores[j];
-		pitsAndStores[mirrorPit] = 0;
-		pitsAndStores[j] = 0;
+		if (pitsAndStores[mirrorPit] > 0)
+		{
+			pitsAndStores[6] += pitsAndStores[mirrorPit];
+			pitsAndStores[6] += pitsAndStores[j];
+			pitsAndStores[mirrorPit] = 0;
+			pitsAndStores[j] = 0;
+		}
 	}
 	for (int i = 0; i < pitsAndStores.Length; i++)
 	{

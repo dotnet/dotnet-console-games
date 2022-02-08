@@ -19,8 +19,9 @@ so have the most seeds in your store at the end of the game.
 
 Special Rules:
 - While distributing seeds, if the last seed goes into the player's store the player gets to move again before the other.
-- While distrubuting seeds, if the last seed goes into an empty pit on the side of the player who is currently moving, all 
-  of the seeds in that pit and the mirror pit on the opponent's side will be added to the moving player's pit.
+- While distrubuting seeds, if the last seed goes into an empty pit on the side of the player who is currently moving and
+  the mirror pit on the opponent's side is not empty, all of the seeds in that pit and the mirror pit on the opponent's 
+  side will be added to the moving player's pit.
 
 ```
 
