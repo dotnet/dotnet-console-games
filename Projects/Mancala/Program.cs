@@ -150,7 +150,7 @@ bool Move(int pit)
 			pitsAndStores[j]++;
 		}
 	}
-	if (isOpponent && j > 6 && j < 13 && pitsBefore[j] is 0)
+	if (isOpponent && j > 6 && j < 13 && pitsBefore[j] is 0 && pitsAndStores[j] is 1)
 	{
 		int mirrorPit = 13 - j - 1;
 		if (pitsAndStores[mirrorPit] > 0)
@@ -161,7 +161,7 @@ bool Move(int pit)
 			pitsAndStores[j] = 0;
 		}
 	}
-	if (!isOpponent && j < 6 && j >= 0 && pitsBefore[j] is 0)
+	if (!isOpponent && j < 6 && j >= 0 && pitsBefore[j] is 0 && pitsAndStores[j] is 1)
 	{
 		int mirrorPit = 6 - j + 6;
 		if (pitsAndStores[mirrorPit] > 0)
