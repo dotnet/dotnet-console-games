@@ -223,6 +223,16 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Mancala",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Mancala",
+			"program": "${workspaceFolder}/Projects/Mancala/bin/Debug/Mancala.dll",
+			"cwd": "${workspaceFolder}/Projects/Mancala/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Maze",
 			"type": "coreclr",
 			"request": "launch",
