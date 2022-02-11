@@ -100,12 +100,9 @@ try
 		bool tooFast = false;
 		while (stopwatch.Elapsed < signal && !tooFast)
 		{
-			if (Console.KeyAvailable)
+			if (Console.KeyAvailable && Console.ReadKey(true).Key is ConsoleKey.Spacebar)
 			{
-				if (Console.ReadKey(true).Key is ConsoleKey.Spacebar)
-				{
-					tooFast = true;
-				}
+				tooFast = true;
 			}
 		}
 		Console.Clear();
@@ -116,13 +113,10 @@ try
 		TimeSpan reactionTime = default;
 		while (!tooFast && stopwatch.Elapsed < requiredReactionTime && tooSlow)
 		{
-			if (Console.KeyAvailable)
+			if (Console.KeyAvailable && Console.ReadKey(true).Key is ConsoleKey.Spacebar)
 			{
-				if (Console.ReadKey(true).Key is ConsoleKey.Spacebar)
-				{
-					tooSlow = false;
-					reactionTime = stopwatch.Elapsed;
-				}
+				tooSlow = false;
+				reactionTime = stopwatch.Elapsed;
 			}
 		}
 		Console.Clear();
