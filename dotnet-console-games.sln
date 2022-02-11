@@ -49,11 +49,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Type", "Projects\Type\Type.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Role Playing Game", "Projects\Role Playing Game\Role Playing Game.csproj", "{65E8EA9C-4DBD-406B-8D65-6E9569726F3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drive", "Projects\Drive\Drive.csproj", "{C1186E38-8792-44B9-A2F3-071061DE8B5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Drive", "Projects\Drive\Drive.csproj", "{C1186E38-8792-44B9-A2F3-071061DE8B5F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Memory", "Projects\Memory\Memory.csproj", "{444998F8-4B08-4C0D-A32C-BF5E498768FB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wordle", "Projects\Wordle\Wordle.csproj", "{056F7C47-92DE-4B50-A235-14978401C901}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quick Draw", "Projects\Quick Draw\Quick Draw.csproj", "{69A49E9A-FDE7-40E7-B44C-DB3608B6C207}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mancala", "Projects\Mancala\Mancala.csproj", "{745524B2-A383-486C-8CCB-1B367FD9A2A6}"
 EndProject
@@ -167,6 +169,10 @@ Global
 		{056F7C47-92DE-4B50-A235-14978401C901}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{056F7C47-92DE-4B50-A235-14978401C901}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{056F7C47-92DE-4B50-A235-14978401C901}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69A49E9A-FDE7-40E7-B44C-DB3608B6C207}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69A49E9A-FDE7-40E7-B44C-DB3608B6C207}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69A49E9A-FDE7-40E7-B44C-DB3608B6C207}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69A49E9A-FDE7-40E7-B44C-DB3608B6C207}.Release|Any CPU.Build.0 = Release|Any CPU
 		{745524B2-A383-486C-8CCB-1B367FD9A2A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{745524B2-A383-486C-8CCB-1B367FD9A2A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{745524B2-A383-486C-8CCB-1B367FD9A2A6}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -13,6 +13,16 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Quick Draw",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Quick Draw",
+			"program": "${workspaceFolder}/Projects/Quick Draw/bin/Debug/Quick Draw.dll",
+			"cwd": "${workspaceFolder}/Projects/Quick Draw/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Whack A Mole",
 			"type": "coreclr",
 			"request": "launch",
