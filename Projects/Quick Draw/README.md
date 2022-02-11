@@ -27,8 +27,6 @@ Quick Draw is a game to test your reaction time. Face your opponent, wait for th
 
 ## Input
 
-This game uses commands. Each screen will give you the list of available commands you may use at the time.
-
 - `1`, `2`, `3`, `4`: select your difficulty in the menu
 - `spacebar` : fire your gun
 - `enter`: play again
