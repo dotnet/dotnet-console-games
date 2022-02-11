@@ -354,6 +354,19 @@
             "problemMatcher": "$msCompile",
         },
         {
+            "label": "Build Quick Draw",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/Quick Draw/Quick Draw.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
+        {
             "label": "Build Solution",
             "command": "dotnet",
             "type": "process",

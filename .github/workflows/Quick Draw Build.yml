@@ -1,0 +1,17 @@
+name: Quick Draw Build
+on:
+  push:
+    paths:
+    - 'Projects/Quick Draw/**'
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: Build with dotnet
+      run: dotnet build "Projects\Quick Draw\Quick Draw.csproj" --configuration Release
