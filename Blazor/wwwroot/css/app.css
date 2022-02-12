@@ -62,3 +62,70 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+.octicon {
+    margin-left: .5rem;
+}
+
+.gh-logo {
+    fill: #fff;
+}
+
+.top-row {
+    background-color: #24292e !important;
+    border-bottom: none !important;
+}
+
+    .top-row a {
+        color: #fff;
+    }
+
+        .top-row a:hover {
+            color: hsla(0,0%,100%,.7);
+            text-decoration: none;
+        }
+
+            .top-row a:hover .gh-logo {
+                fill: hsla(0,0%,100%,.7);
+            }
+
+.sidebar {
+    background-image: none !important;
+    background-color: #fff !important;
+    color: #24292e;
+}
+
+.sidebar-nav {
+    border-right: 1px solid #e1e4e8 !important;
+    /*height: 100%;*/
+}
+
+.nav-item a {
+    color: #24292e !important;
+}
+
+    .nav-item a:hover {
+        color: hsla(0,0%,100%,.7) !important;
+        background-color: #3F4448 !important;
+    }
+
+.navbar-brand:hover {
+    color: hsla(0,0%,100%,.7) !important;
+}
+
+.main {
+    background-color: #f6f8fa !important;
+}
+
+    .main .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+.source-code-badge {
+    margin-bottom: 10px;
+}
+
+:focus {
+    outline: none;
+}

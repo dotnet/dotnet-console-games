@@ -1,0 +1,37 @@
+﻿@using System
+@using System.Diagnostics
+@using Console = Blazor.Console<Blazor.Games.WumpusWorld>
+
+@page "/Wumpus World"
+
+<PageTitle>Wumpus World</PageTitle>
+
+<h1>Wumpus World</h1>
+
+<div class="console-window text-center my-3">
+	<div class="d-inline-block bg-dark text-light border rounded p-2 text-start shadow">
+		<pre style="white-space:pre">
+			<code>
+@((MarkupString)Console.state)
+			</code>
+		</pre>
+	</div>
+	<div>
+		@for (char i = 'a'; i <= 'z'; i++)
+		{
+			char c = i;
+			<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo((char)c, ConsoleKey.A + (c - 'a'), false, false, false)); }">@c</button>
+		}
+		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo('\n', ConsoleKey.Enter, false, false, false)); }">Enter</button>
+		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Backspace, false, false, false)); }">Backspace</button>
+	</div>
+</div>
+
+@code
+{
+	protected override void OnInitialized()
+	{
+		Console.refresh = StateHasChanged;
+		InvokeAsync(() => Games.WumpusWorld.Run());
+	}
+}

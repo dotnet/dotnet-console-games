@@ -22,12 +22,10 @@
 		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo('3', ConsoleKey.D3, false, false, false)); }">3</button>
 		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo('4', ConsoleKey.D4, false, false, false)); }">4</button>
 		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo(' ', ConsoleKey.Spacebar, false, false, false)); }">Spacebar</button>
-		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Enter, false, false, false)); }">Enter</button>
+		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo('\n', ConsoleKey.Enter, false, false, false)); }">Enter</button>
 		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Escape, false, false, false)); }">Escape</button>
 	</div>
 </div>
-
-
 
 @code
 {
@@ -35,5 +33,5 @@
 	{
 		Console.refresh = StateHasChanged;
 		InvokeAsync(() => Games.QuickDraw.Run());
-    }
+	}
 }
