@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
-using Console = Blazor.Console<Blazor.Games.QuickDraw>;
+using Console = Blazor.Console<Blazor.Games.Quick_Draw>;
 
 namespace Blazor.Games;
 
-public class QuickDraw
+public class Quick_Draw
 {
 	public static async void Run()
 	{

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using static Blazor.Console<Blazor.Games.WumpusWorld>;
+using static Blazor.Console<Blazor.Games.Wumpus_World>;
 using Towel;
 
 namespace Blazor.Games;
 
-public class WumpusWorld
+public class Wumpus_World
 {
 	public static async void Run()
 	{

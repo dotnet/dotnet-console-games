@@ -1,6 +1,6 @@
 ﻿@using System
 @using System.Diagnostics
-@using Console = Blazor.Console<Blazor.Games.QuickDraw>
+@using Console = Blazor.Console<Blazor.Games.Quick_Draw>
 
 @page "/Quick Draw"
 
@@ -32,6 +32,6 @@
 	protected override void OnInitialized()
 	{
 		Console.refresh = StateHasChanged;
-		InvokeAsync(() => Games.QuickDraw.Run());
+		InvokeAsync(() => Games.Quick_Draw.Run());
 	}
 }
