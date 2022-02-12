@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using static Blazor.Console<Blazor.Games.Wumpus_World>;
+using System.Threading.Tasks;
+using static Website.Console<Website.Games.Wumpus_World>;
 using Towel;
 
-namespace Blazor.Games;
+namespace Website.Games;
 
 public class Wumpus_World
 {

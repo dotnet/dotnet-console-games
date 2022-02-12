@@ -1,7 +1,8 @@
-﻿using System.Diagnostics;
-using Console = Blazor.Console<Blazor.Games.Quick_Draw>;
+﻿using System;
+using System.Diagnostics;
+using Console = Website.Console<Website.Games.Quick_Draw>;
 
-namespace Blazor.Games;
+namespace Website.Games;
 
 public class Quick_Draw
 {
