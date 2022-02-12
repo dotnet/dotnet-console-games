@@ -5,20 +5,20 @@
 <h1>Quick Draw</h1>
 
 <div class="console-window">
-@((MarkupString)Temp.Console.state.Replace("\n", "<br/>").Replace("\r\n", "<br/>"))
+@((MarkupString)QuickDraw.Console.state.Replace("\n", "<br/>").Replace("\r\n", "<br/>"))
 </div>
 
 @*<button class="btn btn-primary" @onclick="async () => { Task.Run(Run); }">Run</button>*@
 @*<button class="btn btn-primary" @onclick="() => { Task.Run(Run); }">Run</button>*@
 @*<button class="btn btn-primary" @onclick="Run">Run</button>*@
 
-<button class="btn btn-primary" @onclick="() => { Temp.Console.inputBuffer.Enqueue(new ConsoleKeyInfo('1', ConsoleKey.D1, false, false, false)); }">1</button>
-<button class="btn btn-primary" @onclick="() => { Temp.Console.inputBuffer.Enqueue(new ConsoleKeyInfo('2', ConsoleKey.D2, false, false, false)); }">2</button>
-<button class="btn btn-primary" @onclick="() => { Temp.Console.inputBuffer.Enqueue(new ConsoleKeyInfo('3', ConsoleKey.D3, false, false, false)); }">3</button>
-<button class="btn btn-primary" @onclick="() => { Temp.Console.inputBuffer.Enqueue(new ConsoleKeyInfo('4', ConsoleKey.D4, false, false, false)); }">4</button>
-<button class="btn btn-primary" @onclick="() => { Temp.Console.inputBuffer.Enqueue(new ConsoleKeyInfo(' ', ConsoleKey.Spacebar, false, false, false)); }">Spacebar</button>
-<button class="btn btn-primary" @onclick="() => { Temp.Console.inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Enter, false, false, false)); }">Enter</button>
-<button class="btn btn-primary" @onclick="() => { Temp.Console.inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Escape, false, false, false)); }">Escape</button>
+<button class="btn btn-primary" @onclick="() => { QuickDraw.Console.inputBuffer.Enqueue(new ConsoleKeyInfo('1', ConsoleKey.D1, false, false, false)); }">1</button>
+<button class="btn btn-primary" @onclick="() => { QuickDraw.Console.inputBuffer.Enqueue(new ConsoleKeyInfo('2', ConsoleKey.D2, false, false, false)); }">2</button>
+<button class="btn btn-primary" @onclick="() => { QuickDraw.Console.inputBuffer.Enqueue(new ConsoleKeyInfo('3', ConsoleKey.D3, false, false, false)); }">3</button>
+<button class="btn btn-primary" @onclick="() => { QuickDraw.Console.inputBuffer.Enqueue(new ConsoleKeyInfo('4', ConsoleKey.D4, false, false, false)); }">4</button>
+<button class="btn btn-primary" @onclick="() => { QuickDraw.Console.inputBuffer.Enqueue(new ConsoleKeyInfo(' ', ConsoleKey.Spacebar, false, false, false)); }">Spacebar</button>
+<button class="btn btn-primary" @onclick="() => { QuickDraw.Console.inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Enter, false, false, false)); }">Enter</button>
+<button class="btn btn-primary" @onclick="() => { QuickDraw.Console.inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Escape, false, false, false)); }">Escape</button>
 
 @using System;
 @using System.Diagnostics;
@@ -27,7 +27,7 @@
 {
 	protected override void OnInitialized()
     {
-		InvokeAsync(() => Temp.Run(StateHasChanged));
+		InvokeAsync(() => QuickDraw.Run(StateHasChanged));
 
 		//Temp.Run(InvokeAsync, StateHasChanged);
 

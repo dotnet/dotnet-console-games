@@ -2,7 +2,7 @@
 
 namespace Blazor;
 
-public static class Temp
+public static class QuickDraw
 {
 	public static async Task Run(Action stateHasChanged)
 	{
@@ -106,7 +106,7 @@ public static class Temp
 					}
 				}
 				await Console.Clear();
-				TimeSpan signal = TimeSpan.FromMilliseconds(random.Next(5000, 35000));
+				TimeSpan signal = TimeSpan.FromMilliseconds(5000);//random.Next(5000, 35000));
 				await Console.WriteLine(wait);
 				Stopwatch stopwatch = new();
 				stopwatch.Restart();
@@ -158,6 +158,8 @@ public static class Temp
 
 	public static class Console
 	{
+		const int delay = 1;
+
 		public static Action? refresh;
 
 		public static Queue<ConsoleKeyInfo> inputBuffer = new();
@@ -168,48 +170,43 @@ public static class Temp
 		{
 			state = string.Empty;
 			refresh?.Invoke();
-			await Task.Delay(10);
-			await Task.Yield();
-			await Task.Delay(10);
+			await Task.Delay(delay);
 		}
 
 		public static async Task Write(object o)
 		{
 			state += o.ToString();
 			refresh?.Invoke();
-			await Task.Delay(10);
-			await Task.Yield();
-			await Task.Delay(10);
+			await Task.Delay(delay);
 		}
 
 		public static async Task WriteLine()
 		{
 			state += Environment.NewLine;
 			refresh?.Invoke();
-			await Task.Delay(10);
-			await Task.Yield();
-			await Task.Delay(10);
+			await Task.Delay(delay);
 		}
 
 		public static async Task WriteLine(object o)
 		{
 			state += o.ToString() + Environment.NewLine;
 			refresh?.Invoke();
-			await Task.Delay(10);
-			await Task.Yield();
-			await Task.Delay(10);
+			await Task.Delay(delay);
 		}
 
 		public static async Task<ConsoleKeyInfo> ReadKey(bool capture)
 		{
 			while (!await KeyAvailable())
 			{
-				await Task.Delay(10);
-				await Task.Yield();
-				await Task.Delay(10);
+				await Task.Delay(delay);
 				refresh?.Invoke();
 			}
-			return inputBuffer.Dequeue();
+			var keyInfo = inputBuffer.Dequeue();
+			if (!capture && keyInfo.KeyChar >= 32)
+			{
+				state += keyInfo.KeyChar;
+			}
+			return keyInfo;
 		}
 
 		public static bool _cursorVisible;
@@ -224,9 +221,7 @@ public static class Temp
 
 		public static async Task<bool> KeyAvailable()
 		{
-			await Task.Delay(10);
-			await Task.Yield();
-			await Task.Delay(10);
+			await Task.Delay(delay);
 			return inputBuffer.Count > 0;
 		}
 	}
