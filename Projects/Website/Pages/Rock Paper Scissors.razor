@@ -1,0 +1,35 @@
+﻿@using System
+@using System.Diagnostics
+@using Console = Website.Console<Website.Games.Rock_Paper_Scissors>
+
+@page "/Rock Paper Scissors"
+
+<PageTitle>Rock Paper Scissors</PageTitle>
+
+<h1>Rock Paper Scissors</h1>
+
+<div class="console-window text-center my-3">
+	<div class="d-inline-block bg-dark text-light border rounded p-2 text-start shadow">
+		<pre style="white-space:pre">
+			<code>
+@((MarkupString)Console.state)
+			</code>
+		</pre>
+	</div>
+	<div>
+		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo('r', ConsoleKey.R, false, false, false)); }">rock</button>
+		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo('p', ConsoleKey.P, false, false, false)); }">paper</button>
+		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo('s', ConsoleKey.S, false, false, false)); }">scissors</button>
+		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo('\n', ConsoleKey.Enter, false, false, false)); }">enter</button>
+		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo('e', ConsoleKey.E, false, false, false)); }">exit</button>
+	</div>
+</div>
+
+@code
+{
+	protected override void OnInitialized()
+	{
+		Console.refresh = StateHasChanged;
+		InvokeAsync(() => Games.Rock_Paper_Scissors.Run());
+	}
+}
