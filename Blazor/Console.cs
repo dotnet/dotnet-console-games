@@ -42,11 +42,49 @@ public static class Console<TGame>
 			refresh?.Invoke();
 		}
 		var keyInfo = inputBuffer.Dequeue();
-		if (!capture && keyInfo.KeyChar >= ' ')
-		{
-			state += keyInfo.KeyChar;
-		}
+		state += keyInfo.KeyChar;
 		return keyInfo;
+	}
+
+	public static string? line;
+
+	public static async Task<string> ReadLine()
+	{
+		line = string.Empty;
+		while (true)
+		{
+			while (!await KeyAvailable())
+			{
+				await Task.Delay(delay);
+				refresh?.Invoke();
+			}
+			var keyInfo = inputBuffer.Dequeue();
+			switch (keyInfo.Key)
+			{
+				case ConsoleKey.Backspace:
+					if (line.Length > 0)
+					{
+						line = line[..^1];
+						state = state[..^1];
+						await Task.Delay(delay);
+						refresh?.Invoke();
+					}
+					break;
+				case ConsoleKey.Enter:
+					state += '\n';
+					await Task.Delay(delay);
+					refresh?.Invoke();
+					string l = line;
+					return l;
+				default:
+					char c = keyInfo.KeyChar;
+					line += c;
+					state += c;
+					await Task.Delay(delay);
+					refresh?.Invoke();
+					break;
+			}
+		}
 	}
 
 	public static bool _cursorVisible;
