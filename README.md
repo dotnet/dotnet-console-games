@@ -110,3 +110,19 @@ Want to contribute? This repository welcomes contributions.
 
 > If you like this repo, you may also be intersted in:<br>
 > https://github.com/ZacharyPatten/dotnet-blazor-games
+
+<p align="center">
+	:construction_worker: <strong>UNDER CONSTRUCTION</strong> :construction_worker:
+	<br />
+	:construction: You can play the games in your browser: :construction:
+	<br />
+	:construction:
+	<a href="https://zacharypatten.github.io/dotnet-console-games" alt="Play Now">
+		<sub><img height="40"src="https://img.shields.io/badge/Play-Now-gray?style=flat-square&logo=github" title="Play Now" alt="Play Now"/></sub>
+	</a>
+	:construction:
+	<br />
+	:construction:
+	<sup>Hosted On GitHub Pages</sup>
+	:construction:
+</p>
