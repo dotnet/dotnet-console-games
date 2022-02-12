@@ -1,33 +1,39 @@
-﻿@page "/Quick Draw"
+﻿@using System
+@using System.Diagnostics
+@using Console = Blazor.Console<Blazor.Games.QuickDraw>
+
+@page "/Quick Draw"
 
 <PageTitle>Quick Draw</PageTitle>
 
 <h1>Quick Draw</h1>
 
-<div class="console-window">
-	<pre style="white-space:pre">
-		<code>
-@((MarkupString)QuickDraw.Console.state)
-		</code>
-	</pre>
+<div class="console-window text-center my-3">
+	<div class="d-inline-block bg-dark text-light border rounded p-2 text-start shadow">
+		<pre style="white-space:pre">
+			<code>
+@((MarkupString)Console.state)
+			</code>
+		</pre>
+	</div>
+	<div>
+		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo('1', ConsoleKey.D1, false, false, false)); }">1</button>
+		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo('2', ConsoleKey.D2, false, false, false)); }">2</button>
+		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo('3', ConsoleKey.D3, false, false, false)); }">3</button>
+		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo('4', ConsoleKey.D4, false, false, false)); }">4</button>
+		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo(' ', ConsoleKey.Spacebar, false, false, false)); }">Spacebar</button>
+		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Enter, false, false, false)); }">Enter</button>
+		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Escape, false, false, false)); }">Escape</button>
+	</div>
 </div>
 
-<button class="btn btn-primary" @onclick="() => { QuickDraw.Console.inputBuffer.Enqueue(new ConsoleKeyInfo('1', ConsoleKey.D1, false, false, false)); }">1</button>
-<button class="btn btn-primary" @onclick="() => { QuickDraw.Console.inputBuffer.Enqueue(new ConsoleKeyInfo('2', ConsoleKey.D2, false, false, false)); }">2</button>
-<button class="btn btn-primary" @onclick="() => { QuickDraw.Console.inputBuffer.Enqueue(new ConsoleKeyInfo('3', ConsoleKey.D3, false, false, false)); }">3</button>
-<button class="btn btn-primary" @onclick="() => { QuickDraw.Console.inputBuffer.Enqueue(new ConsoleKeyInfo('4', ConsoleKey.D4, false, false, false)); }">4</button>
-<button class="btn btn-primary" @onclick="() => { QuickDraw.Console.inputBuffer.Enqueue(new ConsoleKeyInfo(' ', ConsoleKey.Spacebar, false, false, false)); }">Spacebar</button>
-<button class="btn btn-primary" @onclick="() => { QuickDraw.Console.inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Enter, false, false, false)); }">Enter</button>
-<button class="btn btn-primary" @onclick="() => { QuickDraw.Console.inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Escape, false, false, false)); }">Escape</button>
 
-@using System;
-@using System.Diagnostics;
 
 @code
 {
 	protected override void OnInitialized()
 	{
-		QuickDraw.Console.refresh = StateHasChanged;
-		InvokeAsync(() => QuickDraw.Run());
+		Console.refresh = StateHasChanged;
+		InvokeAsync(() => Games.QuickDraw.Run());
     }
 }
