@@ -90,8 +90,8 @@ public static class Temp
 		{
 			while (true)
 			{
-				Console.Clear();
-				Console.WriteLine(menu);
+				await Console.Clear();
+				await Console.WriteLine(menu);
 				TimeSpan? requiredReactionTime = null;
 				while (requiredReactionTime is null)
 				{
@@ -105,39 +105,39 @@ public static class Temp
 						case ConsoleKey.Escape: return;
 					}
 				}
-				Console.Clear();
+				await Console.Clear();
 				TimeSpan signal = TimeSpan.FromMilliseconds(random.Next(5000, 35000));
-				Console.WriteLine(wait);
+				await Console.WriteLine(wait);
 				Stopwatch stopwatch = new();
 				stopwatch.Restart();
 				bool tooFast = false;
 				while (stopwatch.Elapsed < signal && !tooFast)
 				{
-					if (Console.KeyAvailable && (await Console.ReadKey(true)).Key is ConsoleKey.Spacebar)
+					if (await Console.KeyAvailable() && (await Console.ReadKey(true)).Key is ConsoleKey.Spacebar)
 					{
 						tooFast = true;
 					}
 				}
-				Console.Clear();
+				await Console.Clear();
 				Console.CursorVisible = false;
-				Console.WriteLine(fire);
+				await Console.WriteLine(fire);
 				stopwatch.Restart();
 				bool tooSlow = true;
 				TimeSpan reactionTime = default;
 				while (!tooFast && stopwatch.Elapsed < requiredReactionTime && tooSlow)
 				{
-					if (Console.KeyAvailable && (await Console.ReadKey(true)).Key is ConsoleKey.Spacebar)
+					if (await Console.KeyAvailable() && (await Console.ReadKey(true)).Key is ConsoleKey.Spacebar)
 					{
 						tooSlow = false;
 						reactionTime = stopwatch.Elapsed;
 					}
 				}
-				Console.Clear();
-				Console.WriteLine(
+				await Console.Clear();
+				await Console.WriteLine(
 					tooFast ? loseTooFast :
 					tooSlow ? loseTooSlow :
 					$"{win}{Environment.NewLine}  Reaction Time: {reactionTime.TotalMilliseconds} milliseconds");
-				Console.WriteLine("  Play Again [enter] or quit [escape]?");
+				await Console.WriteLine("  Play Again [enter] or quit [escape]?");
 				Console.CursorVisible = false;
 			GetEnterOrEscape:
 				switch ((await Console.ReadKey(true)).Key)
@@ -150,9 +150,9 @@ public static class Temp
 		}
 		finally
 		{
-			Console.Clear();
+			await Console.Clear();
 			Console.CursorVisible = true;
-			Console.Write("Quick Draw was closed.");
+			await Console.Write("Quick Draw was closed.");
 		}
 	}
 
@@ -164,42 +164,49 @@ public static class Temp
 
 		public static string state = string.Empty;
 
-		public static void Clear()
+		public static async Task Clear()
 		{
 			state = string.Empty;
 			refresh?.Invoke();
-			//await Task.Yield();
+			await Task.Delay(10);
+			await Task.Yield();
+			await Task.Delay(10);
 		}
 
-		public static void Write(object o)
+		public static async Task Write(object o)
 		{
 			state += o.ToString();
 			refresh?.Invoke();
-			//await Task.Yield();
+			await Task.Delay(10);
+			await Task.Yield();
+			await Task.Delay(10);
 		}
 
-		public static void WriteLine()
+		public static async Task WriteLine()
 		{
 			state += Environment.NewLine;
 			refresh?.Invoke();
-			//await Task.Yield();
+			await Task.Delay(10);
+			await Task.Yield();
+			await Task.Delay(10);
 		}
 
-		public static void WriteLine(object o)
+		public static async Task WriteLine(object o)
 		{
 			state += o.ToString() + Environment.NewLine;
 			refresh?.Invoke();
-			//await Task.Yield();
+			await Task.Delay(10);
+			await Task.Yield();
+			await Task.Delay(10);
 		}
 
 		public static async Task<ConsoleKeyInfo> ReadKey(bool capture)
 		{
-			//return new('\0', ConsoleKey.Escape, false, false, false);
-
-			while (!KeyAvailable)
+			while (!await KeyAvailable())
 			{
 				await Task.Delay(10);
 				await Task.Yield();
+				await Task.Delay(10);
 				refresh?.Invoke();
 			}
 			return inputBuffer.Dequeue();
@@ -215,9 +222,12 @@ public static class Temp
 
 		public static bool _keyAvailable;
 
-		public static bool KeyAvailable
+		public static async Task<bool> KeyAvailable()
 		{
-			get => inputBuffer.Count > 0;
+			await Task.Delay(10);
+			await Task.Yield();
+			await Task.Delay(10);
+			return inputBuffer.Count > 0;
 		}
 	}
 }

@@ -4,9 +4,9 @@
 
 <h1>Quick Draw</h1>
 
-<p>
+<div class="console-window">
 @((MarkupString)Temp.Console.state.Replace("\n", "<br/>").Replace("\r\n", "<br/>"))
-</p>
+</div>
 
 @*<button class="btn btn-primary" @onclick="async () => { Task.Run(Run); }">Run</button>*@
 @*<button class="btn btn-primary" @onclick="() => { Task.Run(Run); }">Run</button>*@
