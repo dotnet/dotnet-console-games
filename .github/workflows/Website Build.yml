@@ -17,12 +17,12 @@ jobs:
         dotnet-version: 6.0.x
     - name: publish
       run: dotnet publish Projects/Website/Website.csproj --configuration Release
-    - name: index.html base tag
-      run: sed -i 's/<base href="\/" \/>/<base href="\/dotnet-console-games\/" \/>/g' /home/runner/work/dotnet-console-games/Projects/Website/bin/Release/net6.0/publish/wwwroot/index.html
-    - name: 404.html
-      run: sed -i 's/\/?p=\//\/dotnet-console-games\/?p=\//g' /home/runner/work/dotnet-console-games/Projects/Website/bin/Release/net6.0/publish/wwwroot/404.html
-    - name: .nojekyll
-      run: touch /home/runner/work/dotnet-console-games/Projects/Website/bin/Release/net6.0/publish/wwwroot/.nojekyll
+#    - name: index.html base tag
+#      run: sed -i 's/<base href="\/" \/>/<base href="\/dotnet-console-games\/" \/>/g' /home/runner/work/dotnet-console-games/Projects/Website/bin/Release/net6.0/publish/wwwroot/index.html
+#    - name: 404.html
+#      run: sed -i 's/\/?p=\//\/dotnet-console-games\/?p=\//g' /home/runner/work/dotnet-console-games/Projects/Website/bin/Release/net6.0/publish/wwwroot/404.html
+#    - name: .nojekyll
+#      run: touch /home/runner/work/dotnet-console-games/Projects/Website/bin/Release/net6.0/publish/wwwroot/.nojekyll
     - uses: maxheld83/ghpages@master
       name: gh-pages publish
       env:
