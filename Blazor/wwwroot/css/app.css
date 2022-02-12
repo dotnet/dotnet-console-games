@@ -62,8 +62,3 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
-
-.console-window {
-    font-family: monospace;
-    background: #008080;
-}

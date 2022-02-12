@@ -4,16 +4,8 @@ namespace Blazor;
 
 public static class QuickDraw
 {
-	public static async Task Run(Action stateHasChanged)
+	public static async Task Run()
 	{
-		if (Console.refresh is null)
-		{
-			Console.refresh = () =>
-			{
-				stateHasChanged();
-			};
-		}
-
 		Random random = new();
 
 		const string menu = @"
@@ -90,8 +82,8 @@ public static class QuickDraw
 		{
 			while (true)
 			{
-				await Console.Clear();
-				await Console.WriteLine(menu);
+				Console.Clear();
+				Console.WriteLine(menu);
 				TimeSpan? requiredReactionTime = null;
 				while (requiredReactionTime is null)
 				{
@@ -105,9 +97,9 @@ public static class QuickDraw
 						case ConsoleKey.Escape: return;
 					}
 				}
-				await Console.Clear();
-				TimeSpan signal = TimeSpan.FromMilliseconds(5000);//random.Next(5000, 35000));
-				await Console.WriteLine(wait);
+				Console.Clear();
+				TimeSpan signal = TimeSpan.FromMilliseconds(random.Next(5000, 35000));
+				Console.WriteLine(wait);
 				Stopwatch stopwatch = new();
 				stopwatch.Restart();
 				bool tooFast = false;
@@ -118,9 +110,9 @@ public static class QuickDraw
 						tooFast = true;
 					}
 				}
-				await Console.Clear();
+				Console.Clear();
 				Console.CursorVisible = false;
-				await Console.WriteLine(fire);
+				Console.WriteLine(fire);
 				stopwatch.Restart();
 				bool tooSlow = true;
 				TimeSpan reactionTime = default;
@@ -132,12 +124,12 @@ public static class QuickDraw
 						reactionTime = stopwatch.Elapsed;
 					}
 				}
-				await Console.Clear();
-				await Console.WriteLine(
+				Console.Clear();
+				Console.WriteLine(
 					tooFast ? loseTooFast :
 					tooSlow ? loseTooSlow :
 					$"{win}{Environment.NewLine}  Reaction Time: {reactionTime.TotalMilliseconds} milliseconds");
-				await Console.WriteLine("  Play Again [enter] or quit [escape]?");
+				Console.WriteLine("  Play Again [enter] or quit [escape]?");
 				Console.CursorVisible = false;
 			GetEnterOrEscape:
 				switch ((await Console.ReadKey(true)).Key)
@@ -150,9 +142,9 @@ public static class QuickDraw
 		}
 		finally
 		{
-			await Console.Clear();
+			Console.Clear();
 			Console.CursorVisible = true;
-			await Console.Write("Quick Draw was closed.");
+			Console.Write("Quick Draw was closed.");
 		}
 	}
 
@@ -166,32 +158,28 @@ public static class QuickDraw
 
 		public static string state = string.Empty;
 
-		public static async Task Clear()
+		public static void Clear()
 		{
 			state = string.Empty;
 			refresh?.Invoke();
-			await Task.Delay(delay);
 		}
 
-		public static async Task Write(object o)
+		public static void Write(object o)
 		{
 			state += o.ToString();
 			refresh?.Invoke();
-			await Task.Delay(delay);
 		}
 
-		public static async Task WriteLine()
+		public static void WriteLine()
 		{
 			state += Environment.NewLine;
 			refresh?.Invoke();
-			await Task.Delay(delay);
 		}
 
-		public static async Task WriteLine(object o)
+		public static void WriteLine(object o)
 		{
 			state += o.ToString() + Environment.NewLine;
 			refresh?.Invoke();
-			await Task.Delay(delay);
 		}
 
 		public static async Task<ConsoleKeyInfo> ReadKey(bool capture)
@@ -216,8 +204,6 @@ public static class QuickDraw
 			get => _cursorVisible;
 			set => _cursorVisible = value;
 		}
-
-		public static bool _keyAvailable;
 
 		public static async Task<bool> KeyAvailable()
 		{
