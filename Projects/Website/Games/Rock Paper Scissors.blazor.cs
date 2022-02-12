@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
-using Console = Blazor.Console<Blazor.Games.Rock_Paper_Scissors>;
+﻿using System;
+using Console = Website.Console<Website.Games.Rock_Paper_Scissors>;
 
-namespace Blazor.Games;
+namespace Website.Games;
 
 public class Rock_Paper_Scissors
 {
