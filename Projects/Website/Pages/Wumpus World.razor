@@ -1,6 +1,6 @@
 ﻿@using System
 @using System.Diagnostics
-@using Console = Website.Console<Website.Games.Wumpus_World>
+@using Console = Website.Console<Website.Games.Wumpus_World.Wumpus_World>
 
 @page "/Wumpus World"
 
@@ -11,19 +11,17 @@
 <div class="console-window text-center my-3">
 	<div class="d-inline-block bg-dark text-light border rounded p-2 text-start shadow">
 		<pre style="white-space:pre">
-			<code>
-@((MarkupString)Console.state)
-			</code>
+			<code>@Console.State</code>
 		</pre>
 	</div>
 	<div>
 		@for (char i = 'a'; i <= 'z'; i++)
 		{
 			char c = i;
-			<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo((char)c, ConsoleKey.A + (c - 'a'), false, false, false)); }">@c</button>
+			<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo((char)c, ConsoleKey.A + (c - 'a'), false, false, false)); }">@c</button>
 		}
-		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo('\n', ConsoleKey.Enter, false, false, false)); }">Enter</button>
-		<button class="btn btn-primary" @onclick="() => { Console.inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Backspace, false, false, false)); }">Backspace</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\n', ConsoleKey.Enter, false, false, false)); }">Enter</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Backspace, false, false, false)); }">Backspace</button>
 	</div>
 </div>
 
@@ -31,7 +29,7 @@
 {
 	protected override void OnInitialized()
 	{
-		Console.refresh = StateHasChanged;
-		InvokeAsync(() => Games.Wumpus_World.Run());
+		Console._refresh = StateHasChanged;
+		InvokeAsync(Games.Wumpus_World.Wumpus_World.Run);
 	}
 }
