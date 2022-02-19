@@ -2,40 +2,40 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static Website.Console<Website.Games.Wumpus_World>;
+using static Website.Console<Website.Games.Wumpus_World.Wumpus_World>;
 using Towel;
 
-namespace Website.Games;
+namespace Website.Games.Wumpus_World;
 
 public class Wumpus_World
 {
-	public static async void Run()
+	public static async Task Run()
 	{
 (int X, int Y) PlayerLocation;
 Tile[,] Map;
 
 bool InvalidInput = false;
 Home:
-Clear();
-WriteLine("Wumpus World...");
-WriteLine();
-WriteLine("Home:");
-WriteLine();
-WriteLine(
+await Clear();
+await WriteLine("Wumpus World...");
+await WriteLine();
+await WriteLine("Home:");
+await WriteLine();
+await WriteLine(
 	"Rumors say that the Wumpus has a stash of gold " +
 	"inside his cave, but few who enter ever return. " +
 	"Will you seek the gold?");
-WriteLine();
-WriteLine("yes:  enter the cave of the Wumpus");
-WriteLine("quit: exit Wumpus World");
-WriteLine("info: view info");
-WriteLine();
+await WriteLine();
+await WriteLine("yes:  enter the cave of the Wumpus");
+await WriteLine("quit: exit Wumpus World");
+await WriteLine("info: view info");
+await WriteLine();
 if (InvalidInput)
 {
-	WriteLine("Invalid Input. Try again...");
+	await WriteLine("Invalid Input. Try again...");
 	InvalidInput = false;
 }
-Write(">");
+await Write(">");
 switch (await ReadLine())
 {
 	case "quit": await Quit(); goto Home;
@@ -46,12 +46,12 @@ switch (await ReadLine())
 
 async Task Info()
 {
-	Clear();
-	WriteLine("Wumpus World...");
-	WriteLine();
-	WriteLine("Rules:");
-	WriteLine();
-	WriteLine(
+	await Clear();
+	await WriteLine("Wumpus World...");
+	await WriteLine();
+	await WriteLine("Rules:");
+	await WriteLine();
+	await WriteLine(
 		"The Wumpus's cave is a 4x4 grid. It is dark, and you " +
 		"can only see the reach of your hands. The Wumpus will " +
 		"eat you if you disturb him, but you can smell him " +
@@ -59,8 +59,8 @@ async Task Info()
 		"he uses to trap his prey. Be careful not to fall in one; " +
 		"you can feel a breeze when a pit is near. If you find the " +
 		"gold, you may exit the way you came.");
-	WriteLine();
-	WriteLine("Press Enter To Return...");
+	await WriteLine();
+	await WriteLine("Press Enter To Return...");
 	await ReadLine();
 }
 
@@ -68,24 +68,24 @@ async Task Quit()
 {
 	bool InvalidInput = false;
 Quit:
-	Clear();
-	WriteLine("Wumpus World...");
-	WriteLine();
-	WriteLine("Quit:");
-	WriteLine();
-	WriteLine("Are you sure you want to quit?");
-	WriteLine();
-	WriteLine("yes: quit");
-	WriteLine("no:  return");
-	WriteLine();
+	await Clear();
+	await WriteLine("Wumpus World...");
+	await WriteLine();
+	await WriteLine("Quit:");
+	await WriteLine();
+	await WriteLine("Are you sure you want to quit?");
+	await WriteLine();
+	await WriteLine("yes: quit");
+	await WriteLine("no:  return");
+	await WriteLine();
 	if (InvalidInput)
 	{
-		WriteLine("Invalid Input. Try again...");
+		await WriteLine("Invalid Input. Try again...");
 	}
-	Write(">");
+	await Write(">");
 	switch (await ReadLine())
 	{
-		case "yes": Clear(); Environment.Exit(0); return;
+		case "yes": await Clear(); Environment.Exit(0); return;
 		case "no": return;
 		default: InvalidInput = true; goto Quit;
 	};
@@ -107,42 +107,42 @@ async Task Play()
 	bool AdjacentToPit() => AdjacentTiles().Contains(Tile.Pit);
 
 	bool InvalidInput = false;
-	string move = null;
+	string? move = null;
 Play:
-	Clear();
-	WriteLine("Wumpus World...");
-	WriteLine();
-	WriteLine("Play:");
-	WriteLine();
-	if (!(move is null))
+	await Clear();
+	await WriteLine("Wumpus World...");
+	await WriteLine();
+	await WriteLine("Play:");
+	await WriteLine();
+	if (move is not null)
 	{
-		WriteLine(move);
-		WriteLine();
+		await WriteLine(move);
+		await WriteLine();
 	}
-	Write("You are inside the cave of the Wumpus.");
+	await Write("You are inside the cave of the Wumpus.");
 	if (AdjacentToWumpus())
 	{
-		Write(" You smell a foul odor from something nearby.");
+		await Write(" You smell a foul odor from something nearby.");
 	}
 	if (AdjacentToPit())
 	{
-		Write(" You feel a breeze. Watch your step.");
+		await Write(" You feel a breeze. Watch your step.");
 	}
-	WriteLine();
-	WriteLine();
-	WriteLine("up:    move up");
-	WriteLine("down:  move down");
-	WriteLine("left:  move left");
-	WriteLine("right: move right");
-	WriteLine("quit:  exit Wumpus World");
-	WriteLine("info:  view info");
-	WriteLine();
+	await WriteLine();
+	await WriteLine();
+	await WriteLine("up:    move up");
+	await WriteLine("down:  move down");
+	await WriteLine("left:  move left");
+	await WriteLine("right: move right");
+	await WriteLine("quit:  exit Wumpus World");
+	await WriteLine("info:  view info");
+	await WriteLine();
 	if (InvalidInput)
 	{
-		WriteLine("Invalid Input. Try again...");
+		await WriteLine("Invalid Input. Try again...");
 		InvalidInput = false;
 	}
-	Write(">");
+	await Write(">");
 	Direction movement;
 	switch (await ReadLine())
 	{
@@ -177,9 +177,9 @@ Play:
 		};
 		switch (Map[PlayerLocation.X, PlayerLocation.Y])
 		{
-			case Tile.Gold: Clear(); WriteLine("You found the gold and left the cave the way you entered. You win."); await ReadLine(); return;
-			case Tile.Wumpus: Clear(); WriteLine("You got eaten by the Wumpus. You lose."); await ReadLine(); return;
-			case Tile.Pit: Clear(); WriteLine("You fell into one of the Wumpus's pits. You lose."); await ReadLine(); return;
+			case Tile.Gold: await Clear(); await WriteLine("You found the gold and left the cave the way you entered. You win."); await ReadLine(); return;
+			case Tile.Wumpus: await Clear(); await WriteLine("You got eaten by the Wumpus. You lose."); await ReadLine(); return;
+			case Tile.Pit: await Clear(); await WriteLine("You fell into one of the Wumpus's pits. You lose."); await ReadLine(); return;
 		}
 	}
 	goto Play;
