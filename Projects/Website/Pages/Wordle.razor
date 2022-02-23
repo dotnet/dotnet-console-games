@@ -1,14 +1,14 @@
 ﻿@using System
 @using System.Diagnostics
-@using Console = Website.Console<Website.Games.Snake.Snake>
+@using Console = Website.Console<Website.Games.Wordle.Wordle>
 
-@page "/Snake"
+@page "/Wordle"
 
-<PageTitle>Snake</PageTitle>
+<PageTitle>Wordle</PageTitle>
 
-<h1>Snake</h1>
+<h1>Wordle</h1>
 
-<a href="https://github.com/ZacharyPatten/dotnet-console-games/tree/main/Projects/Snake" alt="Go To Source Code">
+<a href="https://github.com/ZacharyPatten/dotnet-console-games/tree/main/Projects/Wordle" alt="Go To Source Code">
 	<img title="Go To Readme" alt="Go To Readme" src="https://img.shields.io/badge/readme-black?logo=github&amp&style=flat-square">
 </a>
 
@@ -19,12 +19,15 @@
 		</pre>
 	</div>
 	<div>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.UpArrow,    false, false, false)); }">↑</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.DownArrow,  false, false, false)); }">↓</button>
+		@for (char i = 'a'; i <= 'z'; i++)
+		{
+			char c = i;
+			<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo((char)c, ConsoleKey.A + (c - 'a'), false, false, false)); }">@c</button>
+		}
 		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.LeftArrow,  false, false, false)); }">←</button>
 		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.RightArrow, false, false, false)); }">→</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\n', ConsoleKey.Enter,      false, false, false)); }">enter</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Escape,     false, false, false)); }">escape</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\n', ConsoleKey.Enter,      false, false, false)); }">Enter</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Escape,     false, false, false)); }">Escape</button>
 	</div>
 </div>
 
@@ -37,6 +40,6 @@
 	protected override void OnInitialized()
 	{
 		Console._refresh = StateHasChanged;
-		InvokeAsync(Games.Snake.Snake.Run);
+		InvokeAsync(Games.Wordle.Wordle.Run);
 	}
 }

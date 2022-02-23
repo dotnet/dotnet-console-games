@@ -1,0 +1,49 @@
+﻿@using System
+@using System.Diagnostics
+@using Console = Website.Console<Website.Games.Sudoku.Sudoku>
+
+@page "/Sudoku"
+
+<PageTitle>Sudoku</PageTitle>
+
+<h1>Sudoku</h1>
+
+<a href="https://github.com/ZacharyPatten/dotnet-console-games/tree/main/Projects/Sudoku" alt="Go To Source Code">
+	<img title="Go To Readme" alt="Go To Readme" src="https://img.shields.io/badge/readme-black?logo=github&amp&style=flat-square">
+</a>
+
+<div class="console-window text-center my-3" @onkeydown="@Console.OnKeyDown" tabindex="0">
+	<div class="d-inline-block bg-dark text-light border p-2 text-start shadow padding-0">
+		<pre class="console">
+			<code>@Console.State</code>
+		</pre>
+	</div>
+	<div>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('1',  ConsoleKey.D1,     false, false, false)); }">1</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('2',  ConsoleKey.D2,     false, false, false)); }">2</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('3',  ConsoleKey.D3,     false, false, false)); }">3</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('4',  ConsoleKey.D4,     false, false, false)); }">4</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('5',  ConsoleKey.D5,     false, false, false)); }">5</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('6',  ConsoleKey.D6,     false, false, false)); }">6</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('7',  ConsoleKey.D7,     false, false, false)); }">7</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('8',  ConsoleKey.D8,     false, false, false)); }">8</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('9',  ConsoleKey.D4,     false, false, false)); }">9</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Delete, false, false, false)); }">Delete</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\n', ConsoleKey.Enter,  false, false, false)); }">Enter</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.End,    false, false, false)); }">End</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Escape, false, false, false)); }">Escape</button>
+	</div>
+</div>
+
+<div class="alert alert-secondary" role="alert">
+	&#9000; Keyboard input is supported if you <strong>click</strong> on the game.
+</div>
+
+@code
+{
+	protected override void OnInitialized()
+	{
+		Console._refresh = StateHasChanged;
+		InvokeAsync(Games.Sudoku.Sudoku.Run);
+	}
+}

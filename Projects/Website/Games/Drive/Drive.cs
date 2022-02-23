@@ -1,7 +1,14 @@
 ﻿using System;
 using System.Text;
-using System.Threading;
+using System.Threading.Tasks;
+using Console = Website.Console<Website.Games.Drive.Drive>;
 
+namespace Website.Games.Drive;
+
+public class Drive
+{
+	public static async Task Run()
+	{
 int width = 50;
 int height = 30;
 
@@ -21,7 +28,7 @@ Console.CursorVisible = false;
 try
 {
 	Initialize();
-	LaunchScreen();
+	await LaunchScreen();
 	while (keepPlaying)
 	{
 		InitializeScene();
@@ -33,27 +40,27 @@ try
 				keepPlaying = false;
 				break;
 			}
-			HandleInput();
+			await HandleInput();
 			Update();
-			Render();
+			await Render();
 			if (gameRunning)
 			{
-				Thread.Sleep(TimeSpan.FromMilliseconds(33));
+				await Console.RefreshAndDelay(TimeSpan.FromMilliseconds(33));
 			}
 		}
 		if (keepPlaying)
 		{
-			GameOverScreen();
+			await GameOverScreen();
 		}
 	}
-	Console.Clear();
+	await Console.Clear();
 	if (consoleSizeError)
 	{
-		Console.WriteLine("Console/Terminal window is too small.");
-		Console.WriteLine($"Minimum size is {width} width x {height} height.");
-		Console.WriteLine("Increase the size of the console window.");
+		await Console.WriteLine("Console/Terminal window is too small.");
+		await Console.WriteLine($"Minimum size is {width} width x {height} height.");
+		await Console.WriteLine("Increase the size of the console window.");
 	}
-	Console.WriteLine("Drive was closed.");
+	await Console.WriteLine("Drive was closed.");
 }
 finally
 {
@@ -79,17 +86,17 @@ void Initialize()
 	}
 }
 
-void LaunchScreen()
+async Task LaunchScreen()
 {
-	Console.Clear();
-	Console.WriteLine("This is a driving game.");
-	Console.WriteLine();
-	Console.WriteLine("Stay on the road!");
-	Console.WriteLine();
-	Console.WriteLine("Use A, W, and D to control your velocity.");
-	Console.WriteLine();
-	Console.Write("Press [enter] to start...");
-	PressEnterToContinue();
+	await Console.Clear();
+	await Console.WriteLine("This is a driving game.");
+	await Console.WriteLine();
+	await Console.WriteLine("Stay on the road!");
+	await Console.WriteLine();
+	await Console.WriteLine("Use A, W, and D to control your velocity.");
+	await Console.WriteLine();
+	await Console.Write("Press [enter] to start...");
+	await PressEnterToContinue();
 }
 
 void InitializeScene()
@@ -117,7 +124,7 @@ void InitializeScene()
 	}
 }
 
-void Render()
+async Task Render()
 {
 	StringBuilder stringBuilder = new(width * height);
 	for (int i = height - 1; i >= 0; i--)
@@ -142,15 +149,15 @@ void Render()
 			stringBuilder.AppendLine();
 		}
 	}
-	Console.SetCursorPosition(0, 0);
-	Console.Write(stringBuilder);
+	await Console.SetCursorPosition(0, 0);
+	await Console.Write(stringBuilder);
 }
 
-void HandleInput()
+async Task HandleInput()
 {
-	while (Console.KeyAvailable)
+	while (await Console.KeyAvailable())
 	{
-		ConsoleKey key = Console.ReadKey(true).Key;
+		ConsoleKey key = (await Console.ReadKey(true)).Key;
 		switch (key)
 		{
 			case ConsoleKey.A or ConsoleKey.LeftArrow:
@@ -167,20 +174,20 @@ void HandleInput()
 				keepPlaying = false;
 				break;
 			case ConsoleKey.Enter:
-				Console.ReadLine();
+				await Console.ReadLine();
 				break;
 		}
 	}
 }
 
-void GameOverScreen()
+async Task GameOverScreen()
 {
-	Console.SetCursorPosition(0, 0);
-	Console.WriteLine("Game Over");
-	Console.WriteLine($"Score: {score}");
-	Console.WriteLine($"Play Again (Y/N)?");
+	await Console.SetCursorPosition(0, 0);
+	await Console.WriteLine("Game Over");
+	await Console.WriteLine($"Score: {score}");
+	await Console.WriteLine($"Play Again (Y/N)?");
 GetInput:
-	ConsoleKey key = Console.ReadKey(true).Key;
+	ConsoleKey key = (await Console.ReadKey(true)).Key;
 	switch (key)
 	{
 		case ConsoleKey.Y:
@@ -234,10 +241,10 @@ void Update()
 	score++;
 }
 
-void PressEnterToContinue()
+async Task PressEnterToContinue()
 {
 GetInput:
-	ConsoleKey key = Console.ReadKey(true).Key;
+	ConsoleKey key = (await Console.ReadKey(true)).Key;
 	switch (key)
 	{
 		case ConsoleKey.Enter:
@@ -246,5 +253,7 @@ GetInput:
 			keepPlaying = false;
 			break;
 		default: goto GetInput;
+	}
+}
 	}
 }
