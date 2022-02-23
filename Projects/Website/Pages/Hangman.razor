@@ -1,12 +1,12 @@
 ﻿@using System
 @using System.Diagnostics
-@using Console = Website.Console<Website.Games.Wumpus_World.Wumpus_World>
+@using Console = Website.Console<Website.Games.Hangman.Hangman>
 
-@page "/Wumpus World"
+@page "/Hangman"
 
-<PageTitle>Wumpus World</PageTitle>
+<PageTitle>Hangman</PageTitle>
 
-<h1>Wumpus World</h1>
+<h1>Hangman</h1>
 
 <div class="console-window text-center my-3">
 	<div class="d-inline-block bg-dark text-light border rounded p-2 text-start shadow">
@@ -30,6 +30,6 @@
 	protected override void OnInitialized()
 	{
 		Console._refresh = StateHasChanged;
-		InvokeAsync(Games.Wumpus_World.Wumpus_World.Run);
+		InvokeAsync(Games.Hangman.Hangman.Run);
 	}
 }

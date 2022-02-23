@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Website;
 
@@ -10,7 +11,7 @@ public static class Console<TGame>
 {
 	internal const int _delay = 1;
 	internal static Action? _refresh;
-	internal static bool _cursorVisible;
+	internal static bool _cursorVisible = true;
 	internal static Queue<ConsoleKeyInfo> _inputBuffer = new();
 	internal static ConsoleColor _backgroundColor = ConsoleColor.Black;
 	internal static ConsoleColor _foregroundColor = ConsoleColor.White;
@@ -18,7 +19,7 @@ public static class Console<TGame>
 	internal static (char Char, ConsoleColor BackgroundColor, ConsoleColor ForegroundColor)[,] _view;
 	internal static int _windowHeight = 30;
 	internal static int _windowWidth = 120;
-	internal static bool _writeLine = false;
+	internal static bool _refreshOnInputOnly = true;
 
 	static Console()
 	{
@@ -26,7 +27,13 @@ public static class Console<TGame>
 		ClearNoRefresh();
 	}
 
-	private static async Task Refresh()
+	public static async Task RefreshAndDelay(TimeSpan timeSpan)
+	{
+		_refresh?.Invoke();
+		await Task.Delay(timeSpan);
+	}
+
+	public static async Task Refresh()
 	{
 		_refresh?.Invoke();
 		await Task.Delay(_delay);
@@ -41,9 +48,17 @@ public static class Console<TGame>
 			{
 				for (int column = 0; column < _view.GetLength(1); column++)
 				{
-					stateBuilder.Append(_view[row, column].Char);
+					if (_cursorVisible && _cursorPosition == (column, row))
+					{
+						stateBuilder.Append(@"<span class=""cursor"">");
+					}
+					stateBuilder.Append(HttpUtility.HtmlEncode(_view[row, column].Char));
+					if (_cursorVisible && _cursorPosition == (column, row))
+					{
+						stateBuilder.Append(@"</span>");
+					}
 				}
-				stateBuilder.AppendLine();
+				stateBuilder.Append("<br />");
 			}
 			string state = stateBuilder.ToString();
 			return (MarkupString)state;
@@ -59,12 +74,14 @@ public static class Console<TGame>
 	public static async Task Clear()
 	{
 		ClearNoRefresh();
-		await Refresh();
+		if (!_refreshOnInputOnly)
+		{
+			await Refresh();
+		}
 	}
 
 	public static void ClearNoRefresh()
 	{
-		_writeLine = false;
 		for (int row = 0; row < _view.GetLength(0); row++)
 		{
 			for (int column = 0; column < _view.GetLength(1); column++)
@@ -72,14 +89,23 @@ public static class Console<TGame>
 				_view[row, column] = (' ', _backgroundColor, _foregroundColor);
 			}
 		}
+		_cursorPosition = (0, 0);
 	}
 
 	public static void WriteNoRefresh(char c)
 	{
-		_writeLine = false;
+		if (c is '\r')
+		{
+			return;
+		}
+		if (c is '\n')
+		{
+			WriteLineNoRefresh();
+			return;
+		}
 		if (_cursorPosition.Left >= _view.GetLength(1))
 		{
-			_cursorPosition = (_cursorPosition.Top + 1, 0);
+			_cursorPosition = (0, _cursorPosition.Top + 1);
 		}
 		_view[_cursorPosition.Top, _cursorPosition.Left] = (c, _backgroundColor, _foregroundColor);
 		_cursorPosition = (_cursorPosition.Left + 1, _cursorPosition.Top);
@@ -87,21 +113,15 @@ public static class Console<TGame>
 
 	public static void WriteLineNoRefresh()
 	{
-		if (_writeLine && _cursorPosition.Left == _view.GetLength(1))
-		{
-			_cursorPosition = (0, _cursorPosition.Top + 1);
-		}
-		_writeLine = true;
 		while (_cursorPosition.Left < _view.GetLength(1))
 		{
 			WriteNoRefresh(' ');
 		}
-		_cursorPosition = (_cursorPosition.Top + 1, 0);
+		_cursorPosition = (0, _cursorPosition.Top + 1);
 	}
 
 	public static async Task Write(object o)
 	{
-		_writeLine = false;
 		if (o is null) return;
 		string? s = o.ToString();
 		if (s is null || s is "") return;
@@ -109,7 +129,10 @@ public static class Console<TGame>
 		{
 			WriteNoRefresh(c);
 		}
-		await Refresh();
+		if (!_refreshOnInputOnly)
+		{
+			await Refresh();
+		}
 	}
 
 	public static async Task WriteLine()
@@ -132,12 +155,14 @@ public static class Console<TGame>
 			}
 		}
 		WriteLineNoRefresh();
-		await Refresh();
+		if (!_refreshOnInputOnly)
+		{
+			await Refresh();
+		}
 	}
 
 	public static async Task<ConsoleKeyInfo> ReadKey(bool capture)
 	{
-		_writeLine = false;
 		while (!await KeyAvailable())
 		{
 			await Refresh();
@@ -155,8 +180,8 @@ public static class Console<TGame>
 				default:
 					WriteNoRefresh(keyInfo.KeyChar);
 					break;
-				//case > ConsoleKey.A and < ConsoleKey.Z:
-				//	break;
+					//case > ConsoleKey.A and < ConsoleKey.Z:
+					//	break;
 			}
 		}
 		return keyInfo;
@@ -164,7 +189,6 @@ public static class Console<TGame>
 
 	public static async Task<string> ReadLine()
 	{
-		_writeLine = false;
 		string line = string.Empty;
 		while (true)
 		{
@@ -243,9 +267,36 @@ public static class Console<TGame>
 		}
 	}
 
+	public static int CursorLeft
+	{
+		get
+		{
+			return _cursorPosition.Left;
+		}
+		set
+		{
+			_cursorPosition.Left = value;
+		}
+	}
+
+	public static int CursorTop
+	{
+		get
+		{
+			return _cursorPosition.Top;
+		}
+		set
+		{
+			_cursorPosition.Top = value;
+		}
+	}
+
 	public static async Task SetCursorPosition(int left, int top)
 	{
 		_cursorPosition = (left, top);
-		await Refresh();
+		if (!_refreshOnInputOnly)
+		{
+			await Refresh();
+		}
 	}
 }
