@@ -1,0 +1,34 @@
+﻿@using System
+@using System.Diagnostics
+@using Console = Website.Console<Website.Games.Tic_Tac_Toe.Tic_Tac_Toe>
+
+@page "/Tic Tac Toe"
+
+<PageTitle>Tic Tac Toe</PageTitle>
+
+<h1>Tic Tac Toe</h1>
+
+<div class="console-window text-center my-3">
+	<div class="d-inline-block bg-dark text-light border rounded p-2 text-start shadow">
+		<pre class="console">
+			<code>@Console.State</code>
+		</pre>
+	</div>
+	<div>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.UpArrow, false, false, false)); }">↑</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.DownArrow, false, false, false)); }">↓</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.LeftArrow, false, false, false)); }">←</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.RightArrow, false, false, false)); }">→</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\n', ConsoleKey.Enter, false, false, false)); }">enter</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Escape, false, false, false)); }">escape</button>
+	</div>
+</div>
+
+@code
+{
+	protected override void OnInitialized()
+	{
+		Console._refresh = StateHasChanged;
+		InvokeAsync(Games.Tic_Tac_Toe.Tic_Tac_Toe.Run);
+	}
+}

@@ -182,7 +182,7 @@ public class Flappy_Bird
 					}
 					Frame++;
 				}
-				await Task.Delay(Sleep);
+				await Console.RefreshAndDelay(Sleep);
 			}
 		}
 		finally
