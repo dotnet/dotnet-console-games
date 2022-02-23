@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,6 +21,36 @@ public static class Console<TGame>
 	internal static int _windowHeight = 30;
 	internal static int _windowWidth = 120;
 	internal static bool _refreshOnInputOnly = true;
+
+	public static void OnKeyDown(KeyboardEventArgs e)
+	{
+		switch (e.Key)
+		{
+			case "Backspace":  _inputBuffer.Enqueue(new('\b', ConsoleKey.Backspace,  false, false, false)); break;
+			case " ":          _inputBuffer.Enqueue(new(' ',  ConsoleKey.Spacebar,   false, false, false)); break;
+			case "Delete":     _inputBuffer.Enqueue(new('\0', ConsoleKey.Delete,     false, false, false)); break;
+			case "Enter":      _inputBuffer.Enqueue(new('\n', ConsoleKey.Enter,      false, false, false)); break;
+			case "Escape":     _inputBuffer.Enqueue(new('\0', ConsoleKey.Escape,     false, false, false)); break;
+			case "ArrowLeft":  _inputBuffer.Enqueue(new('\0', ConsoleKey.LeftArrow,  false, false, false)); break;
+			case "ArrowRight": _inputBuffer.Enqueue(new('\0', ConsoleKey.RightArrow, false, false, false)); break;
+			case "ArrowUp":    _inputBuffer.Enqueue(new('\0', ConsoleKey.UpArrow,    false, false, false)); break;
+			case "ArrowDown":  _inputBuffer.Enqueue(new('\0', ConsoleKey.DownArrow,  false, false, false)); break;
+			default:
+				if (e.Key.Length is 1 && e.Key[0] >= '0' && e.Key[0] <= '9')
+				{
+					_inputBuffer.Enqueue(new(e.Key[0], ConsoleKey.D0 + (e.Key[0] - '0'), false, false, false));
+				}
+				if (e.Key.Length is 1 && e.Key[0] >= 'a' && e.Key[0] <= 'z')
+				{
+					_inputBuffer.Enqueue(new(e.Key[0], ConsoleKey.A + (e.Key[0] - 'a'), false, false, false));
+				}
+				else if (e.Key.Length is 1 && e.Key[0] >= 'A' && e.Key[0] <= 'Z')
+				{
+					_inputBuffer.Enqueue(new(e.Key[0], ConsoleKey.A + (e.Key[0] - 'A'), true, false, false));
+				}
+				return;
+		}
+	}
 
 	static Console()
 	{

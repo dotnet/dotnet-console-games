@@ -8,7 +8,7 @@
 
 <h1>Snake</h1>
 
-<div class="console-window text-center my-3">
+<div class="console-window text-center my-3" @onkeydown="@Console.OnKeyDown">
 	<div class="d-inline-block bg-dark text-light border rounded p-2 text-start shadow">
 		<pre class="console">
 			<code>@Console.State</code>
