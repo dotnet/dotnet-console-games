@@ -100,14 +100,14 @@ void Play()
 	bool AdjacentToPit() => AdjacentTiles().Contains(Tile.Pit);
 
 	bool InvalidInput = false;
-	string move = null;
+	string? move = null;
 Play:
 	Clear();
 	WriteLine("Wumpus World...");
 	WriteLine();
 	WriteLine("Play:");
 	WriteLine();
-	if (!(move is null))
+	if (move is not null)
 	{
 		WriteLine(move);
 		WriteLine();

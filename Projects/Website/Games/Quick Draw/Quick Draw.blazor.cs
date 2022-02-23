@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
-using Console = Website.Console<Website.Games.Quick_Draw>;
+using System.Threading.Tasks;
+using Console = Website.Console<Website.Games.Quick_Draw.Quick_Draw>;
 
-namespace Website.Games;
+namespace Website.Games.Quick_Draw;
 
 public class Quick_Draw
 {
-	public static async void Run()
+	public static async Task Run()
 	{
 		Random random = new();
 
@@ -84,8 +85,8 @@ public class Quick_Draw
 		{
 			while (true)
 			{
-				Console.Clear();
-				Console.WriteLine(menu);
+				await Console.Clear();
+				await Console.WriteLine(menu);
 				TimeSpan? requiredReactionTime = null;
 				while (requiredReactionTime is null)
 				{
@@ -99,9 +100,9 @@ public class Quick_Draw
 						case ConsoleKey.Escape: return;
 					}
 				}
-				Console.Clear();
+				await Console.Clear();
 				TimeSpan signal = TimeSpan.FromMilliseconds(random.Next(5000, 35000));
-				Console.WriteLine(wait);
+				await Console.WriteLine(wait);
 				Stopwatch stopwatch = new();
 				stopwatch.Restart();
 				bool tooFast = false;
@@ -112,9 +113,9 @@ public class Quick_Draw
 						tooFast = true;
 					}
 				}
-				Console.Clear();
+				await Console.Clear();
 				Console.CursorVisible = false;
-				Console.WriteLine(fire);
+				await Console.WriteLine(fire);
 				stopwatch.Restart();
 				bool tooSlow = true;
 				TimeSpan reactionTime = default;
@@ -126,12 +127,12 @@ public class Quick_Draw
 						reactionTime = stopwatch.Elapsed;
 					}
 				}
-				Console.Clear();
-				Console.WriteLine(
+				await Console.Clear();
+				await Console.WriteLine(
 					tooFast ? loseTooFast :
 					tooSlow ? loseTooSlow :
 					$"{win}{Environment.NewLine}  Reaction Time: {reactionTime.TotalMilliseconds} milliseconds");
-				Console.WriteLine("  Play Again [enter] or quit [escape]?");
+				await Console.WriteLine("  Play Again [enter] or quit [escape]?");
 				Console.CursorVisible = false;
 			GetEnterOrEscape:
 				switch ((await Console.ReadKey(true)).Key)
@@ -144,9 +145,9 @@ public class Quick_Draw
 		}
 		finally
 		{
-			Console.Clear();
+			await Console.Clear();
 			Console.CursorVisible = true;
-			Console.Write("Quick Draw was closed.");
+			await Console.Write("Quick Draw was closed.");
 		}
 	}
 }
