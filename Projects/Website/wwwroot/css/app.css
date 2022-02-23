@@ -137,12 +137,12 @@ a, .btn-link {
     .cursor::after {
         content: "";
         width: 1ch;
-        height: 5px;
+        height: .5ch;
         animation: blinking 1s step-start infinite;
         background-color: #ffffff;
         position: absolute;
         display: flex;
-        transform: translateY(-5px);
+        transform: translateY(-.5ch);
     }
 
 @keyframes blinking {
