@@ -1,18 +1,25 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="FiveLetterWords.txt" />
     <None Remove="Words.txt" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FiveLetterWords.txt" />
     <EmbeddedResource Include="Words.txt" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.2" PrivateAssets="all" />
     <PackageReference Include="Towel" Version="1.0.40" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Pages\Drive.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
   </ItemGroup>
 </Project>

@@ -49,19 +49,13 @@
 _\***Complexity**: a relative rating for how complex/advanced the source code is._
 
 <p align="center">
-	:construction_worker: <strong>UNDER CONSTRUCTION</strong> :construction_worker:
+	You can play the games in your browser:
 	<br />
-	:construction: You can play the games in your browser: :construction:
-	<br />
-	:construction:
 	<a href="https://zacharypatten.github.io/dotnet-console-games" alt="Play Now">
 		<sub><img height="40"src="https://img.shields.io/badge/Play-Now-gray?style=flat-square&logo=github" title="Play Now" alt="Play Now"/></sub>
 	</a>
-	:construction:
 	<br />
-	:construction:
 	<sup>Hosted On GitHub Pages</sup>
-	:construction:
 </p>
 
 ## Getting Started

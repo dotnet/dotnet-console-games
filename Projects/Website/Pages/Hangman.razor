@@ -8,8 +8,12 @@
 
 <h1>Hangman</h1>
 
-<div class="console-window text-center my-3" @onkeydown="@Console.OnKeyDown">
-	<div class="d-inline-block bg-dark text-light border rounded p-2 text-start shadow">
+<a href="https://github.com/ZacharyPatten/dotnet-console-games/tree/main/Projects/Hangman" alt="Go To Source Code">
+	<img title="Go To Readme" alt="Go To Readme" src="https://img.shields.io/badge/readme-black?logo=github&amp&style=flat-square">
+</a>
+
+<div class="console-window text-center my-3" @onkeydown="@Console.OnKeyDown" tabindex="0">
+	<div class="d-inline-block bg-dark text-light border p-2 text-start shadow padding-0">
 		<pre class="console">
 			<code>@Console.State</code>
 		</pre>
@@ -23,6 +27,10 @@
 		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\n', ConsoleKey.Enter, false, false, false)); }">Enter</button>
 		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Backspace, false, false, false)); }">Backspace</button>
 	</div>
+</div>
+
+<div class="alert alert-secondary" role="alert">
+	&#9000; Keyboard input is supported if you <strong>click</strong> on the game.
 </div>
 
 @code

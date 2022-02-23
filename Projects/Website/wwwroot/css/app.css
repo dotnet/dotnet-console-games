@@ -134,16 +134,27 @@ a, .btn-link {
     display: inline-block;
 }
 
-    .cursor::after {
-        content: "";
-        width: 1ch;
-        height: .5ch;
-        animation: blinking 1s step-start infinite;
-        background-color: #ffffff;
-        position: absolute;
-        display: flex;
-        transform: translateY(-.5ch);
-    }
+.cursor-light::after {
+    content: "";
+    width: 1ch;
+    height: .5ch;
+    animation: blinking 1s step-start infinite;
+    background-color: rgba(var(--bs-light-rgb),var(--bs-text-opacity)) !important;
+    position: absolute;
+    display: flex;
+    transform: translateY(-.5ch);
+}
+
+.cursor-dark::after {
+    content: "";
+    width: 1ch;
+    height: .5ch;
+    animation: blinking 1s step-start infinite;
+    background-color: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity))!important;
+    position: absolute;
+    display: flex;
+    transform: translateY(-.5ch);
+}
 
 @keyframes blinking {
     50% {
@@ -154,5 +165,14 @@ a, .btn-link {
 pre.console {
     white-space: pre;
     line-height: 1.1em;
+    overflow: hidden;
+    margin: 0;
+}
+
+.padding-0 {
+    padding: 0 !important;
+}
+
+.page {
     overflow: hidden;
 }

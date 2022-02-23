@@ -370,24 +370,13 @@ string[] DeathAnimation =
 	#endregion
 };
 
-const string wordsResource = "Website.Words.txt";
-Assembly assembly = Assembly.GetExecutingAssembly();
-using Stream stream = assembly.GetManifestResourceStream(wordsResource)!;
-if (stream is null)
+if (Resources.Words is null || Resources.Words.Length is 0)
 {
 	await Console.WriteLine("Error: Missing \"Words.txt\" embedded resource.");
 	await Console.WriteLine("Press enter to continue...");
 	await Console.ReadLine();
 	return;
 }
-List<string> words = new();
-using StreamReader streamReader = new(stream);
-while (!streamReader.EndOfStream)
-{
-	string word = streamReader.ReadLine()!;
-	words.Add(word);
-}
-string[] Words = words.ToArray();
 PlayAgain:
 Console.CursorVisible = false;
 await Console.Clear();
@@ -460,7 +449,7 @@ switch ((await Console.ReadKey(true)).Key)
 }
 await Console.Clear();
 
-string GetRandomWord() => Choose(Random, Words);
+string GetRandomWord() => Choose(Random, Resources.Words!);
 
 T Choose<T>(Random random, params T[] values) => values[random.Next(values.Length)];
 

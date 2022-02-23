@@ -1,14 +1,14 @@
 ﻿@using System
 @using System.Diagnostics
-@using Console = Website.Console<Website.Games.Wumpus_World.Wumpus_World>
+@using Console = Website.Console<Website.Games.Type.Type>
 
-@page "/Wumpus World"
+@page "/Type"
 
-<PageTitle>Wumpus World</PageTitle>
+<PageTitle>Type</PageTitle>
 
-<h1>Wumpus World</h1>
+<h1>Type</h1>
 
-<a href="https://github.com/ZacharyPatten/dotnet-console-games/tree/main/Projects/Wumpus%20World" alt="Go To Source Code">
+<a href="https://github.com/ZacharyPatten/dotnet-console-games/tree/main/Projects/Type" alt="Go To Source Code">
 	<img title="Go To Readme" alt="Go To Readme" src="https://img.shields.io/badge/readme-black?logo=github&amp&style=flat-square">
 </a>
 
@@ -38,6 +38,6 @@
 	protected override void OnInitialized()
 	{
 		Console._refresh = StateHasChanged;
-		InvokeAsync(Games.Wumpus_World.Wumpus_World.Run);
+		InvokeAsync(Games.Type.Type.Run);
 	}
 }

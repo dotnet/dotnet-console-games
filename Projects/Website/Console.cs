@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Towel;
 
 namespace Website;
 
@@ -35,6 +36,7 @@ public static class Console<TGame>
 			case "ArrowRight": _inputBuffer.Enqueue(new('\0', ConsoleKey.RightArrow, false, false, false)); break;
 			case "ArrowUp":    _inputBuffer.Enqueue(new('\0', ConsoleKey.UpArrow,    false, false, false)); break;
 			case "ArrowDown":  _inputBuffer.Enqueue(new('\0', ConsoleKey.DownArrow,  false, false, false)); break;
+			case ".":          _inputBuffer.Enqueue(new('.',  ConsoleKey.OemPeriod,  false, false, false)); break;
 			default:
 				if (e.Key.Length is 1 && e.Key[0] >= '0' && e.Key[0] <= '9')
 				{
@@ -50,6 +52,36 @@ public static class Console<TGame>
 				}
 				return;
 		}
+	}
+
+	public static string HtmlEncode(ConsoleColor color)
+	{
+		return color switch
+		{
+			ConsoleColor.Black =>       "#000000",
+			ConsoleColor.White =>       "#ffffff",
+			ConsoleColor.Blue =>        "#0000ff",
+			ConsoleColor.Red =>         "#ff0000",
+			ConsoleColor.Green =>       "#00ff00",
+			ConsoleColor.Yellow =>      "#ffff00",
+			ConsoleColor.Cyan =>        "#00ffff",
+			ConsoleColor.Magenta =>     "#ff00ff",
+			ConsoleColor.Gray =>        "#808080",
+			ConsoleColor.DarkBlue =>    "#00008b",
+			ConsoleColor.DarkRed =>     "#8b0000",
+			ConsoleColor.DarkGreen =>   "#006400",
+			ConsoleColor.DarkYellow =>  "#8b8000",
+			ConsoleColor.DarkCyan =>    "#008b8b",
+			ConsoleColor.DarkMagenta => "#8b008b",
+			ConsoleColor.DarkGray =>    "#a9a9a9",
+			_ => throw new NotImplementedException(),
+		};
+	}
+
+	public static void ResetColor()
+	{
+		_backgroundColor = ConsoleColor.Black;
+		_foregroundColor = ConsoleColor.White;
 	}
 
 	static Console()
@@ -81,9 +113,28 @@ public static class Console<TGame>
 				{
 					if (_cursorVisible && _cursorPosition == (column, row))
 					{
-						stateBuilder.Append(@"<span class=""cursor"">");
+						bool isDark =
+							(_view[row, column].Char is '█' && _view[row, column].ForegroundColor is ConsoleColor.White) ||
+							(_view[row, column].Char is ' ' && _view[row, column].BackgroundColor is ConsoleColor.White);
+						stateBuilder.Append($@"<span class=""cursor {(isDark ? "cursor-dark" : "cursor-light")}"">");
+					}
+					if (_view[row, column].BackgroundColor is not ConsoleColor.Black)
+					{
+						stateBuilder.Append($@"<span style=""background-color:{HtmlEncode(_view[row, column].BackgroundColor)}"">");
+					}
+					if (_view[row, column].ForegroundColor is not ConsoleColor.White)
+					{
+						stateBuilder.Append($@"<span style=""color:{HtmlEncode(_view[row, column].ForegroundColor)}"">");
 					}
 					stateBuilder.Append(HttpUtility.HtmlEncode(_view[row, column].Char));
+					if (_view[row, column].ForegroundColor is not ConsoleColor.White)
+					{
+						stateBuilder.Append(@"</span>");
+					}
+					if (_view[row, column].BackgroundColor is not ConsoleColor.Black)
+					{
+						stateBuilder.Append(@"</span>");
+					}
 					if (_cursorVisible && _cursorPosition == (column, row))
 					{
 						stateBuilder.Append(@"</span>");
@@ -247,10 +298,12 @@ public static class Console<TGame>
 					await Refresh();
 					return line;
 				default:
-					char c = keyInfo.KeyChar;
-					line += c;
-					WriteNoRefresh(c);
-					await Refresh();
+					if (keyInfo.KeyChar is not '\0')
+					{
+						line += keyInfo.KeyChar;
+						WriteNoRefresh(keyInfo.KeyChar);
+						await Refresh();
+					}
 					break;
 			}
 		}
@@ -298,6 +351,30 @@ public static class Console<TGame>
 		}
 	}
 
+	public static int BufferWidth
+	{
+		get
+		{
+			return _windowWidth;
+		}
+		set
+		{
+			_windowWidth = value;
+		}
+	}
+
+	public static int BufferHeight
+	{
+		get
+		{
+			return _windowHeight;
+		}
+		set
+		{
+			_windowHeight = value;
+		}
+	}
+
 	public static int CursorLeft
 	{
 		get
@@ -322,12 +399,66 @@ public static class Console<TGame>
 		}
 	}
 
+	public static ConsoleColor BackgroundColor
+	{
+		get
+		{
+			return _backgroundColor;
+		}
+		set
+		{
+			_backgroundColor = value;
+		}
+	}
+
+	public static ConsoleColor ForegroundColor
+	{
+		get
+		{
+			return _foregroundColor;
+		}
+		set
+		{
+			_foregroundColor = value;
+		}
+	}
+
+	public static int LargestWindowWidth => 120;
+
+	public static int LargestWindowHeight = 30;
+
 	public static async Task SetCursorPosition(int left, int top)
 	{
 		_cursorPosition = (left, top);
 		if (!_refreshOnInputOnly)
 		{
 			await Refresh();
+		}
+	}
+
+	public static async Task PromptPressToContinue(string? prompt = null, ConsoleKey key = ConsoleKey.Enter)
+	{
+		if (!key.IsDefined())
+		{
+			throw new ArgumentOutOfRangeException(nameof(key), key, $"{nameof(key)} is not a defined value in the {nameof(ConsoleKey)} enum");
+		}
+		prompt ??= $"Press [{key}] to continue...";
+		foreach (char c in prompt)
+		{
+			WriteNoRefresh(c);
+		}
+		await PressToContinue(key);
+	}
+
+	public static async Task PressToContinue(ConsoleKey key = ConsoleKey.Enter)
+	{
+		if (!key.IsDefined())
+		{
+			throw new ArgumentOutOfRangeException(nameof(key), key, $"{nameof(key)} is not a defined value in the {nameof(ConsoleKey)} enum");
+		}
+		while ((await ReadKey(true)).Key != key)
+		{
+			continue;
 		}
 	}
 }
