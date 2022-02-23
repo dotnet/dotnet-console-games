@@ -129,3 +129,30 @@ a, .btn-link {
 :focus {
     outline: none;
 }
+
+.cursor {
+    display: inline-block;
+}
+
+    .cursor::after {
+        content: "";
+        width: 1ch;
+        height: 5px;
+        animation: blinking 1s step-start infinite;
+        background-color: #ffffff;
+        position: absolute;
+        display: flex;
+        transform: translateY(-5px);
+    }
+
+@keyframes blinking {
+    50% {
+        opacity: 0;
+    }
+}
+
+pre.console {
+    white-space: pre;
+    line-height: 1.1em;
+    overflow: hidden;
+}
