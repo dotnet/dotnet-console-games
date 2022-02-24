@@ -90,6 +90,7 @@ while (true)
 					await Console.Write("You Win. Press Enter To Exit...");
 					await Console.ReadLine();
 					await Console.Clear();
+					await Console.Refresh();
 					return;
 				}
 			}
@@ -97,6 +98,7 @@ while (true)
 		case ConsoleKey.Escape:
 			await Console.Clear();
 			await Console.Write("Minesweeper was closed.");
+			await Console.Refresh();
 			return;
 	}
 }

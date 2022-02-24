@@ -103,6 +103,7 @@ a, .btn-link {
 
 .nav-item {
     padding-bottom: 0 !important;
+    white-space: nowrap;
 }
 
 .nav-item a {

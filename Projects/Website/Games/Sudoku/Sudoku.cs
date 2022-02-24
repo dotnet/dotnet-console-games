@@ -86,11 +86,12 @@ NewPuzzle:
 }
 await Console.Clear();
 await Console.Write("Sudoku was closed.");
+await Console.Refresh();
 
 bool IsValidMove(int?[,] board, int?[,] lockedBoard, int value, int x, int y)
 {
 	// Locked
-	if (!(lockedBoard[x, y] is null))
+	if (lockedBoard[x, y] is not null)
 	{
 		return false;
 	}
@@ -149,7 +150,7 @@ async Task ConsoleWrite(int?[,] board, int?[,] lockedBoard)
 		await Console.Write("║ ");
 		for (int j = 0; j < 9; j++)
 		{
-			if (!(lockedBoard is null) && !(lockedBoard[i, j] is null))
+			if (lockedBoard is not null && lockedBoard[i, j] is not null)
 			{
 				await Console.Write((lockedBoard[i, j].HasValue ? lockedBoard[i, j].ToString() : "■") + " ");
 			}

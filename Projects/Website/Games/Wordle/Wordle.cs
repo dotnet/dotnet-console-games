@@ -143,6 +143,7 @@ finally
 	Console.ResetColor();
 	await Console.Clear();
 	await Console.WriteLine("Wordle was closed.");
+	await Console.Refresh();
 }
 
 bool CheckForYellow(int index, string word, char[] letters)

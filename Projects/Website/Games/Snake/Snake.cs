@@ -39,6 +39,7 @@ try
 		{
 			await Console.Clear();
 			await Console.Write("Console was resized. Snake game has ended.");
+			await Console.Refresh();
 			return;
 		}
 		switch (direction)
@@ -54,6 +55,7 @@ try
 		{
 			await Console.Clear();
 			await Console.Write("Game Over. Score: " + (snake.Count - 1) + ".");
+			await Console.Refresh();
 			return;
 		}
 		await Console.SetCursorPosition(X, Y);

@@ -123,6 +123,7 @@ finally
 	await Console.Clear();
 	await Console.Write("Mancala closed.");
 	Console.CursorVisible = true;
+	await Console.Refresh();
 }
 
 void Initialize()

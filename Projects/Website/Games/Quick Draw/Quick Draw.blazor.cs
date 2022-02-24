@@ -148,6 +148,7 @@ public class Quick_Draw
 			await Console.Clear();
 			Console.CursorVisible = true;
 			await Console.Write("Quick Draw was closed.");
+			await Console.Refresh();
 		}
 	}
 }

@@ -74,6 +74,7 @@ public class Fighter
 			{
 				await Console.Clear();
 				await Console.Write("Console resized. Fighter was closed.");
+				await Console.Refresh();
 				return;
 			}
 
@@ -192,6 +193,7 @@ public class Fighter
 					case ConsoleKey.Escape:
 						await Console.Clear();
 						await Console.Write("Fighter was closed.");
+						await Console.Refresh();
 						return;
 				}
 			}

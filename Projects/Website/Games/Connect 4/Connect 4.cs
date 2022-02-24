@@ -124,6 +124,7 @@ GetInput:
 finally
 {
 	Console.CursorVisible = true;
+	await Console.Refresh();
 }
 
 void ResetBoard()

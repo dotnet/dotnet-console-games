@@ -11,11 +11,19 @@ public class Wumpus_World
 {
 	public static async Task Run()
 	{
+bool escape = false;
+
 (int X, int Y) PlayerLocation;
 Tile[,] Map;
 
 bool InvalidInput = false;
 Home:
+if (escape)
+{
+	await WriteLine("Wumpus World was closed.");
+	await Refresh();
+	return;
+}
 await Clear();
 await WriteLine("Wumpus World...");
 await WriteLine();
@@ -85,7 +93,7 @@ Quit:
 	await Write(">");
 	switch (await ReadLine())
 	{
-		case "yes": await Clear(); Environment.Exit(0); return;
+		case "yes": await Clear(); escape = true; return;
 		case "no": return;
 		default: InvalidInput = true; goto Quit;
 	};
@@ -109,6 +117,10 @@ async Task Play()
 	bool InvalidInput = false;
 	string? move = null;
 Play:
+	if (escape)
+	{
+		return;
+	}
 	await Clear();
 	await WriteLine("Wumpus World...");
 	await WriteLine();

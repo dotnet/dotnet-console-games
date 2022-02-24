@@ -61,10 +61,12 @@ try
 		await Console.WriteLine("Increase the size of the console window.");
 	}
 	await Console.WriteLine("Drive was closed.");
+	await Console.Refresh();
 }
 finally
 {
 	Console.CursorVisible = true;
+	await Console.Refresh();
 }
 
 void Initialize()

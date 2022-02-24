@@ -15,6 +15,8 @@ if (Resources.Words is null || Resources.Words.Length is 0)
 {
 	await Console.WriteLine("Error: Missing \"Words.txt\" embedded resource.");
 	await ConsoleHelper.PromptPressToContinue();
+	await Console.WriteLine("Type was closed.");
+	await Console.Refresh();
 	return;
 }
 
@@ -66,7 +68,7 @@ try
 			await Console.Clear();
 			Console.ForegroundColor = ConsoleColor.White;
 			await Console.WriteLine($"Type was closed.");
-			await ConsoleHelper.PromptPressToContinue();
+			await Console.Refresh();
 			return;
 		}
 		TimeSpan timeSpan = DateTime.Now - WordStart;
@@ -76,6 +78,9 @@ try
 			Console.ForegroundColor = ConsoleColor.White;
 			await Console.WriteLine($"Game over. Score: {Score}.");
 			await ConsoleHelper.PromptPressToContinue();
+			await Console.Clear();
+			await Console.WriteLine($"Type was closed.");
+			await Console.Refresh();
 			return;
 		}
 		if (!char.IsLetter(key.KeyChar) || key.KeyChar != Words[0].String[position])
@@ -99,6 +104,7 @@ finally
 	Console.ResetColor();
 	await Console.Clear();
 	Console.CursorVisible = true;
+	await Console.Refresh();
 }
 
 void GetWord()

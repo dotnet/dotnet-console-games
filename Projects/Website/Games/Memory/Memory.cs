@@ -66,6 +66,8 @@ finally
 	Console.ResetColor();
 	Console.CursorVisible = true;
 	await Console.Clear();
+	await Console.WriteLine("Memory was closed.");
+	await Console.Refresh();
 }
 
 void RandomizeBoard()
