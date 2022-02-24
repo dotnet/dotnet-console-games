@@ -1,57 +1,55 @@
 {
 	"files.exclude":
 	{
-		//".gitignore": true,
-		".vs": true,
+		"**/.vs": true,
 		"**/bin": true,
 		"**/obj": true,
-		//".github": true
 	},
 	"csharp.semanticHighlighting.enabled": true,
 
-	// color/theme settings
-	"workbench.colorTheme": "Default Dark+",
-	"editor.semanticTokenColorCustomizations":
-	{
-		"[Default Dark+]":
-		{
-			"enabled": true,
-			"rules":
-			{
-				"class": "#4EC9B0",
-				"comment": "#57A64A",
-				"controlKeyword": "#569CD6",
-				"delegate": "#BD63C5",
-				"enum": "#FF7F27",
-				"enumMember": "#ffffff",
-				"event": "#ffffff",
-				"excludedCode": "#9B9B9B",
-				"extensionMethod": "#CB859B",
-				"field": "#ffffff",
-				"interface": "#B8D7A3",
-				"keyword": "#569CD6",
-				"label": "#ffffff",
-				"local": "#ffffff",
-				"method": "#BD6380",
-				"namespace": "#ffffff",
-				"number": "#B8D7A3",
-				"operator": "#ffffff",
-				"operatorOverloaded": "#ffffff",
-				"parameter": "#ffffff",
-				"plainKeyword": "#569CD6",
-				"preprocessorKeyword": "#9B9B9B",
-				"preprocessorText": "#ffffff",
-				"property": "#ffffff",
-				"punctuation": "#ffffff",
-				"string": "#D69D85",
-				"stringVerbatim": "#D69D85",
-				"struct": "#FFFF80",
-				"typeParameter": "#808000",
-				"variable": "#ffffff",
-				"xmlDocCommentComment": "#56a64a7c",
-				"xmlDocCommentText": "#9B9B9B",
-				"xmlDocCommentAttributeName": "#9B9B9B"
-			}
-		}
-	}
+	//// color/theme settings
+	//"workbench.colorTheme": "Default Dark+",
+	//"editor.semanticTokenColorCustomizations":
+	//{
+	//	"[Default Dark+]":
+	//	{
+	//		"enabled": true,
+	//		"rules":
+	//		{
+	//			"class": "#4EC9B0",
+	//			"comment": "#57A64A",
+	//			"controlKeyword": "#569CD6",
+	//			"delegate": "#BD63C5",
+	//			"enum": "#FF7F27",
+	//			"enumMember": "#ffffff",
+	//			"event": "#ffffff",
+	//			"excludedCode": "#9B9B9B",
+	//			"extensionMethod": "#CB859B",
+	//			"field": "#ffffff",
+	//			"interface": "#B8D7A3",
+	//			"keyword": "#569CD6",
+	//			"label": "#ffffff",
+	//			"local": "#ffffff",
+	//			"method": "#BD6380",
+	//			"namespace": "#ffffff",
+	//			"number": "#B8D7A3",
+	//			"operator": "#ffffff",
+	//			"operatorOverloaded": "#ffffff",
+	//			"parameter": "#ffffff",
+	//			"plainKeyword": "#569CD6",
+	//			"preprocessorKeyword": "#9B9B9B",
+	//			"preprocessorText": "#ffffff",
+	//			"property": "#ffffff",
+	//			"punctuation": "#ffffff",
+	//			"string": "#D69D85",
+	//			"stringVerbatim": "#D69D85",
+	//			"struct": "#FFFF80",
+	//			"typeParameter": "#808000",
+	//			"variable": "#ffffff",
+	//			"xmlDocCommentComment": "#56a64a7c",
+	//			"xmlDocCommentText": "#9B9B9B",
+	//			"xmlDocCommentAttributeName": "#9B9B9B"
+	//		}
+	//	}
+	//}
 }

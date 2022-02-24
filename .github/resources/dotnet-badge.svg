@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="105" height="20" role="img" aria-label="target: net6.0">
+	<title>target: net6.0</title>
+	<linearGradient id="s" x2="0" y2="100%">
+		<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+		<stop offset="1" stop-opacity=".1"/>
+	</linearGradient>
+	<clipPath id="r">
+		<rect width="105" height="20" rx="3" fill="#fff"/>
+	</clipPath>
+	<g clip-path="url(#r)">
+		<rect width="60" height="20" fill="#555"/>
+		<rect x="60" width="45" height="20" fill="#512bd4"/>
+		<rect width="105" height="20" fill="url(#s)"/>
+	</g>
+	<g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" text-rendering="geometricPrecision" font-size="110">
+		<svg x="5" y="3" width="14" height="14" fill="#fff" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+			<path d="M24 8.77h-2.468v7.565h-1.425V8.77h-2.462V7.53H24zm-6.852 7.565h-4.821V7.53h4.63v1.24h-3.205v2.494h2.953v1.234h-2.953v2.604h3.396zm-6.708 0H8.882L4.78 9.863a2.896 2.896 0 0 1-.258-.51h-.036c.032.189.048.592.048 1.21v5.772H3.157V7.53h1.659l3.965 6.32c.167.261.275.442.323.54h.024c-.04-.233-.06-.629-.06-1.185V7.529h1.372zm-8.703-.693a.868.829 0 0 1-.869.829.868.829 0 0 1-.868-.83.868.829 0 0 1 .868-.828.868.829 0 0 1 .869.829Z"/>
+		</svg>
+		<text aria-hidden="true" x="395" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="330">target</text>
+		<text x="395" y="140" transform="scale(.1)" fill="#fff" textLength="330">target</text>
+		<text aria-hidden="true" x="815" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="350">net6.0</text>
+		<text x="815" y="140" transform="scale(.1)" fill="#fff" textLength="350">net6.0</text>
+	</g>
+</svg>

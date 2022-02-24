@@ -1,0 +1,35 @@
+{
+  "solution": {
+    "path": "dotnet-console-games-and-website.sln",
+    "projects": [
+      "Projects\\2048\\2048.csproj",
+      "Projects\\Beep Pad\\Beep Pad.csproj",
+      "Projects\\Connect 4\\Connect 4.csproj",
+      "Projects\\Drive\\Drive.csproj",
+      "Projects\\Fighter\\Fighter.csproj",
+      "Projects\\Flappy Bird\\Flappy Bird.csproj",
+      "Projects\\Hangman\\Hangman.csproj",
+      "Projects\\Helicopter\\Helicopter.csproj",
+      "Projects\\Hurdles\\Hurdles.csproj",
+      "Projects\\Mancala\\Mancala.csproj",
+      "Projects\\Maze\\Maze.csproj",
+      "Projects\\Memory\\Memory.csproj",
+      "Projects\\Minesweeper\\Minesweeper.csproj",
+      "Projects\\PacMan\\PacMan.csproj",
+      "Projects\\Pong\\Pong.csproj",
+      "Projects\\Quick Draw\\Quick Draw.csproj",
+      "Projects\\Rock Paper Scissors\\Rock Paper Scissors.csproj",
+      "Projects\\Role Playing Game\\Role Playing Game.csproj",
+      "Projects\\Rythm\\Rythm.csproj",
+      "Projects\\Simon\\Simon.csproj",
+      "Projects\\Snake\\Snake.csproj",
+      "Projects\\Sudoku\\Sudoku.csproj",
+      "Projects\\Tanks\\Tanks.csproj",
+      "Projects\\Tic Tac Toe\\Tic Tac Toe.csproj",
+      "Projects\\Type\\Type.csproj",
+      "Projects\\Whack A Mole\\Whack A Mole.csproj",
+      "Projects\\Wordle\\Wordle.csproj",
+      "Projects\\Wumpus World\\Wumpus World.csproj"
+    ]
+  }
+}
