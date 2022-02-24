@@ -34,7 +34,11 @@
 {
 	protected override void OnInitialized()
 	{
-		Console._refresh = StateHasChanged;
-		InvokeAsync(Games.Mancala.Mancala.Run);
+		if (!Console._initialized)
+		{
+			Console._refresh = StateHasChanged;
+			InvokeAsync(Games.Mancala.Mancala.Run);
+			Console._initialized = true;
+		}
 	}
 }

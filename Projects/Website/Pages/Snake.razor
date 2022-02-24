@@ -36,7 +36,11 @@
 {
 	protected override void OnInitialized()
 	{
-		Console._refresh = StateHasChanged;
-		InvokeAsync(Games.Snake.Snake.Run);
+		if (!Console._initialized)
+		{
+			Console._refresh = StateHasChanged;
+			InvokeAsync(Games.Snake.Snake.Run);
+			Console._initialized = true;
+		}
 	}
 }

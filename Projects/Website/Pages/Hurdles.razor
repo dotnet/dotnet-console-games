@@ -33,7 +33,11 @@
 {
 	protected override void OnInitialized()
 	{
-		Console._refresh = StateHasChanged;
-		InvokeAsync(Games.Hurdles.Hurdles.Run);
+		if (!Console._initialized)
+		{
+			Console._refresh = StateHasChanged;
+			InvokeAsync(Games.Hurdles.Hurdles.Run);
+			Console._initialized = true;
+		}
 	}
 }

@@ -36,7 +36,11 @@
 {
 	protected override void OnInitialized()
 	{
-		Console._refresh = StateHasChanged;
-		InvokeAsync(Games.PacMan.PacMan.Run);
+		if (!Console._initialized)
+		{
+			Console._refresh = StateHasChanged;
+			InvokeAsync(Games.PacMan.PacMan.Run);
+			Console._initialized = true;
+		}
 	}
 }

@@ -22,6 +22,7 @@ public static class Console<TGame>
 	internal static int _windowHeight = 30;
 	internal static int _windowWidth = 120;
 	internal static bool _refreshOnInputOnly = true;
+	internal static bool _initialized = false;
 
 	public static void OnKeyDown(KeyboardEventArgs e)
 	{
