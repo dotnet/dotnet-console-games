@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-    paths-include:
+    paths:
       - 'Projects/Website/**'
   workflow_dispatch:
 jobs:
