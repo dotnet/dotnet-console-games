@@ -17,10 +17,10 @@ public class Character
 	// relative to the current map
 	public int TileI => I < 0 ? (I - 6) / 7 : I / 7;
 	public int TileJ => J < 0 ? (J - 3) / 4 : J / 4;
-	private string[] _mapAnaimation;
+	private string[]? _mapAnaimation;
 	public string[] MapAnimation
 	{
-		get => _mapAnaimation;
+		get => _mapAnaimation!;
 		set
 		{
 			_mapAnaimation = value;

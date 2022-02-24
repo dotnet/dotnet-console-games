@@ -14,8 +14,9 @@ a, .btn-link {
 
 .btn-primary {
     color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    background-color: #131517 !important;
+    border-color: #000;
+    margin-bottom: .3rem;
 }
 
 .content {
@@ -92,8 +93,13 @@ a, .btn-link {
 
 .sidebar {
     background-image: none !important;
-    background-color: #fff !important;
-    color: #24292e;
+    background-color: #24292e !important;
+    color: hsla(0,0%,100%,.7) !important;
+}
+
+nav.flex-column {
+    background-color: #24292e !important;
+    padding-bottom: 1rem;
 }
 
 .sidebar-nav {
@@ -107,11 +113,11 @@ a, .btn-link {
 }
 
 .nav-item a {
-    color: #24292e !important;
+    color: hsla(0,0%,100%,.7) !important;
 }
 
     .nav-item a:hover {
-        color: hsla(0,0%,100%,.7) !important;
+        color: #ffffff !important;
         background-color: #3F4448 !important;
     }
 
@@ -177,4 +183,8 @@ pre.console {
 
 .padding-0 {
     padding: 0 !important;
+}
+
+.alert {
+    width: fit-content;
 }
