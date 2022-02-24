@@ -83,6 +83,7 @@ try
 finally
 {
 	Console.CursorVisible = true;
+	await Console.Refresh();
 }
 
 async Task GetDirection()

@@ -74,6 +74,7 @@ a, .btn-link {
 .top-row {
     background-color: #24292e !important;
     border-bottom: none !important;
+    position: relative !important;
 }
 
     .top-row a {
@@ -171,8 +172,4 @@ pre.console {
 
 .padding-0 {
     padding: 0 !important;
-}
-
-.page {
-    overflow: hidden;
 }
