@@ -101,6 +101,10 @@ a, .btn-link {
     /*height: 100%;*/
 }
 
+.nav-item {
+    padding-bottom: 0 !important;
+}
+
 .nav-item a {
     color: #24292e !important;
 }

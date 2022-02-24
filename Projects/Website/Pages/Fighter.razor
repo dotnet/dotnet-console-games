@@ -1,14 +1,14 @@
 ﻿@using System
 @using System.Diagnostics
-@using Console = Website.Console<Website.Games.Minesweeper.Minesweeper>
+@using Console = Website.Console<Website.Games.Fighter.Fighter>
 
-@page "/Minesweeper"
+@page "/Fighter"
 
-<PageTitle>Minesweeper</PageTitle>
+<PageTitle>Fighter</PageTitle>
 
-<h1>Minesweeper</h1>
+<h1>Fighter</h1>
 
-<a href="https://github.com/ZacharyPatten/dotnet-console-games/tree/main/Projects/Minesweeper" alt="Go To Readme">
+<a href="https://github.com/ZacharyPatten/dotnet-console-games/tree/main/Projects/Fighter" alt="Go To Readme">
 	<img title="Go To Readme" alt="Go To Readme" src="https://img.shields.io/badge/readme-black?logo=github&amp&style=flat-square">
 </a>
 
@@ -19,13 +19,9 @@
 		</pre>
 	</div>
 	<div>
-		@for (char i = '0'; i <= '9'; i++)
-		{
-			char c = i;
-			<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo((char)c, ConsoleKey.D0 + (c - '0'), false, false, false)); }">@c</button>
-		}
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.UpArrow,    false, false, false)); }">↑</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.DownArrow,  false, false, false)); }">↓</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('f',  ConsoleKey.F,          false, false, false)); }">f</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('d',  ConsoleKey.D,          false, false, false)); }">d</button>
+		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('s',  ConsoleKey.S,          false, false, false)); }">s</button>
 		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.LeftArrow,  false, false, false)); }">←</button>
 		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.RightArrow, false, false, false)); }">→</button>
 		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\n', ConsoleKey.Enter,      false, false, false)); }">enter</button>
@@ -42,6 +38,6 @@
 	protected override void OnInitialized()
 	{
 		Console._refresh = StateHasChanged;
-		InvokeAsync(Games.Minesweeper.Minesweeper.Run);
+		InvokeAsync(Games.Fighter.Fighter.Run);
 	}
 }

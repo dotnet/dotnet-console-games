@@ -1,14 +1,14 @@
 ﻿@using System
 @using System.Diagnostics
-@using Console = Website.Console<Website.Games.Minesweeper.Minesweeper>
+@using Console = Website.Console<Website.Games.Whack_A_Mole.Whack_A_Mole>
 
-@page "/Minesweeper"
+@page "/Whack A Mole"
 
-<PageTitle>Minesweeper</PageTitle>
+<PageTitle>Whack A Mole</PageTitle>
 
-<h1>Minesweeper</h1>
+<h1>Whack A Mole</h1>
 
-<a href="https://github.com/ZacharyPatten/dotnet-console-games/tree/main/Projects/Minesweeper" alt="Go To Readme">
+<a href="https://github.com/ZacharyPatten/dotnet-console-games/tree/main/Projects/Whack%20A%20Mole" alt="Go To Readme">
 	<img title="Go To Readme" alt="Go To Readme" src="https://img.shields.io/badge/readme-black?logo=github&amp&style=flat-square">
 </a>
 
@@ -24,10 +24,6 @@
 			char c = i;
 			<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo((char)c, ConsoleKey.D0 + (c - '0'), false, false, false)); }">@c</button>
 		}
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.UpArrow,    false, false, false)); }">↑</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.DownArrow,  false, false, false)); }">↓</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.LeftArrow,  false, false, false)); }">←</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.RightArrow, false, false, false)); }">→</button>
 		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\n', ConsoleKey.Enter,      false, false, false)); }">enter</button>
 		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Escape,     false, false, false)); }">escape</button>
 	</div>
@@ -42,6 +38,6 @@
 	protected override void OnInitialized()
 	{
 		Console._refresh = StateHasChanged;
-		InvokeAsync(Games.Minesweeper.Minesweeper.Run);
+		InvokeAsync(Games.Whack_A_Mole.Whack_A_Mole.Run);
 	}
 }
