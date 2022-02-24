@@ -461,4 +461,9 @@ public static class Console<TGame>
 			continue;
 		}
 	}
+
+	public static bool IsWindows()
+	{
+		return true;
+	}
 }
