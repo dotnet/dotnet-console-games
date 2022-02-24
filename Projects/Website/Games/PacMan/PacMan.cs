@@ -235,7 +235,7 @@ NextRound:
 				}
 			}
 		}
-		await Console.RefreshAndDelay(TimeSpan.FromMilliseconds(50));
+		await Console.RefreshAndDelay(TimeSpan.FromMilliseconds(20));
 	}
 	goto NextRound;
 }
