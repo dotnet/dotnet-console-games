@@ -57,6 +57,16 @@
     </script>
     <!-- End Single Page Apps for GitHub Pages -->
 
+    <!-- Prevent Scrolling On KeyDown Events -->
+    <script>
+        window.addEventListener("keydown", function (e) {
+            if (["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(e.code) > -1) {
+                e.preventDefault();
+            }
+        }, false);
+    </script>
+    <!-- End Prevent Scrolling On KeyDown Events -->
+
     <script src="_framework/blazor.webassembly.js"></script>
 </body>
 </html>

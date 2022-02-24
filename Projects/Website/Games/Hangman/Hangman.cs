@@ -395,6 +395,7 @@ GetInput:
 	{
 		await Console.Clear();
 		await Console.Write("Hangman was closed.");
+		await Console.Refresh();
 		return;
 	}
 	if (key < ConsoleKey.A || key > ConsoleKey.Z)

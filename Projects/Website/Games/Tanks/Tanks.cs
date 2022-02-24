@@ -148,7 +148,7 @@ async Task Render(string @string, bool renderSpace = false)
 	int y = Console.CursorTop;
 	foreach (char c in @string)
 		if (c is '\n') await Console.SetCursorPosition(x, ++y);
-		else if (!(c is ' ') || renderSpace) await Console.Write(c);
+		else if (c is not ' ' || renderSpace) await Console.Write(c);
 		else await Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop);
 }
 
@@ -334,6 +334,7 @@ while (Tanks.Contains(Player) && Tanks.Count > 1)
 					case ConsoleKey.Escape:
 						await Console.Clear();
 						await Console.Write("Tanks was closed.");
+						await Console.Refresh();
 						return;
 				}
 				while (await Console.KeyAvailable())
@@ -342,7 +343,7 @@ while (Tanks.Contains(Player) && Tanks.Count > 1)
 				}
 			}
 
-			tank.IsShooting = shoot.HasValue && !(shoot.Value is Direction.Null) && tank.Bullet is null;
+			tank.IsShooting = shoot.HasValue && shoot.Value is not Direction.Null && tank.Bullet is null;
 			if (tank.IsShooting)
 			{
 				tank.Direction = shoot ?? tank.Direction;
@@ -426,7 +427,7 @@ while (Tanks.Contains(Player) && Tanks.Count > 1)
 
 	foreach (var tank in AllTanks)
 	{
-		if (!(tank.Bullet is null))
+		if (tank.Bullet is not null)
 		{
 			var bullet = tank.Bullet;
 			await Console.SetCursorPosition(bullet.X, bullet.Y);
@@ -445,7 +446,7 @@ while (Tanks.Contains(Player) && Tanks.Count > 1)
 				: Bullet[(int)bullet.Direction]);
 			if (collision)
 			{
-				if (!(collisionTank is null) && --collisionTank.Health <= 0)
+				if (collisionTank is not null && --collisionTank.Health <= 0)
 				{
 					collisionTank.ExplodingFrame = 1;
 				}
@@ -471,7 +472,7 @@ while (Tanks.Contains(Player) && Tanks.Count > 1)
 
 	await Console.SetCursorPosition(0, 0);
 	await Render(Map);
-	await Console.RefreshAndDelay(TimeSpan.FromMilliseconds(30));
+	await Console.RefreshAndDelay(TimeSpan.FromMilliseconds(80));
 }
 
 await Console.SetCursorPosition(0, 33);
@@ -479,6 +480,9 @@ await Console.Write(Tanks.Contains(Player)
 	? "You Win."
 	: "You Lose.");
 await Console.ReadLine();
+await Console.Clear();
+await Console.WriteLine("Tanks was closed.");
+await Console.Refresh();
 	}
 
 	enum Direction

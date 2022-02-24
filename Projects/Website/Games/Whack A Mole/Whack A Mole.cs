@@ -8,6 +8,8 @@ public class Whack_A_Mole
 {
 	public static async Task Run()
 	{
+bool escape = false;
+
 string Board =
 	@" ╔═══╦═══════╗ ╔═══╦═══════╗ ╔═══╦═══════╗" + '\n' +
 	@" ║ 7 ║       ║ ║ 8 ║       ║ ║ 9 ║       ║" + '\n' +
@@ -48,7 +50,7 @@ if (OperatingSystem.IsWindows())
 	Console.WindowHeight = Math.Max(Console.WindowHeight, 22);
 }
 
-while (true)
+while (!escape)
 {
 	await Console.Clear();
 	await Console.WriteLine("Whack A Mole (Java Noob Edition)");
@@ -67,8 +69,9 @@ GetInput:
 		case ConsoleKey.Escape:
 			await Console.Clear();
 			await Console.WriteLine("Whack A Mole was closed...");
-			Environment.Exit(0);
-			break;
+			await Console.Refresh();
+			escape = true;
+			return;
 		default: goto GetInput;
 	}
 }
@@ -105,7 +108,8 @@ async Task Play()
 			case ConsoleKey.Escape:
 				await Console.Clear();
 				await Console.WriteLine("Whack A Mole was closed...");
-				Environment.Exit(0);
+				await Console.Refresh();
+				escape = true;
 				return;
 			default: goto GetInput;
 		}

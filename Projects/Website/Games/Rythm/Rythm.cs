@@ -71,6 +71,7 @@ PlayAgain:
 			case ConsoleKey.Escape:
 				await Console.Clear();
 				await Console.WriteLine("RRythm Closed.");
+				await Console.Refresh();
 				return;
 			default: goto GetInput;
 		}
@@ -98,6 +99,7 @@ PlayAgain:
 			{
 				await Console.Clear();
 				await Console.WriteLine("RRythm Closed.");
+				await Console.Refresh();
 				return;
 			}
 			foreach (var (Top, Key) in tracks)
@@ -194,6 +196,7 @@ GameOver:
 			case ConsoleKey.Escape:
 				await Console.Clear();
 				await Console.WriteLine("RRythm Closed.");
+				await Console.Refresh();
 				return;
 			default: goto GetInput;
 		}

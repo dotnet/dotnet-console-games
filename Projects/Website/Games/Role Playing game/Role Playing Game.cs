@@ -55,6 +55,7 @@ public class Role_Playing_Game
 			await Console.Clear();
 			await Console.WriteLine("Role Playing Game was closed.");
 			Console.CursorVisible = true;
+			await Console.Refresh();
 		}
 
 		void Initialize()

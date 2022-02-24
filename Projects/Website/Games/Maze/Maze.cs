@@ -72,11 +72,13 @@ public class Maze
 				case ConsoleKey.Escape:
 					await Console.Clear();
 					await Console.Write("MMaze was closed.");
+					await Console.Refresh();
 					return;
 			}
 		}
 		await Console.Clear();
 		await Console.Write("You Win.");
+		await Console.Refresh();
 #endif
 	}
 

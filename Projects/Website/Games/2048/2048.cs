@@ -90,6 +90,7 @@ try
 Close:
 	await Console.Clear();
 	await Console.Write("2048 was closed.");
+	await Console.Refresh();
 }
 finally
 {

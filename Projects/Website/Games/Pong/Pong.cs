@@ -109,6 +109,7 @@ while (scoreA < 3 && scoreB < 3)
 				case ConsoleKey.Escape:
 					await Console.Clear();
 					await Console.Write("Pong was closed.");
+					await Console.Refresh();
 					return;
 			}
 		}
@@ -163,6 +164,7 @@ if (scoreA < scoreB)
 {
 	await Console.Write("You lose.");
 }
+await Console.Refresh();
 
 Ball CreateNewBall()
 {

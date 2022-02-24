@@ -259,7 +259,7 @@ finally
 		{
 			case ConsoleKey.LeftArrow: PacManMovingDirection = Direction.Left; break;
 			case ConsoleKey.RightArrow: PacManMovingDirection = Direction.Right; break;
-			case ConsoleKey.Escape: await Console.Clear(); await Console.Write("PacMan was closed."); return true;
+			case ConsoleKey.Escape: await Console.Clear(); await Console.Write("PacMan was closed."); await Console.Refresh(); return true;
 			default: goto GetInput;
 		}
 		return false;
@@ -290,6 +290,7 @@ finally
 				case ConsoleKey.Escape:
 					await Console.Clear();
 					await Console.Write("PPacMan was closed.");
+					await Console.Refresh();
 					return true;
 			}
 		}

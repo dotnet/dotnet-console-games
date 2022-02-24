@@ -112,6 +112,7 @@ try
 				case ConsoleKey.Escape:
 					await Console.Clear();
 					await Console.Write("Simon was closed.");
+					await Console.Refresh();
 					return;
 				default: goto GetInput;
 			}
@@ -130,6 +131,7 @@ GameOver:
 finally
 {
 	Console.CursorVisible = true;
+	await Console.Refresh();
 }
 
 async Task Clear()

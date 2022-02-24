@@ -60,6 +60,8 @@ while (!closeRequested)
 			case ConsoleKey.Escape:
 				closeRequested = true;
 				await Console.Clear();
+				await Console.WriteLine("Tic Tac Toe was closed.");
+				await Console.Refresh();
 				break;
 			default: goto GetInput;
 		}
@@ -93,6 +95,8 @@ async Task PlayerTurn()
 			case ConsoleKey.Escape:
 				await Console.Clear();
 				closeRequested = true;
+				await Console.WriteLine("Tic Tac Toe was closed.");
+				await Console.Refresh();
 				break;
 		}
 	}

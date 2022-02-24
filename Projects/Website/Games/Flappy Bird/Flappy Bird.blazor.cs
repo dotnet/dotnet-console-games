@@ -65,6 +65,7 @@ public class Flappy_Bird
 				case ConsoleKey.Escape:
 					await Console.Clear();
 					await Console.Write("Flappy Bird was closed.");
+					await Console.Refresh();
 					return;
 				default:
 					goto StartingInput;
@@ -79,6 +80,7 @@ public class Flappy_Bird
 				{
 					await Console.Clear();
 					await Console.Write("You resized the console. Flappy Bird was closed.");
+					await Console.Refresh();
 					return;
 				}
 				if (Frame == int.MaxValue)
@@ -172,6 +174,7 @@ public class Flappy_Bird
 								case ConsoleKey.Escape:
 									await Console.Clear();
 									await Console.Write("Flappy Bird was closed.");
+									await Console.Refresh();
 									return;
 							}
 						}

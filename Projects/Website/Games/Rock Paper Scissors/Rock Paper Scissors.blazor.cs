@@ -25,7 +25,11 @@ public class Rock_Paper_Scissors
 				case "rock" or "r": playerMove = Move.Rock; break;
 				case "paper" or "p": playerMove = Move.Paper; break;
 				case "scissors" or "s": playerMove = Move.Scissors; break;
-				case "exit" or "e": await Console.Clear(); return;
+				case "exit" or "e":
+					await Console.Clear();
+					await Console.WriteLine("Rock, Paper, Scissors was closed.");
+					await Console.Refresh();
+					return;
 				default: await Console.WriteLine("Invalid Input. Try Again..."); goto GetInput;
 			}
 			Move computerMove = (Move)random.Next(3);

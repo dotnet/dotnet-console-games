@@ -158,6 +158,7 @@ while (position < int.MaxValue)
 			case ConsoleKey.Escape:
 				await Console.Clear();
 				await Console.Write("Hurdles was closed.");
+				await Console.Refresh();
 				return;
 			case ConsoleKey.UpArrow:
 				if (!jumpingFrame.HasValue)
@@ -219,6 +220,7 @@ while (position < int.MaxValue)
 }
 await Console.Clear();
 await Console.Write("You Win.");
+await Console.Refresh();
 
 async Task Render(string @string, bool renderSpace)
 {

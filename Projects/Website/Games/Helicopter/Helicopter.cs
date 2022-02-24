@@ -10,7 +10,6 @@ public class Helicopter
 {
 	public static async Task Run()
 	{
-
 TimeSpan threadSleepTimeSpan = TimeSpan.FromMilliseconds(10);
 TimeSpan helicopterTimeSpan = TimeSpan.FromMilliseconds(70);
 TimeSpan ufoMovementTimeSpan = TimeSpan.FromMilliseconds(100);
@@ -156,6 +155,7 @@ while (true)
 	{
 		await Console.Clear();
 		await Console.Write("Console window resized. Helicopter closed.");
+		await Console.Refresh();
 		return;
 	}
 
@@ -227,6 +227,7 @@ while (true)
 			case ConsoleKey.Escape:
 				await Console.Clear();
 				await Console.Write("Helicopter was closed.");
+				await Console.Refresh();
 				return;
 		}
 	}
