@@ -34,7 +34,11 @@
 {
 	protected override void OnInitialized()
 	{
-		Console._refresh = StateHasChanged;
-		InvokeAsync(Games.Pong.Pong.Run);
+		if (!Console._initialized)
+		{
+			Console._refresh = StateHasChanged;
+			InvokeAsync(Games.Pong.Pong.Run);
+			Console._initialized = true;
+		}
 	}
 }

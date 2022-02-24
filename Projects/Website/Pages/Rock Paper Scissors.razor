@@ -35,7 +35,11 @@
 {
 	protected override void OnInitialized()
 	{
-		Console._refresh = StateHasChanged;
-		InvokeAsync(Games.Rock_Paper_Scissors.Rock_Paper_Scissors.Run);
+		if (!Console._initialized)
+		{
+			Console._refresh = StateHasChanged;
+			InvokeAsync(Games.Rock_Paper_Scissors.Rock_Paper_Scissors.Run);
+			Console._initialized = true;
+		}
 	}
 }

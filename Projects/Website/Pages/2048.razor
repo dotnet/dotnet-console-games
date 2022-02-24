@@ -36,7 +36,11 @@
 {
 	protected override void OnInitialized()
 	{
-		Console._refresh = StateHasChanged;
-		InvokeAsync(Games._2048._2048.Run);
+		if (!Console._initialized)
+		{
+			Console._refresh = StateHasChanged;
+			InvokeAsync(Games._2048._2048.Run);
+			Console._initialized = true;
+		}
 	}
 }

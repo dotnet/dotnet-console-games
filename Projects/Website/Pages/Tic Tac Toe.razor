@@ -36,7 +36,11 @@
 {
 	protected override void OnInitialized()
 	{
-		Console._refresh = StateHasChanged;
-		InvokeAsync(Games.Tic_Tac_Toe.Tic_Tac_Toe.Run);
+		if (!Console._initialized)
+		{
+			Console._refresh = StateHasChanged;
+			InvokeAsync(Games.Tic_Tac_Toe.Tic_Tac_Toe.Run);
+			Console._initialized = true;
+		}
 	}
 }

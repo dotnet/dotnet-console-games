@@ -43,7 +43,11 @@
 {
 	protected override void OnInitialized()
 	{
-		Console._refresh = StateHasChanged;
-		InvokeAsync(Games.Sudoku.Sudoku.Run);
+		if (!Console._initialized)
+		{
+			Console._refresh = StateHasChanged;
+			InvokeAsync(Games.Sudoku.Sudoku.Run);
+			Console._initialized = true;
+		}
 	}
 }

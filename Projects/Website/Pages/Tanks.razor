@@ -40,7 +40,11 @@
 {
 	protected override void OnInitialized()
 	{
-		Console._refresh = StateHasChanged;
-		InvokeAsync(Games.Tanks.Tanks.Run);
+		if (!Console._initialized)
+		{
+			Console._refresh = StateHasChanged;
+			InvokeAsync(Games.Tanks.Tanks.Run);
+			Console._initialized = true;
+		}
 	}
 }
