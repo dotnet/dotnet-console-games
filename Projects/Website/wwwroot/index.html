@@ -19,6 +19,7 @@
 
     <!-- Start Single Page Apps for GitHub Pages -->
     <script type="text/javascript">
+
         // Single Page Apps for GitHub Pages
         // https://github.com/rafrex/spa-github-pages
         // Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
@@ -54,18 +55,42 @@
                 }
             }
         }(window.location))
+
     </script>
     <!-- End Single Page Apps for GitHub Pages -->
 
     <!-- Prevent Scrolling On KeyDown Events -->
     <script>
+
         window.addEventListener("keydown", function (e) {
             if (["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Home", "End"].indexOf(e.code) > -1) {
                 e.preventDefault();
             }
         }, false);
+
     </script>
     <!-- End Prevent Scrolling On KeyDown Events -->
+
+    <!-- Auto-Scaling Consoles -->
+    <script>
+
+        window.addEventListener('resize', scale_console);
+        window.addEventListener('locationchange', scale_console);
+        scale_console();
+        setInterval(scale_console, 1000);
+
+        function scale_console() {
+            var consoles = document.getElementsByClassName("console");
+            for (var i = 0; i < consoles.length; i++) {
+                var console = consoles.item(i).parentElement;
+                var scale = Math.min(console.parentElement.clientWidth / console.clientWidth, 1);
+                var translate = (console.clientWidth - (scale * console.clientWidth)) / -2;
+                console.style.transform = "translate(" + translate + "px, 0) scale(" + scale + ")";
+            }
+        }
+
+    </script>
+    <!-- End Auto-Scaling Consoles -->
 
     <script src="_framework/blazor.webassembly.js"></script>
 </body>
