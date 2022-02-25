@@ -176,6 +176,7 @@ while (position < int.MaxValue)
 	{
 		await Console.Clear();
 		await Console.Write("Game Over. Score " + position + ".");
+		await Console.Refresh();
 		return;
 	}
 	string playerFrame =

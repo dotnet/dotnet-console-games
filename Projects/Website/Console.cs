@@ -19,8 +19,8 @@ public static class Console<TGame>
 	internal static ConsoleColor _foregroundColor = ConsoleColor.White;
 	internal static (int Left, int Top) _cursorPosition = (0, 0);
 	internal static (char Char, ConsoleColor BackgroundColor, ConsoleColor ForegroundColor)[,] _view;
-	internal static int _windowHeight = 30;
-	internal static int _windowWidth = 120;
+	internal static int _windowHeight = 35;
+	internal static int _windowWidth = 80;
 	internal static bool _refreshOnInputOnly = true;
 	internal static bool _initialized = false;
 
@@ -28,6 +28,7 @@ public static class Console<TGame>
 	{
 		switch (e.Key)
 		{
+			case "End":        _inputBuffer.Enqueue(new('\b', ConsoleKey.End,        false, false, false)); break;
 			case "Backspace":  _inputBuffer.Enqueue(new('\b', ConsoleKey.Backspace,  false, false, false)); break;
 			case " ":          _inputBuffer.Enqueue(new(' ',  ConsoleKey.Spacebar,   false, false, false)); break;
 			case "Delete":     _inputBuffer.Enqueue(new('\0', ConsoleKey.Delete,     false, false, false)); break;
