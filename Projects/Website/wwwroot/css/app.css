@@ -19,6 +19,11 @@ a, .btn-link {
     margin-bottom: .3rem;
 }
 
+    .btn-primary:hover {
+        background-color: #24292e !important;
+        border-color: #000;
+    }
+
 .content {
     padding-top: 1.1rem;
 }
