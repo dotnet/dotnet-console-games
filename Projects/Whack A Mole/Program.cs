@@ -106,7 +106,8 @@ void Play()
 			score++;
 			Console.SetCursorPosition(left, top);
 			Render(Empty);
-			moleLocation = random.Next(1, 10);
+			int newMoleLocation = random.Next(1, 9);
+			moleLocation = newMoleLocation >= moleLocation ? newMoleLocation + 1 : newMoleLocation;
 		}
 	}
 	Console.CursorVisible = true;

@@ -127,6 +127,7 @@ try
 GameOver:
 	await Console.Clear();
 	await Console.Write("Game Over. Score: " + score + ".");
+	await Console.Refresh();
 }
 finally
 {

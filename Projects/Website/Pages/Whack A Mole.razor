@@ -22,11 +22,11 @@
 		{
 			char c = i;
 			<span></span>
-			<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo((char)c, ConsoleKey.D0 + (c - '0'), false, false, false)); }">@c</button>
+			<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.D0 + (c - '0'))">@c</button>
 			<span></span>
 		}
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\n', ConsoleKey.Enter,      false, false, false)); }">enter</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Escape,     false, false, false)); }">escape</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Enter) ">enter</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Escape)">escape</button>
 	</div>
 </div>
 
@@ -42,11 +42,13 @@
 {
 	protected override void OnInitialized()
 	{
-		if (!Console._initialized)
+		if (!Console.Initialized)
 		{
-			Console._refresh = StateHasChanged;
+			Console.WindowWidth = 46;
+			Console.WindowHeight = 28;
+			Console.StateHasChanged = StateHasChanged;
 			InvokeAsync(Games.Whack_A_Mole.Whack_A_Mole.Run);
-			Console._initialized = true;
+			Console.Initialized = true;
 		}
 	}
 }

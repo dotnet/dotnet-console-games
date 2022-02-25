@@ -18,19 +18,17 @@
 		</pre>
 	</div>
 	<div>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('1',  ConsoleKey.D1,     false, false, false)); }">1</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('2',  ConsoleKey.D2,     false, false, false)); }">2</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('3',  ConsoleKey.D3,     false, false, false)); }">3</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('4',  ConsoleKey.D4,     false, false, false)); }">4</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('5',  ConsoleKey.D5,     false, false, false)); }">5</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('6',  ConsoleKey.D6,     false, false, false)); }">6</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('7',  ConsoleKey.D7,     false, false, false)); }">7</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('8',  ConsoleKey.D8,     false, false, false)); }">8</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('9',  ConsoleKey.D4,     false, false, false)); }">9</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Delete, false, false, false)); }">delete</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\n', ConsoleKey.Enter,  false, false, false)); }">enter</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.End,    false, false, false)); }">end</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Escape, false, false, false)); }">escape</button>
+		@for (char i = '1'; i <= '9'; i++)
+		{
+			char c = i;
+			<span></span>
+			<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.D0 + c - '0')">@c</button>
+			<span></span>
+		}
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Delete)">delete</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Enter) ">enter</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.End)   ">end</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Escape)">escape</button>
 	</div>
 </div>
 
@@ -46,11 +44,13 @@
 {
 	protected override void OnInitialized()
 	{
-		if (!Console._initialized)
+		if (!Console.Initialized)
 		{
-			Console._refresh = StateHasChanged;
+			Console.WindowWidth = 45;
+			Console.WindowHeight = 26;
+			Console.StateHasChanged = StateHasChanged;
 			InvokeAsync(Games.Sudoku.Sudoku.Run);
-			Console._initialized = true;
+			Console.Initialized = true;
 		}
 	}
 }

@@ -11,48 +11,76 @@ namespace Website;
 
 public static class Console<TGame>
 {
-	internal const int _delay = 1;
-	internal static Action? _refresh;
-	internal static bool _cursorVisible = true;
-	internal static Queue<ConsoleKeyInfo> _inputBuffer = new();
-	internal static ConsoleColor _backgroundColor = ConsoleColor.Black;
-	internal static ConsoleColor _foregroundColor = ConsoleColor.White;
-	internal static (int Left, int Top) _cursorPosition = (0, 0);
+	internal const int Delay = 1;
+	internal static readonly Queue<ConsoleKeyInfo> InputBuffer = new();
+	internal static Action? StateHasChanged;
+	internal static bool RefreshOnInputOnly = true;
+	internal static bool Initialized = false;
 	internal static (char Char, ConsoleColor BackgroundColor, ConsoleColor ForegroundColor)[,] _view;
-	internal static int _windowHeight = 35;
-	internal static int _windowWidth = 80;
-	internal static bool _refreshOnInputOnly = true;
-	internal static bool _initialized = false;
+	
+	internal static ConsoleColor BackgroundColor = ConsoleColor.Black;
+	internal static ConsoleColor ForegroundColor = ConsoleColor.White;
+	internal static bool CursorVisible = true;
+	internal static int WindowHeight = 35;
+	internal static int WindowWidth = 80;
+	public static int LargestWindowWidth = 120;
+	public static int LargestWindowHeight = 40;
+	public static int CursorLeft = 0;
+	public static int CursorTop = 0;
+
+	public static int BufferWidth
+	{
+		get => WindowWidth;
+		set => WindowWidth = value;
+	}
+
+	public static int BufferHeight
+	{
+		get => WindowHeight;
+		set => WindowHeight = value;
+	}
+
+	public static void EnqueueInput(ConsoleKey key, bool shift = false, bool alt = false, bool control = false)
+	{
+		char c = key switch
+		{
+			>= ConsoleKey.A and <= ConsoleKey.Z => (char)(key - ConsoleKey.A + 'a'),
+			>= ConsoleKey.D0 and <= ConsoleKey.D9 => (char)(key - ConsoleKey.D0 + '0'),
+			ConsoleKey.Enter => '\n',
+			ConsoleKey.Backspace => '\b',
+			ConsoleKey.OemPeriod => '.',
+			_ => '\0',
+		};
+		InputBuffer.Enqueue(new(shift ? char.ToUpper(c) : c, key, shift, alt, control));
+	}
 
 	public static void OnKeyDown(KeyboardEventArgs e)
 	{
 		switch (e.Key)
 		{
-			case "End":        _inputBuffer.Enqueue(new('\b', ConsoleKey.End,        false, false, false)); break;
-			case "Backspace":  _inputBuffer.Enqueue(new('\b', ConsoleKey.Backspace,  false, false, false)); break;
-			case " ":          _inputBuffer.Enqueue(new(' ',  ConsoleKey.Spacebar,   false, false, false)); break;
-			case "Delete":     _inputBuffer.Enqueue(new('\0', ConsoleKey.Delete,     false, false, false)); break;
-			case "Enter":      _inputBuffer.Enqueue(new('\n', ConsoleKey.Enter,      false, false, false)); break;
-			case "Escape":     _inputBuffer.Enqueue(new('\0', ConsoleKey.Escape,     false, false, false)); break;
-			case "ArrowLeft":  _inputBuffer.Enqueue(new('\0', ConsoleKey.LeftArrow,  false, false, false)); break;
-			case "ArrowRight": _inputBuffer.Enqueue(new('\0', ConsoleKey.RightArrow, false, false, false)); break;
-			case "ArrowUp":    _inputBuffer.Enqueue(new('\0', ConsoleKey.UpArrow,    false, false, false)); break;
-			case "ArrowDown":  _inputBuffer.Enqueue(new('\0', ConsoleKey.DownArrow,  false, false, false)); break;
-			case ".":          _inputBuffer.Enqueue(new('.',  ConsoleKey.OemPeriod,  false, false, false)); break;
+			case "End":        EnqueueInput(ConsoleKey.End);        break;
+			case "Backspace":  EnqueueInput(ConsoleKey.Backspace);  break;
+			case " ":          EnqueueInput(ConsoleKey.Spacebar);   break;
+			case "Delete":     EnqueueInput(ConsoleKey.Delete);     break;
+			case "Enter":      EnqueueInput(ConsoleKey.Enter);      break;
+			case "Escape":     EnqueueInput(ConsoleKey.Escape);     break;
+			case "ArrowLeft":  EnqueueInput(ConsoleKey.LeftArrow);  break;
+			case "ArrowRight": EnqueueInput(ConsoleKey.RightArrow); break;
+			case "ArrowUp":    EnqueueInput(ConsoleKey.UpArrow);    break;
+			case "ArrowDown":  EnqueueInput(ConsoleKey.DownArrow);  break;
+			case ".":          EnqueueInput(ConsoleKey.OemPeriod);  break;
 			default:
-				if (e.Key.Length is 1 && e.Key[0] >= '0' && e.Key[0] <= '9')
+				if (e.Key.Length is 1)
 				{
-					_inputBuffer.Enqueue(new(e.Key[0], ConsoleKey.D0 + (e.Key[0] - '0'), false, false, false));
+					char c = e.Key[0];
+					switch (c)
+					{
+						case >= '0' and <= '9': EnqueueInput(ConsoleKey.D0 + (c - '0'));              break;
+						case >= 'a' and <= 'z': EnqueueInput(ConsoleKey.A  + (c - 'a'));              break;
+						case >= 'A' and <= 'Z': EnqueueInput(ConsoleKey.A  + (c - 'A'), shift: true); break;
+					}
 				}
-				if (e.Key.Length is 1 && e.Key[0] >= 'a' && e.Key[0] <= 'z')
-				{
-					_inputBuffer.Enqueue(new(e.Key[0], ConsoleKey.A + (e.Key[0] - 'a'), false, false, false));
-				}
-				else if (e.Key.Length is 1 && e.Key[0] >= 'A' && e.Key[0] <= 'Z')
-				{
-					_inputBuffer.Enqueue(new(e.Key[0], ConsoleKey.A + (e.Key[0] - 'A'), true, false, false));
-				}
-				return;
+				break;
 		}
 	}
 
@@ -82,8 +110,8 @@ public static class Console<TGame>
 
 	public static void ResetColor()
 	{
-		_backgroundColor = ConsoleColor.Black;
-		_foregroundColor = ConsoleColor.White;
+		BackgroundColor = ConsoleColor.Black;
+		ForegroundColor = ConsoleColor.White;
 	}
 
 	static Console()
@@ -94,26 +122,38 @@ public static class Console<TGame>
 
 	public static async Task RefreshAndDelay(TimeSpan timeSpan)
 	{
-		_refresh?.Invoke();
+		StateHasChanged?.Invoke();
 		await Task.Delay(timeSpan);
 	}
 
 	public static async Task Refresh()
 	{
-		_refresh?.Invoke();
-		await Task.Delay(_delay);
+		StateHasChanged?.Invoke();
+		await Task.Delay(Delay);
 	}
 
 	public static MarkupString State
 	{
 		get
 		{
+			if (_view.GetLength(0) != WindowHeight || _view.GetLength(1) != WindowWidth)
+			{
+				(char, ConsoleColor, ConsoleColor)[,] old_view = _view;
+				_view = new (char, ConsoleColor, ConsoleColor)[WindowHeight, WindowWidth];
+				for (int row = 0; row < _view.GetLength(0); row++)
+				{
+					for (int column = 0; column < _view.GetLength(1); column++)
+					{
+						_view[row, column] = old_view[row, column];
+					}
+				}
+			}
 			StringBuilder stateBuilder = new();
 			for (int row = 0; row < _view.GetLength(0); row++)
 			{
 				for (int column = 0; column < _view.GetLength(1); column++)
 				{
-					if (_cursorVisible && _cursorPosition == (column, row))
+					if (CursorVisible && (CursorLeft, CursorTop) == (column, row))
 					{
 						bool isDark =
 							(_view[row, column].Char is '█' && _view[row, column].ForegroundColor is ConsoleColor.White) ||
@@ -137,7 +177,7 @@ public static class Console<TGame>
 					{
 						stateBuilder.Append(@"</span>");
 					}
-					if (_cursorVisible && _cursorPosition == (column, row))
+					if (CursorVisible && (CursorLeft, CursorTop) == (column, row))
 					{
 						stateBuilder.Append(@"</span>");
 					}
@@ -151,14 +191,14 @@ public static class Console<TGame>
 
 	public static void ResetColors()
 	{
-		_backgroundColor = ConsoleColor.Black;
-		_foregroundColor = ConsoleColor.White;
+		BackgroundColor = ConsoleColor.Black;
+		ForegroundColor = ConsoleColor.White;
 	}
 
 	public static async Task Clear()
 	{
 		ClearNoRefresh();
-		if (!_refreshOnInputOnly)
+		if (!RefreshOnInputOnly)
 		{
 			await Refresh();
 		}
@@ -170,10 +210,10 @@ public static class Console<TGame>
 		{
 			for (int column = 0; column < _view.GetLength(1); column++)
 			{
-				_view[row, column] = (' ', _backgroundColor, _foregroundColor);
+				_view[row, column] = (' ', BackgroundColor, ForegroundColor);
 			}
 		}
-		_cursorPosition = (0, 0);
+		(CursorLeft, CursorTop) = (0, 0);
 	}
 
 	public static void WriteNoRefresh(char c)
@@ -187,21 +227,21 @@ public static class Console<TGame>
 			WriteLineNoRefresh();
 			return;
 		}
-		if (_cursorPosition.Left >= _view.GetLength(1))
+		if (CursorLeft >= _view.GetLength(1))
 		{
-			_cursorPosition = (0, _cursorPosition.Top + 1);
+			(CursorLeft, CursorTop) = (0, CursorTop + 1);
 		}
-		_view[_cursorPosition.Top, _cursorPosition.Left] = (c, _backgroundColor, _foregroundColor);
-		_cursorPosition = (_cursorPosition.Left + 1, _cursorPosition.Top);
+		_view[CursorTop, CursorLeft] = (c, BackgroundColor, ForegroundColor);
+		CursorLeft++;
 	}
 
 	public static void WriteLineNoRefresh()
 	{
-		while (_cursorPosition.Left < _view.GetLength(1))
+		while (CursorLeft < _view.GetLength(1))
 		{
 			WriteNoRefresh(' ');
 		}
-		_cursorPosition = (0, _cursorPosition.Top + 1);
+		(CursorLeft, CursorTop) = (0, CursorTop + 1);
 	}
 
 	public static async Task Write(object o)
@@ -213,7 +253,7 @@ public static class Console<TGame>
 		{
 			WriteNoRefresh(c);
 		}
-		if (!_refreshOnInputOnly)
+		if (!RefreshOnInputOnly)
 		{
 			await Refresh();
 		}
@@ -239,7 +279,7 @@ public static class Console<TGame>
 			}
 		}
 		WriteLineNoRefresh();
-		if (!_refreshOnInputOnly)
+		if (!RefreshOnInputOnly)
 		{
 			await Refresh();
 		}
@@ -251,21 +291,15 @@ public static class Console<TGame>
 		{
 			await Refresh();
 		}
-		var keyInfo = _inputBuffer.Dequeue();
+		var keyInfo = InputBuffer.Dequeue();
 		if (capture is false)
 		{
-			switch (keyInfo.Key)
+			switch (keyInfo.KeyChar)
 			{
-				case ConsoleKey.Enter:
-					WriteLineNoRefresh();
-					break;
-				case ConsoleKey.Escape or ConsoleKey.Home or ConsoleKey.End:
-					break;
-				default:
-					WriteNoRefresh(keyInfo.KeyChar);
-					break;
-					//case > ConsoleKey.A and < ConsoleKey.Z:
-					//	break;
+				case '\n': WriteLineNoRefresh(); break;
+				case '\0': break;
+				case '\b': throw new NotImplementedException("ReadKey backspace not implemented");
+				default: WriteNoRefresh(keyInfo.KeyChar); break;
 			}
 		}
 		return keyInfo;
@@ -280,16 +314,16 @@ public static class Console<TGame>
 			{
 				await Refresh();
 			}
-			var keyInfo = _inputBuffer.Dequeue();
+			var keyInfo = InputBuffer.Dequeue();
 			switch (keyInfo.Key)
 			{
 				case ConsoleKey.Backspace:
 					if (line.Length > 0)
 					{
-						if (_cursorPosition.Left > 0)
+						if (CursorLeft > 0)
 						{
-							_cursorPosition.Left--;
-							_view[_cursorPosition.Top, _cursorPosition.Left] = (' ', _view[_cursorPosition.Top, _cursorPosition.Left].BackgroundColor, _view[_cursorPosition.Top, _cursorPosition.Left].ForegroundColor);
+							CursorLeft--;
+							_view[CursorTop, CursorLeft].Char = ' ';
 						}
 						line = line[..^1];
 						await Refresh();
@@ -311,128 +345,16 @@ public static class Console<TGame>
 		}
 	}
 
-	public static bool CursorVisible
-	{
-		get
-		{
-			return _cursorVisible;
-		}
-		set
-		{
-			_cursorVisible = value;
-		}
-	}
-
 	public static async Task<bool> KeyAvailable()
 	{
 		await Refresh();
-		return _inputBuffer.Count > 0;
+		return InputBuffer.Count > 0;
 	}
-
-	public static int WindowWidth
-	{
-		get
-		{
-			return _windowWidth;
-		}
-		set
-		{
-			_windowWidth = value;
-		}
-	}
-
-	public static int WindowHeight
-	{
-		get
-		{
-			return _windowHeight;
-		}
-		set
-		{
-			_windowHeight = value;
-		}
-	}
-
-	public static int BufferWidth
-	{
-		get
-		{
-			return _windowWidth;
-		}
-		set
-		{
-			_windowWidth = value;
-		}
-	}
-
-	public static int BufferHeight
-	{
-		get
-		{
-			return _windowHeight;
-		}
-		set
-		{
-			_windowHeight = value;
-		}
-	}
-
-	public static int CursorLeft
-	{
-		get
-		{
-			return _cursorPosition.Left;
-		}
-		set
-		{
-			_cursorPosition.Left = value;
-		}
-	}
-
-	public static int CursorTop
-	{
-		get
-		{
-			return _cursorPosition.Top;
-		}
-		set
-		{
-			_cursorPosition.Top = value;
-		}
-	}
-
-	public static ConsoleColor BackgroundColor
-	{
-		get
-		{
-			return _backgroundColor;
-		}
-		set
-		{
-			_backgroundColor = value;
-		}
-	}
-
-	public static ConsoleColor ForegroundColor
-	{
-		get
-		{
-			return _foregroundColor;
-		}
-		set
-		{
-			_foregroundColor = value;
-		}
-	}
-
-	public static int LargestWindowWidth => 120;
-
-	public static int LargestWindowHeight = 40;
 
 	public static async Task SetCursorPosition(int left, int top)
 	{
-		_cursorPosition = (left, top);
-		if (!_refreshOnInputOnly)
+		(CursorLeft, CursorTop) = (left, top);
+		if (!RefreshOnInputOnly)
 		{
 			await Refresh();
 		}

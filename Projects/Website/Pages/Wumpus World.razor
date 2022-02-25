@@ -22,11 +22,11 @@
 		{
 			char c = i;
 			<span></span>
-			<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo((char)c, ConsoleKey.A + (c - 'a'), false, false, false)); }">@c</button> 
+			<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.A + (c - 'a'))">@c</button> 
 			<span></span>
 		}
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\n', ConsoleKey.Enter,     false, false, false)); }">enter</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Backspace, false, false, false)); }">backspace</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Enter)    ">enter</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Backspace)">backspace</button>
 	</div>
 </div>
 
@@ -42,11 +42,13 @@
 {
 	protected override void OnInitialized()
 	{
-		if (!Console._initialized)
+		if (!Console.Initialized)
 		{
-			Console._refresh = StateHasChanged;
+			Console.WindowWidth = 60;
+			Console.WindowHeight = 24;
+			Console.StateHasChanged = StateHasChanged;
 			InvokeAsync(Games.Wumpus_World.Wumpus_World.Run);
-			Console._initialized = true;
+			Console.Initialized = true;
 		}
 	}
 }

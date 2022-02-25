@@ -18,11 +18,11 @@
 		</pre>
 	</div>
 	<div>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('r',  ConsoleKey.R,     false, false, false)); }">r</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('p',  ConsoleKey.P,     false, false, false)); }">p</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('s',  ConsoleKey.S,     false, false, false)); }">s</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\n', ConsoleKey.Enter, false, false, false)); }">enter</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('e',  ConsoleKey.E,     false, false, false)); }">e</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.R)    ">r</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.P)    ">p</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.S)    ">s</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Enter)">enter</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.E)    ">e</button>
 	</div>
 </div>
 
@@ -38,11 +38,11 @@
 {
 	protected override void OnInitialized()
 	{
-		if (!Console._initialized)
+		if (!Console.Initialized)
 		{
-			Console._refresh = StateHasChanged;
+			Console.StateHasChanged = StateHasChanged;
 			InvokeAsync(Games.Rock_Paper_Scissors.Rock_Paper_Scissors.Run);
-			Console._initialized = true;
+			Console.Initialized = true;
 		}
 	}
 }

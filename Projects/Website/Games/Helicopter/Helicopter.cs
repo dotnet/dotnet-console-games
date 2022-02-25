@@ -189,6 +189,7 @@ while (true)
 			{
 				await Console.Clear();
 				await Console.Write("Game Over. Score: " + score + ".");
+				await Console.Refresh();
 				return;
 			}
 		}
