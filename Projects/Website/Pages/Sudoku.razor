@@ -25,10 +25,14 @@
 			<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.D0 + c - '0')">@c</button>
 			<span></span>
 		}
-		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Delete)">delete</button>
-		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Enter) ">enter</button>
-		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.End)   ">end</button>
-		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Escape)">escape</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.UpArrow)   ">↑</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.DownArrow) ">↓</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.LeftArrow) ">←</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.RightArrow)">→</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Delete)    ">delete</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Enter)     ">enter</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.End)       ">end</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Escape)    ">escape</button>
 	</div>
 </div>
 
