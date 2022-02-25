@@ -427,7 +427,7 @@ public static class Console<TGame>
 
 	public static int LargestWindowWidth => 120;
 
-	public static int LargestWindowHeight = 30;
+	public static int LargestWindowHeight = 40;
 
 	public static async Task SetCursorPosition(int left, int top)
 	{
