@@ -348,7 +348,7 @@ async Task Render()
 			await Console.WriteLine("  You must select a non-empty pit.           ");
 			break;
 		case State.OutOfMovesConfimation:
-			bool playerIsEmpty = pitsAndStores[0..6].Any(seeds => seeds > 0);
+			bool playerIsEmpty = !pitsAndStores[0..6].Any(seeds => seeds > 0);
 			if (playerIsEmpty)
 			{
 				await Console.WriteLine("  You are out of moves. Remaining seeds are  ");

@@ -18,13 +18,13 @@
 		</pre>
 	</div>
 	<div>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('1',  ConsoleKey.D1,       false, false, false)); }">1</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('2',  ConsoleKey.D2,       false, false, false)); }">2</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('3',  ConsoleKey.D3,       false, false, false)); }">3</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('4',  ConsoleKey.D4,       false, false, false)); }">4</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo(' ',  ConsoleKey.Spacebar, false, false, false)); }">spacebar</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\n', ConsoleKey.Enter,    false, false, false)); }">enter</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Escape,   false, false, false)); }">escape</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.D1)      ">1</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.D2)      ">2</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.D3)      ">3</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.D4)      ">4</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Spacebar)">spacebar</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Enter)   ">enter</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Escape)  ">escape</button>
 	</div>
 </div>
 
@@ -40,11 +40,13 @@
 {
 	protected override void OnInitialized()
 	{
-		if (!Console._initialized)
+		if (!Console.Initialized)
 		{
-			Console._refresh = StateHasChanged;
+			Console.WindowWidth = 65;
+			Console.WindowHeight = 16;
+			Console.StateHasChanged = StateHasChanged;
 			InvokeAsync(Games.Quick_Draw.Quick_Draw.Run);
-			Console._initialized = true;
+			Console.Initialized = true;
 		}
 	}
 }

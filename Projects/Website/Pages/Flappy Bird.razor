@@ -18,9 +18,9 @@
 		</pre>
 	</div>
 	<div>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo(' ',  ConsoleKey.Spacebar, false, false, false)); }">spacebar</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\n', ConsoleKey.Enter,    false, false, false)); }">enter</button>
-		<button class="btn btn-primary" @onclick="() => { Console._inputBuffer.Enqueue(new ConsoleKeyInfo('\0', ConsoleKey.Escape,   false, false, false)); }">escape</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Spacebar)">spacebar</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Enter)   ">enter</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Escape)  ">escape</button>
 	</div>
 </div>
 
@@ -36,11 +36,11 @@
 {
 	protected override void OnInitialized()
 	{
-		if (!Console._initialized)
+		if (!Console.Initialized)
 		{
-			Console._refresh = StateHasChanged;
+			Console.StateHasChanged = StateHasChanged;
 			InvokeAsync(Games.Flappy_Bird.Flappy_Bird.Run);
-			Console._initialized = true;
+			Console.Initialized = true;
 		}
 	}
 }
