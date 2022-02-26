@@ -62,6 +62,8 @@
 
 ## Getting Started
 
+> _**Recommendation**: Use these game examples for learning. Play the games, pick a game you like, and try to code the game yourself from scratch. If you ever get stuck, just refer to the working example._
+
 [Clone the repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) or [download the repository](https://github.com/ZacharyPatten/dotnet-console-games/archive/main.zip) and unzip the contents. `dotnet-console-games` should build with any standard .NET build process, but one of the following is recommended:
 
 <details>
@@ -102,8 +104,6 @@
 
 </p>
 </details>
-
-> _**Recommendation**: Use these game examples for learning. Play the games, pick a game you like, and try to code the game yourself from scratch. If you ever get stuck, just refer to the working example._
 
 ## Get Involved
 
