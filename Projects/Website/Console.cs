@@ -11,18 +11,18 @@ namespace Website;
 
 public static class Console<TGame>
 {
-	internal const int Delay = 1;
-	internal static readonly Queue<ConsoleKeyInfo> InputBuffer = new();
-	internal static Action? StateHasChanged;
-	internal static bool RefreshOnInputOnly = true;
-	internal static bool Initialized = false;
-	internal static (char Char, ConsoleColor BackgroundColor, ConsoleColor ForegroundColor)[,] _view;
-	
-	internal static ConsoleColor BackgroundColor = ConsoleColor.Black;
-	internal static ConsoleColor ForegroundColor = ConsoleColor.White;
-	internal static bool CursorVisible = true;
-	internal static int WindowHeight = 35;
-	internal static int WindowWidth = 80;
+	public const int Delay = 1;
+	public static readonly Queue<ConsoleKeyInfo> InputBuffer = new();
+	public static Action? StateHasChanged;
+	public static bool RefreshOnInputOnly = true;
+	public static bool Initialized = false;
+	public static ConsolePixel[,] View;
+
+	public static ConsoleColor BackgroundColor = ConsoleColor.Black;
+	public static ConsoleColor ForegroundColor = ConsoleColor.White;
+	public static bool CursorVisible = true;
+	public static int WindowHeight = 35;
+	public static int WindowWidth = 80;
 	public static int LargestWindowWidth = 120;
 	public static int LargestWindowHeight = 40;
 	public static int CursorLeft = 0;
@@ -39,6 +39,15 @@ public static class Console<TGame>
 		get => WindowHeight;
 		set => WindowHeight = value;
 	}
+
+	/// <summary>
+	/// Returns true. Some members of <see cref="System.Console"/> only work
+	/// on Windows such as <see cref="System.Console.WindowWidth"/>, but even though this
+	/// is blazor and not necessarily on Windows, this wrapper contains implementations
+	/// for those Windows-only members.
+	/// </summary>
+	/// <returns>true</returns>
+	public static bool IsWindows() => true;
 
 	public static void EnqueueInput(ConsoleKey key, bool shift = false, bool alt = false, bool control = false)
 	{
@@ -116,7 +125,7 @@ public static class Console<TGame>
 
 	static Console()
 	{
-		_view = new (char, ConsoleColor, ConsoleColor)[WindowHeight, WindowWidth];
+		View = new ConsolePixel[WindowHeight, WindowWidth];
 		ClearNoRefresh();
 	}
 
@@ -136,44 +145,44 @@ public static class Console<TGame>
 	{
 		get
 		{
-			if (_view.GetLength(0) != WindowHeight || _view.GetLength(1) != WindowWidth)
+			if (View.GetLength(0) != WindowHeight || View.GetLength(1) != WindowWidth)
 			{
-				(char, ConsoleColor, ConsoleColor)[,] old_view = _view;
-				_view = new (char, ConsoleColor, ConsoleColor)[WindowHeight, WindowWidth];
-				for (int row = 0; row < _view.GetLength(0); row++)
+				ConsolePixel[,] old_view = View;
+				View = new ConsolePixel[WindowHeight, WindowWidth];
+				for (int row = 0; row < View.GetLength(0); row++)
 				{
-					for (int column = 0; column < _view.GetLength(1); column++)
+					for (int column = 0; column < View.GetLength(1); column++)
 					{
-						_view[row, column] = old_view[row, column];
+						View[row, column] = old_view[row, column];
 					}
 				}
 			}
 			StringBuilder stateBuilder = new();
-			for (int row = 0; row < _view.GetLength(0); row++)
+			for (int row = 0; row < View.GetLength(0); row++)
 			{
-				for (int column = 0; column < _view.GetLength(1); column++)
+				for (int column = 0; column < View.GetLength(1); column++)
 				{
 					if (CursorVisible && (CursorLeft, CursorTop) == (column, row))
 					{
 						bool isDark =
-							(_view[row, column].Char is '█' && _view[row, column].ForegroundColor is ConsoleColor.White) ||
-							(_view[row, column].Char is ' ' && _view[row, column].BackgroundColor is ConsoleColor.White);
+							(View[row, column].Char is '█' && View[row, column].ForegroundColor is ConsoleColor.White) ||
+							(View[row, column].Char is ' ' && View[row, column].BackgroundColor is ConsoleColor.White);
 						stateBuilder.Append($@"<span class=""cursor {(isDark ? "cursor-dark" : "cursor-light")}"">");
 					}
-					if (_view[row, column].BackgroundColor is not ConsoleColor.Black)
+					if (View[row, column].BackgroundColor is not ConsoleColor.Black)
 					{
-						stateBuilder.Append($@"<span style=""background-color:{HtmlEncode(_view[row, column].BackgroundColor)}"">");
+						stateBuilder.Append($@"<span style=""background-color:{HtmlEncode(View[row, column].BackgroundColor)}"">");
 					}
-					if (_view[row, column].ForegroundColor is not ConsoleColor.White)
+					if (View[row, column].ForegroundColor is not ConsoleColor.White)
 					{
-						stateBuilder.Append($@"<span style=""color:{HtmlEncode(_view[row, column].ForegroundColor)}"">");
+						stateBuilder.Append($@"<span style=""color:{HtmlEncode(View[row, column].ForegroundColor)}"">");
 					}
-					stateBuilder.Append(HttpUtility.HtmlEncode(_view[row, column].Char));
-					if (_view[row, column].ForegroundColor is not ConsoleColor.White)
+					stateBuilder.Append(HttpUtility.HtmlEncode(View[row, column].Char));
+					if (View[row, column].ForegroundColor is not ConsoleColor.White)
 					{
 						stateBuilder.Append(@"</span>");
 					}
-					if (_view[row, column].BackgroundColor is not ConsoleColor.Black)
+					if (View[row, column].BackgroundColor is not ConsoleColor.Black)
 					{
 						stateBuilder.Append(@"</span>");
 					}
@@ -206,11 +215,16 @@ public static class Console<TGame>
 
 	public static void ClearNoRefresh()
 	{
-		for (int row = 0; row < _view.GetLength(0); row++)
+		for (int row = 0; row < View.GetLength(0); row++)
 		{
-			for (int column = 0; column < _view.GetLength(1); column++)
+			for (int column = 0; column < View.GetLength(1); column++)
 			{
-				_view[row, column] = (' ', BackgroundColor, ForegroundColor);
+				View[row, column] = new()
+				{
+					Char = ' ',
+					BackgroundColor = BackgroundColor,
+					ForegroundColor = ForegroundColor,
+				};
 			}
 		}
 		(CursorLeft, CursorTop) = (0, 0);
@@ -227,17 +241,22 @@ public static class Console<TGame>
 			WriteLineNoRefresh();
 			return;
 		}
-		if (CursorLeft >= _view.GetLength(1))
+		if (CursorLeft >= View.GetLength(1))
 		{
 			(CursorLeft, CursorTop) = (0, CursorTop + 1);
 		}
-		_view[CursorTop, CursorLeft] = (c, BackgroundColor, ForegroundColor);
+		View[CursorTop, CursorLeft] = new()
+		{
+			Char = c,
+			BackgroundColor = BackgroundColor,
+			ForegroundColor = ForegroundColor,
+		};
 		CursorLeft++;
 	}
 
 	public static void WriteLineNoRefresh()
 	{
-		while (CursorLeft < _view.GetLength(1))
+		while (CursorLeft < View.GetLength(1))
 		{
 			WriteNoRefresh(' ');
 		}
@@ -323,7 +342,7 @@ public static class Console<TGame>
 						if (CursorLeft > 0)
 						{
 							CursorLeft--;
-							_view[CursorTop, CursorLeft].Char = ' ';
+							View[CursorTop, CursorLeft].Char = ' ';
 						}
 						line = line[..^1];
 						await Refresh();
@@ -384,10 +403,5 @@ public static class Console<TGame>
 		{
 			continue;
 		}
-	}
-
-	public static bool IsWindows()
-	{
-		return true;
 	}
 }
