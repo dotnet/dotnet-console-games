@@ -17,7 +17,7 @@
 	A collection of game examples implemented as .NET console applications primarily for providing education and inspiration. :)
 </p>
 
-|Game|_\*Weight_|Notes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+|Game|_\*Weight_|Notes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
 |:-|:-|:-|
 |[Rock&nbsp;Paper&nbsp;Scissors](https://github.com/ZacharyPatten/dotnet-console-games/tree/main/Projects/Rock%20Paper%20Scissors)|0|<a href="https://zacharypatten.github.io/dotnet-console-games/Rock%20Paper%20Scissors" alt="Play Now"><img src="https://raw.githubusercontent.com/ZacharyPatten/dotnet-console-games/main/.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></a>&nbsp;<a href="https://github.com/ZacharyPatten/dotnet-console-games/actions"><img src="https://github.com/ZacharyPatten/dotnet-console-games/workflows/Rock%20Paper%20Scissors%20Build/badge.svg" title="Goto Build" alt="Build"></a>|
 |[Quick&nbsp;Draw](https://github.com/ZacharyPatten/dotnet-console-games/tree/main/Projects/Quick%20Draw)|0|<a href="https://zacharypatten.github.io/dotnet-console-games/Quick%20Draw" alt="Play Now"><img src="https://raw.githubusercontent.com/ZacharyPatten/dotnet-console-games/main/.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></a>&nbsp;<a href="https://github.com/ZacharyPatten/dotnet-console-games/actions"><img src="https://github.com/ZacharyPatten/dotnet-console-games/workflows/Quick%20Draw%20Build/badge.svg" title="Goto Build" alt="Build"></a>|
@@ -62,7 +62,7 @@
 
 ## Getting Started
 
-Clone the repository with `git` or [download the repository](https://github.com/ZacharyPatten/dotnet-console-games/archive/main.zip) and unzip the contents. `dotnet-console-games` should build with any standard .NET build process, but one of the following is recommended:
+[Clone the repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) or [download the repository](https://github.com/ZacharyPatten/dotnet-console-games/archive/main.zip) and unzip the contents. `dotnet-console-games` should build with any standard .NET build process, but one of the following is recommended:
 
 <details>
 <summary>
@@ -107,12 +107,12 @@ Clone the repository with `git` or [download the repository](https://github.com/
 
 ## Get Involved
 
-- Want to show support? You can star the github repository.
+Want to show support? You can star the github repository.
 
-- Have any questions? [Start a new discussion](https://github.com/ZacharyPatten/dotnet-console-games/discussions/new).
+Have any questions? [Start a new discussion](https://github.com/ZacharyPatten/dotnet-console-games/discussions/new).
 
-- Find a bug or have a sugguestion? [Open an issue](https://github.com/ZacharyPatten/dotnet-console-games/issues/new).
+Find a bug or have a sugguestion? [Open an issue](https://github.com/ZacharyPatten/dotnet-console-games/issues/new).
 
-- Want to chat with the developer(s)? [Join the discord server](https://discord.gg/4XbQbwF).
+Want to chat with the developer(s)? [Join the discord server](https://discord.gg/4XbQbwF).
 
-- Want to contribute? [Look for open issues you can help with.](https://github.com/ZacharyPatten/dotnet-console-games/issues)
+Want to contribute? [Look for open issues you can help with.](https://github.com/ZacharyPatten/dotnet-console-games/issues)

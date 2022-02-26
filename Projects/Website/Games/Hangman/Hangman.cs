@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Linq;
 using Console = Website.Console<Website.Games.Hangman.Hangman>;
