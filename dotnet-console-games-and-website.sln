@@ -61,6 +61,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mancala", "Projects\Mancala
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Website", "Projects\Website\Website.csproj", "{248C9EA5-723D-4809-BEB9-7CA0A4CF077B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roll And Move", "Projects\Roll And Move\Roll And Move.csproj", "{7E31762E-4D7B-41C3-BF7B-373AB8E7AED1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -183,6 +185,10 @@ Global
 		{248C9EA5-723D-4809-BEB9-7CA0A4CF077B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{248C9EA5-723D-4809-BEB9-7CA0A4CF077B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{248C9EA5-723D-4809-BEB9-7CA0A4CF077B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E31762E-4D7B-41C3-BF7B-373AB8E7AED1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E31762E-4D7B-41C3-BF7B-373AB8E7AED1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E31762E-4D7B-41C3-BF7B-373AB8E7AED1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E31762E-4D7B-41C3-BF7B-373AB8E7AED1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

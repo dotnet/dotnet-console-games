@@ -12,15 +12,15 @@ Random random = new();
 // C major scale, starting with middle C
 int[] frequencies = new int[]
 {
-		262,
-		294,
-		330,
-		349,
-		392,
-		440,
-		494,
-		523,
-		587,
+	262,
+	294,
+	330,
+	349,
+	392,
+	440,
+	494,
+	523,
+	587,
 };
 
 if (!OperatingSystem.IsWindows())
@@ -31,7 +31,7 @@ if (!OperatingSystem.IsWindows())
 GetInput:
 	switch (Console.ReadKey(true).Key)
 	{
-		case ConsoleKey.Enter: break;
+		case ConsoleKey.Enter:  break;
 		case ConsoleKey.Escape: return;
 		default: goto GetInput;
 	}

@@ -53,6 +53,16 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Roll And Move",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Roll And Move",
+			"program": "${workspaceFolder}/Projects/Roll And Move/bin/Debug/Roll And Move.dll",
+			"cwd": "${workspaceFolder}/Projects/Roll And Move/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Beep Pad",
 			"type": "coreclr",
 			"request": "launch",
