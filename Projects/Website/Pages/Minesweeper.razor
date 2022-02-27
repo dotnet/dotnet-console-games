@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games.Minesweeper.Minesweeper>
 
 @page "/Minesweeper"
 
@@ -46,13 +45,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games.Minesweeper.Minesweeper Game;
+	BlazorConsole Console;
+
+	public Minesweeper()
 	{
-		if (!Console.Initialized)
-		{
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games.Minesweeper.Minesweeper.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		//Console.WindowWidth = PLACEHOLDER;
+		//Console.WindowHeight = PLACEHOLDER;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }

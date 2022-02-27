@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games.Memory.Memory>
 
 @page "/Memory"
 
@@ -37,15 +36,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games.Memory.Memory Game;
+	BlazorConsole Console;
+
+	public Memory()
 	{
-		if (!Console.Initialized)
-		{
-			Console.WindowWidth = 40;
-			Console.WindowHeight = 25;
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games.Memory.Memory.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		Console.WindowWidth = 40;
+		Console.WindowHeight = 25;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }

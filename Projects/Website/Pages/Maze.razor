@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games.Maze.Maze>
 
 @page "/Maze"
 
@@ -37,15 +36,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games.Maze.Maze Game;
+	BlazorConsole Console;
+
+	public Maze()
 	{
-		if (!Console.Initialized)
-		{
-			Console.WindowWidth = 65;
-			Console.WindowHeight = 30;
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games.Maze.Maze.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		Console.WindowWidth = 65;
+		Console.WindowHeight = 30;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }

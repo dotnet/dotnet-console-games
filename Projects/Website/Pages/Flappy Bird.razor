@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games.Flappy_Bird.Flappy_Bird>
 
 @page "/Flappy Bird"
 
@@ -34,13 +33,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games.Flappy_Bird.Flappy_Bird Game;
+	BlazorConsole Console;
+
+	public Flappy_Bird()
 	{
-		if (!Console.Initialized)
-		{
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games.Flappy_Bird.Flappy_Bird.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		//Console.WindowWidth = PLACEHOLDER;
+		//Console.WindowHeight = PLACEHOLDER;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }

@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games.Sudoku.Sudoku>
 
 @page "/Sudoku"
 
@@ -46,15 +45,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games.Sudoku.Sudoku Game;
+	BlazorConsole Console;
+
+	public Sudoku()
 	{
-		if (!Console.Initialized)
-		{
-			Console.WindowWidth = 45;
-			Console.WindowHeight = 26;
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games.Sudoku.Sudoku.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		Console.WindowWidth = 45;
+		Console.WindowHeight = 26;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }

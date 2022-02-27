@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games.Wordle.Wordle>
 
 @page "/Wordle"
 
@@ -43,15 +42,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games.Wordle.Wordle Game;
+	BlazorConsole Console;
+
+	public Wordle()
 	{
-		if (!Console.Initialized)
-		{
-			Console.WindowWidth = 40;
-			Console.WindowHeight = 23;
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games.Wordle.Wordle.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		Console.WindowWidth = 40;
+		Console.WindowHeight = 23;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }

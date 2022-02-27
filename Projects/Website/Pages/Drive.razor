@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games.Drive.Drive>
 
 @page "/Drive"
 
@@ -39,15 +38,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games.Drive.Drive Game;
+	BlazorConsole Console;
+
+	public Drive()
 	{
-		if (!Console.Initialized)
-		{
-			Console.WindowWidth = 55;
-			Console.WindowHeight = 35;
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games.Drive.Drive.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		Console.WindowWidth = 55;
+		Console.WindowHeight = 35;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }

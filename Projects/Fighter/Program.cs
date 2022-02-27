@@ -49,6 +49,19 @@ class Program
 		public string[] OwnedAnimation;
 		public string[] GroundAnimation;
 		public string[] GetUpAnimation;
+
+		public Fighter(int position, string[] idleAnimation, string[] punchAnimation, string[] blockAnimation, string[] jumpKickAnimation, string[] ownedAnimation, string[] groundAnimation, string[] getUpAnimation)
+		{
+			Position = position;
+			IdleAnimation = idleAnimation;
+			PunchAnimation = punchAnimation;
+			BlockAnimation = blockAnimation;
+			JumpKickAnimation = jumpKickAnimation;
+			OwnedAnimation = ownedAnimation;
+			GroundAnimation = groundAnimation;
+			GetUpAnimation = getUpAnimation;
+		}
+
 	}
 
 	static void Main()
@@ -56,29 +69,25 @@ class Program
 		Console.Clear();
 		Console.CursorVisible = false;
 
-		Fighter player = new()
-		{
-			Position = width / 3,
-			IdleAnimation = Ascii.Player.IdleAnimation,
-			PunchAnimation = Ascii.Player.PunchAnimation,
-			BlockAnimation = Ascii.Player.BlockAnimation,
-			JumpKickAnimation = Ascii.Player.JumpKickAnimation,
-			OwnedAnimation = Ascii.Player.OwnedAnimation,
-			GroundAnimation = Ascii.Player.GroundAnimation,
-			GetUpAnimation = Ascii.Player.GetUpAnimation,
-		};
+		Fighter player = new(
+			position: width / 3,
+			idleAnimation: Ascii.Player.IdleAnimation,
+			punchAnimation: Ascii.Player.PunchAnimation,
+			blockAnimation: Ascii.Player.BlockAnimation,
+			jumpKickAnimation: Ascii.Player.JumpKickAnimation,
+			ownedAnimation: Ascii.Player.OwnedAnimation,
+			groundAnimation: Ascii.Player.GroundAnimation,
+			getUpAnimation: Ascii.Player.GetUpAnimation);
 
-		Fighter enemy = new()
-		{
-			Position = (width / 3) * 2,
-			IdleAnimation = Ascii.Enemy.IdleAnimation,
-			PunchAnimation = Ascii.Enemy.PunchAnimation,
-			BlockAnimation = Ascii.Enemy.BlockAnimation,
-			JumpKickAnimation = Ascii.Enemy.JumpKickAnimation,
-			OwnedAnimation = Ascii.Enemy.OwnedAnimation,
-			GroundAnimation = Ascii.Enemy.GroundAnimation,
-			GetUpAnimation = Ascii.Enemy.GetUpAnimation,
-		};
+		Fighter enemy = new(
+			position: (width / 3) * 2,
+			idleAnimation: Ascii.Enemy.IdleAnimation,
+			punchAnimation: Ascii.Enemy.PunchAnimation,
+			blockAnimation: Ascii.Enemy.BlockAnimation,
+			jumpKickAnimation: Ascii.Enemy.JumpKickAnimation,
+			ownedAnimation: Ascii.Enemy.OwnedAnimation,
+			groundAnimation: Ascii.Enemy.GroundAnimation,
+			getUpAnimation: Ascii.Enemy.GetUpAnimation);
 
 		player.Stopwatch.Restart();
 		enemy.Stopwatch.Restart();
@@ -542,7 +551,7 @@ class Program
 		foreach (char c in @string)
 			if (c is '\n')
 				Console.SetCursorPosition(x, ++y);
-			else if (Console.CursorLeft < width - 1 && (!(c is ' ') || renderSpace))
+			else if (Console.CursorLeft < width - 1 && (c is not ' ' || renderSpace))
 				Console.Write(c);
 			else if (Console.CursorLeft < width - 1 && Console.CursorTop < height - 1)
 				Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop);
@@ -555,7 +564,7 @@ class Program
 		foreach (char c in @string)
 			if (c is '\n')
 				Console.SetCursorPosition(x, ++y);
-			else if (Console.CursorLeft < width - 1 && !(c is ' '))
+			else if (Console.CursorLeft < width - 1 && c is not ' ')
 				Console.Write(' ');
 			else if (Console.CursorLeft < width - 1 && Console.CursorTop < height - 1)
 				Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop);

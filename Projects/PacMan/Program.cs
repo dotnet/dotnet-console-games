@@ -508,7 +508,7 @@ finally
 			{
 				Console.SetCursorPosition(x, ++y);
 			}
-			else if (!(c is ' ') || renderSpace)
+			else if (c is not ' ' || renderSpace)
 			{
 				Console.Write(c);
 			}

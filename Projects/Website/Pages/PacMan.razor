@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games.PacMan.PacMan>
 
 @page "/PacMan"
 
@@ -37,15 +36,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games.PacMan.PacMan Game;
+	BlazorConsole Console;
+
+	public PacMan()
 	{
-		if (!Console.Initialized)
-		{
-			Console.WindowWidth = 45;
-			Console.WindowHeight = 28;
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games.PacMan.PacMan.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		Console.WindowWidth = 45;
+		Console.WindowHeight = 28;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }

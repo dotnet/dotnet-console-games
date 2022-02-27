@@ -186,9 +186,7 @@ float GetLineValue(((float X, float Y) A, (float X, float Y) B) line, float x)
 	// order points from least to greatest X
 	if (line.B.X < line.A.X)
 	{
-		var temp = line.B;
-		line.B = line.A;
-		line.A = temp;
+		(line.A, line.B) = (line.B, line.A);
 	}
 	// find the slope
 	float slope = (line.B.Y - line.A.Y) / (line.B.X - line.A.X);

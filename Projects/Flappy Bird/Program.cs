@@ -91,7 +91,7 @@ StartingInput:
 			{
 				goto PlayAgain;
 			}
-			else if (!(key is ConsoleKey.Escape))
+			else if (key is not ConsoleKey.Escape)
 			{
 				goto GetPlayAgainInput;
 			}

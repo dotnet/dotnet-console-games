@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games._2048._2048>
 
 @page "/2048"
 
@@ -38,15 +37,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games._2048._2048 Game;
+	BlazorConsole Console;
+
+	public _2048()
 	{
-		if (!Console.Initialized)
-		{
-			Console.WindowWidth = 41;
-			Console.WindowHeight = 19;
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games._2048._2048.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		Console.WindowWidth = 41;
+		Console.WindowHeight = 19;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }
