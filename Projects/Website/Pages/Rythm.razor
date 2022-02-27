@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games.Rythm.Rythm>
 
 @page "/Rythm"
 
@@ -37,13 +36,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games.Rythm.Rythm Game;
+	BlazorConsole Console;
+
+	public Rythm()
 	{
-		if (!Console.Initialized)
-		{
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games.Rythm.Rythm.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		//Console.WindowWidth = PLACEHOLDER;
+		//Console.WindowHeight = PLACEHOLDER;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }

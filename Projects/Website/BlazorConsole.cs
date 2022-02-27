@@ -9,47 +9,47 @@ using Towel;
 
 namespace Website;
 
-public static class Console<TGame>
+public class BlazorConsole
 {
-	public const int Delay = 1;
-	public static readonly Queue<ConsoleKeyInfo> InputBuffer = new();
-	public static Action? StateHasChanged;
-	public static bool RefreshOnInputOnly = true;
-	public static bool Initialized = false;
-	public static ConsolePixel[,] View;
+	public struct Pixel
+	{
+		public char Char;
+		public ConsoleColor BackgroundColor;
+		public ConsoleColor ForegroundColor;
+	}
 
-	public static ConsoleColor BackgroundColor = ConsoleColor.Black;
-	public static ConsoleColor ForegroundColor = ConsoleColor.White;
-	public static bool CursorVisible = true;
-	public static int WindowHeight = 35;
-	public static int WindowWidth = 80;
-	public static int LargestWindowWidth = 120;
-	public static int LargestWindowHeight = 40;
-	public static int CursorLeft = 0;
-	public static int CursorTop = 0;
+	public static BlazorConsole? ActiveConsole;
 
-	public static int BufferWidth
+	public const int Delay = 1; // miliseconds
+	public const int InactiveDelay = 1000; // milliseconds
+	public readonly Queue<ConsoleKeyInfo> InputBuffer = new();
+	public Action? StateHasChanged;
+	public bool RefreshOnInputOnly = true;
+	public Pixel[,] View;
+
+	public ConsoleColor BackgroundColor = ConsoleColor.Black;
+	public ConsoleColor ForegroundColor = ConsoleColor.White;
+	public bool CursorVisible = true;
+	public int WindowHeight = 35;
+	public int WindowWidth = 80;
+	public int LargestWindowWidth = 120;
+	public int LargestWindowHeight = 40;
+	public int CursorLeft = 0;
+	public int CursorTop = 0;
+
+	public int BufferWidth
 	{
 		get => WindowWidth;
 		set => WindowWidth = value;
 	}
 
-	public static int BufferHeight
+	public int BufferHeight
 	{
 		get => WindowHeight;
 		set => WindowHeight = value;
 	}
 
-	/// <summary>
-	/// Returns true. Some members of <see cref="System.Console"/> only work
-	/// on Windows such as <see cref="System.Console.WindowWidth"/>, but even though this
-	/// is blazor and not necessarily on Windows, this wrapper contains implementations
-	/// for those Windows-only members.
-	/// </summary>
-	/// <returns>true</returns>
-	public static bool IsWindows() => true;
-
-	public static void EnqueueInput(ConsoleKey key, bool shift = false, bool alt = false, bool control = false)
+	public void EnqueueInput(ConsoleKey key, bool shift = false, bool alt = false, bool control = false)
 	{
 		char c = key switch
 		{
@@ -63,21 +63,21 @@ public static class Console<TGame>
 		InputBuffer.Enqueue(new(shift ? char.ToUpper(c) : c, key, shift, alt, control));
 	}
 
-	public static void OnKeyDown(KeyboardEventArgs e)
+	public void OnKeyDown(KeyboardEventArgs e)
 	{
 		switch (e.Key)
 		{
-			case "End":        EnqueueInput(ConsoleKey.End);        break;
-			case "Backspace":  EnqueueInput(ConsoleKey.Backspace);  break;
-			case " ":          EnqueueInput(ConsoleKey.Spacebar);   break;
-			case "Delete":     EnqueueInput(ConsoleKey.Delete);     break;
-			case "Enter":      EnqueueInput(ConsoleKey.Enter);      break;
-			case "Escape":     EnqueueInput(ConsoleKey.Escape);     break;
-			case "ArrowLeft":  EnqueueInput(ConsoleKey.LeftArrow);  break;
+			case "End":        EnqueueInput(ConsoleKey.End); break;
+			case "Backspace":  EnqueueInput(ConsoleKey.Backspace); break;
+			case " ":          EnqueueInput(ConsoleKey.Spacebar); break;
+			case "Delete":     EnqueueInput(ConsoleKey.Delete); break;
+			case "Enter":      EnqueueInput(ConsoleKey.Enter); break;
+			case "Escape":     EnqueueInput(ConsoleKey.Escape); break;
+			case "ArrowLeft":  EnqueueInput(ConsoleKey.LeftArrow); break;
 			case "ArrowRight": EnqueueInput(ConsoleKey.RightArrow); break;
-			case "ArrowUp":    EnqueueInput(ConsoleKey.UpArrow);    break;
-			case "ArrowDown":  EnqueueInput(ConsoleKey.DownArrow);  break;
-			case ".":          EnqueueInput(ConsoleKey.OemPeriod);  break;
+			case "ArrowUp":    EnqueueInput(ConsoleKey.UpArrow); break;
+			case "ArrowDown":  EnqueueInput(ConsoleKey.DownArrow); break;
+			case ".":          EnqueueInput(ConsoleKey.OemPeriod); break;
 			default:
 				if (e.Key.Length is 1)
 				{
@@ -117,38 +117,49 @@ public static class Console<TGame>
 		};
 	}
 
-	public static void ResetColor()
+	public void ResetColor()
 	{
 		BackgroundColor = ConsoleColor.Black;
 		ForegroundColor = ConsoleColor.White;
 	}
 
-	static Console()
+	public BlazorConsole()
 	{
-		View = new ConsolePixel[WindowHeight, WindowWidth];
+		ActiveConsole = this;
+		View = new Pixel[WindowHeight, WindowWidth];
 		ClearNoRefresh();
 	}
 
-	public static async Task RefreshAndDelay(TimeSpan timeSpan)
+	public void DieIfNotActiveGame()
 	{
+		if (this != ActiveConsole)
+		{
+			throw new Exception("die :P pew pew");
+		}
+	}
+
+	public async Task RefreshAndDelay(TimeSpan timeSpan)
+	{
+		DieIfNotActiveGame();
 		StateHasChanged?.Invoke();
 		await Task.Delay(timeSpan);
 	}
 
-	public static async Task Refresh()
+	public async Task Refresh()
 	{
+		DieIfNotActiveGame();
 		StateHasChanged?.Invoke();
 		await Task.Delay(Delay);
 	}
 
-	public static MarkupString State
+	public MarkupString State
 	{
 		get
 		{
 			if (View.GetLength(0) != WindowHeight || View.GetLength(1) != WindowWidth)
 			{
-				ConsolePixel[,] old_view = View;
-				View = new ConsolePixel[WindowHeight, WindowWidth];
+				Pixel[,] old_view = View;
+				View = new Pixel[WindowHeight, WindowWidth];
 				for (int row = 0; row < View.GetLength(0); row++)
 				{
 					for (int column = 0; column < View.GetLength(1); column++)
@@ -198,14 +209,16 @@ public static class Console<TGame>
 		}
 	}
 
-	public static void ResetColors()
+	public void ResetColors()
 	{
+		DieIfNotActiveGame();
 		BackgroundColor = ConsoleColor.Black;
 		ForegroundColor = ConsoleColor.White;
 	}
 
-	public static async Task Clear()
+	public async Task Clear()
 	{
+		DieIfNotActiveGame();
 		ClearNoRefresh();
 		if (!RefreshOnInputOnly)
 		{
@@ -213,8 +226,9 @@ public static class Console<TGame>
 		}
 	}
 
-	public static void ClearNoRefresh()
+	public void ClearNoRefresh()
 	{
+		DieIfNotActiveGame();
 		for (int row = 0; row < View.GetLength(0); row++)
 		{
 			for (int column = 0; column < View.GetLength(1); column++)
@@ -230,8 +244,9 @@ public static class Console<TGame>
 		(CursorLeft, CursorTop) = (0, 0);
 	}
 
-	public static void WriteNoRefresh(char c)
+	public void WriteNoRefresh(char c)
 	{
+		DieIfNotActiveGame();
 		if (c is '\r')
 		{
 			return;
@@ -254,8 +269,9 @@ public static class Console<TGame>
 		CursorLeft++;
 	}
 
-	public static void WriteLineNoRefresh()
+	public void WriteLineNoRefresh()
 	{
+		DieIfNotActiveGame();
 		while (CursorLeft < View.GetLength(1))
 		{
 			WriteNoRefresh(' ');
@@ -263,8 +279,9 @@ public static class Console<TGame>
 		(CursorLeft, CursorTop) = (0, CursorTop + 1);
 	}
 
-	public static async Task Write(object o)
+	public async Task Write(object o)
 	{
+		DieIfNotActiveGame();
 		if (o is null) return;
 		string? s = o.ToString();
 		if (s is null || s is "") return;
@@ -278,13 +295,13 @@ public static class Console<TGame>
 		}
 	}
 
-	public static async Task WriteLine()
+	public async Task WriteLine()
 	{
 		WriteLineNoRefresh();
 		await Refresh();
 	}
 
-	public static async Task WriteLine(object o)
+	public async Task WriteLine(object o)
 	{
 		if (o is not null)
 		{
@@ -304,7 +321,7 @@ public static class Console<TGame>
 		}
 	}
 
-	public static async Task<ConsoleKeyInfo> ReadKey(bool capture)
+	public async Task<ConsoleKeyInfo> ReadKey(bool capture)
 	{
 		while (!await KeyAvailable())
 		{
@@ -324,7 +341,7 @@ public static class Console<TGame>
 		return keyInfo;
 	}
 
-	public static async Task<string> ReadLine()
+	public async Task<string> ReadLine()
 	{
 		string line = string.Empty;
 		while (true)
@@ -364,13 +381,13 @@ public static class Console<TGame>
 		}
 	}
 
-	public static async Task<bool> KeyAvailable()
+	public async Task<bool> KeyAvailable()
 	{
 		await Refresh();
 		return InputBuffer.Count > 0;
 	}
 
-	public static async Task SetCursorPosition(int left, int top)
+	public async Task SetCursorPosition(int left, int top)
 	{
 		(CursorLeft, CursorTop) = (left, top);
 		if (!RefreshOnInputOnly)
@@ -379,7 +396,7 @@ public static class Console<TGame>
 		}
 	}
 
-	public static async Task PromptPressToContinue(string? prompt = null, ConsoleKey key = ConsoleKey.Enter)
+	public async Task PromptPressToContinue(string? prompt = null, ConsoleKey key = ConsoleKey.Enter)
 	{
 		if (!key.IsDefined())
 		{
@@ -393,7 +410,7 @@ public static class Console<TGame>
 		await PressToContinue(key);
 	}
 
-	public static async Task PressToContinue(ConsoleKey key = ConsoleKey.Enter)
+	public async Task PressToContinue(ConsoleKey key = ConsoleKey.Enter)
 	{
 		if (!key.IsDefined())
 		{

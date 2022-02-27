@@ -7,14 +7,15 @@ using System.Collections.Generic;
 using System.Text;
 using Towel.DataStructures;
 using System.Threading.Tasks;
-using Console = Website.Console<Website.Games.Maze.Maze>;
-using OperatingSystem = Website.Console<Website.Games.Maze.Maze>;
+using OperatingSystem = Website.BlazorOperatingSystem;
 
 namespace Website.Games.Maze;
 
 public class Maze
 {
-	public static async Task Run()
+	public readonly BlazorConsole Console = new();
+
+	public async Task Run()
 	{
 		if (OperatingSystem.IsWindows())
 		{

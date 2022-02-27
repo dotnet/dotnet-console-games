@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games.Whack_A_Mole.Whack_A_Mole>
 
 @page "/Whack A Mole"
 
@@ -40,15 +39,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games.Whack_A_Mole.Whack_A_Mole Game;
+	BlazorConsole Console;
+
+	public Whack_A_Mole()
 	{
-		if (!Console.Initialized)
-		{
-			Console.WindowWidth = 46;
-			Console.WindowHeight = 28;
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games.Whack_A_Mole.Whack_A_Mole.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		Console.WindowWidth = 46;
+		Console.WindowHeight = 28;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }

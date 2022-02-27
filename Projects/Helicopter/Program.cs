@@ -346,7 +346,7 @@ void Render(string @string, bool renderSpace = false)
 	foreach (char c in @string)
 		if (c is '\n')
 			Console.SetCursorPosition(x, ++y);
-		else if (Console.CursorLeft < width - 1 && (!(c is ' ') || renderSpace))
+		else if (Console.CursorLeft < width - 1 && (c is not ' ' || renderSpace))
 			Console.Write(c);
 		else if (Console.CursorLeft < width - 1 && Console.CursorTop < height - 1)
 			Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop);
@@ -359,7 +359,7 @@ void Erase(string @string)
 	foreach (char c in @string)
 		if (c is '\n')
 			Console.SetCursorPosition(x, ++y);
-		else if (Console.CursorLeft < width - 1 && !(c is ' '))
+		else if (Console.CursorLeft < width - 1 && c is not ' ')
 			Console.Write(' ');
 		else if (Console.CursorLeft < width - 1 && Console.CursorTop < height - 1)
 			Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop);

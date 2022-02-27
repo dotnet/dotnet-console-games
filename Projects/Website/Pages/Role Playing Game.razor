@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games.Role_Playing_Game.Role_Playing_Game>
 
 @page "/Role Playing Game"
 
@@ -40,13 +39,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games.Role_Playing_Game.Role_Playing_Game Game;
+	BlazorConsole Console;
+
+	public Role_Playing_Game()
 	{
-		if (!Console.Initialized)
-		{
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games.Role_Playing_Game.Role_Playing_Game.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		//Console.WindowWidth = PLACEHOLDER;
+		//Console.WindowHeight = PLACEHOLDER;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }

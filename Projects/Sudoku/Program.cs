@@ -84,7 +84,7 @@ Console.Write("Sudoku was closed.");
 bool IsValidMove(int?[,] board, int?[,] lockedBoard, int value, int x, int y)
 {
 	// Locked
-	if (!(lockedBoard[x, y] is null))
+	if (lockedBoard[x, y] is not null)
 	{
 		return false;
 	}
@@ -143,7 +143,7 @@ void ConsoleWrite(int?[,] board, int?[,] lockedBoard)
 		Console.Write("║ ");
 		for (int j = 0; j < 9; j++)
 		{
-			if (!(lockedBoard is null) && !(lockedBoard[i, j] is null))
+			if (lockedBoard is not null && lockedBoard[i, j] is not null)
 			{
 				Console.Write((lockedBoard[i, j].HasValue ? lockedBoard[i, j].ToString() : "■") + " ");
 			}
@@ -171,7 +171,7 @@ void ConsoleWrite(int?[,] board, int?[,] lockedBoard)
 public static class Sudoku
 {
 	public static int?[,] Generate(
-		Random random = null,
+		Random? random = null,
 		int? blanks = null)
 	{
 		random ??= new Random();

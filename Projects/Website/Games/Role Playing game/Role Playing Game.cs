@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
-using Console = Website.Console<Website.Games.Role_Playing_Game.Role_Playing_Game>;
 
 namespace Website.Games.Role_Playing_Game;
 
 public class Role_Playing_Game
 {
-	public static async Task Run()
+	public readonly BlazorConsole Console = new();
+
+	public async Task Run()
 	{
 		Random random = new();
 		Character character;

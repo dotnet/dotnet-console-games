@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games.Mancala.Mancala>
 
 @page "/Mancala"
 
@@ -35,15 +34,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games.Mancala.Mancala Game;
+	BlazorConsole Console;
+
+	public Mancala()
 	{
-		if (!Console.Initialized)
-		{
-			Console.WindowWidth = 50;
-			Console.WindowHeight = 20;
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games.Mancala.Mancala.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		Console.WindowWidth = 50;
+		Console.WindowHeight = 20;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }

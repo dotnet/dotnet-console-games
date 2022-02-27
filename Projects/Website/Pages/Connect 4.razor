@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games.Connect_4.Connect_4>
 
 @page "/Connect 4"
 
@@ -35,15 +34,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games.Connect_4.Connect_4 Game;
+	BlazorConsole Console;
+
+	public Connect_4()
 	{
-		if (!Console.Initialized)
-		{
-			Console.WindowWidth = 42;
-			Console.WindowHeight = 23;
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games.Connect_4.Connect_4.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		Console.WindowWidth = 42;
+		Console.WindowHeight = 23;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Console = Website.Console<Website.Games.Flappy_Bird.Flappy_Bird>;
 
 namespace Website.Games.Flappy_Bird;
 
 public class Flappy_Bird
 {
-	public static async Task Run()
+	public readonly BlazorConsole Console = new();
+
+	public async Task Run()
 	{
 		const float Gravity = .5f;
 		const int PipeWidth = 8;

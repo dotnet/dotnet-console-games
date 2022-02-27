@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Console = Website.Console<Website.Games.Rock_Paper_Scissors.Rock_Paper_Scissors>;
 
 namespace Website.Games.Rock_Paper_Scissors;
 
 public class Rock_Paper_Scissors
 {
-	public static async Task Run()
+	public readonly BlazorConsole Console = new();
+
+	public async Task Run()
 	{
 		Random random = new();
 		int wins = 0;

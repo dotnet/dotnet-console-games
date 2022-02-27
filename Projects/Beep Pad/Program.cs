@@ -160,9 +160,7 @@ void ShuffleFrequencies()
 	for (int i = 0; i < frequencies.Length; i++)
 	{
 		int randomIndex = random.Next(frequencies.Length);
-		int temp = frequencies[i];
-		frequencies[i] = frequencies[randomIndex];
-		frequencies[randomIndex] = temp;
+		(frequencies[randomIndex], frequencies[i]) = (frequencies[i], frequencies[randomIndex]);
 	}
 }
 
@@ -172,9 +170,7 @@ int[] GetRandomCode()
 	for (int i = 0; i < CodeLength; i++)
 	{
 		int randomIndex = random.Next(possibilities.Length - i);
-		int temp = possibilities[randomIndex];
-		possibilities[randomIndex] = possibilities[possibilities.Length - i - 1];
-		possibilities[possibilities.Length - i - 1] = temp;
+		(possibilities[possibilities.Length - i - 1], possibilities[randomIndex]) = (possibilities[randomIndex], possibilities[possibilities.Length - i - 1]);
 	}
 	return possibilities[0..CodeLength];
 }

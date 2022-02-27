@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games.Hangman.Hangman>
 
 @page "/Hangman"
 
@@ -25,8 +24,8 @@
 			<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.A + (c - 'a'))">@c</button>
 			<span></span>
 		}
-		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Enter)    ">enter</button>
-		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Backspace)">backspace</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Enter) ">enter</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Escape)">escape</button>
 	</div>
 </div>
 
@@ -40,15 +39,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games.Hangman.Hangman Game;
+	BlazorConsole Console;
+
+	public Hangman()
 	{
-		if (!Console.Initialized)
-		{
-			Console.WindowWidth = 70;
-			Console.WindowHeight = 20;
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games.Hangman.Hangman.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		Console.WindowWidth = 70;
+		Console.WindowHeight = 20;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }

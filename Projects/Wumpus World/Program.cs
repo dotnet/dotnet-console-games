@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using static System.Console;
 using Towel;
 
 (int X, int Y) PlayerLocation;
@@ -9,27 +8,27 @@ Tile[,] Map;
 
 bool InvalidInput = false;
 Home:
-Clear();
-WriteLine("Wumpus World...");
-WriteLine();
-WriteLine("Home:");
-WriteLine();
-WriteLine(
+Console.Clear();
+Console.WriteLine("Wumpus World...");
+Console.WriteLine();
+Console.WriteLine("Home:");
+Console.WriteLine();
+Console.WriteLine(
 	"Rumors say that the Wumpus has a stash of gold " +
 	"inside his cave, but few who enter ever return. " +
 	"Will you seek the gold?");
-WriteLine();
-WriteLine("yes:  enter the cave of the Wumpus");
-WriteLine("quit: exit Wumpus World");
-WriteLine("info: view info");
-WriteLine();
+Console.WriteLine();
+Console.WriteLine("yes:  enter the cave of the Wumpus");
+Console.WriteLine("quit: exit Wumpus World");
+Console.WriteLine("info: view info");
+Console.WriteLine();
 if (InvalidInput)
 {
-	WriteLine("Invalid Input. Try again...");
+	Console.WriteLine("Invalid Input. Try again...");
 	InvalidInput = false;
 }
-Write(">");
-switch (ReadLine())
+Console.Write(">");
+switch (Console.ReadLine())
 {
 	case "quit": Quit(); goto Home;
 	case "info": Info(); goto Home;
@@ -39,12 +38,12 @@ switch (ReadLine())
 
 void Info()
 {
-	Clear();
-	WriteLine("Wumpus World...");
-	WriteLine();
-	WriteLine("Rules:");
-	WriteLine();
-	WriteLine(
+	Console.Clear();
+	Console.WriteLine("Wumpus World...");
+	Console.WriteLine();
+	Console.WriteLine("Rules:");
+	Console.WriteLine();
+	Console.WriteLine(
 		"The Wumpus's cave is a 4x4 grid. It is dark, and you " +
 		"can only see the reach of your hands. The Wumpus will " +
 		"eat you if you disturb him, but you can smell him " +
@@ -52,33 +51,33 @@ void Info()
 		"he uses to trap his prey. Be careful not to fall in one; " +
 		"you can feel a breeze when a pit is near. If you find the " +
 		"gold, you may exit the way you came.");
-	WriteLine();
-	WriteLine("Press Enter To Return...");
-	ReadLine();
+	Console.WriteLine();
+	Console.WriteLine("Press Enter To Return...");
+	Console.ReadLine();
 }
 
 void Quit()
 {
 	bool InvalidInput = false;
 Quit:
-	Clear();
-	WriteLine("Wumpus World...");
-	WriteLine();
-	WriteLine("Quit:");
-	WriteLine();
-	WriteLine("Are you sure you want to quit?");
-	WriteLine();
-	WriteLine("yes: quit");
-	WriteLine("no:  return");
-	WriteLine();
+	Console.Clear();
+	Console.WriteLine("Wumpus World...");
+	Console.WriteLine();
+	Console.WriteLine("Quit:");
+	Console.WriteLine();
+	Console.WriteLine("Are you sure you want to quit?");
+	Console.WriteLine();
+	Console.WriteLine("yes: quit");
+	Console.WriteLine("no:  return");
+	Console.WriteLine();
 	if (InvalidInput)
 	{
-		WriteLine("Invalid Input. Try again...");
+		Console.WriteLine("Invalid Input. Try again...");
 	}
-	Write(">");
-	switch (ReadLine())
+	Console.Write(">");
+	switch (Console.ReadLine())
 	{
-		case "yes": Clear(); Environment.Exit(0); return;
+		case "yes": Console.Clear(); Environment.Exit(0); return;
 		case "no": return;
 		default: InvalidInput = true; goto Quit;
 	};
@@ -102,42 +101,42 @@ void Play()
 	bool InvalidInput = false;
 	string? move = null;
 Play:
-	Clear();
-	WriteLine("Wumpus World...");
-	WriteLine();
-	WriteLine("Play:");
-	WriteLine();
+	Console.Clear();
+	Console.WriteLine("Wumpus World...");
+	Console.WriteLine();
+	Console.WriteLine("Play:");
+	Console.WriteLine();
 	if (move is not null)
 	{
-		WriteLine(move);
-		WriteLine();
+		Console.WriteLine(move);
+		Console.WriteLine();
 	}
-	Write("You are inside the cave of the Wumpus.");
+	Console.Write("You are inside the cave of the Wumpus.");
 	if (AdjacentToWumpus())
 	{
-		Write(" You smell a foul odor from something nearby.");
+		Console.Write(" You smell a foul odor from something nearby.");
 	}
 	if (AdjacentToPit())
 	{
-		Write(" You feel a breeze. Watch your step.");
+		Console.Write(" You feel a breeze. Watch your step.");
 	}
-	WriteLine();
-	WriteLine();
-	WriteLine("up:    move up");
-	WriteLine("down:  move down");
-	WriteLine("left:  move left");
-	WriteLine("right: move right");
-	WriteLine("quit:  exit Wumpus World");
-	WriteLine("info:  view info");
-	WriteLine();
+	Console.WriteLine();
+	Console.WriteLine();
+	Console.WriteLine("up:    move up");
+	Console.WriteLine("down:  move down");
+	Console.WriteLine("left:  move left");
+	Console.WriteLine("right: move right");
+	Console.WriteLine("quit:  exit Wumpus World");
+	Console.WriteLine("info:  view info");
+	Console.WriteLine();
 	if (InvalidInput)
 	{
-		WriteLine("Invalid Input. Try again...");
+		Console.WriteLine("Invalid Input. Try again...");
 		InvalidInput = false;
 	}
-	Write(">");
+	Console.Write(">");
 	Direction movement;
-	switch (ReadLine())
+	switch (Console.ReadLine())
 	{
 		case "quit": Quit(); goto Play;
 		case "info": Info(); goto Play;
@@ -170,9 +169,9 @@ Play:
 		};
 		switch (Map[PlayerLocation.X, PlayerLocation.Y])
 		{
-			case Tile.Gold: Clear(); WriteLine("You found the gold and left the cave the way you entered. You win."); ReadLine(); return;
-			case Tile.Wumpus: Clear(); WriteLine("You got eaten by the Wumpus. You lose."); ReadLine(); return;
-			case Tile.Pit: Clear(); WriteLine("You fell into one of the Wumpus's pits. You lose."); ReadLine(); return;
+			case Tile.Gold: Console.Clear(); Console.WriteLine("You found the gold and left the cave the way you entered. You win."); Console.ReadLine(); return;
+			case Tile.Wumpus: Console.Clear(); Console.WriteLine("You got eaten by the Wumpus. You lose."); Console.ReadLine(); return;
+			case Tile.Pit: Console.Clear(); Console.WriteLine("You fell into one of the Wumpus's pits. You lose."); Console.ReadLine(); return;
 		}
 	}
 	goto Play;

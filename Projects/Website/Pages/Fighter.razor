@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games.Fighter.Fighter>
 
 @page "/Fighter"
 
@@ -38,13 +37,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games.Fighter.Fighter Game;
+	BlazorConsole Console;
+
+	public Fighter()
 	{
-		if (!Console.Initialized)
-		{
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games.Fighter.Fighter.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		//Console.WindowWidth = PLACEHOLDER;
+		//Console.WindowHeight = PLACEHOLDER;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }

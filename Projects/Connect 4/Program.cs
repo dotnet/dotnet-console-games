@@ -116,6 +116,8 @@ GetInput:
 finally
 {
 	Console.CursorVisible = true;
+	Console.Clear();
+	Console.Write("Connect 4 was closed.");
 }
 
 void ResetBoard()
@@ -176,7 +178,7 @@ void RenderBoard()
 
 bool CheckFor4(int i, int j)
 {
-	bool player = board[i, j].Value;
+	bool player = board[i, j]!.Value;
 	{ // horizontal
 		int inARow = 0;
 		for (int _i = 0; _i < board.GetLength(0); _i++)

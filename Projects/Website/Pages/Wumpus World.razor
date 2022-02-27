@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games.Wumpus_World.Wumpus_World>
 
 @page "/Wumpus World"
 
@@ -40,15 +39,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games.Wumpus_World.Wumpus_World Game;
+	BlazorConsole Console;
+
+	public Wumpus_World()
 	{
-		if (!Console.Initialized)
-		{
-			Console.WindowWidth = 60;
-			Console.WindowHeight = 24;
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games.Wumpus_World.Wumpus_World.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		Console.WindowWidth = 60;
+		Console.WindowHeight = 24;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }

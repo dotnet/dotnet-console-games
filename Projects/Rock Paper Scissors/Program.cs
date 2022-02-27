@@ -12,7 +12,7 @@ while (true)
 GetInput:
 	Console.Write("Choose [r]ock, [p]aper, [s]cissors, or [e]xit:");
 	Move playerMove;
-	switch(Console.ReadLine().ToLower())
+	switch(Console.ReadLine()!.ToLower())
 	{
 		case "rock"     or "r": playerMove = Move.Rock;     break;
 		case "paper"    or "p": playerMove = Move.Paper;    break;

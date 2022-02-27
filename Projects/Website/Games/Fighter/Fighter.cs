@@ -1,30 +1,31 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Console = Website.Console<Website.Games.Fighter.Fighter>;
 
 namespace Website.Games.Fighter;
 
 public class Fighter
 {
-	public static async Task Run()
+	public readonly BlazorConsole Console = new();
+
+	public async Task Run()
 	{
-	int height = Console.WindowHeight;
-	int width = Console.WindowWidth;
+		int height = Console.WindowHeight;
+		int width = Console.WindowWidth;
 
-	int barWidth = (width - 9) / 2;
-	const int Y = 6;
+		int barWidth = (width - 9) / 2;
+		const int Y = 6;
 
-	TimeSpan sleep = TimeSpan.FromMilliseconds(10);
-	TimeSpan timeSpanIdle = TimeSpan.FromMilliseconds(400);
-	TimeSpan timeSpanPunch = TimeSpan.FromMilliseconds(100);
-	TimeSpan timeSpanBlock = TimeSpan.FromMilliseconds(800);
-	TimeSpan timeSpanJumpKick = TimeSpan.FromMilliseconds(100);
-	TimeSpan timeSpanOwned = TimeSpan.FromMilliseconds(30);
-	TimeSpan timeSpanGround = TimeSpan.FromMilliseconds(600);
-	TimeSpan timeSpanGetUp = TimeSpan.FromMilliseconds(80);
+		TimeSpan sleep = TimeSpan.FromMilliseconds(10);
+		TimeSpan timeSpanIdle = TimeSpan.FromMilliseconds(400);
+		TimeSpan timeSpanPunch = TimeSpan.FromMilliseconds(100);
+		TimeSpan timeSpanBlock = TimeSpan.FromMilliseconds(800);
+		TimeSpan timeSpanJumpKick = TimeSpan.FromMilliseconds(100);
+		TimeSpan timeSpanOwned = TimeSpan.FromMilliseconds(30);
+		TimeSpan timeSpanGround = TimeSpan.FromMilliseconds(600);
+		TimeSpan timeSpanGetUp = TimeSpan.FromMilliseconds(80);
 
-	Random random = new();
+		Random random = new();
 
 		await Console.Clear();
 		Console.CursorVisible = false;
@@ -507,35 +508,35 @@ public class Fighter
 		}
 		await Console.ReadLine();
 
-	#region Render & Erase
+		#region Render & Erase
 
-	async Task Render(string @string, bool renderSpace = false)
-	{
-		int x = Console.CursorLeft;
-		int y = Console.CursorTop;
-		foreach (char c in @string)
-			if (c is '\n')
-				await Console.SetCursorPosition(x, ++y);
-			else if (Console.CursorLeft < width - 1 && (!(c is ' ') || renderSpace))
-				await Console.Write(c);
-			else if (Console.CursorLeft < width - 1 && Console.CursorTop < height - 1)
-				await Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop);
-	}
+		async Task Render(string @string, bool renderSpace = false)
+		{
+			int x = Console.CursorLeft;
+			int y = Console.CursorTop;
+			foreach (char c in @string)
+				if (c is '\n')
+					await Console.SetCursorPosition(x, ++y);
+				else if (Console.CursorLeft < width - 1 && (c is not ' ' || renderSpace))
+					await Console.Write(c);
+				else if (Console.CursorLeft < width - 1 && Console.CursorTop < height - 1)
+					await Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop);
+		}
 
-	async Task Erase(string @string)
-	{
-		int x = Console.CursorLeft;
-		int y = Console.CursorTop;
-		foreach (char c in @string)
-			if (c is '\n')
-				await Console.SetCursorPosition(x, ++y);
-			else if (Console.CursorLeft < width - 1 && !(c is ' '))
-				await Console.Write(' ');
-			else if (Console.CursorLeft < width - 1 && Console.CursorTop < height - 1)
-				await Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop);
-	}
+		async Task Erase(string @string)
+		{
+			int x = Console.CursorLeft;
+			int y = Console.CursorTop;
+			foreach (char c in @string)
+				if (c is '\n')
+					await Console.SetCursorPosition(x, ++y);
+				else if (Console.CursorLeft < width - 1 && c is not ' ')
+					await Console.Write(' ');
+				else if (Console.CursorLeft < width - 1 && Console.CursorTop < height - 1)
+					await Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop);
+		}
 
-	#endregion
+		#endregion
 	}
 
 	enum Action

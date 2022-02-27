@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games.Tic_Tac_Toe.Tic_Tac_Toe>
 
 @page "/Tic Tac Toe"
 
@@ -37,15 +36,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games.Tic_Tac_Toe.Tic_Tac_Toe Game;
+	BlazorConsole Console;
+
+	public Tic_Tac_Toe()
 	{
-		if (!Console.Initialized)
-		{
-			Console.WindowWidth = 60;
-			Console.WindowHeight = 15;
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games.Tic_Tac_Toe.Tic_Tac_Toe.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		Console.WindowWidth = 60;
+		Console.WindowHeight = 15;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }

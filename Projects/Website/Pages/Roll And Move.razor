@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games.Roll_And_Move.Roll_And_Move>
 
 @page "/Roll And Move"
 
@@ -33,15 +32,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games.Roll_And_Move.Roll_And_Move Game;
+	BlazorConsole Console;
+
+	public Roll_And_Move()
 	{
-		if (!Console.Initialized)
-		{
-			Console.WindowWidth = 50;
-			Console.WindowHeight = 27;
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games.Roll_And_Move.Roll_And_Move.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		Console.WindowWidth = 50;
+		Console.WindowHeight = 27;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }

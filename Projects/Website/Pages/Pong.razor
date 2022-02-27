@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games.Pong.Pong>
 
 @page "/Pong"
 
@@ -35,13 +34,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games.Pong.Pong Game;
+	BlazorConsole Console;
+
+	public Pong()
 	{
-		if (!Console.Initialized)
-		{
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games.Pong.Pong.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		//Console.WindowWidth = PLACEHOLDER;
+		//Console.WindowHeight = PLACEHOLDER;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }

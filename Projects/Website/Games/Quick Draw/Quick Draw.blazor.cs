@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Console = Website.Console<Website.Games.Quick_Draw.Quick_Draw>;
 
 namespace Website.Games.Quick_Draw;
 
 public class Quick_Draw
 {
-	public static async Task Run()
+	public readonly BlazorConsole Console = new();
+
+	public async Task Run()
 	{
 		Random random = new();
 

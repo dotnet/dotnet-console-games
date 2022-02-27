@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games.Rock_Paper_Scissors.Rock_Paper_Scissors>
 
 @page "/Rock Paper Scissors"
 
@@ -36,13 +35,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games.Rock_Paper_Scissors.Rock_Paper_Scissors Game;
+	BlazorConsole Console;
+
+	public Rock_Paper_Scissors()
 	{
-		if (!Console.Initialized)
-		{
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games.Rock_Paper_Scissors.Rock_Paper_Scissors.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		//Console.WindowWidth = PLACEHOLDER;
+		//Console.WindowHeight = PLACEHOLDER;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }

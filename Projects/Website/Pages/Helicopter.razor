@@ -1,5 +1,4 @@
 ﻿@using System
-@using Console = Website.Console<Website.Games.Helicopter.Helicopter>
 
 @page "/Helicopter"
 
@@ -36,13 +35,17 @@
 
 @code
 {
-	protected override void OnInitialized()
+	Games.Helicopter.Helicopter Game;
+	BlazorConsole Console;
+
+	public Helicopter()
 	{
-		if (!Console.Initialized)
-		{
-			Console.StateHasChanged = StateHasChanged;
-			InvokeAsync(Games.Helicopter.Helicopter.Run);
-			Console.Initialized = true;
-		}
+		Game = new();
+		Console = Game.Console;
+		//Console.WindowWidth = PLACEHOLDER;
+		//Console.WindowHeight = PLACEHOLDER;
+		Console.StateHasChanged = StateHasChanged;
 	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
 }

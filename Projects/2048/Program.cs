@@ -143,7 +143,7 @@ bool TryUpdate(int?[,] board, ref int score, Direction direction)
 			else if (board[adji, adjj] == board[tempi, tempj])
 			{
 				board[adji, adjj] += board[tempi, tempj];
-				score += board[adji, adjj].Value;
+				score += board[adji, adjj]!.Value;
 				board[tempi, tempj] = null;
 				update = true;
 				locked[adji, adjj] = true;
