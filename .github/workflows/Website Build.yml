@@ -1,6 +1,8 @@
 name: Website Build
 on:
   push:
+    branches-ignore:
+    - 'main'
     paths:
     - 'Projects/Website/**'
   pull_request:
