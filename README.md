@@ -77,7 +77,7 @@
 >
 > 2. Open the <sub><a href="dotnet-console-games.slnf"><img src="https://raw.githubusercontent.com/ZacharyPatten/dotnet-console-games/main/.github/resources/file-16.svg" title="File"></a></sub> **`dotnet-console-games.slnf`** file in Visual Studio.
 >
-> **Note** This is optional, but [here are some recommended settings you change in Visual Studio](https://gist.github.com/ZacharyPatten/693f35653f6c21fbe6c85444792e524b).
+> _**Note** This is optional, but [here are some recommended settings you change in Visual Studio](https://gist.github.com/ZacharyPatten/693f35653f6c21fbe6c85444792e524b)._
 
 </p>
 </details>
