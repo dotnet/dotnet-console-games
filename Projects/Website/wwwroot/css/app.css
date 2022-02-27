@@ -193,3 +193,7 @@ pre.console {
 .alert {
     width: fit-content;
 }
+
+.oi {
+    top: 1px !important;
+}
