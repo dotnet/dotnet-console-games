@@ -139,6 +139,7 @@ Console.ResetColor();
 Console.CursorVisible = true;
 await Console.Clear();
 await Console.Write("Roll And Move was closed.");
+await Console.Refresh();
 
 async Task Prompt(string message)
 {
