@@ -197,3 +197,12 @@ pre.console {
 .oi {
     top: 1px !important;
 }
+
+@font-face {
+    font-family: SourceCodePro;
+    src: url(Source_Code_Pro/static/SourceCodePro-Regular.ttf);
+}
+
+code {
+    font-family: SourceCodePro, var(--bs-font-monospace), monospace;
+}
