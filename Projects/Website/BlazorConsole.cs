@@ -323,7 +323,7 @@ public class BlazorConsole
 
 	public async Task<ConsoleKeyInfo> ReadKey(bool capture)
 	{
-		while (!await KeyAvailable())
+		while (!KeyAvailableNoRefresh())
 		{
 			await Refresh();
 		}
@@ -346,7 +346,7 @@ public class BlazorConsole
 		string line = string.Empty;
 		while (true)
 		{
-			while (!await KeyAvailable())
+			while (!KeyAvailableNoRefresh())
 			{
 				await Refresh();
 			}
@@ -381,10 +381,15 @@ public class BlazorConsole
 		}
 	}
 
+	public bool KeyAvailableNoRefresh()
+	{
+		return InputBuffer.Count > 0;
+	}
+
 	public async Task<bool> KeyAvailable()
 	{
 		await Refresh();
-		return InputBuffer.Count > 0;
+		return KeyAvailableNoRefresh();
 	}
 
 	public async Task SetCursorPosition(int left, int top)
