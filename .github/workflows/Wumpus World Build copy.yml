@@ -1,0 +1,20 @@
+name: Sliding Puzzle Build
+on:
+  push:
+    paths:
+    - 'Projects/Sliding Puzzle/**'
+  pull_request:
+    paths:
+    - 'Projects/Sliding Puzzle/**'
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: setup dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: dotnet build
+      run: dotnet build "Projects\Sliding Puzzle\Sliding Puzzle.csproj" --configuration Release
