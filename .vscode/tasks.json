@@ -380,6 +380,19 @@
             "problemMatcher": "$msCompile",
         },
         {
+            "label": "Build Sliding Puzzle",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/Sliding Puzzle/Sliding Puzzle.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
+        {
             "label": "Build Solution",
             "command": "dotnet",
             "type": "process",

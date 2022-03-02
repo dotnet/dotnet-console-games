@@ -163,6 +163,16 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Sliding Puzzle",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Sliding Puzzle",
+			"program": "${workspaceFolder}/Projects/Sliding Puzzle/bin/Debug/Sliding Puzzle.dll",
+			"cwd": "${workspaceFolder}/Projects/Sliding Puzzle/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Hurdles",
 			"type": "coreclr",
 			"request": "launch",
