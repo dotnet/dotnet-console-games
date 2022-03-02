@@ -35,12 +35,12 @@ Sliding Puzzle is a game where you start with a randomized NxN board that has on
 
 Don't forget these dependencies if you copy the code:
 
-- [Towel](https://github.com/ZacharyPatten/Towel) nuget package _(referenced in [Wumpus World.csproj](Wumpus%20World.csproj))_
+- [Towel](https://github.com/ZacharyPatten/Towel) nuget package _(referenced in [Sliding Puzzle.csproj](Sliding%20Puzzle.csproj))_
 
 <p align="center">
 	You can play this game in your browser:
 	<br />
-	<a href="https://zacharypatten.github.io/dotnet-console-games/Tic%20Tac%20Toe" alt="Play Now">
+	<a href="https://zacharypatten.github.io/dotnet-console-games/Sliding%20Puzzle" alt="Play Now">
 		<sub><img height="40"src="https://raw.githubusercontent.com/ZacharyPatten/dotnet-console-games/main/.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
 	</a>
 	<br />
