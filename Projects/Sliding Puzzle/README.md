@@ -15,7 +15,7 @@
 
 Sliding Puzzle is a game where you start with a randomized NxN board that has one empty space in place of a tile. Tiles adjacent to the empty space may be slid into the empty space. You goal is to get all tiles in least-to_greatest order and the empty space in the lower right corner.
 
-```cs
+```
   ╔═════════════╗
   ║ 05 09 02 14 ║
   ║ 03 10    08 ║
