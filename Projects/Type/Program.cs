@@ -26,7 +26,7 @@ ConsoleColor[] Colors =
 
 const string wordsResource = "Type.Words.txt";
 Assembly assembly = Assembly.GetExecutingAssembly();
-using Stream stream = assembly.GetManifestResourceStream(wordsResource);
+using Stream? stream = assembly.GetManifestResourceStream(wordsResource);
 if (stream is null)
 {
 	Console.WriteLine("Error: Missing \"Words.txt\" embedded resource.");
@@ -37,8 +37,11 @@ ListArray<string> words = new();
 using StreamReader streamReader = new(stream);
 while (!streamReader.EndOfStream)
 {
-	string word = streamReader.ReadLine();
-	words.Add(word);
+	string? word = streamReader.ReadLine();
+	if (!string.IsNullOrWhiteSpace(word))
+	{
+		words.Add(word);
+	}
 }
 WordPool = words.ToArray();
 

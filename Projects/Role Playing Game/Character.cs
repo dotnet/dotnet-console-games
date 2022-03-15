@@ -17,8 +17,8 @@
 		// relative to the current map
 		public int TileI => I < 0 ? (I - 6) / 7 : I / 7;
 		public int TileJ => J < 0 ? (J - 3) / 4 : J / 4;
-		private string[] _mapAnaimation;
-		public string[] MapAnimation
+		private string[]? _mapAnaimation;
+		public string[]? MapAnimation
 		{
 			get => _mapAnaimation;
 			set
@@ -35,7 +35,7 @@
 			{
 				_mapAnimationFrame = value;
 				Moved = false;
-				if (_mapAnimationFrame >= MapAnimation.Length)
+				if (_mapAnimationFrame >= MapAnimation!.Length)
 				{
 					if (MapAnimation == Sprites.RunUp)    { Moved = true; MapAnimation = Sprites.IdleUp;    }
 					if (MapAnimation == Sprites.RunDown)  { Moved = true; MapAnimation = Sprites.IdleDown;  }

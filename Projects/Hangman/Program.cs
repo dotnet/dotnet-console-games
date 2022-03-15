@@ -365,7 +365,7 @@ string[] DeathAnimation =
 
 const string wordsResource = "Hangman.Words.txt";
 Assembly assembly = Assembly.GetExecutingAssembly();
-using Stream stream = assembly.GetManifestResourceStream(wordsResource);
+using Stream? stream = assembly.GetManifestResourceStream(wordsResource);
 if (stream is null)
 {
 	Console.WriteLine("Error: Missing \"Words.txt\" embedded resource.");
@@ -377,8 +377,11 @@ List<string> words = new();
 using StreamReader streamReader = new(stream);
 while (!streamReader.EndOfStream)
 {
-	string word = streamReader.ReadLine();
-	words.Add(word);
+	string? word = streamReader.ReadLine();
+	if (!string.IsNullOrWhiteSpace(word))
+	{
+		words.Add(word);
+	}
 }
 string[] Words = words.ToArray();
 PlayAgain:

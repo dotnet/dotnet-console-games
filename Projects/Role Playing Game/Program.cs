@@ -11,13 +11,25 @@ namespace Role_Playing_Game
 	public partial class Program
 	{
 		static readonly Random random = new();
-		static Character character;
-		static char[][] map;
+		static Character? _character;
+		static char[][]? _map;
 		static DateTime previoiusRender = DateTime.Now;
 		static int movesSinceLastBattle;
 		static bool gameRunning = true;
 		const double randomBattleChance = 1d / 10d;
 		const int movesBeforeRandomBattle = 4;
+
+		static Character character
+		{
+			get => _character!;
+			set => _character = value;
+		}
+
+		static char[][] map
+		{
+			get => _map!;
+			set => _map = value;
+		}
 
 		private static readonly string[] maptext = new[]
 		{
@@ -33,7 +45,13 @@ namespace Role_Playing_Game
 			"3) check status",
 		};
 
-		private static string[] combatText;
+		private static string[]? _combatText;
+
+		static string[] combatText
+		{
+			get => _combatText!;
+			set => _combatText = value;
+		}
 
 		public static void Main()
 		{
@@ -66,7 +84,7 @@ namespace Role_Playing_Game
 			map = Maps.Town;
 			character = new();
 			{
-				var (i, j) = FindTileInMap(map, 'X').Value;
+				var (i, j) = FindTileInMap(map, 'X')!.Value;
 				character.I = i * 7;
 				character.J = j * 4;
 			}
@@ -214,7 +232,7 @@ namespace Role_Playing_Game
 		static void TransitionMapToTown()
 		{
 			map = Maps.Town;
-			var (i, j) = FindTileInMap(map, '1').Value;
+			var (i, j) = FindTileInMap(map, '1')!.Value;
 			character.I = i * 7;
 			character.J = j * 4;
 		}
@@ -223,7 +241,7 @@ namespace Role_Playing_Game
 		{
 			char c = map == Maps.Town ? '0' : '2';
 			map = Maps.Field;
-			var (i, j) = FindTileInMap(map, c).Value;
+			var (i, j) = FindTileInMap(map, c)!.Value;
 			character.I = i * 7;
 			character.J = j * 4;
 		}
@@ -231,7 +249,7 @@ namespace Role_Playing_Game
 		static void TransitionMapToCastle()
 		{
 			map = Maps.Castle;
-			var (i, j) = FindTileInMap(map, '1').Value;
+			var (i, j) = FindTileInMap(map, '1')!.Value;
 			character.I = i * 7;
 			character.J = j * 4;
 		}
