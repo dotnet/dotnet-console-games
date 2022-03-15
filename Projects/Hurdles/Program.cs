@@ -172,7 +172,7 @@ while (position < int.MaxValue)
 	}
 	string playerFrame =
 		jumpingFrame.HasValue ? jumpingAnimation[jumpingFrame.Value] :
-		runningAnimation[runningFrame.Value];
+		runningAnimation[runningFrame!.Value];
 	Console.SetCursorPosition(4, 10);
 	Render(playerFrame, true);
 	RenderHurdles(true);

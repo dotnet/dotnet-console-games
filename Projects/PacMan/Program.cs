@@ -523,7 +523,7 @@ finally
 	{
 		foreach (Ghost ghost in Ghosts)
 		{
-			ghost.Update();
+			ghost.Update!();
 		}
 	}
 
@@ -616,7 +616,7 @@ finally
 			return x * x + y * y;
 		}
 
-		Action<Action<(int X, int Y)>> path = SearchGraph(position, Neighbors, Heuristic, node => node == destination);
+		Action<Action<(int X, int Y)>> path = SearchGraph(position, Neighbors, Heuristic, node => node == destination)!;
 		(int X, int Y)[] array = path.ToArray();
 		return array[1];
 	}
@@ -628,7 +628,7 @@ class Ghost
 	public bool Weak;
 	public int WeakTime;
 	public ConsoleColor Color;
-	public Action Update;
+	public Action? Update;
 	public int UpdateFrame;
 	public int FramesToUpdate;
 	public (int X, int Y)? Destination;

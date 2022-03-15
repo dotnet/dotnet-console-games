@@ -49,7 +49,7 @@ try
 			return;
 		}
 		Console.SetCursorPosition(X, Y);
-		Console.Write(DirectionChars[(int)direction]);
+		Console.Write(DirectionChars[(int)direction!]);
 		snake.Enqueue((X, Y));
 		if (map[X, Y] == Tile.Food)
 		{
