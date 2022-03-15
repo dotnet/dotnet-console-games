@@ -1,0 +1,53 @@
+﻿@using System
+
+@page "/Draw"
+
+<PageTitle>Draw</PageTitle>
+
+<h1>Draw</h1>
+
+<a href="https://github.com/ZacharyPatten/dotnet-console-games/tree/main/Projects/Draw" alt="Go To Readme">
+	<img title="Go To Readme" alt="Go To Readme" src="https://raw.githubusercontent.com/ZacharyPatten/dotnet-console-games/main/.github/resources/readme-black.svg">
+</a>
+
+<div class="console-window text-center my-3" @onkeydown="@Console.OnKeyDown" tabindex="0">
+	<div class="d-inline-block bg-dark text-light border p-2 text-start shadow padding-0">
+		<pre class="console">
+			<code>@Console.State</code>
+		</pre>
+	</div>
+	<div>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.UpArrow)   ">↑</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.DownArrow) ">↓</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.LeftArrow) ">←</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.RightArrow)">→</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.End)       ">end</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Enter)     ">enter</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Escape)    ">escape</button>
+	</div>
+</div>
+
+<div class="alert alert-secondary" role="alert">
+	&#9000; Keyboard input is supported if you <strong>click</strong> on the game.
+</div>
+
+<div class="alert alert-secondary" role="alert">
+	&#8635; You can restart the game by <strong>refreshing</strong> the page.
+</div>
+
+@code
+{
+	Games.Draw.Draw Game;
+	BlazorConsole Console;
+
+	public Draw()
+	{
+		Game = new();
+		Console = Game.Console;
+		Console.WindowWidth = 52;
+		Console.WindowHeight = 22;
+		Console.StateHasChanged = StateHasChanged;
+	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
+}

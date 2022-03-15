@@ -393,6 +393,19 @@
             "problemMatcher": "$msCompile",
         },
         {
+            "label": "Build Draw",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/Draw/Draw.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
+        {
             "label": "Build Solution",
             "command": "dotnet",
             "type": "process",

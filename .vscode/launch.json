@@ -73,6 +73,16 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Draw",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Draw",
+			"program": "${workspaceFolder}/Projects/Draw/bin/Debug/Draw.dll",
+			"cwd": "${workspaceFolder}/Projects/Draw/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Hangman",
 			"type": "coreclr",
 			"request": "launch",
