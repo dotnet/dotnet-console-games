@@ -65,7 +65,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roll And Move", "Projects\R
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sliding Puzzle", "Projects\Sliding Puzzle\Sliding Puzzle.csproj", "{A86ABB40-DAFC-4ED2-8F67-B782ECFD2022}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Draw", "Projects\Draw\Draw.csproj", "{3FE5ABC6-425A-4E70-9B57-312D334658F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Draw", "Projects\Draw\Draw.csproj", "{3FE5ABC6-425A-4E70-9B57-312D334658F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
