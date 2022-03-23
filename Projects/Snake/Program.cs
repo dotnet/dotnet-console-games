@@ -69,11 +69,12 @@ try
 		}
 		System.Threading.Thread.Sleep(sleep);
 	}
-	Console.Clear();
 }
 finally
 {
 	Console.CursorVisible = true;
+	Console.Clear();
+	Console.Write("Snake was closed.");
 }
 
 void GetDirection()

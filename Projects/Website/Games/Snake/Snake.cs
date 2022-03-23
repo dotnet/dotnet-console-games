@@ -11,7 +11,7 @@ public class Snake
 	public async Task Run()
 	{
 		char[] DirectionChars = { '^', 'v', '<', '>', };
-		TimeSpan sleep = TimeSpan.FromMilliseconds(70);
+		TimeSpan sleep = TimeSpan.FromMilliseconds(35);
 		int width = Console.WindowWidth;
 		int height = Console.WindowHeight;
 		Random random = new();
@@ -78,14 +78,14 @@ public class Snake
 				{
 					await GetDirection();
 				}
-				System.Threading.Thread.Sleep(sleep);
+				await Console.RefreshAndDelay(sleep);
 			}
-			await Console.Clear();
-			await Console.Refresh();
 		}
 		finally
 		{
 			Console.CursorVisible = true;
+			await Console.Clear();
+			await Console.Write("Snake was closed.");
 			await Console.Refresh();
 		}
 
