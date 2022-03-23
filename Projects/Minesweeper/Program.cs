@@ -52,6 +52,7 @@ while (true)
 					Console.Write("You Lose. Press Enter To Exit...");
 					Console.ReadLine();
 					Console.Clear();
+					Console.Write("Minesweeper was closed.");
 					return;
 				}
 				else if (board[Column, Row].Value == 0)
@@ -81,6 +82,7 @@ while (true)
 					Console.Write("You Win. Press Enter To Exit...");
 					Console.ReadLine();
 					Console.Clear();
+					Console.Write("Minesweeper was closed.");
 					return;
 				}
 			}

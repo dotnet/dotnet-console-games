@@ -30,12 +30,33 @@ public class BlazorConsole
 	public ConsoleColor BackgroundColor = ConsoleColor.Black;
 	public ConsoleColor ForegroundColor = ConsoleColor.White;
 	public bool CursorVisible = true;
-	public int WindowHeight = 35;
-	public int WindowWidth = 80;
 	public int LargestWindowWidth = 120;
-	public int LargestWindowHeight = 40;
+	public int LargestWindowHeight = 51;
 	public int CursorLeft = 0;
 	public int CursorTop = 0;
+
+	public int _windowHeight = 35;
+	public int _windowWidth = 80;
+
+	public int WindowHeight
+	{
+		get =>  _windowHeight;
+		set
+		{
+			_windowHeight = value;
+			HandleResize();
+		}
+	}
+
+	public int WindowWidth
+	{
+		get => _windowWidth;
+		set
+		{
+			_windowWidth = value;
+			HandleResize();
+		}
+	}
 
 	public int BufferWidth
 	{
@@ -153,6 +174,22 @@ public class BlazorConsole
 		await Task.Delay(timeSpan);
 	}
 
+	public void HandleResize()
+	{
+		if (View.GetLength(0) != WindowHeight || View.GetLength(1) != WindowWidth)
+		{
+			Pixel[,] old_view = View;
+			View = new Pixel[WindowHeight, WindowWidth];
+			for (int row = 0; row < View.GetLength(0) && row < old_view.GetLength(0); row++)
+			{
+				for (int column = 0; column < View.GetLength(1) && column < old_view.GetLength(1); column++)
+				{
+					View[row, column] = old_view[row, column];
+				}
+			}
+		}
+	}
+
 	public async Task Refresh()
 	{
 		DieIfNotActiveGame();
@@ -164,18 +201,6 @@ public class BlazorConsole
 	{
 		get
 		{
-			if (View.GetLength(0) != WindowHeight || View.GetLength(1) != WindowWidth)
-			{
-				Pixel[,] old_view = View;
-				View = new Pixel[WindowHeight, WindowWidth];
-				for (int row = 0; row < View.GetLength(0); row++)
-				{
-					for (int column = 0; column < View.GetLength(1); column++)
-					{
-						View[row, column] = old_view[row, column];
-					}
-				}
-			}
 			StringBuilder stateBuilder = new();
 			for (int row = 0; row < View.GetLength(0); row++)
 			{
@@ -267,6 +292,17 @@ public class BlazorConsole
 		if (CursorLeft >= View.GetLength(1))
 		{
 			(CursorLeft, CursorTop) = (0, CursorTop + 1);
+		}
+		if (CursorTop >= View.GetLength(0))
+		{
+			for (int row = 0; row < View.GetLength(0) - 1; row++)
+			{
+				for (int column = 0; column < View.GetLength(1); column++)
+				{
+					View[row, column] = View[row + 1, column];
+				}
+			}
+			CursorTop--;
 		}
 		View[CursorTop, CursorLeft] = new()
 		{

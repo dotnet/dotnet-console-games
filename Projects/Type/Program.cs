@@ -77,8 +77,6 @@ try
 		{
 			Console.Clear();
 			Console.ForegroundColor = ConsoleColor.White;
-			Console.WriteLine($"Type was closed.");
-			ConsoleHelper.PromptPressToContinue();
 			return;
 		}
 		TimeSpan timeSpan = DateTime.Now - WordStart;
@@ -111,6 +109,7 @@ finally
 	Console.ResetColor();
 	Console.Clear();
 	Console.CursorVisible = true;
+	Console.WriteLine("Type was closed.");
 }
 
 void GetWord()

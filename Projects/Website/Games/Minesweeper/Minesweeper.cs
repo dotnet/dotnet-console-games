@@ -7,9 +7,12 @@ namespace Website.Games.Minesweeper;
 public class Minesweeper
 {
 	public readonly BlazorConsole Console = new();
+	public BlazorConsole? OperatingSystem;
 
 	public async Task Run()
 	{
+		OperatingSystem = Console;
+
 		const int mine = -1;
 		Random random = new();
 		(int Value, bool Visible)[,] board;
@@ -61,6 +64,8 @@ public class Minesweeper
 							await Console.Write("You Lose. Press Enter To Exit...");
 							await Console.ReadLine();
 							await Console.Clear();
+							await Console.Write("Minesweeper was closed.");
+							await Console.Refresh();
 							return;
 						}
 						else if (board[Column, Row].Value == 0)
@@ -90,6 +95,7 @@ public class Minesweeper
 							await Console.Write("You Win. Press Enter To Exit...");
 							await Console.ReadLine();
 							await Console.Clear();
+							await Console.Write("Minesweeper was closed.");
 							await Console.Refresh();
 							return;
 						}
