@@ -49,6 +49,14 @@ public class BlazorConsole
 		set => WindowHeight = value;
 	}
 
+	public void SetWindowSize(int width, int height)
+	{
+		WindowWidth = width;
+		WindowHeight = height;
+	}
+
+	public void SetBufferSize(int width, int height) => SetWindowSize(width, height);
+
 	public void EnqueueInput(ConsoleKey key, bool shift = false, bool alt = false, bool control = false)
 	{
 		char c = key switch

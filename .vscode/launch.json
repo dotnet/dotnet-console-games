@@ -223,6 +223,16 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Yahtzee",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Yahtzee",
+			"program": "${workspaceFolder}/Projects/Yahtzee/bin/Debug/Yahtzee.dll",
+			"cwd": "${workspaceFolder}/Projects/Yahtzee/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Tanks",
 			"type": "coreclr",
 			"request": "launch",
