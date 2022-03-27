@@ -4,6 +4,7 @@
     "projects": [
       "Projects\\2048\\2048.csproj",
       "Projects\\Beep Pad\\Beep Pad.csproj",
+      "Projects\\Bound\\Bound.csproj",
       "Projects\\Connect 4\\Connect 4.csproj",
       "Projects\\Draw\\Draw.csproj",
       "Projects\\Drive\\Drive.csproj",
