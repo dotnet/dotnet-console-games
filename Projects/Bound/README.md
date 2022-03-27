@@ -20,3 +20,13 @@
 - `↑`, `↓`, `←`, `→`: movement
 - `enter`: confirm
 - `escape`: close
+
+<p align="center">
+	You can play this game in your browser:
+	<br />
+	<a href="https://zacharypatten.github.io/dotnet-console-games/Bound" alt="Play Now">
+		<sub><img height="40"src="https://raw.githubusercontent.com/ZacharyPatten/dotnet-console-games/main/.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
+	</a>
+	<br />
+	<sup>Hosted On GitHub Pages</sup>
+</p>
