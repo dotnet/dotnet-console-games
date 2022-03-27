@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -338,57 +337,6 @@ public class Bound
             ║#######║
             ║#######║
             ║#######║
-            ║#######║
-            ║#######║
-            ║#######║
-            ║       ║
-            ║       ║
-            ╚═══════╝", TimeSpan.FromSeconds(.2)),
-		(@"
-            ╔═══════╗
-            ║   @   ║
-            ║       ║
-            ║#######║
-            ║#######║
-            ║#######║
-            ║#######║
-            ║#######║
-            ║#######║
-            ║#######║
-            ║#######║
-            ║#######║
-            ║       ║
-            ║       ║
-            ║       ║
-            ╚═══════╝", TimeSpan.FromSeconds(.2)),
-		(@"
-            ╔═══════╗
-            ║   @   ║
-            ║       ║
-            ║#######║
-            ║#######║
-            ║#######║
-            ║#######║
-            ║#######║
-            ║#######║
-            ║#######║
-            ║#######║
-            ║       ║
-            ║       ║
-            ║       ║
-            ║       ║
-            ╚═══════╝", TimeSpan.FromSeconds(.2)),
-		(@"
-            ╔═══════╗
-            ║   @   ║
-            ║       ║
-            ║#######║
-            ║#######║
-            ║#######║
-            ║#######║
-            ║#######║
-            ║#######║
-            ║#######║
             ║       ║
             ║       ║
             ║       ║
@@ -714,7 +662,7 @@ public class Bound
             ║#######║
             ║#######║
             ║#######║
-            ║#######║
+            ║       ║
             ║       ║
             ║       ║
             ╚═══════╝", TimeSpan.FromSeconds(.2)),
@@ -730,8 +678,8 @@ public class Bound
             ║#######║
             ║#######║
             ║#######║
-            ║#######║
-            ║#######║
+            ║       ║
+            ║       ║
             ║       ║
             ║       ║
             ╚═══════╝", TimeSpan.FromSeconds(.2)),
@@ -1091,17 +1039,6 @@ public class Bound
          ║#######   #######║
          ║###########   ###║
          ║###########   ###║
-         ║                 ║
-         ║                 ║
-         ╚═════════════════╝", TimeSpan.FromSeconds(.3)),
-		(@"
-         ╔═════════════════╗
-         ║        @        ║
-         ║                 ║
-         ║########   ######║
-         ║########   ######║
-         ║##########   ####║
-         ║##########   ####║
          ║                 ║
          ║                 ║
          ╚═════════════════╝", TimeSpan.FromSeconds(.3)),
@@ -1599,158 +1536,279 @@ public class Bound
          ╚═════════════════╝", TimeSpan.FromSeconds(1.75)),
 	}),
 	#endregion
+	#region level 12
+	((14, 18),
+	new (string Map, TimeSpan Delay)[]
+	{
+		(@"
+         ╔═════════════════╗
+         ║        @        ║
+         ║                 ║
+         ║#################║
+         ║#################║
+         ║## ## ###########║
+         ║## ## # ####  ###║
+         ║####### #########║
+         ║###########  ####║
+         ║#################║
+         ║######  ####  ###║
+         ║## ##############║
+         ║                 ║
+         ║                 ║
+         ╚═════════════════╝", TimeSpan.FromSeconds(.5)),
+		(@"
+         ╔═════════════════╗
+         ║        @        ║
+         ║                 ║
+         ║#################║
+         ║## ##############║
+         ║## ##############║
+         ║##### #  ####  ##║
+         ║##### ###########║
+         ║##########  #####║
+         ║#################║
+         ║## ####  ####  ##║
+         ║## ##############║
+         ║                 ║
+         ║                 ║
+         ╚═════════════════╝", TimeSpan.FromSeconds(.5)),
+		(@"
+         ╔═════════════════╗
+         ║        @        ║
+         ║                 ║
+         ║#################║
+         ║##  #############║
+         ║############## ##║
+         ║########  #### ##║
+         ║##### ###########║
+         ║##### ###  ######║
+         ║## ########### ##║
+         ║## #####  #### ##║
+         ║#################║
+         ║                 ║
+         ║                 ║
+         ╚═════════════════╝", TimeSpan.FromSeconds(.5)),
+		(@"
+         ╔═════════════════╗
+         ║        @        ║
+         ║                 ║
+         ║#################║
+         ║###  ######### ##║
+         ║############## ##║
+         ║#########  ######║
+         ║#################║
+         ║## ## ##  #### ##║
+         ║## ## ######## ##║
+         ║#########  ######║
+         ║#################║
+         ║                 ║
+         ║                 ║
+         ╚═════════════════╝", TimeSpan.FromSeconds(.5)),
+		(@"
+         ╔═════════════════╗
+         ║        @        ║
+         ║                 ║
+         ║############## ##║
+         ║####  ######## ##║
+         ║#################║
+         ║##########  #####║
+         ║## ##############║
+         ║## ####  ####  ##║
+         ║##### ###########║
+         ║##### ####  #####║
+         ║#################║
+         ║                 ║
+         ║                 ║
+         ╚═════════════════╝", TimeSpan.FromSeconds(.5)),
+		(@"
+         ╔═════════════════╗
+         ║        @        ║
+         ║                 ║
+         ║############## ##║
+         ║##### ###########║
+         ║##### ###########║
+         ║## ########  ####║
+         ║## #### #########║
+         ║####### ####  ###║
+         ║#################║
+         ║#####  ####  ####║
+         ║#################║
+         ║                 ║
+         ║                 ║
+         ╚═════════════════╝", TimeSpan.FromSeconds(.5)),
+	}),
+	#endregion
 };
 
-		await Console.WriteLine("This game is a work in progress.");
-		await Console.WriteLine("It is not yet complete.");
-		await Console.WriteLine("Press [enter] to continue...");
-	GetEnterOrEscape:
-		Console.CursorVisible = false;
-		switch ((await Console.ReadKey(true)).Key)
+		try
 		{
-			case ConsoleKey.Enter: break;
-			case ConsoleKey.Escape: return;
-			default: goto GetEnterOrEscape;
-		}
-		int lives = 100;
-		int frame = 0;
-		int levelIndex = 0;
-		((int Left, int Top) StartPosition, (string Map, TimeSpan Delay)[] Frames) level = levels[levelIndex];
-		(int Top, int Left) position = level.StartPosition;
-		ConsoleKey lastMovementKey = ConsoleKey.UpArrow;
-		Console.CursorVisible = false;
-		await Console.Clear();
-		while (true)
-		{
-			level = levels[levelIndex];
+			bool escape = false;
+			int lives = 100;
+			int frame = 0;
+			int levelIndex = 0;
+			((int Left, int Top) StartPosition, (string Map, TimeSpan Delay)[] Frames) level = levels[levelIndex];
+			(int Top, int Left) position = level.StartPosition;
+			ConsoleKey lastMovementKey = ConsoleKey.UpArrow;
 			Console.CursorVisible = false;
-			await Console.SetCursorPosition(0, 0);
-			await Console.WriteLine();
-			await Console.WriteLine("  Bound");
-			await Console.WriteLine();
-			await Console.WriteLine($"  Lives: {lives}   ");
-			await Console.WriteLine($"  Level: {levelIndex}");
-			int mapTop = Console.CursorTop;
-			await Console.Write(level.Frames[frame].Map);
-			string[] map = Regex.Split(level.Frames[frame].Map, @"\n|\r\n");
-			if (map[position.Top][position.Left] is '#')
+			await Console.Clear();
+			while (!escape)
 			{
-				lastMovementKey = ConsoleKey.UpArrow;
-				position = levels[levelIndex].StartPosition;
-				lives--;
-				if (lives <= 0)
+			NextLevel:
+				level = levels[levelIndex];
+				Console.CursorVisible = false;
+				await Console.SetCursorPosition(0, 0);
+				await Console.WriteLine();
+				await Console.WriteLine("  Bound");
+				await Console.WriteLine();
+				await Console.WriteLine($"  Lives: {lives}   ");
+				await Console.WriteLine($"  Level: {levelIndex}");
+				int mapTop = Console.CursorTop;
+				await Console.Write(level.Frames[frame].Map);
+				string[] map = Regex.Split(level.Frames[frame].Map, @"\n|\r\n");
+				if (map[position.Top][position.Left] is '#')
 				{
-					goto YouLose;
-				}
-			}
-			await Console.SetCursorPosition(position.Left, position.Top + mapTop);
-			await Console.Write(GetPlayerChar());
-			DateTime start = DateTime.Now;
-			while (DateTime.Now - start < level.Frames[frame].Delay)
-			{
-				while (await Console.KeyAvailable())
-				{
-					switch ((await Console.ReadKey(true)).Key)
+					lastMovementKey = ConsoleKey.UpArrow;
+					position = levels[levelIndex].StartPosition;
+					lives--;
+					if (lives <= 0)
 					{
-						case ConsoleKey.UpArrow:
-							lastMovementKey = ConsoleKey.UpArrow;
-							if (map[position.Top - 1][position.Left] is ' ' or '@' or '#')
-							{
-								lastMovementKey = ConsoleKey.UpArrow;
-								await Console.SetCursorPosition(position.Left, position.Top + mapTop);
-								await Console.Write(' ');
-								position.Top--;
-							}
-							break;
-						case ConsoleKey.DownArrow:
-							lastMovementKey = ConsoleKey.DownArrow;
-							if (map[position.Top + 1][position.Left] is ' ' or '@' or '#')
-							{
-								await Console.SetCursorPosition(position.Left, position.Top + mapTop);
-								await Console.Write(' ');
-								position.Top++;
-							}
-							break;
-						case ConsoleKey.LeftArrow:
-							lastMovementKey = ConsoleKey.LeftArrow;
-							if (map[position.Top][position.Left - 1] is ' ' or '@' or '#')
-							{
-								await Console.SetCursorPosition(position.Left, position.Top + mapTop);
-								await Console.Write(' ');
-								position.Left--;
-							}
-							break;
-						case ConsoleKey.RightArrow:
-							lastMovementKey = ConsoleKey.RightArrow;
-							if (map[position.Top][position.Left + 1] is ' ' or '@' or '#')
-							{
-								await Console.SetCursorPosition(position.Left, position.Top + mapTop);
-								await Console.Write(' ');
-								position.Left++;
-							}
-							break;
-						case ConsoleKey.Escape:
-							await Console.Clear();
-							await Console.WriteLine("Bound was closed.");
-							await Console.Refresh();
-							return;
-
+						goto YouLose;
 					}
-					if (map[position.Top][position.Left] is '@')
+				}
+				await Console.SetCursorPosition(position.Left, position.Top + mapTop);
+				await Console.Write(GetPlayerChar());
+				DateTime start = DateTime.Now;
+				while (DateTime.Now - start < level.Frames[frame].Delay)
+				{
+					while (await Console.KeyAvailable())
 					{
-						frame = 0;
-						levelIndex++;
-						if (levelIndex >= levels.Length)
+						switch ((await Console.ReadKey(true)).Key)
 						{
-							goto YouWin;
+							case ConsoleKey.UpArrow:
+								lastMovementKey = ConsoleKey.UpArrow;
+								if (map[position.Top - 1][position.Left] is ' ' or '@' or '#')
+								{
+									lastMovementKey = ConsoleKey.UpArrow;
+									await Console.SetCursorPosition(position.Left, position.Top + mapTop);
+									await Console.Write(' ');
+									position.Top--;
+								}
+								break;
+							case ConsoleKey.DownArrow:
+								lastMovementKey = ConsoleKey.DownArrow;
+								if (map[position.Top + 1][position.Left] is ' ' or '@' or '#')
+								{
+									await Console.SetCursorPosition(position.Left, position.Top + mapTop);
+									await Console.Write(' ');
+									position.Top++;
+								}
+								break;
+							case ConsoleKey.LeftArrow:
+								lastMovementKey = ConsoleKey.LeftArrow;
+								if (map[position.Top][position.Left - 1] is ' ' or '@' or '#')
+								{
+									await Console.SetCursorPosition(position.Left, position.Top + mapTop);
+									await Console.Write(' ');
+									position.Left--;
+								}
+								break;
+							case ConsoleKey.RightArrow:
+								lastMovementKey = ConsoleKey.RightArrow;
+								if (map[position.Top][position.Left + 1] is ' ' or '@' or '#')
+								{
+									await Console.SetCursorPosition(position.Left, position.Top + mapTop);
+									await Console.Write(' ');
+									position.Left++;
+								}
+								break;
+							case ConsoleKey.Escape:
+								return;
+						}
+						if (map[position.Top][position.Left] is '@')
+						{
+							frame = 0;
+							levelIndex++;
+							if (levelIndex >= levels.Length)
+							{
+								goto YouWin;
+							}
+							else
+							{
+								position = levels[levelIndex].StartPosition;
+								await Console.Clear();
+								goto NextLevel;
+							}
+						}
+						else if (map[position.Top][position.Left] is '#')
+						{
+							lastMovementKey = ConsoleKey.UpArrow;
+							position = levels[levelIndex].StartPosition;
+							lives--;
+							if (lives <= 0)
+							{
+								goto YouLose;
+							}
+							await Console.SetCursorPosition(position.Left, position.Top + mapTop);
+							await Console.Write(GetPlayerChar());
 						}
 						else
 						{
-							position = levels[levelIndex].StartPosition;
-							await Console.Clear();
+							await Console.SetCursorPosition(position.Left, position.Top + mapTop);
+							await Console.Write(GetPlayerChar());
 						}
-					}
-					else if (map[position.Top][position.Left] is '#')
-					{
-						lastMovementKey = ConsoleKey.UpArrow;
-						position = levels[levelIndex].StartPosition;
-						lives--;
-						if (lives <= 0)
-						{
-							goto YouLose;
-						}
-						await Console.SetCursorPosition(position.Left, position.Top + mapTop);
-						await Console.Write(GetPlayerChar());
-					}
-					else
-					{
-						await Console.SetCursorPosition(position.Left, position.Top + mapTop);
-						await Console.Write(GetPlayerChar());
 					}
 				}
+				frame++;
+				if (frame >= level.Frames.Length)
+				{
+					frame = 0;
+				}
 			}
-			frame = (frame + 1) % level.Frames.Length;
-		}
-	YouWin:
-		await Console.Clear();
-		await Console.WriteLine("You Win!");
-		await Console.Refresh();
-		return;
-	YouLose:
-		await Console.Clear();
-		await Console.WriteLine("You Lose!");
-		await Console.Refresh();
-		return;
-
-
-		char GetPlayerChar() =>
-			lastMovementKey switch
+			if (escape)
 			{
-				ConsoleKey.UpArrow => '^',
-				ConsoleKey.DownArrow => 'v',
-				ConsoleKey.LeftArrow => '<',
-				ConsoleKey.RightArrow => '>',
-				_ => throw new NotImplementedException(),
-			};
+				return;
+			}
+		YouWin:
+			await Console.Clear();
+			await Console.WriteLine("You Win!");
+			await Console.WriteLine("Press [enter] to continue...");
+			await PressEnterToContinue();
+			return;
+		YouLose:
+			await Console.Clear();
+			await Console.WriteLine("You Lose!");
+			await Console.WriteLine("Press [enter] to continue...");
+			await PressEnterToContinue();
+			return;
+
+			char GetPlayerChar() =>
+				lastMovementKey switch
+				{
+					ConsoleKey.UpArrow    => '^',
+					ConsoleKey.DownArrow  => 'v',
+					ConsoleKey.LeftArrow  => '<',
+					ConsoleKey.RightArrow => '>',
+					_ => throw new NotImplementedException(),
+				};
+
+			async Task PressEnterToContinue()
+			{
+			GetEnterOrEscape:
+				Console.CursorVisible = false;
+				switch ((await Console.ReadKey(true)).Key)
+				{
+					case ConsoleKey.Enter: break;
+					case ConsoleKey.Escape: return;
+					default: goto GetEnterOrEscape;
+				}
+			}
+		}
+		finally
+		{
+			Console.CursorVisible = true;
+			await Console.Clear();
+			await Console.Write("Bound was closed.");
+			await Console.Refresh();
+		}
 	}
 }
