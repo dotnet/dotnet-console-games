@@ -67,7 +67,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sliding Puzzle", "Projects\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Draw", "Projects\Draw\Draw.csproj", "{3FE5ABC6-425A-4E70-9B57-312D334658F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yahtzee", "Projects\Yahtzee\Yahtzee.csproj", "{198F44BE-6D69-4151-8F96-BBB2D92B883E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yahtzee", "Projects\Yahtzee\Yahtzee.csproj", "{198F44BE-6D69-4151-8F96-BBB2D92B883E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bound", "Projects\Bound\Bound.csproj", "{75DF80B6-2CBB-4C90-9192-0B9D3F52E9CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -207,6 +209,10 @@ Global
 		{198F44BE-6D69-4151-8F96-BBB2D92B883E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{198F44BE-6D69-4151-8F96-BBB2D92B883E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{198F44BE-6D69-4151-8F96-BBB2D92B883E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75DF80B6-2CBB-4C90-9192-0B9D3F52E9CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75DF80B6-2CBB-4C90-9192-0B9D3F52E9CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75DF80B6-2CBB-4C90-9192-0B9D3F52E9CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75DF80B6-2CBB-4C90-9192-0B9D3F52E9CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
