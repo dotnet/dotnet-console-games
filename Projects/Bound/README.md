@@ -31,7 +31,7 @@ Bound is a game where you `^` try to reach the `@` without touching the `#`. It 
   ║#     #║
   ║# #####║
   ║       ║
-  ║       ║
+  ║   ^   ║
   ╚═══════╝
 ```
 
