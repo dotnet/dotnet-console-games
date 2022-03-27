@@ -1604,7 +1604,7 @@ switch (Console.ReadKey(true).Key)
 }
 int lives = 100;
 int frame = 0;
-int levelIndex = 11;
+int levelIndex = 0;
 ((int Left, int Top) StartPosition, (string Map, TimeSpan Delay)[] Frames) level = levels[levelIndex];
 (int Top, int Left) position = level.StartPosition;
 ConsoleKey lastMovementKey = ConsoleKey.UpArrow;
