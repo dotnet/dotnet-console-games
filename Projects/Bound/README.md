@@ -13,7 +13,27 @@
 
 **[Source Code](Program.cs)**
 
-> The "Bound" game is a work in progress. Please come back later. :)
+Bound is a game where you `^` try to reach the `@` without touching the `#`. It is inspired by the "bound" custom games from Starcraft.
+
+```
+  Bound
+
+  Lives: 98
+  Level: 1
+  ╔═══════╗
+  ║   @   ║
+  ║       ║
+  ║##### #║
+  ║#     #║
+  ║# #####║
+  ║#     #║
+  ║##### #║
+  ║#     #║
+  ║# #####║
+  ║       ║
+  ║       ║
+  ╚═══════╝
+```
 
 ## Input
 
