@@ -322,5 +322,15 @@
 			"console": "externalTerminal",
 			"stopAtEntry": false,
 		},
+		{
+			"name": "Bound (work in progress)",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Bound",
+			"program": "${workspaceFolder}/Projects/Bound/bin/Debug/Bound.dll",
+			"cwd": "${workspaceFolder}/Projects/Bound/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
 	],
 }
