@@ -540,7 +540,7 @@ namespace Role_Playing_Game
 										animationLeft = Sprites.FallLeft;
 										combatText = new string[]
 										{
-											"You were attacked, but the enemy was",
+											"You attacked, but the enemy was",
 											"faster and you took damage!",
 											"",
 											"Press [enter] to continue...",
