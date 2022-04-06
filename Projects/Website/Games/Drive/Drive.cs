@@ -7,6 +7,12 @@ namespace Website.Games.Drive;
 public class Drive
 {
 	public readonly BlazorConsole Console = new();
+	public BlazorConsole OperatingSystem;
+
+	public Drive()
+	{
+		OperatingSystem = Console;
+	}
 
 	public async Task Run()
 	{

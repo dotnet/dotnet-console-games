@@ -1,0 +1,20 @@
+name: Tents Build
+on:
+  push:
+    paths:
+    - 'Projects/Tents/**'
+  pull_request:
+    paths:
+    - 'Projects/Tents/**'
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: setup dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: dotnet build
+      run: dotnet build "Projects\Tents\Tents.csproj" --configuration Release

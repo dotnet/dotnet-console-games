@@ -293,6 +293,16 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Tents",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Tents",
+			"program": "${workspaceFolder}/Projects/Tents/bin/Debug/Tents.dll",
+			"cwd": "${workspaceFolder}/Projects/Tents/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Maze",
 			"type": "coreclr",
 			"request": "launch",
