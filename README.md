@@ -66,7 +66,7 @@
 	<sup>Hosted On GitHub Pages</sup>
 </p>
 
-## Getting Started
+## Get Started
 
 > _**Recommendation**: Use these game examples for learning. Play the games, pick a game you like, and try to code the game yourself from scratch. If you ever get stuck, just refer to the working example._
 
