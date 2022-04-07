@@ -117,7 +117,7 @@ Want to show support? You can star the github repository.
 
 Have any questions? [Start a new discussion](https://github.com/ZacharyPatten/dotnet-console-games/discussions/new).
 
-Find a bug or have a sugguestion? [Open an issue](https://github.com/ZacharyPatten/dotnet-console-games/issues/new).
+Find a bug or have a suggestion? [Open an issue](https://github.com/ZacharyPatten/dotnet-console-games/issues/new).
 
 Want to chat with the developer(s)? [Join the discord server](https://discord.gg/4XbQbwF).
 
