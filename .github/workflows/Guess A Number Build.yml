@@ -1,0 +1,20 @@
+name: Guess A Number Build
+on:
+  push:
+    paths:
+    - 'Projects/Guess A Number/**'
+  pull_request:
+    paths:
+    - 'Projects/Guess A Number/**'
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: setup dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: dotnet build
+      run: dotnet build "Projects\Guess A Number\Guess A Number.csproj" --configuration Release
