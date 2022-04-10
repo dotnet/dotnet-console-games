@@ -445,6 +445,19 @@
             "problemMatcher": "$msCompile",
         },
         {
+            "label": "Build Guess A Number",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/Guess A Number/Guess A Number.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
+        {
             "label": "Build Solution",
             "command": "dotnet",
             "type": "process",

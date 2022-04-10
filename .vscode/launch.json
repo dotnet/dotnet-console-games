@@ -3,6 +3,16 @@
 	"configurations":
 	[
 		{
+			"name": "Guess A Number",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Guess A Number",
+			"program": "${workspaceFolder}/Projects/Guess A Number/bin/Debug/Guess A Number.dll",
+			"cwd": "${workspaceFolder}/Projects/Guess A Number/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Rock Paper Scissors",
 			"type": "coreclr",
 			"request": "launch",
