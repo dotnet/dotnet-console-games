@@ -1,8 +1,5 @@
 ﻿using System;
 
-int playerRandomNum;
-int rivalRandomNum;
-
 int playerPoints = 0;
 int rivalPoints = 0;
 
@@ -14,13 +11,13 @@ for (int i = 0; i < 10; i++)
 
 	Console.ReadKey();
 
-	playerRandomNum = random.Next(1, 7);
+	int playerRandomNum = random.Next(1, 7);
 	Console.WriteLine("You rolled a " + playerRandomNum);
 
 	Console.WriteLine("....");
 	System.Threading.Thread.Sleep(1000);
 
-	rivalRandomNum = random.Next(1, 7);
+	int rivalRandomNum = random.Next(1, 7);
 	Console.WriteLine("Rival rolled a " + rivalRandomNum);
 
 	if (playerRandomNum > rivalRandomNum)
