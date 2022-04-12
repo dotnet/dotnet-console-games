@@ -75,6 +75,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tents", "Projects\Tents\Ten
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Guess A Number", "Projects\Guess A Number\Guess A Number.csproj", "{63300EAA-2013-43F4-8628-9FA979C83E44}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiceGame", "DiceGame\DiceGame.csproj", "{89EBF300-0A28-4054-A807-D6A67544CE4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -225,6 +227,10 @@ Global
 		{63300EAA-2013-43F4-8628-9FA979C83E44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63300EAA-2013-43F4-8628-9FA979C83E44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63300EAA-2013-43F4-8628-9FA979C83E44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89EBF300-0A28-4054-A807-D6A67544CE4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89EBF300-0A28-4054-A807-D6A67544CE4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89EBF300-0A28-4054-A807-D6A67544CE4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89EBF300-0A28-4054-A807-D6A67544CE4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
