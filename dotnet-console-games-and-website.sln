@@ -75,7 +75,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tents", "Projects\Tents\Ten
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Guess A Number", "Projects\Guess A Number\Guess A Number.csproj", "{63300EAA-2013-43F4-8628-9FA979C83E44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiceGame", "DiceGame\DiceGame.csproj", "{89EBF300-0A28-4054-A807-D6A67544CE4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiceGame", "Projects\Dice Game\Dice Game.csproj", "{89EBF300-0A28-4054-A807-D6A67544CE4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
