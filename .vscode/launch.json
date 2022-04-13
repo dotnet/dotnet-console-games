@@ -23,6 +23,16 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Dice Game",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Dice Game",
+			"program": "${workspaceFolder}/Projects/Dice Game/bin/Debug/Dice Game.dll",
+			"cwd": "${workspaceFolder}/Projects/Dice Game/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Quick Draw",
 			"type": "coreclr",
 			"request": "launch",
