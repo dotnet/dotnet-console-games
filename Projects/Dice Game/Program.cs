@@ -9,7 +9,7 @@ for (int i = 0; i < 10; i++)
 {
 	Console.WriteLine("Press any key to roll the dice:");
 
-	Console.ReadKey();
+	Console.ReadKey(true);
 
 	int playerRandomNum = random.Next(1, 7);
 	Console.WriteLine("You rolled a " + playerRandomNum);
@@ -52,4 +52,4 @@ else
 	Console.WriteLine("This game is a draw.");
 }
 
-Console.ReadKey();
+Console.ReadKey(true);
