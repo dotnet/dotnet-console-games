@@ -113,6 +113,10 @@
 </p>
 </details>
 
+> _**Relevant Articles:**_<br/>
+> _[Beginner's Guide To Console Input In C#](https://github.com/ZacharyPatten/ZacharyPatten/blob/main/Articles/2020-08-01.md) <sub>August 1, 2020</sub>_<br/>
+> _[dotnet Console Games Tips And Tricks](https://github.com/ZacharyPatten/ZacharyPatten/blob/main/Articles/2022-04-07.md) <sub>April 7, 2022</sub>_
+
 ## Get Involved
 
 Want to show support? You can star the github repository.
@@ -123,8 +127,4 @@ Find a bug or have a suggestion? [Open an issue](https://github.com/ZacharyPatte
 
 Want to chat with the developer(s)? [Join the discord server](https://discord.gg/4XbQbwF).
 
-Want to contribute? [Look for open issues you can help with.](https://github.com/ZacharyPatten/dotnet-console-games/issues)
-
-Interested in additional reading?
-- [Beginner's Guide To Console Input In C#](https://github.com/ZacharyPatten/ZacharyPatten/blob/main/Articles/2020-08-01.md) <sub>August 1, 2020</sub>
-- [dotnet Console Games Tips And Tricks](https://github.com/ZacharyPatten/ZacharyPatten/blob/main/Articles/2022-04-07.md) <sub>April 7, 2022</sub>
+Want to contribute? [Look for open issues you can help with](https://github.com/ZacharyPatten/dotnet-console-games/issues).
