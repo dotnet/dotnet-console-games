@@ -458,6 +458,19 @@
             "problemMatcher": "$msCompile",
         },
         {
+            "label": "Build Dice Game",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/Dice Game/Dice Game.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
+        {
             "label": "Build Solution",
             "command": "dotnet",
             "type": "process",
