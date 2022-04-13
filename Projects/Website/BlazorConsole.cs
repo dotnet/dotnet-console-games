@@ -302,6 +302,15 @@ public class BlazorConsole
 					View[row, column] = View[row + 1, column];
 				}
 			}
+			for (int column = 0; column < View.GetLength(1); column++)
+			{
+				View[View.GetLength(0) - 1, column] = new()
+				{
+					Char = ' ',
+					BackgroundColor = BackgroundColor,
+					ForegroundColor = ForegroundColor
+				};
+			}
 			CursorTop--;
 		}
 		View[CursorTop, CursorLeft] = new()
