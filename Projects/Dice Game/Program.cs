@@ -18,49 +18,47 @@ Console.WriteLine();
 Console.WriteLine();
 for (int i = 0; i < 10; i++)
 {
-	Console.WriteLine("Press any key to roll the dice:");
-
-	Console.ReadKey(true);
-
-	int playerRandomNum = random.Next(1, 7);
-	Console.WriteLine("You rolled a " + playerRandomNum);
-
-	Console.WriteLine("....");
-	System.Threading.Thread.Sleep(1000);
-
+	Console.WriteLine($"Round {i + 1}");
 	int rivalRandomNum = random.Next(1, 7);
 	Console.WriteLine("Rival rolled a " + rivalRandomNum);
-
+	Console.Write("Press any key to roll the dice...");
+	Console.ReadKey(true);
+	Console.WriteLine();
+	int playerRandomNum = random.Next(1, 7);
+	Console.WriteLine("You rolled a " + playerRandomNum);
 	if (playerRandomNum > rivalRandomNum)
 	{
 		playerPoints++;
-		Console.WriteLine("The Player has won this round.");
+		Console.WriteLine("You won this round.");
 	}
 	else if (playerRandomNum < rivalRandomNum)
 	{
 		rivalPoints++;
-		Console.WriteLine("The Rival has won this round.");
+		Console.WriteLine("The Rival won this round.");
 	}
 	else
 	{
 		Console.WriteLine("This round is a draw!");
 	}
-
-	Console.WriteLine($"The score is now - Player : {playerPoints}. Rival : {rivalPoints}.");
+	Console.WriteLine($"The score is now - You : {playerPoints}. Rival : {rivalPoints}.");
+	Console.Write("Press any key to continue...");
+	Console.ReadKey(true);
+	Console.WriteLine();
 	Console.WriteLine();
 }
-
+Console.WriteLine("Game over.");
+Console.WriteLine($"The score is now - You : {playerPoints}. Rival : {rivalPoints}.");
 if (playerPoints > rivalPoints)
 {
-	Console.WriteLine("You have won!");
+	Console.WriteLine("You won!");
 }
 else if (playerPoints < rivalPoints)
 {
-	Console.WriteLine("You have lost!");
+	Console.WriteLine("You lost!");
 }
 else
 {
 	Console.WriteLine("This game is a draw.");
 }
-
+Console.Write("Press any key to exit...");
 Console.ReadKey(true);
