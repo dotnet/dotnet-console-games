@@ -3,7 +3,7 @@
 int playerPoints = 0;
 int rivalPoints = 0;
 
-Random random = new Random();
+Random random = new();
 
 Console.WriteLine("Dice Game");
 Console.WriteLine();
