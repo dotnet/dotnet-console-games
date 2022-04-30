@@ -13,6 +13,8 @@
 
 **[Source Code](Program.cs)**
 
+> _**NOTE** This game was a <a href="https://github.com/ZacharyPatten/dotnet-console-games/pull/31">community contribution</a>!_
+
 In Dice Game you and a computer Rival will play 10 rounds where you will each roll a 6-sided dice, and the player with the highest dice value will win the round. The player who wins the most rounds wins the game. Good luck!
 
 ## Input
