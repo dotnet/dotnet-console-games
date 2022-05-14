@@ -19,6 +19,10 @@ Bets must be in multiples of $2, because if you are dealt a blackjack you will g
 
 The dealer will shuffle the discard pile into the deck when there is a need to draw a card but the deck is empty.
 
+The dealer must draw until he has a hand score of at least 17.
+
+If you double down you are dealt one additional card on the hand and then that hand is locked in.
+
 Card Suits...
 - H: Hearts
 - C: Clubs
