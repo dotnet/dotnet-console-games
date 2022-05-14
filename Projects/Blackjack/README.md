@@ -13,21 +13,22 @@
 
 **[Source Code](Program.cs)**
 
-This is the Blackjack card game. The goal is to get closer
-to 21 than the dealer without busting (going over 21). At the
-start of each round you will place a bet, then the dealer will
-deal you two cards and himself two cards (one face up and one
-face down). Then you will choose your move: stay, hit, double
-down, or split (up to 3 times) until your turn is complete.
-Then the dealer will reveal his face down card and draw cards
-as needed in attempts to be closer to 21 as you.
+This is the Blackjack card game. It is played with a standard 52 count playing card deck. The goal is to get closer to 21 than the dealer without busting (going over 21). At the start of each round you will place a bet, then the dealer will deal you two cards and himself two cards (one face up and one face down). Then you will choose your move: stay, hit, double down, or split (up to 3 times) until your turn is complete. Then the dealer will reveal his face down card and draw cards as needed in attempts to be closer to 21 as you.
 
-Bets must be in multiples of $2.
+Bets must be in multiples of $2, because if you are dealt a blackjack you will get payed out 3:2.
+
+The dealer will shuffle the discard pile into the deck when there is a need to draw a card but the deck is empty.
+
+Card Suits...
+- H: Hearts
+- C: Clubs
+- D: Diamonds
+- S: Spades
 
 Card Values...
 - Ace: 1 or 11
 - Jack, Queen, or King: 10
-- _Other_: face value (eg. 3H -> 3)
+- _Other (2-10)_: face value (eg. 3H -> 3, 8C -> 8)
 
 ## Input
 

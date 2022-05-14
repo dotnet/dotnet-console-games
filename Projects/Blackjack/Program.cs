@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -13,22 +14,19 @@ int previousBet = 10;
 int bet;
 int activeHand;
 State state = State.IntroScreen;
-State previousState = default;
+bool discardShuffledIntoDeck = false;
 
 try
 {
 	Initialize();
-	while (playerMoney > minimumBet)
+	DefaultBet();
+	activeHand = 0;
+	while (!(state is State.PlaceBet && playerMoney < minimumBet))
 	{
-
-		activeHand = 0;
-		DefaultBet();
-	GetInput:
 		Render();
 		switch (Console.ReadKey(true).Key)
 		{
 			case ConsoleKey.Enter:
-				FinishEnterHandle:
 				switch (state)
 				{
 					case State.IntroScreen:
@@ -36,55 +34,49 @@ try
 						break;
 					case State.PlaceBet:
 						playerMoney -= bet;
+						previousBet = bet;
 						InitializeRound();
-						state = State.ConfirmHand;
-						break;
-					case State.ConfirmHand:
 						if (ScoreCards(playerHands[activeHand].Cards) is 21)
 						{
 							playerMoney += (playerHands[activeHand].Bet / 2) * 3;
+							playerHands[activeHand].Bet = 0;
 							playerHands[activeHand].Resolved = true;
 							state = State.ConfirmDealtBlackjack;
-							goto GetInput;
+							break;
 						}
 						state = State.ChooseMove;
-						goto GetInput;
+						break;
 					case State.ConfirmSplit:
+						if (ScoreCards(playerHands[activeHand].Cards) is 21)
+						{
+							playerMoney += (playerHands[activeHand].Bet / 2) * 3;
+							playerHands[activeHand].Bet = 0;
+							playerHands[activeHand].Resolved = true;
+							state = State.ConfirmDealtBlackjack;
+							break;
+						}
 						#warning TODO: check for dealt blackjack
 						state = State.ChooseMove;
 						break;
-					case State.ConfirmDealtBlackjack:
+					case State.ConfirmDealtBlackjack
+						or State.ConfirmBust:
 						ProgressStateAfterHandCompletion();
-						goto GetInput;
-					case State.ConfirmBust:
-						ProgressStateAfterHandCompletion();
-						goto GetInput;
-					case State.ConfirmDraw:
+						break;
+					case State.ConfirmDraw
+						or State.ConfirmLoss
+						or State.ConfirmDealerCardFlip
+						or State.ConfirmDealerDraw
+						or State.ConfirmWin:
 						ProgressStateAfterDealerAction();
 						break;
-					case State.ConfirmLoss:
-						ProgressStateAfterDealerAction();
-						break;
-					case State.ConfirmDealerCardFlip:
-						ProgressStateAfterDealerAction();
-						break;
-					case State.ConfirmDealerDraw:
-						ProgressStateAfterDealerAction();
-						break;
-					case State.ConfirmWin:
-						ProgressStateAfterDealerAction();
-						break;
-					case State.ShuffleDiscardIntoDeck:
-						state = previousState;
-						goto FinishEnterHandle;
 				}
-				goto GetInput;
+				break;
 			case ConsoleKey.DownArrow:
 				if (state is State.PlaceBet)
 				{
 					bet = Math.Max(minimumBet, bet - 2);
 				}
-				goto GetInput;
+				break;
 			case ConsoleKey.UpArrow:
 				if (state is State.PlaceBet)
 				{
@@ -94,7 +86,7 @@ try
 						bet--;
 					}
 				}
-				goto GetInput;
+				break;
 			case ConsoleKey.D1: // stay
 				if (state is State.ChooseMove)
 				{
@@ -114,9 +106,16 @@ try
 				}
 				break;
 			case ConsoleKey.D3: // double down
-				if (state is State.ChooseMove)
+				if (state is State.ChooseMove && playerMoney > playerHands[activeHand].Bet)
 				{
-					throw new NotImplementedException();
+					playerMoney -= playerHands[activeHand].Bet;
+					playerHands[activeHand].Bet *= 2;
+					playerHands[activeHand].DoubledDown = true;
+					playerHands[activeHand].Cards.Add(DrawCard());
+					if (ScoreCards(playerHands[activeHand].Cards) > 21)
+					{
+						state = State.ConfirmLoss;
+					}
 				}
 				break;
 			case ConsoleKey.D4: // split
@@ -136,10 +135,16 @@ try
 				break;
 			case ConsoleKey.Escape:
 				return;
-			default:
-				goto GetInput;
 		}
-
+	}
+	state = State.OutOfMoney;
+	Render();
+GetEnterOrEscape:
+	switch (Console.ReadKey(true).Key)
+	{
+		case ConsoleKey.Enter:  return;
+		case ConsoleKey.Escape: return;
+		default: goto GetEnterOrEscape;
 	}
 }
 finally
@@ -180,7 +185,9 @@ void Render()
 	Console.WriteLine($"  Cards In Dealer Deck: {deck.Count}");
 	Console.WriteLine($"  Cards In Discard Pile: {discardPile.Count}");
 	Console.WriteLine($"  Your Money: ${playerMoney}");
-	if (state is not State.IntroScreen && state is not State.PlaceBet)
+	if (state is not State.IntroScreen &&
+		state is not State.PlaceBet &&
+		state is not State.OutOfMoney)
 	{
 		Console.WriteLine();
 		Console.WriteLine($"  Dealer Hand:");
@@ -216,10 +223,16 @@ void Render()
 				Console.WriteLine();
 			}
 			Console.WriteLine($"    Hand Score: {ScoreCards(playerHands[hand].Cards)}");
-			Console.WriteLine($"    Hand Bet: ${playerHands[hand].Bet}");
+			Console.WriteLine($"    Hand Bet: {(playerHands[hand].Bet > 0 ? $"${playerHands[hand].Bet}" : "---")}");
 		}
 	}
 	Console.WriteLine();
+	if (discardShuffledIntoDeck)
+	{
+		Console.WriteLine("  The dealer shuffled the discard pile was shuffled into deck.");
+		Console.WriteLine();
+		discardShuffledIntoDeck = false;
+	}
 	switch (state)
 	{
 		case State.PlaceBet:
@@ -228,24 +241,19 @@ void Render()
 			Console.WriteLine("  Use [enter] to place your bet.");
 			Console.WriteLine($"  Bet (${minimumBet}-${maximumBet}): ${bet}");
 			break;
-		case State.ShuffleDiscardIntoDeck:
-			Console.WriteLine("  Discard pile was shuffled back into deck.");
-			Console.WriteLine("  Press [enter] to continue...");
-			break;
 		case State.ConfirmDealtBlackjack:
 			Console.WriteLine("  You were dealt a blackjack (21). You win this hand!");
 			Console.WriteLine("  Your bet was payed out.");
-			Console.WriteLine("  Press [enter] to continue...");
-			break;
-		case State.ConfirmHand:
-			Console.WriteLine("  The dealer deals the hands.");
 			Console.WriteLine("  Press [enter] to continue...");
 			break;
 		case State.ChooseMove:
 			Console.WriteLine("  Choose your move...");
 			Console.WriteLine("  [1] Stay");
 			Console.WriteLine("  [2] Hit");
-			Console.WriteLine("  [3] Double Down");
+			if (playerMoney > playerHands[activeHand].Bet)
+			{
+				Console.WriteLine("  [3] Double Down");
+			}
 			if (CanSplit())
 			{
 				Console.WriteLine("  [4] Split");
@@ -282,6 +290,10 @@ void Render()
 			Console.WriteLine($"  Win! The dealer {(ScoreCards(dealerHand) > 21 ? "busted" : "stands")} ({ScoreCards(dealerHand)}).");
 			Console.WriteLine($"  Your bet was payed out.");
 			Console.WriteLine("  Press [enter] to continue...");
+			break;
+		case State.OutOfMoney:
+			Console.WriteLine($"  You ran out of money. Better luck next time.");
+			Console.WriteLine("  Press [enter] to close the game...");
 			break;
 		default:
 			throw new NotImplementedException();
@@ -385,7 +397,8 @@ void ProgressStateAfterHandCompletion()
 		{
 			discardPile.AddRange(hand.Cards);
 		}
-		InitializeRound();
+		activeHand = 0;
+		DefaultBet();
 		state = State.PlaceBet;
 		return;
 	}
@@ -395,6 +408,13 @@ void ProgressStateAfterHandCompletion()
 	} while (activeHand < playerHands.Count - 1 && ScoreCards(playerHands[activeHand].Cards) > 21);
 	if (activeHand < playerHands.Count - 1)
 	{
+		if (ScoreCards(playerHands[activeHand].Cards) is 21)
+		{
+			playerMoney += (playerHands[activeHand].Bet / 2) * 3;
+			playerHands[activeHand].Bet = 0;
+			playerHands[activeHand].Resolved = true;
+			state = State.ConfirmDealtBlackjack;
+		}
 		state = State.ChooseMove;
 	}
 	else
@@ -409,6 +429,13 @@ void ProgressStateAfterDealerAction()
 {
 	if (!UnresolvedHands())
 	{
+		discardPile.AddRange(dealerHand);
+		foreach (PlayerHand hand in playerHands)
+		{
+			discardPile.AddRange(hand.Cards);
+		}
+		activeHand = 0;
+		DefaultBet();
 		state = State.PlaceBet;
 		return;
 	}
@@ -443,7 +470,7 @@ void ProgressStateAfterDealerAction()
 			}
 		}
 	}
-	if (DealerNeedsToDraw())
+	if (playerHands.Any(hand => !hand.Resolved) && ScoreCards(dealerHand) < 17)
 	{
 		dealerHand.Add(DrawCard());
 		state = State.ConfirmDealerDraw;
@@ -457,26 +484,13 @@ void ProgressStateAfterDealerAction()
 			{
 				activeHand = i;
 				playerMoney += playerHands[activeHand].Bet * 2;
+				playerHands[activeHand].Bet = 0;
 				playerHands[activeHand].Resolved = true;
 				state = State.ConfirmWin;
 				return;
 			}
 		}
 	}
-}
-
-bool DealerNeedsToDraw()
-{
-	bool needToDraw = false;
-	foreach (PlayerHand hand in playerHands)
-	{
-		if (!hand.Resolved && ScoreCards(hand.Cards) <= 21 && ScoreCards(hand.Cards) > ScoreCards(dealerHand))
-		{
-			needToDraw = true;
-			break;
-		}
-	}
-	return needToDraw && ScoreCards(dealerHand) < 17;
 }
 
 void DefaultBet()
@@ -509,8 +523,6 @@ Card DrawCard()
 	if (deck.Count <= 0)
 	{
 		ShuffleDiscardIntoDeck();
-		previousState = state;
-		state = State.ShuffleDiscardIntoDeck;
 	}
 	Card card = deck[^1];
 	deck.RemoveAt(deck.Count - 1);
@@ -542,28 +554,19 @@ class Card
 		}
 
 		char suit = Suit.ToString()[0];
-
-		string a = Value switch
+		string value = Value switch
 		{
-			Value.Ace   => $"A{suit} ",
-			Value.Ten   => $"10{suit}",
-			Value.Jack  => $"J{suit} ",
-			Value.Queen => $"Q{suit} ",
-			Value.King  => $"K{suit} ",
-			_ => $"{((int)Value).ToString(CultureInfo.InvariantCulture)}{suit} ",
-		};
-
-		string b = Value switch
-		{
-			Value.Ace   => " A",
+			Value.Ace   =>  "A",
 			Value.Ten   => "10",
-			Value.Jack  => " J",
-			Value.Queen => " Q",
-			Value.King  => " K",
-			_ => " " + ((int)Value).ToString(CultureInfo.InvariantCulture),
-		} + suit;
-
-		return new string[]
+			Value.Jack  =>  "J",
+			Value.Queen =>  "Q",
+			Value.King  =>  "K",
+			_ => ((int)Value).ToString(CultureInfo.InvariantCulture),
+		};
+		string card = $"{value}{suit}";
+		string a = card.Length < 3 ? $"{card} " : card;
+		string b = card.Length < 3 ? $" {card}" : card;
+		return new[]
 		{
 			$"┌───────┐",
 			$"│{a}    │",
@@ -581,6 +584,7 @@ class PlayerHand
 	public List<Card> Cards = new();
 	public int Bet;
 	public bool Resolved = false;
+	public bool DoubledDown = false;
 }
 
 enum Suit
@@ -612,8 +616,6 @@ enum State
 {
 	IntroScreen,
 	PlaceBet,
-	ShuffleDiscardIntoDeck,
-	ConfirmHand,
 	ConfirmDealtBlackjack,
 	ChooseMove,
 	ConfirmBust,
@@ -623,4 +625,5 @@ enum State
 	ConfirmLoss,
 	ConfirmDraw,
 	ConfirmWin,
+	OutOfMoney,
 }
