@@ -362,5 +362,15 @@
 			"console": "externalTerminal",
 			"stopAtEntry": false,
 		},
+		{
+			"name": "Blackjack",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Blackjack",
+			"program": "${workspaceFolder}/Projects/Blackjack/bin/Debug/Blackjack.dll",
+			"cwd": "${workspaceFolder}/Projects/Blackjack/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
 	],
 }
