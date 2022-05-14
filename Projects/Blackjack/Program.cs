@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Globalization;
 
+Random random = new();
 List<Card> deck;
 List<Card> discardPile;
 List<PlayerHand> playerHands;
@@ -55,11 +56,11 @@ try
 							state = State.ConfirmDealtBlackjack;
 							break;
 						}
-						#warning TODO: check for dealt blackjack
 						state = State.ChooseMove;
 						break;
 					case State.ConfirmDealtBlackjack
-						or State.ConfirmBust:
+						or State.ConfirmBust
+						or State.ConfirmDoubleDownDraw:
 						ProgressStateAfterHandCompletion();
 						break;
 					case State.ConfirmDraw
@@ -114,7 +115,12 @@ try
 					playerHands[activeHand].Cards.Add(DrawCard());
 					if (ScoreCards(playerHands[activeHand].Cards) > 21)
 					{
-						state = State.ConfirmLoss;
+						playerHands[activeHand].Resolved = true;
+						state = State.ConfirmBust;
+					}
+					else
+					{
+						state = State.ConfirmDoubleDownDraw;
 					}
 				}
 				break;
@@ -124,11 +130,11 @@ try
 					playerMoney -= playerHands[activeHand].Bet;
 					playerHands.Add(new());
 					playerHands[^1].Bet = playerHands[activeHand].Bet;
-					playerHands[activeHand + 1].Cards.Add(playerHands[activeHand].Cards[^1]);
+					playerHands[^1].Cards.Add(playerHands[activeHand].Cards[^1]);
 					playerHands[activeHand].Cards.RemoveAt(playerHands[activeHand].Cards.Count - 1);
 					playerHands[activeHand].Cards.Add(deck[^1]);
 					deck.RemoveAt(deck.Count - 1);
-					playerHands[activeHand + 1].Cards.Add(deck[^1]);
+					playerHands[^1].Cards.Add(deck[^1]);
 					deck.RemoveAt(deck.Count - 1);
 					state = State.ConfirmSplit;
 				}
@@ -163,19 +169,28 @@ void Render()
 	Console.WriteLine();
 	if (state is State.IntroScreen)
 	{
-		Console.WriteLine("  This is the Blackjack card game. The goal is to get closer");
-		Console.WriteLine("  to 21 than the dealer without busting (going over 21). At the");
-		Console.WriteLine("  start of each round you will place a bet, then the dealer will");
-		Console.WriteLine("  deal you two cards and himself two cards (one face up and one");
-		Console.WriteLine("  face down). Then you will choose your move: stay, hit, double");
-		Console.WriteLine("  down, or split (up to 3 times) until your turn is complete.");
-		Console.WriteLine("  Then the dealer will reveal his face down card and draw cards");
-		Console.WriteLine("  as needed in attempts to be closer to 21 as you.");
+		Console.WriteLine("  This is the Blackjack card game. It is played with a standard 52");
+		Console.WriteLine("  count playing card deck. The goal is to get closer to 21 than the");
+		Console.WriteLine("  dealer without busting (going over 21). At the start of each round");
+		Console.WriteLine("  you will place a bet, then the dealer will deal you two cards and");
+		Console.WriteLine("  himself two cards (one face up and one face down). Then you will");
+		Console.WriteLine("  choose your move: stay, hit, double down, or split (up to 3 times)");
+		Console.WriteLine("  until your turn is complete. Then the dealer will reveal his face");
+		Console.WriteLine("  down card and draw cards as needed in attempts to be closer to 21");
+		Console.WriteLine("  as you.");
 		Console.WriteLine();
-		Console.WriteLine("  Bets must be in multiples of $2.");
+		Console.WriteLine("  Bets must be in multiples of $2, because if you are dealt a");
+		Console.WriteLine("  blackjack you will get payed out 3:2.");
+		Console.WriteLine();
+		Console.WriteLine("  The dealer must draw until he has a hand score of at least 17.");
+		Console.WriteLine();
+		Console.WriteLine("  Suits: H (Hearts), C (Clubs), D (Diamonds), S (Spades).");
 		Console.WriteLine();
 		Console.WriteLine("  Card Values: Ace (1 or 11), Jack (10), Queen (10), King(10),");
 		Console.WriteLine("  and all other cards use their number value (eg. 3H -> 3).");
+		Console.WriteLine();
+		Console.WriteLine("  If you double down you are dealt one additional card on the hand");
+		Console.WriteLine("  and then that hand is locked in.");
 		Console.WriteLine();
 		Console.WriteLine("  Press [escape] to close the game at any time.");
 		Console.WriteLine();
@@ -229,7 +244,7 @@ void Render()
 	Console.WriteLine();
 	if (discardShuffledIntoDeck)
 	{
-		Console.WriteLine("  The dealer shuffled the discard pile was shuffled into deck.");
+		Console.WriteLine("  The dealer shuffled the discard pile into the deck.");
 		Console.WriteLine();
 		discardShuffledIntoDeck = false;
 	}
@@ -293,6 +308,11 @@ void Render()
 			break;
 		case State.OutOfMoney:
 			Console.WriteLine($"  You ran out of money. Better luck next time.");
+			Console.WriteLine("  Press [enter] to close the game...");
+			break;
+		case State.ConfirmDoubleDownDraw:
+			Console.WriteLine($"  You doubled down and the dealer dealt you one more");
+			Console.WriteLine($"  card on your hand.");
 			Console.WriteLine("  Press [enter] to close the game...");
 			break;
 		default:
@@ -406,7 +426,7 @@ void ProgressStateAfterHandCompletion()
 	{
 		activeHand++;
 	} while (activeHand < playerHands.Count - 1 && ScoreCards(playerHands[activeHand].Cards) > 21);
-	if (activeHand < playerHands.Count - 1)
+	if (activeHand < playerHands.Count)
 	{
 		if (ScoreCards(playerHands[activeHand].Cards) is 21)
 		{
@@ -414,6 +434,7 @@ void ProgressStateAfterHandCompletion()
 			playerHands[activeHand].Bet = 0;
 			playerHands[activeHand].Resolved = true;
 			state = State.ConfirmDealtBlackjack;
+			return;
 		}
 		state = State.ChooseMove;
 	}
@@ -439,11 +460,17 @@ void ProgressStateAfterDealerAction()
 		state = State.PlaceBet;
 		return;
 	}
+	if (playerHands.Any(hand => !hand.Resolved) && ScoreCards(dealerHand) < 17)
+	{
+		dealerHand.Add(DrawCard());
+		state = State.ConfirmDealerDraw;
+		return;
+	}
 	for (int i = 0; i < playerHands.Count; i++)
 	{
 		if (!playerHands[i].Resolved)
 		{
-			if (ScoreCards(dealerHand) > 21)
+			if (ScoreCards(dealerHand) > 21 || ScoreCards(dealerHand) < ScoreCards(playerHands[i].Cards))
 			{
 				activeHand = i;
 				playerMoney += playerHands[activeHand].Bet * 2;
@@ -470,27 +497,6 @@ void ProgressStateAfterDealerAction()
 			}
 		}
 	}
-	if (playerHands.Any(hand => !hand.Resolved) && ScoreCards(dealerHand) < 17)
-	{
-		dealerHand.Add(DrawCard());
-		state = State.ConfirmDealerDraw;
-		return;
-	}
-	for (int i = 0; i < playerHands.Count; i++)
-	{
-		if (!playerHands[i].Resolved)
-		{
-			if (ScoreCards(dealerHand) < ScoreCards(playerHands[activeHand].Cards))
-			{
-				activeHand = i;
-				playerMoney += playerHands[activeHand].Bet * 2;
-				playerHands[activeHand].Bet = 0;
-				playerHands[activeHand].Resolved = true;
-				state = State.ConfirmWin;
-				return;
-			}
-		}
-	}
 }
 
 void DefaultBet()
@@ -506,7 +512,7 @@ void Shuffle(List<Card> cards)
 {
 	for (int i = 0; i < cards.Count; i++)
 	{
-		int swap = Random.Shared.Next(cards.Count);
+		int swap = random.Next(cards.Count);
 		(cards[i], cards[swap]) = (cards[swap], cards[i]);
 	}
 }
@@ -516,6 +522,7 @@ void ShuffleDiscardIntoDeck()
 	deck.AddRange(discardPile);
 	discardPile.Clear();
 	Shuffle(deck);
+	discardShuffledIntoDeck = true;
 }
 
 Card DrawCard()
@@ -620,6 +627,7 @@ enum State
 	ChooseMove,
 	ConfirmBust,
 	ConfirmSplit,
+	ConfirmDoubleDownDraw,
 	ConfirmDealerDraw,
 	ConfirmDealerCardFlip,
 	ConfirmLoss,

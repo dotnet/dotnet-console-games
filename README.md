@@ -19,7 +19,7 @@
 	A collection of game examples implemented as .NET console applications primarily for providing education and inspiration. :)
 </p>
 
-|Game|_\*Weight_|Notes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+|Game|\*_Weight_|Notes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
 |:-|:-|:-|
 |[Guess&nbsp;A&nbsp;Number](https://github.com/ZacharyPatten/dotnet-console-games/tree/main/Projects/Guess%20A%20Number)|0|<sub><a href="https://zacharypatten.github.io/dotnet-console-games/Guess%20A%20Number" alt="Play Now"><img src="https://raw.githubusercontent.com/ZacharyPatten/dotnet-console-games/main/.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></a>&nbsp;<a href="https://github.com/ZacharyPatten/dotnet-console-games/actions"><img src="https://github.com/ZacharyPatten/dotnet-console-games/workflows/Guess%20A%20Number%20Build/badge.svg" title="Go to Action" alt="Go to Action"></a></sub>|
 |[Rock&nbsp;Paper&nbsp;Scissors](https://github.com/ZacharyPatten/dotnet-console-games/tree/main/Projects/Rock%20Paper%20Scissors)|0|<sub><a href="https://zacharypatten.github.io/dotnet-console-games/Rock%20Paper%20Scissors" alt="Play Now"><img src="https://raw.githubusercontent.com/ZacharyPatten/dotnet-console-games/main/.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></a>&nbsp;<a href="https://github.com/ZacharyPatten/dotnet-console-games/actions"><img src="https://github.com/ZacharyPatten/dotnet-console-games/workflows/Rock%20Paper%20Scissors%20Build/badge.svg" title="Go to Action" alt="Go to Action"></a></sub>|
@@ -59,9 +59,9 @@
 |[Role&nbsp;Playing&nbsp;Game](https://github.com/ZacharyPatten/dotnet-console-games/blob/main/Projects/Role%20Playing%20Game)|6|<sub><a href="https://zacharypatten.github.io/dotnet-console-games/Role%20Playing%20Game" alt="Play Now"><img src="https://raw.githubusercontent.com/ZacharyPatten/dotnet-console-games/main/.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></a>&nbsp;<a href="https://github.com/ZacharyPatten/dotnet-console-games/actions"><img src="https://github.com/ZacharyPatten/dotnet-console-games/workflows/Role%20Playing%20Game%20Build/badge.svg" title="Go to Action" alt="Go to Action"></a></sub>|
 |[Blackjack](https://github.com/ZacharyPatten/dotnet-console-games/blob/main/Projects/Blackjack)|n/a|<sub><a href="https://zacharypatten.github.io/dotnet-console-games/Blackjack" alt="Play Now"><img src="https://raw.githubusercontent.com/ZacharyPatten/dotnet-console-games/main/.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></a>&nbsp;<a href="https://github.com/ZacharyPatten/dotnet-console-games/actions"><img src="https://github.com/ZacharyPatten/dotnet-console-games/workflows/Blackjack%20Build/badge.svg" title="Go to Action" alt="Go to Action"></a></sub><br/><sup>_work in progress_</sup>|
 
-<sup>_\***Weight**: A relative rating for how advanced the source code is._</sup>
+<sup>\*_**Weight**: A relative rating for how advanced the source code is._</sup>
 <br/>
-<sup>_\***<a href="https://github.com/ZacharyPatten/dotnet-console-games/issues?q=label%3A%22community+contribution%22">Community Contribution</a>**: Special thanks to everyone who contributed games!_</sup>
+<sup>\*_**<a href="https://github.com/ZacharyPatten/dotnet-console-games/issues?q=label%3A%22community+contribution%22">Community Contribution</a>**: Special thanks to everyone who contributed games!_</sup>
 
 <p align="center">
 	You can play the games in your browser:
@@ -75,7 +75,7 @@
 
 ## Get Started
 
-> _**Recommendation**: Use these game examples for learning. Play the games, pick a game you like, and try to code the game yourself from scratch. If you ever get stuck, just refer to the working example._
+> _**Recommendation**: Use these game examples for learning. Play the games, pick a game you like, and try to code the game yourself from scratch._
 
 [Clone the repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) or [download the repository](https://github.com/ZacharyPatten/dotnet-console-games/archive/main.zip) and unzip the contents. `dotnet-console-games` should build with any standard .NET build process, but one of the following is recommended:
 
