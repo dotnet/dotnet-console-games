@@ -88,13 +88,13 @@ try
 					}
 				}
 				break;
-			case ConsoleKey.D1: // stay
+			case ConsoleKey.D1 or ConsoleKey.NumPad1: // stay
 				if (state is State.ChooseMove)
 				{
 					ProgressStateAfterHandCompletion();
 				}
 				break;
-			case ConsoleKey.D2: // hit
+			case ConsoleKey.D2 or ConsoleKey.NumPad2: // hit
 				if (state is State.ChooseMove)
 				{
 					playerHands[activeHand].Cards.Add(deck[^1]);
@@ -102,11 +102,12 @@ try
 					if (ScoreCards(playerHands[activeHand].Cards) > 21)
 					{
 						playerHands[activeHand].Resolved = true;
+						playerHands[activeHand].Bet = 0;
 						state = State.ConfirmBust;
 					}
 				}
 				break;
-			case ConsoleKey.D3: // double down
+			case ConsoleKey.D3 or ConsoleKey.NumPad3: // double down
 				if (state is State.ChooseMove && playerMoney > playerHands[activeHand].Bet)
 				{
 					playerMoney -= playerHands[activeHand].Bet;
@@ -116,6 +117,7 @@ try
 					if (ScoreCards(playerHands[activeHand].Cards) > 21)
 					{
 						playerHands[activeHand].Resolved = true;
+						playerHands[activeHand].Bet = 0;
 						state = State.ConfirmBust;
 					}
 					else
@@ -124,7 +126,7 @@ try
 					}
 				}
 				break;
-			case ConsoleKey.D4: // split
+			case ConsoleKey.D4 or ConsoleKey.NumPad4: // split
 				if (state is State.ChooseMove && CanSplit())
 				{
 					playerMoney -= playerHands[activeHand].Bet;
@@ -205,7 +207,7 @@ void Render()
 		state is not State.OutOfMoney)
 	{
 		Console.WriteLine();
-		Console.WriteLine($"  Dealer Hand:");
+		Console.WriteLine($"  Dealer Hand{(dealerHand.Any(c => !c.FaceUp) ? "" : ($" ({ScoreCards(dealerHand)})"))}:");
 		for (int i = 0; i < Card.RenderHeight; i++)
 		{
 			Console.Write("    ");

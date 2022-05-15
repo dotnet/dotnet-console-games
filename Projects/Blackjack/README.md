@@ -1,5 +1,5 @@
 <h1 align="center">
-	Dice Game
+	Blackjack
 </h1>
 
 <p align="center">
@@ -33,6 +33,38 @@ Card Values...
 - Ace: 1 or 11
 - Jack, Queen, or King: 10
 - _Other (2-10)_: face value (eg. 3H -> 3, 8C -> 8)
+
+```
+  Blackjack
+
+  Cards In Dealer Deck: 36
+  Cards In Discard Pile: 9
+  Your Money: $90
+
+  Dealer Hand (24):
+    ┌────┌────┌────┌────┌───────┐
+    │5H  │7D  │AS  │AH  │JH     │
+    │    │    │    │    │       │
+    │    │    │    │    │       │
+    │    │    │    │    │       │
+    │    │    │    │    │     JH│
+    └────└────└────└────└───────┘
+
+  Your Hand:
+    ┌────┌───────┐
+    │9H  │AC     │
+    │    │       │
+  > │    │       │
+    │    │       │
+    │    │     AC│
+    └────└───────┘
+    Hand Score: 20
+    Hand Bet: $10
+
+  Win! The dealer busted (24).
+  Your bet was payed out.
+  Press [enter] to continue...
+```
 
 ## Input
 
