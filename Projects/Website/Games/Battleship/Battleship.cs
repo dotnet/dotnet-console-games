@@ -88,7 +88,7 @@ public class Battleship
 					await Console.WriteLine("  Hit: ##");
 					await Console.WriteLine("  Miss: XX");
 					await Console.WriteLine("  Use arrow keys to aim.");
-					await Console.WriteLine("  Use [enter] to place the ship in a valid location.");
+					await Console.WriteLine("  Use [enter] to fire at the location.");
 				};
 				selecting = true;
 				while (!Won(defenseShips, defense) && !Won(offenseShips, offense))
