@@ -23,7 +23,7 @@ public class Battleship
 		bool escape = false;
 		(int Row, int Column) selection = default;
 		bool selecting = false;
-		Action? renderMessage = null;
+		Func<Task>? renderMessage = null;
 
 		try
 		{
@@ -421,7 +421,10 @@ public class Battleship
 				}
 				await Console.WriteLine();
 			}
-			renderMessage?.Invoke();
+			if (renderMessage is not null)
+			{
+				await renderMessage();
+			}
 
 			string RenderBoardTile(int r, int c, bool[,] shots, Ship[,] ships)
 			{
