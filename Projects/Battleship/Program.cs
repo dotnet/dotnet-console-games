@@ -79,7 +79,7 @@ try
 			Console.WriteLine("  Hit: ##");
 			Console.WriteLine("  Miss: XX");
 			Console.WriteLine("  Use arrow keys to aim.");
-			Console.WriteLine("  Use [enter] to place the ship in a valid location.");
+			Console.WriteLine("  Use [enter] to fire at the location.");
 		};
 		selecting = true;
 		while (!Won(defenseShips, defense) && !Won(offenseShips, offense))
