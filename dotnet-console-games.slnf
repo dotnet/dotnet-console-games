@@ -3,6 +3,7 @@
     "path": "dotnet-console-games-and-website.sln",
     "projects": [
       "Projects\\2048\\2048.csproj",
+      "Projects\\Battleship\\Battleship.csproj",
       "Projects\\Beep Pad\\Beep Pad.csproj",
       "Projects\\Bound\\Bound.csproj",
       "Projects\\Blackjack\\Blackjack.csproj",

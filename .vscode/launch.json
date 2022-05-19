@@ -323,6 +323,16 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Battleship",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Battleship",
+			"program": "${workspaceFolder}/Projects/Battleship/bin/Debug/Battleship.dll",
+			"cwd": "${workspaceFolder}/Projects/Battleship/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Blackjack",
 			"type": "coreclr",
 			"request": "launch",
