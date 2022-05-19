@@ -12,23 +12,110 @@ Ship[,] defenseShips;
 bool placing = false;
 (Ship Ship, int Size, int Row, int Column, bool Vertical) placement = default;
 bool escape = false;
+(int Row, int Column) selection = default;
+bool selecting = false;
+Action? renderMessage = null;
 
 try
 {
+	Console.BackgroundColor = ConsoleColor.Black;
+	Console.ForegroundColor = ConsoleColor.White;
+	Console.Clear();
+	consoleSize = ConsoleSize();
+
 	while (!escape)
 	{
 		offense = new bool[boardHeight, boardWidth];
 		offenseShips = new Ship[boardHeight, boardWidth];
 		defense = new bool[boardHeight, boardWidth];
 		defenseShips = new Ship[boardHeight, boardWidth];
-		Console.BackgroundColor = ConsoleColor.Black;
-		Console.ForegroundColor = ConsoleColor.White;
+
+		// introduction screen
 		Console.Clear();
-		consoleSize = ConsoleSize();
-		PlaseDefenseShips();
-		RandomizeOffenseShips();
+		renderMessage = () =>
+		{
+			Console.WriteLine();
+			Console.WriteLine("  This is a guessing game where you will place your battle ships");
+			Console.WriteLine("  on a grid, and then shoot locations of the enemy grid trying");
+			Console.WriteLine("  to find and sink all of their ships.The first player to sink");
+			Console.WriteLine("  all the enemy ships wins.");
+			Console.WriteLine();
+			Console.WriteLine("  Press [escape] at any time to close the game.");
+			Console.WriteLine();
+			Console.WriteLine("  Press [enter] to begin...");
+		};
 		RenderMainView();
-		Console.ReadKey(true);
+		GetEnterOrEscape();
+		if (escape)
+		{
+			return;
+		}
+
+		// ship placement
+		Console.Clear();
+		PlaceDefenseShips();
+		if (escape)
+		{
+			return;
+		}
+		RandomizeOffenseShips();
+		renderMessage = () =>
+		{
+			Console.WriteLine();
+			Console.WriteLine("  The enemy has placed their ships.");
+			Console.WriteLine();
+			Console.WriteLine("  Press [enter] to continue...");
+		};
+		RenderMainView();
+
+		// shooting phase
+		selection = (boardHeight / 2, boardWidth / 2);
+		Console.Clear();
+		renderMessage = () =>
+		{
+			Console.WriteLine();
+			Console.WriteLine("  Choose your shots.");
+			Console.WriteLine();
+			Console.WriteLine("  Hit: ##");
+			Console.WriteLine("  Miss: XX");
+			Console.WriteLine("  Use arrow keys to aim.");
+			Console.WriteLine("  Use [enter] to place the ship in a valid location.");
+		};
+		selecting = true;
+		while (!Won(defenseShips, defense) && !Won(offenseShips, offense))
+		{
+			ChooseOffense();
+			if (escape)
+			{
+				return;
+			}
+			RandomlyChooseDefense();
+			RenderMainView();
+		}
+		selecting = false;
+
+		// game over
+		Console.Clear();
+		renderMessage = () =>
+		{
+			Console.WriteLine();
+			switch ((Won(defenseShips, defense), Won(offenseShips, offense)))
+			{
+				case (true, true):
+					Console.WriteLine("  Draw! All ships were sunk.");
+					break;
+				case (false, true):
+					Console.WriteLine("  You Win! You sunk all the enemy ships.");
+					break;
+				case (true, false):
+					Console.WriteLine("  You Lose! The enemy sunk all your ships.");
+					break;
+			}
+			Console.WriteLine();
+			Console.WriteLine("  Play again [enter] or quit [escape]?");
+		};
+		RenderMainView(showEnemyShips: true);
+		GetEnterOrEscape();
 	}
 }
 finally
@@ -39,11 +126,21 @@ finally
 	Console.Write("Battleship was closed.");
 }
 
-void PlaseDefenseShips()
+void PlaceDefenseShips()
 {
 	placing = true;
 	foreach (Ship ship in Enum.GetValues<Ship>())
 	{
+		renderMessage = () =>
+		{
+			Console.WriteLine();
+			Console.WriteLine($"  Place your {ship} on the grid.");
+			Console.WriteLine();
+			Console.WriteLine("  Use arrow keys to move the ship.");
+			Console.WriteLine("  Use [spacebar] to rotate the ship.");
+			Console.WriteLine("  Use [enter] to place the ship in a valid location.");
+		};
+
 		int size = (int)ship.GetTag("size").Value!;
 		placement = (ship, size, 0, 0, true);
 		while (true)
@@ -71,7 +168,15 @@ void PlaseDefenseShips()
 					placement.Column = Math.Min(placement.Column, boardWidth  - (!placement.Vertical ? size : 1));
 					break;
 				case ConsoleKey.Enter:
-					goto Continue;
+					if (IsValidPlacement())
+					{
+						for (int i = 0; i < placement.Size; i++)
+						{
+							defenseShips[placement.Row + (placement.Vertical ? i : 0), placement.Column + (!placement.Vertical ? i : 0)] = ship;
+						}
+						goto Continue;
+					}
+					break;
 				case ConsoleKey.Escape:
 					escape = true;
 					return;
@@ -80,6 +185,88 @@ void PlaseDefenseShips()
 	Continue:
 		continue;
 	}
+	placing = false;
+}
+
+void ChooseOffense()
+{
+	while (true)
+	{
+		RenderMainView();
+		switch (Console.ReadKey(true).Key)
+		{
+			case ConsoleKey.UpArrow:
+				selection.Row = Math.Max(0, selection.Row - 1);
+				break;
+			case ConsoleKey.DownArrow:
+				selection.Row = Math.Min(boardHeight - 1, selection.Row + 1);
+				break;
+			case ConsoleKey.LeftArrow:
+				selection.Column = Math.Max(0, selection.Column - 1);
+				break;
+			case ConsoleKey.RightArrow:
+				selection.Column = Math.Min(boardWidth - 1, selection.Column + 1);
+				break;
+			case ConsoleKey.Enter:
+				if (!offense[selection.Row, selection.Column])
+				{
+					offense[selection.Row, selection.Column] = true;
+					placing = false;
+					return;
+				}
+				break;
+			case ConsoleKey.Escape:
+				escape = true;
+				placing = false;
+				return;
+		}
+	}
+}
+
+void RandomlyChooseDefense()
+{
+	if (Random.Shared.Next(9) is 0)
+	{
+		for (int r = 0; r < boardHeight; r++)
+		{
+			for (int c = 0; c < boardHeight; c++)
+			{
+				if (!defense[r, c] && defenseShips[r, c] is not 0)
+				{
+					defense[r, c] = true;
+					return;
+				}
+			}
+		}
+	}
+	else
+	{
+		ListArray<(int Row, int Column)> openlocations = new();
+		for (int r = 0; r < boardHeight; r++)
+		{
+			for (int c = 0; c < boardHeight; c++)
+			{
+				if (!defense[r, c])
+				{
+					openlocations.Add((r, c));
+				}
+			}
+		}
+		var (row, column) = openlocations[Random.Shared.Next(openlocations.Count)];
+		defense[row, column] = true;
+	}
+}
+
+bool IsValidPlacement()
+{
+	for (int i = 0; i < placement.Size; i++)
+	{
+		if (defenseShips[placement.Row + (placement.Vertical ? i : 0), placement.Column + (!placement.Vertical ? i : 0)] is not 0)
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
 void RandomizeOffenseShips()
@@ -123,7 +310,22 @@ void RandomizeOffenseShips()
 	}
 }
 
-void RenderMainView()
+bool Won(Ship[,] shipBoard, bool[,] shotBoard)
+{
+	for (int r = 0; r < boardHeight; r++)
+	{
+		for (int c = 0; c < boardWidth; c++)
+		{
+			if (shipBoard[r, c] is not 0 && !shotBoard[r, c])
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+void RenderMainView(bool showEnemyShips = false)
 {
 	Console.CursorVisible = false;
 	if (OperatingSystem.IsWindows() && Console.BufferHeight != Console.WindowHeight)
@@ -153,6 +355,7 @@ void RenderMainView()
 			int bc = (c - 1) / 2;
 			bool v = br + 1 < boardHeight && defenseShips[br, bc] == defenseShips[br + 1, bc];
 			bool h = bc + 1 < boardWidth && defenseShips[br, bc] == defenseShips[br, bc + 1];
+
 			if (placing &&
 				placement.Vertical &&
 				bc == placement.Column &&
@@ -162,7 +365,7 @@ void RenderMainView()
 				!(br == placement.Row + placement.Size - 1 && (r - 1) % 2 is 1) &&
 				r is not 0)
 			{
-				Console.BackgroundColor = ConsoleColor.DarkGreen;
+				Console.BackgroundColor = IsValidPlacement() ? ConsoleColor.DarkGreen : ConsoleColor.DarkRed;
 			}
 			else if (placing &&
 				!placement.Vertical &&
@@ -173,7 +376,7 @@ void RenderMainView()
 				!(bc == placement.Column + placement.Size - 1 && (c - 1) % 2 is 1) &&
 				c is not 0)
 			{
-				Console.BackgroundColor = ConsoleColor.DarkGreen;
+				Console.BackgroundColor = IsValidPlacement() ? ConsoleColor.DarkGreen : ConsoleColor.DarkRed;
 			}
 			else if (defenseShips[br, bc] is not 0 &&
 				((r - 1) % 2 is 0 || ((r - 1) % 2 is 1 && v)) &&
@@ -190,17 +393,25 @@ void RenderMainView()
 			int bc = (c - 1) / 2;
 			bool v = br + 1 < boardHeight && offenseShips[br, bc] == offenseShips[br + 1, bc];
 			bool h = bc + 1 < boardWidth && offenseShips[br, bc] == offenseShips[br, bc + 1];
-			if (offenseShips[br, bc] is not 0 &&
+			if (showEnemyShips &&
+				offenseShips[br, bc] is not 0 &&
 				((r - 1) % 2 is 0 || ((r - 1) % 2 is 1 && v)) &&
 				((c - 1) % 2 is 0 || ((c - 1) % 2 is 1 && h)))
 			{
 				Console.BackgroundColor = ConsoleColor.DarkGray;
+			}
+			else if (selecting && selection == (br, bc) &&
+				(r - 1) % 2 is 0 &&
+				(c - 1) % 2 is 0)
+			{
+				Console.BackgroundColor = ConsoleColor.DarkYellow;
 			}
 			Console.Write(RenderBoardTile(r, c, offense, offenseShips));
 			Console.BackgroundColor = ConsoleColor.Black;
 		}
 		Console.WriteLine();
 	}
+	renderMessage?.Invoke();
 
 	string RenderBoardTile(int r, int c, bool[,] shots, Ship[,] ships)
 	{
@@ -229,6 +440,17 @@ void RenderMainView()
 						: miss)
 					: open,
 		};
+	}
+}
+
+void GetEnterOrEscape()
+{
+GetEnterOrEscape:
+	switch (Console.ReadKey(true).Key)
+	{
+		case ConsoleKey.Enter: break;
+		case ConsoleKey.Escape: escape = true; break;
+		default: goto GetEnterOrEscape;
 	}
 }
 
