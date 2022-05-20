@@ -385,7 +385,10 @@ void RenderMainView(bool showEnemyShips = false)
 				Console.BackgroundColor = ConsoleColor.DarkGray;
 			}
 			Console.Write(RenderBoardTile(r, c, defense, defenseShips));
-			Console.BackgroundColor = ConsoleColor.Black;
+			if (Console.BackgroundColor is not ConsoleColor.Black)
+			{
+				Console.BackgroundColor = ConsoleColor.Black;
+			}
 		}
 		Console.Write("  ");
 		for (int c = 0; c < boardWidth * 2 + 1; c++)
@@ -407,7 +410,10 @@ void RenderMainView(bool showEnemyShips = false)
 				Console.BackgroundColor = ConsoleColor.DarkYellow;
 			}
 			Console.Write(RenderBoardTile(r, c, offense, offenseShips));
-			Console.BackgroundColor = ConsoleColor.Black;
+			if (Console.BackgroundColor is not ConsoleColor.Black)
+			{
+				Console.BackgroundColor = ConsoleColor.Black;
+			}
 		}
 		Console.WriteLine();
 	}

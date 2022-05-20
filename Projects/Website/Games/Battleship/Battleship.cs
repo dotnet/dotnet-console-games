@@ -395,7 +395,10 @@ public class Battleship
 						Console.BackgroundColor = ConsoleColor.DarkGray;
 					}
 					await Console.Write(RenderBoardTile(r, c, defense, defenseShips));
-					Console.BackgroundColor = ConsoleColor.Black;
+					if (Console.BackgroundColor is not ConsoleColor.Black)
+					{
+						Console.BackgroundColor = ConsoleColor.Black;
+					}
 				}
 				await Console.Write("  ");
 				for (int c = 0; c < boardWidth * 2 + 1; c++)
@@ -417,7 +420,10 @@ public class Battleship
 						Console.BackgroundColor = ConsoleColor.DarkYellow;
 					}
 					await Console.Write(RenderBoardTile(r, c, offense, offenseShips));
-					Console.BackgroundColor = ConsoleColor.Black;
+					if (Console.BackgroundColor is not ConsoleColor.Black)
+					{
+						Console.BackgroundColor = ConsoleColor.Black;
+					}
 				}
 				await Console.WriteLine();
 			}
