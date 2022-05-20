@@ -1,5 +1,5 @@
 <p align="center">
-	<a href="https://github.com/ZacharyPatten/dotnet-console-games/blob/main/.github/resources/animated-banner-credit.md"><img width="600" src="https://github.com/ZacharyPatten/dotnet-console-games/blob/main/.github/resources/animated-banner.gif?raw=true" /></a>
+	<a href="https://github.com/ZacharyPatten/dotnet-console-games/blob/main/.github/resources/animated-banner-credit.md"><img width="600" src="https://github.com/ZacharyPatten/dotnet-console-games/blob/main/.github/resources/animated-banner.gif?raw=true" ></a>
 </p>
 
 <h1 align="center">
