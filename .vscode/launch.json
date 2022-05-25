@@ -103,6 +103,16 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Tower Of Hanoi",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Tower Of Hanoi",
+			"program": "${workspaceFolder}/Projects/Tower Of Hanoi/bin/Debug/Tower Of Hanoi.dll",
+			"cwd": "${workspaceFolder}/Projects/Tower Of Hanoi/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Hangman",
 			"type": "coreclr",
 			"request": "launch",
