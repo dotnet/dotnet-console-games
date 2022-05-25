@@ -96,6 +96,7 @@ public class BlazorConsole
 	{
 		switch (e.Key)
 		{
+			case "Home":       EnqueueInput(ConsoleKey.Home); break;
 			case "End":        EnqueueInput(ConsoleKey.End); break;
 			case "Backspace":  EnqueueInput(ConsoleKey.Backspace); break;
 			case " ":          EnqueueInput(ConsoleKey.Spacebar); break;
