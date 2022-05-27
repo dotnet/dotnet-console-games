@@ -1,0 +1,9 @@
+{
+  "solution": {
+    "path": "dotnet-console-games-and-website.sln",
+    "projects": [
+      "Projects\\Guess A Number.Test\\Guess A Number.Test.csproj",
+      "Projects\\Guess A Number\\Guess A Number.csproj"
+    ]
+  }
+}

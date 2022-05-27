@@ -1,14 +1,33 @@
-﻿using System;
+﻿using Guess_A_Number;
 
-int value = Random.Shared.Next(1, 101);
-while (true)
+ConsoleCommunicator user = new();
+
+MysteryNumber mystery = new();
+
+var guessingValue = true;
+while (guessingValue)
 {
-	Console.Write("Guess a number (1-100): ");
-	bool valid = int.TryParse(Console.ReadLine()!.Trim(), out int input);
-	if (!valid) Console.WriteLine("Invalid.");
-	else if (input == value) break;
-	else Console.WriteLine($"Incorrect. Too {(input < value ? "Low" : "High")}.");
+	var input = user.GetInt($"Guess a number ({mystery.Min}-{mystery.Max})");
+
+	string response;
+	switch(MysteryNumber.Compare(input, mystery))
+	{
+		case < 0:
+			response = "Incorrect. Too Low.";
+			break;
+
+		case > 0:
+			response = "Incorrect. Too High.";
+			break;
+
+		case 0:
+			response = "You guessed it!";
+			guessingValue = false;
+			break;
+	}
+
+	user.Tell(response);
 }
-Console.WriteLine("You guessed it!");
-Console.Write("Press any key to exit...");
-Console.ReadKey(true);
+
+user.Tell("Press any key to exit...");
+user.Wait();
