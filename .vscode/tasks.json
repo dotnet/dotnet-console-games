@@ -3,6 +3,19 @@
     "tasks":
     [
         {
+            "label": "Build Tower Of Hanoi",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/Tower Of Hanoi/Tower Of Hanoi.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
+        {
             "label": "Build Battleship",
             "command": "dotnet",
             "type": "process",
