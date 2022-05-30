@@ -1,7 +1,5 @@
-﻿using System;
-using System.IO;
+﻿namespace ConsoleTestingHelper;
 
-namespace Guess_A_Number.Test;
 public class ConsoleOverrider : IDisposable
 {
 
@@ -9,14 +7,16 @@ public class ConsoleOverrider : IDisposable
 	private readonly MemoryStream outBuffer = new();
 	private readonly StreamWriter newOut;
 	private readonly StreamReader queuedOutput;
+	private long lastReadPosition = 0;
 
 	public void ReadOutput(Action<StreamReader> output)
 	{
 		newOut.Flush();
-		var oldOutBufferPosition = outBuffer.Position;
-		outBuffer.Position = 0;
+		var writePosition = outBuffer.Position;
+		outBuffer.Position = lastReadPosition;
 		output(queuedOutput);
-		outBuffer.Position = oldOutBufferPosition;
+		lastReadPosition = outBuffer.Position;
+		outBuffer.Position = writePosition;
 	}
 
 	private readonly TextReader oldIn;
@@ -24,11 +24,12 @@ public class ConsoleOverrider : IDisposable
 	private readonly StreamReader newIn;
 	private readonly StreamWriter queuedInput;
 
-	public void AddInput(Action<StreamWriter> input)
+	public void WriteInput(Action<StreamWriter> input)
 	{
+		var startPosition = inBuffer.Position;
 		input(queuedInput);
 		queuedInput.Flush();
-		inBuffer.Position = 0;
+		inBuffer.Position = startPosition;
 	}
 
 	public ConsoleOverrider()

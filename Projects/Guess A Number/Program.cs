@@ -1,16 +1,16 @@
 ﻿using Guess_A_Number;
 
-ConsoleCommunicator user = new();
+HumanPlayer user = new();
 
 MysteryNumber mystery = new();
 
 var guessingValue = true;
 while (guessingValue)
 {
-	var input = user.GetInt($"Guess a number ({mystery.Min}-{mystery.Max})");
+	var guess = user.GetInt($"Guess a number ({mystery.Min}-{mystery.Max})");
 
 	string response;
-	switch(MysteryNumber.Compare(input, mystery))
+	switch(MysteryNumber.Compare(guess, mystery))
 	{
 		case < 0:
 			response = "Incorrect. Too Low.";

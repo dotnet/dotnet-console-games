@@ -5,8 +5,9 @@ using FluentAssertions;
 using Xunit;
 using System.Diagnostics;
 using System;
+using ConsoleTestingHelper;
 
-public class ConsoleCommunicatorTest
+public class HumanPlayerTest
 {
 
 	[Fact]
@@ -14,12 +15,12 @@ public class ConsoleCommunicatorTest
 	{
 		using var overrideConsole = new ConsoleOverrider();
 
-		overrideConsole.AddInput(i =>
+		overrideConsole.WriteInput(i =>
 		{
 			i.WriteLine("foo");
 			i.WriteLine("5");
 		});
-		var result = new ConsoleCommunicator().GetInt("whatever");
+		var result = new HumanPlayer().GetInt("whatever");
 		result.Should().Be(5);
 		overrideConsole.ReadOutput(o => o.ReadLine().Should().StartWith("whatever"));
 	}
@@ -28,46 +29,26 @@ public class ConsoleCommunicatorTest
 	public void TellTest()
 	{
 		using var overrideConsole = new ConsoleOverrider();
-		new ConsoleCommunicator().Tell("hello world");
+		new HumanPlayer().Tell("hello world");
 		overrideConsole.ReadOutput(o => o.ReadLine().Should().Be("hello world"));
-	}
-
-	[Fact(Skip = "can't test readkey")]
-	public void WaitTest()
-	{
-		using var overrideConsole = new ConsoleOverrider();
-		new ConsoleCommunicator().Wait();
 	}
 
 	[Fact]
 	public void EndToEndTest()
 	{
-		var bin = Environment.CurrentDirectory.Replace(".Test","") + "\\Guess A Number.exe";
+		var app = EndToEndHelper.Run(typeof(MysteryNumber));
 
-		var processInfo = new ProcessStartInfo {
-			FileName = bin,
-			WindowStyle = ProcessWindowStyle.Hidden,
-			CreateNoWindow = true,
-			UseShellExecute = false,
-			RedirectStandardOutput = true,
-			RedirectStandardError = true,
-			RedirectStandardInput = true,
-		};
-		
 		var min = 1;
 		var max = 100;
 		var guess = min + (max - min) / 2;
-
-		var process = Process.Start(processInfo)
-			?? throw new Exception("create process failed");
 
 		var going = true;
 		var rounds = 0;
 		while(going)
 		{
 			rounds++;
-			process.StandardInput.WriteLine(guess);
-			var response = process.StandardOutput.ReadLine()
+			app.StandardInput.WriteLine(guess);
+			var response = app.StandardOutput.ReadLine()
 				?? throw new Exception("no output?!");
 			if (response.EndsWith("Too High."))
 			{
@@ -86,6 +67,8 @@ public class ConsoleCommunicatorTest
 			else
 				going = false;
 		}
+
+		app.StandardError.ReadToEnd().Should().BeEmpty();
 		rounds.Should().BeLessThan(9);
 	}
 }

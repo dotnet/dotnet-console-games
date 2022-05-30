@@ -1,7 +1,7 @@
 ﻿namespace Guess_A_Number;
 using System;
 
-public class ConsoleCommunicator
+public class HumanPlayer
 {
 	public int GetInt(string prompt, string badInputPrompt = "Invalid!")
 	{
@@ -20,5 +20,9 @@ public class ConsoleCommunicator
 
 	public void Tell(string response) => Console.WriteLine(response);
 
-	public void Wait() => Console.ReadKey(intercept: true);
+	public void Wait()
+	{
+		if (!Console.IsOutputRedirected) //TODO workaround for Console Testing Helper
+			Console.ReadKey(intercept: true);
+	}
 }

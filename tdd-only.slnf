@@ -2,8 +2,12 @@
   "solution": {
     "path": "dotnet-console-games-and-website.sln",
     "projects": [
+      "Projects\\Console Testing Helper\\Console Testing Helper.csproj",
+      "Projects\\Console Testing Helper.Test\\Console Testing Helper.Test.csproj",
       "Projects\\Guess A Number.Test\\Guess A Number.Test.csproj",
-      "Projects\\Guess A Number\\Guess A Number.csproj"
+      "Projects\\Guess A Number\\Guess A Number.csproj",
+      "Projects\\Rock Paper Scissors.Test\\Rock Paper Scissors.Test.csproj",
+      "Projects\\Rock Paper Scissors\\Rock Paper Scissors.csproj"
     ]
   }
 }
