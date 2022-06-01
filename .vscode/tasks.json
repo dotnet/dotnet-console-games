@@ -3,6 +3,19 @@
     "tasks":
     [
         {
+            "label": "Build Tug Of War",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/Tug Of War/Tug Of War.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
+        {
             "label": "Build Tower Of Hanoi",
             "command": "dotnet",
             "type": "process",
