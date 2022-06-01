@@ -43,6 +43,16 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Tug Of War",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Tug Of War",
+			"program": "${workspaceFolder}/Projects/Tug Of War/bin/Debug/Tug Of War.dll",
+			"cwd": "${workspaceFolder}/Projects/Tug Of War/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Whack A Mole",
 			"type": "coreclr",
 			"request": "launch",
