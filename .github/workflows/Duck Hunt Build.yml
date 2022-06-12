@@ -1,0 +1,20 @@
+name: Duck Hunt Build
+on:
+  push:
+    paths:
+    - 'Projects/Duck Hunt/**'
+  pull_request:
+    paths:
+    - 'Projects/Duck Hunt/**'
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: setup dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: dotnet build
+      run: dotnet build "Projects\Duck Hunt\Duck Hunt.csproj" --configuration Release
