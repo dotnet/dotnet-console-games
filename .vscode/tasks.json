@@ -3,6 +3,19 @@
     "tasks":
     [
         {
+            "label": "Build Duck Hunt",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/Duck Hunt/Duck Hunt.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
+        {
             "label": "Build Tug Of War",
             "command": "dotnet",
             "type": "process",
