@@ -5,57 +5,128 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-if (Console.WindowWidth < 80 ||
-	Console.WindowHeight < 25)
-{
-	Console.WriteLine("Console Size is too small!");
-	Console.WriteLine("Minimum required Width: 80 Height: 25");
-	Console.WriteLine("Recommended Width: 120 Height: 30");
-}
-
-Console.WriteLine("Warning! Game can be inefficient on large console sizes");
-Thread.Sleep(TimeSpan.FromSeconds(2));
-
-// Variable game settings
-int gameDelay = 30;
-double gunXStretch = 1;
-int crosshairSpeed = 2;
-bool gunEnabled = true;
-bool bulletsEnabled = false;
-bool gunOutlineEnabled = false;
-
 const char NULL_CHAR = '\0';
 const char EMPTY_CHAR = '-';
 const int BARREL_LENGTH = 10;
 
-bool inMenu = false;
-bool fireGun = false;
-bool gunSelected = true;
-bool crosshairSelected = false;
-bool gameOver = false;
-int frame = 0;
-int score = 0;
-int ammoCount = 5;
-int spawnDelay = 100;
-int grassLevel = Sprites.ScreenHeight - 4;
-char[,] screenBuffer = new char[Sprites.ScreenWidth, Sprites.ScreenHeight];
-Random rng = new();
-List<Bird> birds = new();
-List<Bullet> bullets = new();
-StringBuilder screenGraphic = new();
-Stopwatch timer = new();
-Point crosshair   = new(Sprites.ScreenWidth / 2,     Sprites.ScreenHeight / 3);
-Point LeftAncor   = new(Sprites.ScreenWidth / 2 - 3, Sprites.ScreenHeight - 2);
-Point middleAncor = new(Sprites.ScreenWidth / 2,     Sprites.ScreenHeight - 2);
-Point RightAncor  = new(Sprites.ScreenWidth / 2 + 3, Sprites.ScreenHeight - 2);
+// Menu Settings
+int gameDelay;
+double gunXStretch;
+int crosshairSpeed;
+bool gunEnabled;
+bool bulletsEnabled;
+bool gunOutlineEnabled;
 
-Console.CursorVisible = false;
+bool inMenu;
+bool fireGun;
+bool gunSelected;
+bool crosshairSelected;
+bool gameOver;
+int frame;
+int score;
+int ammoCount;
+int spawnDelay;
+int grassLevel;
+char[,] screenBuffer;
+Random rng;
+List<Bird> birds;
+List<Bullet> bullets;
+StringBuilder screenGraphic;
+Stopwatch timer;
+Point crosshair;
+Point LeftAncor;
+Point middleAncor;
+Point RightAncor;
 
 try
 {
-	timer.Start();
+	// Welcome Screen
+	Console.CursorVisible = false;
+	Console.WriteLine();
+	Console.WriteLine("  Duck Hunt");
+	Console.WriteLine();
+	Console.WriteLine("  Shoot the ducks! Lose ammo missing shots. Run");
+	Console.WriteLine("  out of ammo and it is game over.");
+	Console.WriteLine();
+	Console.WriteLine("  Controls");
+	Console.WriteLine("  - arrow keys: aim");
+	Console.WriteLine("  - spacebar: fire");
+	Console.WriteLine("  - enter: open/close menu");
+	Console.WriteLine("  - 1-6: adjust settings in menu");
+	Console.WriteLine("  - escape: exit game");
+	Console.WriteLine();
+	Console.WriteLine("  Recommended Window Size: 120 width x 30 height");
+	Console.WriteLine();
+	Console.WriteLine("  Press any key to begin...");
+	Console.ReadKey(true);
+	Console.CursorVisible = false;
+
+	// Initialization
+	{
+		gameDelay = 30;
+		gunXStretch = 1;
+		crosshairSpeed = 2;
+		gunEnabled = true;
+		bulletsEnabled = false;
+		gunOutlineEnabled = false;
+
+		inMenu = false;
+		fireGun = false;
+		gunSelected = true;
+		crosshairSelected = false;
+		gameOver = false;
+		frame = 0;
+		score = 0;
+		ammoCount = 5;
+		spawnDelay = 100;
+		grassLevel = Sprites.ScreenHeight - 4;
+		screenBuffer = new char[Sprites.ScreenWidth, Sprites.ScreenHeight];
+		rng = new();
+		birds = new();
+		bullets = new();
+		screenGraphic = new();
+		timer = new();
+		crosshair = new(Sprites.ScreenWidth / 2, Sprites.ScreenHeight / 3);
+		LeftAncor = new(Sprites.ScreenWidth / 2 - 3, Sprites.ScreenHeight - 2);
+		middleAncor = new(Sprites.ScreenWidth / 2, Sprites.ScreenHeight - 2);
+		RightAncor = new(Sprites.ScreenWidth / 2 + 3, Sprites.ScreenHeight - 2);
+		timer.Restart();
+	}
+
+	// Main Game Loop
 	while (!gameOver)
 	{
+		if (Sprites.ScreenWidth != Console.WindowWidth - 1 ||
+			Sprites.ScreenHeight != Console.WindowHeight)
+		{
+			if (OperatingSystem.IsWindows())
+			{
+			Retry:
+				try
+				{
+					Console.BufferWidth = Console.WindowWidth;
+					Console.BufferHeight = Console.WindowHeight;
+				}
+				catch
+				{
+					Console.Clear();
+					goto Retry;
+				}
+			}
+
+			Sprites.ScreenWidth = Console.WindowWidth - 1;
+			Sprites.ScreenHeight = Console.WindowHeight;
+			screenBuffer = new char[Sprites.ScreenWidth, Sprites.ScreenHeight];
+			grassLevel = Sprites.ScreenHeight - 4;
+			LeftAncor = new(Sprites.ScreenWidth / 2 - 3, Sprites.ScreenHeight - 2);
+			middleAncor = new(Sprites.ScreenWidth / 2, Sprites.ScreenHeight - 2);
+			RightAncor = new(Sprites.ScreenWidth / 2 + 3, Sprites.ScreenHeight - 2);
+			crosshair.X = Math.Min(Sprites.ScreenWidth - Sprites.Enviroment.CrosshairWidth + 2, Math.Max(crosshair.X, 2));
+			crosshair.Y = Math.Min(Sprites.ScreenHeight - Sprites.Enviroment.CrosshairHeight, Math.Max(crosshair.Y, 2));
+			Console.CursorVisible = false;
+			Console.Clear();
+		}
+
 		Console.Title = $"FPS: {(int)(frame / timer.Elapsed.TotalSeconds)}";
 
 		if (inMenu)
@@ -65,8 +136,8 @@ try
 		while (inMenu)
 		{
 			string menuDisplay =
-				 "Press Corresponding Number to Edit/Select variables" + Sprites.NEWLINE_CHAR + Sprites.NEWLINE_CHAR +
-				 "  Currently selected variable: " + (gunSelected ? "[1]" : crosshairSelected ? "[2]" : "[3]") + Sprites.NEWLINE_CHAR + Sprites.NEWLINE_CHAR +
+					"Press Corresponding Number to Edit/Select variables" + Sprites.NEWLINE_CHAR + Sprites.NEWLINE_CHAR +
+					"  Currently selected variable: " + (gunSelected ? "[1]" : crosshairSelected ? "[2]" : "[3]") + Sprites.NEWLINE_CHAR + Sprites.NEWLINE_CHAR +
 				$"[1]        Gun X Axis Stretch: {gunXStretch:F}      " + Sprites.NEWLINE_CHAR + Sprites.NEWLINE_CHAR +
 				$"[2]  Crosshair Movement Speed: {crosshairSpeed}     " + Sprites.NEWLINE_CHAR + Sprites.NEWLINE_CHAR +
 				$"[3] Game Delay (Milliseconds): {gameDelay}          " + Sprites.NEWLINE_CHAR + Sprites.NEWLINE_CHAR +
@@ -77,7 +148,7 @@ try
 
 			DrawToScreenWithColour(1, 4, ConsoleColor.Yellow, menuDisplay.ToCharArray());
 			DrawToScreenWithColour(1, 1, ConsoleColor.White, ("[ESC] Quit" + Sprites.NEWLINE_CHAR + "[ENTER] Exit Menu").ToCharArray());
-			
+
 			switch (Console.ReadKey(true).Key)
 			{
 				case ConsoleKey.D1: gunSelected = true; crosshairSelected = false; break;
@@ -136,23 +207,8 @@ try
 				case ConsoleKey.Escape: return;
 			}
 
-			if (crosshair.X < 2)
-			{
-				crosshair.X += crosshairSpeed;
-			}
-			if (crosshair.X > Sprites.ScreenWidth - Sprites.Enviroment.CrosshairWidth + 2)
-			{
-				crosshair.X -= crosshairSpeed;
-			}
-
-			if (crosshair.Y < 2)
-			{
-				crosshair.Y += crosshairSpeed;
-			}
-			if (crosshair.Y > Sprites.ScreenHeight - Sprites.Enviroment.CrosshairHeight)
-			{
-				crosshair.Y -= crosshairSpeed;
-			}
+			crosshair.X = Math.Min(Sprites.ScreenWidth - Sprites.Enviroment.CrosshairWidth + 2, Math.Max(crosshair.X, 2));
+			crosshair.Y = Math.Min(Sprites.ScreenHeight - Sprites.Enviroment.CrosshairHeight, Math.Max(crosshair.Y, 2));
 		}
 		while (Console.KeyAvailable)
 		{
@@ -212,7 +268,7 @@ try
 				foreach (Bird bird in birds)
 				{
 					if (!bird.IsDead &&
-					   (bird.Contains((int)bullets[i].X[0], (int)bullets[i].Y[0]) ||
+						(bird.Contains((int)bullets[i].X[0], (int)bullets[i].Y[0]) ||
 						bird.Contains((int)bullets[i].X[1], (int)bullets[i].Y[1])))
 					{
 						bird.IsDead = true;
@@ -261,11 +317,11 @@ try
 			}
 		}
 
-		for (int i = birds.Count; i-- > 0;)
+		for (int i = birds.Count - 1; i >= 0; i--)
 		{
 			if (birds[i].Y > Sprites.ScreenHeight ||
-			   (birds[i].Direction is -1 && birds[i].X < -Sprites.Bird.Width) ||
-			   (birds[i].Direction is  1 && birds[i].X > Sprites.ScreenWidth + Sprites.Bird.Width))
+				(birds[i].Direction is -1 && birds[i].X < -Sprites.Bird.Width) ||
+				(birds[i].Direction is 1 && birds[i].X > Sprites.ScreenWidth + Sprites.Bird.Width))
 			{
 				birds.RemoveAt(i);
 			}
@@ -321,16 +377,23 @@ try
 		string ammoFrame = string.Format("║  Ammo:{0,-10}", string.Concat(Enumerable.Repeat(" |", ammoCount))) + '║';
 		string scoreFrame = string.Format("║ Score: {0,-9}", score) + '║';
 		string bottomFrame = '╩' + new string('═', 17) + '╝';
-
-		Console.SetCursorPosition(x, y);
-		Console.Write(topFrame);
-		Console.SetCursorPosition(x, ++y);
-		Console.Write(ammoFrame);
-		Console.SetCursorPosition(x, ++y);
-		Console.Write(scoreFrame);
-		Console.SetCursorPosition(x, ++y);
-		Console.Write(bottomFrame);
+		try
+		{
+			Console.SetCursorPosition(x, y);
+			Console.Write(topFrame);
+			Console.SetCursorPosition(x, ++y);
+			Console.Write(ammoFrame);
+			Console.SetCursorPosition(x, ++y);
+			Console.Write(scoreFrame);
+			Console.SetCursorPosition(x, ++y);
+			Console.Write(bottomFrame);
+		}
+		catch //(IndexOutOfRangeException)
+		{
+			// user is likely resizing the console window
+		}
 	}
+
 	void DrawLine(Point start, Point end)
 	{
 		/// Bresenhams line algorithm
@@ -388,6 +451,10 @@ try
 					screenGraphic.Append(array[x, y]);
 				}
 			}
+			if (y < Sprites.ScreenHeight - 1)
+			{
+				screenGraphic.AppendLine();
+			}
 		}
 		Console.SetCursorPosition(0, 0);
 		Console.Write(screenGraphic);
@@ -395,28 +462,30 @@ try
 		screenBuffer = new char[Sprites.ScreenWidth, Sprites.ScreenHeight]; //Array.Clear(screenBuffer, 0, screenBuffer.Length);
 		screenGraphic.Clear();
 	}
+
 	void WriteToBuffer(int xPos, int yPos, params char[] characters)
 	{
 		int x = xPos;
 		int y = yPos;
 		for (int i = 0; i < characters.Length; i++)
 		{
-			if (characters[i] == Sprites.NEWLINE_CHAR)
+			if (characters[i] is Sprites.NEWLINE_CHAR)
 			{
 				y++;
 				x = xPos;
-				continue;
 			}
-			if (char.IsWhiteSpace(characters[i]) && screenBuffer[x, y] != NULL_CHAR && !char.IsWhiteSpace(screenBuffer[x, y]))
+			else if (x < 0 || y < 0 || x >= screenBuffer.GetLength(0) || y >= screenBuffer.GetLength(1))
 			{
 				x++;
-				continue;
 			}
-
-			screenBuffer[x, y] = characters[i];
-			x++;
+			else
+			{
+				screenBuffer[x, y] = characters[i];
+				x++;
+			}
 		}
 	}
+
 	void DrawToScreenWithColour(int xPos, int yPos, ConsoleColor colour, params char[] characters)
 	{
 		int x = xPos;
@@ -443,13 +512,21 @@ try
 			{
 				if (characters[i] is EMPTY_CHAR)
 				{
-					Console.SetCursorPosition(x, y);
-					Console.Write(' ');
+					try
+					{
+						Console.SetCursorPosition(x, y);
+						Console.Write(' ');
+					}
+					catch { }
 				}
 				else
 				{
-					Console.SetCursorPosition(x, y);
-					Console.Write(characters[i]);
+					try
+					{
+						Console.SetCursorPosition(x, y);
+						Console.Write(characters[i]);
+					}
+					catch { }
 				}
 			}
 
@@ -464,7 +541,9 @@ finally
 	Console.CursorVisible = true;
 	Console.ResetColor();
 	Console.Clear();
+	Console.Write("Duck Hunt was closed.");
 }
+
 struct Point
 {
 	public int X;
@@ -477,6 +556,7 @@ struct Point
 	public static Point operator +(Point a, Point b)
 		=> new Point(a.X + b.X, a.Y + b.Y);
 }
+
 class Bird
 {
 	public int X;
@@ -511,6 +591,7 @@ class Bird
 			(x < X + Sprites.Bird.Width);
 	}
 }
+
 class Bullet
 {
 	public bool OutOfBounds = false;
@@ -545,30 +626,32 @@ class Bullet
 		}
 	}
 }
+
 static class Sprites
 {
-	public readonly static char NEWLINE_CHAR = '\n';
-	public readonly static int ScreenWidth = Console.WindowWidth;
-	public readonly static int ScreenHeight = Console.WindowHeight;
-	public readonly static int SPRITE_MAXWIDTH = ScreenWidth - 2;
-	public readonly static int SPRITE_MAXHEIGHT = ScreenHeight - 2;
+	public const char NEWLINE_CHAR = '\n';
+	public static int ScreenWidth = Console.WindowWidth - 1;
+	public static int ScreenHeight = Console.WindowHeight;
+	public static int SPRITE_MAXWIDTH => ScreenWidth - 2;
+	public static int SPRITE_MAXHEIGHT => ScreenHeight - 2;
 
-	private static string middleBorder = "║" + new string(' ', SPRITE_MAXWIDTH) + "║" + NEWLINE_CHAR;
-	public static char[] Border =
-	  ("╔" + new string('═', SPRITE_MAXWIDTH) + "╗" + NEWLINE_CHAR +
+	private static string middleBorder => "║" + new string(' ', SPRITE_MAXWIDTH) + "║" + NEWLINE_CHAR;
+
+	public static char[] Border =>
+		("╔" + new string('═', SPRITE_MAXWIDTH) + "╗" + NEWLINE_CHAR +
 		string.Concat(Enumerable.Repeat(middleBorder, SPRITE_MAXHEIGHT)) +
 		"╚" + new string('═', SPRITE_MAXWIDTH) + "╝").ToCharArray();
 
 	public static class Enviroment
 	{
 		#region Ascii Sprites
-		public static char[] Grass =
-		  ( new string('V', SPRITE_MAXWIDTH)  + NEWLINE_CHAR +
+		public static char[] Grass =>
+		  (new string('V', SPRITE_MAXWIDTH) + NEWLINE_CHAR +
 			new string('M', SPRITE_MAXWIDTH) + NEWLINE_CHAR +
 			new string('V', SPRITE_MAXWIDTH)).ToCharArray();
 
 		public static char[] Crosshair =
-		  ( @"  │  " + NEWLINE_CHAR +
+		  (@"  │  " + NEWLINE_CHAR +
 			@" ┌│┐ " + NEWLINE_CHAR +
 			@"──O──" + NEWLINE_CHAR +
 			@" └│┘ " + NEWLINE_CHAR +
@@ -577,7 +660,7 @@ static class Sprites
 		public static int CrosshairWidth = 5;
 
 		public static char[] Bush =
-		  ( @"   (}{{}}}   " + NEWLINE_CHAR +
+		  (@"   (}{{}}}   " + NEWLINE_CHAR +
 			@"  {}}{{}'}}  " + NEWLINE_CHAR +
 			@"{{}}}{{}}}{}{" + NEWLINE_CHAR +
 			@"){}(}'{}}}{}}" + NEWLINE_CHAR +
