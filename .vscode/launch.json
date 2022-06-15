@@ -353,6 +353,16 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Duck Hunt",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Duck Hunt",
+			"program": "${workspaceFolder}/Projects/Duck Hunt/bin/Debug/Duck Hunt.dll",
+			"cwd": "${workspaceFolder}/Projects/Duck Hunt/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Blackjack",
 			"type": "coreclr",
 			"request": "launch",

@@ -1,0 +1,63 @@
+﻿@using System
+
+@page "/Duck Hunt"
+
+<PageTitle>Duck Hunt</PageTitle>
+
+<h1>Duck&nbsp;Hunt</h1>
+
+<a href="https://github.com/ZacharyPatten/dotnet-console-games/tree/main/Projects/Duck%20Hunt" alt="Go To Readme">
+	<img title="Go To Readme" alt="Go To Readme" src="https://raw.githubusercontent.com/ZacharyPatten/dotnet-console-games/main/.github/resources/readme-black.svg">
+</a>
+
+<div class="console-window text-center my-3" @onkeydown="@Console.OnKeyDown" tabindex="0">
+	<div class="d-inline-block bg-dark text-light border p-2 text-start shadow padding-0">
+		<pre class="console">
+			<code>@Console.State</code>
+		</pre>
+	</div>
+	<div>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.UpArrow)   ">↑</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.DownArrow) ">↓</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.LeftArrow) ">←</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.RightArrow)">→</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Spacebar)  ">spacebar</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.D1)        ">1</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.D2)        ">2</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.D3)        ">3</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.D4)        ">4</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.D5)        ">5</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.D6)        ">6</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Enter)     ">enter</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Escape)    ">escape</button>
+	</div>
+</div>
+
+<div class="alert alert-secondary" role="alert">
+	&#9000; Keyboard input is supported if you <strong>click</strong> on the game.
+</div>
+
+<div class="alert alert-secondary" role="alert">
+	&#8635; You can restart the game by <strong>refreshing</strong> the page.
+</div>
+
+<div class="alert alert-info" role="alert">
+	&#129309; This game was a <strong><a href="https://github.com/ZacharyPatten/dotnet-console-games/pull/39">community contribution</a></strong>!
+</div>
+
+@code
+{
+	Games.Duck_Hunt.Duck_Hunt Game;
+	BlazorConsole Console;
+
+	public Duck_Hunt()
+	{
+		Game = new();
+		Console = Game.Console;
+		Console.WindowWidth = 120;
+		Console.WindowHeight = 30;
+		Console.StateHasChanged = StateHasChanged;
+	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
+}
