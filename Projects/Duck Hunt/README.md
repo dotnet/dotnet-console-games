@@ -15,10 +15,45 @@
 
 Duck Hunt is a first person game where you aim your gun and shoot ducks.
 
+```
+╔═══════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║[ENTER] Menu                                                                                           ║
+║                                                                                                       ║
+║                                                                                                       ║
+║                                                                    _(nn)_                             ║
+║              ####                                                <(o    _)=                           ║
+║             ######                                                  (UU)                              ║
+║             ######                                │                                                   ║
+║              ####    ####                        ┌│┐                                                  ║
+║               ||    ######                      ──O──                                                 ║
+║                ||   /####                        └│┘                         ______                   ║
+║                 ####/                             │                        =(_(UU)o)>                 ║
+║                ######                                                                                 ║
+║          ####   ####   ####                                                                           ║
+║         ###### ||||   ######                                                                          ║
+║          ####  ||||   ######                                                                          ║
+║             \\ ||||  //####                                                                           ║
+║              \\|||| //                         ▓▓▓▓▓▓▓                                                ║
+║               \||||//                          ▓▓▓▓▓▓▓                                                ║
+║                ||||/                           ▓▓▓▓▓▓▓                          (}{{}}}               ║
+║                ||||                            ▓▓▓▓▓▓▓                         {}}{{}'}}              ║
+║                ||||                            ▓▓▓▓▓▓▓                       {{}}}{{}}}{}{            ║
+║                ||||                            ▓▓▓▓▓▓▓                       ){}(}'{}}}{}}            ║
+║                ||||                            ▓▓▓▓▓▓▓                       ){}(}{{}}}{})            ║
+║                ||||                            ▓▓▓▓▓▓▓                        {}}}{{}}}{}             ║
+║VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV▓▓▓▓▓▓▓VVVVVVVVVVVVVVVVVVVVVVVVVVVVVV╔═════════════════╣
+║MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM▓▓▓▓▓▓▓MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM║  Ammo: | | | | |║
+║VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV▓▓▓▓▓▓▓VVVVVVVVVVVVVVVVVVVVVVVVVVVVVV║ Score: 0        ║
+╚═════════════════════════════════════════════════════════════════════════════════════╩═════════════════╝
+```
+
 ## Input
 
 - `↑`, `↓`, `←`, `→` (arrow keys): aim your gun
 - `spacebar`: shoot gun
+- `enter`: open/close menu
+- `1`, `2`, `3`, `4`, `5`, `6`: menu selections
+- `escape`: exit game
 
 <p align="center">
 	You can play this game in your browser:
