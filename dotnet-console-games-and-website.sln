@@ -85,6 +85,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tower Of Hanoi", "Projects\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tug Of War", "Projects\Tug Of War\Tug Of War.csproj", "{19407C10-9FC5-4614-8846-702621836FC3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Duck Hunt", "Projects\Duck Hunt\Duck Hunt.csproj", "{B52224E3-87D4-441B-B5BF-32382DC54C9E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -255,6 +257,10 @@ Global
 		{19407C10-9FC5-4614-8846-702621836FC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19407C10-9FC5-4614-8846-702621836FC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19407C10-9FC5-4614-8846-702621836FC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B52224E3-87D4-441B-B5BF-32382DC54C9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B52224E3-87D4-441B-B5BF-32382DC54C9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B52224E3-87D4-441B-B5BF-32382DC54C9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B52224E3-87D4-441B-B5BF-32382DC54C9E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
