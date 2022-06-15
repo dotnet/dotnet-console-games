@@ -436,6 +436,7 @@ try
 			}
 		}
 	}
+
 	void DrawToScreen(char[,] array)
 	{
 		for (int y = 0; y < Sprites.ScreenHeight; y++)
