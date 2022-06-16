@@ -27,7 +27,7 @@ public class BlazorConsole
 	public bool RefreshOnInputOnly = true;
 	public Pixel[,] View;
 
-	public string Title;
+	public string? Title;
 	public ConsoleColor BackgroundColor = ConsoleColor.Black;
 	public ConsoleColor ForegroundColor = ConsoleColor.White;
 	public bool CursorVisible = true;
