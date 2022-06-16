@@ -209,7 +209,7 @@ public class Duck_Hunt
 					frame = 0;
 				}
 
-				if (await Console.KeyAvailable())
+				while (await Console.KeyAvailable())
 				{
 					switch ((await Console.ReadKey(true)).Key)
 					{
@@ -224,10 +224,6 @@ public class Duck_Hunt
 
 					crosshair.X = Math.Min(Sprites.ScreenWidth - Sprites.Enviroment.CrosshairWidth + 2, Math.Max(crosshair.X, 2));
 					crosshair.Y = Math.Min(Sprites.ScreenHeight - Sprites.Enviroment.CrosshairHeight, Math.Max(crosshair.Y, 2));
-				}
-				while (await Console.KeyAvailable())
-				{
-					await Console.ReadKey(true);
 				}
 
 				WriteToBuffer(0, 0, Sprites.Border);
@@ -618,7 +614,7 @@ struct Point
 
 	class Bullet
 	{
-		public static BlazorConsole Console;
+		public static BlazorConsole Console = null!;
 		public bool OutOfBounds = false;
 		public double[] X = new double[2];
 		public double[] Y = new double[2];

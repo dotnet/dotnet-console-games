@@ -194,7 +194,7 @@ try
 			frame = 0;
 		}
 
-		if (Console.KeyAvailable)
+		while (Console.KeyAvailable)
 		{
 			switch (Console.ReadKey(true).Key)
 			{
@@ -209,10 +209,6 @@ try
 
 			crosshair.X = Math.Min(Sprites.ScreenWidth - Sprites.Enviroment.CrosshairWidth + 2, Math.Max(crosshair.X, 2));
 			crosshair.Y = Math.Min(Sprites.ScreenHeight - Sprites.Enviroment.CrosshairHeight, Math.Max(crosshair.Y, 2));
-		}
-		while (Console.KeyAvailable)
-		{
-			Console.ReadKey(true);
 		}
 
 		WriteToBuffer(0, 0, Sprites.Border);
