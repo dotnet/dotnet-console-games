@@ -79,7 +79,8 @@
 
 ## Get Started
 
-> _**Recommendation**: Use these game examples for learning. Play the games, pick a game you like, and try to code the game yourself from scratch._
+> **Recommendation**<br/>
+> Use these game examples for learning. Play the games, pick a game you like, and try to code the game yourself from scratch.
 
 [Clone the repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) or [download the repository](https://github.com/ZacharyPatten/dotnet-console-games/archive/main.zip) and unzip the contents. `dotnet-console-games` should build with any standard .NET build process, but one of the following is recommended:
 
@@ -93,7 +94,7 @@
 >
 > 2. Open the <sub>[![File](.github/resources/file-16.svg)](#)</sub> **`dotnet-console-games.slnf`** file in Visual Studio.
 >
-> _**Note** This is optional, but [here are some recommended settings you change in Visual Studio](https://gist.github.com/ZacharyPatten/693f35653f6c21fbe6c85444792e524b)._
+> **Note** This is optional, but [here are some settings you can change in Visual Studio](https://gist.github.com/ZacharyPatten/693f35653f6c21fbe6c85444792e524b).
 
 </p>
 </details>
@@ -110,21 +111,21 @@
 >
 > 3. Open the <sub>[![Directory](.github/resources/file-directory-16.svg)](#)</sub> **`root folder`** of the repository in Visual Studio Code.
 >
-> _**Note** The following files are included in the repository:_
+> **Note** The following files are included in the repository:
 > - `.vscode/extensions.json` <sub>recommends Vistual Studio Code extension dependencies</sub>
 > - `.vscode/launch.json` <sub>includes the configurations for debugging the examples</sub>
 > - `.vscode/settings.json` <sub>automatically applies settings to the workspace</sub>
 > - `.vscode/tasks.json` <sub>includes the commands to build the projects</sub>
 >
-> _**Note** You will be prompted to install the necessary Visual Studio Code extensions when you open the folder:_
+> **Note** You will be prompted to install the necessary Visual Studio Code extensions when you open the folder:
 > - **ms-dotnettools.csharp** <sub>C# support</sub>
 
 </p>
 </details>
 
-> _**Relevant Articles:**_<br/>
-> _[Beginner's Guide To Console Input In C#](https://github.com/ZacharyPatten/ZacharyPatten/blob/main/Articles/2020-08-01.md) <sub>August 1, 2020</sub>_<br/>
-> _[dotnet Console Games Tips And Tricks](https://github.com/ZacharyPatten/ZacharyPatten/blob/main/Articles/2022-04-07.md) <sub>April 7, 2022</sub>_
+> **Relevant Articles**<br/>
+> [Beginner's Guide To Console Input In C#](https://github.com/ZacharyPatten/ZacharyPatten/blob/main/Articles/2020-08-01.md) <sub>August 1, 2020</sub><br/>
+> [dotnet Console Games Tips And Tricks](https://github.com/ZacharyPatten/ZacharyPatten/blob/main/Articles/2022-04-07.md) <sub>April 7, 2022</sub>
 
 ## Get Involved
 
