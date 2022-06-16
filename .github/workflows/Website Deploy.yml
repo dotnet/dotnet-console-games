@@ -2,12 +2,13 @@ name: Website Deploy
 on:
   push:
     branches:
-      - main
+    - main
     paths-ignore:
-      - '.vscode/**'
-      - '.github/**'
-      - 'LICENSE'
-      - 'README.md'
+    - '.vscode/**'
+    - '.github/**'
+    - 'LICENSE'
+    - 'README.md'
+    - '**.md' # <- may remove this in future to copy game readmes into website
   workflow_dispatch:
 jobs:
   deployment:
