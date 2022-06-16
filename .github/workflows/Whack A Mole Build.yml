@@ -3,9 +3,13 @@ on:
   push:
     paths:
     - 'Projects/Whack A Mole/**'
+    paths-ignore:
+    - '**.md'
   pull_request:
     paths:
     - 'Projects/Whack A Mole/**'
+    paths-ignore:
+    - '**.md'
   workflow_dispatch:
 jobs:
   build:
