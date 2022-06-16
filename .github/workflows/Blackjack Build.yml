@@ -3,15 +3,11 @@ on:
   push:
     paths:
     - 'Projects/Blackjack/**'
-    paths-ignore:
-    - '**.md'
     branches:
     - main
   pull_request:
     paths:
     - 'Projects/Blackjack/**'
-    paths-ignore:
-    - '**.md'
     branches:
     - main
   workflow_dispatch:

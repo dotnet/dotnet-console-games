@@ -3,13 +3,9 @@ on:
   push:
     paths:
     - 'Projects/Pong/**'
-    paths-ignore:
-    - '**.md'
   pull_request:
     paths:
     - 'Projects/Pong/**'
-    paths-ignore:
-    - '**.md'
   workflow_dispatch:
 jobs:
   build:

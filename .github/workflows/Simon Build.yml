@@ -3,13 +3,9 @@ on:
   push:
     paths:
     - 'Projects/Simon/**'
-    paths-ignore:
-    - '**.md'
   pull_request:
     paths:
     - 'Projects/Simon/**'
-    paths-ignore:
-    - '**.md'
   workflow_dispatch:
 jobs:
   build:
