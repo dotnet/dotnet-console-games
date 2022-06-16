@@ -3,9 +3,13 @@ on:
   push:
     paths:
     - 'Projects/Roll And Move/**'
+    paths-ignore:
+    - '**.md'
   pull_request:
     paths:
     - 'Projects/Roll And Move/**'
+    paths-ignore:
+    - '**.md'
   workflow_dispatch:
 jobs:
   build:

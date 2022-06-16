@@ -3,9 +3,13 @@ on:
   push:
     paths:
     - 'Projects/Hurdles/**'
+    paths-ignore:
+    - '**.md'
   pull_request:
     paths:
     - 'Projects/Hurdles/**'
+    paths-ignore:
+    - '**.md'
   workflow_dispatch:
 jobs:
   build:

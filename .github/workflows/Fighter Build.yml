@@ -3,9 +3,17 @@ on:
   push:
     paths:
     - 'Projects/Fighter/**'
+    paths-ignore:
+    - '**.md'
+    branches:
+    - main
   pull_request:
     paths:
     - 'Projects/Fighter/**'
+    paths-ignore:
+    - '**.md'
+    branches:
+    - main
   workflow_dispatch:
 jobs:
   build:

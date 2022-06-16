@@ -3,9 +3,17 @@ on:
   push:
     paths:
     - 'Projects/Duck Hunt/**'
+    paths-ignore:
+    - '**.md'
+    branches:
+    - main
   pull_request:
     paths:
     - 'Projects/Duck Hunt/**'
+    paths-ignore:
+    - '**.md'
+    branches:
+    - main
   workflow_dispatch:
 jobs:
   build:

@@ -3,9 +3,13 @@ on:
   push:
     paths:
     - 'Projects/Mancala/**'
+    paths-ignore:
+    - '**.md'
   pull_request:
     paths:
     - 'Projects/Mancala/**'
+    paths-ignore:
+    - '**.md'
   workflow_dispatch:
 jobs:
   build:

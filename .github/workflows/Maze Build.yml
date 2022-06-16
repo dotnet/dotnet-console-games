@@ -3,9 +3,13 @@ on:
   push:
     paths:
     - 'Projects/Maze/**'
+    paths-ignore:
+    - '**.md'
   pull_request:
     paths:
     - 'Projects/Maze/**'
+    paths-ignore:
+    - '**.md'
   workflow_dispatch:
 jobs:
   build:

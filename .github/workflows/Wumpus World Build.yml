@@ -3,9 +3,13 @@ on:
   push:
     paths:
     - 'Projects/Wumpus World/**'
+    paths-ignore:
+    - '**.md'
   pull_request:
     paths:
     - 'Projects/Wumpus World/**'
+    paths-ignore:
+    - '**.md'
   workflow_dispatch:
 jobs:
   build:

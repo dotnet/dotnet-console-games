@@ -3,9 +3,13 @@ on:
   push:
     paths:
     - 'Projects/Role Playing Game/**'
+    paths-ignore:
+    - '**.md'
   pull_request:
     paths:
     - 'Projects/Role Playing Game/**'
+    paths-ignore:
+    - '**.md'
   workflow_dispatch:
 jobs:
   build:
