@@ -13,6 +13,8 @@
 
 **[Source Code](Program.cs)**
 
+> _**NOTE** This game was a *<a href="https://github.com/ZacharyPatten/dotnet-console-games/pull/39">Community Contribution</a>!_
+
 Duck Hunt is a first person game where you aim your gun and shoot ducks.
 
 ```
