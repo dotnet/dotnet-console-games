@@ -3,13 +3,9 @@ on:
   push:
     paths:
     - 'Projects/Wordle/**'
-    paths-ignore:
-    - '**.md'
   pull_request:
     paths:
     - 'Projects/Wordle/**'
-    paths-ignore:
-    - '**.md'
   workflow_dispatch:
 jobs:
   build:

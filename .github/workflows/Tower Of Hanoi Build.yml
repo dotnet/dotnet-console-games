@@ -3,13 +3,9 @@ on:
   push:
     paths:
     - 'Projects/Tower Of Hanoi/**'
-    paths-ignore:
-    - '**.md'
   pull_request:
     paths:
     - 'Projects/Tower Of Hanoi/**'
-    paths-ignore:
-    - '**.md'
   workflow_dispatch:
 jobs:
   build:
