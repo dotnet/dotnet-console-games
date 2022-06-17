@@ -2,8 +2,9 @@
 
 public enum MoveType
 {
-	Unknown,
-	StandardMove,
-	Capture,
-	EndGame
+    Unknown,
+    StandardMove,
+    Capture,
+    EndGame
 }
+
