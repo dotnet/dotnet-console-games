@@ -2,6 +2,7 @@
 
 public enum PlayerControl
 {
-	Human,
-	Computer
+    Human,
+    Computer
 }
+

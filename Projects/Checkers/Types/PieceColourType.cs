@@ -2,7 +2,8 @@
 
 public enum PieceColour
 {
-	Black,
-	White,
-	NotSet
+    Black,
+    White,
+    NotSet
 }
+
