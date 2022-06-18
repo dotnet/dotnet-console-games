@@ -191,7 +191,7 @@ void RunGameLoop()
 			game.NextRound();
 		}
 
-		Thread.Sleep(100);
+		PressAnyKeyToContinue();
 	}
 	LoggingHelper.LogOutcome(game.GameWinner);
 }
@@ -208,4 +208,13 @@ void HandleGameOver()
 	{
 		Display.DisplayWinner(game.GameWinner);
 	}
+}
+
+void PressAnyKeyToContinue()
+{
+	(int left, int top) = (Console.CursorLeft, Console.CursorTop);
+	Console.Write("Press any key to cotinue...");
+	Console.ReadKey(true);
+	Console.SetCursorPosition(left, top);
+	Console.Write("                           ");
 }
