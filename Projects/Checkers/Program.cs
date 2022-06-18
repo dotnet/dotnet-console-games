@@ -17,7 +17,7 @@ if (CreateOutputFileForAnalysis)
     var prefix = Path.GetTempPath();
     var traceFile = $"{prefix}checkers_game_{Guid.NewGuid()}.txt";
 
-    Trace.Listeners.Add((new TextWriterTraceListener(File.Create((traceFile)))));
+    Trace.Listeners.Add(new TextWriterTraceListener(File.Create(traceFile)));
 }
 #pragma warning restore CS0162
 
@@ -47,17 +47,13 @@ while (gameState != GameState.Stopped)
         case GameState.IntroScreen:
             numberOfPlayers = ShowIntroScreenAndGetOption();
             gameState = GameState.GameInProgress;
-
             break;
         case GameState.GameInProgress:
-
             game = new Game();
             PlayerHelper.AssignPlayersToSide(numberOfPlayers, game);
-
             while (game.GameWinner == PieceColour.NotSet)
             {
                 var currentPlayer = game.Players.FirstOrDefault(x => x.Side == game.CurrentGo);
-
                 if (currentPlayer != null && currentPlayer.ControlledBy == PlayerControl.Human)
                 {
                     while (selectedFromPoint == null || selectedToPoint == null)
@@ -121,14 +117,12 @@ while (gameState != GameState.Stopped)
                         Console.Write(" ");
                         Console.SetCursorPosition(oldSelection.X + 1, oldSelection.Y);
                         Console.Write(" ");
-
                     }
 
                     var fromPoint = selectedFromPoint;
                     var toPoint = selectedToPoint;
 
-                    var actualFromPiece =
-                        BoardHelper.GetPieceAt(fromPoint.Value.X, fromPoint.Value.Y, game.GameBoard);
+                    var actualFromPiece = BoardHelper.GetPieceAt(fromPoint.Value.X, fromPoint.Value.Y, game.GameBoard);
 
                     if (actualFromPiece == null || actualFromPiece.Side != game.CurrentGo)
                     {
@@ -166,17 +160,13 @@ while (gameState != GameState.Stopped)
             {
                 LoggingHelper.LogMoves(game.MovesSoFar);
             }
-
             LoggingHelper.LogFinish();
             sw.Stop();
-
             if (game != null)
             {
                 Display.DisplayWinner(game.GameWinner);
             }
-
             gameState = GameState.Stopped;
-
             break;
         default:
             throw new ArgumentOutOfRangeException();
