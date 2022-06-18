@@ -1,7 +1,4 @@
-﻿using Checkers.Helpers;
-using Checkers.Types;
-
-namespace Checkers;
+﻿namespace Checkers;
 
 public class Piece
 {

@@ -1,10 +1,10 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using Checkers;
-using Checkers.Helpers;
-using Checkers.Types;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
+using System.Threading;
 
 Console.CursorVisible = false;
 

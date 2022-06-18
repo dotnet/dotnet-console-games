@@ -1,6 +1,4 @@
-﻿using Checkers.Helpers;
-
-namespace Checkers;
+﻿namespace Checkers;
 
 public class Board
 {

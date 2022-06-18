@@ -1,5 +1,4 @@
-﻿using Checkers.Types;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace Checkers.Helpers;
 

@@ -1,6 +1,4 @@
 ﻿using System.Drawing;
-using Checkers.Helpers;
-using Checkers.Types;
 
 namespace Checkers;
 
