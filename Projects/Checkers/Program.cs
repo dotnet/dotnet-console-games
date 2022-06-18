@@ -169,7 +169,7 @@ while (gameState != GameState.Stopped)
             gameState = GameState.Stopped;
             break;
         default:
-            throw new ArgumentOutOfRangeException();
+            throw new NotImplementedException();
     }
 }
 
