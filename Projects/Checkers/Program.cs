@@ -212,11 +212,14 @@ int ShowIntroScreenAndGetOption()
     Console.WriteLine();
     Console.Write("Enter the number of players (0-2): ");
 
-    var entry = Console.ReadLine();
-
-    var conversionPassed = int.TryParse(entry, out numberOfPlayers);
-
-    return conversionPassed && validPlayers.Contains(numberOfPlayers) ? numberOfPlayers : 0;
+	var entry = Console.ReadLine()?.Trim();
+	while (entry is not "0" and not "1" and not "2")
+	{
+		Console.WriteLine("Invalid Input. Try Again.");
+		Console.Write("Enter the number of players (0-2): ");
+		entry = Console.ReadLine()?.Trim();
+	}
+	return entry[0] - '0';
 }
 
 
