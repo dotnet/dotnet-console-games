@@ -1,6 +1,4 @@
-﻿using Checkers.Types;
-
-namespace Checkers.Data;
+﻿namespace Checkers.Data;
 
 /// <summary>
 /// Stores the starting position and any custom permutation for testing

@@ -1,6 +1,4 @@
-﻿using Checkers.Types;
-
-namespace Checkers;
+﻿namespace Checkers;
 
 public class Player
 {

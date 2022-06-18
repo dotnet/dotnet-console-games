@@ -1,6 +1,4 @@
-﻿using Checkers.Types;
-
-namespace Checkers.Helpers;
+﻿namespace Checkers.Helpers;
 
 /// <summary>
 /// Assigns AI/human players

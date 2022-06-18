@@ -1,5 +1,4 @@
 ﻿using Checkers.Data;
-using Checkers.Types;
 
 namespace Checkers.Helpers;
 
