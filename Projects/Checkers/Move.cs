@@ -11,8 +11,5 @@ public class Move
     public Point? Capturing { get; set; }
 
     public MoveType TypeOfMove { get; set; } = MoveType.Unknown;
-
-    // Moves are sorted by guid to give computer vs computer games a bit of variety
-    public string Weighting => Guid.NewGuid().ToString();
 }
 

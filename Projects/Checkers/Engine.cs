@@ -63,7 +63,7 @@ public static class Engine
             case MoveOutcome.EndGame:
             case MoveOutcome.ValidMoves:
                 {
-                    var bestMove = possibleMoves.MinBy(x => x.Weighting);
+                    var bestMove = possibleMoves[Random.Shared.Next(possibleMoves.Count)];
 
                     if (bestMove == null)
                     {
