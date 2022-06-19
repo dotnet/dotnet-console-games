@@ -1,10 +1,8 @@
-﻿using System.Drawing;
-
-namespace Checkers;
+﻿namespace Checkers;
 
 public static class Engine
 {
-    public static MoveOutcome PlayNextMove(PieceColour currentSide, Board currentBoard, Point? playerFrom = null, Point? playerTo = null)
+    public static MoveOutcome PlayNextMove(PieceColour currentSide, Board currentBoard, (int X, int Y)? playerFrom = null, (int X, int Y)? playerTo = null)
     {
         List<Move> possibleMoves;
         MoveOutcome outcome;
@@ -19,7 +17,7 @@ public static class Engine
             }
             else
             {
-                if (MoveIsValid(playerFrom, (Point)playerTo, possibleMoves, currentBoard, out var selectedMove))
+                if (MoveIsValid(playerFrom, playerTo.Value, possibleMoves, currentBoard, out var selectedMove))
                 {
                     possibleMoves.Clear();
 
@@ -41,7 +39,7 @@ public static class Engine
                                 outcome = MoveOutcome.EndGame;
                                 break;
                             default:
-                                throw new ArgumentOutOfRangeException();
+                                throw new NotImplementedException();
                         }
                     }
                 }
@@ -77,21 +75,21 @@ public static class Engine
                         throw new ArgumentNullException(nameof(pieceToMove));
                     }
 
-                    var newX = bestMove.To.X;
-                    var newY = bestMove.To.Y;
+                    int newX = bestMove.To.X;
+                    int newY = bestMove.To.Y;
 
-                    var from = PositionHelper.GetNotationPosition(pieceToMove.XPosition, pieceToMove.YPosition);
+                    var from = PositionHelper.ToPositionNotationString(pieceToMove.XPosition, pieceToMove.YPosition);
 
                     pieceToMove.XPosition = newX;
                     pieceToMove.YPosition = newY;
 
-                    var to = PositionHelper.GetNotationPosition(pieceToMove.XPosition, pieceToMove.YPosition);
+                    var to = PositionHelper.ToPositionNotationString(pieceToMove.XPosition, pieceToMove.YPosition);
 
-                    var blackPieces = BoardHelper.GetNumberOfBlackPiecesInPlay(currentBoard);
-                    var whitePieces = BoardHelper.GetNumberOfWhitePiecesInPlay(currentBoard);
+                    int blackPieces = currentBoard.GetNumberOfBlackPiecesInPlay();
+                    int whitePieces = currentBoard.GetNumberOfWhitePiecesInPlay();
 
                     // Promotion can only happen if not already a king and you have reached the far side
-                    if (newY is 1 or 8 && pieceToMove.Promoted == false)
+                    if (newY is 0 or 7 && pieceToMove.Promoted == false)
                     {
                         pieceToMove.Promoted = true;
 
@@ -155,7 +153,7 @@ public static class Engine
         return currentBoard.Pieces.FirstOrDefault(x => x.Aggressor);
     }
 
-    private static bool MoveIsValid(Point? from, Point to, List<Move> possibleMoves, Board currentBoard, out Move? selectedMove)
+    private static bool MoveIsValid((int X, int Y)? from, (int X, int Y) to, List<Move> possibleMoves, Board currentBoard, out Move? selectedMove)
     {
         selectedMove = default;
 
@@ -164,7 +162,7 @@ public static class Engine
             return false;
         }
 
-        var selectedPiece = BoardHelper.GetPieceAt(from.Value.X, from.Value.Y, currentBoard);
+        var selectedPiece = currentBoard.GetPieceAt(from.Value.X, from.Value.Y);
 
         foreach (var move in possibleMoves.Where(move => move.PieceToMove == selectedPiece && move.To == to))
         {
@@ -217,7 +215,7 @@ public static class Engine
             if (squareToCapture != null)
             {
                 var deadMan =
-                    BoardHelper.GetPieceAt(squareToCapture.Value.X, squareToCapture.Value.Y, currentBoard);
+					currentBoard.GetPieceAt(squareToCapture.Value.X, squareToCapture.Value.Y);
 
                 if (deadMan != null)
                 {
@@ -227,20 +225,20 @@ public static class Engine
                 if (captureMove.PieceToMove != null)
                 {
                     captureMove.PieceToMove.Aggressor = true;
-                    from = PositionHelper.GetNotationPosition(captureMove.PieceToMove.XPosition, captureMove.PieceToMove.YPosition);
+                    from = PositionHelper.ToPositionNotationString(captureMove.PieceToMove.XPosition, captureMove.PieceToMove.YPosition);
 
                     captureMove.PieceToMove.XPosition = captureMove.To.X;
                     captureMove.PieceToMove.YPosition = captureMove.To.Y;
 
-                    to = PositionHelper.GetNotationPosition(captureMove.PieceToMove.XPosition, captureMove.PieceToMove.YPosition);
+                    to = PositionHelper.ToPositionNotationString(captureMove.PieceToMove.XPosition, captureMove.PieceToMove.YPosition);
 
                 }
             }
         }
 
-        var anyPromoted = CheckForPiecesToPromote(currentSide, currentBoard);
-        var blackPieces = BoardHelper.GetNumberOfBlackPiecesInPlay(currentBoard);
-        var whitePieces = BoardHelper.GetNumberOfWhitePiecesInPlay(currentBoard);
+        bool anyPromoted = CheckForPiecesToPromote(currentSide, currentBoard);
+        int blackPieces = currentBoard.GetNumberOfBlackPiecesInPlay();
+        int whitePieces = currentBoard.GetNumberOfWhitePiecesInPlay();
 
         var playerAction = anyPromoted ? PlayerAction.CapturePromotion : PlayerAction.Capture;
 
@@ -251,8 +249,8 @@ public static class Engine
 
     private static bool CheckForPiecesToPromote(PieceColour currentSide, Board currentBoard)
     {
-        var retVal = false;
-        var promotionSpot = currentSide == PieceColour.White ? 8 : 1;
+        bool retVal = false;
+        int promotionSpot = currentSide == PieceColour.White ? 7 : 0;
 
         foreach (var piece in currentBoard.Pieces.Where(x => x.Side == currentSide))
         {
@@ -341,7 +339,7 @@ public static class Engine
                         continue;
                     }
 
-                    var targetSquare = BoardHelper.GetSquareOccupancy(currentX, currentY, currentBoard);
+                    var targetSquare = currentBoard.GetSquareOccupancy(currentX, currentY);
 
                     if (targetSquare == PieceColour.NotSet)
                     {
@@ -350,7 +348,7 @@ public static class Engine
                             continue;
                         }
 
-                        var newMove = new Move { PieceToMove = piece, TypeOfMove = MoveType.StandardMove, To = new Point { X = currentX, Y = currentY } };
+                        var newMove = new Move { PieceToMove = piece, TypeOfMove = MoveType.StandardMove, To = (currentX, currentY) };
                         possibleMoves.Add(newMove);
                     }
                     else
@@ -372,14 +370,14 @@ public static class Engine
                             continue;
                         }
 
-                        var beyondSquare = BoardHelper.GetSquareOccupancy(beyondX, beyondY, currentBoard);
+                        var beyondSquare = currentBoard.GetSquareOccupancy(beyondX, beyondY);
 
                         if (beyondSquare != PieceColour.NotSet)
                         {
                             continue;
                         }
 
-                        var attack = new Move { PieceToMove = piece, TypeOfMove = MoveType.Capture, To = new Point { X = beyondX, Y = beyondY }, Capturing = new Point { X = currentX, Y = currentY } };
+                        var attack = new Move { PieceToMove = piece, TypeOfMove = MoveType.Capture, To = (beyondX, beyondY), Capturing = (currentX, currentY) };
                         possibleMoves.Add(attack);
                     }
                 }
@@ -387,7 +385,7 @@ public static class Engine
         }
     }
 
-    private static Point DeriveToPosition(int pieceX, int pieceY, int captureX, int captureY)
+    private static (int X, int Y) DeriveToPosition(int pieceX, int pieceY, int captureX, int captureY)
     {
         int newX;
         if (captureX > pieceX)
@@ -409,7 +407,7 @@ public static class Engine
             newY = captureY - 1;
         }
 
-        return new Point(newX, newY);
+        return (newX, newY);
     }
 
     private static bool PlayingWithJustKings(PieceColour currentSide, Board currentBoard, out List<Move> possibleMoves)
@@ -431,8 +429,8 @@ public static class Engine
             {
                 foreach (var target in currentBoard.Pieces.Where(x => x.Side != currentSide && x.InPlay))
                 {
-                    var kingPoint = new Point(king.XPosition, king.YPosition);
-                    var targetPoint = new Point(target.XPosition, target.YPosition);
+                    var kingPoint = (king.XPosition, king.YPosition);
+                    var targetPoint = (target.XPosition, target.YPosition);
                     var distance = VectorHelper.GetPointDistance(kingPoint, targetPoint);
 
                     if (distance < shortestDistance)
@@ -450,7 +448,7 @@ public static class Engine
 
                 foreach (var movementOption in movementOptions)
                 {
-                    var squareStatus = BoardHelper.GetSquareOccupancy(movementOption.X, movementOption.Y, currentBoard);
+                    var squareStatus = currentBoard.GetSquareOccupancy(movementOption.X, movementOption.Y);
 
                     if (squareStatus == PieceColour.NotSet)
                     {
@@ -458,7 +456,7 @@ public static class Engine
                         {
                             PieceToMove = currentHero,
                             TypeOfMove = MoveType.EndGame,
-                            To = new Point(movementOption.X, movementOption.Y)
+                            To = (movementOption.X, movementOption.Y)
                         };
 
                         if (!PositionHelper.PointValid(movementOption.X, movementOption.Y))

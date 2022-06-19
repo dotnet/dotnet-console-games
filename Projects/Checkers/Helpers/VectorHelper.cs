@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace Checkers.Helpers;
+﻿namespace Checkers.Helpers;
 
 /// <summary>
 /// Track distance between 2 points
@@ -8,7 +6,7 @@ namespace Checkers.Helpers;
 /// </summary>
 public static class VectorHelper
 {
-    public static double GetPointDistance(Point first, Point second)
+    public static double GetPointDistance((int X, int Y) first, (int X, int Y) second)
     {
         // Easiest cases are points on the same vertical or horizontal axis
         if (first.X == second.X)
@@ -28,9 +26,9 @@ public static class VectorHelper
         return Math.Sqrt(Math.Pow(sideA, 2) + Math.Pow(sideB, 2));
     }
 
-    public static List<Point> WhereIsVillain(Piece hero, Piece villain)
+    public static List<(int X, int Y)> WhereIsVillain(Piece hero, Piece villain)
     {
-        var retVal = new List<Point>();
+        var retVal = new List<(int X, int Y)>();
 
         var directions = new List<Direction>();
 
@@ -59,23 +57,23 @@ public static class VectorHelper
             switch (directions[0])
             {
                 case Direction.Up:
-                    retVal.Add(new Point(hero.XPosition - 1, hero.YPosition - 1));
-                    retVal.Add(new Point(hero.XPosition + 1, hero.YPosition - 1));
+                    retVal.Add((hero.XPosition - 1, hero.YPosition - 1));
+                    retVal.Add((hero.XPosition + 1, hero.YPosition - 1));
 
                     break;
                 case Direction.Down:
-                    retVal.Add(new Point(hero.XPosition - 1, hero.YPosition + 1));
-                    retVal.Add(new Point(hero.XPosition + 1, hero.YPosition + 1));
+                    retVal.Add((hero.XPosition - 1, hero.YPosition + 1));
+                    retVal.Add((hero.XPosition + 1, hero.YPosition + 1));
 
                     break;
                 case Direction.Left:
-                    retVal.Add(new Point(hero.XPosition - 1, hero.YPosition - 1));
-                    retVal.Add(new Point(hero.XPosition - 1, hero.YPosition + 1));
+                    retVal.Add((hero.XPosition - 1, hero.YPosition - 1));
+                    retVal.Add((hero.XPosition - 1, hero.YPosition + 1));
 
                     break;
                 case Direction.Right:
-                    retVal.Add(new Point(hero.XPosition + 1, hero.YPosition - 1));
-                    retVal.Add(new Point(hero.XPosition + 1, hero.YPosition + 1));
+                    retVal.Add((hero.XPosition + 1, hero.YPosition - 1));
+                    retVal.Add((hero.XPosition + 1, hero.YPosition + 1));
 
                     break;
                 default:
@@ -86,22 +84,22 @@ public static class VectorHelper
         {
             if (directions.Contains(Direction.Left) && directions.Contains(Direction.Up))
             {
-                retVal.Add(new Point(hero.XPosition - 1, hero.YPosition - 1));
+                retVal.Add((hero.XPosition - 1, hero.YPosition - 1));
             }
 
             if (directions.Contains(Direction.Left) && directions.Contains(Direction.Down))
             {
-                retVal.Add(new Point(hero.XPosition - 1, hero.YPosition + 1));
+                retVal.Add((hero.XPosition - 1, hero.YPosition + 1));
             }
 
             if (directions.Contains(Direction.Right) && directions.Contains(Direction.Up))
             {
-                retVal.Add(new Point(hero.XPosition + 1, hero.YPosition - 1));
+                retVal.Add((hero.XPosition + 1, hero.YPosition - 1));
             }
 
             if (directions.Contains(Direction.Right) && directions.Contains(Direction.Down))
             {
-                retVal.Add(new Point(hero.XPosition + 1, hero.YPosition + 1));
+                retVal.Add((hero.XPosition + 1, hero.YPosition + 1));
             }
         }
 

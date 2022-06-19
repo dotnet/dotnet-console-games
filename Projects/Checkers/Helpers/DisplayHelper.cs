@@ -1,15 +1,12 @@
-﻿using System.Drawing;
-
-namespace Checkers.Helpers;
+﻿namespace Checkers.Helpers;
 
 public static class DisplayHelper
 {
-    public static Point GetScreenPositionFromBoardPosition(Point boardPosition)
+    public static (int X, int Y) GetScreenPositionFromBoardPosition((int X, int Y) boardPosition)
     {
-        var actualX = (boardPosition.X * 2) + 2;
-        var actualY = boardPosition.Y + 0;
-
-        return new Point(actualX, actualY);
+        var actualX = (boardPosition.X * 2) + 7;
+        var actualY = boardPosition.Y + 0 + 1;
+        return (actualX, actualY);
     }
 }
 
