@@ -26,10 +26,7 @@ LoggingHelper.LogStart();
 Game? game = null;
 var numberOfPlayers = 0;
 var gameState = GameState.IntroScreen;
-var xSelection = 4;
-var ySelection = 4;
-Point? selectedFromPoint = null;
-Point? selectedToPoint = null;
+(int X, int Y) selection = (4, 5);
 
 while (gameState != GameState.Stopped)
 {
@@ -99,83 +96,56 @@ void RunGameLoop()
 		var currentPlayer = game.Players.FirstOrDefault(x => x.Side == game.CurrentGo);
 		if (currentPlayer != null && currentPlayer.ControlledBy == PlayerControl.Human)
 		{
-			while (selectedFromPoint == null || selectedToPoint == null)
+			(int X, int Y)? from = null;
+			(int X, int Y)? to = null;
+			while (from is null || to is null)
 			{
-				var selection = DisplayHelper.GetScreenPositionFromBoardPosition(new Point(xSelection, ySelection));
-				Console.SetCursorPosition(selection.X - 1, selection.Y);
+				(int X, int Y) screenSelection = DisplayHelper.GetScreenPositionFromBoardPosition(selection);
+				Console.SetCursorPosition(screenSelection.X - 1, screenSelection.Y);
 				Console.Write("[");
-				Console.SetCursorPosition(selection.X + 1, selection.Y);
+				Console.SetCursorPosition(screenSelection.X + 1, screenSelection.Y);
 				Console.Write("]");
 
-				var oldY = ySelection;
-				var oldX = xSelection;
-				switch (Console.ReadKey(true).Key)
+				ConsoleKey key = Console.ReadKey(true).Key;
+
+				var screenPreviousSelection = DisplayHelper.GetScreenPositionFromBoardPosition(selection);
+				Console.SetCursorPosition(screenPreviousSelection.X - 1, screenPreviousSelection.Y);
+				Console.Write(" ");
+				Console.SetCursorPosition(screenPreviousSelection.X + 1, screenPreviousSelection.Y);
+				Console.Write(" ");
+
+				switch (key)
 				{
-					case ConsoleKey.UpArrow:
-						if (ySelection > 1)
-						{
-							oldY = ySelection;
-							ySelection--;
-						}
-						break;
-					case ConsoleKey.DownArrow:
-						if (ySelection < 8)
-						{
-							oldY = ySelection;
-							ySelection++;
-						}
-						break;
-					case ConsoleKey.LeftArrow:
-						if (xSelection > 1)
-						{
-							oldX = xSelection;
-							xSelection--;
-						}
-						break;
-					case ConsoleKey.RightArrow:
-						if (xSelection < 8)
-						{
-							oldX = xSelection;
-							xSelection++;
-						}
-						break;
+					case ConsoleKey.DownArrow:  selection.Y = Math.Min(7, selection.Y + 1); break;
+					case ConsoleKey.UpArrow:    selection.Y = Math.Max(0, selection.Y - 1); break;
+					case ConsoleKey.LeftArrow:  selection.X = Math.Max(0, selection.X - 1); break;
+					case ConsoleKey.RightArrow: selection.X = Math.Min(7, selection.X + 1); break;
 					case ConsoleKey.Enter:
-						if (selectedFromPoint == null)
+						if (from is null)
 						{
-							selectedFromPoint = new Point(xSelection, ySelection);
+							from = (selection.X, selection.Y);
 						}
 						else
 						{
-							selectedToPoint = new Point(xSelection, ySelection);
+							to = (selection.X, selection.Y);
 						}
 						break;
 					case ConsoleKey.Escape:
-						selectedFromPoint = null;
-						selectedToPoint = null;
+						from = null;
+						to = null;
 						break;
 				}
-
-				var oldSelection = DisplayHelper.GetScreenPositionFromBoardPosition(new Point(oldX, oldY));
-				Console.SetCursorPosition(oldSelection.X - 1, oldSelection.Y);
-				Console.Write(" ");
-				Console.SetCursorPosition(oldSelection.X + 1, oldSelection.Y);
-				Console.Write(" ");
 			}
 
-			var fromPoint = selectedFromPoint;
-			var toPoint = selectedToPoint;
-
-			var actualFromPiece = BoardHelper.GetPieceAt(fromPoint.Value.X, fromPoint.Value.Y, game.GameBoard);
-
+			var actualFromPiece = game.GameBoard.GetPieceAt(from.Value.X, from.Value.Y);
 			if (actualFromPiece == null || actualFromPiece.Side != game.CurrentGo)
 			{
-				fromPoint = toPoint = selectedToPoint = selectedFromPoint = null;
+				from = null;
+				to = null;
 			}
-
-			if (fromPoint != null && toPoint != null)
+			if (from != null && to != null)
 			{
-				_ = game.NextRound(fromPoint, toPoint);
-				selectedFromPoint = selectedToPoint = null;
+				_ = game.NextRound(from, to);
 			}
 			else
 			{

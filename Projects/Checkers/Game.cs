@@ -34,7 +34,7 @@ public class Game
         ShowBoard();
     }
 
-    public MoveOutcome NextRound(Point? from = null, Point? to = null)
+    public MoveOutcome NextRound((int X, int Y)? from = null, (int X, int Y)? to = null)
     {
         MovesSoFar++;
         var res = Engine.PlayNextMove(CurrentGo, GameBoard, from, to);
@@ -106,8 +106,7 @@ public class Game
     {
         if (!NoDisplay)
         {
-            Display.DisplayBoard(GameBoard);
-            Display.DisplayStats(GetWhitePiecesTaken(), GetBlackPiecesTaken());
+            Display.DisplayBoard(GameBoard, GetWhitePiecesTaken(), GetBlackPiecesTaken());
             Display.DisplayCurrentPlayer(CurrentGo);
         }
     }

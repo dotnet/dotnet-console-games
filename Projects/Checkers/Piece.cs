@@ -12,20 +12,10 @@ public class Piece
 
     public int YPosition { get; set; }
 
-    public string InitialPosition
+    public string NotationPosition
     {
-        set
-        {
-            var position = PositionHelper.GetPositionByNotation(value);
-
-            if (position == null)
-            {
-                return;
-            }
-
-            XPosition = position.Value.X;
-            YPosition = position.Value.Y;
-        }
+        get => PositionHelper.ToPositionNotationString(XPosition, YPosition);
+        set => (XPosition, YPosition) = PositionHelper.ParsePositionNotation(value);
     }
 
     public PieceColour Side { get; set; }
