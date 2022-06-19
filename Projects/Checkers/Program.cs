@@ -1,31 +1,21 @@
 ﻿using Checkers;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 
 Console.CursorVisible = false;
 
-// HACK: Set to true to create output file for game analysis
-const bool CreateOutputFileForAnalysis = false;
-
-if (CreateOutputFileForAnalysis)
-#pragma warning disable CS0162
+if (args is not null && args.Contains("--trace"))
 {
-    var prefix = Path.GetTempPath();
-    var traceFile = $"{prefix}checkers_game_{Guid.NewGuid()}.txt";
-
+    string traceFile = $"CheckersLog.{DateTime.Now}.log";
     Trace.Listeners.Add(new TextWriterTraceListener(File.Create(traceFile)));
 }
-#pragma warning restore CS0162
 
 Trace.AutoFlush = true;
 Console.OutputEncoding = System.Text.Encoding.UTF8;
-var sw = new Stopwatch();
-sw.Start();
 LoggingHelper.LogStart();
 Game? game = null;
-var numberOfPlayers = 0;
-var gameState = GameState.IntroScreen;
+int numberOfPlayers = 0;
+GameState gameState = GameState.IntroScreen;
 (int X, int Y) selection = (4, 5);
 
 while (gameState != GameState.Stopped)
@@ -77,7 +67,7 @@ void ShowIntroScreenAndGetOption()
     Console.WriteLine();
     Console.Write("Enter the number of players (0-2): ");
 
-	var entry = Console.ReadLine()?.Trim();
+	string? entry = Console.ReadLine()?.Trim();
 	while (entry is not "0" and not "1" and not "2")
 	{
 		Console.WriteLine("Invalid Input. Try Again.");
@@ -172,7 +162,6 @@ void HandleGameOver()
 		LoggingHelper.LogMoves(game.MovesSoFar);
 	}
 	LoggingHelper.LogFinish();
-	sw.Stop();
 	if (game != null)
 	{
 		Display.DisplayWinner(game.GameWinner);
