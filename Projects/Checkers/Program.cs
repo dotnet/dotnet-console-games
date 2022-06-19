@@ -6,8 +6,8 @@ Console.CursorVisible = false;
 
 if (args is not null && args.Contains("--trace"))
 {
-    string traceFile = $"CheckersLog.{DateTime.Now}.log";
-    Trace.Listeners.Add(new TextWriterTraceListener(File.Create(traceFile)));
+	string traceFile = $"CheckersLog.{DateTime.Now}.log";
+	Trace.Listeners.Add(new TextWriterTraceListener(File.Create(traceFile)));
 }
 
 Trace.AutoFlush = true;
@@ -20,52 +20,52 @@ GameState gameState = GameState.IntroScreen;
 
 while (gameState != GameState.Stopped)
 {
-    switch (gameState)
-    {
-        case GameState.IntroScreen:
-            ShowIntroScreenAndGetOption();
-            gameState = GameState.GameInProgress;
-            break;
-        case GameState.GameInProgress:
-            RunGameLoop();
-            gameState = GameState.GameOver;
-            break;
-        case GameState.GameOver:
-            HandleGameOver();
-            gameState = GameState.Stopped;
-            break;
-        default:
-            throw new NotImplementedException();
-    }
+	switch (gameState)
+	{
+		case GameState.IntroScreen:
+			ShowIntroScreenAndGetOption();
+			gameState = GameState.GameInProgress;
+			break;
+		case GameState.GameInProgress:
+			RunGameLoop();
+			gameState = GameState.GameOver;
+			break;
+		case GameState.GameOver:
+			HandleGameOver();
+			gameState = GameState.Stopped;
+			break;
+		default:
+			throw new NotImplementedException();
+	}
 }
 
 void ShowIntroScreenAndGetOption()
 {
-    Console.Clear();
-    Console.WriteLine("CHECKERS");
-    Console.WriteLine();
-    Console.WriteLine("Checkers is  played on an 8x8  board between two sides commonly known as black");
-    Console.WriteLine("and white. The objective is  simple - capture  all  your opponent's pieces. An");
-    Console.WriteLine("alternative way to  win is to trap  your opponent so that  they have no  valid");
-    Console.WriteLine("moves left.");
-    Console.WriteLine();
-    Console.WriteLine("Black starts first and players take it  in turns to move their pieces  forward");
-    Console.WriteLine("across the board diagonally. Should a piece  reach the other side of the board");
-    Console.WriteLine("the piece becomes a `king` and can  then move diagonally backwards as  well as");
-    Console.WriteLine("forwards.");
-    Console.WriteLine();
-    Console.WriteLine("Pieces are captured by jumping over them diagonally. More than one enemy piece");
-    Console.WriteLine("can be captured in the same turn by the same piece.");
-    Console.WriteLine();
-    Console.WriteLine("Moves  are selected  with the arrow keys. Use the [enter] button to select the");
-    Console.WriteLine("from and to squares. Invalid moves are ignored.");
-    Console.WriteLine();
-    Console.WriteLine("3 modes of play are possible depending on the number of players entered:");
-    Console.WriteLine("    0 - black and white are controlled by the computer");
-    Console.WriteLine("    1 - black is controlled by the player and white by the computer");
-    Console.WriteLine("    2 - allows 2 players");
-    Console.WriteLine();
-    Console.Write("Enter the number of players (0-2): ");
+	Console.Clear();
+	Console.WriteLine("CHECKERS");
+	Console.WriteLine();
+	Console.WriteLine("Checkers is  played on an 8x8  board between two sides commonly known as black");
+	Console.WriteLine("and white. The objective is  simple - capture  all  your opponent's pieces. An");
+	Console.WriteLine("alternative way to  win is to trap  your opponent so that  they have no  valid");
+	Console.WriteLine("moves left.");
+	Console.WriteLine();
+	Console.WriteLine("Black starts first and players take it  in turns to move their pieces  forward");
+	Console.WriteLine("across the board diagonally. Should a piece  reach the other side of the board");
+	Console.WriteLine("the piece becomes a `king` and can  then move diagonally backwards as  well as");
+	Console.WriteLine("forwards.");
+	Console.WriteLine();
+	Console.WriteLine("Pieces are captured by jumping over them diagonally. More than one enemy piece");
+	Console.WriteLine("can be captured in the same turn by the same piece.");
+	Console.WriteLine();
+	Console.WriteLine("Moves  are selected  with the arrow keys. Use the [enter] button to select the");
+	Console.WriteLine("from and to squares. Invalid moves are ignored.");
+	Console.WriteLine();
+	Console.WriteLine("3 modes of play are possible depending on the number of players entered:");
+	Console.WriteLine("    0 - black and white are controlled by the computer");
+	Console.WriteLine("    1 - black is controlled by the player and white by the computer");
+	Console.WriteLine("    2 - allows 2 players");
+	Console.WriteLine();
+	Console.Write("Enter the number of players (0-2): ");
 
 	string? entry = Console.ReadLine()?.Trim();
 	while (entry is not "0" and not "1" and not "2")
@@ -106,9 +106,9 @@ void RunGameLoop()
 
 				switch (key)
 				{
-					case ConsoleKey.DownArrow:  selection.Y = Math.Min(7, selection.Y + 1); break;
-					case ConsoleKey.UpArrow:    selection.Y = Math.Max(0, selection.Y - 1); break;
-					case ConsoleKey.LeftArrow:  selection.X = Math.Max(0, selection.X - 1); break;
+					case ConsoleKey.DownArrow: selection.Y = Math.Min(7, selection.Y + 1); break;
+					case ConsoleKey.UpArrow: selection.Y = Math.Max(0, selection.Y - 1); break;
+					case ConsoleKey.LeftArrow: selection.X = Math.Max(0, selection.X - 1); break;
 					case ConsoleKey.RightArrow: selection.X = Math.Min(7, selection.X + 1); break;
 					case ConsoleKey.Enter:
 						if (from is null)

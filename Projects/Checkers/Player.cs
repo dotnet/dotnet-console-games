@@ -2,7 +2,6 @@
 
 public class Player
 {
-    public PlayerControl ControlledBy { get; set; }
-    public PieceColour Side { get; set; }
+	public PlayerControl ControlledBy { get; set; }
+	public PieceColour Side { get; set; }
 }
-
