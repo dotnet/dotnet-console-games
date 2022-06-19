@@ -181,9 +181,10 @@ void HandleGameOver()
 
 void PressAnyKeyToContinue()
 {
+	const string prompt = "Press any key to cotinue...";
 	(int left, int top) = (Console.CursorLeft, Console.CursorTop);
-	Console.Write("Press any key to cotinue...");
+	Console.Write(prompt);
 	Console.ReadKey(true);
 	Console.SetCursorPosition(left, top);
-	Console.Write("                           ");
+	Console.Write(new string(' ', prompt.Length));
 }
