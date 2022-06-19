@@ -100,7 +100,7 @@ void RunGameLoop()
 			(int X, int Y)? to = null;
 			while (from is null || to is null)
 			{
-				(int X, int Y) screenSelection = DisplayHelper.GetScreenPositionFromBoardPosition(selection);
+				(int X, int Y) screenSelection = Display.GetScreenPositionFromBoardPosition(selection);
 				Console.SetCursorPosition(screenSelection.X - 1, screenSelection.Y);
 				Console.Write("[");
 				Console.SetCursorPosition(screenSelection.X + 1, screenSelection.Y);
@@ -108,7 +108,7 @@ void RunGameLoop()
 
 				ConsoleKey key = Console.ReadKey(true).Key;
 
-				var screenPreviousSelection = DisplayHelper.GetScreenPositionFromBoardPosition(selection);
+				var screenPreviousSelection = Display.GetScreenPositionFromBoardPosition(selection);
 				Console.SetCursorPosition(screenPreviousSelection.X - 1, screenPreviousSelection.Y);
 				Console.Write(" ");
 				Console.SetCursorPosition(screenPreviousSelection.X + 1, screenPreviousSelection.Y);
