@@ -4,17 +4,17 @@ namespace Checkers;
 
 public class Board
 {
-    public List<Piece> Pieces { get; set; }
+	public List<Piece> Pieces { get; set; }
 
-    public Board()
-    {
-        Pieces = GetStartingPosition();
-    }
+	public Board()
+	{
+		Pieces = GetStartingPosition();
+	}
 
-    public Board(List<Piece> startingPosition)
-    {
-        Pieces = startingPosition;
-    }
+	public Board(List<Piece> startingPosition)
+	{
+		Pieces = startingPosition;
+	}
 
 	public static List<Piece> GetStartingPosition()
 	{

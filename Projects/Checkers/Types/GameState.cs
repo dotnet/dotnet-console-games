@@ -2,9 +2,8 @@
 
 public enum GameState
 {
-    IntroScreen,
-    GameInProgress,
-    GameOver,
-    Stopped
+	IntroScreen,
+	GameInProgress,
+	GameOver,
+	Stopped
 }
-
