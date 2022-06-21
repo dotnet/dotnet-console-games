@@ -13,45 +13,36 @@ public static class VectorHelper
 		{
 			return Math.Abs(first.Y - second.Y);
 		}
-
 		if (first.Y == second.Y)
 		{
 			return Math.Abs(first.X - second.X);
 		}
-
 		// Pythagoras baby
-		var sideA = (double)Math.Abs(first.Y - second.Y);
-		var sideB = (double)Math.Abs(first.X - second.X);
-
+		double sideA = Math.Abs(first.Y - second.Y);
+		double sideB = Math.Abs(first.X - second.X);
 		return Math.Sqrt(Math.Pow(sideA, 2) + Math.Pow(sideB, 2));
 	}
 
 	public static List<(int X, int Y)> WhereIsVillain(Piece hero, Piece villain)
 	{
-		var retVal = new List<(int X, int Y)>();
-
-		var directions = new List<Direction>();
-
+		List<(int X, int Y)>? retVal = new();
+		List<Direction>? directions = new();
 		if (hero.XPosition > villain.XPosition)
 		{
 			directions.Add(Direction.Left);
 		}
-
 		if (hero.XPosition < villain.XPosition)
 		{
 			directions.Add(Direction.Right);
 		}
-
 		if (hero.YPosition > villain.YPosition)
 		{
 			directions.Add(Direction.Up);
 		}
-
 		if (hero.YPosition < villain.YPosition)
 		{
 			directions.Add(Direction.Down);
 		}
-
 		if (directions.Count == 1)
 		{
 			switch (directions[0])
@@ -77,7 +68,7 @@ public static class VectorHelper
 
 					break;
 				default:
-					throw new ArgumentOutOfRangeException();
+					throw new NotImplementedException();
 			}
 		}
 		else
@@ -86,23 +77,19 @@ public static class VectorHelper
 			{
 				retVal.Add((hero.XPosition - 1, hero.YPosition - 1));
 			}
-
 			if (directions.Contains(Direction.Left) && directions.Contains(Direction.Down))
 			{
 				retVal.Add((hero.XPosition - 1, hero.YPosition + 1));
 			}
-
 			if (directions.Contains(Direction.Right) && directions.Contains(Direction.Up))
 			{
 				retVal.Add((hero.XPosition + 1, hero.YPosition - 1));
 			}
-
 			if (directions.Contains(Direction.Right) && directions.Contains(Direction.Down))
 			{
 				retVal.Add((hero.XPosition + 1, hero.YPosition + 1));
 			}
 		}
-
 		return retVal;
 	}
 }

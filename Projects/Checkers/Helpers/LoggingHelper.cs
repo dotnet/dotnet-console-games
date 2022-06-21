@@ -9,14 +9,14 @@ public static class LoggingHelper
 {
 	public static void LogMove(string from, string to, PlayerAction action, PieceColor sidePlaying, int blacksInPlay, int whitesInPlay)
 	{
-		var colour = sidePlaying == PieceColor.Black ? "B" : "W";
-		var suffix = DecodePlayerAction(action);
+		string colour = sidePlaying == PieceColor.Black ? "B" : "W";
+		string suffix = DecodePlayerAction(action);
 
-		var outputLine = $"Move   : {colour} {from}-{to} {suffix,2}";
+		string outputLine = $"Move   : {colour} {from}-{to} {suffix,2}";
 
 		if (action == PlayerAction.Capture || action == PlayerAction.CapturePromotion)
 		{
-			var piecesCount = $" B:{blacksInPlay,2} W:{whitesInPlay,2}";
+			string piecesCount = $" B:{blacksInPlay,2} W:{whitesInPlay,2}";
 			outputLine += piecesCount;
 		}
 
