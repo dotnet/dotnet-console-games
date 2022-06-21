@@ -6,7 +6,6 @@ public class Game
 
 	public PieceColor Turn { get; private set; }
 	public Board Board { get; private set; }
-	public int MoveCount { get; private set; }
 	public PieceColor? Winner { get; private set; }
 	public List<Player> Players { get; private set; }
 
@@ -20,13 +19,11 @@ public class Game
 			new Player { ControlledBy = humanPlayerCount < 2 ? PlayerControl.Computer : PlayerControl.Human, Color = PieceColor.White },
 		};
 		Turn = PieceColor.Black;
-		MoveCount = 0;
 		Winner = null;
 	}
 
 	public MoveOutcome NextRound((int X, int Y)? from = null, (int X, int Y)? to = null)
 	{
-		MoveCount++;
 		MoveOutcome moveOutcome = Engine.PlayNextMove(Turn, Board, from, to);
 		while (from is null && to is null && moveOutcome is MoveOutcome.CaptureMoreAvailable)
 		{

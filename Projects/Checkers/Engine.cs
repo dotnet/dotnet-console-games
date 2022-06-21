@@ -21,7 +21,6 @@ public static class Engine
 					if (selectedMove is not null)
 					{
 						possibleMoves.Add(selectedMove);
-
 						switch (selectedMove.TypeOfMove)
 						{
 							case MoveType.Unknown:
@@ -76,12 +75,10 @@ public static class Engine
 				}
 				break;
 		}
-
 		if (outcome is not MoveOutcome.CaptureMoreAvailable)
 		{
 			ResetCapturePiece(board);
 		}
-
 		return outcome;
 	}
 
