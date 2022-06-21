@@ -214,12 +214,11 @@ public static class Engine
 
 			if (squareToCapture != null)
 			{
-				var deadMan =
-					currentBoard.GetPieceAt(squareToCapture.Value.X, squareToCapture.Value.Y);
+				Piece? deadMan = currentBoard.GetPieceAt(squareToCapture.Value.X, squareToCapture.Value.Y);
 
 				if (deadMan != null)
 				{
-					deadMan.InPlay = false;
+					currentBoard.Pieces.Remove(deadMan);
 				}
 
 				if (captureMove.PieceToMove != null)
@@ -310,11 +309,11 @@ public static class Engine
 	{
 		possibleMoves = new List<Move>();
 
-		foreach (var piece in currentBoard.Pieces.Where(c => c.Side == currentSide && c.InPlay))
+		foreach (Piece piece in currentBoard.Pieces.Where(c => c.Side == currentSide))
 		{
-			for (var x = -1; x < 2; x++)
+			for (int x = -1; x < 2; x++)
 			{
-				for (var y = -1; y < 2; y++)
+				for (int y = -1; y < 2; y++)
 				{
 					if (x == 0 || y == 0)
 					{
@@ -339,7 +338,7 @@ public static class Engine
 						continue;
 					}
 
-					var targetSquare = currentBoard.GetSquareOccupancy(currentX, currentY);
+					PieceColour targetSquare = currentBoard.GetSquareOccupancy(currentX, currentY);
 
 					if (targetSquare == PieceColour.NotSet)
 					{
@@ -348,7 +347,7 @@ public static class Engine
 							continue;
 						}
 
-						var newMove = new Move { PieceToMove = piece, TypeOfMove = MoveType.StandardMove, To = (currentX, currentY) };
+						Move newMove = new Move { PieceToMove = piece, TypeOfMove = MoveType.StandardMove, To = (currentX, currentY) };
 						possibleMoves.Add(newMove);
 					}
 					else
@@ -377,7 +376,7 @@ public static class Engine
 							continue;
 						}
 
-						var attack = new Move { PieceToMove = piece, TypeOfMove = MoveType.Capture, To = (beyondX, beyondY), Capturing = (currentX, currentY) };
+						Move attack = new Move { PieceToMove = piece, TypeOfMove = MoveType.Capture, To = (beyondX, beyondY), Capturing = (currentX, currentY) };
 						possibleMoves.Add(attack);
 					}
 				}
@@ -413,8 +412,8 @@ public static class Engine
 	private static bool PlayingWithJustKings(PieceColour currentSide, Board currentBoard, out List<Move> possibleMoves)
 	{
 		possibleMoves = new List<Move>();
-		var piecesInPlay = currentBoard.Pieces.Count(x => x.Side == currentSide && x.InPlay);
-		var kingsInPlay = currentBoard.Pieces.Count(x => x.Side == currentSide && x.InPlay && x.Promoted);
+		var piecesInPlay = currentBoard.Pieces.Count(x => x.Side == currentSide);
+		var kingsInPlay = currentBoard.Pieces.Count(x => x.Side == currentSide && x.Promoted);
 
 		var playingWithJustKings = piecesInPlay == kingsInPlay;
 
@@ -425,9 +424,9 @@ public static class Engine
 			Piece? currentHero = null;
 			Piece? currentVillain = null;
 
-			foreach (var king in currentBoard.Pieces.Where(x => x.Side == currentSide && x.InPlay))
+			foreach (var king in currentBoard.Pieces.Where(x => x.Side == currentSide))
 			{
-				foreach (var target in currentBoard.Pieces.Where(x => x.Side != currentSide && x.InPlay))
+				foreach (var target in currentBoard.Pieces.Where(x => x.Side != currentSide))
 				{
 					var kingPoint = (king.XPosition, king.YPosition);
 					var targetPoint = (target.XPosition, target.YPosition);

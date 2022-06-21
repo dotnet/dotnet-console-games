@@ -40,7 +40,7 @@ public class Board
 		GetPieceAt(x, y)?.Side ?? default;
 
 	public Piece? GetPieceAt(int x, int y) =>
-		Pieces.FirstOrDefault(p => p.XPosition == x && p.InPlay && p.YPosition == y);
+		Pieces.FirstOrDefault(p => p.XPosition == x && p.YPosition == y);
 
 	public int GetNumberOfWhitePiecesInPlay() =>
 		GetNumberOfPiecesInPlay(PieceColour.White);
@@ -49,7 +49,7 @@ public class Board
 		GetNumberOfPiecesInPlay(PieceColour.Black);
 
 	private int GetNumberOfPiecesInPlay(PieceColour currentSide) =>
-		Pieces.Count(x => x.Side == currentSide && x.InPlay);
+		Pieces.Count(x => x.Side == currentSide);
 
 	public static string ToPositionNotationString(int x, int y)
 	{
