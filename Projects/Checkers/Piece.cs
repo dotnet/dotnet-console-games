@@ -2,12 +2,6 @@
 
 public class Piece
 {
-	public Piece()
-	{
-		InPlay = true;
-		Promoted = false;
-	}
-
 	public int XPosition { get; set; }
 
 	public int YPosition { get; set; }
@@ -19,8 +13,6 @@ public class Piece
 	}
 
 	public PieceColour Side { get; set; }
-
-	public bool InPlay { get; set; }
 
 	public bool Promoted { get; set; }
 

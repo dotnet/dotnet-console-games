@@ -168,10 +168,7 @@ void RenderGameState(Player? playerMoved = null, (int X, int Y)? selection = nul
 	Dictionary<(int X, int Y), char> tiles = new();
 	foreach (Piece piece in game!.Board.Pieces)
 	{
-		if (piece.InPlay)
-		{
-			tiles[(piece.XPosition, piece.YPosition)] = ToChar(piece);
-		}
+		tiles[(piece.XPosition, piece.YPosition)] = ToChar(piece);
 	}
 	char C(int x, int y) => (x, y) == selection ? '$' : tiles.GetValueOrDefault((x, y), '.');
 	StringBuilder sb = new();

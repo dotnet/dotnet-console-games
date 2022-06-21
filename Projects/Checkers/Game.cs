@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace Checkers;
+﻿namespace Checkers;
 
 public class Game
 {
@@ -21,7 +19,6 @@ public class Game
 	{
 		Board = new Board();
 		Turn = PieceColour.Black;
-		//ShowBoard();
 	}
 
 	public MoveOutcome NextRound((int X, int Y)? from = null, (int X, int Y)? to = null)
@@ -56,19 +53,16 @@ public class Game
 				? PieceColour.White
 				: PieceColour.Black;
 		}
-
-		//ShowBoard();
-
 		return res;
 	}
 
 	public void CheckSidesHavePiecesLeft()
 	{
-		var retVal = Board.Pieces.Where(x => x.InPlay).Select(y => y.Side).Distinct().Count() == 2;
+		var retVal = Board.Pieces.Select(y => y.Side).Distinct().Count() == 2;
 
 		if (!retVal)
 		{
-			Winner = Board.Pieces.Where(x => x.InPlay).Select(y => y.Side).Distinct().FirstOrDefault();
+			Winner = Board.Pieces.Select(y => y.Side).Distinct().FirstOrDefault();
 		}
 	}
 
@@ -89,12 +83,6 @@ public class Game
 
 	public int GetPiecesTakenForSide(PieceColour colour)
 	{
-		return PiecesPerSide - Board.Pieces.Count(x => x.InPlay && x.Side == colour);
+		return PiecesPerSide - Board.Pieces.Count(x => x.Side == colour);
 	}
-
-	//private void ShowBoard()
-	//{
-	//	Display.DisplayBoard(Board, GetWhitePiecesTaken(), GetBlackPiecesTaken());
-	//	Display.DisplayCurrentPlayer(Turn);
-	//}
 }
