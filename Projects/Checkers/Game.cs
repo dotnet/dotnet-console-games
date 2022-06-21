@@ -2,7 +2,7 @@
 
 public class Game
 {
-	private const int PiecesPerSide = 12;
+	private const int PiecesPerColor = 12;
 
 	public PieceColor Turn { get; private set; }
 	public Board Board { get; private set; }
@@ -27,59 +27,45 @@ public class Game
 	public MoveOutcome NextRound((int X, int Y)? from = null, (int X, int Y)? to = null)
 	{
 		MoveCount++;
-		MoveOutcome res = Engine.PlayNextMove(Turn, Board, from, to);
-		while (from is null && to is null && res is MoveOutcome.CaptureMoreAvailable)
+		MoveOutcome moveOutcome = Engine.PlayNextMove(Turn, Board, from, to);
+		while (from is null && to is null && moveOutcome is MoveOutcome.CaptureMoreAvailable)
 		{
-			res = Engine.PlayNextMove(Turn, Board, from, to);
+			moveOutcome = Engine.PlayNextMove(Turn, Board, from, to);
 		}
-		if (res == MoveOutcome.BlackWin)
+		if (moveOutcome == MoveOutcome.BlackWin)
 		{
 			Winner = PieceColor.Black;
 		}
-		if (res == MoveOutcome.WhiteWin)
+		if (moveOutcome == MoveOutcome.WhiteWin)
 		{
 			Winner = PieceColor.White;
 		}
-		if (Winner is null && res is not MoveOutcome.CaptureMoreAvailable)
+		if (Winner is null && moveOutcome is not MoveOutcome.CaptureMoreAvailable)
 		{
 			CheckSidesHavePiecesLeft();
 			Turn = Turn == PieceColor.Black ? PieceColor.White : PieceColor.Black;
 		}
-		if (res == MoveOutcome.Unknown)
+		if (moveOutcome == MoveOutcome.Unknown)
 		{
 			Turn = Turn == PieceColor.Black
 				? PieceColor.White
 				: PieceColor.Black;
 		}
-		return res;
+		return moveOutcome;
 	}
 
 	public void CheckSidesHavePiecesLeft()
 	{
-		bool retVal = Board.Pieces.Select(piece => piece.Color).Distinct().Count() == 2;
-		if (!retVal)
+		if (!Board.Pieces.Any(piece => piece.Color is PieceColor.Black))
 		{
-			Winner = Board.Pieces.Select(piece => piece.Color).Distinct().FirstOrDefault();
+			Winner = PieceColor.White;
+		}
+		if (!Board.Pieces.Any(piece => piece.Color is PieceColor.White))
+		{
+			Winner = PieceColor.Black;
 		}
 	}
 
-	public string GetCurrentPlayer()
-	{
-		return Turn.ToString();
-	}
-
-	public int GetWhitePiecesTaken()
-	{
-		return GetPiecesTakenForSide(PieceColor.White);
-	}
-
-	public int GetBlackPiecesTaken()
-	{
-		return GetPiecesTakenForSide(PieceColor.Black);
-	}
-
-	public int GetPiecesTakenForSide(PieceColor colour)
-	{
-		return PiecesPerSide - Board.Pieces.Count(piece => piece.Color == colour);
-	}
+	public int TakenCount(PieceColor colour) =>
+		PiecesPerColor - Board.Pieces.Count(piece => piece.Color == colour);
 }

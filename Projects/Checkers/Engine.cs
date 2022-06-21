@@ -64,8 +64,8 @@ public static class Engine
 					pieceToMove.XPosition = newX;
 					pieceToMove.YPosition = newY;
 					string to = Board.ToPositionNotationString(pieceToMove.XPosition, pieceToMove.YPosition);
-					int blackPieces = board.GetNumberOfBlackPiecesInPlay();
-					int whitePieces = board.GetNumberOfWhitePiecesInPlay();
+					int blackPieces = board.Pieces.Count(piece => piece.Color is PieceColor.Black);
+					int whitePieces = board.Pieces.Count(piece => piece.Color is PieceColor.White);
 					// Promotion can only happen if not already a king and you have reached the far side
 					if (newY is 0 or 7 && pieceToMove.Promoted == false)
 					{
@@ -133,7 +133,7 @@ public static class Engine
 		{
 			return false;
 		}
-		Piece? selectedPiece = board.GetPieceAt(from.Value.X, from.Value.Y);
+		Piece? selectedPiece = board[from.Value.X, from.Value.Y];
 		foreach (Move move in possibleMoves.Where(move => move.PieceToMove == selectedPiece && move.To == to))
 		{
 			selectedMove = move;
@@ -174,7 +174,7 @@ public static class Engine
 
 			if (squareToCapture is not null)
 			{
-				Piece? deadMan = board.GetPieceAt(squareToCapture.Value.X, squareToCapture.Value.Y);
+				Piece? deadMan = board[squareToCapture.Value.X, squareToCapture.Value.Y];
 				if (deadMan is not null)
 				{
 					board.Pieces.Remove(deadMan);
@@ -190,8 +190,8 @@ public static class Engine
 			}
 		}
 		bool anyPromoted = CheckForPiecesToPromote(side, board);
-		int blackPieces = board.GetNumberOfBlackPiecesInPlay();
-		int whitePieces = board.GetNumberOfWhitePiecesInPlay();
+		int blackPieces = board.Pieces.Count(piece => piece.Color is PieceColor.Black);
+		int whitePieces = board.Pieces.Count(piece => piece.Color is PieceColor.White);
 		PlayerAction playerAction = anyPromoted ? PlayerAction.CapturePromotion : PlayerAction.Capture;
 		LoggingHelper.LogMove(from, to, playerAction, side, blackPieces, whitePieces);
 		return anyPromoted;
@@ -274,7 +274,7 @@ public static class Engine
 					{
 						continue;
 					}
-					PieceColor? targetSquare = board.GetSquareOccupancy(currentX, currentY);
+					PieceColor? targetSquare = board[currentX, currentY]?.Color;
 					if (targetSquare is null)
 					{
 						if (!Board.IsValidPosition(currentX, currentY))
@@ -291,7 +291,7 @@ public static class Engine
 						{
 							continue;
 						}
-						PieceColor? beyondSquare = board.GetSquareOccupancy(toLocation.X, toLocation.Y);
+						PieceColor? beyondSquare = board[toLocation.X, toLocation.Y]?.Color;
 						if (beyondSquare is not null)
 						{
 							continue;
@@ -358,7 +358,7 @@ public static class Engine
 				List<(int X, int Y)>? movementOptions = VectorHelper.WhereIsVillain(currentHero, currentVillain);
 				foreach ((int X, int Y) movementOption in movementOptions)
 				{
-					PieceColor? squareStatus = board.GetSquareOccupancy(movementOption.X, movementOption.Y);
+					PieceColor? squareStatus = board[movementOption.X, movementOption.Y]?.Color;
 					if (squareStatus is null)
 					{
 						Move move = new()

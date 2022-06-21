@@ -50,22 +50,18 @@ public static class VectorHelper
 				case Direction.Up:
 					retVal.Add((hero.XPosition - 1, hero.YPosition - 1));
 					retVal.Add((hero.XPosition + 1, hero.YPosition - 1));
-
 					break;
 				case Direction.Down:
 					retVal.Add((hero.XPosition - 1, hero.YPosition + 1));
 					retVal.Add((hero.XPosition + 1, hero.YPosition + 1));
-
 					break;
 				case Direction.Left:
 					retVal.Add((hero.XPosition - 1, hero.YPosition - 1));
 					retVal.Add((hero.XPosition - 1, hero.YPosition + 1));
-
 					break;
 				case Direction.Right:
 					retVal.Add((hero.XPosition + 1, hero.YPosition - 1));
 					retVal.Add((hero.XPosition + 1, hero.YPosition + 1));
-
 					break;
 				default:
 					throw new NotImplementedException();
