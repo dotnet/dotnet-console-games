@@ -24,23 +24,23 @@ try
 	Trace.AutoFlush = true;
 	Console.OutputEncoding = Encoding.UTF8;
 	LoggingHelper.LogStart();
-	GameState gameState = GameState.IntroScreen;
+	ProgramState gameState = ProgramState.IntroScreen;
 
-	while (gameState != GameState.Stopped)
+	while (gameState != ProgramState.Stopped)
 	{
 		switch (gameState)
 		{
-			case GameState.IntroScreen:
+			case ProgramState.IntroScreen:
 				ShowIntroScreenAndGetOption();
-				gameState = GameState.GameInProgress;
+				gameState = ProgramState.GameInProgress;
 				break;
-			case GameState.GameInProgress:
+			case ProgramState.GameInProgress:
 				RunGameLoop();
-				gameState = GameState.GameOver;
+				gameState = ProgramState.GameOver;
 				break;
-			case GameState.GameOver:
+			case ProgramState.GameOver:
 				HandleGameOver();
-				gameState = GameState.Stopped;
+				gameState = ProgramState.Stopped;
 				break;
 			default:
 				throw new NotImplementedException();

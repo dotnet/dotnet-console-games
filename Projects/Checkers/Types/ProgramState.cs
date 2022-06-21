@@ -1,6 +1,6 @@
 ﻿namespace Checkers.Types;
 
-public enum GameState
+public enum ProgramState
 {
 	IntroScreen,
 	GameInProgress,
