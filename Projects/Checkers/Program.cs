@@ -113,13 +113,13 @@ void RunGameLoop()
 				}
 				if (from is not null && to is not null)
 				{
-					game.NextRound(from, to);
+					game.NextTurn(from, to);
 				}
 			}
 		}
 		else
 		{
-			game.NextRound();
+			game.NextTurn();
 		}
 
 		RenderGameState(playerMoved: currentPlayer);
