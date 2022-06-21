@@ -291,41 +291,46 @@ public static class Engine
 
 	public static List<(int X, int Y)> WhereIsVillain(Piece hero, Piece villain)
 	{
+		const int Up = 1;
+		const int Down = 2;
+		const int Left = 3;
+		const int Right = 4;
+
 		List<(int X, int Y)>? retVal = new();
-		List<Direction>? directions = new();
+		List<int> directions = new();
 		if (hero.X > villain.X)
 		{
-			directions.Add(Direction.Left);
+			directions.Add(Left);
 		}
 		if (hero.X < villain.X)
 		{
-			directions.Add(Direction.Right);
+			directions.Add(Right);
 		}
 		if (hero.Y > villain.Y)
 		{
-			directions.Add(Direction.Up);
+			directions.Add(Up);
 		}
 		if (hero.Y < villain.Y)
 		{
-			directions.Add(Direction.Down);
+			directions.Add(Down);
 		}
 		if (directions.Count == 1)
 		{
 			switch (directions[0])
 			{
-				case Direction.Up:
+				case Up:
 					retVal.Add((hero.X - 1, hero.Y - 1));
 					retVal.Add((hero.X + 1, hero.Y - 1));
 					break;
-				case Direction.Down:
+				case Down:
 					retVal.Add((hero.X - 1, hero.Y + 1));
 					retVal.Add((hero.X + 1, hero.Y + 1));
 					break;
-				case Direction.Left:
+				case Left:
 					retVal.Add((hero.X - 1, hero.Y - 1));
 					retVal.Add((hero.X - 1, hero.Y + 1));
 					break;
-				case Direction.Right:
+				case Right:
 					retVal.Add((hero.X + 1, hero.Y - 1));
 					retVal.Add((hero.X + 1, hero.Y + 1));
 					break;
@@ -335,19 +340,19 @@ public static class Engine
 		}
 		else
 		{
-			if (directions.Contains(Direction.Left) && directions.Contains(Direction.Up))
+			if (directions.Contains(Left) && directions.Contains(Up))
 			{
 				retVal.Add((hero.X - 1, hero.Y - 1));
 			}
-			if (directions.Contains(Direction.Left) && directions.Contains(Direction.Down))
+			if (directions.Contains(Left) && directions.Contains(Down))
 			{
 				retVal.Add((hero.X - 1, hero.Y + 1));
 			}
-			if (directions.Contains(Direction.Right) && directions.Contains(Direction.Up))
+			if (directions.Contains(Right) && directions.Contains(Up))
 			{
 				retVal.Add((hero.X + 1, hero.Y - 1));
 			}
-			if (directions.Contains(Direction.Right) && directions.Contains(Direction.Down))
+			if (directions.Contains(Right) && directions.Contains(Down))
 			{
 				retVal.Add((hero.X + 1, hero.Y + 1));
 			}
