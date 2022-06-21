@@ -22,7 +22,7 @@ public class Game
 		Winner = null;
 	}
 
-	public void NextRound((int X, int Y)? from = null, (int X, int Y)? to = null)
+	public void NextTurn((int X, int Y)? from = null, (int X, int Y)? to = null)
 	{
 		MoveOutcome? moveOutcome = Engine.PlayNextMove(Turn, Board, from, to);
 		while (from is null && to is null && moveOutcome is MoveOutcome.CaptureMoreAvailable)
