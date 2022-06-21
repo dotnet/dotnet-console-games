@@ -1,4 +1,4 @@
-﻿namespace Checkers.Enums;
+﻿namespace Checkers;
 
 public enum PieceColor
 {
