@@ -2,12 +2,12 @@
 
 public class Player
 {
-	public PlayerControl ControlledBy { get; private set; }
+	public bool IsHuman { get; private set; }
 	public PieceColor Color { get; private set; }
 
-	public Player(PlayerControl controlledBy, PieceColor color)
+	public Player(bool isHuman, PieceColor color)
 	{
-		ControlledBy = controlledBy;
+		IsHuman = isHuman;
 		Color = color;
 	}
 }
