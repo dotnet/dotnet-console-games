@@ -267,7 +267,7 @@ public static class Engine
 					}
 					else if (targetSquare != side)
 					{
-						(int X, int Y) toLocation = DeriveToPosition(piece.XPosition, piece.YPosition, currentX, currentY);
+						(int X, int Y) toLocation = (piece.XPosition + 2 * x, piece.YPosition + 2 * y);
 						if (!Board.IsValidPosition(toLocation.X, toLocation.Y))
 						{
 							continue;
@@ -283,29 +283,6 @@ public static class Engine
 				}
 			}
 		}
-	}
-
-	private static (int X, int Y) DeriveToPosition(int pieceX, int pieceY, int captureX, int captureY)
-	{
-		int newX;
-		if (captureX > pieceX)
-		{
-			newX = captureX + 1;
-		}
-		else
-		{
-			newX = captureX - 1;
-		}
-		int newY;
-		if (captureY > pieceY)
-		{
-			newY = captureY + 1;
-		}
-		else
-		{
-			newY = captureY - 1;
-		}
-		return (newX, newY);
 	}
 
 	private static bool PlayingWithJustKings(PieceColor side, Board board, out List<Move> possibleMoves)
