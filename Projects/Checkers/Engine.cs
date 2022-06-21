@@ -70,12 +70,6 @@ public static class Engine
 					if (newY is 0 or 7 && pieceToMove.Promoted == false)
 					{
 						pieceToMove.Promoted = true;
-
-						LoggingHelper.LogMove(from, to, PlayerAction.Promotion, side, blackPieces, whitePieces);
-					}
-					else
-					{
-						LoggingHelper.LogMove(from, to, PlayerAction.Move, side, blackPieces, whitePieces);
 					}
 					break;
 				}
@@ -193,7 +187,6 @@ public static class Engine
 		int blackPieces = board.Pieces.Count(piece => piece.Color is PieceColor.Black);
 		int whitePieces = board.Pieces.Count(piece => piece.Color is PieceColor.White);
 		PlayerAction playerAction = anyPromoted ? PlayerAction.CapturePromotion : PlayerAction.Capture;
-		LoggingHelper.LogMove(from, to, playerAction, side, blackPieces, whitePieces);
 		return anyPromoted;
 	}
 

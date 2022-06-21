@@ -1,6 +1,4 @@
 ﻿using Checkers;
-using System.Diagnostics;
-using System.IO;
 using System.Text;
 
 const char BlackPiece = '○';
@@ -14,14 +12,6 @@ Game? game = null;
 try
 {
 	Console.OutputEncoding = Encoding.UTF8;
-	if (args is not null && args.Contains("--trace"))
-	{
-		string traceFile = $"CheckersLog.{DateTime.Now}.log";
-		Trace.Listeners.Add(new TextWriterTraceListener(File.Create(traceFile)));
-	}
-
-	Trace.AutoFlush = true;
-	LoggingHelper.LogStart();
 	ProgramState gameState = ProgramState.IntroScreen;
 
 	while (gameState is not ProgramState.Stopped)
@@ -135,17 +125,11 @@ void RunGameLoop()
 		RenderGameState(playerMoved: currentPlayer);
 		PressAnyKeyToContinue();
 	}
-	LoggingHelper.LogOutcome(game.Winner);
 }
 
 void HandleGameOver()
 {
 	RenderGameState();
-	if (game is not null)
-	{
-		LoggingHelper.LogMoves(game.MoveCount);
-	}
-	LoggingHelper.LogFinish();
 }
 
 void PressAnyKeyToContinue()
