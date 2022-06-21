@@ -14,8 +14,8 @@ public class Piece
 
 	public string NotationPosition
 	{
-		get => PositionHelper.ToPositionNotationString(XPosition, YPosition);
-		set => (XPosition, YPosition) = PositionHelper.ParsePositionNotation(value);
+		get => Board.ToPositionNotationString(XPosition, YPosition);
+		set => (XPosition, YPosition) = Board.ParsePositionNotation(value);
 	}
 
 	public PieceColour Side { get; set; }
