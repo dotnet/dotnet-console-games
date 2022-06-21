@@ -12,28 +12,9 @@ Game? game = null;
 try
 {
 	Console.OutputEncoding = Encoding.UTF8;
-	ProgramState gameState = ProgramState.IntroScreen;
-
-	while (gameState is not ProgramState.Stopped)
-	{
-		switch (gameState)
-		{
-			case ProgramState.IntroScreen:
-				ShowIntroScreenAndGetOption();
-				gameState = ProgramState.GameInProgress;
-				break;
-			case ProgramState.GameInProgress:
-				RunGameLoop();
-				gameState = ProgramState.GameOver;
-				break;
-			case ProgramState.GameOver:
-				HandleGameOver();
-				gameState = ProgramState.Stopped;
-				break;
-			default:
-				throw new NotImplementedException();
-		}
-	}
+	ShowIntroScreenAndGetOption();
+	RunGameLoop();
+	HandleGameOver();
 }
 finally
 {
