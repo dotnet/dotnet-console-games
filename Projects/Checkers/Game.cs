@@ -12,6 +12,7 @@ public class Game
 
 	public Game(int humanPlayerCount)
 	{
+		if (humanPlayerCount < 0 || 2 < humanPlayerCount) throw new ArgumentOutOfRangeException(nameof(humanPlayerCount));
 		Board = new Board();
 		Players = new()
 		{
