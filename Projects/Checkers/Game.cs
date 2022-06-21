@@ -22,9 +22,9 @@ public class Game
 		Winner = null;
 	}
 
-	public MoveOutcome NextRound((int X, int Y)? from = null, (int X, int Y)? to = null)
+	public void NextRound((int X, int Y)? from = null, (int X, int Y)? to = null)
 	{
-		MoveOutcome moveOutcome = Engine.PlayNextMove(Turn, Board, from, to);
+		MoveOutcome? moveOutcome = Engine.PlayNextMove(Turn, Board, from, to);
 		while (from is null && to is null && moveOutcome is MoveOutcome.CaptureMoreAvailable)
 		{
 			moveOutcome = Engine.PlayNextMove(Turn, Board, from, to);
@@ -42,13 +42,10 @@ public class Game
 			CheckSidesHavePiecesLeft();
 			Turn = Turn == PieceColor.Black ? PieceColor.White : PieceColor.Black;
 		}
-		if (moveOutcome == MoveOutcome.Unknown)
+		if (moveOutcome is null)
 		{
-			Turn = Turn == PieceColor.Black
-				? PieceColor.White
-				: PieceColor.Black;
+			Turn = Turn is PieceColor.Black ? PieceColor.White : PieceColor.Black;
 		}
-		return moveOutcome;
 	}
 
 	public void CheckSidesHavePiecesLeft()

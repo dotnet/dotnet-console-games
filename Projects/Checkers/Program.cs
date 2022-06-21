@@ -113,7 +113,7 @@ void RunGameLoop()
 				}
 				if (from is not null && to is not null)
 				{
-					_ = game.NextRound(from, to);
+					game.NextRound(from, to);
 				}
 			}
 		}

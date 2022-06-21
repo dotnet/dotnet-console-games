@@ -2,10 +2,10 @@
 
 public static class Engine
 {
-	public static MoveOutcome PlayNextMove(PieceColor side, Board board, (int X, int Y)? from = null, (int X, int Y)? to = null)
+	public static MoveOutcome? PlayNextMove(PieceColor side, Board board, (int X, int Y)? from = null, (int X, int Y)? to = null)
 	{
 		List<Move> possibleMoves;
-		MoveOutcome outcome;
+		MoveOutcome? outcome;
 		if (from is not null && to is not null)
 		{
 			outcome = GetAllPossiblePlayerMoves(side, board, out possibleMoves);
@@ -108,10 +108,10 @@ public static class Engine
 		return false;
 	}
 
-	private static MoveOutcome GetAllPossiblePlayerMoves(PieceColor side, Board board, out List<Move> possibleMoves)
+	private static MoveOutcome? GetAllPossiblePlayerMoves(PieceColor side, Board board, out List<Move> possibleMoves)
 	{
 		Piece? aggressor = GetAggressor(board);
-		MoveOutcome result = MoveOutcome.Unknown;
+		MoveOutcome? result = null;
 		possibleMoves = new List<Move>();
 		if (PlayingWithJustKings(side, board, out List<Move>? endGameMoves))
 		{
