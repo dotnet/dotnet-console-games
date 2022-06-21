@@ -1,4 +1,4 @@
-﻿namespace Checkers.Types;
+﻿namespace Checkers.Enums;
 
 /// <summary>
 /// Used for logging
