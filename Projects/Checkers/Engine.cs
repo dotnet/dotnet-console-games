@@ -55,36 +55,26 @@ public static class Engine
 		{
 			case MoveOutcome.EndGame:
 			case MoveOutcome.ValidMoves:
+				Move bestMove = possibleMoves[Random.Shared.Next(possibleMoves.Count)];
+				Piece pieceToMove = bestMove.PieceToMove!;
+				int newX = bestMove.To.X;
+				int newY = bestMove.To.Y;
+				pieceToMove.XPosition = newX;
+				pieceToMove.YPosition = newY;
+				// Promotion can only happen if not already a king and you have reached the far side
+				if (newY is 0 or 7 && !pieceToMove.Promoted)
 				{
-					Move bestMove = possibleMoves[Random.Shared.Next(possibleMoves.Count)];
-					Piece pieceToMove = bestMove.PieceToMove!;
-					int newX = bestMove.To.X;
-					int newY = bestMove.To.Y;
-					string from = Board.ToPositionNotationString(pieceToMove.XPosition, pieceToMove.YPosition);
-					pieceToMove.XPosition = newX;
-					pieceToMove.YPosition = newY;
-					string to = Board.ToPositionNotationString(pieceToMove.XPosition, pieceToMove.YPosition);
-					int blackPieces = board.Pieces.Count(piece => piece.Color is PieceColor.Black);
-					int whitePieces = board.Pieces.Count(piece => piece.Color is PieceColor.White);
-					// Promotion can only happen if not already a king and you have reached the far side
-					if (newY is 0 or 7 && pieceToMove.Promoted == false)
-					{
-						pieceToMove.Promoted = true;
-					}
-					break;
+					pieceToMove.Promoted = true;
 				}
+				break;
 			case MoveOutcome.Capture:
+				bool anyPromoted = PerformCapture(side, possibleMoves, board);
+				bool moreAvailable = MoreCapturesAvailable(side, board);
+				if (moreAvailable && !anyPromoted)
 				{
-					bool anyPromoted = PerformCapture(side, possibleMoves, board);
-					bool moreAvailable = MoreCapturesAvailable(side, board);
-
-					if (moreAvailable && !anyPromoted)
-					{
-						outcome = MoveOutcome.CaptureMoreAvailable;
-					}
-
-					break;
+					outcome = MoveOutcome.CaptureMoreAvailable;
 				}
+				break;
 		}
 
 		if (outcome is not MoveOutcome.CaptureMoreAvailable)
@@ -184,8 +174,6 @@ public static class Engine
 			}
 		}
 		bool anyPromoted = CheckForPiecesToPromote(side, board);
-		int blackPieces = board.Pieces.Count(piece => piece.Color is PieceColor.Black);
-		int whitePieces = board.Pieces.Count(piece => piece.Color is PieceColor.White);
 		PlayerAction playerAction = anyPromoted ? PlayerAction.CapturePromotion : PlayerAction.Capture;
 		return anyPromoted;
 	}
