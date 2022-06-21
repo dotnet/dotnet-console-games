@@ -7,7 +7,7 @@ public class Board
 	public Piece? Aggressor { get; set; }
 
 	public Piece? this[int x, int y] =>
-		Pieces.FirstOrDefault(piece => piece.XPosition == x && piece.YPosition == y);
+		Pieces.FirstOrDefault(piece => piece.X == x && piece.Y == y);
 
 	public Board()
 	{

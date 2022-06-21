@@ -2,14 +2,14 @@
 
 public class Piece
 {
-	public int XPosition { get; set; }
+	public int X { get; set; }
 
-	public int YPosition { get; set; }
+	public int Y { get; set; }
 
 	public string NotationPosition
 	{
-		get => Board.ToPositionNotationString(XPosition, YPosition);
-		set => (XPosition, YPosition) = Board.ParsePositionNotation(value);
+		get => Board.ToPositionNotationString(X, Y);
+		set => (X, Y) = Board.ParsePositionNotation(value);
 	}
 
 	public PieceColor Color { get; set; }
