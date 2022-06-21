@@ -21,13 +21,7 @@ public static class Engine
 					if (selectedMove is not null)
 					{
 						possibleMoves.Add(selectedMove);
-						switch (selectedMove.TypeOfMove)
-						{
-							case MoveType.StandardMove: outcome = MoveOutcome.ValidMoves; break;
-							case MoveType.Capture:      outcome = MoveOutcome.Capture; break;
-							case MoveType.EndGame:      outcome = MoveOutcome.EndGame; break;
-							default: throw new NotImplementedException();
-						}
+						outcome = selectedMove.Capturing is not null ? MoveOutcome.Capture : MoveOutcome.ValidMoves;
 					}
 				}
 			}
@@ -228,7 +222,7 @@ public static class Engine
 				if (targetColor is null)
 				{
 					if (!Board.IsValidPosition(target.X, target.Y)) return;
-					Move newMove = new() { PieceToMove = piece, TypeOfMove = MoveType.StandardMove, To = (target.X, target.Y) };
+					Move newMove = new(piece, target);
 					moves.Add(newMove);
 				}
 				else if (targetColor != color)
@@ -237,7 +231,7 @@ public static class Engine
 					if (!Board.IsValidPosition(jump.X, jump.Y)) return;
 					PieceColor? jumpColor = board[jump.X, jump.Y]?.Color;
 					if (jumpColor is not null) return;
-					Move attack = new() { PieceToMove = piece, TypeOfMove = MoveType.Capture, To = (jump.X, jump.Y), Capturing = (target.X, target.Y) };
+					Move attack = new(piece, jump, target);
 					moves.Add(attack);
 				}
 			}
@@ -277,20 +271,13 @@ public static class Engine
 				List<(int X, int Y)>? movementOptions = VectorHelper.WhereIsVillain(currentHero, currentVillain);
 				foreach ((int X, int Y) movementOption in movementOptions)
 				{
-					PieceColor? squareStatus = board[movementOption.X, movementOption.Y]?.Color;
-					if (squareStatus is null)
+					PieceColor? targetColor = board[movementOption.X, movementOption.Y]?.Color;
+					if (targetColor is null)
 					{
-						Move move = new()
-						{
-							PieceToMove = currentHero,
-							TypeOfMove = MoveType.EndGame,
-							To = (movementOption.X, movementOption.Y)
-						};
 						if (!Board.IsValidPosition(movementOption.X, movementOption.Y))
 						{
-							continue;
+							possibleMoves.Add(new Move(currentHero, movementOption));
 						}
-						possibleMoves.Add(move);
 						break;
 					}
 				}
