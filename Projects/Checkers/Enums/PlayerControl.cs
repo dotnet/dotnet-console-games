@@ -1,4 +1,4 @@
-﻿namespace Checkers.Types;
+﻿namespace Checkers.Enums;
 
 public enum PlayerControl
 {
