@@ -2,20 +2,20 @@
 
 public static class Engine
 {
-	public static MoveOutcome PlayNextMove(PieceColor side, Board board, (int X, int Y)? playerFrom = null, (int X, int Y)? playerTo = null)
+	public static MoveOutcome PlayNextMove(PieceColor side, Board board, (int X, int Y)? from = null, (int X, int Y)? to = null)
 	{
 		List<Move> possibleMoves;
 		MoveOutcome outcome;
-		if (playerFrom is not null && playerTo is not null)
+		if (from is not null && to is not null)
 		{
 			outcome = GetAllPossiblePlayerMoves(side, board, out possibleMoves);
-			if (possibleMoves.Count == 0)
+			if (possibleMoves.Count is 0)
 			{
 				outcome = MoveOutcome.NoMoveAvailable;
 			}
 			else
 			{
-				if (MoveIsValid(playerFrom, playerTo.Value, possibleMoves, board, out Move? selectedMove))
+				if (MoveIsValid(from, to.Value, possibleMoves, board, out Move? selectedMove))
 				{
 					possibleMoves.Clear();
 					if (selectedMove is not null)
@@ -23,19 +23,10 @@ public static class Engine
 						possibleMoves.Add(selectedMove);
 						switch (selectedMove.TypeOfMove)
 						{
-							case MoveType.Unknown:
-								break;
-							case MoveType.StandardMove:
-								outcome = MoveOutcome.ValidMoves;
-								break;
-							case MoveType.Capture:
-								outcome = MoveOutcome.Capture;
-								break;
-							case MoveType.EndGame:
-								outcome = MoveOutcome.EndGame;
-								break;
-							default:
-								throw new NotImplementedException();
+							case MoveType.StandardMove: outcome = MoveOutcome.ValidMoves; break;
+							case MoveType.Capture:      outcome = MoveOutcome.Capture; break;
+							case MoveType.EndGame:      outcome = MoveOutcome.EndGame; break;
+							default: throw new NotImplementedException();
 						}
 					}
 				}
@@ -146,16 +137,12 @@ public static class Engine
 	private static bool PerformCapture(PieceColor side, List<Move> possibleCaptures, Board board)
 	{
 		Move? captureMove = possibleCaptures.FirstOrDefault(move => move.Capturing is not null);
-		string from = string.Empty;
-		string to = string.Empty;
-
 		if (captureMove is not null)
 		{
-			(int X, int Y)? squareToCapture = captureMove.Capturing;
-
-			if (squareToCapture is not null)
+			(int X, int Y)? positionToCapture = captureMove.Capturing;
+			if (positionToCapture is not null)
 			{
-				Piece? deadMan = board[squareToCapture.Value.X, squareToCapture.Value.Y];
+				Piece? deadMan = board[positionToCapture.Value.X, positionToCapture.Value.Y];
 				if (deadMan is not null)
 				{
 					board.Pieces.Remove(deadMan);
@@ -163,10 +150,8 @@ public static class Engine
 				if (captureMove.PieceToMove is not null)
 				{
 					captureMove.PieceToMove.Aggressor = true;
-					from = Board.ToPositionNotationString(captureMove.PieceToMove.XPosition, captureMove.PieceToMove.YPosition);
 					captureMove.PieceToMove.XPosition = captureMove.To.X;
 					captureMove.PieceToMove.YPosition = captureMove.To.Y;
-					to = Board.ToPositionNotationString(captureMove.PieceToMove.XPosition, captureMove.PieceToMove.YPosition);
 				}
 			}
 		}
@@ -223,63 +208,43 @@ public static class Engine
 		return result;
 	}
 
-	private static void GetPossibleMovesAndAttacks(PieceColor side, Board board, out List<Move> possibleMoves)
+	private static void GetPossibleMovesAndAttacks(PieceColor color, Board board, out List<Move> possibleMoves)
 	{
-		possibleMoves = new List<Move>();
+		List<Move> moves = new();
 
-		foreach (Piece piece in board.Pieces.Where(piece => piece.Color == side))
+		foreach (Piece piece in board.Pieces.Where(piece => piece.Color == color))
 		{
-			for (int x = -1; x < 2; x++)
+			ValidateMove(-1, -1);
+			ValidateMove(-1,  1);
+			ValidateMove( 1, -1);
+			ValidateMove( 1,  1);
+
+			void ValidateMove(int dx, int dy)
 			{
-				for (int y = -1; y < 2; y++)
+				if (!piece.Promoted && color is PieceColor.Black && dy is -1) return;
+				if (!piece.Promoted && color is PieceColor.White && dy is  1) return;
+				(int X, int Y) target = (piece.XPosition + dx, piece.YPosition + dy);
+				if (!Board.IsValidPosition(target.X, target.Y)) return;
+				PieceColor? targetColor = board[target.X, target.Y]?.Color;
+				if (targetColor is null)
 				{
-					if (x == 0 || y == 0)
-					{
-						continue;
-					}
-					if (!piece.Promoted)
-					{
-						switch (side)
-						{
-							case PieceColor.White when y == 1:
-							case PieceColor.Black when y == -1:
-								continue;
-						}
-					}
-					int currentX = piece.XPosition + x;
-					int currentY = piece.YPosition + y;
-					if (!Board.IsValidPosition(currentX, currentY))
-					{
-						continue;
-					}
-					PieceColor? targetSquare = board[currentX, currentY]?.Color;
-					if (targetSquare is null)
-					{
-						if (!Board.IsValidPosition(currentX, currentY))
-						{
-							continue;
-						}
-						Move newMove = new() { PieceToMove = piece, TypeOfMove = MoveType.StandardMove, To = (currentX, currentY) };
-						possibleMoves.Add(newMove);
-					}
-					else if (targetSquare != side)
-					{
-						(int X, int Y) toLocation = (piece.XPosition + 2 * x, piece.YPosition + 2 * y);
-						if (!Board.IsValidPosition(toLocation.X, toLocation.Y))
-						{
-							continue;
-						}
-						PieceColor? beyondSquare = board[toLocation.X, toLocation.Y]?.Color;
-						if (beyondSquare is not null)
-						{
-							continue;
-						}
-						Move attack = new() { PieceToMove = piece, TypeOfMove = MoveType.Capture, To = (toLocation.X, toLocation.Y), Capturing = (currentX, currentY) };
-						possibleMoves.Add(attack);
-					}
+					if (!Board.IsValidPosition(target.X, target.Y)) return;
+					Move newMove = new() { PieceToMove = piece, TypeOfMove = MoveType.StandardMove, To = (target.X, target.Y) };
+					moves.Add(newMove);
+				}
+				else if (targetColor != color)
+				{
+					(int X, int Y) jump = (piece.XPosition + 2 * dx, piece.YPosition + 2 * dy);
+					if (!Board.IsValidPosition(jump.X, jump.Y)) return;
+					PieceColor? jumpColor = board[jump.X, jump.Y]?.Color;
+					if (jumpColor is not null) return;
+					Move attack = new() { PieceToMove = piece, TypeOfMove = MoveType.Capture, To = (jump.X, jump.Y), Capturing = (target.X, target.Y) };
+					moves.Add(attack);
 				}
 			}
 		}
+
+		possibleMoves = moves;
 	}
 
 	private static bool PlayingWithJustKings(PieceColor side, Board board, out List<Move> possibleMoves)
