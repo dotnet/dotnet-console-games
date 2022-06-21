@@ -65,7 +65,7 @@ public class Board
 			notation[0] < 'A' || 'H' < notation[0] ||
 			notation[1] < '1' || '8' < notation[1])
 			throw new FormatException($@"{nameof(notation)} ""{notation}"" is not valid");
-		return (notation[0] - 'A', '8' - notation[1]);
+		return (notation[0] - 'A', notation[1] - '1');
 	}
 
 	public static bool IsValidPosition(int x, int y) =>
