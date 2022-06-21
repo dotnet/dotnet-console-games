@@ -200,7 +200,7 @@ public static class Engine
 	private static bool CheckForPiecesToPromote(PieceColor currentSide, Board board)
 	{
 		bool retVal = false;
-		int promotionSpot = currentSide == PieceColor.White ? 7 : 0;
+		int promotionSpot = currentSide == PieceColor.White ? 0 : 7;
 		foreach (Piece piece in board.Pieces.Where(piece => piece.Color == currentSide))
 		{
 			if (promotionSpot == piece.YPosition && !piece.Promoted)
@@ -263,8 +263,8 @@ public static class Engine
 					{
 						switch (side)
 						{
-							case PieceColor.White when y == -1:
-							case PieceColor.Black when y == 1:
+							case PieceColor.White when y == 1:
+							case PieceColor.Black when y == -1:
 								continue;
 						}
 					}
