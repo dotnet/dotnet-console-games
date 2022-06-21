@@ -94,7 +94,7 @@ void ShowIntroScreenAndGetOption()
 
 void RunGameLoop()
 {
-	while (game!.Winner == PieceColor.NotSet)
+	while (game!.Winner is null)
 	{
 		Player? currentPlayer = game.Players.FirstOrDefault(player => player.Color == game.Turn);
 		if (currentPlayer is not null && currentPlayer.ControlledBy == PlayerControl.Human)
@@ -184,7 +184,7 @@ void RenderGameState(Player? playerMoved = null, (int X, int Y)? selection = nul
 	{
 		sb.Replace(" $ ", $"[{tiles.GetValueOrDefault(selection.Value, '.')}]");
 	}
-	if (game.Winner is not PieceColor.NotSet)
+	if (game.Winner is not null)
 	{
 		sb.AppendLine($"*** {game.Winner} wins ***");
 	}

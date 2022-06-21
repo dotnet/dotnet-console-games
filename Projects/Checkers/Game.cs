@@ -7,7 +7,7 @@ public class Game
 	public PieceColor Turn { get; private set; }
 	public Board Board { get; private set; }
 	public int MoveCount { get; private set; }
-	public PieceColor Winner { get; private set; }
+	public PieceColor? Winner { get; private set; }
 	public List<Player> Players { get; private set; }
 
 	public Game(int humanPlayerCount)
@@ -20,7 +20,7 @@ public class Game
 		};
 		Turn = PieceColor.Black;
 		MoveCount = 0;
-		Winner = PieceColor.NotSet;
+		Winner = null;
 	}
 
 	public MoveOutcome NextRound((int X, int Y)? from = null, (int X, int Y)? to = null)
@@ -39,7 +39,7 @@ public class Game
 		{
 			Winner = PieceColor.White;
 		}
-		if (Winner == PieceColor.NotSet && res is not MoveOutcome.CaptureMoreAvailable)
+		if (Winner is null && res is not MoveOutcome.CaptureMoreAvailable)
 		{
 			CheckSidesHavePiecesLeft();
 			Turn = Turn == PieceColor.Black ? PieceColor.White : PieceColor.Black;

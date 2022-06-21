@@ -36,8 +36,7 @@ public class Board
 			};
 	}
 
-	public PieceColor GetSquareOccupancy(int x, int y) =>
-		GetPieceAt(x, y)?.Color ?? default;
+	public PieceColor? GetSquareOccupancy(int x, int y) => GetPieceAt(x, y)?.Color;
 
 	public Piece? GetPieceAt(int x, int y) =>
 		Pieces.FirstOrDefault(piece => piece.XPosition == x && piece.YPosition == y);
