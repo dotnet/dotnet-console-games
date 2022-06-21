@@ -78,12 +78,12 @@ public static class Engine
 					int newX = bestMove.To.X;
 					int newY = bestMove.To.Y;
 
-					var from = PositionHelper.ToPositionNotationString(pieceToMove.XPosition, pieceToMove.YPosition);
+					string from = Board.ToPositionNotationString(pieceToMove.XPosition, pieceToMove.YPosition);
 
 					pieceToMove.XPosition = newX;
 					pieceToMove.YPosition = newY;
 
-					var to = PositionHelper.ToPositionNotationString(pieceToMove.XPosition, pieceToMove.YPosition);
+					string to = Board.ToPositionNotationString(pieceToMove.XPosition, pieceToMove.YPosition);
 
 					int blackPieces = currentBoard.GetNumberOfBlackPiecesInPlay();
 					int whitePieces = currentBoard.GetNumberOfWhitePiecesInPlay();
@@ -225,12 +225,12 @@ public static class Engine
 				if (captureMove.PieceToMove != null)
 				{
 					captureMove.PieceToMove.Aggressor = true;
-					from = PositionHelper.ToPositionNotationString(captureMove.PieceToMove.XPosition, captureMove.PieceToMove.YPosition);
+					from = Board.ToPositionNotationString(captureMove.PieceToMove.XPosition, captureMove.PieceToMove.YPosition);
 
 					captureMove.PieceToMove.XPosition = captureMove.To.X;
 					captureMove.PieceToMove.YPosition = captureMove.To.Y;
 
-					to = PositionHelper.ToPositionNotationString(captureMove.PieceToMove.XPosition, captureMove.PieceToMove.YPosition);
+					to = Board.ToPositionNotationString(captureMove.PieceToMove.XPosition, captureMove.PieceToMove.YPosition);
 
 				}
 			}
@@ -334,7 +334,7 @@ public static class Engine
 					var currentX = piece.XPosition + x;
 					var currentY = piece.YPosition + y;
 
-					if (!PositionHelper.PointValid(currentX, currentY))
+					if (!Board.IsValidPosition(currentX, currentY))
 					{
 						continue;
 					}
@@ -343,7 +343,7 @@ public static class Engine
 
 					if (targetSquare == PieceColour.NotSet)
 					{
-						if (!PositionHelper.PointValid(currentX, currentY))
+						if (!Board.IsValidPosition(currentX, currentY))
 						{
 							continue;
 						}
@@ -365,7 +365,7 @@ public static class Engine
 						var beyondX = toLocation.X;
 						var beyondY = toLocation.Y;
 
-						if (!PositionHelper.PointValid(beyondX, beyondY))
+						if (!Board.IsValidPosition(beyondX, beyondY))
 						{
 							continue;
 						}
@@ -459,7 +459,7 @@ public static class Engine
 							To = (movementOption.X, movementOption.Y)
 						};
 
-						if (!PositionHelper.PointValid(movementOption.X, movementOption.Y))
+						if (!Board.IsValidPosition(movementOption.X, movementOption.Y))
 						{
 							continue;
 						}
