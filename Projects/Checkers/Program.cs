@@ -10,7 +10,6 @@ const char WhiteKing  = '☻';
 
 Encoding encoding = Console.OutputEncoding;
 Game? game = null;
-int numberOfPlayers = 0;
 
 try
 {
@@ -90,14 +89,13 @@ void ShowIntroScreenAndGetOption()
 		Console.Write("Enter the number of players (0-2): ");
 		entry = Console.ReadLine()?.Trim();
 	}
-	numberOfPlayers = entry[0] - '0';
+	int humanPlayerCount = entry[0] - '0';
+	game = new Game(humanPlayerCount);
 }
 
 void RunGameLoop()
 {
-	game = new Game();
-	PlayerHelper.AssignPlayersToSide(numberOfPlayers, game);
-	while (game.Winner == PieceColor.NotSet)
+	while (game!.Winner == PieceColor.NotSet)
 	{
 		Player? currentPlayer = game.Players.FirstOrDefault(x => x.Color == game.Turn);
 		if (currentPlayer != null && currentPlayer.ControlledBy == PlayerControl.Human)
