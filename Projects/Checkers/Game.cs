@@ -15,8 +15,8 @@ public class Game
 		Board = new Board();
 		Players = new()
 		{
-			new Player { ControlledBy = humanPlayerCount < 1 ? PlayerControl.Computer : PlayerControl.Human, Color = PieceColor.Black },
-			new Player { ControlledBy = humanPlayerCount < 2 ? PlayerControl.Computer : PlayerControl.Human, Color = PieceColor.White },
+			new Player(humanPlayerCount < 1 ? PlayerControl.Computer : PlayerControl.Human, PieceColor.Black),
+			new Player(humanPlayerCount < 2 ? PlayerControl.Computer : PlayerControl.Human, PieceColor.White),
 		};
 		Turn = PieceColor.Black;
 		Winner = null;
