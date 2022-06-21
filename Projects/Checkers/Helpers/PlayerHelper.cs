@@ -18,12 +18,12 @@ public static class PlayerHelper
 
 				break;
 			case 1:
-				foreach (var player in currentGame.Players.Where(x => x.Side == PieceColour.White))
+				foreach (var player in currentGame.Players.Where(x => x.Color == PieceColor.White))
 				{
 					player.ControlledBy = PlayerControl.Computer;
 				}
 
-				foreach (var player in currentGame.Players.Where(x => x.Side == PieceColour.Black))
+				foreach (var player in currentGame.Players.Where(x => x.Color == PieceColor.Black))
 				{
 					player.ControlledBy = PlayerControl.Human;
 				}

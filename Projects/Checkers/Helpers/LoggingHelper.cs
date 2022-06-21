@@ -7,9 +7,9 @@ namespace Checkers.Helpers;
 /// </summary>
 public static class LoggingHelper
 {
-	public static void LogMove(string from, string to, PlayerAction action, PieceColour sidePlaying, int blacksInPlay, int whitesInPlay)
+	public static void LogMove(string from, string to, PlayerAction action, PieceColor sidePlaying, int blacksInPlay, int whitesInPlay)
 	{
-		var colour = sidePlaying == PieceColour.Black ? "B" : "W";
+		var colour = sidePlaying == PieceColor.Black ? "B" : "W";
 		var suffix = DecodePlayerAction(action);
 
 		var outputLine = $"Move   : {colour} {from}-{to} {suffix,2}";
@@ -38,7 +38,7 @@ public static class LoggingHelper
 		Trace.WriteLine($"Stopped: {DateTime.Now}");
 	}
 
-	public static void LogOutcome(PieceColour winner)
+	public static void LogOutcome(PieceColor winner)
 	{
 		Trace.WriteLine($"Winner : {winner}");
 	}

@@ -3,5 +3,5 @@
 public class Player
 {
 	public PlayerControl ControlledBy { get; set; }
-	public PieceColour Side { get; set; }
+	public PieceColor Color { get; set; }
 }

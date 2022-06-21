@@ -8,48 +8,48 @@ public class Board
 	{
 		Pieces = new List<Piece>
 			{
-				new() { NotationPosition ="A3", Side = PieceColour.Black},
-				new() { NotationPosition ="A1", Side = PieceColour.Black},
-				new() { NotationPosition ="B2", Side = PieceColour.Black},
-				new() { NotationPosition ="C3", Side = PieceColour.Black},
-				new() { NotationPosition ="C1", Side = PieceColour.Black},
-				new() { NotationPosition ="D2", Side = PieceColour.Black},
-				new() { NotationPosition ="E3", Side = PieceColour.Black},
-				new() { NotationPosition ="E1", Side = PieceColour.Black},
-				new() { NotationPosition ="F2", Side = PieceColour.Black},
-				new() { NotationPosition ="G3", Side = PieceColour.Black},
-				new() { NotationPosition ="G1", Side = PieceColour.Black},
-				new() { NotationPosition ="H2", Side = PieceColour.Black},
+				new() { NotationPosition ="A3", Color = PieceColor.Black},
+				new() { NotationPosition ="A1", Color = PieceColor.Black},
+				new() { NotationPosition ="B2", Color = PieceColor.Black},
+				new() { NotationPosition ="C3", Color = PieceColor.Black},
+				new() { NotationPosition ="C1", Color = PieceColor.Black},
+				new() { NotationPosition ="D2", Color = PieceColor.Black},
+				new() { NotationPosition ="E3", Color = PieceColor.Black},
+				new() { NotationPosition ="E1", Color = PieceColor.Black},
+				new() { NotationPosition ="F2", Color = PieceColor.Black},
+				new() { NotationPosition ="G3", Color = PieceColor.Black},
+				new() { NotationPosition ="G1", Color = PieceColor.Black},
+				new() { NotationPosition ="H2", Color = PieceColor.Black},
 
-				new() { NotationPosition ="A7", Side = PieceColour.White},
-				new() { NotationPosition ="B8", Side = PieceColour.White},
-				new() { NotationPosition ="B6", Side = PieceColour.White},
-				new() { NotationPosition ="C7", Side = PieceColour.White},
-				new() { NotationPosition ="D8", Side = PieceColour.White},
-				new() { NotationPosition ="D6", Side = PieceColour.White},
-				new() { NotationPosition ="E7", Side = PieceColour.White},
-				new() { NotationPosition ="F8", Side = PieceColour.White},
-				new() { NotationPosition ="F6", Side = PieceColour.White},
-				new() { NotationPosition ="G7", Side = PieceColour.White},
-				new() { NotationPosition ="H8", Side = PieceColour.White},
-				new() { NotationPosition ="H6", Side = PieceColour.White}
+				new() { NotationPosition ="A7", Color = PieceColor.White},
+				new() { NotationPosition ="B8", Color = PieceColor.White},
+				new() { NotationPosition ="B6", Color = PieceColor.White},
+				new() { NotationPosition ="C7", Color = PieceColor.White},
+				new() { NotationPosition ="D8", Color = PieceColor.White},
+				new() { NotationPosition ="D6", Color = PieceColor.White},
+				new() { NotationPosition ="E7", Color = PieceColor.White},
+				new() { NotationPosition ="F8", Color = PieceColor.White},
+				new() { NotationPosition ="F6", Color = PieceColor.White},
+				new() { NotationPosition ="G7", Color = PieceColor.White},
+				new() { NotationPosition ="H8", Color = PieceColor.White},
+				new() { NotationPosition ="H6", Color = PieceColor.White}
 			};
 	}
 
-	public PieceColour GetSquareOccupancy(int x, int y) =>
-		GetPieceAt(x, y)?.Side ?? default;
+	public PieceColor GetSquareOccupancy(int x, int y) =>
+		GetPieceAt(x, y)?.Color ?? default;
 
 	public Piece? GetPieceAt(int x, int y) =>
 		Pieces.FirstOrDefault(p => p.XPosition == x && p.YPosition == y);
 
 	public int GetNumberOfWhitePiecesInPlay() =>
-		GetNumberOfPiecesInPlay(PieceColour.White);
+		GetNumberOfPiecesInPlay(PieceColor.White);
 
 	public int GetNumberOfBlackPiecesInPlay() =>
-		GetNumberOfPiecesInPlay(PieceColour.Black);
+		GetNumberOfPiecesInPlay(PieceColor.Black);
 
-	private int GetNumberOfPiecesInPlay(PieceColour currentSide) =>
-		Pieces.Count(x => x.Side == currentSide);
+	private int GetNumberOfPiecesInPlay(PieceColor currentSide) =>
+		Pieces.Count(x => x.Color == currentSide);
 
 	public static string ToPositionNotationString(int x, int y)
 	{

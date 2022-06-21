@@ -2,7 +2,7 @@
 
 public static class Engine
 {
-	public static MoveOutcome PlayNextMove(PieceColour currentSide, Board currentBoard, (int X, int Y)? playerFrom = null, (int X, int Y)? playerTo = null)
+	public static MoveOutcome PlayNextMove(PieceColor currentSide, Board currentBoard, (int X, int Y)? playerFrom = null, (int X, int Y)? playerTo = null)
 	{
 		List<Move> possibleMoves;
 		MoveOutcome outcome;
@@ -53,7 +53,7 @@ public static class Engine
 		// If a side can't play then other side wins
 		if (outcome == MoveOutcome.NoMoveAvailable)
 		{
-			outcome = currentSide == PieceColour.Black ? MoveOutcome.WhiteWin : MoveOutcome.BlackWin;
+			outcome = currentSide == PieceColor.Black ? MoveOutcome.WhiteWin : MoveOutcome.BlackWin;
 		}
 
 		switch (outcome)
@@ -134,7 +134,7 @@ public static class Engine
 		}
 	}
 
-	private static bool MoreCapturesAvailable(PieceColour currentSide, Board currentBoard)
+	private static bool MoreCapturesAvailable(PieceColor currentSide, Board currentBoard)
 	{
 		var aggressor = GetAggressor(currentBoard);
 
@@ -174,7 +174,7 @@ public static class Engine
 		return false;
 	}
 
-	private static MoveOutcome GetAllPossiblePlayerMoves(PieceColour currentSide, Board currentBoard,
+	private static MoveOutcome GetAllPossiblePlayerMoves(PieceColor currentSide, Board currentBoard,
 		out List<Move> possibleMoves)
 	{
 		var aggressor = GetAggressor(currentBoard);
@@ -202,7 +202,7 @@ public static class Engine
 		return result;
 	}
 
-	private static bool PerformCapture(PieceColour currentSide, List<Move> possibleCaptures, Board currentBoard)
+	private static bool PerformCapture(PieceColor currentSide, List<Move> possibleCaptures, Board currentBoard)
 	{
 		var captureMove = possibleCaptures.FirstOrDefault(x => x.Capturing != null);
 		var from = string.Empty;
@@ -246,12 +246,12 @@ public static class Engine
 		return anyPromoted;
 	}
 
-	private static bool CheckForPiecesToPromote(PieceColour currentSide, Board currentBoard)
+	private static bool CheckForPiecesToPromote(PieceColor currentSide, Board currentBoard)
 	{
 		bool retVal = false;
-		int promotionSpot = currentSide == PieceColour.White ? 7 : 0;
+		int promotionSpot = currentSide == PieceColor.White ? 7 : 0;
 
-		foreach (var piece in currentBoard.Pieces.Where(x => x.Side == currentSide))
+		foreach (var piece in currentBoard.Pieces.Where(x => x.Color == currentSide))
 		{
 			if (promotionSpot == piece.YPosition && !piece.Promoted)
 			{
@@ -262,7 +262,7 @@ public static class Engine
 		return retVal;
 	}
 
-	private static MoveOutcome AnalysePosition(PieceColour currentSide, Board currentBoard,
+	private static MoveOutcome AnalysePosition(PieceColor currentSide, Board currentBoard,
 		out List<Move> possibleMoves)
 	{
 		MoveOutcome result;
@@ -304,12 +304,12 @@ public static class Engine
 		return result;
 	}
 
-	private static void GetPossibleMovesAndAttacks(PieceColour currentSide, Board currentBoard,
+	private static void GetPossibleMovesAndAttacks(PieceColor currentSide, Board currentBoard,
 		out List<Move> possibleMoves)
 	{
 		possibleMoves = new List<Move>();
 
-		foreach (Piece piece in currentBoard.Pieces.Where(c => c.Side == currentSide))
+		foreach (Piece piece in currentBoard.Pieces.Where(c => c.Color == currentSide))
 		{
 			for (int x = -1; x < 2; x++)
 			{
@@ -324,8 +324,8 @@ public static class Engine
 					{
 						switch (currentSide)
 						{
-							case PieceColour.White when y == -1:
-							case PieceColour.Black when y == 1:
+							case PieceColor.White when y == -1:
+							case PieceColor.Black when y == 1:
 								continue;
 						}
 					}
@@ -338,9 +338,9 @@ public static class Engine
 						continue;
 					}
 
-					PieceColour targetSquare = currentBoard.GetSquareOccupancy(currentX, currentY);
+					PieceColor targetSquare = currentBoard.GetSquareOccupancy(currentX, currentY);
 
-					if (targetSquare == PieceColour.NotSet)
+					if (targetSquare == PieceColor.NotSet)
 					{
 						if (!Board.IsValidPosition(currentX, currentY))
 						{
@@ -371,7 +371,7 @@ public static class Engine
 
 						var beyondSquare = currentBoard.GetSquareOccupancy(beyondX, beyondY);
 
-						if (beyondSquare != PieceColour.NotSet)
+						if (beyondSquare != PieceColor.NotSet)
 						{
 							continue;
 						}
@@ -409,11 +409,11 @@ public static class Engine
 		return (newX, newY);
 	}
 
-	private static bool PlayingWithJustKings(PieceColour currentSide, Board currentBoard, out List<Move> possibleMoves)
+	private static bool PlayingWithJustKings(PieceColor currentSide, Board currentBoard, out List<Move> possibleMoves)
 	{
 		possibleMoves = new List<Move>();
-		var piecesInPlay = currentBoard.Pieces.Count(x => x.Side == currentSide);
-		var kingsInPlay = currentBoard.Pieces.Count(x => x.Side == currentSide && x.Promoted);
+		var piecesInPlay = currentBoard.Pieces.Count(x => x.Color == currentSide);
+		var kingsInPlay = currentBoard.Pieces.Count(x => x.Color == currentSide && x.Promoted);
 
 		var playingWithJustKings = piecesInPlay == kingsInPlay;
 
@@ -424,9 +424,9 @@ public static class Engine
 			Piece? currentHero = null;
 			Piece? currentVillain = null;
 
-			foreach (var king in currentBoard.Pieces.Where(x => x.Side == currentSide))
+			foreach (var king in currentBoard.Pieces.Where(x => x.Color == currentSide))
 			{
-				foreach (var target in currentBoard.Pieces.Where(x => x.Side != currentSide))
+				foreach (var target in currentBoard.Pieces.Where(x => x.Color != currentSide))
 				{
 					var kingPoint = (king.XPosition, king.YPosition);
 					var targetPoint = (target.XPosition, target.YPosition);
@@ -449,7 +449,7 @@ public static class Engine
 				{
 					var squareStatus = currentBoard.GetSquareOccupancy(movementOption.X, movementOption.Y);
 
-					if (squareStatus == PieceColour.NotSet)
+					if (squareStatus == PieceColor.NotSet)
 					{
 						var theMove = new Move
 						{
