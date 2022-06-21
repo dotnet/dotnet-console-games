@@ -156,7 +156,6 @@ public static class Engine
 			}
 		}
 		bool anyPromoted = CheckForPiecesToPromote(side, board);
-		PlayerAction playerAction = anyPromoted ? PlayerAction.CapturePromotion : PlayerAction.Capture;
 		return anyPromoted;
 	}
 
