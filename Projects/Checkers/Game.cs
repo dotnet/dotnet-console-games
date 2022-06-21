@@ -26,29 +26,24 @@ public class Game
 	public MoveOutcome NextRound((int X, int Y)? from = null, (int X, int Y)? to = null)
 	{
 		MoveCount++;
-		var res = Engine.PlayNextMove(Turn, Board, from, to);
-
-		while (from == null & to == null && res == MoveOutcome.CaptureMoreAvailable)
+		MoveOutcome res = Engine.PlayNextMove(Turn, Board, from, to);
+		while (from is null && to is null && res is MoveOutcome.CaptureMoreAvailable)
 		{
 			res = Engine.PlayNextMove(Turn, Board, from, to);
 		}
-
 		if (res == MoveOutcome.BlackWin)
 		{
 			Winner = PieceColor.Black;
 		}
-
 		if (res == MoveOutcome.WhiteWin)
 		{
 			Winner = PieceColor.White;
 		}
-
-		if (Winner == PieceColor.NotSet && res != MoveOutcome.CaptureMoreAvailable)
+		if (Winner == PieceColor.NotSet && res is not MoveOutcome.CaptureMoreAvailable)
 		{
 			CheckSidesHavePiecesLeft();
 			Turn = Turn == PieceColor.Black ? PieceColor.White : PieceColor.Black;
 		}
-
 		if (res == MoveOutcome.Unknown)
 		{
 			Turn = Turn == PieceColor.Black
@@ -60,11 +55,10 @@ public class Game
 
 	public void CheckSidesHavePiecesLeft()
 	{
-		var retVal = Board.Pieces.Select(y => y.Color).Distinct().Count() == 2;
-
+		bool retVal = Board.Pieces.Select(piece => piece.Color).Distinct().Count() == 2;
 		if (!retVal)
 		{
-			Winner = Board.Pieces.Select(y => y.Color).Distinct().FirstOrDefault();
+			Winner = Board.Pieces.Select(piece => piece.Color).Distinct().FirstOrDefault();
 		}
 	}
 
@@ -85,6 +79,6 @@ public class Game
 
 	public int GetPiecesTakenForSide(PieceColor colour)
 	{
-		return PiecesPerSide - Board.Pieces.Count(x => x.Color == colour);
+		return PiecesPerSide - Board.Pieces.Count(piece => piece.Color == colour);
 	}
 }

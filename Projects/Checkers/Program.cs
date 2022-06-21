@@ -21,11 +21,10 @@ try
 	}
 
 	Trace.AutoFlush = true;
-	Console.OutputEncoding = Encoding.UTF8;
 	LoggingHelper.LogStart();
 	ProgramState gameState = ProgramState.IntroScreen;
 
-	while (gameState != ProgramState.Stopped)
+	while (gameState is not ProgramState.Stopped)
 	{
 		switch (gameState)
 		{
@@ -97,8 +96,8 @@ void RunGameLoop()
 {
 	while (game!.Winner == PieceColor.NotSet)
 	{
-		Player? currentPlayer = game.Players.FirstOrDefault(x => x.Color == game.Turn);
-		if (currentPlayer != null && currentPlayer.ControlledBy == PlayerControl.Human)
+		Player? currentPlayer = game.Players.FirstOrDefault(player => player.Color == game.Turn);
+		if (currentPlayer is not null && currentPlayer.ControlledBy == PlayerControl.Human)
 		{
 			while (game.Turn == currentPlayer.Color)
 			{
@@ -122,7 +121,7 @@ void RunGameLoop()
 					from = null;
 					to = null;
 				}
-				if (from != null && to != null)
+				if (from is not null && to is not null)
 				{
 					_ = game.NextRound(from, to);
 				}
@@ -142,7 +141,7 @@ void RunGameLoop()
 void HandleGameOver()
 {
 	RenderGameState();
-	if (game != null)
+	if (game is not null)
 	{
 		LoggingHelper.LogMoves(game.MoveCount);
 	}
