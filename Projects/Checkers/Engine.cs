@@ -62,34 +62,20 @@ public static class Engine
 		}
 		if (outcome is not MoveOutcome.CaptureMoreAvailable)
 		{
-			ResetCapturePiece(board);
+			board.Aggressor = null;
 		}
 		return outcome;
 	}
 
-	private static void ResetCapturePiece(Board board)
-	{
-		Piece? capturePiece = GetAggressor(board);
-		if (capturePiece is not null)
-		{
-			capturePiece.Aggressor = false;
-		}
-	}
-
 	private static bool MoreCapturesAvailable(PieceColor side, Board board)
 	{
-		Piece? aggressor = GetAggressor(board);
+		Piece? aggressor = board.Aggressor;
 		if (aggressor is null)
 		{
 			return false;
 		}
 		_ = GetAllPossiblePlayerMoves(side, board, out List<Move>? possibleMoves);
 		return possibleMoves.Any(move => move.PieceToMove == aggressor && move.Capturing is not null);
-	}
-
-	private static Piece? GetAggressor(Board board)
-	{
-		return board.Pieces.FirstOrDefault(piece => piece.Aggressor);
 	}
 
 	private static bool MoveIsValid((int X, int Y)? from, (int X, int Y) to, List<Move> possibleMoves, Board board, out Move? selectedMove)
@@ -110,7 +96,7 @@ public static class Engine
 
 	private static MoveOutcome? GetAllPossiblePlayerMoves(PieceColor side, Board board, out List<Move> possibleMoves)
 	{
-		Piece? aggressor = GetAggressor(board);
+		Piece? aggressor = board.Aggressor;
 		MoveOutcome? result = null;
 		possibleMoves = new List<Move>();
 		if (PlayingWithJustKings(side, board, out List<Move>? endGameMoves))
@@ -143,7 +129,7 @@ public static class Engine
 				}
 				if (captureMove.PieceToMove is not null)
 				{
-					captureMove.PieceToMove.Aggressor = true;
+					board.Aggressor = captureMove.PieceToMove;
 					captureMove.PieceToMove.XPosition = captureMove.To.X;
 					captureMove.PieceToMove.YPosition = captureMove.To.Y;
 				}
