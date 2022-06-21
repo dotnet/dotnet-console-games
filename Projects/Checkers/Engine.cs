@@ -60,7 +60,7 @@ public static class Engine
 				}
 				break;
 		}
-		if (outcome is not MoveOutcome.CaptureMoreAvailable)
+		if (outcome is not null && outcome is not MoveOutcome.CaptureMoreAvailable)
 		{
 			board.Aggressor = null;
 		}
