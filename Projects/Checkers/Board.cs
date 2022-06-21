@@ -4,11 +4,14 @@ public class Board
 {
 	public List<Piece> Pieces { get; set; }
 
+	public Piece? Aggressor { get; set; }
+
 	public Piece? this[int x, int y] =>
 		Pieces.FirstOrDefault(piece => piece.XPosition == x && piece.YPosition == y);
 
 	public Board()
 	{
+		Aggressor = null;
 		Pieces = new List<Piece>
 			{
 				new() { NotationPosition ="A3", Color = PieceColor.Black},
