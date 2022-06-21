@@ -4,6 +4,9 @@ public class Board
 {
 	public List<Piece> Pieces { get; set; }
 
+	public Piece? this[int x, int y] =>
+		Pieces.FirstOrDefault(piece => piece.XPosition == x && piece.YPosition == y);
+
 	public Board()
 	{
 		Pieces = new List<Piece>
@@ -35,20 +38,6 @@ public class Board
 				new() { NotationPosition ="H6", Color = PieceColor.White}
 			};
 	}
-
-	public PieceColor? GetSquareOccupancy(int x, int y) => GetPieceAt(x, y)?.Color;
-
-	public Piece? GetPieceAt(int x, int y) =>
-		Pieces.FirstOrDefault(piece => piece.XPosition == x && piece.YPosition == y);
-
-	public int GetNumberOfWhitePiecesInPlay() =>
-		GetNumberOfPiecesInPlay(PieceColor.White);
-
-	public int GetNumberOfBlackPiecesInPlay() =>
-		GetNumberOfPiecesInPlay(PieceColor.Black);
-
-	private int GetNumberOfPiecesInPlay(PieceColor currentSide) =>
-		Pieces.Count(piece => piece.Color == currentSide);
 
 	public static string ToPositionNotationString(int x, int y)
 	{

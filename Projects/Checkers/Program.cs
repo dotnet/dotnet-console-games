@@ -114,7 +114,7 @@ void RunGameLoop()
 				Piece? piece = null;
 				if (from is not null)
 				{
-					piece = game.Board.GetPieceAt(from.Value.X, from.Value.Y);
+					piece = game.Board[from.Value.X, from.Value.Y];
 				}
 				if (piece is null || piece.Color != game.Turn)
 				{
@@ -128,7 +128,7 @@ void RunGameLoop()
 			}
 		}
 		else
-		{ 
+		{
 			game.NextRound();
 		}
 
@@ -176,8 +176,8 @@ void RenderGameState(Player? playerMoved = null, (int X, int Y)? selection = nul
 	sb.AppendLine($"  5 ║  {C(0, 4)} {C(1, 4)} {C(2, 4)} {C(3, 4)} {C(4, 4)} {C(5, 4)} {C(6, 4)} {C(7, 4)}  ║ {WhiteKing} = White King");
 	sb.AppendLine($"  4 ║  {C(0, 3)} {C(1, 3)} {C(2, 3)} {C(3, 3)} {C(4, 3)} {C(5, 3)} {C(6, 3)} {C(7, 3)}  ║");
 	sb.AppendLine($"  3 ║  {C(0, 2)} {C(1, 2)} {C(2, 2)} {C(3, 2)} {C(4, 2)} {C(5, 2)} {C(6, 2)} {C(7, 2)}  ║ Taken:");
-	sb.AppendLine($"  2 ║  {C(0, 1)} {C(1, 1)} {C(2, 1)} {C(3, 1)} {C(4, 1)} {C(5, 1)} {C(6, 1)} {C(7, 1)}  ║ {game.GetWhitePiecesTaken(),2} x {WhitePiece}");
-	sb.AppendLine($"  1 ║  {C(0, 0)} {C(1, 0)} {C(2, 0)} {C(3, 0)} {C(4, 0)} {C(5, 0)} {C(6, 0)} {C(7, 0)}  ║ {game.GetBlackPiecesTaken(),2} x {BlackPiece}");
+	sb.AppendLine($"  2 ║  {C(0, 1)} {C(1, 1)} {C(2, 1)} {C(3, 1)} {C(4, 1)} {C(5, 1)} {C(6, 1)} {C(7, 1)}  ║ {game.TakenCount(PieceColor.White),2} x {WhitePiece}");
+	sb.AppendLine($"  1 ║  {C(0, 0)} {C(1, 0)} {C(2, 0)} {C(3, 0)} {C(4, 0)} {C(5, 0)} {C(6, 0)} {C(7, 0)}  ║ {game.TakenCount(PieceColor.Black),2} x {BlackPiece}");
 	sb.AppendLine($"    ╚═══════════════════╝");
 	sb.AppendLine($"       A B C D E F G H");
 	if (selection is not null)
@@ -218,8 +218,8 @@ static char ToChar(Piece piece) =>
 		switch (Console.ReadKey(true).Key)
 		{
 			case ConsoleKey.DownArrow:  selection.Y = Math.Max(0, selection.Y - 1); break;
-            case ConsoleKey.UpArrow:    selection.Y = Math.Min(7, selection.Y + 1); break;
-            case ConsoleKey.LeftArrow:  selection.X = Math.Max(0, selection.X - 1); break;
+			case ConsoleKey.UpArrow:    selection.Y = Math.Min(7, selection.Y + 1); break;
+			case ConsoleKey.LeftArrow:  selection.X = Math.Max(0, selection.X - 1); break;
 			case ConsoleKey.RightArrow: selection.X = Math.Min(7, selection.X + 1); break;
 			case ConsoleKey.Enter:      return selection;
 			case ConsoleKey.Escape:     return null;
