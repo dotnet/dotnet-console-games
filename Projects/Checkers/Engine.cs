@@ -31,9 +31,9 @@ public static class Engine
 			outcome = AnalysePosition(side, board, out possibleMoves);
 		}
 		// If a side can't play then other side wins
-		if (outcome == MoveOutcome.NoMoveAvailable)
+		if (outcome is MoveOutcome.NoMoveAvailable)
 		{
-			outcome = side == PieceColor.Black ? MoveOutcome.WhiteWin : MoveOutcome.BlackWin;
+			outcome = side is Black ? MoveOutcome.WhiteWin : MoveOutcome.BlackWin;
 		}
 		switch (outcome)
 		{
@@ -142,7 +142,7 @@ public static class Engine
 	private static bool CheckForPiecesToPromote(PieceColor currentSide, Board board)
 	{
 		bool retVal = false;
-		int promotionSpot = currentSide == PieceColor.White ? 0 : 7;
+		int promotionSpot = currentSide is White ? 0 : 7;
 		foreach (Piece piece in board.Pieces.Where(piece => piece.Color == currentSide))
 		{
 			if (promotionSpot == piece.Y && !piece.Promoted)
@@ -165,7 +165,7 @@ public static class Engine
 			return result;
 		}
 		GetPossibleMovesAndAttacks(side, board, out List<Move>? nonEndGameMoves);
-		if (nonEndGameMoves.Count == 0)
+		if (nonEndGameMoves.Count is 0)
 		{
 			result = MoveOutcome.NoMoveAvailable;
 		}
@@ -200,8 +200,8 @@ public static class Engine
 
 			void ValidateMove(int dx, int dy)
 			{
-				if (!piece.Promoted && color is PieceColor.Black && dy is -1) return;
-				if (!piece.Promoted && color is PieceColor.White && dy is  1) return;
+				if (!piece.Promoted && color is Black && dy is -1) return;
+				if (!piece.Promoted && color is White && dy is  1) return;
 				(int X, int Y) target = (piece.X + dx, piece.Y + dy);
 				if (!Board.IsValidPosition(target.X, target.Y)) return;
 				PieceColor? targetColor = board[target.X, target.Y]?.Color;
@@ -314,7 +314,7 @@ public static class Engine
 		{
 			directions.Add(Down);
 		}
-		if (directions.Count == 1)
+		if (directions.Count is 1)
 		{
 			switch (directions[0])
 			{

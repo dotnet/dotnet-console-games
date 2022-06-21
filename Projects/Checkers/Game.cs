@@ -15,10 +15,10 @@ public class Game
 		Board = new Board();
 		Players = new()
 		{
-			new Player(humanPlayerCount >= 1, PieceColor.Black),
-			new Player(humanPlayerCount >= 2, PieceColor.White),
+			new Player(humanPlayerCount >= 1, Black),
+			new Player(humanPlayerCount >= 2, White),
 		};
-		Turn = PieceColor.Black;
+		Turn = Black;
 		Winner = null;
 	}
 
@@ -29,34 +29,34 @@ public class Game
 		{
 			moveOutcome = Engine.PlayNextMove(Turn, Board, from, to);
 		}
-		if (moveOutcome == MoveOutcome.BlackWin)
+		if (moveOutcome is MoveOutcome.BlackWin)
 		{
-			Winner = PieceColor.Black;
+			Winner = Black;
 		}
-		if (moveOutcome == MoveOutcome.WhiteWin)
+		if (moveOutcome is MoveOutcome.WhiteWin)
 		{
-			Winner = PieceColor.White;
+			Winner = White;
 		}
 		if (Winner is null && moveOutcome is not MoveOutcome.CaptureMoreAvailable)
 		{
 			CheckSidesHavePiecesLeft();
-			Turn = Turn == PieceColor.Black ? PieceColor.White : PieceColor.Black;
+			Turn = Turn is Black ? White : Black;
 		}
 		if (moveOutcome is null)
 		{
-			Turn = Turn is PieceColor.Black ? PieceColor.White : PieceColor.Black;
+			Turn = Turn is Black ? White : Black;
 		}
 	}
 
 	public void CheckSidesHavePiecesLeft()
 	{
-		if (!Board.Pieces.Any(piece => piece.Color is PieceColor.Black))
+		if (!Board.Pieces.Any(piece => piece.Color is Black))
 		{
-			Winner = PieceColor.White;
+			Winner = White;
 		}
-		if (!Board.Pieces.Any(piece => piece.Color is PieceColor.White))
+		if (!Board.Pieces.Any(piece => piece.Color is White))
 		{
-			Winner = PieceColor.Black;
+			Winner = Black;
 		}
 	}
 
