@@ -274,8 +274,8 @@ public static class Engine
 					{
 						continue;
 					}
-					PieceColor targetSquare = board.GetSquareOccupancy(currentX, currentY);
-					if (targetSquare is PieceColor.NotSet)
+					PieceColor? targetSquare = board.GetSquareOccupancy(currentX, currentY);
+					if (targetSquare is null)
 					{
 						if (!Board.IsValidPosition(currentX, currentY))
 						{
@@ -291,8 +291,8 @@ public static class Engine
 						{
 							continue;
 						}
-						PieceColor beyondSquare = board.GetSquareOccupancy(toLocation.X, toLocation.Y);
-						if (beyondSquare is not PieceColor.NotSet)
+						PieceColor? beyondSquare = board.GetSquareOccupancy(toLocation.X, toLocation.Y);
+						if (beyondSquare is not null)
 						{
 							continue;
 						}
@@ -358,8 +358,8 @@ public static class Engine
 				List<(int X, int Y)>? movementOptions = VectorHelper.WhereIsVillain(currentHero, currentVillain);
 				foreach ((int X, int Y) movementOption in movementOptions)
 				{
-					PieceColor squareStatus = board.GetSquareOccupancy(movementOption.X, movementOption.Y);
-					if (squareStatus is PieceColor.NotSet)
+					PieceColor? squareStatus = board.GetSquareOccupancy(movementOption.X, movementOption.Y);
+					if (squareStatus is null)
 					{
 						Move move = new()
 						{

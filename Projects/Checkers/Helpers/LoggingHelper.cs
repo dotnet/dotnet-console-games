@@ -38,7 +38,7 @@ public static class LoggingHelper
 		Trace.WriteLine($"Stopped: {DateTime.Now}");
 	}
 
-	public static void LogOutcome(PieceColor winner)
+	public static void LogOutcome(PieceColor? winner)
 	{
 		Trace.WriteLine($"Winner : {winner}");
 	}
