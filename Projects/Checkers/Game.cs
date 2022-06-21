@@ -6,12 +6,10 @@ public class Game
 {
 	private const int PiecesPerSide = 12;
 
-	public PieceColour CurrentGo { get; set; }
-	public Board GameBoard { get; }
-	public int MovesSoFar { get; private set; }
-	public PieceColour GameWinner { get; set; } = PieceColour.NotSet;
-
-	private bool NoDisplay { get; }
+	public PieceColour Turn { get; set; }
+	public Board Board { get; }
+	public int MoveCount { get; private set; }
+	public PieceColour Winner { get; set; } = PieceColour.NotSet;
 
 	public List<Player> Players { get; set; } = new()
 		{
@@ -19,72 +17,64 @@ public class Game
 			new Player { ControlledBy = PlayerControl.Computer, Side = PieceColour.White }
 		};
 
-	public Game(List<Piece> startingPosition, PieceColour toMove)
-	{
-		GameBoard = new Board(startingPosition);
-		CurrentGo = toMove;
-		NoDisplay = true;
-	}
-
 	public Game()
 	{
-		GameBoard = new Board();
-		CurrentGo = PieceColour.Black;
-		NoDisplay = false;
-		ShowBoard();
+		Board = new Board();
+		Turn = PieceColour.Black;
+		//ShowBoard();
 	}
 
 	public MoveOutcome NextRound((int X, int Y)? from = null, (int X, int Y)? to = null)
 	{
-		MovesSoFar++;
-		var res = Engine.PlayNextMove(CurrentGo, GameBoard, from, to);
+		MoveCount++;
+		var res = Engine.PlayNextMove(Turn, Board, from, to);
 
 		while (from == null & to == null && res == MoveOutcome.CaptureMoreAvailable)
 		{
-			res = Engine.PlayNextMove(CurrentGo, GameBoard, from, to);
+			res = Engine.PlayNextMove(Turn, Board, from, to);
 		}
 
 		if (res == MoveOutcome.BlackWin)
 		{
-			GameWinner = PieceColour.Black;
+			Winner = PieceColour.Black;
 		}
 
 		if (res == MoveOutcome.WhiteWin)
 		{
-			GameWinner = PieceColour.White;
+			Winner = PieceColour.White;
 		}
 
-		if (GameWinner == PieceColour.NotSet && res != MoveOutcome.CaptureMoreAvailable)
+		if (Winner == PieceColour.NotSet && res != MoveOutcome.CaptureMoreAvailable)
 		{
 			CheckSidesHavePiecesLeft();
-			CurrentGo = CurrentGo == PieceColour.Black ? PieceColour.White : PieceColour.Black;
+			Turn = Turn == PieceColour.Black ? PieceColour.White : PieceColour.Black;
 		}
 
 		if (res == MoveOutcome.Unknown)
 		{
-			CurrentGo = CurrentGo == PieceColour.Black
+			Turn = Turn == PieceColour.Black
 				? PieceColour.White
 				: PieceColour.Black;
 		}
 
-		ShowBoard();
+		//ShowBoard();
 
 		return res;
 	}
 
 	public void CheckSidesHavePiecesLeft()
 	{
-		var retVal = GameBoard.Pieces.Where(x => x.InPlay).Select(y => y.Side).Distinct().Count() == 2;
+		var retVal = Board.Pieces.Where(x => x.InPlay).Select(y => y.Side).Distinct().Count() == 2;
 
 		if (!retVal)
 		{
-			GameWinner = GameBoard.Pieces.Where(x => x.InPlay).Select(y => y.Side).Distinct().FirstOrDefault();
+			Winner = Board.Pieces.Where(x => x.InPlay).Select(y => y.Side).Distinct().FirstOrDefault();
 		}
 	}
 
 	public string GetCurrentPlayer()
 	{
-		return CurrentGo.ToString();
+		return Turn.ToString();
 	}
 
 	public int GetWhitePiecesTaken()
@@ -99,15 +89,12 @@ public class Game
 
 	public int GetPiecesTakenForSide(PieceColour colour)
 	{
-		return PiecesPerSide - GameBoard.Pieces.Count(x => x.InPlay && x.Side == colour);
+		return PiecesPerSide - Board.Pieces.Count(x => x.InPlay && x.Side == colour);
 	}
 
-	private void ShowBoard()
-	{
-		if (!NoDisplay)
-		{
-			Display.DisplayBoard(GameBoard, GetWhitePiecesTaken(), GetBlackPiecesTaken());
-			Display.DisplayCurrentPlayer(CurrentGo);
-		}
-	}
+	//private void ShowBoard()
+	//{
+	//	Display.DisplayBoard(Board, GetWhitePiecesTaken(), GetBlackPiecesTaken());
+	//	Display.DisplayCurrentPlayer(Turn);
+	//}
 }
