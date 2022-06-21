@@ -43,8 +43,8 @@ public static class Engine
 				Piece pieceToMove = bestMove.PieceToMove!;
 				int newX = bestMove.To.X;
 				int newY = bestMove.To.Y;
-				pieceToMove.XPosition = newX;
-				pieceToMove.YPosition = newY;
+				pieceToMove.X = newX;
+				pieceToMove.Y = newY;
 				// Promotion can only happen if not already a king and you have reached the far side
 				if (newY is 0 or 7 && !pieceToMove.Promoted)
 				{
@@ -130,8 +130,8 @@ public static class Engine
 				if (captureMove.PieceToMove is not null)
 				{
 					board.Aggressor = captureMove.PieceToMove;
-					captureMove.PieceToMove.XPosition = captureMove.To.X;
-					captureMove.PieceToMove.YPosition = captureMove.To.Y;
+					captureMove.PieceToMove.X = captureMove.To.X;
+					captureMove.PieceToMove.Y = captureMove.To.Y;
 				}
 			}
 		}
@@ -145,7 +145,7 @@ public static class Engine
 		int promotionSpot = currentSide == PieceColor.White ? 0 : 7;
 		foreach (Piece piece in board.Pieces.Where(piece => piece.Color == currentSide))
 		{
-			if (promotionSpot == piece.YPosition && !piece.Promoted)
+			if (promotionSpot == piece.Y && !piece.Promoted)
 			{
 				piece.Promoted = retVal = true;
 			}
@@ -202,7 +202,7 @@ public static class Engine
 			{
 				if (!piece.Promoted && color is PieceColor.Black && dy is -1) return;
 				if (!piece.Promoted && color is PieceColor.White && dy is  1) return;
-				(int X, int Y) target = (piece.XPosition + dx, piece.YPosition + dy);
+				(int X, int Y) target = (piece.X + dx, piece.Y + dy);
 				if (!Board.IsValidPosition(target.X, target.Y)) return;
 				PieceColor? targetColor = board[target.X, target.Y]?.Color;
 				if (targetColor is null)
@@ -213,7 +213,7 @@ public static class Engine
 				}
 				else if (targetColor != color)
 				{
-					(int X, int Y) jump = (piece.XPosition + 2 * dx, piece.YPosition + 2 * dy);
+					(int X, int Y) jump = (piece.X + 2 * dx, piece.Y + 2 * dy);
 					if (!Board.IsValidPosition(jump.X, jump.Y)) return;
 					PieceColor? jumpColor = board[jump.X, jump.Y]?.Color;
 					if (jumpColor is not null) return;
@@ -241,8 +241,8 @@ public static class Engine
 			{
 				foreach (Piece target in board.Pieces.Where(piece => piece.Color != side))
 				{
-					(int X, int Y) kingPoint = (king.XPosition, king.YPosition);
-					(int X, int Y) targetPoint = (target.XPosition, target.YPosition);
+					(int X, int Y) kingPoint = (king.X, king.Y);
+					(int X, int Y) targetPoint = (target.X, target.Y);
 					double distance = GetPointDistance(kingPoint, targetPoint);
 					if (distance < shortestDistance)
 					{
@@ -293,19 +293,19 @@ public static class Engine
 	{
 		List<(int X, int Y)>? retVal = new();
 		List<Direction>? directions = new();
-		if (hero.XPosition > villain.XPosition)
+		if (hero.X > villain.X)
 		{
 			directions.Add(Direction.Left);
 		}
-		if (hero.XPosition < villain.XPosition)
+		if (hero.X < villain.X)
 		{
 			directions.Add(Direction.Right);
 		}
-		if (hero.YPosition > villain.YPosition)
+		if (hero.Y > villain.Y)
 		{
 			directions.Add(Direction.Up);
 		}
-		if (hero.YPosition < villain.YPosition)
+		if (hero.Y < villain.Y)
 		{
 			directions.Add(Direction.Down);
 		}
@@ -314,20 +314,20 @@ public static class Engine
 			switch (directions[0])
 			{
 				case Direction.Up:
-					retVal.Add((hero.XPosition - 1, hero.YPosition - 1));
-					retVal.Add((hero.XPosition + 1, hero.YPosition - 1));
+					retVal.Add((hero.X - 1, hero.Y - 1));
+					retVal.Add((hero.X + 1, hero.Y - 1));
 					break;
 				case Direction.Down:
-					retVal.Add((hero.XPosition - 1, hero.YPosition + 1));
-					retVal.Add((hero.XPosition + 1, hero.YPosition + 1));
+					retVal.Add((hero.X - 1, hero.Y + 1));
+					retVal.Add((hero.X + 1, hero.Y + 1));
 					break;
 				case Direction.Left:
-					retVal.Add((hero.XPosition - 1, hero.YPosition - 1));
-					retVal.Add((hero.XPosition - 1, hero.YPosition + 1));
+					retVal.Add((hero.X - 1, hero.Y - 1));
+					retVal.Add((hero.X - 1, hero.Y + 1));
 					break;
 				case Direction.Right:
-					retVal.Add((hero.XPosition + 1, hero.YPosition - 1));
-					retVal.Add((hero.XPosition + 1, hero.YPosition + 1));
+					retVal.Add((hero.X + 1, hero.Y - 1));
+					retVal.Add((hero.X + 1, hero.Y + 1));
 					break;
 				default:
 					throw new NotImplementedException();
@@ -337,19 +337,19 @@ public static class Engine
 		{
 			if (directions.Contains(Direction.Left) && directions.Contains(Direction.Up))
 			{
-				retVal.Add((hero.XPosition - 1, hero.YPosition - 1));
+				retVal.Add((hero.X - 1, hero.Y - 1));
 			}
 			if (directions.Contains(Direction.Left) && directions.Contains(Direction.Down))
 			{
-				retVal.Add((hero.XPosition - 1, hero.YPosition + 1));
+				retVal.Add((hero.X - 1, hero.Y + 1));
 			}
 			if (directions.Contains(Direction.Right) && directions.Contains(Direction.Up))
 			{
-				retVal.Add((hero.XPosition + 1, hero.YPosition - 1));
+				retVal.Add((hero.X + 1, hero.Y - 1));
 			}
 			if (directions.Contains(Direction.Right) && directions.Contains(Direction.Down))
 			{
-				retVal.Add((hero.XPosition + 1, hero.YPosition + 1));
+				retVal.Add((hero.X + 1, hero.Y + 1));
 			}
 		}
 		return retVal;
