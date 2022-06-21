@@ -69,7 +69,7 @@ void RunGameLoop()
 	while (game!.Winner is null)
 	{
 		Player? currentPlayer = game.Players.FirstOrDefault(player => player.Color == game.Turn);
-		if (currentPlayer is not null && currentPlayer.ControlledBy == PlayerControl.Human)
+		if (currentPlayer is not null && currentPlayer.IsHuman)
 		{
 			while (game.Turn == currentPlayer.Color)
 			{
