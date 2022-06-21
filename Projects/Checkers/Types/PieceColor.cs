@@ -1,6 +1,6 @@
 ﻿namespace Checkers.Types;
 
-public enum PieceColour
+public enum PieceColor
 {
 	NotSet = 0,
 	Black,

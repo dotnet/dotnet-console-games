@@ -97,12 +97,12 @@ void RunGameLoop()
 {
 	game = new Game();
 	PlayerHelper.AssignPlayersToSide(numberOfPlayers, game);
-	while (game.Winner == PieceColour.NotSet)
+	while (game.Winner == PieceColor.NotSet)
 	{
-		Player? currentPlayer = game.Players.FirstOrDefault(x => x.Side == game.Turn);
+		Player? currentPlayer = game.Players.FirstOrDefault(x => x.Color == game.Turn);
 		if (currentPlayer != null && currentPlayer.ControlledBy == PlayerControl.Human)
 		{
-			while (game.Turn == currentPlayer.Side)
+			while (game.Turn == currentPlayer.Color)
 			{
 				(int X, int Y)? from = null;
 				(int X, int Y)? to = null;
@@ -119,7 +119,7 @@ void RunGameLoop()
 				{
 					piece = game.Board.GetPieceAt(from.Value.X, from.Value.Y);
 				}
-				if (piece is null || piece.Side != game.Turn)
+				if (piece is null || piece.Color != game.Turn)
 				{
 					from = null;
 					to = null;
@@ -187,13 +187,13 @@ void RenderGameState(Player? playerMoved = null, (int X, int Y)? selection = nul
 	{
 		sb.Replace(" $ ", $"[{tiles.GetValueOrDefault(selection.Value, '.')}]");
 	}
-	if (game.Winner is not PieceColour.NotSet)
+	if (game.Winner is not PieceColor.NotSet)
 	{
 		sb.AppendLine($"*** {game.Winner} wins ***");
 	}
 	else if (playerMoved is not null)
 	{
-		sb.AppendLine($"{playerMoved.Side} moved");
+		sb.AppendLine($"{playerMoved.Color} moved");
 	}
 	else
 	{
@@ -203,12 +203,12 @@ void RenderGameState(Player? playerMoved = null, (int X, int Y)? selection = nul
 }
 
 static char ToChar(Piece piece) =>
-	(piece.Side, piece.Promoted) switch
+	(piece.Color, piece.Promoted) switch
 	{
-		(PieceColour.Black, false) => BlackPiece,
-		(PieceColour.Black, true) => BlackKing,
-		(PieceColour.White, false) => WhitePiece,
-		(PieceColour.White, true) => WhiteKing,
+		(PieceColor.Black, false) => BlackPiece,
+		(PieceColor.Black, true) => BlackKing,
+		(PieceColor.White, false) => WhitePiece,
+		(PieceColor.White, true) => WhiteKing,
 		_ => throw new NotImplementedException(),
 	};
 

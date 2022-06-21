@@ -4,21 +4,21 @@ public class Game
 {
 	private const int PiecesPerSide = 12;
 
-	public PieceColour Turn { get; set; }
+	public PieceColor Turn { get; set; }
 	public Board Board { get; }
 	public int MoveCount { get; private set; }
-	public PieceColour Winner { get; set; } = PieceColour.NotSet;
+	public PieceColor Winner { get; set; } = PieceColor.NotSet;
 
 	public List<Player> Players { get; set; } = new()
 		{
-			new Player { ControlledBy = PlayerControl.Computer, Side = PieceColour.Black },
-			new Player { ControlledBy = PlayerControl.Computer, Side = PieceColour.White }
+			new Player { ControlledBy = PlayerControl.Computer, Color = PieceColor.Black },
+			new Player { ControlledBy = PlayerControl.Computer, Color = PieceColor.White }
 		};
 
 	public Game()
 	{
 		Board = new Board();
-		Turn = PieceColour.Black;
+		Turn = PieceColor.Black;
 	}
 
 	public MoveOutcome NextRound((int X, int Y)? from = null, (int X, int Y)? to = null)
@@ -33,36 +33,36 @@ public class Game
 
 		if (res == MoveOutcome.BlackWin)
 		{
-			Winner = PieceColour.Black;
+			Winner = PieceColor.Black;
 		}
 
 		if (res == MoveOutcome.WhiteWin)
 		{
-			Winner = PieceColour.White;
+			Winner = PieceColor.White;
 		}
 
-		if (Winner == PieceColour.NotSet && res != MoveOutcome.CaptureMoreAvailable)
+		if (Winner == PieceColor.NotSet && res != MoveOutcome.CaptureMoreAvailable)
 		{
 			CheckSidesHavePiecesLeft();
-			Turn = Turn == PieceColour.Black ? PieceColour.White : PieceColour.Black;
+			Turn = Turn == PieceColor.Black ? PieceColor.White : PieceColor.Black;
 		}
 
 		if (res == MoveOutcome.Unknown)
 		{
-			Turn = Turn == PieceColour.Black
-				? PieceColour.White
-				: PieceColour.Black;
+			Turn = Turn == PieceColor.Black
+				? PieceColor.White
+				: PieceColor.Black;
 		}
 		return res;
 	}
 
 	public void CheckSidesHavePiecesLeft()
 	{
-		var retVal = Board.Pieces.Select(y => y.Side).Distinct().Count() == 2;
+		var retVal = Board.Pieces.Select(y => y.Color).Distinct().Count() == 2;
 
 		if (!retVal)
 		{
-			Winner = Board.Pieces.Select(y => y.Side).Distinct().FirstOrDefault();
+			Winner = Board.Pieces.Select(y => y.Color).Distinct().FirstOrDefault();
 		}
 	}
 
@@ -73,16 +73,16 @@ public class Game
 
 	public int GetWhitePiecesTaken()
 	{
-		return GetPiecesTakenForSide(PieceColour.White);
+		return GetPiecesTakenForSide(PieceColor.White);
 	}
 
 	public int GetBlackPiecesTaken()
 	{
-		return GetPiecesTakenForSide(PieceColour.Black);
+		return GetPiecesTakenForSide(PieceColor.Black);
 	}
 
-	public int GetPiecesTakenForSide(PieceColour colour)
+	public int GetPiecesTakenForSide(PieceColor colour)
 	{
-		return PiecesPerSide - Board.Pieces.Count(x => x.Side == colour);
+		return PiecesPerSide - Board.Pieces.Count(x => x.Color == colour);
 	}
 }

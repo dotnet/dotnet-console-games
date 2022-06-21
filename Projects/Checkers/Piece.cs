@@ -12,7 +12,7 @@ public class Piece
 		set => (XPosition, YPosition) = Board.ParsePositionNotation(value);
 	}
 
-	public PieceColour Side { get; set; }
+	public PieceColor Color { get; set; }
 
 	public bool Promoted { get; set; }
 
