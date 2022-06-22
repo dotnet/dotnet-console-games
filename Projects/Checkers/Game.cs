@@ -39,7 +39,7 @@ public class Game
 		}
 		if (Winner is null && moveOutcome is not MoveOutcome.CaptureMoreAvailable)
 		{
-			CheckSidesHavePiecesLeft();
+			CheckColorsHavePiecesLeft();
 			Turn = Turn is Black ? White : Black;
 		}
 		if (moveOutcome is null)
@@ -48,7 +48,7 @@ public class Game
 		}
 	}
 
-	public void CheckSidesHavePiecesLeft()
+	public void CheckColorsHavePiecesLeft()
 	{
 		if (!Board.Pieces.Any(piece => piece.Color is Black))
 		{

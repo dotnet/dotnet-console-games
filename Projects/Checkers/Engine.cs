@@ -2,13 +2,13 @@
 
 public static class Engine
 {
-	public static MoveOutcome? PlayNextMove(PieceColor side, Board board, (int X, int Y)? from = null, (int X, int Y)? to = null)
+	public static MoveOutcome? PlayNextMove(PieceColor color, Board board, (int X, int Y)? from = null, (int X, int Y)? to = null)
 	{
 		List<Move> possibleMoves;
 		MoveOutcome? outcome;
 		if (from is not null && to is not null)
 		{
-			outcome = GetAllPossiblePlayerMoves(side, board, out possibleMoves);
+			outcome = GetAllPossiblePlayerMoves(color, board, out possibleMoves);
 			if (possibleMoves.Count is 0)
 			{
 				outcome = MoveOutcome.NoMoveAvailable;
@@ -28,12 +28,12 @@ public static class Engine
 		}
 		else
 		{
-			outcome = AnalysePosition(side, board, out possibleMoves);
+			outcome = AnalysePosition(color, board, out possibleMoves);
 		}
-		// If a side can't play then other side wins
+		// If a color can't play then other color wins
 		if (outcome is MoveOutcome.NoMoveAvailable)
 		{
-			outcome = side is Black ? MoveOutcome.WhiteWin : MoveOutcome.BlackWin;
+			outcome = color is Black ? MoveOutcome.WhiteWin : MoveOutcome.BlackWin;
 		}
 		switch (outcome)
 		{
@@ -45,15 +45,15 @@ public static class Engine
 				int newY = bestMove.To.Y;
 				pieceToMove.X = newX;
 				pieceToMove.Y = newY;
-				// Promotion can only happen if not already a king and you have reached the far side
+				// Promotion can only happen if not already a king and you have reached the far color
 				if (newY is 0 or 7 && !pieceToMove.Promoted)
 				{
 					pieceToMove.Promoted = true;
 				}
 				break;
 			case MoveOutcome.Capture:
-				bool anyPromoted = PerformCapture(side, possibleMoves, board);
-				bool moreAvailable = MoreCapturesAvailable(side, board);
+				bool anyPromoted = PerformCapture(color, possibleMoves, board);
+				bool moreAvailable = MoreCapturesAvailable(color, board);
 				if (moreAvailable && !anyPromoted)
 				{
 					outcome = MoveOutcome.CaptureMoreAvailable;
@@ -67,14 +67,14 @@ public static class Engine
 		return outcome;
 	}
 
-	private static bool MoreCapturesAvailable(PieceColor side, Board board)
+	private static bool MoreCapturesAvailable(PieceColor color, Board board)
 	{
 		Piece? aggressor = board.Aggressor;
 		if (aggressor is null)
 		{
 			return false;
 		}
-		_ = GetAllPossiblePlayerMoves(side, board, out List<Move>? possibleMoves);
+		_ = GetAllPossiblePlayerMoves(color, board, out List<Move>? possibleMoves);
 		return possibleMoves.Any(move => move.PieceToMove == aggressor && move.Capturing is not null);
 	}
 
@@ -94,17 +94,17 @@ public static class Engine
 		return false;
 	}
 
-	private static MoveOutcome? GetAllPossiblePlayerMoves(PieceColor side, Board board, out List<Move> possibleMoves)
+	private static MoveOutcome? GetAllPossiblePlayerMoves(PieceColor color, Board board, out List<Move> possibleMoves)
 	{
 		Piece? aggressor = board.Aggressor;
 		MoveOutcome? result = null;
 		possibleMoves = new List<Move>();
-		if (PlayingWithJustKings(side, board, out List<Move>? endGameMoves))
+		if (PlayingWithJustKings(color, board, out List<Move>? endGameMoves))
 		{
 			result = MoveOutcome.EndGame;
 			possibleMoves.AddRange(endGameMoves);
 		}
-		GetPossibleMovesAndAttacks(side, board, out List<Move>? nonEndGameMoves);
+		GetPossibleMovesAndAttacks(color, board, out List<Move>? nonEndGameMoves);
 		possibleMoves.AddRange(nonEndGameMoves);
 		if (aggressor is not null)
 		{
@@ -114,7 +114,7 @@ public static class Engine
 		return result;
 	}
 
-	private static bool PerformCapture(PieceColor side, List<Move> possibleCaptures, Board board)
+	private static bool PerformCapture(PieceColor color, List<Move> possibleCaptures, Board board)
 	{
 		Move? captureMove = possibleCaptures.FirstOrDefault(move => move.Capturing is not null);
 		if (captureMove is not null)
@@ -135,15 +135,15 @@ public static class Engine
 				}
 			}
 		}
-		bool anyPromoted = CheckForPiecesToPromote(side, board);
+		bool anyPromoted = CheckForPiecesToPromote(color, board);
 		return anyPromoted;
 	}
 
-	private static bool CheckForPiecesToPromote(PieceColor currentSide, Board board)
+	private static bool CheckForPiecesToPromote(PieceColor color, Board board)
 	{
 		bool retVal = false;
-		int promotionSpot = currentSide is White ? 0 : 7;
-		foreach (Piece piece in board.Pieces.Where(piece => piece.Color == currentSide))
+		int promotionSpot = color is White ? 0 : 7;
+		foreach (Piece piece in board.Pieces.Where(piece => piece.Color == color))
 		{
 			if (promotionSpot == piece.Y && !piece.Promoted)
 			{
@@ -153,18 +153,18 @@ public static class Engine
 		return retVal;
 	}
 
-	private static MoveOutcome AnalysePosition(PieceColor side, Board board, out List<Move> possibleMoves)
+	private static MoveOutcome AnalysePosition(PieceColor color, Board board, out List<Move> possibleMoves)
 	{
 		MoveOutcome result;
 		possibleMoves = new List<Move>();
 		// Check for endgame first
-		if (PlayingWithJustKings(side, board, out List<Move>? endGameMoves))
+		if (PlayingWithJustKings(color, board, out List<Move>? endGameMoves))
 		{
 			result = MoveOutcome.EndGame;
 			possibleMoves.AddRange(endGameMoves);
 			return result;
 		}
-		GetPossibleMovesAndAttacks(side, board, out List<Move>? nonEndGameMoves);
+		GetPossibleMovesAndAttacks(color, board, out List<Move>? nonEndGameMoves);
 		if (nonEndGameMoves.Count is 0)
 		{
 			result = MoveOutcome.NoMoveAvailable;
@@ -226,20 +226,20 @@ public static class Engine
 		possibleMoves = moves;
 	}
 
-	private static bool PlayingWithJustKings(PieceColor side, Board board, out List<Move> possibleMoves)
+	private static bool PlayingWithJustKings(PieceColor color, Board board, out List<Move> possibleMoves)
 	{
 		possibleMoves = new List<Move>();
-		int piecesInPlay = board.Pieces.Count(piece => piece.Color == side);
-		int kingsInPlay = board.Pieces.Count(piece => piece.Color == side && piece.Promoted);
+		int piecesInPlay = board.Pieces.Count(piece => piece.Color == color);
+		int kingsInPlay = board.Pieces.Count(piece => piece.Color == color && piece.Promoted);
 		bool playingWithJustKings = piecesInPlay == kingsInPlay;
 		if (playingWithJustKings)
 		{
 			double minDistanceSquared = double.MaxValue;
 			Piece? currentHero = null;
 			Piece? currentVillain = null;
-			foreach (Piece king in board.Pieces.Where(piece => piece.Color == side))
+			foreach (Piece king in board.Pieces.Where(piece => piece.Color == color))
 			{
-				foreach (Piece target in board.Pieces.Where(piece => piece.Color != side))
+				foreach (Piece target in board.Pieces.Where(piece => piece.Color != color))
 				{
 					(int X, int Y) vector = (king.X - target.X, king.Y - target.Y);
 					double distanceSquared = vector.X * vector.X + vector.Y * vector.Y;
