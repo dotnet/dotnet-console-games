@@ -2,6 +2,7 @@
 const char BlackKing  = '☺';
 const char WhitePiece = '◙';
 const char WhiteKing  = '☻';
+const char Vacant     = '·';
 
 Encoding encoding = Console.OutputEncoding;
 Game? game = null;
@@ -130,7 +131,7 @@ void RenderGameState(Player? playerMoved = null, (int X, int Y)? selection = nul
 	{
 		tiles[(piece.X, piece.Y)] = ToChar(piece);
 	}
-	char C(int x, int y) => (x, y) == selection ? '$' : tiles.GetValueOrDefault((x, y), '.');
+	char C(int x, int y) => (x, y) == selection ? '$' : tiles.GetValueOrDefault((x, y), Vacant);
 	StringBuilder sb = new();
 	sb.AppendLine();
 	sb.AppendLine("  Checkers");
@@ -149,7 +150,7 @@ void RenderGameState(Player? playerMoved = null, (int X, int Y)? selection = nul
 	sb.AppendLine();
 	if (selection is not null)
 	{
-		sb.Replace(" $ ", $"[{tiles.GetValueOrDefault(selection.Value, '.')}]");
+		sb.Replace(" $ ", $"[{tiles.GetValueOrDefault(selection.Value, Vacant)}]");
 	}
 	if (game.Winner is not null)
 	{
