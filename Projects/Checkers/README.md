@@ -31,9 +31,10 @@ Checkers is a classic 1v1 board game where you try to take all of your opponent'
 
 ## Input
 
+- `0`, `1`, `2`: select number of human players in menu
 - `↑`, `↓`, `←`, `→`: move selection
 - `enter`: confirm
-- `escape`: close
+- `escape`: cancel current move
 
 <p align="center">
 	You can play this game in your browser:

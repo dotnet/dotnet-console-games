@@ -23,38 +23,39 @@ Game ShowIntroScreenAndGetOption()
 	Console.WriteLine();
 	Console.WriteLine("  Checkers");
 	Console.WriteLine();
-	Console.WriteLine("  Checkers is  played on an 8x8  board between two sides commonly known as black");
-	Console.WriteLine("  and white. The objective is  simple - capture  all  your opponent's pieces. An");
-	Console.WriteLine("  alternative way to  win is to trap  your opponent so that  they have no  valid");
+	Console.WriteLine("  Checkers is played on an 8x8 board between two sides commonly known as black");
+	Console.WriteLine("  and white. The objective is simple - capture all your opponent's pieces. An");
+	Console.WriteLine("  alternative way to win is to trap your opponent so that they have no valid");
 	Console.WriteLine("  moves left.");
 	Console.WriteLine();
-	Console.WriteLine("  Black starts first and players take it  in turns to move their pieces  forward");
-	Console.WriteLine("  across the board diagonally. Should a piece  reach the other side of the board");
-	Console.WriteLine("  the piece becomes a `king` and can  then move diagonally backwards as  well as");
+	Console.WriteLine("  Black starts first and players take it in turns to move their pieces forward");
+	Console.WriteLine("  across the board diagonally. Should a piece reach the other side of the board");
+	Console.WriteLine("  the piece becomes a king and can then move diagonally backwards as well as");
 	Console.WriteLine("  forwards.");
 	Console.WriteLine();
 	Console.WriteLine("  Pieces are captured by jumping over them diagonally. More than one enemy piece");
 	Console.WriteLine("  can be captured in the same turn by the same piece.");
 	Console.WriteLine();
-	Console.WriteLine("  Moves  are selected  with the arrow keys. Use the [enter] button to select the");
+	Console.WriteLine("  Moves are selected with the arrow keys. Use the [enter] button to select the");
 	Console.WriteLine("  from and to squares. Invalid moves are ignored.");
 	Console.WriteLine();
-	Console.WriteLine("  3 modes of play are possible depending on the number of players entered:");
-	Console.WriteLine("    0 - black and white are controlled by the computer");
-	Console.WriteLine("    1 - black is controlled by the player and white by the computer");
-	Console.WriteLine("    2 - allows 2 players");
-	Console.WriteLine();
-	Console.Write("  Enter the number of players (0-2): ");
+	Console.WriteLine("  Press a number key to choose number of human players:");
+	Console.WriteLine("    [0] Black (computer) vs White (computer)");
+	Console.WriteLine("    [1] Black (human) vs White (computer)");
+	Console.Write("    [2] Black (human) vs White (human)");
 
-	string? entry = Console.ReadLine()?.Trim();
-	while (entry is not "0" and not "1" and not "2")
+	int? humanPlayerCount = null;
+	while (humanPlayerCount is null)
 	{
-		Console.WriteLine("  Invalid Input. Try Again.");
-		Console.Write("  Enter the number of players (0-2): ");
-		entry = Console.ReadLine()?.Trim();
+		Console.CursorVisible = false;
+		switch (Console.ReadKey(true).Key)
+		{
+			case ConsoleKey.D0 or ConsoleKey.NumPad0: humanPlayerCount = 0; break;
+			case ConsoleKey.D1 or ConsoleKey.NumPad1: humanPlayerCount = 1; break;
+			case ConsoleKey.D2 or ConsoleKey.NumPad2: humanPlayerCount = 2; break;
+		}
 	}
-	int humanPlayerCount = entry[0] - '0';
-	return new Game(humanPlayerCount);
+	return new Game(humanPlayerCount.Value);
 }
 
 void RunGameLoop(Game game)
@@ -76,15 +77,12 @@ void RunGameLoop(Game game)
 					selectionStart = must.To;
 				}
 				(int X, int Y)? to = null;
-				while (to is null)
+				while (from is null)
 				{
-					while (from is null)
-					{
-						from = HumanMoveSelection(game);
-						selectionStart = from;
-					}
-					to = HumanMoveSelection(game, selectionStart: selectionStart, from: from);
+					from = HumanMoveSelection(game);
+					selectionStart = from;
 				}
+				to = HumanMoveSelection(game, selectionStart: selectionStart, from: from);
 				Piece? piece = null;
 				if (from is not null)
 				{
