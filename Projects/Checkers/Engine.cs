@@ -234,19 +234,18 @@ public static class Engine
 		bool playingWithJustKings = piecesInPlay == kingsInPlay;
 		if (playingWithJustKings)
 		{
-			double shortestDistance = 12.0;
+			double minDistanceSquared = double.MaxValue;
 			Piece? currentHero = null;
 			Piece? currentVillain = null;
 			foreach (Piece king in board.Pieces.Where(piece => piece.Color == side))
 			{
 				foreach (Piece target in board.Pieces.Where(piece => piece.Color != side))
 				{
-					(int X, int Y) kingPoint = (king.X, king.Y);
-					(int X, int Y) targetPoint = (target.X, target.Y);
-					double distance = GetPointDistance(kingPoint, targetPoint);
-					if (distance < shortestDistance)
+					(int X, int Y) vector = (king.X - target.X, king.Y - target.Y);
+					double distanceSquared = vector.X * vector.X + vector.Y * vector.Y;
+					if (distanceSquared < minDistanceSquared)
 					{
-						shortestDistance = distance;
+						minDistanceSquared = distanceSquared;
 						currentHero = king;
 						currentVillain = target;
 					}
@@ -270,23 +269,6 @@ public static class Engine
 			}
 		}
 		return possibleMoves.Count > 0;
-	}
-
-	public static double GetPointDistance((int X, int Y) first, (int X, int Y) second)
-	{
-		// Easiest cases are points on the same vertical or horizontal axis
-		if (first.X == second.X)
-		{
-			return Math.Abs(first.Y - second.Y);
-		}
-		if (first.Y == second.Y)
-		{
-			return Math.Abs(first.X - second.X);
-		}
-		// Pythagoras baby
-		double sideA = Math.Abs(first.Y - second.Y);
-		double sideB = Math.Abs(first.X - second.X);
-		return Math.Sqrt(Math.Pow(sideA, 2) + Math.Pow(sideB, 2));
 	}
 
 	public static List<(int X, int Y)> WhereIsVillain(Piece hero, Piece villain)
