@@ -112,7 +112,6 @@ void RenderGameState(Game game, Player? playerMoved = null, (int X, int Y)? sele
 
 	Console.CursorVisible = false;
 	Console.SetCursorPosition(0, 0);
-	char B(int x, int y) => (x, y) == selection ? '$' : ToChar(game.Board[x, y]);
 	StringBuilder sb = new();
 	sb.AppendLine();
 	sb.AppendLine("  Checkers");
@@ -133,6 +132,12 @@ void RenderGameState(Game game, Player? playerMoved = null, (int X, int Y)? sele
 	{
 		sb.Replace(" $ ", $"[{ToChar(game.Board[selection.Value.X, selection.Value.Y])}]");
 	}
+	if (game.Board.Aggressor is not null)
+	{
+		sb.Replace(" @ ", $"<{ToChar(game.Board.Aggressor)}>");
+		sb.Replace("@ ",  $"{ToChar(game.Board.Aggressor)}>");
+		sb.Replace(" @",  $"<{ToChar(game.Board.Aggressor)}");
+	}
 	PieceColor? wc = game.Winner;
 	PieceColor? mc = playerMoved?.Color;
 	PieceColor? tc = game.Turn;
@@ -149,6 +154,11 @@ void RenderGameState(Game game, Player? playerMoved = null, (int X, int Y)? sele
 	string s = "                              ";
 	sb.AppendLine(promptPressKey ? p : s);
 	Console.Write(sb);
+
+	char B(int x, int y) =>
+		(x, y) == selection ? '$' :
+		(game.Board.Aggressor is not null && game.Board[x, y] == game.Board.Aggressor) ? '@' :
+		ToChar(game.Board[x, y]);
 
 	static char ToChar(Piece? piece) =>
 		piece is null ? Vacant :
