@@ -59,22 +59,31 @@ Game ShowIntroScreenAndGetOption()
 
 void RunGameLoop(Game game)
 {
-	while (game!.Winner is null)
+	while (game.Winner is null)
 	{
-		Player? currentPlayer = game.Players.FirstOrDefault(player => player.Color == game.Turn);
+		Player currentPlayer = game.Players.First(player => player.Color == game.Turn);
 		if (currentPlayer is not null && currentPlayer.IsHuman)
 		{
 			while (game.Turn == currentPlayer.Color)
 			{
-				(int X, int Y)? from = null;
+				(int X, int Y)? selectionStart = null;
+				(int X, int Y)? from = game.Board.Aggressor is not null ? (game.Board.Aggressor.X, game.Board.Aggressor.Y) : null;
+				List<Move> moves = game.Board.GetPossibleMoves(game.Turn);
+				if (moves.Select(move => move.PieceToMove).Distinct().Count() is 1)
+				{
+					Move must = moves.First();
+					from = (must.PieceToMove.X, must.PieceToMove.Y);
+					selectionStart = must.To;
+				}
 				(int X, int Y)? to = null;
 				while (to is null)
 				{
 					while (from is null)
 					{
 						from = HumanMoveSelection(game);
+						selectionStart = from;
 					}
-					to = HumanMoveSelection(game, selectionStart: from);
+					to = HumanMoveSelection(game, selectionStart: selectionStart, from: from);
 				}
 				Piece? piece = null;
 				if (from is not null)
@@ -88,13 +97,40 @@ void RunGameLoop(Game game)
 				}
 				if (from is not null && to is not null)
 				{
-					game.NextTurn(from, to);
+					Move? move = game.Board.ValidateMove(game.Turn, from.Value, to.Value);
+					if (move is not null &&
+						(game.Board.Aggressor is null || move.PieceToMove == game.Board.Aggressor))
+					{
+						game.PerformMove(move);
+					}
 				}
 			}
 		}
 		else
 		{
-			game.NextTurn();
+			List<Move>? moves = game.Board.GetPossibleMoves(game.Turn);
+			List<Move>? captures = moves.Where(move => move.PieceToCapture is not null).ToList();
+			if (captures.Count > 0)
+			{
+				game.PerformMove(captures[Random.Shared.Next(captures.Count)]);
+			}
+			else if(!game.Board.Pieces.Any(piece => piece.Color == game.Turn && !piece.Promoted))
+			{
+				var (a, b) = game.Board.GetClosestRivalPieces(game.Turn);
+				Move? priorityMove = moves.FirstOrDefault(move => move.PieceToMove == a && game.Board.IsTowards(move, b));
+				if (priorityMove is not null)
+				{
+					game.PerformMove(priorityMove);
+				}
+				else
+				{
+					game.PerformMove(moves[Random.Shared.Next(moves.Count)]);
+				}
+			}
+			else
+			{
+				game.PerformMove(moves[Random.Shared.Next(moves.Count)]);
+			}
 		}
 
 		RenderGameState(game, playerMoved: currentPlayer, promptPressKey: true);
@@ -102,7 +138,7 @@ void RunGameLoop(Game game)
 	}
 }
 
-void RenderGameState(Game game, Player? playerMoved = null, (int X, int Y)? selection = null, bool promptPressKey = false)
+void RenderGameState(Game game, Player? playerMoved = null, (int X, int Y)? selection = null, (int X, int Y)? from = null, bool promptPressKey = false)
 {
 	const char BlackPiece = '○';
 	const char BlackKing  = '☺';
@@ -132,11 +168,12 @@ void RenderGameState(Game game, Player? playerMoved = null, (int X, int Y)? sele
 	{
 		sb.Replace(" $ ", $"[{ToChar(game.Board[selection.Value.X, selection.Value.Y])}]");
 	}
-	if (game.Board.Aggressor is not null)
+	if (from is not null)
 	{
-		sb.Replace(" @ ", $"<{ToChar(game.Board.Aggressor)}>");
-		sb.Replace("@ ",  $"{ToChar(game.Board.Aggressor)}>");
-		sb.Replace(" @",  $"<{ToChar(game.Board.Aggressor)}");
+		char fromChar = ToChar(game.Board[from.Value.X, from.Value.Y]);
+		sb.Replace(" @ ", $"<{fromChar}>");
+		sb.Replace("@ ",  $"{fromChar}>");
+		sb.Replace(" @",  $"<{fromChar}");
 	}
 	PieceColor? wc = game.Winner;
 	PieceColor? mc = playerMoved?.Color;
@@ -157,7 +194,7 @@ void RenderGameState(Game game, Player? playerMoved = null, (int X, int Y)? sele
 
 	char B(int x, int y) =>
 		(x, y) == selection ? '$' :
-		(game.Board.Aggressor is not null && game.Board[x, y] == game.Board.Aggressor) ? '@' :
+		(x, y) == from ? '@' :
 		ToChar(game.Board[x, y]);
 
 	static char ToChar(Piece? piece) =>
@@ -172,12 +209,12 @@ void RenderGameState(Game game, Player? playerMoved = null, (int X, int Y)? sele
 		};
 }
 
-(int X, int Y)? HumanMoveSelection(Game game, (int X, int y)? selectionStart = null)
+(int X, int Y)? HumanMoveSelection(Game game, (int X, int y)? selectionStart = null, (int X, int Y)? from = null)
 {
 	(int X, int Y) selection = selectionStart ?? (3, 3);
 	while (true)
 	{
-		RenderGameState(game, selection: selection);
+		RenderGameState(game, selection: selection, from: from);
 		switch (Console.ReadKey(true).Key)
 		{
 			case ConsoleKey.DownArrow:  selection.Y = Math.Max(0, selection.Y - 1); break;

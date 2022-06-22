@@ -6,12 +6,12 @@ public class Move
 
 	public (int X, int Y) To { get; set; }
 
-	public (int X, int Y)? Capturing { get; set; }
+	public Piece? PieceToCapture { get; set; }
 
-	public Move(Piece piece, (int X, int Y) to, (int X, int Y)? capturing = null)
+	public Move(Piece pieceToMove, (int X, int Y) to, Piece? pieceToCapture = null)
 	{
-		PieceToMove = piece;
+		PieceToMove = pieceToMove;
 		To = to;
-		Capturing = capturing;
+		PieceToCapture = pieceToCapture;
 	}
 }
