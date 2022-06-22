@@ -22,33 +22,32 @@ public class Game
 		Winner = null;
 	}
 
-	public void NextTurn((int X, int Y)? from = null, (int X, int Y)? to = null)
+	public void PerformMove(Move move)
 	{
-		MoveOutcome? moveOutcome = Engine.PlayNextMove(Turn, Board, from, to);
-		while (from is null && to is null && moveOutcome is MoveOutcome.CaptureMoreAvailable)
+		(move.PieceToMove.X, move.PieceToMove.Y) = move.To;
+		if ((move.PieceToMove.Color is Black && move.To.Y is 7) ||
+			(move.PieceToMove.Color is White && move.To.Y is 0))
 		{
-			moveOutcome = Engine.PlayNextMove(Turn, Board, from, to);
+			move.PieceToMove.Promoted = true;
 		}
-		if (moveOutcome is MoveOutcome.BlackWin)
+		if (move.PieceToCapture is not null)
 		{
-			Winner = Black;
+			Board.Pieces.Remove(move.PieceToCapture);
 		}
-		if (moveOutcome is MoveOutcome.WhiteWin)
+		if (move.PieceToCapture is not null &&
+			Board.GetPossibleMoves(move.PieceToMove).Any(move => move.PieceToCapture is not null))
 		{
-			Winner = White;
+			Board.Aggressor = move.PieceToMove;
 		}
-		if (Winner is null && moveOutcome is not MoveOutcome.CaptureMoreAvailable)
+		else
 		{
-			CheckColorsHavePiecesLeft();
+			Board.Aggressor = null;
 			Turn = Turn is Black ? White : Black;
 		}
-		if (moveOutcome is null)
-		{
-			Turn = Turn is Black ? White : Black;
-		}
+		CheckForWinner();
 	}
 
-	public void CheckColorsHavePiecesLeft()
+	public void CheckForWinner()
 	{
 		if (!Board.Pieces.Any(piece => piece.Color is Black))
 		{
@@ -57,6 +56,10 @@ public class Game
 		if (!Board.Pieces.Any(piece => piece.Color is White))
 		{
 			Winner = Black;
+		}
+		if (Winner is null && Board.GetPossibleMoves(Turn).Count is 0)
+		{
+			Winner = Turn is Black ? White : Black;
 		}
 	}
 
