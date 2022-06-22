@@ -1,18 +1,13 @@
-﻿const char BlackPiece = '○';
-const char BlackKing  = '☺';
-const char WhitePiece = '◙';
-const char WhiteKing  = '☻';
-const char Vacant     = '·';
-
-Encoding encoding = Console.OutputEncoding;
-Game? game = null;
+﻿Encoding encoding = Console.OutputEncoding;
 
 try
 {
 	Console.OutputEncoding = Encoding.UTF8;
-	ShowIntroScreenAndGetOption();
-	RunGameLoop();
-	HandleGameOver();
+	Game game = ShowIntroScreenAndGetOption();
+	Console.Clear();
+	RunGameLoop(game);
+	RenderGameState(game, promptPressKey: true);
+	Console.ReadKey(true);
 }
 finally
 {
@@ -22,7 +17,7 @@ finally
 	Console.Write("Checkers was closed.");
 }
 
-void ShowIntroScreenAndGetOption()
+Game ShowIntroScreenAndGetOption()
 {
 	Console.Clear();
 	Console.WriteLine();
@@ -59,10 +54,10 @@ void ShowIntroScreenAndGetOption()
 		entry = Console.ReadLine()?.Trim();
 	}
 	int humanPlayerCount = entry[0] - '0';
-	game = new Game(humanPlayerCount);
+	return new Game(humanPlayerCount);
 }
 
-void RunGameLoop()
+void RunGameLoop(Game game)
 {
 	while (game!.Winner is null)
 	{
@@ -77,9 +72,9 @@ void RunGameLoop()
 				{
 					while (from is null)
 					{
-						from = HumanMoveSelection();
+						from = HumanMoveSelection(game);
 					}
-					to = HumanMoveSelection(selectionStart: from);
+					to = HumanMoveSelection(game, selectionStart: from);
 				}
 				Piece? piece = null;
 				if (from is not null)
@@ -102,87 +97,77 @@ void RunGameLoop()
 			game.NextTurn();
 		}
 
-		RenderGameState(playerMoved: currentPlayer);
-		PressAnyKeyToContinue();
+		RenderGameState(game, playerMoved: currentPlayer, promptPressKey: true);
+		Console.ReadKey(true);
 	}
 }
 
-void HandleGameOver()
+void RenderGameState(Game game, Player? playerMoved = null, (int X, int Y)? selection = null, bool promptPressKey = false)
 {
-	RenderGameState();
-}
+	const char BlackPiece = '○';
+	const char BlackKing  = '☺';
+	const char WhitePiece = '◙';
+	const char WhiteKing  = '☻';
+	const char Vacant     = '·';
 
-void PressAnyKeyToContinue()
-{
-	const string prompt = "  Press any key to cotinue...";
-	(int left, int top) = (Console.CursorLeft, Console.CursorTop);
-	Console.Write(prompt);
-	Console.ReadKey(true);
-	Console.SetCursorPosition(left, top);
-	Console.Write(new string(' ', prompt.Length));
-}
-
-void RenderGameState(Player? playerMoved = null, (int X, int Y)? selection = null)
-{
 	Console.CursorVisible = false;
-	Console.Clear();
-	Dictionary<(int X, int Y), char> tiles = new();
-	foreach (Piece piece in game!.Board.Pieces)
-	{
-		tiles[(piece.X, piece.Y)] = ToChar(piece);
-	}
-	char C(int x, int y) => (x, y) == selection ? '$' : tiles.GetValueOrDefault((x, y), Vacant);
+	Console.SetCursorPosition(0, 0);
+	char B(int x, int y) => (x, y) == selection ? '$' : ToChar(game.Board[x, y]);
 	StringBuilder sb = new();
 	sb.AppendLine();
 	sb.AppendLine("  Checkers");
 	sb.AppendLine();
 	sb.AppendLine($"    ╔═══════════════════╗");
-	sb.AppendLine($"  8 ║  {C(0, 7)} {C(1, 7)} {C(2, 7)} {C(3, 7)} {C(4, 7)} {C(5, 7)} {C(6, 7)} {C(7, 7)}  ║ {BlackPiece} = Black");
-	sb.AppendLine($"  7 ║  {C(0, 6)} {C(1, 6)} {C(2, 6)} {C(3, 6)} {C(4, 6)} {C(5, 6)} {C(6, 6)} {C(7, 6)}  ║ {BlackKing} = Black King");
-	sb.AppendLine($"  6 ║  {C(0, 5)} {C(1, 5)} {C(2, 5)} {C(3, 5)} {C(4, 5)} {C(5, 5)} {C(6, 5)} {C(7, 5)}  ║ {WhitePiece} = White");
-	sb.AppendLine($"  5 ║  {C(0, 4)} {C(1, 4)} {C(2, 4)} {C(3, 4)} {C(4, 4)} {C(5, 4)} {C(6, 4)} {C(7, 4)}  ║ {WhiteKing} = White King");
-	sb.AppendLine($"  4 ║  {C(0, 3)} {C(1, 3)} {C(2, 3)} {C(3, 3)} {C(4, 3)} {C(5, 3)} {C(6, 3)} {C(7, 3)}  ║");
-	sb.AppendLine($"  3 ║  {C(0, 2)} {C(1, 2)} {C(2, 2)} {C(3, 2)} {C(4, 2)} {C(5, 2)} {C(6, 2)} {C(7, 2)}  ║ Taken:");
-	sb.AppendLine($"  2 ║  {C(0, 1)} {C(1, 1)} {C(2, 1)} {C(3, 1)} {C(4, 1)} {C(5, 1)} {C(6, 1)} {C(7, 1)}  ║ {game.TakenCount(White),2} x {WhitePiece}");
-	sb.AppendLine($"  1 ║  {C(0, 0)} {C(1, 0)} {C(2, 0)} {C(3, 0)} {C(4, 0)} {C(5, 0)} {C(6, 0)} {C(7, 0)}  ║ {game.TakenCount(Black),2} x {BlackPiece}");
+	sb.AppendLine($"  8 ║  {B(0, 7)} {B(1, 7)} {B(2, 7)} {B(3, 7)} {B(4, 7)} {B(5, 7)} {B(6, 7)} {B(7, 7)}  ║ {BlackPiece} = Black");
+	sb.AppendLine($"  7 ║  {B(0, 6)} {B(1, 6)} {B(2, 6)} {B(3, 6)} {B(4, 6)} {B(5, 6)} {B(6, 6)} {B(7, 6)}  ║ {BlackKing} = Black King");
+	sb.AppendLine($"  6 ║  {B(0, 5)} {B(1, 5)} {B(2, 5)} {B(3, 5)} {B(4, 5)} {B(5, 5)} {B(6, 5)} {B(7, 5)}  ║ {WhitePiece} = White");
+	sb.AppendLine($"  5 ║  {B(0, 4)} {B(1, 4)} {B(2, 4)} {B(3, 4)} {B(4, 4)} {B(5, 4)} {B(6, 4)} {B(7, 4)}  ║ {WhiteKing} = White King");
+	sb.AppendLine($"  4 ║  {B(0, 3)} {B(1, 3)} {B(2, 3)} {B(3, 3)} {B(4, 3)} {B(5, 3)} {B(6, 3)} {B(7, 3)}  ║");
+	sb.AppendLine($"  3 ║  {B(0, 2)} {B(1, 2)} {B(2, 2)} {B(3, 2)} {B(4, 2)} {B(5, 2)} {B(6, 2)} {B(7, 2)}  ║ Taken:");
+	sb.AppendLine($"  2 ║  {B(0, 1)} {B(1, 1)} {B(2, 1)} {B(3, 1)} {B(4, 1)} {B(5, 1)} {B(6, 1)} {B(7, 1)}  ║ {game.TakenCount(White),2} x {WhitePiece}");
+	sb.AppendLine($"  1 ║  {B(0, 0)} {B(1, 0)} {B(2, 0)} {B(3, 0)} {B(4, 0)} {B(5, 0)} {B(6, 0)} {B(7, 0)}  ║ {game.TakenCount(Black),2} x {BlackPiece}");
 	sb.AppendLine($"    ╚═══════════════════╝");
 	sb.AppendLine($"       A B C D E F G H");
 	sb.AppendLine();
 	if (selection is not null)
 	{
-		sb.Replace(" $ ", $"[{tiles.GetValueOrDefault(selection.Value, Vacant)}]");
+		sb.Replace(" $ ", $"[{ToChar(game.Board[selection.Value.X, selection.Value.Y])}]");
 	}
-	if (game.Winner is not null)
-	{
-		sb.AppendLine($"  *** {game.Winner} wins ***");
-	}
-	else if (playerMoved is not null)
-	{
-		sb.AppendLine($"  {playerMoved.Color} moved");
-	}
-	else
-	{
-		sb.AppendLine($"  {game.Turn}'s turn");
-	}
+	PieceColor? wc = game.Winner;
+	PieceColor? mc = playerMoved?.Color;
+	PieceColor? tc = game.Turn;
+	// Note: these strings need to match in length
+	// so they overwrite each other.
+	string w = $"  *** {wc} wins ***";
+	string m = $"  {mc} moved       ";
+	string t = $"  {tc}'s turn      ";
+	sb.AppendLine(
+		game.Winner is not null ? w :
+		playerMoved is not null ? m :
+		t);
+	string p = "  Press any key to continue...";
+	string s = "                              ";
+	sb.AppendLine(promptPressKey ? p : s);
 	Console.Write(sb);
+
+	static char ToChar(Piece? piece) =>
+		piece is null ? Vacant :
+		(piece.Color, piece.Promoted) switch
+		{
+			(Black, false) => BlackPiece,
+			(Black, true)  => BlackKing,
+			(White, false) => WhitePiece,
+			(White, true)  => WhiteKing,
+			_ => throw new NotImplementedException(),
+		};
 }
 
-static char ToChar(Piece piece) =>
-	(piece.Color, piece.Promoted) switch
-	{
-		(Black, false) => BlackPiece,
-		(Black, true)  => BlackKing,
-		(White, false) => WhitePiece,
-		(White, true)  => WhiteKing,
-		_ => throw new NotImplementedException(),
-	};
-
-(int X, int Y)? HumanMoveSelection((int X, int y)? selectionStart = null)
+(int X, int Y)? HumanMoveSelection(Game game, (int X, int y)? selectionStart = null)
 {
 	(int X, int Y) selection = selectionStart ?? (3, 3);
 	while (true)
 	{
-		RenderGameState(selection: selection);
+		RenderGameState(game, selection: selection);
 		switch (Console.ReadKey(true).Key)
 		{
 			case ConsoleKey.DownArrow:  selection.Y = Math.Max(0, selection.Y - 1); break;
