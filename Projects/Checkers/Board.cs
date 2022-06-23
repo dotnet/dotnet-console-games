@@ -90,7 +90,7 @@ public class Board
 		{
 			if (Aggressor.Color != color)
 			{
-				throw new Exception();
+				throw new Exception($"{nameof(Aggressor)} is not null && {nameof(Aggressor)}.{nameof(Aggressor.Color)} != {nameof(color)}");
 			}
 			moves.AddRange(GetPossibleMoves(Aggressor).Where(move => move.PieceToCapture is not null));
 		}
