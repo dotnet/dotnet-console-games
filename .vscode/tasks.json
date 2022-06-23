@@ -3,6 +3,19 @@
     "tasks":
     [
         {
+            "label": "Build Checkers",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/Checkers/Checkers.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
+        {
             "label": "Build Duck Hunt",
             "command": "dotnet",
             "type": "process",
