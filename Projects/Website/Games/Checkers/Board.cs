@@ -114,15 +114,15 @@ public class Board
 	public List<Move> GetPossibleMoves(Piece piece)
 	{
 		List<Move> moves = new();
-		ValidateMove(-1, -1);
-		ValidateMove(-1, 1);
-		ValidateMove(1, -1);
-		ValidateMove(1, 1);
+		ValidateDiagonalMove(-1, -1);
+		ValidateDiagonalMove(-1,  1);
+		ValidateDiagonalMove( 1, -1);
+		ValidateDiagonalMove( 1,  1);
 		return moves.Any(move => move.PieceToCapture is not null)
 			? moves.Where(move => move.PieceToCapture is not null).ToList()
 			: moves;
 
-		void ValidateMove(int dx, int dy)
+		void ValidateDiagonalMove(int dx, int dy)
 		{
 			if (!piece.Promoted && piece.Color is Black && dy is -1) return;
 			if (!piece.Promoted && piece.Color is White && dy is 1) return;
