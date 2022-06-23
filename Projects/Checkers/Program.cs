@@ -34,7 +34,8 @@ Game ShowIntroScreenAndGetOption()
 	Console.WriteLine("  forwards.");
 	Console.WriteLine();
 	Console.WriteLine("  Pieces are captured by jumping over them diagonally. More than one enemy piece");
-	Console.WriteLine("  can be captured in the same turn by the same piece.");
+	Console.WriteLine("  can be captured in the same turn by the same piece. If you can capture a piece");
+	Console.WriteLine("  you must capture a piece.");
 	Console.WriteLine();
 	Console.WriteLine("  Moves are selected with the arrow keys. Use the [enter] button to select the");
 	Console.WriteLine("  from and to squares. Invalid moves are ignored.");

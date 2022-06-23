@@ -13,20 +13,35 @@
 
 > **Note** This game was a *[Community Contribution](https://github.com/ZacharyPatten/dotnet-console-games/pull/40)!
 
-Checkers is a classic 1v1 board game where you try to take all of your opponent's pieces. You may move pieces diagonally, and you may take your opponent's piece by jumping over their pieces diagonally. You may jump multiple pieces in a single move. You may not move a piece onto a tile that already has a piece on it.
+Checkers is played on an 8x8 board between two sides commonly known as black
+and white. The objective is simple - capture all your opponent's pieces. An
+alternative way to win is to trap your opponent so that they have no valid
+moves left.
+
+Black starts first and players take it in turns to move their pieces forward
+across the board diagonally. Should a piece reach the other side of the board
+the piece becomes a king and can then move diagonally backwards as well as
+forwards.
+
+Pieces are captured by jumping over them diagonally. More than one enemy piece
+can be captured in the same turn by the same piece. If you can capture a piece
+you must capture a piece.
+
+Moves are selected with the arrow keys. Use the [enter] button to select the
+from and to squares. Invalid moves are ignored.
 
 ```
- ╔═══════════════════╗
-8║  . ◙ . ◙ . ◙ . ◙  ║ ○ = Black
-7║  ◙ . ◙ . ◙ . ◙ .  ║ ☺ = Black King
-6║  . ◙ . ◙ . . . ◙  ║ ◙ = White
-5║  . . . . . . ◙ .  ║ ☻ = White King
-4║  . . . ○ . . . .  ║
-3║  ○ . ○ . . . ○ .  ║ Taken:
-2║  . ○ . ○ . ○ . ○  ║ 0 x ◙
-1║  ○ . ○ . ○ . ○ .  ║ 0 x ○
- ╚═══════════════════╝
-    A B C D E F G H
+    ╔═══════════════════╗
+  8 ║  . ◙ . ◙ . ◙ . ◙  ║ ○ = Black
+  7 ║  ◙ . ◙ . ◙ . ◙ .  ║ ☺ = Black King
+  6 ║  . ◙ . ◙ . . . ◙  ║ ◙ = White
+  5 ║  . . . . . . ◙ .  ║ ☻ = White King
+  4 ║  . . . ○ . . . .  ║
+  3 ║  ○ . ○ . . . ○ .  ║ Taken:
+  2 ║  . ○ . ○ . ○ . ○  ║ 0 x ◙
+  1 ║  ○ . ○ . ○ . ○ .  ║ 0 x ○
+    ╚═══════════════════╝
+       A B C D E F G H
 ```
 
 ## Input
