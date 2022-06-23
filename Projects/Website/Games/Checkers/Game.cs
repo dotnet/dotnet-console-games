@@ -10,9 +10,9 @@ public class Game
 	private const int PiecesPerColor = 12;
 
 	public PieceColor Turn { get; private set; }
-	public Board Board { get; private set; }
+	public Board Board { get; }
 	public PieceColor? Winner { get; private set; }
-	public List<Player> Players { get; private set; }
+	public List<Player> Players { get; }
 
 	public Game(int humanPlayerCount)
 	{
@@ -40,7 +40,7 @@ public class Game
 			Board.Pieces.Remove(move.PieceToCapture);
 		}
 		if (move.PieceToCapture is not null &&
-			Board.GetPossibleMoves(move.PieceToMove).Any(move => move.PieceToCapture is not null))
+			Board.GetPossibleMoves(move.PieceToMove).Any(m => m.PieceToCapture is not null))
 		{
 			Board.Aggressor = move.PieceToMove;
 		}

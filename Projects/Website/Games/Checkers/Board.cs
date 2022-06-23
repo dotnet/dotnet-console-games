@@ -7,7 +7,7 @@ namespace Website.Games.Checkers;
 
 public class Board
 {
-	public List<Piece> Pieces { get; set; }
+	public List<Piece> Pieces { get; }
 
 	public Piece? Aggressor { get; set; }
 
@@ -95,7 +95,7 @@ public class Board
 		{
 			if (Aggressor.Color != color)
 			{
-				throw new Exception();
+				throw new Exception($"{nameof(Aggressor)} is not null && {nameof(Aggressor)}.{nameof(Aggressor.Color)} != {nameof(color)}");
 			}
 			moves.AddRange(GetPossibleMoves(Aggressor).Where(move => move.PieceToCapture is not null));
 		}
@@ -127,18 +127,18 @@ public class Board
 			if (!piece.Promoted && piece.Color is Black && dy is -1) return;
 			if (!piece.Promoted && piece.Color is White && dy is 1) return;
 			(int X, int Y) target = (piece.X + dx, piece.Y + dy);
-			if (!Board.IsValidPosition(target.X, target.Y)) return;
+			if (!IsValidPosition(target.X, target.Y)) return;
 			PieceColor? targetColor = this[target.X, target.Y]?.Color;
 			if (targetColor is null)
 			{
-				if (!Board.IsValidPosition(target.X, target.Y)) return;
+				if (!IsValidPosition(target.X, target.Y)) return;
 				Move newMove = new(piece, target);
 				moves.Add(newMove);
 			}
 			else if (targetColor != piece.Color)
 			{
 				(int X, int Y) jump = (piece.X + 2 * dx, piece.Y + 2 * dy);
-				if (!Board.IsValidPosition(jump.X, jump.Y)) return;
+				if (!IsValidPosition(jump.X, jump.Y)) return;
 				PieceColor? jumpColor = this[jump.X, jump.Y]?.Color;
 				if (jumpColor is not null) return;
 				Move attack = new(piece, jump, this[target.X, target.Y]);
@@ -165,7 +165,7 @@ public class Board
 		return null;
 	}
 
-	public bool IsTowards(Move move, Piece piece)
+	public static bool IsTowards(Move move, Piece piece)
 	{
 		(int Dx, int Dy) a = (move.PieceToMove.X - piece.X, move.PieceToMove.Y - piece.Y);
 		int a_distanceSquared = a.Dx * a.Dx + a.Dy * a.Dy;

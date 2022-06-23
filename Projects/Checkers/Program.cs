@@ -64,7 +64,7 @@ void RunGameLoop(Game game)
 	while (game.Winner is null)
 	{
 		Player currentPlayer = game.Players.First(player => player.Color == game.Turn);
-		if (currentPlayer is not null && currentPlayer.IsHuman)
+		if (currentPlayer.IsHuman)
 		{
 			while (game.Turn == currentPlayer.Color)
 			{
@@ -77,18 +77,14 @@ void RunGameLoop(Game game)
 					from = (must.PieceToMove.X, must.PieceToMove.Y);
 					selectionStart = must.To;
 				}
-				(int X, int Y)? to = null;
 				while (from is null)
 				{
 					from = HumanMoveSelection(game);
 					selectionStart = from;
 				}
-				to = HumanMoveSelection(game, selectionStart: selectionStart, from: from);
+				(int X, int Y)? to = HumanMoveSelection(game, selectionStart: selectionStart, from: from);
 				Piece? piece = null;
-				if (from is not null)
-				{
-					piece = game.Board[from.Value.X, from.Value.Y];
-				}
+				piece = game.Board[from.Value.X, from.Value.Y];
 				if (piece is null || piece.Color != game.Turn)
 				{
 					from = null;
@@ -107,8 +103,8 @@ void RunGameLoop(Game game)
 		}
 		else
 		{
-			List<Move>? moves = game.Board.GetPossibleMoves(game.Turn);
-			List<Move>? captures = moves.Where(move => move.PieceToCapture is not null).ToList();
+			List<Move> moves = game.Board.GetPossibleMoves(game.Turn);
+			List<Move> captures = moves.Where(move => move.PieceToCapture is not null).ToList();
 			if (captures.Count > 0)
 			{
 				game.PerformMove(captures[Random.Shared.Next(captures.Count)]);
@@ -116,7 +112,7 @@ void RunGameLoop(Game game)
 			else if(!game.Board.Pieces.Any(piece => piece.Color == game.Turn && !piece.Promoted))
 			{
 				var (a, b) = game.Board.GetClosestRivalPieces(game.Turn);
-				Move? priorityMove = moves.FirstOrDefault(move => move.PieceToMove == a && game.Board.IsTowards(move, b));
+				Move? priorityMove = moves.FirstOrDefault(move => move.PieceToMove == a && Board.IsTowards(move, b));
 				if (priorityMove is not null)
 				{
 					game.PerformMove(priorityMove);

@@ -2,7 +2,7 @@
 
 public class Board
 {
-	public List<Piece> Pieces { get; set; }
+	public List<Piece> Pieces { get; }
 
 	public Piece? Aggressor { get; set; }
 
@@ -160,7 +160,7 @@ public class Board
 		return null;
 	}
 
-	public bool IsTowards(Move move, Piece piece)
+	public static bool IsTowards(Move move, Piece piece)
 	{
 		(int Dx, int Dy) a = (move.PieceToMove.X - piece.X, move.PieceToMove.Y - piece.Y);
 		int a_distanceSquared = a.Dx * a.Dx + a.Dy * a.Dy;

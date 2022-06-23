@@ -2,8 +2,8 @@
 
 public class Player
 {
-	public bool IsHuman { get; private set; }
-	public PieceColor Color { get; private set; }
+	public bool IsHuman { get; }
+	public PieceColor Color { get; }
 
 	public Player(bool isHuman, PieceColor color)
 	{
