@@ -39,6 +39,8 @@ public class BlazorConsole
 	public int _windowHeight = 35;
 	public int _windowWidth = 80;
 
+	public Encoding OutputEncoding;
+
 	public int WindowHeight
 	{
 		get =>  _windowHeight;
