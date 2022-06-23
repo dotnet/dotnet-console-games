@@ -363,6 +363,16 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Checkers",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Checkers",
+			"program": "${workspaceFolder}/Projects/Checkers/bin/Debug/Checkers.dll",
+			"cwd": "${workspaceFolder}/Projects/Checkers/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Blackjack",
 			"type": "coreclr",
 			"request": "launch",
