@@ -113,14 +113,7 @@ void RunGameLoop(Game game)
 			{
 				var (a, b) = game.Board.GetClosestRivalPieces(game.Turn);
 				Move? priorityMove = moves.FirstOrDefault(move => move.PieceToMove == a && Board.IsTowards(move, b));
-				if (priorityMove is not null)
-				{
-					game.PerformMove(priorityMove);
-				}
-				else
-				{
-					game.PerformMove(moves[Random.Shared.Next(moves.Count)]);
-				}
+				game.PerformMove(priorityMove ?? moves[Random.Shared.Next(moves.Count)]);
 			}
 			else
 			{
