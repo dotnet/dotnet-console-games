@@ -14,7 +14,7 @@ public class Checkers
 	public async Task Run()
 	{
 
-		Encoding encoding = Console.OutputEncoding;
+		Encoding? encoding = Console.OutputEncoding;
 
 		try
 		{
