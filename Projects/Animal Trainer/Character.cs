@@ -37,10 +37,10 @@
 				Moved = false;
 				if (_mapAnimationFrame >= MapAnimation!.Length)
 				{
-					if (MapAnimation == Sprites.RunUp)    { Moved = true; MapAnimation = Sprites.IdleUp;    }
-					if (MapAnimation == Sprites.RunDown)  { Moved = true; MapAnimation = Sprites.IdleDown;  }
-					if (MapAnimation == Sprites.RunLeft)  { Moved = true; MapAnimation = Sprites.IdleLeft;  }
-					if (MapAnimation == Sprites.RunRight) { Moved = true; MapAnimation = Sprites.IdleRight; }
+					if (MapAnimation == Sprites.RunUp) { Moved = true; MapAnimation = Sprites.Idle; }
+					if (MapAnimation == Sprites.RunDown) { Moved = true; MapAnimation = Sprites.Idle; }
+					if (MapAnimation == Sprites.RunLeft) { Moved = true; MapAnimation = Sprites.Idle; }
+					if (MapAnimation == Sprites.RunRight) { Moved = true; MapAnimation = Sprites.Idle; }
 					_mapAnimationFrame = 0;
 				}
 			}
@@ -48,10 +48,7 @@
 		public bool IsIdle
 		{
 			get =>
-				_mapAnaimation == Sprites.IdleDown ||
-				_mapAnaimation == Sprites.IdleUp ||
-				_mapAnaimation == Sprites.IdleLeft ||
-				_mapAnaimation == Sprites.IdleRight;
+				_mapAnaimation == Sprites.Idle;
 		}
 		public string Render =>
 			_mapAnaimation is not null && _mapAnimationFrame < _mapAnaimation.Length

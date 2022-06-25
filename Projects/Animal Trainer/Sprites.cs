@@ -159,11 +159,21 @@ namespace Animal_Trainer
 			@" /---\ " + "\n" +
 			@"/--\/-\" + "\n" +
 			@"\  /\ /";
+		public const string Sign = // NEW
+			@" ┬─┬─╮ " + "\n" +
+			@" ### │ " + "\n" +
+			@" ### │ " + "\n" +
+			@"     │ ";
+		public const string Grass = // NEW
+			@"░░░░░░░" + "\n" +
+			@"░░░░░░░" + "\n" +
+			@"░░░░░░░" + "\n" +
+			@"░░░░░░░";
 		public const string Fence =
-			@"       " + "\n" +
-			@"       " + "\n" +
 			@"#######" + "\n" +
-			@"#######";
+			@"#_____#" + "\n" +
+			@"#     #" + "\n" +
+			@"#     #";
 		public const string ArrowDown =
 			@"  |-|  " + "\n" +
 			@" _| |_ " + "\n" +
@@ -213,223 +223,85 @@ namespace Animal_Trainer
 		public static readonly string[] RunRight = new[]
 		{
 			// 0
-			@"   O   " + '\n' +
-			@"   |_  " + '\n' +
-			@"   |>  " + '\n' +
-			@"  /|   ",
+			@"  ╭══╮ " + '\n' +
+			@"  │ '│ " + '\n' +
+			@"  ╰──╯ " + '\n' +
+			@"  │ˍˍ│ " + '\n' +
+			@"  │|\_\ ",
 			// 1
-			@"   O   " + '\n' +
-			@"  <|L  " + '\n' +
-			@"   |_  " + '\n' +
-			@"   |/  ",
+			@"  ╭══╮ " + '\n' +
+			@"  │ '│ " + '\n' +
+			@"  ╰──╯ " + '\n' +
+			@"  │ˍˍ│ " + '\n' +
+			@"  │ˍˍ│ ",
 			// 2
-			@"   O   " + '\n' +
-			@"  L|L  " + '\n' +
-			@"   |_  " + '\n' +
-			@"  /  | ",
+			@"  ╭══╮ " + '\n' +
+			@"  │ '│ " + '\n' +
+			@"  ╰──╯ " + '\n' +
+			@"  │ˍˍ│ " + '\n' +
+			@"  \_\│ ",
 			// 3
-			@"  _O   " + '\n' +
-			@" | |L  " + '\n' +
-			@"   /─  " + '\n' +
-			@"  /  \ ",
-			// 4
-			@"  __O  " + '\n' +
-			@" / /\_ " + '\n' +
-			@"__/\   " + '\n' +
-			@"    \  ",
-			// 5
-			@"   _O  " + '\n' +
-			@"  |/|_ " + '\n' +
-			@"  /\   " + '\n' +
-			@" /  |  ",
-			// 6
-			@"    O  " + '\n' +
-			@"  </L  " + '\n' +
-			@"   \   " + '\n' +
-			@"   /|  ",
+			@"  ╭══╮ " + '\n' +
+			@"  │ '│ " + '\n' +
+			@"  ╰──╯ " + '\n' +
+			@"  │ˍˍ│ " + '\n' +
+			@"  │ˍˍ│ ",
 		};
 
 		public static readonly string[] RunLeft = new[]
 		{
 			// 0
-			@"   O   " + '\n' +
-			@"  _|   " + '\n' +
-			@"  <|   " + '\n' +
-			@"   |\  ",
+			@"  ╭══╮ " + '\n' +
+			@"  │' │ " + '\n' +
+			@"  ╰──╯ " + '\n' +
+			@"  │ˍˍ│ " + '\n' +
+			@" /ˍ/|│ ",
 			// 1
-			@"   O   " + '\n' +
-			@"  >|>  " + '\n' +
-			@"  _|   " + '\n' +
-			@"  \|   ",
+			@"  ╭══╮ " + '\n' +
+			@"  │' │ " + '\n' +
+			@"  ╰──╯ " + '\n' +
+			@"  │ˍˍ│ " + '\n' +
+			@"  │ˍˍ│ ",
 			// 2
-			@"   O   " + '\n' +
-			@"  >|>  " + '\n' +
-			@"  _|   " + '\n' +
-			@" |  \  ",
+			@"  ╭══╮ " + '\n' +
+			@"  │' │ " + '\n' +
+			@"  ╰──╯ " + '\n' +
+			@"  │ˍˍ│ " + '\n' +
+			@"  │/ˍ/ ",
 			// 3
-			@"   O_  " + '\n' +
-			@"  >| | " + '\n' +
-			@"  ─\   " + '\n' +
-			@" /  \  ",
-			// 4
-			@"  O__  " + '\n' +
-			@" _/\ \ " + '\n' +
-			@"   /\__" + '\n' +
-			@"  /    ",
-			// 5
-			@"  O_   " + '\n' +
-			@" _|\|  " + '\n' +
-			@"   /\  " + '\n' +
-			@"  |  \ ",
-			// 6
-			@"  O    " + '\n' +
-			@"  >\>  " + '\n' +
-			@"   /   " + '\n' +
-			@"  |\   ",
+			@"  ╭══╮ " + '\n' +
+			@"  │' │ " + '\n' +
+			@"  ╰──╯ " + '\n' +
+			@"  │ˍˍ│ " + '\n' +
+			@"  │ˍˍ│ ",
 		};
 
 		// would be nice to give up/down their own animations, but
 		// for now they are just copies of left/right
 		public static readonly string[] RunDown = (string[])RunRight.Clone();
-		public static readonly string[] RunUp   = (string[])RunLeft.Clone();
+		public static readonly string[] RunUp = (string[])RunLeft.Clone();
 
-		public static readonly string IdleLeft1 =
-			@"   O   " + '\n' +
-			@"  )|J  " + '\n' +
-			@"   |   " + '\n' +
-			@"  / )  ";
+		public static readonly string Idle1 =
+			@" ╭═══╮ " + '\n' +
+			@" │'_'│ " + '\n' +
+			@"╭╰───╯╮" + '\n' +
+			@"│├───┤│" + '\n' +
+			@" │_|_│ ";
 
-		public static readonly string IdleLeft2 =
-			@"   o   " + '\n' +
-			@"  J))  " + '\n' +
-			@"   |   " + '\n' +
-			@"  ( \  ";
+		public static readonly string Idle2 =
+			@" ╭═══╮ " + '\n' +
+			@" │-_-│ " + '\n' +
+			@"╭╰───╯╮" + '\n' +
+			@"│├───┤│" + '\n' +
+			@" │_|_│ ";
 
-		public static readonly string[] IdleLeft =
-			Enumerable.Repeat(IdleLeft1, 10).Concat(Enumerable.Repeat(IdleLeft2, 10)).ToArray();
-
-		public static readonly string IdleRight1 =
-			@"   O   " + '\n' +
-			@"  L|(  " + '\n' +
-			@"   |   " + '\n' +
-			@"  ( \  ";
-
-		public static readonly string IdleRight2 =
-			@"   o   " + '\n' +
-			@"  ((L  " + '\n' +
-			@"   |   " + '\n' +
-			@"  / )  ";
-
-		public static readonly string[] IdleRight =
-			Enumerable.Repeat(IdleRight1, 10).Concat(Enumerable.Repeat(IdleRight2, 10)).ToArray();
+		public static readonly string[] IdlePlayer =
+			Enumerable.Repeat(Idle1, 100).Concat(Enumerable.Repeat(Idle2, 10)).ToArray();
 
 		// would be nice to give up/down their own animations, but
 		// for now they are just copies of left/right
-		public static readonly string[] IdleDown = (string[])IdleRight.Clone();
-		public static readonly string[] IdleUp   = (string[])IdleLeft.Clone();
+		public static readonly string[] Idle = (string[])IdlePlayer.Clone();
 
-		public static readonly string[] FallLeft = new string[]
-		{
-			// 0
-			@"  O___ " + '\n' +
-			@"   \`- " + '\n' +
-			@"   /\  " + '\n' +
-			@"  / /  ",
-			// 1
-			@"  O___ " + '\n' +
-			@"   \`- " + '\n' +
-			@"   /\  " + '\n' +
-			@"  / /  ",
-			// 2
-			@"  //   " + '\n' +
-			@" O/__  " + '\n' +
-			@"  __/\ " + '\n' +
-			@"     / ",
-			// 3
-			@"  //   " + '\n' +
-			@" O/__  " + '\n' +
-			@"  __/\ " + '\n' +
-			@"     / ",
-			// 4
-			@"       " + '\n' +
-			@"  //   " + '\n' +
-			@" O/__/\" + '\n' +
-			@"      \",
-			// 5
-			@"       " + '\n' +
-			@"  //   " + '\n' +
-			@" O/__/\" + '\n' +
-			@"      \",
-			// 6
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@" o___/\",
-			// 7
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@" o___/\",
-		};
-
-		public static readonly string[] PunchRight = new string[]
-		{
-			// 0
-			@" _o_.  " + '\n' +
-			@" (|    " + '\n' +
-			@"  |    " + '\n' +
-			@" > \   ",
-			// 0
-			@" _o_.  " + '\n' +
-			@" (|    " + '\n' +
-			@"  |    " + '\n' +
-			@" > \   ",
-			// 1
-			@"  o__. " + '\n' +
-			@" (|    " + '\n' +
-			@"  |    " + '\n' +
-			@" / >   ",
-			// 1
-			@"  o__. " + '\n' +
-			@" (|    " + '\n' +
-			@"  |    " + '\n' +
-			@" / >   ",
-			// 2
-			@"  O___." + '\n' +
-			@" L(    " + '\n' +
-			@"  |    " + '\n' +
-			@" / >   ",
-			// 2
-			@"  O___." + '\n' +
-			@" L(    " + '\n' +
-			@"  |    " + '\n' +
-			@" / >   ",
-			// 3
-			@"   o_  " + '\n' +
-			@"  L( \ " + '\n' +
-			@"   |   " + '\n' +
-			@"  > \  ",
-			// 3
-			@"   o_  " + '\n' +
-			@"  L( \ " + '\n' +
-			@"   |   " + '\n' +
-			@"  > \  ",
-			// 4
-			@"   o_  " + '\n' +
-			@"  L( > " + '\n' +
-			@"   |   " + '\n' +
-			@"  > \  ",
-			// 4
-			@"   o_  " + '\n' +
-			@"  L( > " + '\n' +
-			@"   |   " + '\n' +
-			@"  > \  ",
-			// 5
-			@"   o   " + '\n' +
-			@"  (|)  " + '\n' +
-			@"   |   " + '\n' +
-			@"  / \  ",
-		};
 
 		public static readonly string[] IdleBoar = new[]
 		{
@@ -573,90 +445,6 @@ namespace Animal_Trainer
 			@"^..^   " + '\n' +
 			@"(oo) )~" + '\n' +
 			@" ,, ,, ",
-		};
-
-		public static readonly string[] GetUpAnimationRight = new string[]
-		{
-			// 0
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"    __ " + '\n' +
-			@" o__\  ",
-			// 1
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"    __ " + '\n' +
-			@" o__\  ",
-			// 2
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"    /  " + '\n' +
-			@" o__\  ",
-			// 3
-			@"       " + '\n' +
-			@"       " + '\n' +
-			@"    /  " + '\n' +
-			@" o__\  ",
-			// 4
-			@"       " + '\n' +
-			@"    |  " + '\n' +
-			@"    |  " + '\n' +
-			@" o_/   ",
-			// 5
-			@"       " + '\n' +
-			@"    |  " + '\n' +
-			@"    |  " + '\n' +
-			@" o_/   ",
-			// 6
-			@"       " + '\n' +
-			@"    |\ " + '\n' +
-			@" o_/   " + '\n' +
-			@" /\    ",
-			// 7
-			@"       " + '\n' +
-			@"    |\ " + '\n' +
-			@" o_/   " + '\n' +
-			@" /\    ",
-			// 8
-			@"       " + '\n' +
-			@"  /-\  " + '\n' +
-			@"/o/ // " + '\n' +
-			@"       ",
-			// 9
-			@"       " + '\n' +
-			@"  /-\  " + '\n' +
-			@"/o/ // " + '\n' +
-			@"       ",
-			// 10
-			@"       " + '\n' +
-			@" /o|\  " + '\n' +
-			@"     \ " + '\n' +
-			@"    // ",
-			// 11
-			@"       " + '\n' +
-			@" /o|\  " + '\n' +
-			@"     \ " + '\n' +
-			@"    // ",
-			// 12
-			@" __O\  " + '\n' +
-			@"    \  " + '\n' +
-			@"    /\ " + '\n' +
-			@"   / / ",
-			// 13
-			@" __O\  " + '\n' +
-			@"    \  " + '\n' +
-			@"    /\ " + '\n' +
-			@"   / / ",
-			// 14
-			@"       " + '\n' +
-			@"    o  " + '\n' +
-			@"  </<  " + '\n' +
-			@"   >>  ",
-			// 15
-			@"       " + '\n' +
-			@"    o  " + '\n' +
-			@"  </<  " + '\n' +
-			@"   >>  ",
 		};
 	}
 }
