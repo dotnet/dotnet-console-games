@@ -4,7 +4,7 @@
 
 <h1 align="center">
 	dotnet-console-games
-</h1>
+</h1> <!-- Comment -->
 
 <p align="center">
 	<a href="https://github.com/ZacharyPatten/dotnet-console-games" alt="GitHub repo"><img alt="flat" src=".github/resources/github-repo-black.svg"></a>
