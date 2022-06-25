@@ -16,8 +16,9 @@ namespace Animal_Trainer
 		static DateTime previoiusRender = DateTime.Now;
 		static int movesSinceLastBattle;
 		static bool gameRunning = true;
-		const double randomBattleChance = 1d / 10d;
+		const double randomBattleChance = 1d / 1000d;
 		const int movesBeforeRandomBattle = 4;
+
 
 		static Character character
 		{
@@ -58,6 +59,8 @@ namespace Animal_Trainer
 			try
 			{
 				Console.CursorVisible = false;
+				Console.OutputEncoding = Encoding.UTF8;
+
 				Initialize();
 				OpeningScreen();
 				while (gameRunning)
@@ -81,14 +84,14 @@ namespace Animal_Trainer
 
 		static void Initialize()
 		{
-			map = Maps.A;
+			map = Maps.PaletTown;
 			character = new();
 			{
 				var (i, j) = FindTileInMap(map, 'X')!.Value;
 				character.I = i * 7;
 				character.J = j * 4;
 			}
-			character.MapAnimation = Sprites.IdleRight;
+			character.MapAnimation = Sprites.Idle;
 		}
 
 		static void OpeningScreen()
@@ -112,7 +115,7 @@ namespace Animal_Trainer
 		{
 			if (character.MapAnimation == Sprites.RunUp   && character.MapAnimationFrame is 2 or 4 or 6) character.J--;
 			if (character.MapAnimation == Sprites.RunDown && character.MapAnimationFrame is 2 or 4 or 6) character.J++;
-			if (character.MapAnimation == Sprites.RunLeft)  character.I--;
+			if (character.MapAnimation == Sprites.RunLeft) character.I--;
 			if (character.MapAnimation == Sprites.RunRight) character.I++;
 			character.MapAnimationFrame++;
 
@@ -128,16 +131,16 @@ namespace Animal_Trainer
 			movesSinceLastBattle++;
 			switch (map[character.TileJ][character.TileI])
 			{
-				case 'i': SleepAtInn();            break;
-				case 's': ShopAtStore();           break;
-				case 'c': OpenChest();             break;
-				case '0':                          break;
-				case '1':                          break;
-				case '2':                          break;
-				case 'g': FightGuardBoss();        break;
+				case 'i': SleepAtInn(); break;
+				case 's': ShopAtStore(); break;
+				case 'c': OpenChest(); break;
+				case '0': break;
+				case '1': break;
+				case '2': break;
+				case 'g': FightGuardBoss(); break;
 				case ' ': ChanceForRandomBattle(); break;
-				case 'k': FightKing();             break;
-				case 'h': HiddenWaterFountain();   break;
+				case 'k': FightKing(); break;
+				case 'h': HiddenWaterFountain(); break;
 			}
 		}
 
@@ -171,7 +174,7 @@ namespace Animal_Trainer
 
 		static void PressEnterToContiue()
 		{
-		GetInput:
+GetInput:
 			ConsoleKey key = Console.ReadKey(true).Key;
 			switch (key)
 			{
@@ -231,7 +234,7 @@ namespace Animal_Trainer
 
 		static void TransitionMapToTown()
 		{
-			map = Maps.A;
+			map = Maps.PaletTown;
 			var (i, j) = FindTileInMap(map, '1')!.Value;
 			character.I = i * 7;
 			character.J = j * 4;
@@ -385,9 +388,9 @@ namespace Animal_Trainer
 
 			int enemyHealth = enemyType switch
 			{
-				EnemyType.Boar      => 03,
+				EnemyType.Boar => 03,
 				EnemyType.GuardBoss => 20,
-				EnemyType.Guard     => 10,
+				EnemyType.Guard => 10,
 				EnemyType.FinalBoss => 60,
 				_ => 1,
 			};
@@ -467,29 +470,20 @@ namespace Animal_Trainer
 			int frameLeft = 0;
 			int frameRight = 0;
 
-			string[] animationLeft = Sprites.IdleRight;
+			string[] animationLeft = Sprites.Idle;
 			string[] animationRight = enemyType switch
-				{
-					EnemyType.Boar => Sprites.IdleBoar,
-					EnemyType.Guard => Sprites.IdleLeft,
-					EnemyType.GuardBoss => Sprites.IdleLeft,
-					EnemyType.FinalBoss => Sprites.IdleLeft,
-					_ => new[] { Sprites.Error },
-				};
+			{
+				EnemyType.Boar => Sprites.IdleBoar,
+				EnemyType.Guard => Sprites.Idle,
+				EnemyType.GuardBoss => Sprites.Idle,
+				EnemyType.FinalBoss => Sprites.Idle,
+				_ => new[] { Sprites.Error },
+			};
 
 			bool pendingConfirmation = false;
 
 			while (true)
 			{
-				if (animationLeft == Sprites.GetUpAnimationRight && frameLeft == animationLeft.Length - 1)
-				{
-					frameLeft = 0;
-					animationLeft = Sprites.IdleRight;
-				}
-				else if (animationLeft == Sprites.IdleRight || frameLeft < animationLeft.Length - 1)
-				{
-					frameLeft++;
-				}
 				if (frameLeft >= animationLeft.Length) frameLeft = 0;
 				frameRight++;
 				if (frameRight >= animationRight.Length) frameRight = 0;
@@ -505,7 +499,6 @@ namespace Animal_Trainer
 								{
 									case 0:
 										frameLeft = 0;
-										animationLeft = Sprites.PunchRight;
 										combatText = new string[]
 										{
 											"You attacked and did damage!",
@@ -516,7 +509,6 @@ namespace Animal_Trainer
 										break;
 									case 1:
 										frameLeft = 0;
-										animationLeft = Sprites.FallLeft;
 										combatText = new string[]
 										{
 											"You attacked, but the enemy was",
@@ -553,7 +545,6 @@ namespace Animal_Trainer
 								else
 								{
 									frameLeft = 0;
-									animationLeft = Sprites.FallLeft;
 									combatText = new string[]
 									{
 										"You tried to run away but the enemy",
@@ -581,16 +572,6 @@ namespace Animal_Trainer
 							if (pendingConfirmation)
 							{
 								pendingConfirmation = false;
-								if (animationLeft == Sprites.FallLeft && frameLeft == animationLeft.Length - 1)
-								{
-									frameLeft = 0;
-									animationLeft = Sprites.GetUpAnimationRight;
-								}
-								else
-								{
-									frameLeft = 0;
-									animationLeft = Sprites.IdleRight;
-								}
 								combatText = defaultCombatText;
 								if (character.Health <= 0)
 								{
@@ -851,7 +832,7 @@ namespace Animal_Trainer
 				try
 				{
 					if (Console.BufferHeight != height) Console.BufferHeight = height;
-					if (Console.BufferWidth != width)   Console.BufferWidth = width;
+					if (Console.BufferWidth != width) Console.BufferWidth = width;
 				}
 				catch (ArgumentOutOfRangeException)
 				{
