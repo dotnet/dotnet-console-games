@@ -11,12 +11,14 @@
 			return map[tileJ][tileI] switch
 			{
 				'w' => Sprites.Water,
+				'g' => Sprites.Grass,
 				'W' => Sprites.Wall_0000,
 				'b' => Sprites.Building,
 				't' => Sprites.Tree,
+				'T' => Sprites.Tree2,
 				' ' or 'X' => Sprites.Open,
 				'i' => Sprites.Inn,
-				's' => Sprites.Store,
+				'S' => Sprites.Store,
 				'f' => Sprites.Fence,
 				'c' => Sprites.Chest,
 				'e' => Sprites.EmptyChest,
@@ -24,11 +26,11 @@
 				'1' => tileJ < map.Length / 2 ? Sprites.ArrowUp : Sprites.ArrowDown,
 				'm' => Sprites.Mountain,
 				'0' => Sprites.Town,
-				'g' => Sprites.Guard,
+				'G' => Sprites.Guard,
 				'2' => Sprites.Castle,
 				'p' => Sprites.Mountain2,
-				'T' => Sprites.Tree2,
 				'k' => Sprites.King,
+				's' => Sprites.Sign,
 				'h' => Sprites.Wall_0000,
 				_ => Sprites.Error,
 			};
@@ -58,34 +60,38 @@
 			};
 		}
 
-		public static readonly char[][] A = new char[][]
+		public static readonly char[][] Route1 = new char[][] // Not finished
 		{
-			"mmmpmmmmpmmmmmpmmmmmpmmmmmpmmmpmmmpmmmpmm".ToCharArray(),
-			"mmpppppppmmmpppmmmpppppmmppmmmpmmmmpppmmm".ToCharArray(),
-			"mmpmmpmmpmppmmpmpmmpmmpmmmmmmpppmmpmpmmmp".ToCharArray(),
-			"TTTTTc     mpmm    cTT           m2mcmmpp".ToCharArray(),
-			"TTTT        mm                    g   mmm".ToCharArray(),
-			"TTT   TT                 mm           mpm".ToCharArray(),
-			"TTT           TTT      mmmm     TT    ppm".ToCharArray(),
-			"www      T              mm     TTT    www".ToCharArray(),
-			"www          TT    ww           T     www".ToCharArray(),
-			"www                 ww  TTT         wwwww".ToCharArray(),
-			"www   w0w      Tww                 mmmmmm".ToCharArray(),
-			"wwww          wwwwww       TT   cmmmmmmmm".ToCharArray(),
-			"wwwwwwwwwwwwwwwwwwww   TTTTTTTTTTmmmmmmmm".ToCharArray(),
-			"wwwwwwwwwwwwwwwwwwww   TTTTTTTTTTTmmmmmmm".ToCharArray(),
-			"wwwwwwwwwwwwwwwwwwwT   TTTTTTTTTTTTmmmmmm".ToCharArray(),
-			"   WWWWWWWWWWWWWWWWW   WWWWWWWWWWWWWWWWW   ".ToCharArray(),
-			"wwwWbbbfbbbB             Bbffbffbffb  cWwww".ToCharArray(),
-			"wwwW                                   Wwww".ToCharArray(),
-			"wwwW     Bbfb                          Wwww".ToCharArray(),
-			"wwwWcb                          BbbbB  Wwww".ToCharArray(),
-			"wwwW           Bi    c    sB           Wwww".ToCharArray(),
-			"wwwW                                   Wwww".ToCharArray(),
-			"wwwWb   T            X           BbfbfbWwww".ToCharArray(),
-			"wwwW                                  cWwww".ToCharArray(),
-			"wwwWbffbfbffbfbfbbfb   bbfbfbffbfbbfbfbWwww".ToCharArray(),
-			"   WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW   ".ToCharArray(),
+			"mmmpmmmmpmmmmmpmmmmm".ToCharArray(),
+			"mmpppppppmmmpppmmmpp".ToCharArray(),
+			"mmpmmpmmpmppmmpmpmmp".ToCharArray(),
+			"TTTTTc     mpmm    c".ToCharArray(),
+			"TTTT        mm      ".ToCharArray(),
+			"TTT   TT            ".ToCharArray(),
+			"TTT           TTT   ".ToCharArray(),
+			"f        T          ".ToCharArray(),
+			"f            TT    w".ToCharArray(),
+			"f                   ".ToCharArray(),
+			"T                   ".ToCharArray(),
+			"T                   ".ToCharArray(),
+			"Tfffffffff  ffffffff".ToCharArray(),
+			"Tggggggggf  fggggggg".ToCharArray(),
+			"fggggggggf  fggggggg".ToCharArray(),
+		};
+
+		public static readonly char[][] PaletTown = new char[][]
+		{
+			"ffffffffff  ffffffff".ToCharArray(),
+			"f                  f".ToCharArray(),
+			"f    sb       sb   f".ToCharArray(),
+			"f                  f".ToCharArray(),
+			"f    fffs          f".ToCharArray(),
+			"f         X    i   f".ToCharArray(),
+			"f                  f".ToCharArray(),
+			"f   WWWWWW   ffsf  f".ToCharArray(),
+			"f   WwwwwW         f".ToCharArray(),
+			"ff  WwwwwWffffffffff".ToCharArray(),
+			"ffffWwwwwWffffffffff".ToCharArray(),
 		};
 	}
 }
