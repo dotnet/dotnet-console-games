@@ -8,23 +8,75 @@ namespace Animal_Trainer
 			@"       " + "\n" +
 			@"       " + "\n" +
 			@"       " + "\n" +
+			@"       " + "\n" +
 			@"       ";
 		public const string Town =
 			@"╔══ ══╗" + "\n" +
+			@"║▀▀ ▀▀║" + "\n" +
 			@"║▀▀ ▀▀║" + "\n" +
 			@"║▄▄ ▄▄║" + "\n" +
 			@"╚══ ══╝";
 		public const string Castle =
 			@"╔══ ══╗" + "\n" +
 			@"║╔═══╗║" + "\n" +
+			@"║║   ║║" + "\n" +
 			@"║╚═══╝║" + "\n" +
 			@"╚══ ══╝";
-		public const string Building =
+		public const string BuildingSmall =
+			@"       " + "\n" +
 			@" /---\ " + "\n" +
 			@"/-----\" + "\n" +
 			@"|     |" + "\n" +
 			@"|  █  |";
-		public const string Inn =
+
+
+		public const string BuildingLowLargeDoorLeft =
+			@" /-----" + "\n" +
+			@"/------" + "\n" +
+			@"|      " + "\n" +
+			@"|  █   ";
+		public const string BuildingLowLargeDoorRight =
+			@"-----\ " + "\n" +
+			@"------\" + "\n" +
+			@"      |" + "\n" +
+			@"   █  |";
+		public const string BuildingLowLargeLeft =
+			@" /-----" + "\n" +
+			@"/------" + "\n" +
+			@"|      " + "\n" +
+			@"| ▀ ▀  ";
+		public const string BuildingLowLargeRight =
+			@"-----\ " + "\n" +
+			@"------\" + "\n" +
+			@"      |" + "\n" +
+			@" ▀ ▀  |";
+
+
+		public const string BuildingLargeDoorLeft =
+			@"|      " + "\n" +
+			@"|      " + "\n" +
+			@"|      " + "\n" +
+			@"|  █   ";
+		public const string BuildingLargeDoorRight =
+			@"      |" + "\n" +
+			@"      |" + "\n" +
+			@"      |" + "\n" +
+			@"   █  |";
+
+		public const string BuildingLargeLeft =
+			@"|      " + "\n" +
+			@"|      " + "\n" +
+			@"|      " + "\n" +
+			@"|  ▀ ▀ ";
+		public const string BuildingLargeRight =
+			@"      |" + "\n" +
+			@"      |" + "\n" +
+			@"      |" + "\n" +
+			@"  ▀ ▀ |";
+
+
+
+		public const string InnSmall =
 			@" /---\ " + "\n" +
 			@"/-Inn-\" + "\n" +
 			@"|     |" + "\n" +
@@ -53,9 +105,11 @@ namespace Animal_Trainer
 			@"╔═════╗" + "\n" +
 			@"║█████║" + "\n" +
 			@"║█████║" + "\n" +
+			@"║█████║" + "\n" +
 			@"╚═════╝";
 		public const string Wall_0001 =
 			@"══════╗" + "\n" +
+			@"██████║" + "\n" +
 			@"██████║" + "\n" +
 			@"██████║" + "\n" +
 			@"══════╝";
@@ -63,9 +117,11 @@ namespace Animal_Trainer
 			@"╔═════╗" + "\n" +
 			@"║█████║" + "\n" +
 			@"║█████║" + "\n" +
+			@"║█████║" + "\n" +
 			@"║█████║";
 		public const string Wall_0011 =
 			@"══════╗" + "\n" +
+			@"██████║" + "\n" +
 			@"██████║" + "\n" +
 			@"██████║" + "\n" +
 			@"╗█████║";
@@ -73,9 +129,11 @@ namespace Animal_Trainer
 			@"╔══════" + "\n" +
 			@"║██████" + "\n" +
 			@"║██████" + "\n" +
+			@"║██████" + "\n" +
 			@"╚══════";
 		public const string Wall_0101 =
 			@"═══════" + "\n" +
+			@"███████" + "\n" +
 			@"███████" + "\n" +
 			@"███████" + "\n" +
 			@"═══════";
@@ -83,13 +141,16 @@ namespace Animal_Trainer
 			@"╔══════" + "\n" +
 			@"║██████" + "\n" +
 			@"║██████" + "\n" +
+			@"║██████" + "\n" +
 			@"║█████╔";
 		public const string Wall_0111 =
 			@"═══════" + "\n" +
 			@"███████" + "\n" +
 			@"███████" + "\n" +
+			@"███████" + "\n" +
 			@"╗█████╔";
 		public const string Wall_1000 =
+			@"║█████║" + "\n" +
 			@"║█████║" + "\n" +
 			@"║█████║" + "\n" +
 			@"║█████║" + "\n" +
@@ -98,8 +159,10 @@ namespace Animal_Trainer
 			@"╝█████║" + "\n" +
 			@"██████║" + "\n" +
 			@"██████║" + "\n" +
+			@"██████║" + "\n" +
 			@"══════╝";
 		public const string Wall_1010 =
+			@"║█████║" + "\n" +
 			@"║█████║" + "\n" +
 			@"║█████║" + "\n" +
 			@"║█████║" + "\n" +
@@ -108,9 +171,11 @@ namespace Animal_Trainer
 			@"╝█████║" + "\n" +
 			@"██████║" + "\n" +
 			@"██████║" + "\n" +
+			@"██████║" + "\n" +
 			@"╗█████║";
 		public const string Wall_1100 =
 			@"║█████╚" + "\n" +
+			@"║██████" + "\n" +
 			@"║██████" + "\n" +
 			@"║██████" + "\n" +
 			@"╚══════";
@@ -118,9 +183,11 @@ namespace Animal_Trainer
 			@"╝█████╚" + "\n" +
 			@"███████" + "\n" +
 			@"███████" + "\n" +
+			@"███████" + "\n" +
 			@"═══════";
 		public const string Wall_1110 =
 			@"║█████╚" + "\n" +
+			@"║██████" + "\n" +
 			@"║██████" + "\n" +
 			@"║██████" + "\n" +
 			@"║█████╔";
@@ -128,8 +195,10 @@ namespace Animal_Trainer
 			@"╝█████╚" + "\n" +
 			@"███████" + "\n" +
 			@"███████" + "\n" +
+			@"███████" + "\n" +
 			@"╗█████╔";
 		public const string Gate =
+			@"▀▄▀▄▀▄▀" + "\n" +
 			@"▀▄▀▄▀▄▀" + "\n" +
 			@"▀▄▀▄▀▄▀" + "\n" +
 			@"▀▄▀▄▀▄▀" + "\n" +
@@ -138,44 +207,59 @@ namespace Animal_Trainer
 			@" /---\ " + "\n" +
 			@" \___/ " + "\n" +
 			@"  | |  " + "\n" +
+			@"  | |  " + "\n" +
 			@"  / \  ";
 		public const string Tree2 =
 			@"  (@@) " + "\n" +
 			@" (@@@@)" + "\n" +
 			@"   ||  " + "\n" +
+			@"   ||  " + "\n" +
 			@"   ||  ";
 		public const string Barrels1 =
 			@"       " + "\n" +
-			@"  /---\ " + "\n" +
+			@"       " + "\n" +
+			@"  /---\" + "\n" +
 			@"/-\/-\|" + "\n" +
 			@"\ /\ //";
 		public const string Barrels2 =
+			@"       " + "\n" +
 			@"       " + "\n" +
 			@"/---\  " + "\n" +
 			@"|/-\/-\" + "\n" +
 			@"\\ /\ /";
 		public const string Barrels3 =
 			@"       " + "\n" +
+			@"       " + "\n" +
 			@" /---\ " + "\n" +
 			@"/--\/-\" + "\n" +
 			@"\  /\ /";
-		public const string Sign = // NEW
-			@" ┬─┬─╮ " + "\n" +
-			@" ### │ " + "\n" +
-			@" ### │ " + "\n" +
-			@"     │ ";
-		public const string Grass = // NEW
+		public const string Sign = // NEW (TBC)
+			@" ┬──┬─╮" + "\n" +
+			@"╭┴──┴╮│" + "\n" +
+			@"│ʣʨʢʬ││" + "\n" +
+			@"╰────╯│" + "\n" +
+			@"      │";
+		public const string GrassDec = // NEW
+			@"░░░░░░░" + "\n" +
 			@"░░░░░░░" + "\n" +
 			@"░░░░░░░" + "\n" +
 			@"░░░░░░░" + "\n" +
 			@"░░░░░░░";
-		public const string Fence =
+		public const string Grass =
+			@" v   v " + "\n" +
+			@"v  v  v" + "\n" +
+			@"  v  v " + "\n" +
+			@"v  v  v" + "\n" +
+			@" v  v  ";
+		public const string Fence = // NEW
 			@"#######" + "\n" +
 			@"#_____#" + "\n" +
+			@"#     #" + "\n" +
 			@"#     #" + "\n" +
 			@"#     #";
 		public const string ArrowDown =
 			@"  |-|  " + "\n" +
+			@"  | |  " + "\n" +
 			@" _| |_ " + "\n" +
 			@" \   / " + "\n" +
 			@"  \ /  ";
@@ -183,39 +267,35 @@ namespace Animal_Trainer
 			@"  / \  " + "\n" +
 			@" /_ _\ " + "\n" +
 			@"  | |  " + "\n" +
+			@"  | |  " + "\n" +
 			@"  |_|  ";
 		public const string Mountains =
 			@" /_\   " + "\n" +
 			@"/   /_\" + "\n" +
 			@"/_\/   " + "\n" +
-			@"   \   ";
+			@"   \   " + "\n" +
+			@"    \   ";
 		public const string Mountain =
+			@"       " + "\n" +
 			@"   /\  " + "\n" +
 			@"  /--\ " + "\n" +
 			@" /    \" + "\n" +
 			@"/      ";
 		public const string Mountain2 =
+			@"       " + "\n" +
 			@"   /\  " + "\n" +
 			@"  /\/\ " + "\n" +
 			@" /    \" + "\n" +
 			@"/      ";
 		public const string Mountain3 =
+			@"       " + "\n" +
 			@"   /\  " + "\n" +
 			@"  /**\ " + "\n" +
 			@" /    \" + "\n" +
 			@"/      ";
-		public const string Guard =
-			@" ^  O  " + "\n" +
-			@" |--|> " + "\n" +
-			@" |  |  " + "\n" +
-			@" | | | ";
-		public const string King =
-			@"  'O'  " + "\n" +
-			@"  /|\  " + "\n" +
-			@"   |   " + "\n" +
-			@"  | |  ";
 		public const string Error =
 			@"╔═════╗" + "\n" +
+			@"║error║" + "\n" +
 			@"║error║" + "\n" +
 			@"║error║" + "\n" +
 			@"╚═════╝";

@@ -11,13 +11,13 @@
 			return map[tileJ][tileI] switch
 			{
 				'w' => Sprites.Water,
-				'g' => Sprites.Grass,
+				'g' => Sprites.GrassDec,
 				'W' => Sprites.Wall_0000,
-				'b' => Sprites.Building,
+				'b' => Sprites.BuildingSmall,
 				't' => Sprites.Tree,
 				'T' => Sprites.Tree2,
 				' ' or 'X' => Sprites.Open,
-				'i' => Sprites.Inn,
+				'i' => Sprites.InnSmall,
 				'S' => Sprites.Store,
 				'f' => Sprites.Fence,
 				'c' => Sprites.Chest,
@@ -26,10 +26,8 @@
 				'1' => tileJ < map.Length / 2 ? Sprites.ArrowUp : Sprites.ArrowDown,
 				'm' => Sprites.Mountain,
 				'0' => Sprites.Town,
-				'G' => Sprites.Guard,
 				'2' => Sprites.Castle,
 				'p' => Sprites.Mountain2,
-				'k' => Sprites.King,
 				's' => Sprites.Sign,
 				'h' => Sprites.Wall_0000,
 				_ => Sprites.Error,
@@ -60,7 +58,7 @@
 			};
 		}
 
-		public static readonly char[][] Route1 = new char[][] // Not finished
+		public static readonly char[][] RouteOne1 = new char[][] // Not finished
 		{
 			"mmmpmmmmpmmmmmpmmmmm".ToCharArray(),
 			"mmpppppppmmmpppmmmpp".ToCharArray(),

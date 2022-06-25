@@ -62,7 +62,6 @@ namespace Animal_Trainer
 				Console.OutputEncoding = Encoding.UTF8;
 
 				Initialize();
-				OpeningScreen();
 				while (gameRunning)
 				{
 					UpdateCharacter();
