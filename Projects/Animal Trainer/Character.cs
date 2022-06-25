@@ -27,30 +27,17 @@ public class Character
 		set
 		{
 			_mapAnimationFrame = value;
+			if (MapAnimation == Sprites.RunUp && _mapAnimationFrame is 5) { Moved = true; MapAnimation = Sprites.Idle; _mapAnimationFrame = 0; }
+			if (MapAnimation == Sprites.RunDown && _mapAnimationFrame is 5) { Moved = true; MapAnimation = Sprites.Idle; _mapAnimationFrame = 0; }
+			if (MapAnimation == Sprites.RunLeft && _mapAnimationFrame is 7) { Moved = true; MapAnimation = Sprites.Idle; _mapAnimationFrame = 0; }
+			if (MapAnimation == Sprites.RunRight && _mapAnimationFrame is 7) { Moved = true; MapAnimation = Sprites.Idle; _mapAnimationFrame = 0; }
 			Moved = false;
-			if (_mapAnimationFrame >= MapAnimation!.Length)
-			{
-				if (MapAnimation == Sprites.RunUp) { Moved = true; MapAnimation = Sprites.Idle; }
-				if (MapAnimation == Sprites.RunDown) { Moved = true; MapAnimation = Sprites.Idle; }
-				if (MapAnimation == Sprites.RunLeft) { Moved = true; MapAnimation = Sprites.Idle; }
-				if (MapAnimation == Sprites.RunRight) { Moved = true; MapAnimation = Sprites.Idle; }
-				_mapAnimationFrame = 0;
-			}
 		}
 	}
-	public bool IsIdle
-	{
-		get =>
-			_mapAnaimation == Sprites.Idle;
-	}
-	public string Render =>
-		_mapAnaimation is not null && _mapAnimationFrame < _mapAnaimation.Length
-		? _mapAnaimation[_mapAnimationFrame]
-		: // "T" pose :D
-		  @" __O__ " + '\n' +
-		  @"   |   " + '\n' +
-		  @"   O   " + '\n' +
-		  @"   |   " + '\n' +
-		  @"  | |  ";
+
+	public bool IsIdle => _mapAnaimation == Sprites.Idle;
+
+	public string Render => _mapAnaimation[_mapAnimationFrame % _mapAnaimation.Length];
+
 	public bool Moved { get; set; } = false;
 }
