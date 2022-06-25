@@ -95,8 +95,8 @@ public partial class Program
 
 	static void UpdateCharacter()
 	{
-		if (character.MapAnimation == Sprites.RunUp   && character.MapAnimationFrame is 2 or 4 or 6) character.J--;
-		if (character.MapAnimation == Sprites.RunDown && character.MapAnimationFrame is 2 or 4 or 6) character.J++;
+		if (character.MapAnimation == Sprites.RunUp) character.J--;
+		if (character.MapAnimation == Sprites.RunDown) character.J++;
 		if (character.MapAnimation == Sprites.RunLeft) character.I--;
 		if (character.MapAnimation == Sprites.RunRight) character.I++;
 		character.MapAnimationFrame++;
@@ -279,11 +279,9 @@ public partial class Program
 							switch (key)
 							{
 								case ConsoleKey.UpArrow or ConsoleKey.W:
-									character.J--;
 									character.MapAnimation = Sprites.RunUp;
 									break;
 								case ConsoleKey.DownArrow or ConsoleKey.S:
-									character.J++;
 									character.MapAnimation = Sprites.RunDown;
 									break;
 								case ConsoleKey.LeftArrow or ConsoleKey.A:
