@@ -88,7 +88,7 @@ namespace Animal_Trainer
 			{
 				var (i, j) = FindTileInMap(map, 'X')!.Value;
 				character.I = i * 7;
-				character.J = j * 4;
+				character.J = j * 5;
 			}
 			character.MapAnimation = Sprites.Idle;
 		}
@@ -721,10 +721,10 @@ GetInput:
 					}
 
 					// character
-					if (i > midWidth - 4 && i < midWidth + 4 && j > midHeight - 2 && j < midHeight + 3)
+					if (i > midWidth - 4 && i < midWidth + 4 && j > midHeight - 3 && j < midHeight + 3)
 					{
 						int ci = i - (midWidth - 3);
-						int cj = j - (midHeight - 1);
+						int cj = j - (midHeight - 2);
 						string characterMapRender = character.Render;
 						sb.Append(characterMapRender[cj * 8 + ci]);
 						continue;
@@ -738,11 +738,11 @@ GetInput:
 
 					// compute the coordinates of the tile
 					int tileI = mapI < 0 ? (mapI - 6) / 7 : mapI / 7;
-					int tileJ = mapJ < 0 ? (mapJ - 3) / 4 : mapJ / 4;
+					int tileJ = mapJ < 0 ? (mapJ - 4) / 5 : mapJ / 5;
 
 					// compute the coordinates of the pixel within the tile's sprite
 					int pixelI = mapI < 0 ? 6 + ((mapI + 1) % 7) : (mapI % 7);
-					int pixelJ = mapJ < 0 ? 3 + ((mapJ + 1) % 4) : (mapJ % 4);
+					int pixelJ = mapJ < 0 ? 4 + ((mapJ + 1) % 5) : (mapJ % 5);
 
 					// render pixel from map tile
 					string tileRender = Maps.GetMapTileRender(map, tileI, tileJ);

@@ -28,31 +28,32 @@ namespace Animal_Trainer
 			@"/-----\" + "\n" +
 			@"|     |" + "\n" +
 			@"|  █  |";
-
-
 		public const string BuildingLowLargeDoorLeft =
 			@" /-----" + "\n" +
 			@"/------" + "\n" +
+			@"|      " + "\n" +
 			@"|      " + "\n" +
 			@"|  █   ";
 		public const string BuildingLowLargeDoorRight =
 			@"-----\ " + "\n" +
 			@"------\" + "\n" +
 			@"      |" + "\n" +
+			@"      |" + "\n" +
 			@"   █  |";
 		public const string BuildingLowLargeLeft =
 			@" /-----" + "\n" +
 			@"/------" + "\n" +
+			@"|      " + "\n" +
 			@"|      " + "\n" +
 			@"| ▀ ▀  ";
 		public const string BuildingLowLargeRight =
 			@"-----\ " + "\n" +
 			@"------\" + "\n" +
 			@"      |" + "\n" +
+			@"      |" + "\n" +
 			@" ▀ ▀  |";
-
-
 		public const string BuildingLargeDoorLeft =
+			@"|      " + "\n" +
 			@"|      " + "\n" +
 			@"|      " + "\n" +
 			@"|      " + "\n" +
@@ -61,9 +62,10 @@ namespace Animal_Trainer
 			@"      |" + "\n" +
 			@"      |" + "\n" +
 			@"      |" + "\n" +
+			@"      |" + "\n" +
 			@"   █  |";
-
 		public const string BuildingLargeLeft =
+			@"|      " + "\n" +
 			@"|      " + "\n" +
 			@"|      " + "\n" +
 			@"|      " + "\n" +
@@ -72,21 +74,22 @@ namespace Animal_Trainer
 			@"      |" + "\n" +
 			@"      |" + "\n" +
 			@"      |" + "\n" +
+			@"      |" + "\n" +
 			@"  ▀ ▀ |";
-
-
-
 		public const string InnSmall =
+			@"       " + "\n" +
 			@" /---\ " + "\n" +
 			@"/-Inn-\" + "\n" +
 			@"|     |" + "\n" +
 			@"|  █  |";
 		public const string Store =
+			@"       " + "\n" +
 			@" /---\ " + "\n" +
 			@"/Store\" + "\n" +
 			@"|     |" + "\n" +
 			@"|  █  |";
 		public const string Chest =
+			@"       " + "\n" +
 			@"       " + "\n" +
 			@"  _._  " + "\n" +
 			@" |___| " + "\n" +
@@ -94,9 +97,11 @@ namespace Animal_Trainer
 		public const string EmptyChest =
 			@"       " + "\n" +
 			@"       " + "\n" +
+			@"       " + "\n" +
 			@" |___| " + "\n" +
 			@"       ";
 		public const string Water =
+			@"~~~~~~~" + "\n" +
 			@"~~~~~~~" + "\n" +
 			@"~~~~~~~" + "\n" +
 			@"~~~~~~~" + "\n" +
