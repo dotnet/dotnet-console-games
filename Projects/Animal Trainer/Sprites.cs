@@ -76,6 +76,18 @@ public static class Sprites
 		@"      |" + "\n" +
 		@"      |" + "\n" +
 		@"  ▀ ▀ |";
+	public const string BuildingLargeTopLeft =
+		@"  /----" + "\n" +
+		@" /-----" + "\n" +
+		@"/------" + "\n" +
+		@"| ▄ ▄  " + "\n" +
+		@"|      ";
+	public const string BuildingLargeTopRight =
+		@"----\  " + "\n" +
+		@"-----\ " + "\n" +
+		@"------\" + "\n" +
+		@"  ▄ ▄ |" + "\n" +
+		@"      |";
 	public const string InnSmall =
 		@"       " + "\n" +
 		@" /---\ " + "\n" +

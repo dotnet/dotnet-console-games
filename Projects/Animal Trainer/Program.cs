@@ -93,23 +93,6 @@ public partial class Program
 		character.MapAnimation = Sprites.Idle;
 	}
 
-	static void OpeningScreen()
-	{
-		Console.SetCursorPosition(0, 0);
-		Console.Clear();
-		Console.WriteLine();
-		Console.WriteLine(" Role Playing Game");
-		Console.WriteLine();
-		Console.WriteLine(" You are about to embark on an epic adventure.");
-		Console.WriteLine();
-		Console.WriteLine(" Go find and kill the king in the castle... because why not?");
-		Console.WriteLine();
-		Console.WriteLine(" Note: This game is a work in progress.");
-		Console.WriteLine();
-		Console.Write(" Press [enter] to begin...");
-		PressEnterToContiue();
-	}
-
 	static void UpdateCharacter()
 	{
 		if (character.MapAnimation == Sprites.RunUp   && character.MapAnimationFrame is 2 or 4 or 6) character.J--;
@@ -131,15 +114,13 @@ public partial class Program
 		switch (map[character.TileJ][character.TileI])
 		{
 			case 'i': SleepAtInn(); break;
-			case 's': ShopAtStore(); break;
-			case 'c': OpenChest(); break;
+			//case 's': ShopAtStore(); break;
 			case '0': TransitionMapToTown(); break;
 			case '1': TransitionMapToField(); break;
 			case '2': break;
 			case 'g': FightGuardBoss(); break;
 			case ' ': ChanceForRandomBattle(); break;
 			case 'k': FightKing(); break;
-			case 'h': HiddenWaterFountain(); break;
 		}
 	}
 
@@ -147,13 +128,8 @@ public partial class Program
 	{
 		Console.Clear();
 		Console.WriteLine();
-		Console.WriteLine(" Status");
+		Console.WriteLine(" Animal Status");
 		Console.WriteLine();
-		Console.WriteLine($" Level:      {character.Level}");
-		Console.WriteLine($" Experience: {character.Experience}/{character.ExperienceToNextLevel}");
-		Console.WriteLine($" Health:     {character.Health}/{character.MaxHealth}");
-		Console.WriteLine($" Gold:       {character.Gold}");
-		Console.WriteLine($" Damage:     {character.Damage}");
 		Console.WriteLine();
 		Console.Write(" Press [enter] to continue...");
 		PressEnterToContiue();
@@ -173,7 +149,7 @@ public partial class Program
 
 	static void PressEnterToContiue()
 	{
-GetInput:
+		GetInput:
 		ConsoleKey key = Console.ReadKey(true).Key;
 		switch (key)
 		{
@@ -187,20 +163,6 @@ GetInput:
 		}
 	}
 
-	static void OpenChest()
-	{
-		character.Gold++;
-		map[character.TileJ][character.TileI] = 'e';
-		Console.Clear();
-		Console.WriteLine();
-		Console.WriteLine(" You found a chest! You open it and find some gold. :)");
-		Console.WriteLine();
-		Console.WriteLine($" Gold: {character.Gold}");
-		Console.WriteLine();
-		Console.Write(" Press [enter] to continue...");
-		PressEnterToContiue();
-	}
-
 	static void SleepAtInn()
 	{
 		Console.Clear();
@@ -212,22 +174,7 @@ GetInput:
 		Console.WriteLine(" Your health is restored.");
 		Console.WriteLine();
 		Console.Write(" Press [enter] to continue...");
-		character.Health = character.MaxHealth;
-		PressEnterToContiue();
-	}
-
-	static void HiddenWaterFountain()
-	{
-		Console.Clear();
-		Console.WriteLine();
-		Console.WriteLine(" You walked into the wall and found");
-		Console.WriteLine(" a hidden water fountain that sprays");
-		Console.WriteLine(" Hawaiian Punch.");
-		Console.WriteLine();
-		Console.WriteLine(" Your health is restored.");
-		Console.WriteLine();
-		Console.Write(" Press [enter] to continue...");
-		character.Health = character.MaxHealth;
+		//character.Health = character.MaxHealth;
 		PressEnterToContiue();
 	}
 
@@ -244,34 +191,6 @@ GetInput:
 		var (i, j) = FindTileInMap(map, '0')!.Value;
 		character.I = i * 7;
 		character.J = j * 5;
-	}
-
-	static void ShopAtStore()
-	{
-		Console.Clear();
-		Console.WriteLine();
-		Console.WriteLine(" You enter the store...");
-		Console.WriteLine();
-		if (character.Gold >= 6)
-		{
-			int damage = character.Gold / 6;
-			character.Gold -= damage * 6;
-			character.Damage += damage;
-			Console.WriteLine($" You pay {damage * 6} gold to train your kung fu.");
-			Console.WriteLine();
-			Console.WriteLine($" You gained +{damage} damage on your attacks.");
-		}
-		else if (character.Damage >= 3)
-		{
-			Console.WriteLine($" \"You have learned all that I can teach you.\"");
-		}
-		else
-		{
-			Console.WriteLine($" \"Bring me 6 gold and I will teach you kung fu.\"");
-		}
-		Console.WriteLine();
-		Console.Write(" Press [enter] to continue...");
-		PressEnterToContiue();
 	}
 
 	static void ChanceForRandomBattle()
@@ -391,7 +310,7 @@ GetInput:
 	{
 		movesSinceLastBattle = 0;
 		ranAway = false;
-
+		return;
 		int enemyHealth = enemyType switch
 		{
 			EnemyType.Boar => 03,
@@ -411,65 +330,6 @@ GetInput:
 					"2) run",
 					"3) check status",
 				};
-				break;
-			case EnemyType.GuardBoss:
-				if (character.Level < 2)
-				{
-					combatText = new string[]
-					{
-						"You approached the castle guard.",
-						"He looks tough. You should probably",
-						"run away and come back when you are",
-						"stronger.",
-						"1) attack",
-						"2) run",
-						"3) check status",
-					};
-				}
-				else
-				{
-					combatText = new string[]
-					{
-						"You approached the castle guard.",
-						"1) attack",
-						"2) run",
-						"3) check status",
-					};
-				}
-				break;
-			case EnemyType.Guard:
-				combatText = new string[]
-				{
-					"You were attacked by a castle guard!",
-					"1) attack",
-					"2) run",
-					"3) check status",
-				};
-				break;
-			case EnemyType.FinalBoss:
-				if (character.Level < 3)
-				{
-					combatText = new string[]
-					{
-						"You approached the evil king.",
-						"He looks tough. You should probably",
-						"run away and come back when you are",
-						"stronger.",
-						"1) attack",
-						"2) run",
-						"3) check status",
-					};
-				}
-				else
-				{
-					combatText = new string[]
-					{
-						"You approached the evil king.",
-						"1) attack",
-						"2) run",
-						"3) check status",
-					};
-				}
 				break;
 		}
 
@@ -511,7 +371,7 @@ GetInput:
 										"",
 										"Press [enter] to continue...",
 									};
-									enemyHealth -= character.Damage;
+									//enemyHealth -= character.Damage;
 									break;
 								case 1:
 									frameLeft = 0;
@@ -522,7 +382,7 @@ GetInput:
 										"",
 										"Press [enter] to continue...",
 									};
-									character.Health--;
+									//character.Health--;
 									break;
 							}
 							pendingConfirmation = true;
@@ -559,7 +419,7 @@ GetInput:
 									"",
 									"Press [enter] to continue...",
 								};
-								character.Health--;
+								//character.Health--;
 								pendingConfirmation = true;
 							}
 						}
@@ -579,7 +439,7 @@ GetInput:
 						{
 							pendingConfirmation = false;
 							combatText = defaultCombatText;
-							if (character.Health <= 0)
+							//if (character.Health <= 0)
 							{
 								RenderDeathScreen();
 								gameRunning = false;
@@ -605,13 +465,13 @@ GetInput:
 								Console.WriteLine();
 								Console.WriteLine($" You gained {experienceGain} experience.");
 								Console.WriteLine();
-								character.Experience += experienceGain;
-								if (character.Experience >= character.ExperienceToNextLevel)
+								//character.Experience += experienceGain;
+								//if (character.Experience >= character.ExperienceToNextLevel)
 								{
-									character.Level++;
-									character.Experience = 0;
-									character.ExperienceToNextLevel *= 2;
-									Console.WriteLine($" You grew to level {character.Level}.");
+									//character.Level++;
+									//character.Experience = 0;
+									//character.ExperienceToNextLevel *= 2;
+									//Console.WriteLine($" You grew to level {character.Level}.");
 									Console.WriteLine();
 								}
 								Console.WriteLine();
@@ -741,7 +601,7 @@ GetInput:
 
 				// compute the map location that this screen pixel represents
 				int mapI = i - midWidth  + character.I + 3;
-				int mapJ = j - midHeight + character.J + 1;
+				int mapJ = j - midHeight + character.J + 2;
 
 				// compute the coordinates of the tile
 				int tileI = mapI < 0 ? (mapI - 6) / 7 : mapI / 7;

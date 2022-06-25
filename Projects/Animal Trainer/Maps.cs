@@ -46,7 +46,6 @@ public static class Maps
 		{
 			' ' => true,
 			'i' => true,
-			's' => true,
 			'c' => true,
 			'e' => true,
 			'1' => true,
@@ -108,6 +107,13 @@ public static class Maps
 	public static readonly char[][] PaletTown = new char[][]
 	{
 		"ffffffffff11ffffffff".ToCharArray(),
+		"f                  f".ToCharArray(),
+		"f                  f".ToCharArray(),
+		"f                  f".ToCharArray(),
+		"f                  f".ToCharArray(),
+		"f                  f".ToCharArray(),
+		"f                  f".ToCharArray(),
+		"f                  f".ToCharArray(),
 		"f                  f".ToCharArray(),
 		"f    sb       sb   f".ToCharArray(),
 		"f                  f".ToCharArray(),
