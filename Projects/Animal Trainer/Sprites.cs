@@ -238,13 +238,13 @@ public static class Sprites
 		@" /---\ " + "\n" +
 		@"/--\/-\" + "\n" +
 		@"\  /\ /";
-	public const string Sign = // NEW (TBC)
+	public const string Sign = // Text TBC
 		@" ┬──┬─╮" + "\n" +
 		@"╭┴──┴╮│" + "\n" +
 		@"│ʣʨʢʬ││" + "\n" +
 		@"╰────╯│" + "\n" +
 		@"      │";
-	public const string GrassDec = // NEW
+	public const string GrassDec =
 		@"░░░░░░░" + "\n" +
 		@"░░░░░░░" + "\n" +
 		@"░░░░░░░" + "\n" +
@@ -256,12 +256,18 @@ public static class Sprites
 		@"  v  v " + "\n" +
 		@"v  v  v" + "\n" +
 		@" v  v  ";
-	public const string Fence = // NEW
+	public const string Fence =
 		@"#######" + "\n" +
 		@"#_____#" + "\n" +
 		@"#     #" + "\n" +
 		@"#     #" + "\n" +
 		@"#     #";
+	public const string HalfRock =
+		@"       "+ "\n" +
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"#######" + "\n" +
+		@"#######";
 	public const string ArrowDown =
 		@"  |-|  " + "\n" +
 		@"  | |  " + "\n" +
