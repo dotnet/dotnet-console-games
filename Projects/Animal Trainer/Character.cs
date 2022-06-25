@@ -16,7 +16,7 @@ public class Character
 	// TileI and TileJ represent the character's position in tile coordinates
 	// relative to the current map
 	public int TileI => I < 0 ? (I - 6) / 7 : I / 7;
-	public int TileJ => J < 0 ? (J - 3) / 4 : J / 4;
+	public int TileJ => J < 0 ? (J - 4) / 5 : J / 5;
 	private string[]? _mapAnaimation;
 	public string[]? MapAnimation
 	{

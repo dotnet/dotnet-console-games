@@ -133,8 +133,8 @@ public partial class Program
 			case 'i': SleepAtInn(); break;
 			case 's': ShopAtStore(); break;
 			case 'c': OpenChest(); break;
-			case '0': break;
-			case '1': break;
+			case '0': TransitionMapToTown(); break;
+			case '1': TransitionMapToField(); break;
 			case '2': break;
 			case 'g': FightGuardBoss(); break;
 			case ' ': ChanceForRandomBattle(); break;
@@ -236,7 +236,14 @@ GetInput:
 		map = Maps.PaletTown;
 		var (i, j) = FindTileInMap(map, '1')!.Value;
 		character.I = i * 7;
-		character.J = j * 4;
+		character.J = j * 5;
+	}
+	static void TransitionMapToField()
+	{
+		map = Maps.RouteOne1;
+		var (i, j) = FindTileInMap(map, '0')!.Value;
+		character.I = i * 7;
+		character.J = j * 5;
 	}
 
 	static void ShopAtStore()
