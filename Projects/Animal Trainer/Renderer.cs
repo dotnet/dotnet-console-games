@@ -97,7 +97,7 @@ public static class Renderer
 				int pixelJ = mapJ < 0 ? (Sprites.Height - 1) + ((mapJ + 1) % Sprites.Height) : (mapJ % Sprites.Height);
 
 				// render pixel from map tile
-				string tileRender = Maps.GetMapTileRender(map, tileI, tileJ);
+				string tileRender = map.GetMapTileRender(tileI, tileJ);
 				char c = tileRender[pixelJ * (Sprites.Width + 1) + pixelI];
 				sb.Append(char.IsWhiteSpace(c) ? ' ' : c);
 			}

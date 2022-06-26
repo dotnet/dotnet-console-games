@@ -2,6 +2,9 @@
 global using System.Linq;
 global using System.Text;
 global using static Animal_Trainer._using;
+global using Animal_Trainer.Maps;
+global using Animal_Trainer.Animals;
+global using System.Collections.Generic;
 
 namespace Animal_Trainer;
 
@@ -11,9 +14,10 @@ namespace Animal_Trainer;
 public static class _using
 {
 	public static Character character = new();
-	public static char[][] map = Maps.PaletTown;
+	public static Map map = new PaletTown();
 	public static DateTime previoiusRender = DateTime.Now;
 	public static bool gameRunning = true;
+	public static List<Animal> ownedAnimals = new();
 
 	public static readonly string[] maptext = new[]
 	{
@@ -25,8 +29,8 @@ public static class _using
 
 	static _using()
 	{
-		map = Maps.PaletTown;
-		var (i, j) = Maps.FindTileInMap(map, 'X')!.Value;
+		map = new PaletTown();
+		var (i, j) = Map.FindTileInMap(map, 'X')!.Value;
 		character = new()
 		{
 			I = i * Sprites.Width,

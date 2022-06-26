@@ -58,12 +58,20 @@ public partial class Program
 			(character.Animation == Sprites.RunLeft    && character.AnimationFrame >= Sprites.Width) ||
 			(character.Animation == Sprites.RunRight   && character.AnimationFrame >= Sprites.Width))
 		{
-			var (i, j) = Maps.ScreenToTile(character.I, character.J);
-			switch (map[j][i])
+			var (i, j) = Map.ScreenToTile(character.I, character.J);
+			var s = map.SpriteSheet();
+			switch (s[j][i])
 			{
 				case 'v': EnterVet(); break;
-				case '0': Maps.TransitionMapToTown(); break;
-				case '1': Maps.TransitionMapToField(); break;
+				case '0': Map.TransitionMapToTown(); break;
+				case '1': Map.TransitionMapToField(); break;
+				case 'G':
+					if(Random.Shared.Next(3) is 0)
+					{
+						Console.Clear();
+						Console.WriteLine("Battle");
+						Console.ReadKey(true);
+					} break;
 			}
 
 			character.Animation = Sprites.IdlePlayer;
@@ -124,7 +132,7 @@ public partial class Program
 					ConsoleKey.RightArrow or ConsoleKey.D:
 					if (character.Animation == Sprites.IdlePlayer)
 					{
-						var (i, j) = Maps.ScreenToTile(character.I, character.J);
+						var (i, j) = Map.ScreenToTile(character.I, character.J);
 						(i, j) = key switch
 						{
 							ConsoleKey.UpArrow    or ConsoleKey.W => (i, j - 1),
@@ -133,7 +141,7 @@ public partial class Program
 							ConsoleKey.RightArrow or ConsoleKey.D => (i + 1, j),
 							_ => throw new Exception("bug"),
 						};
-						if (Maps.IsValidCharacterMapTile(map, i, j))
+						if (map.IsValidCharacterMapTile(i, j))
 						{
 							switch (key)
 							{
