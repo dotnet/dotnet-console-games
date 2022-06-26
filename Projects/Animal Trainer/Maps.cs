@@ -19,7 +19,7 @@ public static class Maps
 			'T' => Sprites.Tree2,
 			'r' => Sprites.HalfRock,
 			' ' or 'X' => Sprites.Open,
-			'i' => Sprites.InnSmall,
+			'v' => Sprites.VetSmall,
 			'S' => Sprites.Store,
 			'f' => Sprites.Fence,
 			'c' => Sprites.Chest,
@@ -45,7 +45,7 @@ public static class Maps
 		return map[tileJ][tileI] switch
 		{
 			' ' => true,
-			'i' => true,
+			'v' => true,
 			'c' => true,
 			'e' => true,
 			'1' => true,
@@ -118,7 +118,7 @@ public static class Maps
 		"f    sb       sb   f".ToCharArray(),
 		"f                  f".ToCharArray(),
 		"f    fffs          f".ToCharArray(),
-		"f         X    i   f".ToCharArray(),
+		"f         X    v   f".ToCharArray(),
 		"f                  f".ToCharArray(),
 		"f   WWWWWW   ffsf  f".ToCharArray(),
 		"f   WwwwwW         f".ToCharArray(),

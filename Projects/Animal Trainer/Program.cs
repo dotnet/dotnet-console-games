@@ -4,33 +4,16 @@ using System.Threading;
 
 // NOTE:
 // Most of the magic numbers are related to the sizes
-// of the sprites, which are 7 width by 4 height.
+// of the sprites, which are 7 width by 5 height.
 
 namespace Animal_Trainer;
 
 public partial class Program
 {
-	static readonly Random random = new();
-	static Character? _character;
-	static char[][]? _map;
+	static Character character = new();
+	static char[][] map = Maps.PaletTown;
 	static DateTime previoiusRender = DateTime.Now;
-	static int movesSinceLastBattle;
 	static bool gameRunning = true;
-	const double randomBattleChance = 1d / 1000d;
-	const int movesBeforeRandomBattle = 4;
-
-
-	static Character character
-	{
-		get => _character!;
-		set => _character = value;
-	}
-
-	static char[][] map
-	{
-		get => _map!;
-		set => _map = value;
-	}
 
 	private static readonly string[] maptext = new[]
 	{
@@ -39,28 +22,12 @@ public partial class Program
 		"Quit: [escape]",
 	};
 
-	private static readonly string[] defaultCombatText = new string[]
-	{
-		"1) attack",
-		"2) run",
-		"3) check status",
-	};
-
-	private static string[]? _combatText;
-
-	static string[] combatText
-	{
-		get => _combatText!;
-		set => _combatText = value;
-	}
-
 	public static void Main()
 	{
 		try
 		{
 			Console.CursorVisible = false;
 			Console.OutputEncoding = Encoding.UTF8;
-
 			Initialize();
 			while (gameRunning)
 			{
@@ -76,7 +43,7 @@ public partial class Program
 		finally
 		{
 			Console.Clear();
-			Console.WriteLine("Role Playing Game was closed.");
+			Console.WriteLine("Animal Trainer was closed.");
 			Console.CursorVisible = true;
 		}
 	}
@@ -84,20 +51,20 @@ public partial class Program
 	static void Initialize()
 	{
 		map = Maps.PaletTown;
-		character = new();
+		var (i, j) = FindTileInMap(map, 'X')!.Value;
+		character = new()
 		{
-			var (i, j) = FindTileInMap(map, 'X')!.Value;
-			character.I = i * 7;
-			character.J = j * 5;
-		}
-		character.MapAnimation = Sprites.Idle;
+			I = i * 7,
+			J = j * 5,
+			MapAnimation = Sprites.Idle
+		};
 	}
 
 	static void UpdateCharacter()
 	{
-		if (character.MapAnimation == Sprites.RunUp) character.J--;
-		if (character.MapAnimation == Sprites.RunDown) character.J++;
-		if (character.MapAnimation == Sprites.RunLeft) character.I--;
+		if (character.MapAnimation == Sprites.RunUp)    character.J--;
+		if (character.MapAnimation == Sprites.RunDown)  character.J++;
+		if (character.MapAnimation == Sprites.RunLeft)  character.I--;
 		if (character.MapAnimation == Sprites.RunRight) character.I++;
 		character.MapAnimationFrame++;
 
@@ -110,17 +77,12 @@ public partial class Program
 
 	static void HandleCharacterMoved()
 	{
-		movesSinceLastBattle++;
 		switch (map[character.TileJ][character.TileI])
 		{
-			case 'i': SleepAtInn(); break;
-			//case 's': ShopAtStore(); break;
+			case 'v': EnterVet(); break;
 			case '0': TransitionMapToTown(); break;
 			case '1': TransitionMapToField(); break;
 			case '2': break;
-			case 'g': FightGuardBoss(); break;
-			case ' ': ChanceForRandomBattle(); break;
-			case 'k': FightKing(); break;
 		}
 	}
 
@@ -130,18 +92,6 @@ public partial class Program
 		Console.WriteLine();
 		Console.WriteLine(" Animal Status");
 		Console.WriteLine();
-		Console.WriteLine();
-		Console.Write(" Press [enter] to continue...");
-		PressEnterToContiue();
-	}
-
-	static void RenderDeathScreen()
-	{
-		Console.Clear();
-		Console.WriteLine();
-		Console.WriteLine(" You died...");
-		Console.WriteLine();
-		Console.WriteLine(" Game Over.");
 		Console.WriteLine();
 		Console.Write(" Press [enter] to continue...");
 		PressEnterToContiue();
@@ -163,18 +113,15 @@ public partial class Program
 		}
 	}
 
-	static void SleepAtInn()
+	static void EnterVet()
 	{
 		Console.Clear();
 		Console.WriteLine();
-		Console.WriteLine(" You enter the inn and stay the night...");
+		Console.WriteLine(" You enter the vet.");
 		Console.WriteLine();
-		Console.WriteLine(" ZzzZzzZzz...");
-		Console.WriteLine();
-		Console.WriteLine(" Your health is restored.");
+		Console.WriteLine(" All your animals are healed.");
 		Console.WriteLine();
 		Console.Write(" Press [enter] to continue...");
-		//character.Health = character.MaxHealth;
 		PressEnterToContiue();
 	}
 
@@ -185,71 +132,13 @@ public partial class Program
 		character.I = i * 7;
 		character.J = j * 5;
 	}
+
 	static void TransitionMapToField()
 	{
 		map = Maps.RouteOne1;
 		var (i, j) = FindTileInMap(map, '0')!.Value;
 		character.I = i * 7;
 		character.J = j * 5;
-	}
-
-	static void ChanceForRandomBattle()
-	{
-		if (movesSinceLastBattle > movesBeforeRandomBattle && random.NextDouble() < randomBattleChance)
-		{
-			Battle(EnemyType.Boar, out _);
-			if (!gameRunning)
-			{
-				return;
-			}
-		}
-	}
-
-	static void FightGuardBoss()
-	{
-		Battle(EnemyType.GuardBoss, out bool ranAway);
-		if (!gameRunning)
-		{
-			return;
-		}
-		else if (ranAway)
-		{
-			character.J++;
-			character.MapAnimation = Sprites.RunDown;
-		}
-		else
-		{
-			map[character.TileJ][character.TileI] = ' ';
-		}
-	}
-
-	static void FightKing()
-	{
-		Battle(EnemyType.FinalBoss, out bool ranAway);
-		if (!gameRunning)
-		{
-			return;
-		}
-		else if (ranAway)
-		{
-			character.J++;
-			character.MapAnimation = Sprites.RunDown;
-		}
-		else
-		{
-			Console.Clear();
-			Console.WriteLine();
-			Console.WriteLine(" You beat the king!");
-			Console.WriteLine();
-			Console.WriteLine(" Woohoo! Good job or whatever.");
-			Console.WriteLine();
-			Console.WriteLine(" Game Over.");
-			Console.WriteLine();
-			Console.Write(" Press [enter] to continue...");
-			PressEnterToContiue();
-			gameRunning = false;
-			return;
-		}
 	}
 
 	static void HandleMapUserInput()
@@ -278,221 +167,23 @@ public partial class Program
 						{
 							switch (key)
 							{
-								case ConsoleKey.UpArrow or ConsoleKey.W:
-									character.MapAnimation = Sprites.RunUp;
-									break;
-								case ConsoleKey.DownArrow or ConsoleKey.S:
-									character.MapAnimation = Sprites.RunDown;
-									break;
-								case ConsoleKey.LeftArrow or ConsoleKey.A:
-									character.MapAnimation = Sprites.RunLeft;
-									break;
-								case ConsoleKey.RightArrow or ConsoleKey.D:
-									character.MapAnimation = Sprites.RunRight;
-									break;
+								case ConsoleKey.UpArrow    or ConsoleKey.W: character.MapAnimation = Sprites.RunUp;    break;
+								case ConsoleKey.DownArrow  or ConsoleKey.S: character.MapAnimation = Sprites.RunDown;  break;
+								case ConsoleKey.LeftArrow  or ConsoleKey.A: character.MapAnimation = Sprites.RunLeft;  break;
+								case ConsoleKey.RightArrow or ConsoleKey.D: character.MapAnimation = Sprites.RunRight; break;
 							}
 						}
 					}
 					break;
-				case ConsoleKey.Enter:
-					RenderStatusString();
-					break;
-				case ConsoleKey.Escape:
-					gameRunning = false;
-					return;
+				case ConsoleKey.Enter: RenderStatusString(); break;
+				case ConsoleKey.Escape: gameRunning = false; return;
 			}
-		}
-	}
-
-	static void Battle(EnemyType enemyType, out bool ranAway)
-	{
-		movesSinceLastBattle = 0;
-		ranAway = false;
-		return;
-		int enemyHealth = enemyType switch
-		{
-			EnemyType.Boar => 03,
-			EnemyType.GuardBoss => 20,
-			EnemyType.Guard => 10,
-			EnemyType.FinalBoss => 60,
-			_ => 1,
-		};
-
-		switch (enemyType)
-		{
-			case EnemyType.Boar:
-				combatText = new string[]
-				{
-					"You were attacked by a wild boar!",
-					"1) attack",
-					"2) run",
-					"3) check status",
-				};
-				break;
-		}
-
-		int frameLeft = 0;
-		int frameRight = 0;
-
-		string[] animationLeft = Sprites.Idle;
-		string[] animationRight = enemyType switch
-		{
-			EnemyType.Boar => Sprites.IdleBoar,
-			EnemyType.Guard => Sprites.Idle,
-			EnemyType.GuardBoss => Sprites.Idle,
-			EnemyType.FinalBoss => Sprites.Idle,
-			_ => new[] { Sprites.Error },
-		};
-
-		bool pendingConfirmation = false;
-
-		while (true)
-		{
-			if (frameLeft >= animationLeft.Length) frameLeft = 0;
-			frameRight++;
-			if (frameRight >= animationRight.Length) frameRight = 0;
-			while (Console.KeyAvailable)
-			{
-				ConsoleKey key = Console.ReadKey(true).Key;
-				switch (key)
-				{
-					case ConsoleKey.D1 or ConsoleKey.NumPad1:
-						if (!pendingConfirmation)
-						{
-							switch (random.Next(2))
-							{
-								case 0:
-									frameLeft = 0;
-									combatText = new string[]
-									{
-										"You attacked and did damage!",
-										"",
-										"Press [enter] to continue...",
-									};
-									//enemyHealth -= character.Damage;
-									break;
-								case 1:
-									frameLeft = 0;
-									combatText = new string[]
-									{
-										"You attacked, but the enemy was",
-										"faster and you took damage!",
-										"",
-										"Press [enter] to continue...",
-									};
-									//character.Health--;
-									break;
-							}
-							pendingConfirmation = true;
-						}
-						break;
-					case ConsoleKey.D2 or ConsoleKey.NumPad2:
-						if (!pendingConfirmation)
-						{
-							bool success = enemyType switch
-							{
-								EnemyType.Boar => random.Next(10) < 9,
-								EnemyType.Guard => random.Next(10) < 7,
-								_ => true,
-							};
-							if (success)
-							{
-								Console.Clear();
-								Console.WriteLine();
-								Console.WriteLine(" You ran away.");
-								Console.WriteLine();
-								Console.Write(" Press [enter] to continue...");
-								PressEnterToContiue();
-								ranAway = true;
-								return;
-							}
-							else
-							{
-								frameLeft = 0;
-								combatText = new string[]
-								{
-									"You tried to run away but the enemy",
-									"attacked you from behind and you took",
-									"damage.",
-									"",
-									"Press [enter] to continue...",
-								};
-								//character.Health--;
-								pendingConfirmation = true;
-							}
-						}
-						break;
-					case ConsoleKey.D3 or ConsoleKey.NumPad3:
-						if (!pendingConfirmation)
-						{
-							RenderStatusString();
-							if (!gameRunning)
-							{
-								return;
-							}
-						}
-						break;
-					case ConsoleKey.Enter:
-						if (pendingConfirmation)
-						{
-							pendingConfirmation = false;
-							combatText = defaultCombatText;
-							//if (character.Health <= 0)
-							{
-								RenderDeathScreen();
-								gameRunning = false;
-								return;
-							}
-							if (enemyHealth <= 0)
-							{
-								if (enemyType is EnemyType.FinalBoss)
-								{
-									return;
-								}
-								int experienceGain = enemyType switch
-								{
-									EnemyType.Boar => 1,
-									EnemyType.GuardBoss => 20,
-									EnemyType.Guard => 10,
-									EnemyType.FinalBoss => 9001, // ITS OVER 9000!
-									_ => 0,
-								};
-								Console.Clear();
-								Console.WriteLine();
-								Console.WriteLine(" You defeated the enemy!");
-								Console.WriteLine();
-								Console.WriteLine($" You gained {experienceGain} experience.");
-								Console.WriteLine();
-								//character.Experience += experienceGain;
-								//if (character.Experience >= character.ExperienceToNextLevel)
-								{
-									//character.Level++;
-									//character.Experience = 0;
-									//character.ExperienceToNextLevel *= 2;
-									//Console.WriteLine($" You grew to level {character.Level}.");
-									Console.WriteLine();
-								}
-								Console.WriteLine();
-								Console.Write(" Press [enter] to continue...");
-								PressEnterToContiue();
-								return;
-							}
-						}
-						break;
-					case ConsoleKey.Escape:
-						gameRunning = false;
-						return;
-				}
-			}
-			RenderBattleView(animationLeft[frameLeft], animationRight[frameRight]);
-			SleepAfterRender();
 		}
 	}
 
 	static void SleepAfterRender()
 	{
-		// frame rate control
-		// battle view is currently targeting 30 frames per second
+		// frame rate control targeting 30 frames per second
 		DateTime now = DateTime.Now;
 		TimeSpan sleep = TimeSpan.FromMilliseconds(33) - (now - previoiusRender);
 		if (sleep > TimeSpan.Zero)
@@ -623,69 +314,6 @@ public partial class Program
 		Console.Write(sb);
 	}
 
-	static void RenderBattleView(string spriteLeft, string spriteRight)
-	{
-		Console.CursorVisible = false;
-
-		var (width, height) = GetWidthAndHeight();
-		int midWidth = width / 2;
-		int thirdHeight = height / 3;
-		int textStartJ = thirdHeight + 7;
-
-		StringBuilder sb = new(width * height);
-		for (int j = 0; j < height; j++)
-		{
-			if (OperatingSystem.IsWindows() && j == height - 1)
-			{
-				break;
-			}
-
-			for (int i = 0; i < width; i++)
-			{
-				// console area (below map)
-				if (j >= textStartJ)
-				{
-					int line = j - textStartJ - 1;
-					int character = i - 1;
-					if (i < width - 1 && character >= 0 && line >= 0 && line < combatText.Length && character < combatText[line].Length)
-					{
-						char ch = combatText[line][character];
-						sb.Append(char.IsWhiteSpace(ch) ? ' ' : ch);
-						continue;
-					}
-				}
-
-				// character
-				if (i > midWidth - 4 - 10 && i < midWidth + 4 - 10 && j > thirdHeight - 2 && j < thirdHeight + 3)
-				{
-					int ci = i - (midWidth - 3) + 10;
-					int cj = j - (thirdHeight - 1);
-					string characterMapRender = spriteLeft;
-					sb.Append(characterMapRender[cj * 8 + ci]);
-					continue;
-				}
-
-				// enemy
-				if (i > midWidth - 4 + 10 && i < midWidth + 4 + 10 && j > thirdHeight - 2 && j < thirdHeight + 3)
-				{
-					int ci = i - (midWidth - 3) - 10;
-					int cj = j - (thirdHeight - 1);
-					string characterMapRender = spriteRight;
-					sb.Append(characterMapRender[cj * 8 + ci]);
-					continue;
-				}
-
-				sb.Append(' ');
-			}
-			if (!OperatingSystem.IsWindows() && j < height - 1)
-			{
-				sb.AppendLine();
-			}
-		}
-		Console.SetCursorPosition(0, 0);
-		Console.Write(sb);
-	}
-
 	static (int Width, int Height) GetWidthAndHeight()
 	{
 		RestartRender:
@@ -706,12 +334,4 @@ public partial class Program
 		}
 		return (width, height);
 	}
-}
-
-public enum EnemyType
-{
-	Boar,
-	Guard,
-	GuardBoss,
-	FinalBoss,
 }
