@@ -123,7 +123,7 @@ public static class Renderer
 				if (Console.BufferHeight != height) Console.BufferHeight = height;
 				if (Console.BufferWidth != width) Console.BufferWidth = width;
 			}
-			catch (ArgumentOutOfRangeException)
+			catch (Exception)
 			{
 				Console.Clear();
 				goto RestartRender;
