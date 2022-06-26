@@ -69,7 +69,7 @@ public partial class Program
 					if(Random.Shared.Next(3) is 0)
 					{
 						Console.Clear();
-						Console.WriteLine("Battle");
+						Renderer.RenderBattleView();
 						Console.ReadKey(true);
 					} break;
 			}
