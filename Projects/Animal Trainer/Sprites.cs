@@ -5,6 +5,9 @@ public static class Sprites
 	public const int Width = 7;
 	public const int Height = 5;
 
+	public const int BattleSpriteWidth = 70;
+	public const int BattleSpriteHeight = 20;
+
 	#region Buildings
 
 	public const string BuildingSmall =
