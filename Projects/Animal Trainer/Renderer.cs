@@ -78,7 +78,7 @@ public static class Renderer
 					int ci = i - (midWidth - 3);
 					int cj = j - (midHeight - 2);
 					string characterMapRender = character.Render;
-					sb.Append(characterMapRender[cj * 8 + ci]);
+					sb.Append(characterMapRender[cj * (Sprites.Width + 1) + ci]);
 					continue;
 				}
 
@@ -89,16 +89,16 @@ public static class Renderer
 				int mapJ = j - midHeight + character.J + 2;
 
 				// compute the coordinates of the tile
-				int tileI = mapI < 0 ? (mapI - 6) / 7 : mapI / 7;
-				int tileJ = mapJ < 0 ? (mapJ - 4) / 5 : mapJ / 5;
+				int tileI = mapI < 0 ? (mapI - (Sprites.Width  - 1)) / Sprites.Width  : mapI / Sprites.Width;
+				int tileJ = mapJ < 0 ? (mapJ - (Sprites.Height - 1)) / Sprites.Height : mapJ / Sprites.Height;
 
 				// compute the coordinates of the pixel within the tile's sprite
-				int pixelI = mapI < 0 ? 6 + ((mapI + 1) % 7) : (mapI % 7);
-				int pixelJ = mapJ < 0 ? 4 + ((mapJ + 1) % 5) : (mapJ % 5);
+				int pixelI = mapI < 0 ? (Sprites.Width  - 1) + ((mapI + 1) % Sprites.Width)  : (mapI % Sprites.Width);
+				int pixelJ = mapJ < 0 ? (Sprites.Height - 1) + ((mapJ + 1) % Sprites.Height) : (mapJ % Sprites.Height);
 
 				// render pixel from map tile
 				string tileRender = Maps.GetMapTileRender(map, tileI, tileJ);
-				char c = tileRender[pixelJ * 8 + pixelI];
+				char c = tileRender[pixelJ * (Sprites.Width + 1) + pixelI];
 				sb.Append(char.IsWhiteSpace(c) ? ' ' : c);
 			}
 			if (!OperatingSystem.IsWindows() && j < height - 1)

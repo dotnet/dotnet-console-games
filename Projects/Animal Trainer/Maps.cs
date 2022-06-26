@@ -2,8 +2,12 @@
 
 internal static class Maps
 {
-	internal static (int I, int J) ScreenToTile(int i, int j) =>
-		(i < 0 ? (i - 6) / 7 : i / 7, j < 0 ? (j - 4) / 5 : j / 5);
+	internal static (int I, int J) ScreenToTile(int i, int j)
+	{
+		int tilei = i < 0 ? (i - 6) / 7 : i / 7;
+		int tilej = j < 0 ? (j - 4) / 5 : j / 5;
+		return (tilei, tilej);
+	}
 
 	internal static void TransitionMapToTown()
 	{
