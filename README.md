@@ -63,6 +63,7 @@
 |[Maze](Projects/Maze)|5|<sub>[![Play Now](.github/resources/play-badge.svg)](https://zacharypatten.github.io/dotnet-console-games/Maze)&nbsp;[![Status](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Maze%20Build/badge.svg)](https://github.com/ZacharyPatten/dotnet-console-games/actions)</sub>|
 |[PacMan](Projects/PacMan)|5|<sub>[![Play Now](.github/resources/play-badge.svg)](https://zacharypatten.github.io/dotnet-console-games/PacMan)&nbsp;[![Status](https://github.com/ZacharyPatten/dotnet-console-games/workflows/PacMan%20Build/badge.svg)](https://github.com/ZacharyPatten/dotnet-console-games/actions)</sub>|
 |[Role&nbsp;Playing&nbsp;Game](Projects/Role%20Playing%20Game)|6|<sub>[![Play Now](.github/resources/play-badge.svg)](https://zacharypatten.github.io/dotnet-console-games/Role%20Playing%20Game)&nbsp;[![Status](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Role%20Playing%20Game%20Build/badge.svg)](https://github.com/ZacharyPatten/dotnet-console-games/actions)</sub>|
+|[Animal&nbsp;Trainer](Projects/Animal%20Trainer)|7|<sub>[![Play Now](.github/resources/play-badge.svg)](https://zacharypatten.github.io/dotnet-console-games/Animal%20Trainer)&nbsp;[![Status](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Animal%20Trainer%20Build/badge.svg)](https://github.com/ZacharyPatten/dotnet-console-games/actions)</sub>|
 
 <sup>\*_**Weight**: A relative rating for how advanced the source code is._</sup>
 <br/>
