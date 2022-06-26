@@ -215,35 +215,25 @@ public static class Renderer
 					continue;
 				}
 
-				// character
-				if (i > midWidth - 4 && i < midWidth + 4 && j > midHeight - 3 && j < midHeight + 3)
+				if (i > midWidth - Sprites.BattleSpriteWidth &&
+					i < midWidth &&
+					j < midHeight + Sprites.BattleSpriteHeight &&
+					j > midHeight)
 				{
-					int ci = i - (midWidth - 3);
-					int cj = j - (midHeight - 2);
-					string characterMapRender = character.Render;
-					sb.Append(characterMapRender[cj * (Sprites.Width + 1) + ci]);
+					sb.Append('A');
 					continue;
 				}
 
-				// tiles
+				if (i > midWidth &&
+					i < midWidth + Sprites.BattleSpriteWidth &&
+					j < midHeight &&
+					j > midHeight - Sprites.BattleSpriteHeight)
+				{
+					sb.Append('B');
+					continue;
+				}
 
-				//// compute the map location that this screen pixel represents
-				//int mapI = i - midWidth + character.I + 3;
-				//int mapJ = j - midHeight + character.J + 2;
-
-				//// compute the coordinates of the tile
-				//int tileI = mapI < 0 ? (mapI - (Sprites.Width - 1)) / Sprites.Width : mapI / Sprites.Width;
-				//int tileJ = mapJ < 0 ? (mapJ - (Sprites.Height - 1)) / Sprites.Height : mapJ / Sprites.Height;
-
-				// compute the coordinates of the pixel within the tile's sprite
-				//int pixelI = mapI < 0 ? (Sprites.Width - 1) + ((mapI + 1) % Sprites.Width) : (mapI % Sprites.Width);
-				//int pixelJ = mapJ < 0 ? (Sprites.Height - 1) + ((mapJ + 1) % Sprites.Height) : (mapJ % Sprites.Height);
-
-				// render pixel from map tile
-				//string tileRender = Maps.GetMapTileRender(map, tileI, tileJ);
-				//char c = tileRender[pixelJ * (Sprites.Width + 1) + pixelI];
-				char c = ' ';
-				sb.Append(char.IsWhiteSpace(c) ? ' ' : c);
+				sb.Append(' ');
 			}
 			if (!OperatingSystem.IsWindows() && j < height - 1)
 			{
