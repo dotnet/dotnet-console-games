@@ -3,6 +3,19 @@
     "tasks":
     [
         {
+            "label": "Build Animal Trainer",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/Animal Trainer/Animal Trainer.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
+        {
             "label": "Build Checkers",
             "command": "dotnet",
             "type": "process",
