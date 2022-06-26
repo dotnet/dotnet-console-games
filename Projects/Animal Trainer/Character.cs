@@ -28,14 +28,19 @@ public class Character
 		{
 			_mapAnimationFrame = value;
 			Moved = false;
-			if (MapAnimation == Sprites.RunUp && _mapAnimationFrame is 5) { Moved = true; MapAnimation = Sprites.Idle; _mapAnimationFrame = 0; }
-			if (MapAnimation == Sprites.RunDown && _mapAnimationFrame is 5) { Moved = true; MapAnimation = Sprites.Idle; _mapAnimationFrame = 0; }
-			if (MapAnimation == Sprites.RunLeft && _mapAnimationFrame is 7) { Moved = true; MapAnimation = Sprites.Idle; _mapAnimationFrame = 0; }
-			if (MapAnimation == Sprites.RunRight && _mapAnimationFrame is 7) { Moved = true; MapAnimation = Sprites.Idle; _mapAnimationFrame = 0; }
+			if ((MapAnimation == Sprites.RunUp    && _mapAnimationFrame is 5) ||
+				(MapAnimation == Sprites.RunDown  && _mapAnimationFrame is 5) ||
+				(MapAnimation == Sprites.RunLeft  && _mapAnimationFrame is 7) ||
+				(MapAnimation == Sprites.RunRight && _mapAnimationFrame is 7))
+			{
+				Moved = true;
+				MapAnimation = Sprites.IdlePlayer;
+				_mapAnimationFrame = 0;
+			}
 		}
 	}
 
-	public bool IsIdle => _mapAnaimation == Sprites.Idle;
+	public bool IsIdle => _mapAnaimation == Sprites.IdlePlayer;
 
 	public string Render => _mapAnaimation[_mapAnimationFrame % _mapAnaimation.Length];
 
