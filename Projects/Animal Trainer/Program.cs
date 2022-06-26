@@ -96,7 +96,7 @@ public partial class Program
 
 	static void PressEnterToContiue()
 	{
-	GetInput:
+		GetInput:
 		ConsoleKey key = Console.ReadKey(true).Key;
 		switch (key)
 		{
@@ -112,6 +112,9 @@ public partial class Program
 		Console.WriteLine();
 		Console.WriteLine(" You enter the vet.");
 		Console.WriteLine();
+		for (int i = 0; i < ownedAnimals.Count; i++) {
+			ownedAnimals[i].CurrentHP = ownedAnimals[i].MaximumHP;
+		}
 		Console.WriteLine(" All your animals are healed.");
 		Console.WriteLine();
 		Console.Write(" Press [enter] to continue...");
