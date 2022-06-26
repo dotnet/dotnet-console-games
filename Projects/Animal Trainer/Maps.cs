@@ -155,7 +155,6 @@ internal static class Maps
 		"gggTffffffGGffffffTg".ToCharArray(),
 		"gggTgggggfGGfgggggTg".ToCharArray(),
 		"gggTgggggfGGfgggggTg".ToCharArray(),
-		"gggTgggggfGGfgggggTg".ToCharArray(),
 		"gggfgggggf00fgggggfg".ToCharArray(),
 	};
 
@@ -169,7 +168,7 @@ internal static class Maps
 		"fg                gf".ToCharArray(),
 		"fg                gf".ToCharArray(),
 		"fg        RMMMMj  gf".ToCharArray(),
-		"fg  fffs  u    y  gf".ToCharArray(),
+		"fg  fffs  uMMMMy  gf".ToCharArray(),
 		"fg  gggg   k kk   gf".ToCharArray(),
 		"fg  gggg olldlll  gf".ToCharArray(),
 		"fg          X     gf".ToCharArray(),
