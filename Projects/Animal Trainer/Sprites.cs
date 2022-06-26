@@ -32,11 +32,11 @@ public static class Sprites
 		@"|     |" + "\n" +
 		@"|  █  |";
 	public const string Door =
-		@"▬▬▬▬▬▬▬" + "\n" +
-		@"█ ░░░ █" + "\n" +
-		@"█ ░░░ █" + "\n" +
-		@"█ ███ █" + "\n" +
-		@"█ ███ █";
+		@"╔═════╗" + "\n" +
+		@"║ ■■■ ║" + "\n" +
+		@"║    o║" + "\n" +
+		@"║     ║" + "\n" +
+		@"╚═════╝";
 	public const string TopRoofLeft =
 		@"       " + "\n" +
 		@"       " + "\n" +
