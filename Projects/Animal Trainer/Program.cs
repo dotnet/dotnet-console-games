@@ -7,7 +7,6 @@ public partial class Program
 		Encoding encoding = Console.OutputEncoding;
 		try
 		{
-
 			Console.CursorVisible = false;
 			Console.OutputEncoding = Encoding.UTF8;
 			while (gameRunning)
@@ -31,26 +30,32 @@ public partial class Program
 
 	static void UpdateCharacter()
 	{
-		if (character.MapAnimation == Sprites.RunUp)    character.J--;
-		if (character.MapAnimation == Sprites.RunDown)  character.J++;
-		if (character.MapAnimation == Sprites.RunLeft)  character.I--;
-		if (character.MapAnimation == Sprites.RunRight) character.I++;
-		character.MapAnimationFrame++;
+		if (character.Animation == Sprites.RunUp)    character.J--;
+		if (character.Animation == Sprites.RunDown)  character.J++;
+		if (character.Animation == Sprites.RunLeft)  character.I--;
+		if (character.Animation == Sprites.RunRight) character.I++;
 
-		if (character.Moved)
+		character.AnimationFrame++;
+
+		if ((character.Animation == Sprites.RunUp      && character.AnimationFrame >= Sprites.Height) ||
+			(character.Animation == Sprites.RunDown    && character.AnimationFrame >= Sprites.Height) ||
+			(character.Animation == Sprites.RunLeft    && character.AnimationFrame >= Sprites.Width) ||
+			(character.Animation == Sprites.RunRight   && character.AnimationFrame >= Sprites.Width))
 		{
-			HandleCharacterMoved();
-			character.Moved = false;
+			var (i, j) = Maps.ScreenToTile(character.I, character.J);
+			switch (map[j][i])
+			{
+				case 'v': EnterVet(); break;
+				case '0': Maps.TransitionMapToTown(); break;
+				case '1': Maps.TransitionMapToField(); break;
+			}
+
+			character.Animation = Sprites.IdlePlayer;
+			character.AnimationFrame = 0;
 		}
-	}
-
-	static void HandleCharacterMoved()
-	{
-		switch (map[character.TileJ][character.TileI])
+		else if (character.Animation == Sprites.IdlePlayer && character.AnimationFrame >= character.Animation.Length)
 		{
-			case 'v': EnterVet(); break;
-			case '0': Maps.TransitionMapToTown(); break;
-			case '1': Maps.TransitionMapToField(); break;
+			character.AnimationFrame = 0;
 		}
 	}
 
@@ -67,17 +72,13 @@ public partial class Program
 
 	static void PressEnterToContiue()
 	{
-		GetInput:
+	GetInput:
 		ConsoleKey key = Console.ReadKey(true).Key;
 		switch (key)
 		{
-			case ConsoleKey.Enter:
-				return;
-			case ConsoleKey.Escape:
-				gameRunning = false;
-				return;
-			default:
-				goto GetInput;
+			case ConsoleKey.Enter: return;
+			case ConsoleKey.Escape: gameRunning = false; return;
+			default: goto GetInput;
 		}
 	}
 
@@ -105,24 +106,25 @@ public partial class Program
 					ConsoleKey.DownArrow  or ConsoleKey.S or
 					ConsoleKey.LeftArrow  or ConsoleKey.A or
 					ConsoleKey.RightArrow or ConsoleKey.D:
-					if (character.IsIdle)
+					if (character.Animation == Sprites.IdlePlayer)
 					{
-						var (tileI, tileJ) = key switch
+						var (i, j) = Maps.ScreenToTile(character.I, character.J);
+						(i, j) = key switch
 						{
-							ConsoleKey.UpArrow    or ConsoleKey.W => (character.TileI, character.TileJ - 1),
-							ConsoleKey.DownArrow  or ConsoleKey.S => (character.TileI, character.TileJ + 1),
-							ConsoleKey.LeftArrow  or ConsoleKey.A => (character.TileI - 1, character.TileJ),
-							ConsoleKey.RightArrow or ConsoleKey.D => (character.TileI + 1, character.TileJ),
+							ConsoleKey.UpArrow    or ConsoleKey.W => (i, j - 1),
+							ConsoleKey.DownArrow  or ConsoleKey.S => (i, j + 1),
+							ConsoleKey.LeftArrow  or ConsoleKey.A => (i - 1, j),
+							ConsoleKey.RightArrow or ConsoleKey.D => (i + 1, j),
 							_ => throw new Exception("bug"),
 						};
-						if (Maps.IsValidCharacterMapTile(map, tileI, tileJ))
+						if (Maps.IsValidCharacterMapTile(map, i, j))
 						{
 							switch (key)
 							{
-								case ConsoleKey.UpArrow    or ConsoleKey.W: character.MapAnimation = Sprites.RunUp;    break;
-								case ConsoleKey.DownArrow  or ConsoleKey.S: character.MapAnimation = Sprites.RunDown;  break;
-								case ConsoleKey.LeftArrow  or ConsoleKey.A: character.MapAnimation = Sprites.RunLeft;  break;
-								case ConsoleKey.RightArrow or ConsoleKey.D: character.MapAnimation = Sprites.RunRight; break;
+								case ConsoleKey.UpArrow    or ConsoleKey.W: character.AnimationFrame = 0; character.Animation = Sprites.RunUp;    break;
+								case ConsoleKey.DownArrow  or ConsoleKey.S: character.AnimationFrame = 0; character.Animation = Sprites.RunDown;  break;
+								case ConsoleKey.LeftArrow  or ConsoleKey.A: character.AnimationFrame = 0; character.Animation = Sprites.RunLeft;  break;
+								case ConsoleKey.RightArrow or ConsoleKey.D: character.AnimationFrame = 0; character.Animation = Sprites.RunRight; break;
 							}
 						}
 					}

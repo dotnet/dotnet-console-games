@@ -5,6 +5,9 @@ global using static Animal_Trainer._using;
 
 namespace Animal_Trainer;
 
+#pragma warning disable IDE1006 // Naming Styles
+#pragma warning disable CA2211
+
 public static class _using
 {
 	public static Character character = new();
@@ -25,9 +28,12 @@ public static class _using
 		var (i, j) = Maps.FindTileInMap(map, 'X')!.Value;
 		character = new()
 		{
-			I = i * 7,
-			J = j * 5,
-			MapAnimation = Sprites.IdlePlayer,
+			I = i * Sprites.Width,
+			J = j * Sprites.Height,
+			Animation = Sprites.IdlePlayer,
 		};
 	}
 }
+
+#pragma warning restore CA2211
+#pragma warning restore IDE1006 // Naming Styles
