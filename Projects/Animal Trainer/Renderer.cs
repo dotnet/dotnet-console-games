@@ -215,8 +215,8 @@ public static class Renderer
 					continue;
 				}
 
-				if (i > midWidth - Sprites.BattleSpriteWidth &&
-					i < midWidth &&
+				if (i > midWidth - (Sprites.BattleSpriteWidth / 4) * 3 &&
+					i < midWidth + (Sprites.BattleSpriteWidth / 4) * 1 &&
 					j < midHeight + Sprites.BattleSpriteHeight &&
 					j > midHeight)
 				{
@@ -224,8 +224,8 @@ public static class Renderer
 					continue;
 				}
 
-				if (i > midWidth &&
-					i < midWidth + Sprites.BattleSpriteWidth &&
+				if (i > midWidth - (Sprites.BattleSpriteWidth / 4) * 1 &&
+					i < midWidth + (Sprites.BattleSpriteWidth / 4) * 3 &&
 					j < midHeight &&
 					j > midHeight - Sprites.BattleSpriteHeight)
 				{
