@@ -5,14 +5,8 @@ public static class Sprites
 	public const int Width = 7;
 	public const int Height = 5;
 
-	public const string Open =
-		@"       " + "\n" +
-		@"       " + "\n" +
-		@"       " + "\n" +
-		@"       " + "\n" +
-		@"       ";
+	#region Buildings
 
-	// BUILDINGS //
 	public const string BuildingSmall =
 		@"       " + "\n" +
 		@" /---\ " + "\n" +
@@ -86,14 +80,33 @@ public static class Sprites
 		@"       " + "\n" +
 		@"#######";
 
+	#endregion
 
-	//NATURE
-	public const string Water =
-		@"~~~~~~~" + "\n" +
-		@"~~~~~~~" + "\n" +
-		@"~~~~~~~" + "\n" +
-		@"~~~~~~~" + "\n" +
-		@"~~~~~~~";
+	#region Objects
+
+	public const string Sign = // Text TBC
+		@" ┬──┬─╮" + "\n" +
+		@"╭┴──┴╮│" + "\n" +
+		@"│Sign││" + "\n" +
+		@"╰────╯│" + "\n" +
+		@"      │";
+	public const string Fence =
+		@"       " + "\n" +
+		@"╔═════╗" + "\n" +
+		@"╠═════╣" + "\n" +
+		@"║     ║" + "\n" +
+		@"╩     ╩";
+	public const string FenceLow =
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"╦═════╦" + "\n" +
+		@"╬═════╬" + "\n" +
+		@"╩     ╩";
+
+	#endregion
+
+	#region Wall
+
 	public const string Wall_0000 =
 		@"╔═════╗" + "\n" +
 		@"║█████║" + "\n" +
@@ -190,6 +203,17 @@ public static class Sprites
 		@"███████" + "\n" +
 		@"███████" + "\n" +
 		@"╗█████╔";
+
+	#endregion
+
+	#region Nature
+
+	public const string Water =
+		@"~~~~~~~" + "\n" +
+		@"~~~~~~~" + "\n" +
+		@"~~~~~~~" + "\n" +
+		@"~~~~~~~" + "\n" +
+		@"~~~~~~~";
 	public const string Gate =
 		@"▀▄▀▄▀▄▀" + "\n" +
 		@"▀▄▀▄▀▄▀" + "\n" +
@@ -208,12 +232,6 @@ public static class Sprites
 		@"   ||  " + "\n" +
 		@"   ||  " + "\n" +
 		@"   ||  ";
-	public const string Sign = // Text TBC
-		@" ┬──┬─╮" + "\n" +
-		@"╭┴──┴╮│" + "\n" +
-		@"│ʣʨʢʬ││" + "\n" +
-		@"╰────╯│" + "\n" +
-		@"      │";
 	public const string GrassDec =
 		@" .   . " + "\n" +
 		@".  . . " + "\n" +
@@ -238,18 +256,6 @@ public static class Sprites
 		@"╵╷╵╷╵╷╵" + "\n" +
 		@"╵╷╵╷╵╷╵" + "\n" +
 		@"╵╷╵╷╵╷╵";
-	public const string Fence =
-		@"       " + "\n" +
-		@"╔═════╗" + "\n" +
-		@"╠═════╣" + "\n" +
-		@"║     ║" + "\n" +
-		@"╩     ╩";
-	public const string FenceLow =
-		@"       " + "\n" +
-		@"       " + "\n" +
-		@"╦═════╦" + "\n" +
-		@"╬═════╬" + "\n" +
-		@"╩     ╩";
 	public const string HalfRock =
 		@"       "+ "\n" +
 		@"       " + "\n" +
@@ -292,12 +298,10 @@ public static class Sprites
 		@"  /**\ " + "\n" +
 		@" /    \" + "\n" +
 		@"/      ";
-	public const string Error =
-		@"╔═════╗" + "\n" +
-		@"║error║" + "\n" +
-		@"║error║" + "\n" +
-		@"║error║" + "\n" +
-		@"╚═════╝";
+
+	#endregion
+
+	#region Character
 
 	public static readonly string[] RunRight = new[]
 	{
@@ -475,4 +479,20 @@ public static class Sprites
 
 	public static readonly string[] IdlePlayer =
 		Enumerable.Repeat(Idle1, 100).Concat(Enumerable.Repeat(Idle2, 10)).ToArray();
+
+	#endregion
+
+	public const string Open =
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"       ";
+
+	public const string Error =
+		@"╔═════╗" + "\n" +
+		@"║error║" + "\n" +
+		@"║error║" + "\n" +
+		@"║error║" + "\n" +
+		@"╚═════╝";
 }
