@@ -88,10 +88,10 @@ public static class Sprites
 		@"------\" + "\n" +
 		@"  ▄ ▄ |" + "\n" +
 		@"      |";
-	public const string InnSmall =
+	public const string VetSmall =
 		@"       " + "\n" +
 		@" /---\ " + "\n" +
-		@"/-Inn-\" + "\n" +
+		@"/-Vet-\" + "\n" +
 		@"|     |" + "\n" +
 		@"|  █  |";
 	public const string Store =

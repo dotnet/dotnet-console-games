@@ -27,11 +27,11 @@ public class Character
 		set
 		{
 			_mapAnimationFrame = value;
+			Moved = false;
 			if (MapAnimation == Sprites.RunUp && _mapAnimationFrame is 5) { Moved = true; MapAnimation = Sprites.Idle; _mapAnimationFrame = 0; }
 			if (MapAnimation == Sprites.RunDown && _mapAnimationFrame is 5) { Moved = true; MapAnimation = Sprites.Idle; _mapAnimationFrame = 0; }
 			if (MapAnimation == Sprites.RunLeft && _mapAnimationFrame is 7) { Moved = true; MapAnimation = Sprites.Idle; _mapAnimationFrame = 0; }
 			if (MapAnimation == Sprites.RunRight && _mapAnimationFrame is 7) { Moved = true; MapAnimation = Sprites.Idle; _mapAnimationFrame = 0; }
-			Moved = false;
 		}
 	}
 
