@@ -48,28 +48,36 @@ internal static class Maps
 		}
 		return map[tileJ][tileI] switch
 		{
+			//Game 
 			'X' => Sprites.Open,
 			'0' => Sprites.ArrowDown,
 			'1' => Sprites.ArrowUp,
+
+			//Buildings
+			'b' => Sprites.BuildingSmall,
+			'v' => Sprites.VetSmall,
+			'S' => Sprites.Store,
+
+			//Decor
+			's' => Sprites.Sign,
+			'f' => Sprites.Fence,
+			'c' => Sprites.Chest, // REMOVE?
+			'e' => Sprites.EmptyChest, // REMOVE?
+			'B' => Sprites.Barrels1, // REMOVE?
+
+			//Nature
 			'w' => Sprites.Water,
 			'g' => Sprites.GrassDec,
 			'G' => Sprites.Grass,
-			'W' => Sprites.Wall_0000,
-			'b' => Sprites.BuildingSmall,
 			't' => Sprites.Tree,
 			'T' => Sprites.Tree2,
 			'r' => Sprites.HalfRock,
-			' ' => Sprites.Open,
-			'v' => Sprites.VetSmall,
-			'S' => Sprites.Store,
-			'f' => Sprites.Fence,
-			'c' => Sprites.Chest,
-			'e' => Sprites.EmptyChest,
-			'B' => Sprites.Barrels1,
 			'm' => Sprites.Mountain,
 			'p' => Sprites.Mountain2,
-			's' => Sprites.Sign,
-			'h' => Sprites.Wall_0000,
+
+			//Extra
+			'W' => Sprites.Wall_0000,
+			' ' => Sprites.Open,
 			_ => Sprites.Error,
 		};
 	}
