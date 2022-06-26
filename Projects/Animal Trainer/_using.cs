@@ -18,7 +18,8 @@ public static class _using
 	public static readonly string[] maptext = new[]
 	{
 		"Move: arrow keys or (w, a, s, d)",
-		"Check Status: [enter]",
+		"Animal Status: [enter]",
+		"Inventory: [backspace]",
 		"Quit: [escape]",
 	};
 

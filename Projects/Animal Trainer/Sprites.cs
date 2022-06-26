@@ -32,11 +32,11 @@ public static class Sprites
 		@"|     |" + "\n" +
 		@"|  █  |";
 	public const string Door =
-		@"▬▬▬▬▬▬▬" + "\n" +
-		@"█ ░░░ █" + "\n" +
-		@"█ ░░░ █" + "\n" +
-		@"█ ███ █" + "\n" +
-		@"█ ███ █";
+		@"╔═════╗" + "\n" +
+		@"║ ■■■ ║" + "\n" +
+		@"║    o║" + "\n" +
+		@"║     ║" + "\n" +
+		@"╚═════╝";
 	public const string TopRoofLeft =
 		@"       " + "\n" +
 		@"       " + "\n" +
@@ -215,23 +215,17 @@ public static class Sprites
 		@"╰────╯│" + "\n" +
 		@"      │";
 	public const string GrassDec =
-		@"░░░░░░░" + "\n" +
-		@"░░░░░░░" + "\n" +
-		@"░░░░░░░" + "\n" +
-		@"░░░░░░░" + "\n" +
-		@"░░░░░░░";
+		@" .   . " + "\n" +
+		@".  . . " + "\n" +
+		@" .   . " + "\n" +
+		@".  .  ." + "\n" +
+		@" .   . ";
 	public const string Grass =
 		@" v   v " + "\n" +
 		@"v  v  v" + "\n" +
 		@"  v  v " + "\n" +
 		@"v  v  v" + "\n" +
 		@" v  v  ";
-	public const string Grass1 =
-		@" . . . " + "\n" +
-		@". . . ." + "\n" +
-		@" . . . " + "\n" +
-		@". . . ." + "\n" +
-		@" . . . ";
 	public const string Grass2 =
 		@" ╷ ╷ v " + "\n" +
 		@"╷ v ╷ ╷" + "\n" +
@@ -244,12 +238,18 @@ public static class Sprites
 		@"╵╷╵╷╵╷╵" + "\n" +
 		@"╵╷╵╷╵╷╵" + "\n" +
 		@"╵╷╵╷╵╷╵";
-	public const string Fence = // Redesign?
-		@"#######" + "\n" +
-		@"#_____#" + "\n" +
-		@"#     #" + "\n" +
-		@"#     #" + "\n" +
-		@"#     #";
+	public const string Fence =
+		@"       " + "\n" +
+		@"╔═════╗" + "\n" +
+		@"╠═════╣" + "\n" +
+		@"║     ║" + "\n" +
+		@"╩     ╩";
+	public const string FenceLow =
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"╦═════╦" + "\n" +
+		@"╬═════╬" + "\n" +
+		@"╩     ╩";
 	public const string HalfRock =
 		@"       "+ "\n" +
 		@"       " + "\n" +
