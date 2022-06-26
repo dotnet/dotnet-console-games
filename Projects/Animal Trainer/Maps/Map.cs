@@ -68,8 +68,10 @@ public abstract class Map
 			'd' => Sprites.Door,
 			'o' => Sprites.LowWindowSideLeft,
 			'l' => Sprites.LowWindow,
-			'u' => Sprites.SideRoofLeft,
-			'y' => Sprites.SideRoofRight,
+			'u' => Sprites.BuildingLeft,
+			'h' => Sprites.BuildingBaseLeft,
+			'y' => Sprites.BuildingRight,
+			';' => Sprites.BuildingBaseRight,
 			'M' => Sprites.MiddleRoof,
 			'R' => Sprites.TopRoofLeft,
 			'j' => Sprites.TopRoofRight,
@@ -92,6 +94,7 @@ public abstract class Map
 
 			//Extra
 			'W' => Sprites.Wall_0000,
+			'x' => Sprites.Open,
 			' ' => Sprites.Open,
 			_ => Sprites.Error,
 		};
@@ -116,8 +119,6 @@ public abstract class Map
 			'g' => true,
 			'2' => true,
 			'X' => true,
-			'k' => true,
-			'h' => true,
 			'G' => true,
 			'd' => true,
 			_ => false,

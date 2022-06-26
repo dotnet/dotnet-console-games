@@ -33,34 +33,46 @@ public static class Sprites
 		@"╚═════╝";
 	public const string TopRoofLeft =
 		@"       " + "\n" +
-		@"       " + "\n" +
-		@"    /--" + "\n" +
-		@"   /---" + "\n" +
-		@"  /----";
+		@"   ////" + "\n" +
+		@"  /////" + "\n" +
+		@" //////" + "\n" +
+		@"///////";
 	public const string TopRoofRight =
 		@"       " + "\n" +
-		@"       " + "\n" +
-		@"--\    " + "\n" +
-		@"---\   " + "\n" +
-		@"----\  ";
+		@"\\\\   " + "\n" +
+		@"\\\\\  " + "\n" +
+		@"\\\\\\ " + "\n" +
+		@"\\\\\\\";
 	public const string MiddleRoof =
 		@"       " + "\n" +
-		@"       " + "\n" +
-		@"-------" + "\n" +
-		@"-------" + "\n" +
-		@"-------";
-	public const string SideRoofLeft =
-		@" //    " + "\n" +
-		@"//     " + "\n" +
-		@"/      " + "\n" +
-		@"|      " + "\n" +
-		@"|      ";
-	public const string SideRoofRight =
-		@"    \\ " + "\n" +
-		@"     \\" + "\n" +
-		@"      \" + "\n" +
-		@"      |" + "\n" +
-		@"      |";
+		@"|||||||" + "\n" +
+		@"|||||||" + "\n" +
+		@"|||||||" + "\n" +
+		@"|||||||";
+	public const string BuildingLeft =
+		@"│      " + "\n" +
+		@"│      " + "\n" +
+		@"│      " + "\n" +
+		@"│      " + "\n" +
+		@"│      ";
+	public const string BuildingBaseLeft =
+		@"│      " + "\n" +
+		@"│      " + "\n" +
+		@"│      " + "\n" +
+		@"│      " + "\n" +
+		@"└──────";
+	public const string BuildingRight =
+		@"      │" + "\n" +
+		@"      │" + "\n" +
+		@"      │" + "\n" +
+		@"      │" + "\n" +
+		@"      │";
+	public const string BuildingBaseRight =
+		@"      │" + "\n" +
+		@"      │" + "\n" +
+		@"      │" + "\n" +
+		@"      │" + "\n" +
+		@"──────┘";
 	public const string MiddleWindow =
 		@"       " + "\n" +
 		@"       " + "\n" +
@@ -68,17 +80,17 @@ public static class Sprites
 		@"       " + "\n" +
 		@"       ";
 	public const string LowWindowSideLeft =
-		@"      |" + "\n" +
-		@"      |" + "\n" +
-		@"      |" + "\n" +
-		@"      |" + "\n" +
-		@"      |";
+		@"      │" + "\n" +
+		@"      │" + "\n" +
+		@"      │" + "\n" +
+		@"      │" + "\n" +
+		@"      │";
 	public const string LowWindow =
 		@"       " + "\n" +
 		@"       " + "\n" +
 		@" ▐█ ▐█ " + "\n" +
 		@"       " + "\n" +
-		@"#######";
+		@"───────";
 
 	#endregion
 
