@@ -1,8 +1,42 @@
 ﻿namespace Animal_Trainer;
 
-public static class Maps
+internal static class Maps
 {
-	public static string GetMapTileRender(char[][] map, int tileI, int tileJ)
+	internal static (int I, int J) ScreenToTile(int i, int j) =>
+		(i < 0 ? (i - 6) / 7 : i / 7, j < 0 ? (j - 4) / 5 : j / 5);
+
+	internal static void TransitionMapToTown()
+	{
+		map = Maps.PaletTown;
+		var (i, j) = Maps.FindTileInMap(map, '1')!.Value;
+		character.I = i * 7;
+		character.J = j * 5;
+	}
+
+	internal static void TransitionMapToField()
+	{
+		map = Maps.RouteOne1;
+		var (i, j) = Maps.FindTileInMap(map, '0')!.Value;
+		character.I = i * 7;
+		character.J = j * 5;
+	}
+
+	internal static (int I, int J)? FindTileInMap(char[][] map, char c)
+	{
+		for (int j = 0; j < map.Length; j++)
+		{
+			for (int i = 0; i < map[j].Length; i++)
+			{
+				if (map[j][i] == c)
+				{
+					return (i, j);
+				}
+			}
+		}
+		return null;
+	}
+
+	internal static string GetMapTileRender(char[][] map, int tileI, int tileJ)
 	{
 		if (tileJ < 0 || tileJ >= map.Length || tileI < 0 || tileI >= map[tileJ].Length)
 		{
@@ -10,6 +44,9 @@ public static class Maps
 		}
 		return map[tileJ][tileI] switch
 		{
+			'X' => Sprites.Open,
+			'0' => Sprites.ArrowDown,
+			'1' => Sprites.ArrowUp,
 			'w' => Sprites.Water,
 			'g' => Sprites.GrassDec,
 			'G' => Sprites.Grass,
@@ -18,17 +55,14 @@ public static class Maps
 			't' => Sprites.Tree,
 			'T' => Sprites.Tree2,
 			'r' => Sprites.HalfRock,
-			' ' or 'X' => Sprites.Open,
+			' ' => Sprites.Open,
 			'v' => Sprites.VetSmall,
 			'S' => Sprites.Store,
 			'f' => Sprites.Fence,
 			'c' => Sprites.Chest,
 			'e' => Sprites.EmptyChest,
 			'B' => Sprites.Barrels1,
-			'1' => tileJ < map.Length / 2 ? Sprites.ArrowUp : Sprites.ArrowDown,
 			'm' => Sprites.Mountain,
-			'0' => Sprites.Town,
-			'2' => Sprites.Castle,
 			'p' => Sprites.Mountain2,
 			's' => Sprites.Sign,
 			'h' => Sprites.Wall_0000,
@@ -36,7 +70,7 @@ public static class Maps
 		};
 	}
 
-	public static bool IsValidCharacterMapTile(char[][] map, int tileI, int tileJ)
+	internal static bool IsValidCharacterMapTile(char[][] map, int tileI, int tileJ)
 	{
 		if (tileJ < 0 || tileJ >= map.Length || tileI < 0 || tileI >= map[tileJ].Length)
 		{
@@ -60,7 +94,7 @@ public static class Maps
 		};
 	}
 
-	public static readonly char[][] RouteOne1 = new char[][] // Not finished
+	internal static readonly char[][] RouteOne1 = new char[][] // Not finished
 	{
 		"gggfgggggf  fgggggfg".ToCharArray(),
 		"gggfgggggf  fgggggfg".ToCharArray(),
@@ -104,7 +138,7 @@ public static class Maps
 		"fggggggggf00fggggggg".ToCharArray(),
 	};
 
-	public static readonly char[][] PaletTown = new char[][]
+	internal static readonly char[][] PaletTown = new char[][]
 	{
 		"ffffffffff11ffffffff".ToCharArray(),
 		"f                  f".ToCharArray(),
