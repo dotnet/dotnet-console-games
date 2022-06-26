@@ -268,6 +268,24 @@ public static class Sprites
 		@"  v  v " + "\n" +
 		@"v  v  v" + "\n" +
 		@" v  v  ";
+	public const string Grass1 =
+		@" . . . " + "\n" +
+		@". . . ." + "\n" +
+		@" . . . " + "\n" +
+		@". . . ." + "\n" +
+		@" . . . ";
+	public const string Grass2 =
+		@" ╷ ╷ v " + "\n" +
+		@"╷ v ╷ ╷" + "\n" +
+		@" ╷ ╷ v " + "\n" +
+		@"v ╷ ╷ ╷" + "\n" +
+		@" ╷ v ╷ ";
+	public const string Grass3 =
+		@"╵╷╵╷╵╷╵" + "\n" +
+		@"╵╷╵╷╵╷╵" + "\n" +
+		@"╵╷╵╷╵╷╵" + "\n" +
+		@"╵╷╵╷╵╷╵" + "\n" +
+		@"╵╷╵╷╵╷╵";
 	public const string Fence =
 		@"#######" + "\n" +
 		@"#_____#" + "\n" +
