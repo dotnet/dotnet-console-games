@@ -422,5 +422,15 @@
 			"console": "externalTerminal",
 			"stopAtEntry": false,
 		},
+		{
+			"name": "Animal Trainer",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Animal Trainer",
+			"program": "${workspaceFolder}/Projects/Animal Trainer/bin/Debug/Animal Trainer.dll",
+			"cwd": "${workspaceFolder}/Projects/Animal Trainer/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
 	],
 }
