@@ -9,6 +9,22 @@ public partial class Program
 		{
 			Console.CursorVisible = false;
 			Console.OutputEncoding = Encoding.UTF8;
+			if (OperatingSystem.IsWindows())
+			{
+				const int screenWidth = 150;
+				const int screenHeight = 50;
+				try
+				{
+					Console.SetWindowSize(screenWidth, screenHeight);
+					Console.SetBufferSize(screenWidth, screenHeight);
+					Console.SetWindowPosition(0, 0);
+				} 
+				catch
+				{
+					// Left Blank on Purpose
+				}
+			}
+
 			while (gameRunning)
 			{
 				UpdateCharacter();
@@ -130,6 +146,7 @@ public partial class Program
 					}
 					break;
 				case ConsoleKey.Enter: RenderStatusString(); break;
+				case ConsoleKey.Backspace: break;
 				case ConsoleKey.Escape: gameRunning = false; return;
 			}
 		}

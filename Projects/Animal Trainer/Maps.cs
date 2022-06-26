@@ -70,6 +70,7 @@ internal static class Maps
 			//Decor
 			's' => Sprites.Sign,
 			'f' => Sprites.Fence,
+			'F' => Sprites.FenceLow,
 
 			//Nature
 			'w' => Sprites.Water,
@@ -168,11 +169,11 @@ internal static class Maps
 		"fg                gf".ToCharArray(),
 		"fg                gf".ToCharArray(),
 		"fg        RMMMMj  gf".ToCharArray(),
-		"fg  fffs  uMMMMy  gf".ToCharArray(),
+		"fg  FFFs  uMMMMy  gf".ToCharArray(),
 		"fg  gggg   k kk   gf".ToCharArray(),
 		"fg  gggg olldlll  gf".ToCharArray(),
 		"fg          X     gf".ToCharArray(),
-		"fg        fffsff  gf".ToCharArray(),
+		"fg        FFFsFF  gf".ToCharArray(),
 		"fgggWWWW  gggggg  gf".ToCharArray(),
 		"fgggWwwW  gggggg  gf".ToCharArray(),
 		"fgggWwwW          gf".ToCharArray(),
