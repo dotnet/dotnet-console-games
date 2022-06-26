@@ -77,25 +77,25 @@ public static class Sprites
 		@"------\" + "\n" +
 		@"  ▄ ▄ |" + "\n" +
 		@"      |";
-	public const string VetSmall =
+	public const string VetSmall = // REMOVE? (Make it bigger like the pokecenter?)
 		@"       " + "\n" +
 		@" /---\ " + "\n" +
 		@"/-Vet-\" + "\n" +
 		@"|     |" + "\n" +
 		@"|  █  |";
-	public const string Store =
+	public const string Store = // REMOVE? (Make it bigger like the pokemart?)
 		@"       " + "\n" +
 		@" /---\ " + "\n" +
 		@"/Store\" + "\n" +
 		@"|     |" + "\n" +
 		@"|  █  |";
-	public const string Chest =
+	public const string Chest =  // REMOVE?
 		@"       " + "\n" +
 		@"       " + "\n" +
 		@"  _._  " + "\n" +
 		@" |___| " + "\n" +
 		@"       ";
-	public const string EmptyChest =
+	public const string EmptyChest = // REMOVE?
 		@"       " + "\n" +
 		@"       " + "\n" +
 		@"       " + "\n" +
@@ -221,19 +221,19 @@ public static class Sprites
 		@"   ||  " + "\n" +
 		@"   ||  " + "\n" +
 		@"   ||  ";
-	public const string Barrels1 =
+	public const string Barrels1 = // REMOVE?
 		@"       " + "\n" +
 		@"       " + "\n" +
 		@"  /---\" + "\n" +
 		@"/-\/-\|" + "\n" +
 		@"\ /\ //";
-	public const string Barrels2 =
+	public const string Barrels2 = // REMOVE?
 		@"       " + "\n" +
 		@"       " + "\n" +
 		@"/---\  " + "\n" +
 		@"|/-\/-\" + "\n" +
 		@"\\ /\ /";
-	public const string Barrels3 =
+	public const string Barrels3 = // REMOVE?
 		@"       " + "\n" +
 		@"       " + "\n" +
 		@" /---\ " + "\n" +
@@ -275,7 +275,7 @@ public static class Sprites
 		@"╵╷╵╷╵╷╵" + "\n" +
 		@"╵╷╵╷╵╷╵" + "\n" +
 		@"╵╷╵╷╵╷╵";
-	public const string Fence =
+	public const string Fence = // Redesign?
 		@"#######" + "\n" +
 		@"#_____#" + "\n" +
 		@"#     #" + "\n" +
