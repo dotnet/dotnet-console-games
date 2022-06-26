@@ -11,72 +11,14 @@ public static class Sprites
 		@"       " + "\n" +
 		@"       " + "\n" +
 		@"       ";
+
+	// BUILDINGS //
 	public const string BuildingSmall =
 		@"       " + "\n" +
 		@" /---\ " + "\n" +
 		@"/-----\" + "\n" +
 		@"|     |" + "\n" +
 		@"|  █  |";
-	public const string BuildingLowLargeDoorLeft =
-		@" /-----" + "\n" +
-		@"/------" + "\n" +
-		@"|      " + "\n" +
-		@"|      " + "\n" +
-		@"|  █   ";
-	public const string BuildingLowLargeDoorRight =
-		@"-----\ " + "\n" +
-		@"------\" + "\n" +
-		@"      |" + "\n" +
-		@"      |" + "\n" +
-		@"   █  |";
-	public const string BuildingLowLargeLeft =
-		@" /-----" + "\n" +
-		@"/------" + "\n" +
-		@"|      " + "\n" +
-		@"|      " + "\n" +
-		@"| ▀ ▀  ";
-	public const string BuildingLowLargeRight =
-		@"-----\ " + "\n" +
-		@"------\" + "\n" +
-		@"      |" + "\n" +
-		@"      |" + "\n" +
-		@" ▀ ▀  |";
-	public const string BuildingLargeDoorLeft =
-		@"|      " + "\n" +
-		@"|      " + "\n" +
-		@"|      " + "\n" +
-		@"|      " + "\n" +
-		@"|  █   ";
-	public const string BuildingLargeDoorRight =
-		@"      |" + "\n" +
-		@"      |" + "\n" +
-		@"      |" + "\n" +
-		@"      |" + "\n" +
-		@"   █  |";
-	public const string BuildingLargeLeft =
-		@"|      " + "\n" +
-		@"|      " + "\n" +
-		@"|      " + "\n" +
-		@"|      " + "\n" +
-		@"|  ▀ ▀ ";
-	public const string BuildingLargeRight =
-		@"      |" + "\n" +
-		@"      |" + "\n" +
-		@"      |" + "\n" +
-		@"      |" + "\n" +
-		@"  ▀ ▀ |";
-	public const string BuildingLargeTopLeft =
-		@"  /----" + "\n" +
-		@" /-----" + "\n" +
-		@"/------" + "\n" +
-		@"| ▄ ▄  " + "\n" +
-		@"|      ";
-	public const string BuildingLargeTopRight =
-		@"----\  " + "\n" +
-		@"-----\ " + "\n" +
-		@"------\" + "\n" +
-		@"  ▄ ▄ |" + "\n" +
-		@"      |";
 	public const string VetSmall = // REMOVE? (Make it bigger like the pokecenter?)
 		@"       " + "\n" +
 		@" /---\ " + "\n" +
@@ -89,18 +31,63 @@ public static class Sprites
 		@"/Store\" + "\n" +
 		@"|     |" + "\n" +
 		@"|  █  |";
-	public const string Chest =  // REMOVE?
+	public const string Door =
+		@"▬▬▬▬▬▬▬" + "\n" +
+		@"█ ░░░ █" + "\n" +
+		@"█ ░░░ █" + "\n" +
+		@"█ ███ █" + "\n" +
+		@"█ ███ █";
+	public const string TopRoofLeft =
 		@"       " + "\n" +
 		@"       " + "\n" +
-		@"  _._  " + "\n" +
-		@" |___| " + "\n" +
+		@"    /--" + "\n" +
+		@"   /---" + "\n" +
+		@"  /----";
+	public const string TopRoofRight =
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"--\    " + "\n" +
+		@"---\   " + "\n" +
+		@"----\  ";
+	public const string MiddleRoof =
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"-------" + "\n" +
+		@"-------" + "\n" +
+		@"-------";
+	public const string SideRoofLeft =
+		@" //    " + "\n" +
+		@"//     " + "\n" +
+		@"/      " + "\n" +
+		@"|      " + "\n" +
+		@"|      ";
+	public const string SideRoofRight =
+		@"    \\ " + "\n" +
+		@"     \\" + "\n" +
+		@"      \" + "\n" +
+		@"      |" + "\n" +
+		@"      |";
+	public const string MiddleWindow =
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@" ▐█ ▐█ " + "\n" +
+		@"       " + "\n" +
 		@"       ";
-	public const string EmptyChest = // REMOVE?
+	public const string LowWindowSideLeft =
+		@"      |" + "\n" +
+		@"      |" + "\n" +
+		@"      |" + "\n" +
+		@"      |" + "\n" +
+		@"      |";
+	public const string LowWindow =
 		@"       " + "\n" +
 		@"       " + "\n" +
+		@" ▐█ ▐█ " + "\n" +
 		@"       " + "\n" +
-		@" |___| " + "\n" +
-		@"       ";
+		@"#######";
+
+
+	//NATURE
 	public const string Water =
 		@"~~~~~~~" + "\n" +
 		@"~~~~~~~" + "\n" +
@@ -221,24 +208,6 @@ public static class Sprites
 		@"   ||  " + "\n" +
 		@"   ||  " + "\n" +
 		@"   ||  ";
-	public const string Barrels1 = // REMOVE?
-		@"       " + "\n" +
-		@"       " + "\n" +
-		@"  /---\" + "\n" +
-		@"/-\/-\|" + "\n" +
-		@"\ /\ //";
-	public const string Barrels2 = // REMOVE?
-		@"       " + "\n" +
-		@"       " + "\n" +
-		@"/---\  " + "\n" +
-		@"|/-\/-\" + "\n" +
-		@"\\ /\ /";
-	public const string Barrels3 = // REMOVE?
-		@"       " + "\n" +
-		@"       " + "\n" +
-		@" /---\ " + "\n" +
-		@"/--\/-\" + "\n" +
-		@"\  /\ /";
 	public const string Sign = // Text TBC
 		@" ┬──┬─╮" + "\n" +
 		@"╭┴──┴╮│" + "\n" +
