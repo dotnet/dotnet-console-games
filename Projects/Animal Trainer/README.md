@@ -17,6 +17,7 @@ _todo_
 
 _todo_
 
+<!--
 <p align="center">
 	You can play this game in your browser:
 	<br />
@@ -26,3 +27,4 @@ _todo_
 	<br />
 	<sup>Hosted On GitHub Pages</sup>
 </p>
+-->
