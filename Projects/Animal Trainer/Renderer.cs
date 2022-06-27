@@ -144,12 +144,30 @@ public static class Renderer
 		previoiusRender = DateTime.Now;
 	}
 
+	public static void RenderBattleTransistion()
+	{
+		int width = Console.WindowWidth;
+		int height = Console.WindowHeight;
+
+		for (int j = 0; j < height; j++)
+		{
+			for (int i = 0; i < width; i++)
+			{
+				Console.SetCursorPosition(i, j);
+				Console.Write("█");
+			}
+			Console.WriteLine();
+		}
+	}
+
 	public static void RenderBattleView()
 	{
 		string a = string.Join("\n", Enumerable.Repeat(new string('A', Sprites.BattleSpriteWidth), Sprites.BattleSpriteHeight));
 		string b = string.Join("\n", Enumerable.Repeat(new string('B', Sprites.BattleSpriteWidth), Sprites.BattleSpriteHeight));
 
 		Console.CursorVisible = false;
+		Console.BackgroundColor = ConsoleColor.White;
+		Console.ForegroundColor = ConsoleColor.Black;
 
 		var (width, height) = GetWidthAndHeight();
 		int heightCutOff = height - maptext.Length - 3;
