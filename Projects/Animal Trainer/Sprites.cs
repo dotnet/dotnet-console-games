@@ -499,7 +499,7 @@ public static class Sprites
 
 	public const string Open =
 		@"       " + "\n" +
-		@"       " + "\n" +
+		@"       " + "\n" +	
 		@"       " + "\n" +
 		@"       " + "\n" +
 		@"       ";
