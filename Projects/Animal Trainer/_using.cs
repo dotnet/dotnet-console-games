@@ -5,6 +5,7 @@ global using static Animal_Trainer._using;
 global using Animal_Trainer.Maps;
 global using Animal_Trainer.Animals;
 global using System.Collections.Generic;
+global using System.Threading.Tasks;
 
 namespace Animal_Trainer;
 
