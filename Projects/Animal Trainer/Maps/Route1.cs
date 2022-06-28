@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Animal_Trainer.Maps;
+﻿namespace Animal_Trainer.Maps;
 
 class Route1 : Map
 {

@@ -4,6 +4,8 @@ namespace Animal_Trainer;
 
 public static class Renderer
 {
+	public static StringBuilder LastMapRender = new StringBuilder();
+
 	public static void RenderWorldMapView()
 	{
 		Console.CursorVisible = false;
@@ -144,17 +146,44 @@ public static class Renderer
 		previoiusRender = DateTime.Now;
 	}
 
-	public static void RenderBattleTransistion()
+	public static void RenderBattleTransition()
 	{
 		int width = Console.WindowWidth;
 		int height = Console.WindowHeight;
+
+		Console.ForegroundColor = ConsoleColor.White;
+
+		LastMapRender.AppendLine();
+
+		Random rnd = new();
+
+		switch (rnd.Next(1, 1))
+		{
+			case 1:
+				Console.WriteLine(LastMapRender);
+				BlockTransistion(height, width);
+				break;
+			case 2:
+
+				break;
+		}
+	}
+
+	public static void BlockTransistion(int height, int width)
+	{
+		const string Block =
+			@"███████" + "\n" +
+			@"███████" + "\n" +
+			@"███████" + "\n" +
+			@"███████" + "\n" +
+			@"███████";
 
 		for (int j = 0; j < height; j++)
 		{
 			for (int i = 0; i < width; i++)
 			{
 				Console.SetCursorPosition(i, j);
-				Console.Write("█");
+				Console.Write(Block);
 			}
 			Console.WriteLine();
 		}
@@ -166,8 +195,8 @@ public static class Renderer
 		string b = string.Join("\n", Enumerable.Repeat(new string('B', Sprites.BattleSpriteWidth), Sprites.BattleSpriteHeight));
 
 		Console.CursorVisible = false;
-		Console.BackgroundColor = ConsoleColor.White;
-		Console.ForegroundColor = ConsoleColor.Black;
+		//Console.BackgroundColor = ConsoleColor.White;
+		Console.ForegroundColor = ConsoleColor.White;
 
 		var (width, height) = GetWidthAndHeight();
 		int heightCutOff = height - maptext.Length - 3;

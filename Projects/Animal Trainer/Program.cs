@@ -19,10 +19,7 @@ public partial class Program
 					Console.SetBufferSize(screenWidth, screenHeight);
 					Console.SetWindowPosition(0, 0);
 				} 
-				catch
-				{
-					// Left Blank on Purpose
-				}
+				catch { } // Left Blank on Purpose
 			}
 
 			while (gameRunning)
@@ -69,8 +66,12 @@ public partial class Program
 					if(Random.Shared.Next(3) is 0)
 					{
 						Console.Clear();
+						Renderer.RenderBattleTransition();
 						Renderer.RenderBattleView();
 						Console.ReadKey(true);
+						Console.BackgroundColor = ConsoleColor.Black;
+						Console.ForegroundColor = ConsoleColor.Gray;
+						Console.Clear();
 					} break;
 			}
 
@@ -121,6 +122,22 @@ public partial class Program
 		PressEnterToContiue();
 	}
 
+	static void InteractSign()
+	{
+		var (i, j) = Map.ScreenToTile(character.I, character.J);
+		var s = map.SpriteSheet();
+		if(s[j-1][i] == 's' || s[j+1][i] == 's' || s[j][i-1] == 's' || s[j][i+1] == 's')
+		{
+			Console.Clear();
+			Console.WriteLine();
+			Console.WriteLine("Sign Says:");
+			Console.WriteLine();
+			Console.WriteLine();
+			Console.Write(" Press [enter] to continue...");
+			PressEnterToContiue();
+		}
+	}
+
 	static void HandleMapUserInput()
 	{
 		while (Console.KeyAvailable)
@@ -158,6 +175,7 @@ public partial class Program
 					break;
 				case ConsoleKey.Enter: RenderStatusString(); break;
 				case ConsoleKey.Backspace: break;
+				case ConsoleKey.E: InteractSign(); break;
 				case ConsoleKey.Escape: gameRunning = false; return;
 			}
 		}
