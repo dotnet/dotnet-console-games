@@ -17,7 +17,7 @@ public static class _using
 	public static Character character = new();
 	public static Map map = new PaletTown();
 	public static DateTime previoiusRender = DateTime.Now;
-	public static bool gameRunning = true;
+	public static bool gameRunning = false;
 	public static List<Animal> ownedAnimals = new();
 
 	public static readonly string[] maptext = new[]
