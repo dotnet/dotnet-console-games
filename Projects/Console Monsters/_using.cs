@@ -19,7 +19,7 @@ public static class _using
 	public static DateTime previoiusRender = DateTime.Now;
 	public static bool gameRunning = true;
 	public static bool startMenu = true;
-	public static List<Monster> ownedMonsters = new();
+	public static List<MonsterBase> ownedMonsters = new();
 
 	public static readonly string[] maptext = new[]
 	{
