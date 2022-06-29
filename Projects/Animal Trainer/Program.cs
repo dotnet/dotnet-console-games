@@ -54,7 +54,10 @@ public partial class Program
 		string titleIndent = new string(' ', 40);
 		string newLineOptions = new string('\n', 2);
 		string newLineTitle = new string('\n', 6);
+
 		ReDraw:
+		Console.SetCursorPosition(0, 0);
+
 		sb.AppendLine($"{newLineTitle}");
 		sb.AppendLine(@$"{titleIndent}  _____                      _        __  __                 _                ");
 		sb.AppendLine(@$"{titleIndent} / ____|                    | |      |  \/  |               | |               ");
@@ -101,8 +104,11 @@ public partial class Program
 						Options();
 						break;
 					case 3:
+						Exit();
 						break;
 				}
+				break;
+			default:
 				break;
 		}
 	}
@@ -116,6 +122,13 @@ public partial class Program
 		Console.WriteLine();
 		Console.Write(" Press [enter] to continue...");
 		PressEnterToContiue();
+	}
+	static void Exit()
+	{
+		Console.Clear();
+		Console.WriteLine();
+		Console.WriteLine(" Animal Trainer was closed.");
+		Environment.Exit(0);
 	}
 
 	static void UpdateCharacter()
