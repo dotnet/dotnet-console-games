@@ -22,10 +22,11 @@ public static class _using
 
 	public static readonly string[] maptext = new[]
 	{
-		"Move: arrow keys or (w, a, s, d)",
-		"Animal Status: [enter]",
-		"Inventory: [backspace]",
-		"Quit: [escape]",
+		"Move: ← ↑ → ↓ / W A S D",
+		"Interact: E",
+		"Animal Status: [Enter]",
+		"Inventory: [Backspace]",
+		"Quit: [Escape]",
 	};
 
 	static _using()

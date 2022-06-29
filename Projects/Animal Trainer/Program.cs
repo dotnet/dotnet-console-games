@@ -122,7 +122,7 @@ public partial class Program
 		PressEnterToContiue();
 	}
 
-	static void InteractSign()
+	static void SignInteraction()
 	{
 		var (i, j) = Map.ScreenToTile(character.I, character.J);
 		var s = map.SpriteSheet();
@@ -132,9 +132,35 @@ public partial class Program
 			Console.WriteLine();
 			Console.WriteLine("Sign Says:");
 			Console.WriteLine();
+			SignDecider();
 			Console.WriteLine();
 			Console.Write(" Press [enter] to continue...");
 			PressEnterToContiue();
+		}
+	}
+
+	static void SignDecider()
+	{
+		string currentMap = string.Empty;
+
+		switch (_using.map)
+		{
+			case PaletTown:
+				currentMap = "PT";
+				break;
+			case Route1:
+				currentMap = "R1";
+				break;
+		}
+
+		switch (currentMap)
+		{
+			case "PT":
+				Console.WriteLine(PaletTown.closestSign());
+				break;
+			case "R1":
+				Console.WriteLine(Route1.closestSign());
+				break;
 		}
 	}
 
@@ -175,7 +201,7 @@ public partial class Program
 					break;
 				case ConsoleKey.Enter: RenderStatusString(); break;
 				case ConsoleKey.Backspace: break;
-				case ConsoleKey.E: InteractSign(); break;
+				case ConsoleKey.E: SignInteraction(); break; // NEW
 				case ConsoleKey.Escape: gameRunning = false; return;
 			}
 		}
