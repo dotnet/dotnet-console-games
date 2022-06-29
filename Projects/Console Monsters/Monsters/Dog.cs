@@ -8,5 +8,8 @@ namespace Console_Monsters.Monsters;
 
 public class Dog : MonsterBase
 {
-	
+	public Dog()
+	{
+		Sprite = Sprites.AnimalDog;
+	}
 }
