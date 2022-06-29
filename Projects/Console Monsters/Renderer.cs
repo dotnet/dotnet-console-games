@@ -289,8 +289,8 @@ public static class Renderer
 					j < midHeight &&
 					j > midHeight - spriteheight)
 				{
-					int spriteI = i - (midWidth - (Sprites.BattleSpriteWidth / 4) * 3 - 3) - 1;
-					int spriteJ = j - midHeight - 1;
+					int spriteI = i - (midWidth - (Sprites.BattleSpriteWidth / 4) * 1) - 1;
+					int spriteJ = j - (midHeight - spriteheight) - 1;
 					char c = monsterB.Sprite[spriteJ * (Sprites.BattleSpriteWidth + 1) + spriteI];
 					sb.Append(char.IsWhiteSpace(c) ? ' ' : c);
 					continue;
