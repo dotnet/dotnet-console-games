@@ -1,4 +1,4 @@
-﻿namespace Animal_Trainer;
+﻿namespace Console_Monsters;
 
 public static class Sprites
 {

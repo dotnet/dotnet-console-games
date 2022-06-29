@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-namespace Animal_Trainer.Animals;
+namespace Console_Monsters.Animals;
 
-public abstract class Animal
+public abstract class Monster
 {
 	public string? Name { get; set; }
 
