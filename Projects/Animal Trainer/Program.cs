@@ -22,6 +22,7 @@ public partial class Program
 				catch { } // Left Blank on Purpose
 			}
 
+			StartMenu();
 			while (gameRunning)
 			{
 				UpdateCharacter();
@@ -39,6 +40,47 @@ public partial class Program
 			Console.WriteLine("Animal Trainer was closed.");
 			Console.CursorVisible = true;
 		}
+	}
+
+	static void StartMenu()
+	{
+		StringBuilder sb = new StringBuilder();
+
+		StringBuilder arrow = new StringBuilder();
+
+		arrow.AppendLine(@"  ▄▀");
+		arrow.AppendLine(@"■█  ");
+		arrow.AppendLine(@"  ▀▄");
+
+		sb.AppendLine("\n\n\n\n\n");
+		sb.AppendLine("\t\t\t\t\t" + @"  _____                      _        __  __                 _                ");
+		sb.AppendLine("\t\t\t\t\t" + @" / ____|                    | |      |  \/  |               | |               ");
+		sb.AppendLine("\t\t\t\t\t" + @"| |     ___  _ __  ___  ___ | | ___  | \  / | ___  _ __  ___| |_ ___ _ __ ___ ");
+		sb.AppendLine("\t\t\t\t\t" + @"| |    / _ \| '_ \/ __|/ _ \| |/ _ \ | |\/| |/ _ \| '_ \/ __| __/ _ \ '__/ __|");
+		sb.AppendLine("\t\t\t\t\t" + @"| |___| (_) | | | \__ \ (_) | |  __/ | |  | | (_) | | | \__ \ ||  __/ |  \__ \");
+		sb.AppendLine("\t\t\t\t\t" + @" \_____\___/|_| |_|___/\___/|_|\___| |_|  |_|\___/|_| |_|___/\__\___|_|  |___/");
+		sb.AppendLine("\n\n\n\n\n\n");
+		sb.AppendLine("\t\t\t\t\t\t\t    " + @"    ▄▄▄▄▄ ▄▄▄▄▄  ▄▄  ▄▄▄  ▄▄▄▄▄   ");
+		sb.AppendLine("\t\t\t\t\t\t\t    " + @"    █▄▄▄▄   █   █▄▄█ █▄▄▀   █     ");
+		sb.AppendLine("\t\t\t\t\t\t\t    " + @"    ▄▄▄▄█   █   █  █ █  █   █     ");
+		sb.AppendLine("\t\t\t\t\t\t\t    " + @"                                  ");
+		sb.AppendLine("\t\t\t\t\t\t\t    " + @"                                  ");
+		sb.AppendLine("\t\t\t\t\t\t\t    " + @" ▄▄  ▄▄▄  ▄▄▄▄▄ ▄  ▄▄  ▄   ▄ ▄▄▄▄▄");
+		sb.AppendLine("\t\t\t\t\t\t\t    " + @"█  █ █▄▄▀   █   █ █  █ █▀▄ █ █▄▄▄▄");
+		sb.AppendLine("\t\t\t\t\t\t\t    " + @"▀▄▄▀ █      █   █ ▀▄▄▀ █  ▀█ ▄▄▄▄█");
+		sb.AppendLine("\t\t\t\t\t\t\t    " + @"                                  ");
+		sb.AppendLine("\t\t\t\t\t\t\t    " + @"                                  ");
+		sb.AppendLine("\t\t\t\t\t\t\t    " + @"        ▄▄▄▄ ▄   ▄ ▄ ▄▄▄▄▄        ");
+		sb.AppendLine("\t\t\t\t\t\t\t    " + @"        █▄▄   ▀▄▀  █   █          ");
+		sb.AppendLine("\t\t\t\t\t\t\t    " + @"        █▄▄▄ ▄▀ ▀▄ █   █          ");
+
+		//sb.Append(arrow, 1, 6);
+
+		Console.WriteLine(sb);
+		Console.SetCursorPosition(100, 19);
+		Console.WriteLine(arrow);
+
+		PressEnterToContiue();
 	}
 
 	static void UpdateCharacter()
