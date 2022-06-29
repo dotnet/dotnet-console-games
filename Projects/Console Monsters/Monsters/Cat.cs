@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Console_Monsters.Monsters;
 
-public class Dog : MonsterBase
+public class Cat : MonsterBase
 {
-	public Dog()
+	public Cat()
 	{
-		Sprite = Sprites.Dog;
+		Sprite = Sprites.Cat;
 	}
 }

@@ -213,7 +213,8 @@ public static class Renderer
 	{
 		int spriteheight = Sprites.BattleSpriteHeight + 1;
 
-		MonsterBase monsterA = MonsterBase.GetRandom();
+		MonsterBase monsterA = MonsterBase.DogTest();
+		MonsterBase monsterB = MonsterBase.CatTest();
 
 		Console.CursorVisible = false;
 		Console.BackgroundColor = ConsoleColor.Black;
@@ -288,7 +289,10 @@ public static class Renderer
 					j < midHeight &&
 					j > midHeight - spriteheight)
 				{
-					sb.Append('B');
+					int spriteI = i - (midWidth - (Sprites.BattleSpriteWidth / 4) * 3 - 3) - 1;
+					int spriteJ = j - midHeight - 1;
+					char c = monsterB.Sprite[spriteJ * (Sprites.BattleSpriteWidth + 1) + spriteI];
+					sb.Append(char.IsWhiteSpace(c) ? ' ' : c);
 					continue;
 				}
 
