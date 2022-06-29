@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Console_Monsters.Monsters;
 
@@ -19,7 +20,7 @@ public abstract class MonsterBase
 
 	public int MaximumEnergy { get; set; }
 
-	public string? Sprite { get; init; }
+	public string[] Sprite { get; init; }
 
 	//public AnimalType Type { get; set; }
 
@@ -30,17 +31,12 @@ public abstract class MonsterBase
 	
 	//public static MonsterBase GetRandom(){}
 
-	public static MonsterBase DogTest()
+	public static MonsterBase GetRandom()
 	{
-		Dog dog = new Dog();
-
-		return dog;
-	}
-
-	public static MonsterBase CatTest()
-	{
-		Cat cat = new Cat();
-
-		return cat;
+		Assembly assembly = Assembly.GetExecutingAssembly();
+		Type[] monsterTypes = assembly.GetTypes().Where(t => t.BaseType == typeof(MonsterBase)).ToArray();
+		Type monsterType = monsterTypes[Random.Shared.Next(monsterTypes.Length)];
+		MonsterBase monster = (MonsterBase)Activator.CreateInstance(monsterType)!;
+		return monster;
 	}
 }

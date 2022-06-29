@@ -66,17 +66,17 @@ public partial class Program
 		sb.AppendLine(@$"{titleIndent} \_____\___/|_| |_|___/\___/|_|\___| |_|  |_|\___/|_| |_|___/\__\___|_|  |___/");
 		sb.AppendLine(@$"{newLineTitle}");
 
-		sb.AppendLine(@$"{optionIndent}   ▄▄▄▄▄ ▄▄▄▄▄  ▄▄  ▄▄▄  ▄▄▄▄▄ {(arrowOption is 1 ? "  ▄▀" : "    ")}");
-		sb.AppendLine(@$"{optionIndent}   █▄▄▄▄   █   █▄▄█ █▄▄▀   █   {(arrowOption is 1 ? "■█  " : "    ")}");
-		sb.AppendLine(@$"{optionIndent}   ▄▄▄▄█   █   █  █ █  █   █   {(arrowOption is 1 ? "  ▀▄" : "    ")}");
+		sb.AppendLine(@$"{optionIndent}   ▄▄▄▄▄ ▄▄▄▄▄  ▄▄  ▄▄▄  ▄▄▄▄▄ {(arrowOption is 1 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}   █▄▄▄▄   █   █▄▄█ █▄▄▀   █   {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}   ▄▄▄▄█   █   █  █ █  █   █   {(arrowOption is 1 ? "╰───╯" : "     ")}");
 		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent} ▄▄  ▄▄▄  ▄▄▄▄▄ ▄  ▄▄  ▄   ▄ ▄▄▄▄▄ {(arrowOption is 2 ? "  ▄▀" : "    ")}");
-		sb.AppendLine(@$"{optionIndent}█  █ █▄▄▀   █   █ █  █ █▀▄ █ █▄▄▄▄ {(arrowOption is 2 ? "■█  " : "    ")}");
-		sb.AppendLine(@$"{optionIndent}▀▄▄▀ █      █   █ ▀▄▄▀ █  ▀█ ▄▄▄▄█ {(arrowOption is 2 ? "  ▀▄" : "    ")}");
+		sb.AppendLine(@$"{optionIndent} ▄▄  ▄▄▄  ▄▄▄▄▄ ▄  ▄▄  ▄   ▄ ▄▄▄▄▄ {(arrowOption is 2 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█  █ █▄▄▀   █   █ █  █ █▀▄ █ █▄▄▄▄ {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}▀▄▄▀ █      █   █ ▀▄▄▀ █  ▀█ ▄▄▄▄█ {(arrowOption is 2 ? "╰───╯" : "     ")}");
 		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}        ▄▄▄▄ ▄   ▄ ▄ ▄▄▄▄▄ {(arrowOption is 3 ? "  ▄▀" : "    ")}");
-		sb.AppendLine(@$"{optionIndent}        █▄▄   ▀▄▀  █   █   {(arrowOption is 3 ? "■█  " : "    ")}");
-		sb.AppendLine(@$"{optionIndent}        █▄▄▄ ▄▀ ▀▄ █   █   {(arrowOption is 3 ? "  ▀▄" : "    ")}");
+		sb.AppendLine(@$"{optionIndent}        ▄▄▄▄ ▄   ▄ ▄ ▄▄▄▄▄ {(arrowOption is 3 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}        █▄▄   ▀▄▀  █   █   {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}        █▄▄▄ ▄▀ ▀▄ █   █   {(arrowOption is 3 ? "╰───╯" : "     ")}");
 
 		Console.SetCursorPosition(0, 0);
 		Console.WriteLine(sb);

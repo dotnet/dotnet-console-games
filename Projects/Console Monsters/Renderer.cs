@@ -213,8 +213,8 @@ public static class Renderer
 	{
 		int spriteheight = Sprites.BattleSpriteHeight + 1;
 
-		MonsterBase monsterA = MonsterBase.DogTest();
-		MonsterBase monsterB = MonsterBase.CatTest();
+		MonsterBase monsterA = MonsterBase.GetRandom();
+		MonsterBase monsterB = MonsterBase.GetRandom();
 
 		Console.CursorVisible = false;
 		Console.BackgroundColor = ConsoleColor.Black;
@@ -291,7 +291,10 @@ public static class Renderer
 				{
 					int spriteI = i - (midWidth - (Sprites.BattleSpriteWidth / 4) * 1) - 1;
 					int spriteJ = j - (midHeight - spriteheight) - 1;
-					char c = monsterB.Sprite[spriteJ * (Sprites.BattleSpriteWidth + 1) + spriteI];
+					char c =
+						spriteJ >= monsterB.Sprite.Length ? ' ' :
+						spriteI >= monsterB.Sprite[spriteJ].Length ? ' ' :
+						monsterB.Sprite[spriteJ][spriteI];
 					sb.Append(char.IsWhiteSpace(c) ? ' ' : c);
 					continue;
 				}
@@ -303,7 +306,10 @@ public static class Renderer
 				{
 					int spriteI = i - (midWidth - (Sprites.BattleSpriteWidth / 4) * 3 - 3) - 1;
 					int spriteJ = j - midHeight - 1;
-					char c = monsterA.Sprite[spriteJ * (Sprites.BattleSpriteWidth + 1) + spriteI];
+					char c =
+						spriteJ >= monsterA.Sprite.Length ? ' ' :
+						spriteI >= monsterA.Sprite[spriteJ].Length ? ' ' :
+						monsterA.Sprite[spriteJ][spriteI];
 					sb.Append(char.IsWhiteSpace(c) ? ' ' : c);
 					continue;
 				}
