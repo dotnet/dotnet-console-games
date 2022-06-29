@@ -127,17 +127,17 @@ public partial class Program
 		sb.AppendLine(@$"{titleIndent}| |__| |  ‾ /| |_| | (_) | | | \__ \");
 		sb.AppendLine(@$"{titleIndent} \____/|_|‾‾  \__|_|\___/|_| |_|___/");
 		sb.AppendLine(@$"{newLineTitle}");
-		sb.AppendLine(@$"{optionIndent}  {(arrowOption is 1 ? "  ▄▀" : "    ")}");
-		sb.AppendLine(@$"{optionIndent}  {(arrowOption is 1 ? "■█  " : "    ")}");
-		sb.AppendLine(@$"{optionIndent}  {(arrowOption is 1 ? "  ▀▄" : "    ")}");
+		sb.AppendLine(@$"{optionIndent}  █{(arrowOption is 1 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}  █{(arrowOption is 1 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}  █{(arrowOption is 1 ? "╰───╯" : "     ")}");
 		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}  {(arrowOption is 2 ? "  ▄▀" : "    ")}");
-		sb.AppendLine(@$"{optionIndent}  {(arrowOption is 2 ? "■█  " : "    ")}");
-		sb.AppendLine(@$"{optionIndent}  {(arrowOption is 2 ? "  ▀▄" : "    ")}");
+		sb.AppendLine(@$"{optionIndent}  █ █{(arrowOption is 2 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}  █ █{(arrowOption is 2 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}  █ █{(arrowOption is 2 ? "╰───╯" : "     ")}");
 		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}  {(arrowOption is 3 ? "  ▄▀" : "    ")}");
-		sb.AppendLine(@$"{optionIndent}  {(arrowOption is 3 ? "■█  " : "    ")}");
-		sb.AppendLine(@$"{optionIndent}  {(arrowOption is 3 ? "  ▀▄" : "    ")}");
+		sb.AppendLine(@$"{optionIndent}  █ █ █{(arrowOption is 3 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}  █ █ █{(arrowOption is 3 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}  █ █ █{(arrowOption is 3 ? "╰───╯" : "     ")}");
 
 		Console.SetCursorPosition(0, 0);
 		Console.WriteLine(sb);
@@ -147,16 +147,16 @@ public partial class Program
 			case ConsoleKey.UpArrow:   arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
 			case ConsoleKey.DownArrow: arrowOption = Math.Min(3, arrowOption + 1); goto ReDraw;
 			case ConsoleKey.Enter:
-				switch (arrowOption)
-				{
-					case 1: break;
-					case 2: throw new NotImplementedException();
-					case 3: gameRunning = false; break;
-				}
+				//switch (arrowOption)
+				//{
+				//	case 1: throw new NotImplementedException();
+				//	case 2: throw new NotImplementedException();
+				//	case 3: throw new NotImplementedException();
+				//}
 				break;
+			case ConsoleKey.Escape: break;
 			default: goto ReDraw;
 		}
-		PressEnterToContiue();
 	}
 
 	static void UpdateCharacter()
