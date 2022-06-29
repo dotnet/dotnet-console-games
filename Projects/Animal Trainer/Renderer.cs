@@ -214,7 +214,7 @@ public static class Renderer
 
 		Console.CursorVisible = false;
 		Console.BackgroundColor = ConsoleColor.Black;
-		Console.ForegroundColor = ConsoleColor.Grey;
+		Console.ForegroundColor = ConsoleColor.Gray;
 
 		var (width, height) = GetWidthAndHeight();
 		int heightCutOff = height - maptext.Length - 3;
