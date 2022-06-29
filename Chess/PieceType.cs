@@ -1,5 +1,6 @@
 ﻿namespace Chess;
 
+// TODO: Delete this entire file once it is no longer useful
 public struct PieceTypeToken
 {
 	// White tokens

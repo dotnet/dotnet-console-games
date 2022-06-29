@@ -1,3 +1,10 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿namespace Chess;
 
-Console.WriteLine("Hello, World!");
+public static class Program
+{
+	public static void Main()
+	{
+		// TODO: Build the main game loop
+	}
+}
+
