@@ -96,13 +96,13 @@ public abstract class Map
 	}
 	internal virtual bool IsValidCharacterMapTile(int tileI, int tileJ)
 	{
-		var s = map.SpriteSheet();
-
+		char[][] s = map.SpriteSheet();
 		if (tileJ < 0 || tileJ >= s.Length || tileI < 0 || tileI >= s[tileJ].Length)
 		{
 			return false;
 		}
-		return s[tileJ][tileI] switch
+		char c = s[tileJ][tileI];
+		return c switch
 		{
 			' ' => true,
 			'v' => true,

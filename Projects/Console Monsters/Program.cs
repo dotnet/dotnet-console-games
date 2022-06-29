@@ -85,14 +85,8 @@ public partial class Program
 		ConsoleKey key = Console.ReadKey(true).Key;
 		switch (key)
 		{
-			case ConsoleKey.UpArrow:
-				if (arrowOption != 1)
-					arrowOption--;
-				goto ReDraw;
-			case ConsoleKey.DownArrow:
-				if (arrowOption != 3)
-					arrowOption++;
-				goto ReDraw;
+			case ConsoleKey.UpArrow:   arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
+			case ConsoleKey.DownArrow: arrowOption = Math.Min(3, arrowOption + 1); goto ReDraw;
 			case ConsoleKey.Enter:
 				switch (arrowOption)
 				{
@@ -107,8 +101,7 @@ public partial class Program
 						break;
 				}
 				break;
-			default:
-				break;
+			default: goto ReDraw;
 		}
 	}
 
@@ -118,7 +111,7 @@ public partial class Program
 
 		int arrowOption = 1;
 
-		string optionIndent = new string(' ', 60);
+		string optionIndent = new(' ', 60);
 		string titleIndent = new(' ', 55);
 		string newLineOptions = new('\n', 2);
 		string newLineTitle = new('\n', 6);
@@ -149,26 +142,19 @@ public partial class Program
 		Console.SetCursorPosition(0, 0);
 		Console.WriteLine(sb);
 
-
-		ConsoleKey key = Console.ReadKey(true).Key;
-		switch (key)
+		switch (Console.ReadKey(true).Key)
 		{
-			case ConsoleKey.UpArrow:
-				if (arrowOption != 1)
-					arrowOption--;
-				goto ReDraw;
-			case ConsoleKey.DownArrow:
-				if (arrowOption != 3)
-					arrowOption++;
-				goto ReDraw;
+			case ConsoleKey.UpArrow:   arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
+			case ConsoleKey.DownArrow: arrowOption = Math.Min(3, arrowOption + 1); goto ReDraw;
 			case ConsoleKey.Enter:
 				switch (arrowOption)
 				{
-
+					case 1: break;
+					case 2: throw new NotImplementedException();
+					case 3: gameRunning = false; break;
 				}
 				break;
-			default:
-				break;
+			default: goto ReDraw;
 		}
 		PressEnterToContiue();
 	}
@@ -246,25 +232,24 @@ public partial class Program
 
 	static void HandleMapUserInput()
 	{
-		var (i, j) = Map.ScreenToTile(character.I, character.J);
-
 		while (Console.KeyAvailable)
 		{
 			ConsoleKey key = Console.ReadKey(true).Key;
 			switch (key)
 			{
 				case
-					ConsoleKey.UpArrow or ConsoleKey.W or
-					ConsoleKey.DownArrow or ConsoleKey.S or
-					ConsoleKey.LeftArrow or ConsoleKey.A or
+					ConsoleKey.UpArrow    or ConsoleKey.W or
+					ConsoleKey.DownArrow  or ConsoleKey.S or
+					ConsoleKey.LeftArrow  or ConsoleKey.A or
 					ConsoleKey.RightArrow or ConsoleKey.D:
 					if (character.Animation == Sprites.IdlePlayer)
 					{
+						var (i, j) = Map.ScreenToTile(character.I, character.J);
 						(i, j) = key switch
 						{
-							ConsoleKey.UpArrow or ConsoleKey.W => (i, j - 1),
-							ConsoleKey.DownArrow or ConsoleKey.S => (i, j + 1),
-							ConsoleKey.LeftArrow or ConsoleKey.A => (i - 1, j),
+							ConsoleKey.UpArrow    or ConsoleKey.W => (i, j - 1),
+							ConsoleKey.DownArrow  or ConsoleKey.S => (i, j + 1),
+							ConsoleKey.LeftArrow  or ConsoleKey.A => (i - 1, j),
 							ConsoleKey.RightArrow or ConsoleKey.D => (i + 1, j),
 							_ => throw new Exception("bug"),
 						};
@@ -272,9 +257,9 @@ public partial class Program
 						{
 							switch (key)
 							{
-								case ConsoleKey.UpArrow or ConsoleKey.W: character.AnimationFrame = 0; character.Animation = Sprites.RunUp; break;
-								case ConsoleKey.DownArrow or ConsoleKey.S: character.AnimationFrame = 0; character.Animation = Sprites.RunDown; break;
-								case ConsoleKey.LeftArrow or ConsoleKey.A: character.AnimationFrame = 0; character.Animation = Sprites.RunLeft; break;
+								case ConsoleKey.UpArrow    or ConsoleKey.W: character.AnimationFrame = 0; character.Animation = Sprites.RunUp; break;
+								case ConsoleKey.DownArrow  or ConsoleKey.S: character.AnimationFrame = 0; character.Animation = Sprites.RunDown; break;
+								case ConsoleKey.LeftArrow  or ConsoleKey.A: character.AnimationFrame = 0; character.Animation = Sprites.RunLeft; break;
 								case ConsoleKey.RightArrow or ConsoleKey.D: character.AnimationFrame = 0; character.Animation = Sprites.RunRight; break;
 							}
 						}
@@ -282,7 +267,12 @@ public partial class Program
 					break;
 				case ConsoleKey.Enter: RenderStatusString(); break;
 				case ConsoleKey.Backspace: break;
-				case ConsoleKey.E: map.InteractWithMapTile(i, j); break;
+				case ConsoleKey.E:
+					{
+						var (i, j) = Map.ScreenToTile(character.I, character.J);
+						map.InteractWithMapTile(i, j);
+						break;
+					}
 				case ConsoleKey.Escape: StartMenu() ; return;
 			}
 		}
