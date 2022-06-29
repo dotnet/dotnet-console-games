@@ -210,12 +210,11 @@ public static class Renderer
 
 	public static void RenderBattleView()
 	{
-		string a = string.Join("\n", Enumerable.Repeat(new string('A', Sprites.BattleSpriteWidth), Sprites.BattleSpriteHeight));
-		string b = string.Join("\n", Enumerable.Repeat(new string('B', Sprites.BattleSpriteWidth), Sprites.BattleSpriteHeight));
+		int spriteheight = Sprites.BattleSpriteHeight + 1;
 
 		Console.CursorVisible = false;
-		//Console.BackgroundColor = ConsoleColor.White;
-		Console.ForegroundColor = ConsoleColor.White;
+		Console.BackgroundColor = ConsoleColor.White;
+		Console.ForegroundColor = ConsoleColor.Black;
 
 		var (width, height) = GetWidthAndHeight();
 		int heightCutOff = height - maptext.Length - 3;
@@ -250,40 +249,40 @@ public static class Renderer
 				}
 
 				// map outline
-				if (i == midWidth - Sprites.BattleSpriteWidth && j == midHeight - Sprites.BattleSpriteHeight)
+				if (i == midWidth - Sprites.BattleSpriteWidth && j == midHeight - spriteheight)
 				{
 					sb.Append('╔');
 					continue;
 				}
-				if (i == midWidth - Sprites.BattleSpriteWidth && j == midHeight + Sprites.BattleSpriteHeight)
+				if (i == midWidth - Sprites.BattleSpriteWidth && j == midHeight + spriteheight)
 				{
 					sb.Append('╚');
 					continue;
 				}
-				if (i == midWidth + Sprites.BattleSpriteWidth && j == midHeight - Sprites.BattleSpriteHeight)
+				if (i == midWidth + Sprites.BattleSpriteWidth && j == midHeight - spriteheight)
 				{
 					sb.Append('╗');
 					continue;
 				}
-				if (i == midWidth + Sprites.BattleSpriteWidth && j == midHeight + Sprites.BattleSpriteHeight)
+				if (i == midWidth + Sprites.BattleSpriteWidth && j == midHeight + spriteheight)
 				{
 					sb.Append('╝');
 					continue;
 				}
-				if ((i == midWidth - Sprites.BattleSpriteWidth || i == midWidth + Sprites.BattleSpriteWidth) && (j > midHeight - Sprites.BattleSpriteHeight && j < midHeight + Sprites.BattleSpriteHeight))
+				if ((i == midWidth - Sprites.BattleSpriteWidth || i == midWidth + Sprites.BattleSpriteWidth) && (j > midHeight - spriteheight && j < midHeight + spriteheight))
 				{
 					sb.Append('║');
 					continue;
 				}
-				if ((j == midHeight - Sprites.BattleSpriteHeight || j == midHeight + Sprites.BattleSpriteHeight) && (i > midWidth - Sprites.BattleSpriteWidth && i < midWidth + Sprites.BattleSpriteWidth))
+				if ((j == midHeight - spriteheight || j == midHeight + spriteheight) && (i > midWidth - Sprites.BattleSpriteWidth && i < midWidth + Sprites.BattleSpriteWidth))
 				{
 					sb.Append('═');
 					continue;
 				}
 
-				if (i > midWidth - (Sprites.BattleSpriteWidth / 4) * 3 &&
+				if (i > midWidth - (Sprites.BattleSpriteWidth / 4) * 3 - 3 &&
 					i < midWidth + (Sprites.BattleSpriteWidth / 4) * 1 &&
-					j < midHeight + Sprites.BattleSpriteHeight &&
+					j < midHeight + spriteheight &&
 					j > midHeight)
 				{
 					sb.Append('A');
@@ -291,9 +290,9 @@ public static class Renderer
 				}
 
 				if (i > midWidth - (Sprites.BattleSpriteWidth / 4) * 1 &&
-					i < midWidth + (Sprites.BattleSpriteWidth / 4) * 3 &&
+					i < midWidth + (Sprites.BattleSpriteWidth / 4) * 3 + 3 &&
 					j < midHeight &&
-					j > midHeight - Sprites.BattleSpriteHeight)
+					j > midHeight - spriteheight)
 				{
 					sb.Append('B');
 					continue;
