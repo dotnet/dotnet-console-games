@@ -28,10 +28,19 @@ public abstract class MonsterBase
 	//public string? StatusCondition { get; set; }
 
 	
-	public static MonsterBase GetRandom()
+	//public static MonsterBase GetRandom(){}
+
+	public static MonsterBase DogTest()
 	{
 		Dog dog = new Dog();
 
 		return dog;
+	}
+
+	public static MonsterBase CatTest()
+	{
+		Cat cat = new Cat();
+
+		return cat;
 	}
 }
