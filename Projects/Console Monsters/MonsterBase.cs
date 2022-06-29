@@ -19,7 +19,7 @@ public abstract class MonsterBase
 
 	public int MaximumEnergy { get; set; }
 
-	public string Sprite { get; set; }
+	public string? Sprite { get; init; }
 
 	//public AnimalType Type { get; set; }
 
