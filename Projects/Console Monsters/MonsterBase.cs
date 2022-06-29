@@ -20,6 +20,8 @@ public abstract class MonsterBase
 
 	public int MaximumEnergy { get; set; }
 
+	public int Evolution { get; set; }
+
 	public string[] Sprite { get; init; }
 
 	//public AnimalType Type { get; set; }
