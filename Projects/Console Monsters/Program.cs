@@ -50,7 +50,7 @@ public partial class Program
 		int arrowOption = 1;
 
 		string optionIndent = new string(' ', 60);
-		string titleIndent = new(' ', 40);
+		string titleIndent = new(' ', 10);
 		string newLineOptions = new('\n', 2);
 		string newLineTitle = new('\n', 6);
 
@@ -58,12 +58,12 @@ public partial class Program
 		sb.Clear();
 
 		sb.AppendLine($"{newLineTitle}");
-		sb.AppendLine(@$"{titleIndent}  _____                      _        __  __                 _                ");
-		sb.AppendLine(@$"{titleIndent} / ____|                    | |      |  \/  |               | |               ");
-		sb.AppendLine(@$"{titleIndent}| |     ___  _ __  ___  ___ | | ___  | \  / | ___  _ __  ___| |_ ___ _ __ ___ ");
-		sb.AppendLine(@$"{titleIndent}| |    / _ \| '_ \/ __|/ _ \| |/ _ \ | |\/| |/ _ \| '_ \/ __| __/ _ \ '__/ __|");
-		sb.AppendLine(@$"{titleIndent}| |___| (_) | | | \__ \ (_) | |  __/ | |  | | (_) | | | \__ \ ||  __/ |  \__ \");
-		sb.AppendLine(@$"{titleIndent} \_____\___/|_| |_|___/\___/|_|\___| |_|  |_|\___/|_| |_|___/\__\___|_|  |___/");
+		sb.AppendLine(@$"{titleIndent} ██████╗ ██████╗ ███╗   ██╗███████╗ ██████╗ ██╗     ███████╗    ███╗   ███╗ ██████╗ ███╗   ██╗███████╗████████╗███████╗██████╗ ███████╗");
+		sb.AppendLine(@$"{titleIndent}██╔════╝██╔═══██╗████╗  ██║██╔════╝██╔═══██╗██║     ██╔════╝    ████╗ ████║██╔═══██╗████╗  ██║██╔════╝╚══██╔══╝██╔════╝██╔══██╗██╔════╝");
+		sb.AppendLine(@$"{titleIndent}██║     ██║   ██║██╔██╗ ██║███████╗██║   ██║██║     █████╗      ██╔████╔██║██║   ██║██╔██╗ ██║███████╗   ██║   █████╗  ██████╔╝███████╗");
+		sb.AppendLine(@$"{titleIndent}██║     ██║   ██║██║╚██╗██║╚════██║██║   ██║██║     ██╔══╝      ██║╚██╔╝██║██║   ██║██║╚██╗██║╚════██║   ██║   ██╔══╝  ██╔══██╗╚════██║");
+		sb.AppendLine(@$"{titleIndent}╚██████╗╚██████╔╝██║ ╚████║███████║╚██████╔╝███████╗███████╗    ██║ ╚═╝ ██║╚██████╔╝██║ ╚████║███████║   ██║   ███████╗██║  ██║███████║");
+		sb.AppendLine(@$"{titleIndent} ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚══════╝╚══════╝    ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚══════╝");
 		sb.AppendLine(@$"{newLineTitle}");
 
 		sb.AppendLine(@$"{optionIndent}   ▄▄▄▄▄ ▄▄▄▄▄  ▄▄  ▄▄▄  ▄▄▄▄▄ {(arrowOption is 1 ? "╭───╮" : "     ")}");
