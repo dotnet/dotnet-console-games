@@ -43,7 +43,8 @@
       "Projects\\Whack A Mole\\Whack A Mole.csproj",
       "Projects\\Wordle\\Wordle.csproj",
       "Projects\\Wumpus World\\Wumpus World.csproj",
-      "Projects\\Yahtzee\\Yahtzee.csproj"
+      "Projects\\Yahtzee\\Yahtzee.csproj",
+      "Chess\\Chess.csproj"
     ]
   }
 }
