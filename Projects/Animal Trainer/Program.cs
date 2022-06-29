@@ -95,18 +95,6 @@ public partial class Program
 		PressEnterToContiue();
 	}
 
-	static void PressEnterToContiue()
-	{
-		GetInput:
-		ConsoleKey key = Console.ReadKey(true).Key;
-		switch (key)
-		{
-			case ConsoleKey.Enter: return;
-			case ConsoleKey.Escape: gameRunning = false; return;
-			default: goto GetInput;
-		}
-	}
-
 	static void EnterVet()
 	{
 		Console.Clear();
@@ -122,50 +110,10 @@ public partial class Program
 		PressEnterToContiue();
 	}
 
-	static void SignInteraction()
-	{
-		var (i, j) = Map.ScreenToTile(character.I, character.J);
-		var s = map.SpriteSheet();
-		if(s[j-1][i] == 's' || s[j+1][i] == 's' || s[j][i-1] == 's' || s[j][i+1] == 's')
-		{
-			Console.Clear();
-			Console.WriteLine();
-			Console.WriteLine("Sign Says:");
-			Console.WriteLine();
-			SignDecider();
-			Console.WriteLine();
-			Console.Write(" Press [enter] to continue...");
-			PressEnterToContiue();
-		}
-	}
-
-	static void SignDecider()
-	{
-		string currentMap = string.Empty;
-
-		switch (_using.map)
-		{
-			case PaletTown:
-				currentMap = "PT";
-				break;
-			case Route1:
-				currentMap = "R1";
-				break;
-		}
-
-		switch (currentMap)
-		{
-			case "PT":
-				Console.WriteLine(PaletTown.closestSign());
-				break;
-			case "R1":
-				Console.WriteLine(Route1.closestSign());
-				break;
-		}
-	}
-
 	static void HandleMapUserInput()
 	{
+		var (i, j) = Map.ScreenToTile(character.I, character.J);
+
 		while (Console.KeyAvailable)
 		{
 			ConsoleKey key = Console.ReadKey(true).Key;
@@ -178,7 +126,6 @@ public partial class Program
 					ConsoleKey.RightArrow or ConsoleKey.D:
 					if (character.Animation == Sprites.IdlePlayer)
 					{
-						var (i, j) = Map.ScreenToTile(character.I, character.J);
 						(i, j) = key switch
 						{
 							ConsoleKey.UpArrow    or ConsoleKey.W => (i, j - 1),
@@ -201,7 +148,7 @@ public partial class Program
 					break;
 				case ConsoleKey.Enter: RenderStatusString(); break;
 				case ConsoleKey.Backspace: break;
-				case ConsoleKey.E: SignInteraction(); break; // NEW
+				case ConsoleKey.E: map.InteractWithMapTile(i, j); break; 
 				case ConsoleKey.Escape: gameRunning = false; return;
 			}
 		}

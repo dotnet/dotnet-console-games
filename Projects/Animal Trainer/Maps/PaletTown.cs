@@ -20,7 +20,7 @@ class PaletTown : Map
 			"fg  gggg  hkkkky  gf".ToCharArray(),
 			"fg  gggg  uldllU  gf".ToCharArray(),
 			"fg                gf".ToCharArray(),
-			"fg        FFFsFF  gf".ToCharArray(),
+			"fg        FFFśFF  gf".ToCharArray(),
 			"fgggWWWW  gggggg  gf".ToCharArray(),
 			"fgggWwwW  gggggg  gf".ToCharArray(),
 			"fgggWwwW          gf".ToCharArray(),
@@ -29,27 +29,40 @@ class PaletTown : Map
 		};
 	}
 
-	public static string closestSign()
+	public override void InteractWithMapTile(int tileI, int tileJ)
 	{
-		var (i, j) = Map.ScreenToTile(character.I, character.J);
 		var s = map.SpriteSheet();
 
-		if (s[j - 1][i] == s[5][4] || s[j + 1][i] == s[5][4] || s[j][i - 1] == s[5][4] || s[j][i + 1] == s[5][4])
+		Interact(tileI, tileJ + 1);
+		Interact(tileI, tileJ - 1);
+		Interact(tileI - 1, tileJ);
+		Interact(tileI + 1, tileJ);
+
+		void Interact(int i, int j)
 		{
-			return "Top Left Sign";
-		} 
-		else if (s[j - 1][i] == s[9][8] || s[j + 1][i] == s[9][8] || s[j][i - 1] == s[9][8] || s[j][i + 1] == s[9][8])
-		{
-			return "Middle Left";
+			if (j >= 0 && j < s.Length && i >= 0 && i < s[j].Length)
+			{
+				if (s[j][i] == 's')
+				{
+					Console.Clear();
+					Console.WriteLine();
+					Console.WriteLine("Sign Says:");
+					Console.WriteLine();
+					Console.WriteLine();
+					Console.Write(" Press [enter] to continue...");
+					PressEnterToContiue();
+				}
+				if (s[j][i] == 'ś')
+				{
+					Console.Clear();
+					Console.WriteLine();
+					Console.WriteLine("Sign2 Says:");
+					Console.WriteLine();
+					Console.WriteLine();
+					Console.Write(" Press [enter] to continue...");
+					PressEnterToContiue();
+				}
+			}
 		}
-		else if (s[j - 1][i] == s[5][12] || s[j + 1][i] == s[5][12] || s[j][i - 1] == s[5][12] || s[j][i + 1] == s[5][12])
-		{
-			return "Top Right";
-		}
-		else if (s[j - 1][i] == s[13][14] || s[j + 1][i] == s[13][14] || s[j][i - 1] == s[13][14] || s[j][i + 1] == s[13][14])
-		{
-			return "Bottom Right";
-		}
-		return "test";
 	}
 }
