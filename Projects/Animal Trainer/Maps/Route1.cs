@@ -48,18 +48,31 @@ class Route1 : Map
 			"gggfgggggf00fgggggfg".ToCharArray(),
 		};
 	}
-	public static string closestSign()
+
+	public override void InteractWithMapTile(int tileI, int tileJ)
 	{
-		var (i, j) = Map.ScreenToTile(character.I, character.J);
 		var s = map.SpriteSheet();
-		if (s[j - 1][i] == s[5][4] || s[j + 1][i] == s[5][4] || s[j][i - 1] == s[5][4] || s[j][i + 1] == s[5][4])
+
+		Interact(tileI, tileJ + 1);
+		Interact(tileI, tileJ - 1);
+		Interact(tileI - 1, tileJ);
+		Interact(tileI + 1, tileJ);
+
+		void Interact(int i, int j)
 		{
-			return "Top Left Sign";
-		} 
-		else if (s[j - 1][i] == s[9][8] || s[j + 1][i] == s[9][8] || s[j][i - 1] == s[9][8] || s[j][i + 1] == s[9][8])
-		{
-			return "";
+			if (j >= 0 && j < s.Length && i >= 0 && i < s[j].Length)
+			{
+				if (s[j][i] == 's')
+				{
+					Console.Clear();
+					Console.WriteLine();
+					Console.WriteLine("Sign Says:");
+					Console.WriteLine();
+					Console.WriteLine();
+					Console.Write(" Press [enter] to continue...");
+					PressEnterToContiue();
+				}
+			}
 		}
-		return "test";
 	}
 }

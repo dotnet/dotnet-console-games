@@ -73,6 +73,7 @@ public abstract class Map
 
 			//Decor
 			's' => Sprites.Sign,
+			'ś' => Sprites.Sign,
 			'f' => Sprites.Fence,
 			'F' => Sprites.FenceLow,
 
@@ -119,8 +120,7 @@ public abstract class Map
 		};
 	}
 
-	public virtual char[][] SpriteSheet()
-	{
-		throw new NotImplementedException();
-	}
+	public abstract void InteractWithMapTile(int tileI, int tileJ);
+
+	public abstract char[][] SpriteSheet();
 }

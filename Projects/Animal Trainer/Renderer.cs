@@ -161,7 +161,7 @@ public static class Renderer
 		{
 			case 1:
 				Console.WriteLine(LastMapRender);
-				BlockTransistion(height, width);
+				LeftRightBlockTransition(height, width);
 				break;
 			case 2:
 
@@ -169,7 +169,7 @@ public static class Renderer
 		}
 	}
 
-	public static void BlockTransistion(int height, int width)
+	public static void LeftRightBlockTransition(int height, int width)
 	{
 		const string Block =
 			@"███████" + "\n" +
@@ -178,14 +178,33 @@ public static class Renderer
 			@"███████" + "\n" +
 			@"███████";
 
-		for (int j = 0; j < height; j++)
+		for (int j = 0; j < height; j+=5)
 		{
-			for (int i = 0; i < width; i++)
+			for (int i = 0; i < width; i+=7)
 			{
+				int h = 0;
 				Console.SetCursorPosition(i, j);
-				Console.Write(Block);
+				for (int k = 0; k < Block.Length; k++)
+				{
+					try
+					{
+						if (Block[k] == '\n')
+						{
+							h++;
+							Console.SetCursorPosition(i, j + h);
+						}
+						else
+						{
+							Console.Write(Block[k]);
+						}
+					} catch { }
+				}
+				//Thread.Sleep(1);
 			}
-			Console.WriteLine();
+			if (j < height - 1)
+			{
+				Console.WriteLine();
+			}
 		}
 	}
 
@@ -291,4 +310,6 @@ public static class Renderer
 		Console.Write(sb);
 		SleepAfterRender();
 	}
+
+
 }

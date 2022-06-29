@@ -40,6 +40,18 @@ public static class _using
 			Animation = Sprites.IdlePlayer,
 		};
 	}
+
+	public static void PressEnterToContiue()
+	{
+	GetInput:
+		ConsoleKey key = Console.ReadKey(true).Key;
+		switch (key)
+		{
+			case ConsoleKey.Enter: return;
+			case ConsoleKey.Escape: gameRunning = false; return;
+			default: goto GetInput;
+		}
+	}
 }
 
 #pragma warning restore CA2211
