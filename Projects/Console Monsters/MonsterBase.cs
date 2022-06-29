@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Console_Monsters.Monster;
+namespace Console_Monsters.Monsters;
 
 public abstract class MonsterBase
 {
@@ -28,7 +28,7 @@ public abstract class MonsterBase
 	//public string? StatusCondition { get; set; }
 
 	
-	public MonsterBase GetRandom()
+	public static MonsterBase GetRandom()
 	{
 		Dog dog = new Dog();
 

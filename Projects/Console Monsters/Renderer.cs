@@ -213,6 +213,8 @@ public static class Renderer
 	{
 		int spriteheight = Sprites.BattleSpriteHeight + 1;
 
+		MonsterBase monsterA = MonsterBase.GetRandom();
+
 		Console.CursorVisible = false;
 		Console.BackgroundColor = ConsoleColor.Black;
 		Console.ForegroundColor = ConsoleColor.Gray;
@@ -281,8 +283,14 @@ public static class Renderer
 					continue;
 				}
 
-				MonsterBase monsterA = 
-
+				if (i > midWidth - (Sprites.BattleSpriteWidth / 4) * 1 &&
+					i < midWidth + (Sprites.BattleSpriteWidth / 4) * 3 + 3 &&
+					j < midHeight &&
+					j > midHeight - spriteheight)
+				{
+					sb.Append('B');
+					continue;
+				}
 
 				if (i > midWidth - (Sprites.BattleSpriteWidth / 4) * 3 - 3 &&
 					i < midWidth + (Sprites.BattleSpriteWidth / 4) * 1 &&
