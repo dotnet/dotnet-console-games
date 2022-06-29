@@ -1,4 +1,4 @@
-﻿namespace Animal_Trainer;
+﻿namespace Console_Monsters;
 
 public partial class Program
 {
@@ -39,7 +39,7 @@ public partial class Program
 		{
 			Console.OutputEncoding = encoding;
 			Console.Clear();
-			Console.WriteLine("Animal Trainer was closed.");
+			Console.WriteLine("Console Monsters was closed.");
 			Console.CursorVisible = true;
 		}
 	}
@@ -51,12 +51,12 @@ public partial class Program
 		int arrowOption = 1;
 
 		string optionIndent = new string(' ', 60);
-		string titleIndent = new string(' ', 40);
-		string newLineOptions = new string('\n', 2);
-		string newLineTitle = new string('\n', 6);
+		string titleIndent = new(' ', 40);
+		string newLineOptions = new('\n', 2);
+		string newLineTitle = new('\n', 6);
 
-		ReDraw:
-		Console.SetCursorPosition(0, 0);
+	ReDraw:
+		sb.Clear();
 
 		sb.AppendLine($"{newLineTitle}");
 		sb.AppendLine(@$"{titleIndent}  _____                      _        __  __                 _                ");
@@ -67,19 +67,19 @@ public partial class Program
 		sb.AppendLine(@$"{titleIndent} \_____\___/|_| |_|___/\___/|_|\___| |_|  |_|\___/|_| |_|___/\__\___|_|  |___/");
 
 		sb.AppendLine(@$"{newLineTitle}");
-		sb.AppendLine(@$"{optionIndent}   ▄▄▄▄▄ ▄▄▄▄▄  ▄▄  ▄▄▄  ▄▄▄▄▄ {(arrowOption is 1 ? "  ▄▀" : null)}");
-		sb.AppendLine(@$"{optionIndent}   █▄▄▄▄   █   █▄▄█ █▄▄▀   █   {(arrowOption is 1 ? "■█  " : null)}");
-		sb.AppendLine(@$"{optionIndent}   ▄▄▄▄█   █   █  █ █  █   █   {(arrowOption is 1 ? "  ▀▄" : null)}");
+		sb.AppendLine(@$"{optionIndent}   ▄▄▄▄▄ ▄▄▄▄▄  ▄▄  ▄▄▄  ▄▄▄▄▄ {(arrowOption is 1 ? "  ▄▀" : "    ")}");
+		sb.AppendLine(@$"{optionIndent}   █▄▄▄▄   █   █▄▄█ █▄▄▀   █   {(arrowOption is 1 ? "■█  " : "    ")}");
+		sb.AppendLine(@$"{optionIndent}   ▄▄▄▄█   █   █  █ █  █   █   {(arrowOption is 1 ? "  ▀▄" : "    ")}");
 		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent} ▄▄  ▄▄▄  ▄▄▄▄▄ ▄  ▄▄  ▄   ▄ ▄▄▄▄▄ {(arrowOption is 2 ? "  ▄▀" : null)}");
-		sb.AppendLine(@$"{optionIndent}█  █ █▄▄▀   █   █ █  █ █▀▄ █ █▄▄▄▄ {(arrowOption is 2 ? "■█  " : null)}");
-		sb.AppendLine(@$"{optionIndent}▀▄▄▀ █      █   █ ▀▄▄▀ █  ▀█ ▄▄▄▄█ {(arrowOption is 2 ? "  ▀▄" : null)}");
+		sb.AppendLine(@$"{optionIndent} ▄▄  ▄▄▄  ▄▄▄▄▄ ▄  ▄▄  ▄   ▄ ▄▄▄▄▄ {(arrowOption is 2 ? "  ▄▀" : "    ")}");
+		sb.AppendLine(@$"{optionIndent}█  █ █▄▄▀   █   █ █  █ █▀▄ █ █▄▄▄▄ {(arrowOption is 2 ? "■█  " : "    ")}");
+		sb.AppendLine(@$"{optionIndent}▀▄▄▀ █      █   █ ▀▄▄▀ █  ▀█ ▄▄▄▄█ {(arrowOption is 2 ? "  ▀▄" : "    ")}");
 		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}        ▄▄▄▄ ▄   ▄ ▄ ▄▄▄▄▄ {(arrowOption is 3 ? "  ▄▀" : null)}");
-		sb.AppendLine(@$"{optionIndent}        █▄▄   ▀▄▀  █   █   {(arrowOption is 3 ? "■█  " : null)}");
-		sb.AppendLine(@$"{optionIndent}        █▄▄▄ ▄▀ ▀▄ █   █   {(arrowOption is 3 ? "  ▀▄" : null)}");
+		sb.AppendLine(@$"{optionIndent}        ▄▄▄▄ ▄   ▄ ▄ ▄▄▄▄▄ {(arrowOption is 3 ? "  ▄▀" : "    ")}");
+		sb.AppendLine(@$"{optionIndent}        █▄▄   ▀▄▀  █   █   {(arrowOption is 3 ? "■█  " : "    ")}");
+		sb.AppendLine(@$"{optionIndent}        █▄▄▄ ▄▀ ▀▄ █   █   {(arrowOption is 3 ? "  ▀▄" : "    ")}");
 
-		Console.Clear();
+		Console.SetCursorPosition(0, 0);
 		Console.WriteLine(sb);
 
 
@@ -89,7 +89,7 @@ public partial class Program
 			case ConsoleKey.UpArrow:
 				if (arrowOption != 1)
 					arrowOption--;
-					goto ReDraw;
+				goto ReDraw;
 			case ConsoleKey.DownArrow:
 				if (arrowOption != 3)
 					arrowOption++;
@@ -119,7 +119,6 @@ public partial class Program
 		Console.WriteLine();
 		Console.WriteLine(" Options");
 		Console.WriteLine();
-		Console.WriteLine();
 		Console.Write(" Press [enter] to continue...");
 		PressEnterToContiue();
 	}
@@ -127,7 +126,7 @@ public partial class Program
 	{
 		Console.Clear();
 		Console.WriteLine();
-		Console.WriteLine(" Animal Trainer was closed.");
+		Console.WriteLine(" Console Monsters was closed.");
 		Environment.Exit(0);
 	}
 
@@ -179,7 +178,7 @@ public partial class Program
 	{
 		Console.Clear();
 		Console.WriteLine();
-		Console.WriteLine(" Animal Status");
+		Console.WriteLine(" Monsters Status");
 		Console.WriteLine();
 		Console.WriteLine();
 		Console.Write(" Press [enter] to continue...");
@@ -192,11 +191,11 @@ public partial class Program
 		Console.WriteLine();
 		Console.WriteLine(" You enter the vet.");
 		Console.WriteLine();
-		for (int i = 0; i < ownedAnimals.Count; i++)
+		for (int i = 0; i < ownedMonsters.Count; i++)
 		{
-			ownedAnimals[i].CurrentHP = ownedAnimals[i].MaximumHP;
+			ownedMonsters[i].CurrentHP = ownedMonsters[i].MaximumHP;
 		}
-		Console.WriteLine(" All your animals are healed.");
+		Console.WriteLine(" All your monsters are healed.");
 		Console.WriteLine();
 		Console.Write(" Press [enter] to continue...");
 		PressEnterToContiue();

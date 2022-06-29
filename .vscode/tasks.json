@@ -3,13 +3,13 @@
     "tasks":
     [
         {
-            "label": "Build Animal Trainer",
+            "label": "Build Console Monsters",
             "command": "dotnet",
             "type": "process",
             "args":
             [
                 "build",
-                "${workspaceFolder}/Projects/Animal Trainer/Animal Trainer.csproj",
+                "${workspaceFolder}/Projects/Console Monsters/Console Monsters.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary",
             ],

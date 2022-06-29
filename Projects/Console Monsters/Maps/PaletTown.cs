@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-namespace Animal_Trainer.Maps;
+namespace Console_Monsters.Maps;
 
 class PaletTown : Map
 {

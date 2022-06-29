@@ -1,13 +1,13 @@
 ﻿global using System;
 global using System.Linq;
 global using System.Text;
-global using static Animal_Trainer._using;
-global using Animal_Trainer.Maps;
-global using Animal_Trainer.Animals;
+global using static Console_Monsters._using;
+global using Console_Monsters.Maps;
+global using Console_Monsters.Animals;
 global using System.Collections.Generic;
 global using System.Threading.Tasks;
 
-namespace Animal_Trainer;
+namespace Console_Monsters;
 
 #pragma warning disable IDE1006 // Naming Styles
 #pragma warning disable CA2211
@@ -18,13 +18,13 @@ public static class _using
 	public static Map map = new PaletTown();
 	public static DateTime previoiusRender = DateTime.Now;
 	public static bool gameRunning = false;
-	public static List<Animal> ownedAnimals = new();
+	public static List<Monster> ownedMonsters = new();
 
 	public static readonly string[] maptext = new[]
 	{
 		"Move: ← ↑ → ↓ / W A S D",
 		"Interact: E",
-		"Animal Status: [Enter]",
+		"Monster Status: [Enter]",
 		"Inventory: [Backspace]",
 		"Quit: [Escape]",
 	};

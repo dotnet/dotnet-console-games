@@ -1,4 +1,4 @@
-﻿namespace Animal_Trainer.Maps;
+﻿namespace Console_Monsters.Maps;
 
 public abstract class Map
 {

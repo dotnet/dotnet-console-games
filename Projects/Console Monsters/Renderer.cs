@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace Animal_Trainer;
+namespace Console_Monsters;
 
 public static class Renderer
 {
