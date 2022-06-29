@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-namespace Console_Monsters.Animals;
 
-public abstract class Monster
+namespace Console_Monsters.Monster;
+
+public abstract class MonsterBase
 {
 	public string? Name { get; set; }
 
@@ -18,9 +19,19 @@ public abstract class Monster
 
 	public int MaximumEnergy { get; set; }
 
+	public string Sprite { get; set; }
+
 	//public AnimalType Type { get; set; }
 
 	//public string? Description { get; set; }
 
 	//public string? StatusCondition { get; set; }
+
+	
+	public MonsterBase GetRandom()
+	{
+		Dog dog = new Dog();
+
+		return dog;
+	}
 }

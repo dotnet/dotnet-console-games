@@ -91,11 +91,11 @@ public static class Renderer
 				int mapJ = j - midHeight + character.J + 2;
 
 				// compute the coordinates of the tile
-				int tileI = mapI < 0 ? (mapI - (Sprites.Width  - 1)) / Sprites.Width  : mapI / Sprites.Width;
+				int tileI = mapI < 0 ? (mapI - (Sprites.Width - 1)) / Sprites.Width : mapI / Sprites.Width;
 				int tileJ = mapJ < 0 ? (mapJ - (Sprites.Height - 1)) / Sprites.Height : mapJ / Sprites.Height;
 
 				// compute the coordinates of the pixel within the tile's sprite
-				int pixelI = mapI < 0 ? (Sprites.Width  - 1) + ((mapI + 1) % Sprites.Width)  : (mapI % Sprites.Width);
+				int pixelI = mapI < 0 ? (Sprites.Width - 1) + ((mapI + 1) % Sprites.Width) : (mapI % Sprites.Width);
 				int pixelJ = mapJ < 0 ? (Sprites.Height - 1) + ((mapJ + 1) % Sprites.Height) : (mapJ % Sprites.Height);
 
 				// render pixel from map tile
@@ -178,9 +178,9 @@ public static class Renderer
 			@"███████" + "\n" +
 			@"███████";
 
-		for (int j = 0; j < height; j+=5)
+		for (int j = 0; j < height; j += 5)
 		{
-			for (int i = 0; i < width; i+=7)
+			for (int i = 0; i < width; i += 7)
 			{
 				int h = 0;
 				Console.SetCursorPosition(i, j);
@@ -197,7 +197,8 @@ public static class Renderer
 						{
 							Console.Write(Block[k]);
 						}
-					} catch { }
+					}
+					catch { }
 				}
 				//Thread.Sleep(1);
 			}
@@ -280,21 +281,15 @@ public static class Renderer
 					continue;
 				}
 
+				MonsterBase monsterA = 
+
+
 				if (i > midWidth - (Sprites.BattleSpriteWidth / 4) * 3 - 3 &&
 					i < midWidth + (Sprites.BattleSpriteWidth / 4) * 1 &&
 					j < midHeight + spriteheight &&
 					j > midHeight)
 				{
-					sb.Append('A');
-					continue;
-				}
-
-				if (i > midWidth - (Sprites.BattleSpriteWidth / 4) * 1 &&
-					i < midWidth + (Sprites.BattleSpriteWidth / 4) * 3 + 3 &&
-					j < midHeight &&
-					j > midHeight - spriteheight)
-				{
-					sb.Append('B');
+					sb.Append(monsterA.Sprite[j - midHeight][i - (midWidth - (Sprites.BattleSpriteWidth / 4) * 3 - 3)]);
 					continue;
 				}
 

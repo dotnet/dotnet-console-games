@@ -21,10 +21,8 @@ public partial class Program
 				}
 				catch { } // Left Blank on Purpose
 			}
-			while (!gameRunning)
-			{
-				StartMenu();
-			}
+
+			StartMenu();
 			while (gameRunning)
 			{
 				UpdateCharacter();
@@ -46,6 +44,7 @@ public partial class Program
 
 	static void StartMenu()
 	{
+		Console.Clear();
 		StringBuilder sb = new StringBuilder();
 
 		int arrowOption = 1;
@@ -65,8 +64,8 @@ public partial class Program
 		sb.AppendLine(@$"{titleIndent}| |    / _ \| '_ \/ __|/ _ \| |/ _ \ | |\/| |/ _ \| '_ \/ __| __/ _ \ '__/ __|");
 		sb.AppendLine(@$"{titleIndent}| |___| (_) | | | \__ \ (_) | |  __/ | |  | | (_) | | | \__ \ ||  __/ |  \__ \");
 		sb.AppendLine(@$"{titleIndent} \_____\___/|_| |_|___/\___/|_|\___| |_|  |_|\___/|_| |_|___/\__\___|_|  |___/");
-
 		sb.AppendLine(@$"{newLineTitle}");
+
 		sb.AppendLine(@$"{optionIndent}   ▄▄▄▄▄ ▄▄▄▄▄  ▄▄  ▄▄▄  ▄▄▄▄▄ {(arrowOption is 1 ? "  ▄▀" : "    ")}");
 		sb.AppendLine(@$"{optionIndent}   █▄▄▄▄   █   █▄▄█ █▄▄▀   █   {(arrowOption is 1 ? "■█  " : "    ")}");
 		sb.AppendLine(@$"{optionIndent}   ▄▄▄▄█   █   █  █ █  █   █   {(arrowOption is 1 ? "  ▀▄" : "    ")}");
@@ -98,13 +97,13 @@ public partial class Program
 				switch (arrowOption)
 				{
 					case 1:
-						gameRunning = true;
 						break;
 					case 2:
 						Options();
-						break;
+						Console.Clear();
+						goto ReDraw; // To not run "arrowOption" so it stays on "Options" after going back
 					case 3:
-						Exit();
+						gameRunning = false;
 						break;
 				}
 				break;
@@ -115,19 +114,63 @@ public partial class Program
 
 	static void Options()
 	{
+		StringBuilder sb = new StringBuilder();
+
+		int arrowOption = 1;
+
+		string optionIndent = new string(' ', 60);
+		string titleIndent = new(' ', 55);
+		string newLineOptions = new('\n', 2);
+		string newLineTitle = new('\n', 6);
+
 		Console.Clear();
-		Console.WriteLine();
-		Console.WriteLine(" Options");
-		Console.WriteLine();
-		Console.Write(" Press [enter] to continue...");
+	ReDraw:
+		sb.Clear();
+		sb.AppendLine(@$"{newLineTitle}");
+		sb.AppendLine(@$"{titleIndent}  ____        _   _                 ");
+		sb.AppendLine(@$"{titleIndent} / __ \      | | (_)                ");
+		sb.AppendLine(@$"{titleIndent}| |  | |‾ ‾‾\| |_ _  ___  _ __  ___ ");
+		sb.AppendLine(@$"{titleIndent}| |  | | |‾) | __| |/ _ \| '_ \/ __|");
+		sb.AppendLine(@$"{titleIndent}| |__| |  ‾ /| |_| | (_) | | | \__ \");
+		sb.AppendLine(@$"{titleIndent} \____/|_|‾‾  \__|_|\___/|_| |_|___/");
+		sb.AppendLine(@$"{newLineTitle}");
+		sb.AppendLine(@$"{optionIndent}  {(arrowOption is 1 ? "  ▄▀" : "    ")}");
+		sb.AppendLine(@$"{optionIndent}  {(arrowOption is 1 ? "■█  " : "    ")}");
+		sb.AppendLine(@$"{optionIndent}  {(arrowOption is 1 ? "  ▀▄" : "    ")}");
+		sb.AppendLine(@$"{newLineOptions}");
+		sb.AppendLine(@$"{optionIndent}  {(arrowOption is 2 ? "  ▄▀" : "    ")}");
+		sb.AppendLine(@$"{optionIndent}  {(arrowOption is 2 ? "■█  " : "    ")}");
+		sb.AppendLine(@$"{optionIndent}  {(arrowOption is 2 ? "  ▀▄" : "    ")}");
+		sb.AppendLine(@$"{newLineOptions}");
+		sb.AppendLine(@$"{optionIndent}  {(arrowOption is 3 ? "  ▄▀" : "    ")}");
+		sb.AppendLine(@$"{optionIndent}  {(arrowOption is 3 ? "■█  " : "    ")}");
+		sb.AppendLine(@$"{optionIndent}  {(arrowOption is 3 ? "  ▀▄" : "    ")}");
+
+		Console.SetCursorPosition(0, 0);
+		Console.WriteLine(sb);
+
+
+		ConsoleKey key = Console.ReadKey(true).Key;
+		switch (key)
+		{
+			case ConsoleKey.UpArrow:
+				if (arrowOption != 1)
+					arrowOption--;
+				goto ReDraw;
+			case ConsoleKey.DownArrow:
+				if (arrowOption != 3)
+					arrowOption++;
+				goto ReDraw;
+			case ConsoleKey.Enter:
+				switch (arrowOption)
+				{
+
+				}
+				break;
+			default:
+				break;
+		}
 		PressEnterToContiue();
-	}
-	static void Exit()
-	{
-		Console.Clear();
-		Console.WriteLine();
-		Console.WriteLine(" Console Monsters was closed.");
-		Environment.Exit(0);
 	}
 
 	static void UpdateCharacter()
@@ -240,7 +283,7 @@ public partial class Program
 				case ConsoleKey.Enter: RenderStatusString(); break;
 				case ConsoleKey.Backspace: break;
 				case ConsoleKey.E: map.InteractWithMapTile(i, j); break;
-				case ConsoleKey.Escape: gameRunning = false; return;
+				case ConsoleKey.Escape: StartMenu() ; return;
 			}
 		}
 	}

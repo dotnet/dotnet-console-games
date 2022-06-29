@@ -3,7 +3,7 @@ global using System.Linq;
 global using System.Text;
 global using static Console_Monsters._using;
 global using Console_Monsters.Maps;
-global using Console_Monsters.Animals;
+global using Console_Monsters.Monsters;
 global using System.Collections.Generic;
 global using System.Threading.Tasks;
 
@@ -17,16 +17,17 @@ public static class _using
 	public static Character character = new();
 	public static Map map = new PaletTown();
 	public static DateTime previoiusRender = DateTime.Now;
-	public static bool gameRunning = false;
+	public static bool gameRunning = true;
+	public static bool startMenu = true;
 	public static List<Monster> ownedMonsters = new();
 
 	public static readonly string[] maptext = new[]
 	{
-		"Move: ← ↑ → ↓ / W A S D",
-		"Interact: E",
+		"Move: [← ↑ → ↓] / [W A S D]",
+		"Interact: [E]",
 		"Monster Status: [Enter]",
 		"Inventory: [Backspace]",
-		"Quit: [Escape]",
+		"Pause: [Escape]",
 	};
 
 	static _using()
