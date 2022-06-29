@@ -213,8 +213,8 @@ public static class Renderer
 		int spriteheight = Sprites.BattleSpriteHeight + 1;
 
 		Console.CursorVisible = false;
-		Console.BackgroundColor = ConsoleColor.White;
-		Console.ForegroundColor = ConsoleColor.Black;
+		Console.BackgroundColor = ConsoleColor.Black;
+		Console.ForegroundColor = ConsoleColor.Grey;
 
 		var (width, height) = GetWidthAndHeight();
 		int heightCutOff = height - maptext.Length - 3;
