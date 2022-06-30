@@ -221,7 +221,7 @@ public static class Renderer
 		Console.ForegroundColor = ConsoleColor.Gray;
 
 		var (width, height) = GetWidthAndHeight();
-		int heightCutOff = height - maptext.Length - 3;
+		int heightCutOff = height - battletext.Length - 3;
 		int midWidth = width / 2;
 		int midHeight = heightCutOff / 2;
 
@@ -240,9 +240,9 @@ public static class Renderer
 				{
 					int line = j - heightCutOff - 1;
 					int character = i - 1;
-					if (i < width - 1 && character >= 0 && line >= 0 && line < maptext.Length && character < maptext[line].Length)
+					if (i < width - 1 && character >= 0 && line >= 0 && line < battletext.Length && character < battletext[line].Length)
 					{
-						char ch = maptext[line][character];
+						char ch = battletext[line][character];
 						sb.Append(char.IsWhiteSpace(ch) ? ' ' : ch);
 					}
 					else
