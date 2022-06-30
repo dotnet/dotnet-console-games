@@ -66,17 +66,17 @@ public partial class Program
 		sb.AppendLine(@$"{titleIndent} ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚══════╝╚══════╝    ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚══════╝");
 		sb.AppendLine(@$"{newLineTitle}");
 
-		sb.AppendLine(@$"{optionIndent}   ▄▄▄▄▄ ▄▄▄▄▄  ▄▄  ▄▄▄  ▄▄▄▄▄ {(arrowOption is 1 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}   █▄▄▄▄   █   █▄▄█ █▄▄▀   █   {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}   ▄▄▄▄█   █   █  █ █  █   █   {(arrowOption is 1 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}   ▄▄▄▄▄ ▄▄▄▄▄  ▄▄  ▄▄▄  ▄▄▄▄▄  {(arrowOption is 1 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}   █▄▄▄▄   █   █▄▄█ █▄▄▀   █    {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}   ▄▄▄▄█   █   █  █ █  █   █    {(arrowOption is 1 ? "╰───╯" : "     ")}");
 		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent} ▄▄  ▄▄▄  ▄▄▄▄▄ ▄  ▄▄  ▄   ▄ ▄▄▄▄▄ {(arrowOption is 2 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█  █ █▄▄▀   █   █ █  █ █▀▄ █ █▄▄▄▄ {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}▀▄▄▀ █      █   █ ▀▄▄▀ █  ▀█ ▄▄▄▄█ {(arrowOption is 2 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{optionIndent} ▄▄  ▄▄▄  ▄▄▄▄▄ ▄  ▄▄  ▄   ▄ ▄▄▄▄▄  {(arrowOption is 2 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█  █ █▄▄▀   █   █ █  █ █▀▄ █ █▄▄▄▄  {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}▀▄▄▀ █      █   █ ▀▄▄▀ █  ▀█ ▄▄▄▄█  {(arrowOption is 2 ? "╰───╯" : "     ")}");
 		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}        ▄▄▄▄ ▄   ▄ ▄ ▄▄▄▄▄ {(arrowOption is 3 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}        █▄▄   ▀▄▀  █   █   {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}        █▄▄▄ ▄▀ ▀▄ █   █   {(arrowOption is 3 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}        ▄▄▄▄ ▄   ▄ ▄ ▄▄▄▄▄  {(arrowOption is 3 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}        █▄▄   ▀▄▀  █   █    {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}        █▄▄▄ ▄▀ ▀▄ █   █    {(arrowOption is 3 ? "╰───╯" : "     ")}");
 
 		Console.SetCursorPosition(0, 0);
 		Console.WriteLine(sb);
@@ -117,27 +117,29 @@ public partial class Program
 		string newLineTitle = new('\n', 6);
 
 		Console.Clear();
-	ReDraw:
+		ReDraw:
 		sb.Clear();
+
 		sb.AppendLine(@$"{newLineTitle}");
-		sb.AppendLine(@$"{titleIndent}  ____        _   _                 ");
-		sb.AppendLine(@$"{titleIndent} / __ \      | | (_)                ");
-		sb.AppendLine(@$"{titleIndent}| |  | |‾ ‾‾\| |_ _  ___  _ __  ___ ");
-		sb.AppendLine(@$"{titleIndent}| |  | | |‾) | __| |/ _ \| '_ \/ __|");
-		sb.AppendLine(@$"{titleIndent}| |__| |  ‾ /| |_| | (_) | | | \__ \");
-		sb.AppendLine(@$"{titleIndent} \____/|_|‾‾  \__|_|\___/|_| |_|___/");
+		sb.AppendLine(@$"{titleIndent} ██████╗ ██████╗ ████████╗██╗ ██████╗ ███╗   ██╗███████╗");
+		sb.AppendLine(@$"{titleIndent}██╔═══██╗██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝");
+		sb.AppendLine(@$"{titleIndent}██║   ██║██████╔╝   ██║   ██║██║   ██║██╔██╗ ██║███████╗");
+		sb.AppendLine(@$"{titleIndent}██║   ██║██╔═══╝    ██║   ██║██║   ██║██║╚██╗██║╚════██║");
+		sb.AppendLine(@$"{titleIndent}╚██████╔╝██║        ██║   ██║╚██████╔╝██║ ╚████║███████║");
+		sb.AppendLine(@$"{titleIndent} ╚═════╝ ╚═╝        ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝");
 		sb.AppendLine(@$"{newLineTitle}");
-		sb.AppendLine(@$"{optionIndent}  █{(arrowOption is 1 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}  █{(arrowOption is 1 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}  █{(arrowOption is 1 ? "╰───╯" : "     ")}");
+
+		sb.AppendLine(@$"{optionIndent}  █  {(arrowOption is 1 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}  █  {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}  █  {(arrowOption is 1 ? "╰───╯" : "     ")}");
 		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}  █ █{(arrowOption is 2 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}  █ █{(arrowOption is 2 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}  █ █{(arrowOption is 2 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}  █ █  {(arrowOption is 2 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}  █ █  {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}  █ █  {(arrowOption is 2 ? "╰───╯" : "     ")}");
 		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}  █ █ █{(arrowOption is 3 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}  █ █ █{(arrowOption is 3 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}  █ █ █{(arrowOption is 3 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{optionIndent} █▀▀▄  ▄▄   ▄▄▄ ▄  ▄   {(arrowOption is 3 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent} █■■█ █▄▄█ █    █■█    {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent} █▄▄▀ █  █ ▀▄▄▄ █  ▀▄  {(arrowOption is 3 ? "╰───╯" : "     ")}");
 
 		Console.SetCursorPosition(0, 0);
 		Console.WriteLine(sb);
