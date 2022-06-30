@@ -13,7 +13,10 @@ namespace Console_Monsters;
 
 public static class _using
 {
+	#region Options
 	public static bool DisableMovementAnimation = false;
+	public static bool FirstTimeLaunching = true;
+	#endregion
 
 	public static Character character = new();
 	public static Map map = new PaletTown();
