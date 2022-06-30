@@ -257,12 +257,25 @@ public partial class Program
 						};
 						if (map.IsValidCharacterMapTile(i, j))
 						{
-							switch (key)
+							if (DisableMovementAnimation)
 							{
-								case ConsoleKey.UpArrow    or ConsoleKey.W: character.AnimationFrame = 0; character.Animation = Sprites.RunUp; break;
-								case ConsoleKey.DownArrow  or ConsoleKey.S: character.AnimationFrame = 0; character.Animation = Sprites.RunDown; break;
-								case ConsoleKey.LeftArrow  or ConsoleKey.A: character.AnimationFrame = 0; character.Animation = Sprites.RunLeft; break;
-								case ConsoleKey.RightArrow or ConsoleKey.D: character.AnimationFrame = 0; character.Animation = Sprites.RunRight; break;
+								switch (key)
+								{
+									case ConsoleKey.UpArrow    or ConsoleKey.W: character.J -= Sprites.Height; break;
+									case ConsoleKey.DownArrow  or ConsoleKey.S: character.J += Sprites.Height; break;
+									case ConsoleKey.LeftArrow  or ConsoleKey.A: character.I -= Sprites.Width; break;
+									case ConsoleKey.RightArrow or ConsoleKey.D: character.I += Sprites.Width; break;
+								}
+							}
+							else
+							{
+								switch (key)
+								{
+									case ConsoleKey.UpArrow    or ConsoleKey.W: character.AnimationFrame = 0; character.Animation = Sprites.RunUp; break;
+									case ConsoleKey.DownArrow  or ConsoleKey.S: character.AnimationFrame = 0; character.Animation = Sprites.RunDown; break;
+									case ConsoleKey.LeftArrow  or ConsoleKey.A: character.AnimationFrame = 0; character.Animation = Sprites.RunLeft; break;
+									case ConsoleKey.RightArrow or ConsoleKey.D: character.AnimationFrame = 0; character.Animation = Sprites.RunRight; break;
+								}
 							}
 						}
 					}
