@@ -497,6 +497,13 @@ public static class Sprites
 
 	#endregion
 
+	public const string Box =
+		@"       " + "\n" +
+		@" ╭───╮ " + "\n" +
+		@" ╞═●═╡ " + "\n" +
+		@" ╰───╯ " + "\n" +
+		@"       ";
+
 	public const string Open =
 		@"       " + "\n" +
 		@"       " + "\n" +	
