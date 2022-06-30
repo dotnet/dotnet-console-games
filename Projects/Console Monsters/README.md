@@ -13,7 +13,7 @@
 
 > **Note** This game was a *[Community Contribution](https://github.com/ZacharyPatten/dotnet-console-games/pull/45)!
 
-> **Warning** This game is still a work-in-progress.
+> **Warning** This game is still a work-in-progress. The game is being developed in the [`console-monsters`](https://github.com/ZacharyPatten/dotnet-console-games/tree/console-monsters/Projects/Console%20Monsters) branch and will be occasionally merged into the `main` branch. If you would like to help out with the development of this game, please [join the discord server](https://discord.gg/4XbQbwF) to discuss. :)
 
 Console Monsters is a role playing game where you catch and train monsters.
 
