@@ -45,11 +45,11 @@ public partial class Program
 	static void StartMenu()
 	{
 		Console.Clear();
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new();
 
 		int arrowOption = 1;
 
-		string optionIndent = new string(' ', 60);
+		string optionIndent = new(' ', 60);
 		string titleIndent = new(' ', 10);
 		string newLineOptions = new('\n', 2);
 		string newLineTitle = new('\n', 6);
@@ -107,7 +107,7 @@ public partial class Program
 
 	static void Options()
 	{
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new();
 
 		int arrowOption = 1;
 
