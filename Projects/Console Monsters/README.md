@@ -11,7 +11,51 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
-_todo_
+> **Note** This game was a *[Community Contribution](https://github.com/ZacharyPatten/dotnet-console-games/pull/45)!
+
+> **Warning** This game is still a work-in-progress.
+
+Console Monsters is a role playing game where you catch and train monsters.
+
+```
+╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║.  .║     ║.  .  ..  .  ..  .  ..  .  ..  .  ..  .  ..  .  ..  .  .v  v  vv  v  vv  v  vv  v  v              ║  ║
+║  . ╩     ╩ .   .  .   .  .   .  .   .  .   .  .   .  .   .  .   .  v  v   v  v   v  v   v  v                ╩  ║
+║  .                                                                                                             ║
+║. . ╔═════╗                                                                                                  ╔══║
+║  . ╠═════╣                                                                                                  ╠══║
+║.  .║     ║                                                                                                  ║  ║
+║  . ╩     ╩                                                                                                  ╩  ║
+║  .   (@@)                                     ┬──┬─╮                                                          (║
+║. .  (@@@@)                                   ╭┴──┴╮│                                                         (@║
+║  .    ||                                     │Sign││                                                           ║
+║.  .   ||  ##############                     ╰────╯│########################################################   ║
+║  .    ||  ##############                           │########################################################   ║
+║  .   (@@)  .   .  .   .  v   v  v   v  v   v  v   v  ╭═══╮         .   .  .   .  v   v  v   v  v   v  v   v   (║
+║. .  (@@@@).  . . .  . . v  v  vv  v  vv  v  vv  v  v │'_'│        .  . . .  . . v  v  vv  v  vv  v  vv  v  v (@║
+║  .    ||   .   .  .   .   v  v   v  v   v  v   v  v ╭╰───╯╮        .   .  .   .   v  v   v  v   v  v   v  v    ║
+║.  .   ||  .  .  ..  .  .v  v  vv  v  vv  v  vv  v  v│├───┤│       .  .  ..  .  .v  v  vv  v  vv  v  vv  v  v   ║
+║  .    ||   .   .  .   .  v  v   v  v   v  v   v  v   │_|_│         .   .  .   .  v  v   v  v   v  v   v  v     ║
+║  .   (@@)  .   .  .   .  v   v  v   v  v   v  v   v                .   .  .   .  v   v  v   v  v   v  v   v   (║
+║. .  (@@@@).  . . .  . . v  v  vv  v  vv  v  vv  v  v              .  . . .  . . v  v  vv  v  vv  v  vv  v  v (@║
+║  .    ||   .   .  .   .   v  v   v  v   v  v   v  v                .   .  .   .   v  v   v  v   v  v   v  v    ║
+║.  .   ||  .  .  ..  .  .v  v  vv  v  vv  v  vv  v  v              .  .  ..  .  .v  v  vv  v  vv  v  vv  v  v   ║
+║  .    ||   .   .  .   .  v  v   v  v   v  v   v  v                 .   .  .   .  v  v   v  v   v  v   v  v     ║
+║  .   (@@)  .   .  .   .  v   v  v   v  v   v  v   v                v   v  v   v  v   v  v   v  .   .  .   .   (║
+║. .  (@@@@).  . . .  . . v  v  vv  v  vv  v  vv  v  v              v  v  vv  v  vv  v  vv  v  v.  . . .  . .  (@║
+║  .    ||   .   .  .   .   v  v   v  v   v  v   v  v                 v  v   v  v   v  v   v  v  .   .  .   .    ║
+║.  .   ||  .  .  ..  .  .v  v  vv  v  vv  v  vv  v  v              v  v  vv  v  vv  v  vv  v  v.  .  ..  .  .   ║
+║  .    ||   .   .  .   .  v  v   v  v   v  v   v  v                 v  v   v  v   v  v   v  v   .   .  .   .    ║
+║  .   (@@)  v   v  v   v  v   v  v   v  .   .  .   .                v   v  v   v  v   v  v   v  .   .  .   .   (║
+║. .  (@@@@)v  v  vv  v  vv  v  vv  v  v.  . . .  . .               v  v  vv  v  vv  v  vv  v  v.  . . .  . .  (@║
+╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+                                                                                                                  
+ Move: [← ↑ → ↓] / [W A S D]                                                                                      
+ Interact: [E]                                                                                                    
+ Monster Status: [Enter]                                                                                          
+ Inventory: [Backspace]                                                                                           
+ Pause: [Escape]                                                                                                  
+```
 
 ## Input
 
