@@ -30,6 +30,12 @@ public static class _using
 		"Pause: [Escape]",
 	};
 
+	public static readonly string[] battletext = new[]
+	{
+		"Battles are still in development.",
+		"Press any key to continue...",
+	};
+
 	static _using()
 	{
 		map = new PaletTown();
