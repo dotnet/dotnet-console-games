@@ -289,12 +289,24 @@ public static class Renderer
 					j < midHeight &&
 					j > midHeight - spriteheight)
 				{
-					int spriteI = i - (midWidth - (Sprites.BattleSpriteWidth / 4) * 1) - 1;
 					int spriteJ = j - (midHeight - spriteheight) - 1 - (Sprites.BattleSpriteHeight - monsterB.Sprite.Length) / 2;
-					char c =
-						spriteJ < 0 || spriteJ >= monsterB.Sprite.Length ? ' ' :
-						spriteI < 0 || spriteI >= monsterB.Sprite[spriteJ].Length ? ' ' :
-						monsterB.Sprite[spriteJ][spriteI];
+					char c;
+					if (spriteJ < 0 || spriteJ >= monsterB.Sprite.Length)
+					{
+						c = ' ';
+					}
+					else
+					{
+						int spriteI = (i - (midWidth - (Sprites.BattleSpriteWidth / 4) * 1) - 1) - (Sprites.BattleSpriteWidth - monsterB.Sprite[spriteJ].Length) / 2;
+						if (spriteI < 0 || spriteI >= monsterB.Sprite[spriteJ].Length)
+						{
+							c = ' ';
+						}
+						else
+						{
+							c = monsterB.Sprite[spriteJ][spriteI];
+						}
+					}
 					sb.Append(char.IsWhiteSpace(c) ? ' ' : c);
 					continue;
 				}
@@ -304,12 +316,24 @@ public static class Renderer
 					j < midHeight + spriteheight &&
 					j > midHeight)
 				{
-					int spriteI = i - (midWidth - (Sprites.BattleSpriteWidth / 4) * 3 - 3) - 1;
 					int spriteJ = j - midHeight - 1 - (Sprites.BattleSpriteHeight - monsterB.Sprite.Length) / 2;
-					char c =
-						spriteJ < 0 || spriteJ >= monsterA.Sprite.Length ? ' ' :
-						spriteI < 0 || spriteI >= monsterA.Sprite[spriteJ].Length ? ' ' :
-						monsterA.Sprite[spriteJ][spriteI];
+					char c;
+					if (spriteJ < 0 || spriteJ >= monsterA.Sprite.Length)
+					{
+						c = ' ';
+					}
+					else
+					{
+						int spriteI = i - (midWidth - (Sprites.BattleSpriteWidth / 4) * 3 - 3) - 1 - (Sprites.BattleSpriteWidth - monsterA.Sprite[spriteJ].Length) / 2;
+						if (spriteI < 0 || spriteI >= monsterA.Sprite[spriteJ].Length)
+						{
+							c = ' ';
+						}
+						else
+						{
+							c = monsterA.Sprite[spriteJ][spriteI];
+						}
+					}
 					sb.Append(char.IsWhiteSpace(c) ? ' ' : c);
 					continue;
 				}
