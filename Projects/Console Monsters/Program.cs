@@ -175,33 +175,37 @@ public partial class Program
 			(character.Animation == Sprites.RunLeft && character.AnimationFrame >= Sprites.Width) ||
 			(character.Animation == Sprites.RunRight && character.AnimationFrame >= Sprites.Width))
 		{
-			var (i, j) = Map.ScreenToTile(character.I, character.J);
-			var s = map.SpriteSheet();
-			switch (s[j][i])
-			{
-				case 'v': EnterVet(); break;
-				case '0': Map.TransitionMapToTown(); break;
-				case '1': Map.TransitionMapToField(); break;
-				case 'G':
-					if (Random.Shared.Next(3) is 0)
-					{
-						Console.Clear();
-						Renderer.RenderBattleTransition();
-						Renderer.RenderBattleView();
-						Console.ReadKey(true);
-						Console.BackgroundColor = ConsoleColor.Black;
-						Console.ForegroundColor = ConsoleColor.Gray;
-						Console.Clear();
-					}
-					break;
-			}
-
+			CheckTileForAction();
 			character.Animation = Sprites.IdlePlayer;
 			character.AnimationFrame = 0;
 		}
 		else if (character.Animation == Sprites.IdlePlayer && character.AnimationFrame >= character.Animation.Length)
 		{
 			character.AnimationFrame = 0;
+		}
+	}
+
+	static void CheckTileForAction()
+	{
+		var (i, j) = Map.ScreenToTile(character.I, character.J);
+		var s = map.SpriteSheet();
+		switch (s[j][i])
+		{
+			case 'v': EnterVet(); break;
+			case '0': Map.TransitionMapToTown(); break;
+			case '1': Map.TransitionMapToField(); break;
+			case 'G':
+				if (Random.Shared.Next(3) is 0)
+				{
+					Console.Clear();
+					Renderer.RenderBattleTransition();
+					Renderer.RenderBattleView();
+					Console.ReadKey(true);
+					Console.BackgroundColor = ConsoleColor.Black;
+					Console.ForegroundColor = ConsoleColor.Gray;
+					Console.Clear();
+				}
+				break;
 		}
 	}
 
@@ -266,6 +270,7 @@ public partial class Program
 									case ConsoleKey.LeftArrow  or ConsoleKey.A: character.I -= Sprites.Width; break;
 									case ConsoleKey.RightArrow or ConsoleKey.D: character.I += Sprites.Width; break;
 								}
+								CheckTileForAction();
 							}
 							else
 							{
