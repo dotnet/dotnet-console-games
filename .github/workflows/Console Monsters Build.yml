@@ -1,0 +1,20 @@
+name: Console Monsters Build
+on:
+  push:
+    paths:
+    - 'Projects/Console Monsters/**'
+  pull_request:
+    paths:
+    - 'Projects/Console Monsters/**'
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: setup dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: dotnet build
+      run: dotnet build "Projects\Console Monsters\Console Monsters.csproj" --configuration Release
