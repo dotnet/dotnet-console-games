@@ -9,7 +9,7 @@ public abstract class Map
 		return (tilei, tilej);
 	}
 
-	internal static void TransitionMapToTown()
+	internal static void TransitionMapToPaletTown()
 	{
 		map = new PaletTown();
 		var (i, j) = Map.FindTileInMap(map, '1')!.Value;
@@ -17,10 +17,18 @@ public abstract class Map
 		character.J = j * 5;
 	}
 
-	internal static void TransitionMapToField()
+	internal static void TransitionMapToRoute1()
 	{
 		map = new Route1();
 		var (i, j) = Map.FindTileInMap(map, '0')!.Value;
+		character.I = i * 7;
+		character.J = j * 5;
+	}
+
+	internal static void TransitionMapToRoute2()
+	{
+		map = new Route2();
+		var (i, j) = Map.FindTileInMap(map, '2')!.Value;
 		character.I = i * 7;
 		character.J = j * 5;
 	}
@@ -54,6 +62,8 @@ public abstract class Map
 			'X' => Sprites.Open,
 			'0' => Sprites.ArrowDown,
 			'1' => Sprites.ArrowUp,
+			'2' => Sprites.ArrowDown,
+			'3' => Sprites.ArrowUp,
 
 			//Buildings
 			'b' => Sprites.BuildingSmall,
@@ -84,6 +94,9 @@ public abstract class Map
 			't' => Sprites.Tree,
 			'T' => Sprites.Tree2,
 			'r' => Sprites.HalfRock,
+			'Ş' => Sprites.HalfRockStairs,
+			'ş' => Sprites.HalfRockStairsGrass,
+			'ŕ' => Sprites.HalfRockGrass,
 			'm' => Sprites.Mountain,
 			'p' => Sprites.Mountain2,
 
@@ -108,12 +121,15 @@ public abstract class Map
 			'v' => true,
 			'c' => true,
 			'e' => true,
+			'3' => true,
+			'2' => true,
 			'1' => true,
 			'0' => true,
 			'o' => true,
 			'g' => true,
-			'2' => true,
 			'X' => true,
+			'Ş' => true,
+			'ş' => true,
 			'G' => true,
 			'd' => true,
 			_ => false,

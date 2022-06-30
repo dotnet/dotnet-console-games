@@ -193,10 +193,11 @@ public partial class Program
 		switch (s[j][i])
 		{
 			case 'v': EnterVet(); break;
-			case '0': Map.TransitionMapToTown(); break;
-			case '1': Map.TransitionMapToField(); break;
+			case '0': Map.TransitionMapToPaletTown(); break;
+			case '1': Map.TransitionMapToRoute1(); break;
+			case '3': Map.TransitionMapToRoute2(); break;
 			case 'G':
-				if (Random.Shared.Next(3) is 0)
+				if (Random.Shared.Next(9999) is 0) // BATTLE CHANCE
 				{
 					Console.Clear();
 					Renderer.RenderBattleTransition();

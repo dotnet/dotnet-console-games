@@ -272,11 +272,29 @@ public static class Sprites
 		@"╵╷╵╷╵╷╵" + "\n" +
 		@"╵╷╵╷╵╷╵";
 	public const string HalfRock =
-		@"       "+ "\n" +
+		@"       " + "\n" +
 		@"       " + "\n" +
 		@"       " + "\n" +
 		@"#######" + "\n" +
 		@"#######";
+	public const string HalfRockGrass =
+		@" .  .  " + "\n" +
+		@".  . . " + "\n" +
+		@" .   . " + "\n" +
+		@"#######" + "\n" +
+		@"#######";
+	public const string HalfRockStairs =
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"▬▬▬▬▬▬▬" + "\n" +
+		@"▬▬▬▬▬▬▬";
+	public const string HalfRockStairsGrass =
+		@" .  .  " + "\n" +
+		@".  . . " + "\n" +
+		@" .   . " + "\n" +
+		@"▬▬▬▬▬▬▬" + "\n" +
+		@"▬▬▬▬▬▬▬";
 	public const string ArrowDown =
 		@"  |-|  " + "\n" +
 		@"  | |  " + "\n" +
