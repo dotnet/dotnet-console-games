@@ -153,17 +153,18 @@ public static class Renderer
 
 		Console.ForegroundColor = ConsoleColor.White;
 
-		LastMapRender.AppendLine();
 
 		Random rnd = new();
 
 		switch (rnd.Next(1, 1))
 		{
 			case 1:
-				Console.WriteLine(LastMapRender);
 				LeftRightBlockTransition(height, width);
 				break;
 			case 2:
+
+				break;
+			default:
 
 				break;
 		}
