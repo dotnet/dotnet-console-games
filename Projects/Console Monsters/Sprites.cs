@@ -100,7 +100,7 @@ public static class Sprites
 	#region Objects
 
 	public const string Sign = // Text TBC
-		@" ┬──┬─╮" + "\n" +
+		@" ┬──┬─┐" + "\n" +
 		@"╭┴──┴╮│" + "\n" +
 		@"│Sign││" + "\n" +
 		@"╰────╯│" + "\n" +
