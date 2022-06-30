@@ -5,7 +5,6 @@ global using static Console_Monsters._using;
 global using Console_Monsters.Maps;
 global using Console_Monsters.Monsters;
 global using System.Collections.Generic;
-global using System.Threading.Tasks;
 
 namespace Console_Monsters;
 
@@ -14,6 +13,8 @@ namespace Console_Monsters;
 
 public static class _using
 {
+	public static bool DisableMovementAnimation = false;
+
 	public static Character character = new();
 	public static Map map = new PaletTown();
 	public static DateTime previoiusRender = DateTime.Now;
