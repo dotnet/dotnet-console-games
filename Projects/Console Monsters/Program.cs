@@ -112,7 +112,7 @@ public partial class Program
 		int arrowOption = 1;
 
 		string optionIndent = new(' ', 60);
-		string titleIndent = new(' ', 55);
+		string titleIndent = new(' ', 50);
 		string newLineOptions = new('\n', 2);
 		string newLineTitle = new('\n', 6);
 
@@ -129,13 +129,13 @@ public partial class Program
 		sb.AppendLine(@$"{titleIndent} ╚═════╝ ╚═╝        ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝");
 		sb.AppendLine(@$"{newLineTitle}");
 
-		sb.AppendLine(@$"{optionIndent}  █  {(arrowOption is 1 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}  █  {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}  █  {(arrowOption is 1 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}  ╔══╗  {(arrowOption is 1 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}  ║  ║  {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}  ╚══╝  {(arrowOption is 1 ? "╰───╯" : "     ")}");
 		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}  █ █  {(arrowOption is 2 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}  █ █  {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}  █ █  {(arrowOption is 2 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}  ╔══╗  {(arrowOption is 2 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}  ║██║  {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}  ╚══╝  {(arrowOption is 2 ? "╰───╯" : "     ")}");
 		sb.AppendLine(@$"{newLineOptions}");
 		sb.AppendLine(@$"{optionIndent} █▀▀▄  ▄▄   ▄▄▄ ▄  ▄   {(arrowOption is 3 ? "╭───╮" : "     ")}");
 		sb.AppendLine(@$"{optionIndent} █■■█ █▄▄█ █    █■█    {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
