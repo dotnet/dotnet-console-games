@@ -15,5 +15,6 @@ internal class FireLizard3 : MonsterBase
 			@"   ╰──────╯   ╭╯" + '\n' +
 			@"         ╰┬╮ ╭╯ " + '\n' +
 			@"          ╰╰─╯  ").Split('\n');
+		Name = "Fire Lizard Large";
 	}
 }
