@@ -183,10 +183,15 @@ public partial class Program
 			(character.Animation == Character.RunRight && character.AnimationFrame >= Sprites.Width))
 		{
 			CheckTileForAction();
-			character.Animation = Character.IdlePlayer;
+			character.Animation =
+				character.Animation == Character.RunUp    ? Character.IdleUp    :
+				character.Animation == Character.RunDown  ? Character.IdleDown  :
+				character.Animation == Character.RunLeft  ? Character.IdleLeft  :
+				character.Animation == Character.RunRight ? Character.IdleRight :
+				throw new NotImplementedException();
 			character.AnimationFrame = 0;
 		}
-		else if (character.Animation == Character.IdlePlayer && character.AnimationFrame >= character.Animation.Length)
+		else if (character.IsIdle && character.AnimationFrame >= character.Animation.Length)
 		{
 			character.AnimationFrame = 0;
 		}
@@ -246,7 +251,7 @@ public partial class Program
 					ConsoleKey.DownArrow  or ConsoleKey.S or
 					ConsoleKey.LeftArrow  or ConsoleKey.A or
 					ConsoleKey.RightArrow or ConsoleKey.D:
-					if (character.Animation == Character.IdlePlayer)
+					if (character.IsIdle)
 					{
 						var (i, j) = Map.ScreenToTile(character.I, character.J);
 						(i, j) = key switch
@@ -265,8 +270,8 @@ public partial class Program
 								{
 									case ConsoleKey.UpArrow    or ConsoleKey.W: character.J -= Sprites.Height; break;
 									case ConsoleKey.DownArrow  or ConsoleKey.S: character.J += Sprites.Height; break;
-									case ConsoleKey.LeftArrow  or ConsoleKey.A: character.I -= Sprites.Width; break;
-									case ConsoleKey.RightArrow or ConsoleKey.D: character.I += Sprites.Width; break;
+									case ConsoleKey.LeftArrow  or ConsoleKey.A: character.I -= Sprites.Width;  break;
+									case ConsoleKey.RightArrow or ConsoleKey.D: character.I += Sprites.Width;  break;
 								}
 								CheckTileForAction();
 							}
@@ -274,12 +279,23 @@ public partial class Program
 							{
 								switch (key)
 								{
-									case ConsoleKey.UpArrow    or ConsoleKey.W: character.AnimationFrame = 0; character.Animation = Character.RunUp; break;
-									case ConsoleKey.DownArrow  or ConsoleKey.S: character.AnimationFrame = 0; character.Animation = Character.RunDown; break;
-									case ConsoleKey.LeftArrow  or ConsoleKey.A: character.AnimationFrame = 0; character.Animation = Character.RunLeft; break;
+									case ConsoleKey.UpArrow    or ConsoleKey.W: character.AnimationFrame = 0; character.Animation = Character.RunUp;    break;
+									case ConsoleKey.DownArrow  or ConsoleKey.S: character.AnimationFrame = 0; character.Animation = Character.RunDown;  break;
+									case ConsoleKey.LeftArrow  or ConsoleKey.A: character.AnimationFrame = 0; character.Animation = Character.RunLeft;  break;
 									case ConsoleKey.RightArrow or ConsoleKey.D: character.AnimationFrame = 0; character.Animation = Character.RunRight; break;
 								}
 							}
+						}
+						else
+						{
+							character.Animation = key switch
+							{
+								ConsoleKey.UpArrow    or ConsoleKey.W => Character.IdleUp,
+								ConsoleKey.DownArrow  or ConsoleKey.S => Character.IdleDown,
+								ConsoleKey.LeftArrow  or ConsoleKey.A => Character.IdleLeft,
+								ConsoleKey.RightArrow or ConsoleKey.D => Character.IdleRight,
+								_ => throw new Exception("bug"),
+							};
 						}
 					}
 					break;
