@@ -85,9 +85,9 @@ public partial class Program
 		ConsoleKey key = Console.ReadKey(true).Key;
 		switch (key)
 		{
-			case ConsoleKey.UpArrow:   arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
-			case ConsoleKey.DownArrow: arrowOption = Math.Min(3, arrowOption + 1); goto ReDraw;
-			case ConsoleKey.Enter:
+			case ConsoleKey.UpArrow or ConsoleKey.W:   arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
+			case ConsoleKey.DownArrow or ConsoleKey.S: arrowOption = Math.Min(3, arrowOption + 1); goto ReDraw;
+			case ConsoleKey.Enter or ConsoleKey.E:
 				switch (arrowOption)
 				{
 					case 1:
@@ -152,9 +152,9 @@ public partial class Program
 
 		switch (Console.ReadKey(true).Key)
 		{
-			case ConsoleKey.UpArrow:   arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
-			case ConsoleKey.DownArrow: arrowOption = Math.Min(4, arrowOption + 1); goto ReDraw;
-			case ConsoleKey.Enter:
+			case ConsoleKey.UpArrow or ConsoleKey.W:   arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
+			case ConsoleKey.DownArrow or ConsoleKey.S: arrowOption = Math.Min(4, arrowOption + 1); goto ReDraw;
+			case ConsoleKey.Enter or ConsoleKey.E:
 				switch (arrowOption)
 				{
 					case 1: DisableMovementAnimation = !DisableMovementAnimation; goto ReDraw;
@@ -170,23 +170,23 @@ public partial class Program
 
 	static void UpdateCharacter()
 	{
-		if (character.Animation == Sprites.RunUp) character.J--;
-		if (character.Animation == Sprites.RunDown) character.J++;
-		if (character.Animation == Sprites.RunLeft) character.I--;
-		if (character.Animation == Sprites.RunRight) character.I++;
+		if (character.Animation == Character.RunUp) character.J--;
+		if (character.Animation == Character.RunDown) character.J++;
+		if (character.Animation == Character.RunLeft) character.I--;
+		if (character.Animation == Character.RunRight) character.I++;
 
 		character.AnimationFrame++;
 
-		if ((character.Animation == Sprites.RunUp && character.AnimationFrame >= Sprites.Height) ||
-			(character.Animation == Sprites.RunDown && character.AnimationFrame >= Sprites.Height) ||
-			(character.Animation == Sprites.RunLeft && character.AnimationFrame >= Sprites.Width) ||
-			(character.Animation == Sprites.RunRight && character.AnimationFrame >= Sprites.Width))
+		if ((character.Animation == Character.RunUp && character.AnimationFrame >= Sprites.Height) ||
+			(character.Animation == Character.RunDown && character.AnimationFrame >= Sprites.Height) ||
+			(character.Animation == Character.RunLeft && character.AnimationFrame >= Sprites.Width) ||
+			(character.Animation == Character.RunRight && character.AnimationFrame >= Sprites.Width))
 		{
 			CheckTileForAction();
-			character.Animation = Sprites.IdlePlayer;
+			character.Animation = Character.IdlePlayer;
 			character.AnimationFrame = 0;
 		}
-		else if (character.Animation == Sprites.IdlePlayer && character.AnimationFrame >= character.Animation.Length)
+		else if (character.Animation == Character.IdlePlayer && character.AnimationFrame >= character.Animation.Length)
 		{
 			character.AnimationFrame = 0;
 		}
@@ -246,7 +246,7 @@ public partial class Program
 					ConsoleKey.DownArrow  or ConsoleKey.S or
 					ConsoleKey.LeftArrow  or ConsoleKey.A or
 					ConsoleKey.RightArrow or ConsoleKey.D:
-					if (character.Animation == Sprites.IdlePlayer)
+					if (character.Animation == Character.IdlePlayer)
 					{
 						var (i, j) = Map.ScreenToTile(character.I, character.J);
 						(i, j) = key switch
@@ -274,10 +274,10 @@ public partial class Program
 							{
 								switch (key)
 								{
-									case ConsoleKey.UpArrow    or ConsoleKey.W: character.AnimationFrame = 0; character.Animation = Sprites.RunUp; break;
-									case ConsoleKey.DownArrow  or ConsoleKey.S: character.AnimationFrame = 0; character.Animation = Sprites.RunDown; break;
-									case ConsoleKey.LeftArrow  or ConsoleKey.A: character.AnimationFrame = 0; character.Animation = Sprites.RunLeft; break;
-									case ConsoleKey.RightArrow or ConsoleKey.D: character.AnimationFrame = 0; character.Animation = Sprites.RunRight; break;
+									case ConsoleKey.UpArrow    or ConsoleKey.W: character.AnimationFrame = 0; character.Animation = Character.RunUp; break;
+									case ConsoleKey.DownArrow  or ConsoleKey.S: character.AnimationFrame = 0; character.Animation = Character.RunDown; break;
+									case ConsoleKey.LeftArrow  or ConsoleKey.A: character.AnimationFrame = 0; character.Animation = Character.RunLeft; break;
+									case ConsoleKey.RightArrow or ConsoleKey.D: character.AnimationFrame = 0; character.Animation = Character.RunRight; break;
 								}
 							}
 						}

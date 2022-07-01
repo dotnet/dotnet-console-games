@@ -60,7 +60,7 @@ public static class _using
 		{
 			I = i * Sprites.Width,
 			J = j * Sprites.Height,
-			Animation = Sprites.IdlePlayer,
+			Animation = Character.IdlePlayer,
 		};
 	}
 
