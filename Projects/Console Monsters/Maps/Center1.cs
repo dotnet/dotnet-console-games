@@ -5,10 +5,10 @@ public class Center1 : Map
 	public override char[][] SpriteSheet => new char[][]
 		{
 			"affffifffffjffffb".ToCharArray(),
-			"g    g  k  h    h".ToCharArray(),
-			"g    mllllln    h".ToCharArray(),
+			"go   g  k  h   oh".ToCharArray(),
+			"g    mllplln    h".ToCharArray(),
 			"g               h".ToCharArray(),
-			"g               h".ToCharArray(),
+			"go             oh".ToCharArray(),
 			"ceeeeee000eeeeeed".ToCharArray(),
 		};
 
@@ -23,6 +23,7 @@ public class Center1 : Map
 		{
 			// actions
 			'0' => Sprites.ArrowDown,
+			'p' => Sprites.Desk,
 			// non actions
 			'a' => Sprites.InteriorWallSE,
 			'b' => Sprites.InteriorWallSW,
@@ -38,6 +39,7 @@ public class Center1 : Map
 			'l' => Sprites.Desk,
 			'm' => Sprites.InteriorWallNLeft,
 			'n' => Sprites.InteriorWallNRight,
+			'o' => Sprites.PotPlant1,
 			'x' => Sprites.Open,
 			' ' => Sprites.Open,
 			_ => Sprites.Error,
@@ -46,7 +48,29 @@ public class Center1 : Map
 
 	public override void InteractWithMapTile(int tileI, int tileJ)
 	{
-		// nothing at the moment
+		char[][] s = map.SpriteSheet;
+
+		Interact(tileI, tileJ + 1);
+		Interact(tileI, tileJ - 1);
+		Interact(tileI - 1, tileJ);
+		Interact(tileI + 1, tileJ);
+
+		void Interact(int i, int j)
+		{
+			if (j >= 0 && j < s.Length && i >= 0 && i < s[j].Length)
+			{
+				if (s[j][i] is 'p')
+				{
+					Console.Clear();
+					Console.WriteLine();
+					Console.WriteLine(@" Hello and welcome to the monster center.");
+					Console.WriteLine(@" I will heal all your monsters.");
+					Console.WriteLine();
+					Console.Write(" Press [enter] to continue...");
+					PressEnterToContiue();
+				}
+			}
+		}
 	}
 
 	public override bool IsValidCharacterMapTile(int tileI, int tileJ)

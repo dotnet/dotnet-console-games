@@ -183,6 +183,18 @@ public static class Sprites
 
 	#region Objects
 
+	public const string PotPlant1 =
+		@"  ╬╬╬  " + "\n" +
+		@" ╬╬╬╬╬ " + "\n" +
+		@"  ╬╬╬  " + "\n" +
+		@" _|_|_ " + "\n" +
+		@" \___/ ";
+	public const string PotPlant2 =
+		@"  ###  " + "\n" +
+		@" ##### " + "\n" +
+		@"  ###  " + "\n" +
+		@" _|_|_ " + "\n" +
+		@" \___/ ";
 	public const string Sign = // Text TBC
 		@" ┬──┬─┐" + "\n" +
 		@"╭┴──┴╮│" + "\n" +
@@ -426,11 +438,10 @@ public static class Sprites
 		@"╭╰───╯╮" + '\n' +
 		@"╰├───┤╯" + '\n' +
 		@" │_|_│ ";
-
 	public static readonly string NPC2 =
-		@"       " + '\n' +
-		@" ╭───╮ " + '\n' +
-		@" │'.'│ " + '\n' +
+		@"╭─────╮" + '\n' +
+		@"│╭───╮│" + '\n' +
+		@"╰│^_^│╯" + '\n' +
 		@"╭╰───╯╮" + '\n' +
 		@"│├───┤│";
 
@@ -457,14 +468,12 @@ public static class Sprites
 		@" ╞═●═╡ " + "\n" +
 		@" ╰───╯ " + "\n" +
 		@"       ";
-
 	public const string Open =
 		@"       " + "\n" +
 		@"       " + "\n" +	
 		@"       " + "\n" +
 		@"       " + "\n" +
 		@"       ";
-
 	public const string Error =
 		@"╔═════╗" + "\n" +
 		@"║error║" + "\n" +
