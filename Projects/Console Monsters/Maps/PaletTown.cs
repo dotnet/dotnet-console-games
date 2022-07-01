@@ -37,17 +37,13 @@ class PaletTown : Map
 		}
 		return s[tileJ][tileI] switch
 		{
-			//Game 
+			// spawn
 			'X' => Sprites.Open,
+			// actions
 			'0' => Sprites.Door,
 			'1' => Sprites.ArrowUp,
-
-			//Buildings
-			'b' => Sprites.BuildingSmall,
-			'v' => Sprites.VetSmall,
-			'S' => Sprites.Store,
+			// Buildings
 			'd' => Sprites.Door,
-			'o' => Sprites.LowWindowSideLeft,
 			'l' => Sprites.LowWindow,
 			'h' => Sprites.BuildingLeft,
 			'u' => Sprites.BuildingBaseLeft,
@@ -57,32 +53,18 @@ class PaletTown : Map
 			'R' => Sprites.TopRoofLeft,
 			'j' => Sprites.TopRoofRight,
 			'k' => Sprites.MiddleWindow,
-
-			//Decor
+			// Decor
 			's' => Sprites.Sign,
 			'ś' => Sprites.Sign,
 			'f' => Sprites.Fence,
 			'F' => Sprites.FenceLow,
-
-			//Nature
+			// Nature
 			'w' => Sprites.Water,
 			'g' => Sprites.GrassDec,
-			'G' => Sprites.Grass,
-			't' => Sprites.Tree,
-			'T' => Sprites.Tree2,
-			'r' => Sprites.HalfRock,
-			'Ş' => Sprites.HalfRockStairs,
-			'ş' => Sprites.HalfRockStairsGrass,
-			'ŕ' => Sprites.HalfRockGrass,
-			'm' => Sprites.Mountain,
-			'p' => Sprites.Mountain2,
-
-			//NPCs
+			// NPCs
 			'n' => Sprites.NPC1,
-
-			//Extra
+			// Extra
 			'W' => Sprites.Wall_0000,
-			'x' => Sprites.Open,
 			' ' => Sprites.Open,
 			_ => Sprites.Error,
 		};
@@ -136,20 +118,10 @@ class PaletTown : Map
 		return c switch
 		{
 			' ' => true,
-			'v' => true,
-			'c' => true,
-			'e' => true,
-			'3' => true,
-			'2' => true,
-			'1' => true,
 			'0' => true,
-			'o' => true,
-			'g' => true,
+			'1' => true,
 			'X' => true,
-			'Ş' => true,
-			'ş' => true,
-			'G' => true,
-			'd' => true,
+			'g' => true,
 			_ => false,
 		};
 	}
@@ -173,7 +145,9 @@ class PaletTown : Map
 				{
 					Console.Clear();
 					if (!DisableBattleTransition)
+					{
 						Renderer.RenderBattleTransition();
+					}
 					Renderer.RenderBattleView();
 					PressEnterToContiue();
 					Console.BackgroundColor = ConsoleColor.Black;

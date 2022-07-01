@@ -15,7 +15,7 @@ class Route2 : Map
 			"fgggggggggggggg             GGGGGGGGgggggggT        ".ToCharArray(),
 			"fggggggggggggggTTTTTTTTTs   GGGGGGGGgggggggTTTTTTTTf".ToCharArray(),
 			"fggggggggggggggggggggggT    TTTTTTTTgggggggggggggggf".ToCharArray(),
-			"fffffffffffffffffffffffff22fffffffffffffffffffffffff".ToCharArray(),
+			"fffffffffffffffffffffffff00fffffffffffffffffffffffff".ToCharArray(),
 		};
 
 	public override string GetMapTileRender(int tileI, int tileJ)
@@ -27,54 +27,14 @@ class Route2 : Map
 		}
 		return s[tileJ][tileI] switch
 		{
-			//Game 
-			'X' => Sprites.Open,
+			// actions
 			'0' => Sprites.ArrowDown,
-			'1' => Sprites.ArrowUp,
-			'2' => Sprites.ArrowDown,
-			'3' => Sprites.ArrowUp,
-
-			//Buildings
-			'b' => Sprites.BuildingSmall,
-			'v' => Sprites.VetSmall,
-			'S' => Sprites.Store,
-			'd' => Sprites.Door,
-			'o' => Sprites.LowWindowSideLeft,
-			'l' => Sprites.LowWindow,
-			'h' => Sprites.BuildingLeft,
-			'u' => Sprites.BuildingBaseLeft,
-			'y' => Sprites.BuildingRight,
-			'U' => Sprites.BuildingBaseRight,
-			'M' => Sprites.MiddleRoof,
-			'R' => Sprites.TopRoofLeft,
-			'j' => Sprites.TopRoofRight,
-			'k' => Sprites.MiddleWindow,
-
-			//Decor
+			// no actions
 			's' => Sprites.Sign,
-			'ś' => Sprites.Sign,
 			'f' => Sprites.Fence,
-			'F' => Sprites.FenceLow,
-
-			//Nature
-			'w' => Sprites.Water,
 			'g' => Sprites.GrassDec,
 			'G' => Sprites.Grass,
-			't' => Sprites.Tree,
 			'T' => Sprites.Tree2,
-			'r' => Sprites.HalfRock,
-			'Ş' => Sprites.HalfRockStairs,
-			'ş' => Sprites.HalfRockStairsGrass,
-			'ŕ' => Sprites.HalfRockGrass,
-			'm' => Sprites.Mountain,
-			'p' => Sprites.Mountain2,
-
-			//NPCs
-			'n' => Sprites.NPC1,
-
-			//Extra
-			'W' => Sprites.Wall_0000,
-			'x' => Sprites.Open,
 			' ' => Sprites.Open,
 			_ => Sprites.Error,
 		};
@@ -122,20 +82,9 @@ class Route2 : Map
 		return c switch
 		{
 			' ' => true,
-			'v' => true,
-			'c' => true,
-			'e' => true,
-			'3' => true,
-			'2' => true,
-			'1' => true,
 			'0' => true,
-			'o' => true,
 			'g' => true,
-			'X' => true,
-			'Ş' => true,
-			'ş' => true,
 			'G' => true,
-			'd' => true,
 			_ => false,
 		};
 	}
@@ -146,16 +95,18 @@ class Route2 : Map
 		char[][] s = map.SpriteSheet;
 		switch (s[j][i])
 		{
-			case '2':
+			case '0':
 				map = new Route1();
-				SpawnCharacterOn('3');
+				SpawnCharacterOn('1');
 				break;
 			case 'G':
 				if (!DisableBattle && Random.Shared.Next(2) is 0) // BATTLE CHANCE
 				{
 					Console.Clear();
 					if (!DisableBattleTransition)
+					{
 						Renderer.RenderBattleTransition();
+					}
 					Renderer.RenderBattleView();
 					PressEnterToContiue();
 					Console.BackgroundColor = ConsoleColor.Black;
