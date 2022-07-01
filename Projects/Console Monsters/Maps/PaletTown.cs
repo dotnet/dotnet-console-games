@@ -5,7 +5,7 @@ class PaletTown : Map
 	public override char[][] SpriteSheet => new char[][]
 		{
 			"ffffffffff11ffffffff".ToCharArray(),
-			"fg         X      gf".ToCharArray(),
+			"fg                gf".ToCharArray(),
 			"fg  RMMj    RMMj  gf".ToCharArray(),
 			"fg  hkky    hkky  gf".ToCharArray(),
 			"fg sudlU   sudlU  gf".ToCharArray(),
@@ -16,7 +16,7 @@ class PaletTown : Map
 			"fg  gggg  hkkkky  gf".ToCharArray(),
 			"fg  gggg  ul0llU  gf".ToCharArray(),
 			"fg         n      gf".ToCharArray(),
-			"fg                gf".ToCharArray(),
+			"fg      X         gf".ToCharArray(),
 			"fg        FFFśFF  gf".ToCharArray(),
 			"fgggWWWW  gggggg  gf".ToCharArray(),
 			"fgggWwwW  gggggg  gf".ToCharArray(),
