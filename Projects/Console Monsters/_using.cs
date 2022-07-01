@@ -21,6 +21,7 @@ public static class _using
 	public static bool FirstTimeLaunching = true;
 	#endregion
 
+	public static Random GameRandom = new(7);
 	public static Character character = new();
 	public static Map map = new PaletTown();
 	public static DateTime previoiusRender = DateTime.Now;
@@ -35,8 +36,7 @@ public static class _using
 	{
 		"Move: [← ↑ → ↓] / [W A S D]",
 		"Interact: [E]",
-		"Monster Status: [Enter]",
-		"Inventory: [Backspace]",
+		"Status: [Enter]",
 		"Pause: [Escape]",
 	};
 

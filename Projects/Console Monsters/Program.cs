@@ -218,17 +218,6 @@ public partial class Program
 		}
 	}
 
-	static void RenderStatusString()
-	{
-		Console.Clear();
-		Console.WriteLine();
-		Console.WriteLine(" Monsters Status");
-		Console.WriteLine();
-		Console.WriteLine();
-		Console.Write(" Press [enter] to continue...");
-		PressEnterToContiue();
-	}
-
 	static void EnterVet()
 	{
 		Console.Clear();
@@ -294,18 +283,14 @@ public partial class Program
 						}
 					}
 					break;
-				case ConsoleKey.Enter: RenderStatusString(); break;
-				case ConsoleKey.Backspace:
-					Random rng = new();
-					while (Console.ReadKey(true).Key == ConsoleKey.R)
+				case ConsoleKey.Enter:
+					activeMonsters.Clear();
+					for (int i = 0; i < (maxPartySize - GameRandom.Next(0, 3)); i++)
 					{
-						activeMonsters.Clear();
-						for (int i = 0; i < (maxPartySize - rng.Next(0,3)); i++)
-						{
-							activeMonsters.Add(MonsterBase.GetRandom());
-						}
-						Renderer.RenderInventoryView();
+						activeMonsters.Add(MonsterBase.GetRandom());
 					}
+					Renderer.RenderInventoryView();
+					PressEnterToContiue();
 					break;
 				case ConsoleKey.E:
 					{
