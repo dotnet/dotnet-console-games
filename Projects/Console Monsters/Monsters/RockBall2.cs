@@ -1,6 +1,6 @@
 ﻿namespace Console_Monsters.Monsters;
 
-internal class RockBall2 : MonsterBase
+public class RockBall2 : MonsterBase
 {
 	public RockBall2()
 	{

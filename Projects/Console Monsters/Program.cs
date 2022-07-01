@@ -170,19 +170,19 @@ public partial class Program
 
 	static void UpdateCharacter()
 	{
-		if (character.Animation == Character.RunUp) character.J--;
-		if (character.Animation == Character.RunDown) character.J++;
-		if (character.Animation == Character.RunLeft) character.I--;
+		if (character.Animation == Character.RunUp)    character.J--;
+		if (character.Animation == Character.RunDown)  character.J++;
+		if (character.Animation == Character.RunLeft)  character.I--;
 		if (character.Animation == Character.RunRight) character.I++;
 
 		character.AnimationFrame++;
 
-		if ((character.Animation == Character.RunUp && character.AnimationFrame >= Sprites.Height) ||
-			(character.Animation == Character.RunDown && character.AnimationFrame >= Sprites.Height) ||
-			(character.Animation == Character.RunLeft && character.AnimationFrame >= Sprites.Width) ||
+		if ((character.Animation == Character.RunUp    && character.AnimationFrame >= Sprites.Height) ||
+			(character.Animation == Character.RunDown  && character.AnimationFrame >= Sprites.Height) ||
+			(character.Animation == Character.RunLeft  && character.AnimationFrame >= Sprites.Width) ||
 			(character.Animation == Character.RunRight && character.AnimationFrame >= Sprites.Width))
 		{
-			CheckTileForAction();
+			map.PerformTileAction();
 			character.Animation =
 				character.Animation == Character.RunUp    ? Character.IdleUp    :
 				character.Animation == Character.RunDown  ? Character.IdleDown  :
@@ -195,48 +195,6 @@ public partial class Program
 		{
 			character.AnimationFrame = 0;
 		}
-	}
-
-	static void CheckTileForAction()
-	{
-		var (i, j) = Map.ScreenToTile(character.I, character.J);
-		var s = map.SpriteSheet();
-		switch (s[j][i])
-		{
-			case 'v': EnterVet(); break;
-			case '0': Map.TransitionMapToPaletTown(); break;
-			case '1': Map.TransitionMapToRoute1(); break;
-			case '3': Map.TransitionMapToRoute2(); break;
-			case 'G':
-				if (!DisableBattle && Random.Shared.Next(2) is 0) // BATTLE CHANCE
-				{
-					Console.Clear();
-					if(!DisableBattleTransition)
-						Renderer.RenderBattleTransition();
-					Renderer.RenderBattleView();
-					PressEnterToContiue();
-					Console.BackgroundColor = ConsoleColor.Black;
-					Console.ForegroundColor = ConsoleColor.Gray;
-					Console.Clear();
-				}
-				break;
-		}
-	}
-
-	static void EnterVet()
-	{
-		Console.Clear();
-		Console.WriteLine();
-		Console.WriteLine(" You enter the vet.");
-		Console.WriteLine();
-		for (int i = 0; i < ownedMonsters.Count; i++)
-		{
-			ownedMonsters[i].CurrentHP = ownedMonsters[i].MaximumHP;
-		}
-		Console.WriteLine(" All your monsters are healed.");
-		Console.WriteLine();
-		Console.Write(" Press [enter] to continue...");
-		PressEnterToContiue();
 	}
 
 	static void HandleMapUserInput()
@@ -253,7 +211,7 @@ public partial class Program
 					ConsoleKey.RightArrow or ConsoleKey.D:
 					if (character.IsIdle)
 					{
-						var (i, j) = Map.ScreenToTile(character.I, character.J);
+						var (i, j) = Map.WorldToTile(character.I, character.J);
 						(i, j) = key switch
 						{
 							ConsoleKey.UpArrow    or ConsoleKey.W => (i, j - 1),
@@ -273,7 +231,7 @@ public partial class Program
 									case ConsoleKey.LeftArrow  or ConsoleKey.A: character.I -= Sprites.Width;  break;
 									case ConsoleKey.RightArrow or ConsoleKey.D: character.I += Sprites.Width;  break;
 								}
-								CheckTileForAction();
+								map.PerformTileAction();
 							}
 							else
 							{
@@ -310,7 +268,7 @@ public partial class Program
 					break;
 				case ConsoleKey.E:
 					{
-						var (i, j) = Map.ScreenToTile(character.I, character.J);
+						var (i, j) = Map.WorldToTile(character.I, character.J);
 						map.InteractWithMapTile(i, j);
 						break;
 					}

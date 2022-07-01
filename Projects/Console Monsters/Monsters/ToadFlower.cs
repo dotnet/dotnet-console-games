@@ -1,6 +1,6 @@
 ﻿namespace Console_Monsters.Monsters;
 
-internal class ToadFlower : MonsterBase
+public class ToadFlower : MonsterBase
 {
 	public ToadFlower()
 	{
