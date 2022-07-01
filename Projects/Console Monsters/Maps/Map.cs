@@ -10,8 +10,7 @@ public abstract class Map
 		return (tilei, tilej);
 	}
 
-	/// <summary>Relocates the player to the top-left most occurence of a character in a <see cref="Map.SpriteSheet"/>.</summary>
-	/// <param name="c"></param>
+	/// <summary>Relocates the player to the top-left most occurence of a character in a <see cref="SpriteSheet"/>.</summary>
 	public static void SpawnCharacterOn(char c)
 	{
 		var (i, j) = FindTileInMap(map, c)!.Value;
@@ -19,7 +18,7 @@ public abstract class Map
 		character.J = j * 5;
 	}
 
-	/// <summary>Finds the top-left most occurence of a character in a <see cref="Map.SpriteSheet"/>.</summary>
+	/// <summary>Finds the top-left most occurence of a character in a <see cref="SpriteSheet"/>.</summary>
 	public static (int I, int J)? FindTileInMap(Map map, char c)
 	{
 		char[][] s = map.SpriteSheet;
