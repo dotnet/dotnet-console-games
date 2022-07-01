@@ -1,6 +1,7 @@
 ﻿global using System;
 global using System.Linq;
 global using System.Text;
+global using System.Threading;
 global using static Console_Monsters._using;
 global using Console_Monsters.Maps;
 global using Console_Monsters.Monsters;
@@ -15,6 +16,8 @@ public static class _using
 {
 	#region Options
 	public static bool DisableMovementAnimation = false;
+	public static bool DisableBattle = false;
+	public static bool DisableBattleTransition = false;
 	public static bool FirstTimeLaunching = true;
 	#endregion
 
