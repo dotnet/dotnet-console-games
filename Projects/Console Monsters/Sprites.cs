@@ -457,7 +457,7 @@ public static class Sprites
 		@"│├───┤│" + '\n' +
 		@" │_|_│ ";
 	public static readonly string NPC5 =
-		@" (((‾)) " + '\n' +
+		@" (((‾))" + '\n' +
 		@"((^_^))" + '\n' +
 		@"╭┴───┴╮" + '\n' +
 		@"│├───┤│" + '\n' +
