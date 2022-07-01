@@ -8,8 +8,9 @@ internal class DirtWormTrio : MonsterBase
 	}
 
 	public override string[] Sprite => (
-		" ╭───╮ ╭───╮ " + '\n' +
-		" │‾o‾│ │o_o│ " + '\n' +
+		" ╭───╮       " + '\n' +
+		" │‾o‾│ ╭───╮ " + '\n' +
+		" │   │ │o_o│ " + '\n' +
 		" │  ╭┴─┴╮  │ " + '\n' +
 		" │  │^_^│  │ " + '\n' +
 		" │  │   │  │ " + '\n' +
