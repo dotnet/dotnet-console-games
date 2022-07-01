@@ -37,7 +37,7 @@ public static class _using
 	public static readonly string[] battletext = new[]
 	{
 		"Battles are still in development.",
-		"Press any key to continue...",
+		"Press [enter] to continue...",
 	};
 
 	static _using()
