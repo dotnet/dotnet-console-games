@@ -444,6 +444,48 @@ public static class Sprites
 		@"╰│^_^│╯" + '\n' +
 		@"╭╰───╯╮" + '\n' +
 		@"│├───┤│";
+	public static readonly string NPC3 =
+		@"╭╭───╮╮" + '\n' +
+		@" │^_^│ " + '\n' +
+		@"╭┴───┴╮" + '\n' +
+		@"│├───┤│" + '\n' +
+		@" │_|_│ ";
+	public static readonly string NPC4 =
+		@"////\\\" + '\n' +
+		@"//^_^\\" + '\n' +
+		@"╭┴───┴╮" + '\n' +
+		@"│├───┤│" + '\n' +
+		@" │_|_│ ";
+	public static readonly string NPC5 =
+		@" (((‾)) " + '\n' +
+		@"((^_^))" + '\n' +
+		@"╭┴───┴╮" + '\n' +
+		@"│├───┤│" + '\n' +
+		@" │_|_│ ";
+	public static readonly string NPC6 =
+		@" ╭───╮ " + '\n' +
+		@" ├■_■┤ " + '\n' +
+		@"╭╰───╯╮" + '\n' +
+		@"╰├───┤╯" + '\n' +
+		@" │_|_│ ";
+	public static readonly string NPC7 =
+		@" ╭───╮ " + '\n' +
+		@" /^_^\ " + '\n' +
+		@"╰─────╯" + '\n' +
+		@"╰├───┤╯" + '\n' +
+		@" │_|_│ ";
+	public static readonly string NPC8 =
+		@" ╭───╮ " + '\n' +
+		@" │‾_‾│ " + '\n' +
+		@"╭╰─▼─╯╮" + '\n' +
+		@"╰├───┤╯" + '\n' +
+		@" │_|_│ ";
+	public static readonly string NPC9 =
+		@" ╭▲─▲╮ " + '\n' +
+		@" │‾◊‾│ " + '\n' +
+		@"╭┴───┴╮" + '\n' +
+		@"│├───┤│" + '\n' +
+		@" │_|_│ ";
 
 	#endregion
 
