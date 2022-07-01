@@ -504,6 +504,18 @@ public static class Sprites
 		@"╭┴───┴╮" + '\n' +
 		@"│├───┤│" + '\n' +
 		@" │_ _│ ";
+	public static readonly string NPC13 =
+		@" ╭───╮ " + '\n' +
+		@" │^_^│ " + '\n' +
+		@"╭╰─┬─╯╮" + '\n' +
+		@"╰┬─┴─┬╯" + '\n' +
+		@"/_/‾\_\";
+	public static readonly string NPC14 =
+		@" ╭───╮ " + '\n' +
+		@" │^_^│ " + '\n' +
+		@"╭╰─┬─╯╮" + '\n' +
+		@"╰┬─┼─┬╯" + '\n' +
+		@"╰──┴──╯";
 
 	#endregion
 
