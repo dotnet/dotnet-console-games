@@ -91,6 +91,7 @@ public partial class Program
 				switch (arrowOption)
 				{
 					case 1:
+						FirstTimeLaunching = false;
 						break;
 					case 2:
 						Options();
@@ -130,17 +131,21 @@ public partial class Program
 		sb.AppendLine(@$"{titleIndent} ╚═════╝ ╚═╝        ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝");
 		sb.AppendLine(@$"{newLineTitle}");
 
-		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "╔══╗" : "╔══╗")}                              {(arrowOption is 1 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "║██║" : "║  ║")}  Disable Movement Animation  {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "╚══╝" : "╚══╝")}                              {(arrowOption is 1 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "╔══╗" : "╔══╗")}                      {(arrowOption is 1 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "║  ║" : "║██║")}  Movement Animation  {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "╚══╝" : "╚══╝")}                      {(arrowOption is 1 ? "╰───╯" : "     ")}");
 		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}    {(arrowOption is 2 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}║║  {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}    {(arrowOption is 2 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{(DisableBattleTransition ? "╔══╗" : "╔══╗")}                     {(arrowOption is 2 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{(DisableBattleTransition ? "║  ║" : "║██║")}  Battle Transition  {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{(DisableBattleTransition ? "╚══╝" : "╚══╝")}                     {(arrowOption is 2 ? "╰───╯" : "     ")}");
 		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}█▀▀▄  ▄▄   ▄▄▄ ▄  ▄   {(arrowOption is 3 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█■■█ █▄▄█ █    █■█    {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█▄▄▀ █  █ ▀▄▄▄ █  ▀▄  {(arrowOption is 3 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{(DisableBattle ? "╔══╗" : "╔══╗")}                      {(arrowOption is 3 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{(DisableBattle ? "║  ║" : "║██║")}  Battles (DEV TOOL)  {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{(DisableBattle ? "╚══╝" : "╚══╝")}                      {(arrowOption is 3 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{newLineOptions}");
+		sb.AppendLine(@$"{optionIndent}█▀▀▄  ▄▄   ▄▄▄ ▄  ▄   {(arrowOption is 4 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█■■█ █▄▄█ █    █■█    {(arrowOption is 4 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█▄▄▀ █  █ ▀▄▄▄ █  ▀▄  {(arrowOption is 4 ? "╰───╯" : "     ")}");
 
 		Console.SetCursorPosition(0, 0);
 		Console.WriteLine(sb);
@@ -148,13 +153,14 @@ public partial class Program
 		switch (Console.ReadKey(true).Key)
 		{
 			case ConsoleKey.UpArrow:   arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
-			case ConsoleKey.DownArrow: arrowOption = Math.Min(3, arrowOption + 1); goto ReDraw;
+			case ConsoleKey.DownArrow: arrowOption = Math.Min(4, arrowOption + 1); goto ReDraw;
 			case ConsoleKey.Enter:
 				switch (arrowOption)
 				{
-					case 1: DisableMovementAnimation = !DisableMovementAnimation; goto ReDraw; 
-					case 2: throw new NotImplementedException();
-					case 3: break;
+					case 1: DisableMovementAnimation = !DisableMovementAnimation; goto ReDraw;
+					case 2: DisableBattleTransition = !DisableBattleTransition; goto ReDraw;
+					case 3: DisableBattle = !DisableBattle; goto ReDraw;
+					case 4: break;
 				}
 				break;
 			case ConsoleKey.Escape: break;
@@ -197,10 +203,11 @@ public partial class Program
 			case '1': Map.TransitionMapToRoute1(); break;
 			case '3': Map.TransitionMapToRoute2(); break;
 			case 'G':
-				if (Random.Shared.Next(9999) is 0) // BATTLE CHANCE
+				if (!DisableBattle && Random.Shared.Next(2) is 0) // BATTLE CHANCE
 				{
 					Console.Clear();
-					Renderer.RenderBattleTransition();
+					if(!DisableBattleTransition)
+						Renderer.RenderBattleTransition();
 					Renderer.RenderBattleView();
 					Console.ReadKey(true);
 					Console.BackgroundColor = ConsoleColor.Black;
@@ -295,7 +302,7 @@ public partial class Program
 						map.InteractWithMapTile(i, j);
 						break;
 					}
-				case ConsoleKey.Escape: FirstTimeLaunching = false; StartMenu() ; return;
+				case ConsoleKey.Escape: StartMenu(); return;
 			}
 		}
 	}

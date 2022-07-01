@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-namespace Console_Monsters;
+﻿namespace Console_Monsters;
 
 public static class Renderer
 {
