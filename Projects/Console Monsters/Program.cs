@@ -202,7 +202,7 @@ public partial class Program
 					Console.Clear();
 					Renderer.RenderBattleTransition();
 					Renderer.RenderBattleView();
-					Console.ReadKey(true);
+					PressEnterToContiue();
 					Console.BackgroundColor = ConsoleColor.Black;
 					Console.ForegroundColor = ConsoleColor.Gray;
 					Console.Clear();
