@@ -13,6 +13,7 @@ public class Character
 	/// <summary>The render state of the character based on the <see cref="Animation"/> and <see cref="AnimationFrame"/>.</summary>
 	public string Render => Animation[AnimationFrame % Animation.Length];
 
+
 	#region Player Sprites
 
 	public static readonly string[] RunRight = new[]
@@ -191,6 +192,63 @@ public class Character
 
 	public static readonly string[] IdlePlayer =
 		Enumerable.Repeat(Idle1, 100).Concat(Enumerable.Repeat(Idle2, 10)).ToArray();
+
+	public static readonly string IdleLeft1 =
+		@" ╭══╮  " + '\n' +
+		@" │' │  " + '\n' +
+		@" ╰──╯  " + '\n' +
+		@" │||│  " + '\n' +
+		@" │__│  ";
+	public static readonly string IdleLeft2 =
+		@" ╭══╮  " + '\n' +
+		@" │- │  " + '\n' +
+		@" ╰──╯  " + '\n' +
+		@" │||│  " + '\n' +
+		@" │__│  ";
+	public static readonly string[] IdleLeft =
+		Enumerable.Repeat(IdleLeft1, 100).Concat(Enumerable.Repeat(IdleLeft2, 10)).ToArray();
+
+	public static readonly string IdleRight1 =
+		@"  ╭══╮ " + '\n' +
+		@"  │ '│ " + '\n' +
+		@"  ╰──╯ " + '\n' +
+		@"  │||│ " + '\n' +
+		@"  │__│ ";
+	public static readonly string IdleRight2 =
+		@"  ╭══╮ " + '\n' +
+		@"  │ '│ " + '\n' +
+		@"  ╰──╯ " + '\n' +
+		@"  │||│ " + '\n' +
+		@"  │__│ ";
+	public static readonly string[] IdleRight =
+		Enumerable.Repeat(IdleRight1, 100).Concat(Enumerable.Repeat(IdleRight2, 10)).ToArray();
+
+	public static readonly string IdleUp1 =
+		@" ╭═══╮ " + '\n' +
+		@" │   │ " + '\n' +
+		@"╭╰───╯╮" + '\n' +
+		@"│├───┤│" + '\n' +
+		@" │_|_│ ";
+	#warning Need another idle sprite
+	public static readonly string[] IdleUp =
+		Enumerable.Repeat(IdleUp1, 100).Concat(Enumerable.Repeat(IdleUp1, 10)).ToArray();
+
+	public static readonly string IdleDown1 =
+		@" ╭═══╮ " + '\n' +
+		@" │'_'│ " + '\n' +
+		@"╭╰───╯╮" + '\n' +
+		@"│├───┤│" + '\n' +
+		@" │_|_│ ";
+
+	public static readonly string IdleDown2 =
+		@" ╭═══╮ " + '\n' +
+		@" │-_-│ " + '\n' +
+		@"╭╰───╯╮" + '\n' +
+		@"│├───┤│" + '\n' +
+		@" │_|_│ ";
+
+	public static readonly string[] IdleDown =
+		Enumerable.Repeat(IdleDown1, 100).Concat(Enumerable.Repeat(IdleDown2, 10)).ToArray();
 
 	#endregion
 }
