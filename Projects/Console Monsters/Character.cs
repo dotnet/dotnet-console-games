@@ -7,11 +7,17 @@ public class Character
 	/// <summary>Vertical position in pixel coordinates.</summary>
 	public int J { get; set; }
 	/// <summary>Currently active animation.</summary>
-	public string[] Animation { get; set; } = IdlePlayer;
+	public string[] Animation { get; set; } = IdleDown;
 	/// <summary>The current frame of the active animation.</summary>
 	public int AnimationFrame {get; set; } = 0;
 	/// <summary>The render state of the character based on the <see cref="Animation"/> and <see cref="AnimationFrame"/>.</summary>
 	public string Render => Animation[AnimationFrame % Animation.Length];
+
+	public bool IsIdle =>
+		Animation == IdleDown ||
+		Animation == IdleUp   ||
+		Animation == IdleLeft ||
+		Animation == IdleRight;
 
 
 	#region Player Sprites
@@ -176,23 +182,6 @@ public class Character
 		@" │_├─┘ ",
 	};
 
-	public static readonly string Idle1 =
-		@" ╭═══╮ " + '\n' +
-		@" │'_'│ " + '\n' +
-		@"╭╰───╯╮" + '\n' +
-		@"│├───┤│" + '\n' +
-		@" │_|_│ ";
-
-	public static readonly string Idle2 =
-		@" ╭═══╮ " + '\n' +
-		@" │-_-│ " + '\n' +
-		@"╭╰───╯╮" + '\n' +
-		@"│├───┤│" + '\n' +
-		@" │_|_│ ";
-
-	public static readonly string[] IdlePlayer =
-		Enumerable.Repeat(Idle1, 100).Concat(Enumerable.Repeat(Idle2, 10)).ToArray();
-
 	public static readonly string IdleLeft1 =
 		@" ╭══╮  " + '\n' +
 		@" │' │  " + '\n' +
@@ -229,7 +218,7 @@ public class Character
 		@"╭╰───╯╮" + '\n' +
 		@"│├───┤│" + '\n' +
 		@" │_|_│ ";
-	#warning Need another idle sprite
+	#warning TODO: need another idle sprite
 	public static readonly string[] IdleUp =
 		Enumerable.Repeat(IdleUp1, 100).Concat(Enumerable.Repeat(IdleUp1, 10)).ToArray();
 
