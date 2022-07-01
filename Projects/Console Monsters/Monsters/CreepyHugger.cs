@@ -4,13 +4,14 @@ internal class CreepyHugger : MonsterBase
 {
 	public CreepyHugger()
 	{
-		Sprite = (
-			@"   ╭───╮   " + '\n' +
-			@"   │▪_▪│   " + '\n' +
-			@"╭──╯ ▄ ╰──╮" + '\n' +
-			@"╰─╭ ▀█▀ ╮─╯" + '\n' +
-			@"  │ ╮─╭ │  " + '\n' +
-			@"  ╰─╯ ╰─╯  ").Split('\n');
 		Name = "Creepy Hugger";
 	}
+
+	public override string[] Sprite => (
+		"   ╭───╮   " + '\n' +
+		"   │▪_▪│   " + '\n' +
+		"╭──╯ ▄ ╰──╮" + '\n' +
+		"╰─╭ ▀█▀ ╮─╯" + '\n' +
+		"  │ ╮─╭ │  " + '\n' +
+		"  ╰─╯ ╰─╯  ").Split('\n');
 }

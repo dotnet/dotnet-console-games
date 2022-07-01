@@ -4,12 +4,13 @@ internal class Snake : MonsterBase
 {
 	public Snake()
 	{
-		Sprite = (
-			"           ╭────╮" + '\n' +
-			"           │ ^_^│" + '\n' +
-			"╭───╮ ╭───╮╰─╮╭─╯" + '\n' +
-			"││‾││_││‾││__││  " + '\n' +
-			"╰╯ ╰───╯ ╰────╯  ").Split('\n');
 		Name = "Snake";
 	}
+
+	public override string[] Sprite => (
+		"           ╭────╮" + '\n' +
+		"           │ ^_^│" + '\n' +
+		"╭───╮ ╭───╮╰─╮╭─╯" + '\n' +
+		"││‾││_││‾││__││  " + '\n' +
+		"╰╯ ╰───╯ ╰────╯  ").Split('\n');
 }
