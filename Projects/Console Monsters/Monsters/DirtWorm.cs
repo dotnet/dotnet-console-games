@@ -10,5 +10,6 @@ internal class DirtWorm : MonsterBase
 			"  │   │ " + '\n' +
 			"  │   │ " + '\n' +
 			" ─┴───┴─").Split('\n');
+		Name = "Dirt Worm";
 	}
 }

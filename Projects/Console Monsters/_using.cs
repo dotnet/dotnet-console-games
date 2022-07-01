@@ -24,9 +24,12 @@ public static class _using
 	public static Character character = new();
 	public static Map map = new PaletTown();
 	public static DateTime previoiusRender = DateTime.Now;
+	public static int maxPartySize = 6;
 	public static bool gameRunning = true;
 	public static bool startMenu = true;
+	public static bool inventoryOpen = false;
 	public static List<MonsterBase> ownedMonsters = new();
+	public static List<MonsterBase> activeMonsters = new();
 
 	public static readonly string[] maptext = new[]
 	{
@@ -41,6 +44,12 @@ public static class _using
 	{
 		"Battles are still in development.",
 		"Press [enter] to continue...",
+	};
+
+	public static readonly Dictionary<Items, (string Name, string Description, string Sprite)> ItemDetails = new()
+	{
+		{ Items.CaptureDevice, ("A Monster Capture Device", "Used to trap and store monsters", Sprites.CaptureDevice)},
+		{ Items.HealthPotion,  ("A Health Potion", "Used to restore hp to monsters", Sprites.HealthPotion)},
 	};
 
 	static _using()

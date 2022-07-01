@@ -12,5 +12,6 @@ internal class ToadFlower : MonsterBase
 			@"  ╚═╝ ╭──╰─────╯──╮ ╚═╝  " + '\n' +
 			@"      │  ╭─────╮  │      " + '\n' +
 			@"      ╰──╯─╯ ╰─╰──╯      ").Split('\n');
+		Name = "Toad Flower";
 	}
 }

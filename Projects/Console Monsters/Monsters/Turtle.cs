@@ -11,5 +11,6 @@ internal class Turtle : MonsterBase
 			"╰─╔╝   ╚╗─╯" + '\n' +
 			" ╭╚╗   ╔╝╮ " + '\n' +
 			" ╰─╚═══╝─╯ ").Split('\n');
+		Name = "Turtle";
 	}
 }

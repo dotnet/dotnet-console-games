@@ -10,5 +10,6 @@ internal class Snake : MonsterBase
 			"╭───╮ ╭───╮╰─╮╭─╯" + '\n' +
 			"││‾││_││‾││__││  " + '\n' +
 			"╰╯ ╰───╯ ╰────╯  ").Split('\n');
+		Name = "Snake";
 	}
 }

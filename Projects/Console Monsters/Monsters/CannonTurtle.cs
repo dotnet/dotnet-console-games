@@ -14,5 +14,6 @@ internal class TurtleCannon : MonsterBase
 			"  ╭╯╚╗   ╔╝╰╮  " + '\n' +
 			"  │ ╭╚═══╝╮ │  " + '\n' +
 			"  ╰─╯     ╰─╯  ").Split('\n');
+		Name = "Turtle Cannon";
 	}
 }
