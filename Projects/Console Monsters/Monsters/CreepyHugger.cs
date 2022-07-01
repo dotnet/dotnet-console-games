@@ -1,6 +1,6 @@
 namespace Console_Monsters.Monsters;
 
-internal class CreepyHugger : MonsterBase
+public class CreepyHugger : MonsterBase
 {
 	public CreepyHugger()
 	{

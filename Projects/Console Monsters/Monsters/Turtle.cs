@@ -1,6 +1,6 @@
 ﻿namespace Console_Monsters.Monsters;
 
-internal class Turtle : MonsterBase
+public class Turtle : MonsterBase
 {
 	public Turtle()
 	{

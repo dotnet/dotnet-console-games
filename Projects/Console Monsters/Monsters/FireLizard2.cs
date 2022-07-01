@@ -1,6 +1,6 @@
 namespace Console_Monsters.Monsters;
 
-internal class FireLizard2 : MonsterBase
+public class FireLizard2 : MonsterBase
 {
 	public FireLizard2()
 	{

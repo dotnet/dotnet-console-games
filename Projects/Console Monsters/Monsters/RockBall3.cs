@@ -1,6 +1,6 @@
 ﻿namespace Console_Monsters.Monsters;
 
-internal class RockBall3 : MonsterBase
+public class RockBall3 : MonsterBase
 {
 	public RockBall3()
 	{
@@ -8,9 +8,10 @@ internal class RockBall3 : MonsterBase
 	}
 
 	public override string[] Sprite => (
-		"╭─╮   ╭───────╮   ╭─╮" + '\n' +
-		"│ │╭─╮│       │╭─╮│ │" + '\n' +
-		"│ ╰╯ ╰┤  ‾o‾  ├╯ ╰╯ │" + '\n' +
-		"╰─────┤       ├─────╯" + '\n' +
-		"      ╰───────╯      ").Split('\n');
+		"╭───╮             ╭───╮" + '\n' +
+		"╰╮ ╮╯  ╭───────╮  ╰╭ ╭╯" + '\n' +
+		" │ │╭─╮│       │╭─╮│ │ " + '\n' +
+		" │ ╰╯ ╰┤  ‾o‾  ├╯ ╰╯ │ " + '\n' +
+		" ╰─────┤       ├─────╯ " + '\n' +
+		"       ╰───────╯       ").Split('\n');
 }

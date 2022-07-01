@@ -8,6 +8,59 @@ public static class Sprites
 	public const int BattleSpriteWidth = 70;
 	public const int BattleSpriteHeight = 20;
 
+	#region Interior
+
+	public const string InteriorWallNE =
+		@" │ │   " + "\n" +
+		@" │ │   " + "\n" +
+		@" │ ╰───" + "\n" +
+		@" ╰─────" + "\n" +
+		@"       ";
+	public const string InteriorWallNW =
+		@"   │ │ " + "\n" +
+		@"   │ │ " + "\n" +
+		@"───╯ │ " + "\n" +
+		@"─────╯ " + "\n" +
+		@"       ";
+	public const string InteriorWallSW =
+		@"       " + "\n" +
+		@"─────╮ " + "\n" +
+		@"───╮ │ " + "\n" +
+		@"   │ │ " + "\n" +
+		@"   │ │ ";
+	public const string InteriorWallSE =
+		@"       " + "\n" +
+		@" ╭─────" + "\n" +
+		@" │ ╭───" + "\n" +
+		@" │ │   " + "\n" +
+		@" │ │   ";
+	public const string InteriorWallEWHigh =
+		@"       " + "\n" +
+		@"───────" + "\n" +
+		@"───────" + "\n" +
+		@"       " + "\n" +
+		@"       ";
+	public const string InteriorWallEWLow =
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"───────" + "\n" +
+		@"───────" + "\n" +
+		@"       ";
+	public const string InteriorWallNSLeft =
+		@" │ │   " + "\n" +
+		@" │ │   " + "\n" +
+		@" │ │   " + "\n" +
+		@" │ │   " + "\n" +
+		@" │ │   ";
+	public const string InteriorWallNSRight =
+		@"   │ │ " + "\n" +
+		@"   │ │ " + "\n" +
+		@"   │ │ " + "\n" +
+		@"   │ │ " + "\n" +
+		@"   │ │ ";
+
+	#endregion
+
 	#region Buildings
 
 	public const string BuildingSmall =

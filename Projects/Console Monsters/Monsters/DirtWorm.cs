@@ -1,6 +1,6 @@
 ﻿namespace Console_Monsters.Monsters;
 
-internal class DirtWorm : MonsterBase
+public class DirtWorm : MonsterBase
 {
 	public DirtWorm()
 	{
