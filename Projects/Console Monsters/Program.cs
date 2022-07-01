@@ -209,7 +209,7 @@ public partial class Program
 					if(!DisableBattleTransition)
 						Renderer.RenderBattleTransition();
 					Renderer.RenderBattleView();
-					Console.ReadKey(true);
+					PressEnterToContiue();
 					Console.BackgroundColor = ConsoleColor.Black;
 					Console.ForegroundColor = ConsoleColor.Gray;
 					Console.Clear();
