@@ -100,6 +100,9 @@ public abstract class Map
 			'm' => Sprites.Mountain,
 			'p' => Sprites.Mountain2,
 
+			//NPCs
+			'n' => Sprites.NPC1,
+
 			//Extra
 			'W' => Sprites.Wall_0000,
 			'x' => Sprites.Open,

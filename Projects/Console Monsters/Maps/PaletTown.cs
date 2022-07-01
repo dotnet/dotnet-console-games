@@ -19,6 +19,7 @@ class PaletTown : Map
 			"fg  FFFs  hkkkky  gf".ToCharArray(),
 			"fg  gggg  hkkkky  gf".ToCharArray(),
 			"fg  gggg  uldllU  gf".ToCharArray(),
+			"fg         n      gf".ToCharArray(),
 			"fg                gf".ToCharArray(),
 			"fg        FFFśFF  gf".ToCharArray(),
 			"fgggWWWW  gggggg  gf".ToCharArray(),
@@ -26,6 +27,9 @@ class PaletTown : Map
 			"fgggWwwW          gf".ToCharArray(),
 			"ffggWwwWffffffffffff".ToCharArray(),
 			"ffffWwwWffffffffffff".ToCharArray(),
+			"ggggWwwWggggggfggggg".ToCharArray(),
+			"ggggWwwWggggggfggggg".ToCharArray(),
+			"ggggWwwWGGGGGGfggggg".ToCharArray(),
 		};
 	}
 
