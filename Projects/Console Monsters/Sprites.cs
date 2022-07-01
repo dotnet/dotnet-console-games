@@ -523,11 +523,11 @@ public static class Sprites
 		@" │   │ " + "\n" +
 		@" ╰───╯ ";
 	public const string CaptureDevice =
+		@"       " + "\n" +
 		@" ╭───╮ " + "\n" +
-		@" ╞═█═╡ " + "\n" +
-		@" │   │ " + "\n" +
-		@" │   │ " + "\n" +
-		@" └───┘ ";
+		@" ╞═●═╡ " + "\n" +
+		@" ╰───╯ " + "\n" +
+		@"       ";
 	#endregion
 
 	public const string Box =

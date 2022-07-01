@@ -11,5 +11,6 @@ internal class CreepyHugger : MonsterBase
 			@"╰─╭ ▀█▀ ╮─╯" + '\n' +
 			@"  │ ╮─╭ │  " + '\n' +
 			@"  ╰─╯ ╰─╯  ").Split('\n');
+		Name = "Creepy Hugger";
 	}
 }

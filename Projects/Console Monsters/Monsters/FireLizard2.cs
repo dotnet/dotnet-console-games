@@ -11,5 +11,6 @@ internal class FireLizard2 : MonsterBase
 			@"   ╰╮╰─╯╰─╯╭╯ " + '\n' +
 			@"    ╰──┬╮ ╭╯  " + '\n' +
 			@"       ╰╰─╯   ").Split('\n');
+		Name = "Fire Lizard Medium";
 	}
 }
