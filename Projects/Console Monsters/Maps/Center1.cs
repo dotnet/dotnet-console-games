@@ -4,9 +4,9 @@ public class Center1 : Map
 {
 	public override char[][] SpriteSheet => new char[][]
 		{
-			"afffffffffffffffb".ToCharArray(),
-			"g    g     h    h".ToCharArray(),
-			"g    ceeeeed    h".ToCharArray(),
+			"affffifffffjffffb".ToCharArray(),
+			"g    g  k  h    h".ToCharArray(),
+			"g    mllllln    h".ToCharArray(),
 			"g               h".ToCharArray(),
 			"g               h".ToCharArray(),
 			"ceeeeee000eeeeeed".ToCharArray(),
@@ -32,6 +32,12 @@ public class Center1 : Map
 			'f' => Sprites.InteriorWallEWHigh,
 			'g' => Sprites.InteriorWallNSLeft,
 			'h' => Sprites.InteriorWallNSRight,
+			'i' => Sprites.InteriorWallSWEHighLeft,
+			'j' => Sprites.InteriorWallSWEHighRight,
+			'k' => Sprites.NPC2,
+			'l' => Sprites.Desk,
+			'm' => Sprites.InteriorWallNLeft,
+			'n' => Sprites.InteriorWallNRight,
 			'x' => Sprites.Open,
 			' ' => Sprites.Open,
 			_ => Sprites.Error,

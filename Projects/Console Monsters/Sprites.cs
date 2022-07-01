@@ -58,6 +58,37 @@ public static class Sprites
 		@"   │ │ " + "\n" +
 		@"   │ │ " + "\n" +
 		@"   │ │ ";
+	public const string InteriorWallSWEHighLeft =
+		@"       " + "\n" +
+		@"───────" + "\n" +
+		@"─╮ ╭───" + "\n" +
+		@" │ │   " + "\n" +
+		@" │ │   ";
+	public const string InteriorWallSWEHighRight =
+		@"       " + "\n" +
+		@"───────" + "\n" +
+		@"───╮ ╭─" + "\n" +
+		@"   │ │ " + "\n" +
+		@"   │ │ ";
+	public const string InteriorWallNLeft =
+		@" │ │   " + "\n" +
+		@" │ │   " + "\n" +
+		@" │ │   " + "\n" +
+		@" │ │   " + "\n" +
+		@" ╰─╯   ";
+	public const string InteriorWallNRight =
+		@"   │ │ " + "\n" +
+		@"   │ │ " + "\n" +
+		@"   │ │ " + "\n" +
+		@"   │ │ " + "\n" +
+		@"   ╰─╯ ";
+
+	public const string Desk =
+		@"███████" + "\n" +
+		@"███████" + "\n" +
+		@"███████" + "\n" +
+		@"███████" + "\n" +
+		@"███████";
 
 	#endregion
 
@@ -388,12 +419,21 @@ public static class Sprites
 	#endregion
 
 	#region NPCs
+	
 	public static readonly string NPC1 =
 		@"/_____\" + '\n' +
 		@" │'_'│ " + '\n' +
 		@"╭╰───╯╮" + '\n' +
 		@"╰├───┤╯" + '\n' +
 		@" │_|_│ ";
+
+	public static readonly string NPC2 =
+		@"       " + '\n' +
+		@" ╭───╮ " + '\n' +
+		@" │'.'│ " + '\n' +
+		@"╭╰───╯╮" + '\n' +
+		@"│├───┤│";
+
 	#endregion
 
 	#region Items
