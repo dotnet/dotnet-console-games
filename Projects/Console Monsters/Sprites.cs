@@ -461,7 +461,7 @@ public static class Sprites
 		@"((^_^))" + '\n' +
 		@"╭┴───┴╮" + '\n' +
 		@"│├───┤│" + '\n' +
-		@" │_|_│ ";
+		@" │_ _│ ";
 	public static readonly string NPC6 =
 		@" ╭───╮ " + '\n' +
 		@" ├■_■┤ " + '\n' +
@@ -486,6 +486,24 @@ public static class Sprites
 		@"╭┴───┴╮" + '\n' +
 		@"│├───┤│" + '\n' +
 		@" │_|_│ ";
+	public static readonly string NPC10 =
+		@" §§§§§ " + '\n' +
+		@"§§^_^§§" + '\n' +
+		@"╭┴───┴╮" + '\n' +
+		@"│├───┤│" + '\n' +
+		@" │_|_│ ";
+	public static readonly string NPC11 =
+		@" ▄███▄ " + '\n' +
+		@"▀█^_^█▀" + '\n' +
+		@"╭┴───┴╮" + '\n' +
+		@"│├───┤│" + '\n' +
+		@" │_|_│ ";
+	public static readonly string NPC12 =
+		@" ╯╯╯╯╮╮" + '\n' +
+		@"╯╯^_^╰╰" + '\n' +
+		@"╭┴───┴╮" + '\n' +
+		@"│├───┤│" + '\n' +
+		@" │_ _│ ";
 
 	#endregion
 
