@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace Console_Monsters.Monsters;
 
@@ -22,7 +20,7 @@ public abstract class MonsterBase
 
 	public int Evolution { get; set; }
 
-	public string[] Sprite { get; init; }
+	public abstract string[] Sprite { get; }
 
 	//public AnimalType Type { get; set; }
 

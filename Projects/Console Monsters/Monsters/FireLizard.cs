@@ -4,13 +4,14 @@ internal class FireLizard : MonsterBase
 {
 	public FireLizard()
 	{
-		Sprite = (
-			@"╰╮             " + '\n' +
-			@"╰╮╰╮      ╭───╮" + '\n' +
-			@"╰╮╰╮╰╮    │^_^│" + '\n' +
-			@"   ╰╮╰────╯  ╭╯" + '\n' +
-			@"    ╰┬╮ ╭─┬╮ │ " + '\n' +
-			@"     ╰╰─╯ ╰╰─╯ ").Split('\n');
 		Name = "Fire Lizard Small";
 	}
+
+	public override string[] Sprite => (
+		"╰╮             " + '\n' +
+		"╰╮╰╮      ╭───╮" + '\n' +
+		"╰╮╰╮╰╮    │^_^│" + '\n' +
+		"   ╰╮╰────╯  ╭╯" + '\n' +
+		"    ╰┬╮ ╭─┬╮ │ " + '\n' +
+		"     ╰╰─╯ ╰╰─╯ ").Split('\n');
 }

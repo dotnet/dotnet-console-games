@@ -4,12 +4,13 @@ internal class DirtWorm : MonsterBase
 {
 	public DirtWorm()
 	{
-		Sprite = (
-			"  ╭───╮ " + '\n' +
-			"  │^_^│ " + '\n' +
-			"  │   │ " + '\n' +
-			"  │   │ " + '\n' +
-			" ─┴───┴─").Split('\n');
 		Name = "Dirt Worm";
 	}
+
+	public override string[] Sprite => (
+		"  ╭───╮ " + '\n' +
+		"  │^_^│ " + '\n' +
+		"  │   │ " + '\n' +
+		"  │   │ " + '\n' +
+		" ─┴───┴─").Split('\n');
 }
