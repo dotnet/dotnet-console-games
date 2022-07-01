@@ -9,7 +9,7 @@ class PaletTown : Map
 			"fg  RMMj    RMMj  gf".ToCharArray(),
 			"fg  hkky    hkky  gf".ToCharArray(),
 			"fg sudlU   sudlU  gf".ToCharArray(),
-			"fg                gf".ToCharArray(),
+			"fg  p             gf".ToCharArray(),
 			"fg                gf".ToCharArray(),
 			"fg        RMMMMj  gf".ToCharArray(),
 			"fg  FFFs  hkkkky  gf".ToCharArray(),
@@ -17,7 +17,7 @@ class PaletTown : Map
 			"fg  gggg  ul0llU  gf".ToCharArray(),
 			"fg         n      gf".ToCharArray(),
 			"fg      X         gf".ToCharArray(),
-			"fg        FFFśFF  gf".ToCharArray(),
+			"fg  o     FFFśFF  gf".ToCharArray(),
 			"fgggWWWW  gggggg  gf".ToCharArray(),
 			"fgggWwwW  gggggg  gf".ToCharArray(),
 			"fgggWwwW          gf".ToCharArray(),
@@ -63,6 +63,8 @@ class PaletTown : Map
 			'g' => Sprites.GrassDec,
 			// NPCs
 			'n' => Sprites.NPC1,
+			'o' => Sprites.NPC4,
+			'p' => Sprites.NPC5,
 			// Extra
 			'W' => Sprites.Wall_0000,
 			' ' => Sprites.Open,

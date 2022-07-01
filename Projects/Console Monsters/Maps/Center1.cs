@@ -6,7 +6,7 @@ public class Center1 : Map
 		{
 			"affffifffffjffffb".ToCharArray(),
 			"go   g  k  h   oh".ToCharArray(),
-			"g    mllplln    h".ToCharArray(),
+			"g    mllpllnq   h".ToCharArray(),
 			"g               h".ToCharArray(),
 			"go             oh".ToCharArray(),
 			"ceeeeee000eeeeeed".ToCharArray(),
@@ -40,6 +40,7 @@ public class Center1 : Map
 			'm' => Sprites.InteriorWallNLeft,
 			'n' => Sprites.InteriorWallNRight,
 			'o' => Sprites.PotPlant1,
+			'q' => Sprites.NPC3,
 			'x' => Sprites.Open,
 			' ' => Sprites.Open,
 			_ => Sprites.Error,
