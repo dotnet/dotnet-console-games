@@ -4,7 +4,7 @@ class Route1 : Map
 {
 	public override char[][] SpriteSheet => new char[][]
 		{
-			"gggfgggggf33fgggggfg".ToCharArray(),
+			"gggfgggggf11fgggggfg".ToCharArray(),
 			"gggfgggggf  fgggggfg".ToCharArray(),
 			"gggfgggggf  fgggggfg".ToCharArray(),
 			"gggfgggggf  fgggggfg".ToCharArray(),
@@ -55,54 +55,20 @@ class Route1 : Map
 		}
 		return s[tileJ][tileI] switch
 		{
-			//Game 
-			'X' => Sprites.Open,
+			// actions
 			'0' => Sprites.ArrowDown,
 			'1' => Sprites.ArrowUp,
-			'2' => Sprites.ArrowDown,
-			'3' => Sprites.ArrowUp,
-
-			//Buildings
-			'b' => Sprites.BuildingSmall,
-			'v' => Sprites.VetSmall,
-			'S' => Sprites.Store,
-			'd' => Sprites.Door,
-			'o' => Sprites.LowWindowSideLeft,
-			'l' => Sprites.LowWindow,
-			'h' => Sprites.BuildingLeft,
-			'u' => Sprites.BuildingBaseLeft,
-			'y' => Sprites.BuildingRight,
-			'U' => Sprites.BuildingBaseRight,
-			'M' => Sprites.MiddleRoof,
-			'R' => Sprites.TopRoofLeft,
-			'j' => Sprites.TopRoofRight,
-			'k' => Sprites.MiddleWindow,
-
-			//Decor
+			// Decor
 			's' => Sprites.Sign,
-			'ś' => Sprites.Sign,
 			'f' => Sprites.Fence,
-			'F' => Sprites.FenceLow,
-
-			//Nature
-			'w' => Sprites.Water,
+			// Nature
 			'g' => Sprites.GrassDec,
 			'G' => Sprites.Grass,
-			't' => Sprites.Tree,
 			'T' => Sprites.Tree2,
 			'r' => Sprites.HalfRock,
-			'Ş' => Sprites.HalfRockStairs,
-			'ş' => Sprites.HalfRockStairsGrass,
 			'ŕ' => Sprites.HalfRockGrass,
-			'm' => Sprites.Mountain,
-			'p' => Sprites.Mountain2,
-
-			//NPCs
-			'n' => Sprites.NPC1,
-
-			//Extra
-			'W' => Sprites.Wall_0000,
-			'x' => Sprites.Open,
+			'ş' => Sprites.HalfRockStairsGrass,
+			// Extra
 			' ' => Sprites.Open,
 			_ => Sprites.Error,
 		};
@@ -146,20 +112,11 @@ class Route1 : Map
 		return c switch
 		{
 			' ' => true,
-			'v' => true,
-			'c' => true,
-			'e' => true,
-			'3' => true,
-			'2' => true,
-			'1' => true,
 			'0' => true,
-			'o' => true,
+			'1' => true,
 			'g' => true,
-			'X' => true,
-			'Ş' => true,
-			'ş' => true,
 			'G' => true,
-			'd' => true,
+			'ş' => true,
 			_ => false,
 		};
 	}
@@ -174,16 +131,18 @@ class Route1 : Map
 				map = new PaletTown();
 				SpawnCharacterOn('1');
 				break;
-			case '3':
+			case '1':
 				map = new Route2();
-				SpawnCharacterOn('2');
+				SpawnCharacterOn('0');
 				break;
 			case 'G':
 				if (!DisableBattle && Random.Shared.Next(2) is 0) // BATTLE CHANCE
 				{
 					Console.Clear();
 					if (!DisableBattleTransition)
+					{
 						Renderer.RenderBattleTransition();
+					}
 					Renderer.RenderBattleView();
 					PressEnterToContiue();
 					Console.BackgroundColor = ConsoleColor.Black;
