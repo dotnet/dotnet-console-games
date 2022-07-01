@@ -12,5 +12,6 @@ internal class DirtWormTrio : MonsterBase
 			" │  │   │  │ " + '\n' +
 			" │  │   │  │ " + '\n' +
 			"─┴──┴───┴──┴─").Split('\n');
+		Name = "Dirt Worm Trio";
 	}
 }

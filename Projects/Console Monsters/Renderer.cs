@@ -208,6 +208,243 @@ public static class Renderer
 		}
 	}
 
+	public static void RenderInventoryView()
+	{
+		Console.CursorVisible = false;
+
+		var (width, height) = GetWidthAndHeight();
+
+		string monsterDetails;
+		bool nextDone = false;
+		bool currentDone = false;
+
+		int minWidth = 4;
+		int minHeight = 2;
+		int maxHeight = height - maptext.Length - 3;
+
+		int nextMonster = 1;
+		int nextMonsterWidth = 0;
+		int nextMonsterHeight = 0;
+		int currentMonster = 0;
+		int currentMonsterWidth = 0;
+		int currentMonsterHeight = 0;
+		int monsterWidthSpacing = 35;
+		int monsterHeightSpacing = 2;
+		int[] monsterSpriteIndex = new int[6];
+
+		string itemInfo;
+		string itemCount;
+		string[] itemSprite;
+		List<Items> items = new();
+		int inventoryWidth = (int)(width / 2) + minWidth;
+		int inventoryHeight = minHeight * 2;
+		int inventoryHeightSpacing = Sprites.Height;
+		int spriteIndex = 0;
+		int itemIndex = 0;
+
+		if (activeMonsters.Count < 1)
+		{
+			currentMonster = -1;
+		}
+
+		Inventory.AddToStorage(Items.CaptureDevice);
+		Inventory.AddToStorage(Items.CaptureDevice);
+		Inventory.AddToStorage(Items.HealthPotion);
+
+		if (!Inventory.IsEmpty())
+		{
+			items = Inventory.GetListOfItems();
+		}
+
+		StringBuilder sb = new(width * height);
+		for (int j = 0; j < maxHeight; j++)
+		{
+			for (int i = 0; i < width; i++)
+			{
+				// rendering monsters 
+				if (currentMonster < activeMonsters.Count)
+				{
+					currentMonsterWidth = activeMonsters[currentMonster].Sprite[0].Length;
+					currentMonsterHeight = activeMonsters[currentMonster].Sprite.GetLength(0);
+
+					if (i >= minWidth && i <= minWidth + currentMonsterWidth &&
+						j >= minHeight + monsterHeightSpacing && j < minHeight + currentMonsterHeight + monsterHeightSpacing)
+					{
+						if (j == minHeight + monsterHeightSpacing + currentMonsterHeight - 1 && monsterSpriteIndex[currentMonster] == currentMonsterWidth)
+						{
+							sb.Append(' ');
+							continue;
+						}
+						if (monsterSpriteIndex[currentMonster] == currentMonsterWidth)
+						{
+							monsterSpriteIndex[currentMonster] = 0;
+							sb.Append(' ');
+							continue;
+						}
+						sb.Append(activeMonsters[currentMonster].Sprite[j - minHeight - monsterHeightSpacing][monsterSpriteIndex[currentMonster]]);
+						monsterSpriteIndex[currentMonster]++;
+						continue;
+					}
+
+					if (i == minWidth && j == minHeight + currentMonsterHeight + monsterHeightSpacing)
+					{
+						monsterDetails = $"{activeMonsters[currentMonster].Name}  HP:{activeMonsters[currentMonster].CurrentHP}";
+						sb.Append(monsterDetails);
+						i += monsterDetails.Length - 1;
+						currentDone = true;
+						continue;
+					}
+
+
+					if (nextMonster < activeMonsters.Count)
+					{
+						nextMonsterWidth = activeMonsters[nextMonster].Sprite[0].Length;
+						nextMonsterHeight = activeMonsters[nextMonster].Sprite.GetLength(0);
+						
+						if (i >= minWidth + monsterWidthSpacing && i <= minWidth + nextMonsterWidth + monsterWidthSpacing &&
+							j >= minHeight + monsterHeightSpacing && j < minHeight + nextMonsterHeight + monsterHeightSpacing)
+						{
+							if (j == minHeight + monsterHeightSpacing + nextMonsterHeight - 1 && monsterSpriteIndex[nextMonster] == nextMonsterWidth)
+							{
+								sb.Append(' ');
+								continue;
+							}
+							if (monsterSpriteIndex[nextMonster] == nextMonsterWidth)
+							{
+								monsterSpriteIndex[nextMonster] = 0;
+								sb.Append(' ');
+								continue;
+							}
+							sb.Append(activeMonsters[nextMonster].Sprite[j - minHeight - monsterHeightSpacing][monsterSpriteIndex[nextMonster]]);
+							monsterSpriteIndex[nextMonster]++;
+							continue;
+						}
+
+						if (i == minWidth + monsterWidthSpacing &&
+							j == minHeight + nextMonsterHeight + monsterHeightSpacing)
+						{
+							monsterDetails = $"{activeMonsters[nextMonster].Name}  HP:{activeMonsters[nextMonster].CurrentHP}";
+							sb.Append(monsterDetails);
+							i += monsterDetails.Length - 1;
+							nextDone = true;
+							continue;
+						}
+					}
+
+					if (currentDone && nextDone)
+					{
+						monsterHeightSpacing += currentMonsterHeight > nextMonsterHeight ? currentMonsterHeight : nextMonsterHeight;
+						monsterHeightSpacing += 5;
+						currentMonster += 2;
+						nextMonster += 2;
+						currentDone = false;
+						nextDone = false;
+					}
+				}
+
+				// rendering items
+				if (items.Count > 0 && itemIndex < items.Count)
+				{
+					if (i == inventoryWidth + Sprites.Width && j == inventoryHeight + (itemIndex * inventoryHeightSpacing) + Sprites.Height - 1)
+					{
+						itemCount = $"x {Inventory.GetStorageCount((Items)itemIndex)}";
+						sb.Append(itemCount);
+						i += itemCount.Length - 1;
+						continue;
+					}
+					if (i >= inventoryWidth && i < inventoryWidth + Sprites.Width &&
+						j >= inventoryHeight + (itemIndex * inventoryHeightSpacing) && j < inventoryHeight + (itemIndex * inventoryHeightSpacing) + Sprites.Height)
+					{
+						itemSprite = ItemDetails[items[itemIndex]].Sprite.Split('\n');
+
+						sb.Append(itemSprite[spriteIndex]);
+						i += itemSprite[spriteIndex].Length - 1;
+						spriteIndex++;
+
+						if (spriteIndex == Sprites.Height)
+						{
+							inventoryHeightSpacing++;
+							spriteIndex = 0;
+							itemIndex++;
+						}
+						continue;
+					}
+					if (i == inventoryWidth + Sprites.Width && j == inventoryHeight + (itemIndex * inventoryHeightSpacing) + Sprites.Height / 2)
+					{
+						itemInfo = $"{ItemDetails[items[itemIndex]].Name} | {ItemDetails[items[itemIndex]].Description}";
+						
+						sb.Append(itemInfo);
+						i += itemInfo.Length - 1;
+						continue;
+					}
+				}
+
+				// border
+				if (i == width / 2)
+				{
+					if (j > 0 && j < maxHeight - 1)
+					{
+						sb.Append('│'); // ║
+						continue;
+					}
+					if (j == 0)
+					{
+						sb.Append('╤'); // ╦
+						continue;
+					}
+					if (j == maxHeight)
+					{
+						sb.Append('╧'); // ╩
+						continue;
+					}
+				}
+				if (j > 0 && i > 0 && j < maxHeight - 1 && i < width - 1)
+				{
+					sb.Append(' ');
+					continue;
+				}
+				if (i is 0 && j is 0)
+				{
+					sb.Append('╔');
+					continue;
+				}
+				if (i is 0 && j == maxHeight - 1)
+				{
+					sb.Append('╚');
+					continue;
+				}
+				if (i == width - 1 && j is 0)
+				{
+					sb.Append('╗');
+					continue;
+				}
+				if (i == width - 1 && j == maxHeight - 1)
+				{
+					sb.Append('╝');
+					continue;
+				}
+				if (i is 0 || i == width - 1)
+				{
+					sb.Append('║');
+					continue;
+				}
+				if (j is 0 || j == maxHeight - 1)
+				{
+					sb.Append('═');
+					continue;
+				}
+
+				sb.AppendLine();
+				if (currentMonster < activeMonsters.Count)
+				{
+					monsterSpriteIndex[currentMonster] = 0;
+				}
+			}
+		}
+		Console.SetCursorPosition(0, 0);
+		Console.Write(sb);
+		SleepAfterRender();
+	}
 	public static void RenderBattleView()
 	{
 		int spriteheight = Sprites.BattleSpriteHeight + 1;

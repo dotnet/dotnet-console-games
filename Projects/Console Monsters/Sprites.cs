@@ -515,6 +515,21 @@ public static class Sprites
 
 	#endregion
 
+	#region Items
+	public const string HealthPotion =
+		@" [╤═╤] " + "\n" +
+		@" ╭╯ ╰╮ " + "\n" +
+		@" │   │ " + "\n" +
+		@" │   │ " + "\n" +
+		@" ╰───╯ ";
+	public const string CaptureDevice =
+		@" ╭───╮ " + "\n" +
+		@" ╞═█═╡ " + "\n" +
+		@" │   │ " + "\n" +
+		@" │   │ " + "\n" +
+		@" └───┘ ";
+	#endregion
+
 	public const string Box =
 		@"       " + "\n" +
 		@" ╭───╮ " + "\n" +

@@ -295,7 +295,18 @@ public partial class Program
 					}
 					break;
 				case ConsoleKey.Enter: RenderStatusString(); break;
-				case ConsoleKey.Backspace: break;
+				case ConsoleKey.Backspace:
+					Random rng = new();
+					while (Console.ReadKey(true).Key == ConsoleKey.R)
+					{
+						activeMonsters.Clear();
+						for (int i = 0; i < (maxPartySize - rng.Next(0,3)); i++)
+						{
+							activeMonsters.Add(MonsterBase.GetRandom());
+						}
+						Renderer.RenderInventoryView();
+					}
+					break;
 				case ConsoleKey.E:
 					{
 						var (i, j) = Map.ScreenToTile(character.I, character.J);

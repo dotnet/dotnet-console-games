@@ -10,5 +10,6 @@ internal class ToadBud : MonsterBase
 			"╭─╰─────╯─╮" + '\n' +
 			"│ ╭─────╮ │" + '\n' +
 			"╰─╯─╯ ╰─╰─╯").Split('\n');
+		Name = "Toad Bud";
 	}
 }

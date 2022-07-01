@@ -11,5 +11,6 @@ internal class BiggerSnake : MonsterBase
 			"╔═══╗ ╔═══╗ ╔═══╗  ║║  " + '\n' +
 			"║║‾║║_║║‾║║_║║‾║║__║║  " + '\n' +
 			"╚╝ ╚═══╝ ╚═══╝ ╚════╝  ").Split('\n');
+		Name = "Bigger Snake";
 	}
 }
