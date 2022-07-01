@@ -4,12 +4,12 @@ public class Center1 : Map
 {
 	public override char[][] SpriteSheet => new char[][]
 		{
-			"aaaaaaaaaaaaaaaaa".ToCharArray(),
-			"a    a     a    a".ToCharArray(),
-			"a    aaaaaaa    a".ToCharArray(),
-			"a               a".ToCharArray(),
-			"a               a".ToCharArray(),
-			"aaaaaaa000aaaaaaa".ToCharArray(),
+			"afffffffffffffffb".ToCharArray(),
+			"g    g     h    h".ToCharArray(),
+			"g    ceeeeed    h".ToCharArray(),
+			"g               h".ToCharArray(),
+			"g               h".ToCharArray(),
+			"ceeeeee000eeeeeed".ToCharArray(),
 		};
 
 	public override string GetMapTileRender(int tileI, int tileJ)
@@ -21,8 +21,17 @@ public class Center1 : Map
 		}
 		return s[tileJ][tileI] switch
 		{
+			// actions
 			'0' => Sprites.ArrowDown,
-			'a' => Sprites.InteriorWallEWHigh,
+			// non actions
+			'a' => Sprites.InteriorWallSE,
+			'b' => Sprites.InteriorWallSW,
+			'c' => Sprites.InteriorWallNE,
+			'd' => Sprites.InteriorWallNW,
+			'e' => Sprites.InteriorWallEWLow,
+			'f' => Sprites.InteriorWallEWHigh,
+			'g' => Sprites.InteriorWallNSLeft,
+			'h' => Sprites.InteriorWallNSRight,
 			'x' => Sprites.Open,
 			' ' => Sprites.Open,
 			_ => Sprites.Error,
