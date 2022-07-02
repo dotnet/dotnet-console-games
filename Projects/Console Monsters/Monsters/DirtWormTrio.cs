@@ -1,16 +1,19 @@
 ﻿namespace Console_Monsters.Monsters;
 
-internal class DirtWormTrio : MonsterBase
+public class DirtWormTrio : MonsterBase
 {
 	public DirtWormTrio()
 	{
-		Sprite = (
-			" ╭───╮ ╭───╮ " + '\n' +
-			" │‾o‾│ │o_o│ " + '\n' +
-			" │  ╭┴─┴╮  │ " + '\n' +
-			" │  │^_^│  │ " + '\n' +
-			" │  │   │  │ " + '\n' +
-			" │  │   │  │ " + '\n' +
-			"─┴──┴───┴──┴─").Split('\n');
+		Name = "Dirt Worm Trio";
 	}
+
+	public override string[] Sprite => (
+		" ╭───╮       " + '\n' +
+		" │‾o‾│ ╭───╮ " + '\n' +
+		" │   │ │o_o│ " + '\n' +
+		" │  ╭┴─┴╮  │ " + '\n' +
+		" │  │^_^│  │ " + '\n' +
+		" │  │   │  │ " + '\n' +
+		" │  │   │  │ " + '\n' +
+		"─┴──┴───┴──┴─").Split('\n');
 }

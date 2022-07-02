@@ -655,6 +655,10 @@ public class Role_Playing_Game
 			{
 				await Console.RefreshAndDelay(sleep);
 			}
+			else
+			{
+				await Console.Refresh();
+			}
 			previoiusRender = DateTime.Now;
 		}
 

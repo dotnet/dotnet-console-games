@@ -1,8 +1,17 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using static Website.Games.Console_Monsters._using;
+using Website.Games.Console_Monsters.Maps;
+using Website.Games.Console_Monsters.Monsters;
+using Website.Games.Console_Monsters.Bases;
+using Website.Games.Console_Monsters.NPCs;
 using System.Collections.Generic;
+
 using System.Reflection;
 
-namespace Console_Monsters.Monsters;
+namespace Website.Games.Console_Monsters.Bases;
 
 public abstract class MonsterBase
 {
@@ -22,7 +31,7 @@ public abstract class MonsterBase
 
 	public int Evolution { get; set; }
 
-	public string[] Sprite { get; init; }
+	public abstract string[] Sprite { get; }
 
 	//public AnimalType Type { get; set; }
 
@@ -36,8 +45,8 @@ public abstract class MonsterBase
 	public static MonsterBase GetRandom()
 	{
 		Assembly assembly = Assembly.GetExecutingAssembly();
-		Type[] monsterTypes = assembly.GetTypes().Where(t => t.BaseType == typeof(MonsterBase)).ToArray();
-		Type monsterType = monsterTypes[Random.Shared.Next(monsterTypes.Length)];
+		System.Type[] monsterTypes = assembly.GetTypes().Where(t => t.BaseType == typeof(MonsterBase)).ToArray();
+		System.Type monsterType = monsterTypes[Random.Shared.Next(monsterTypes.Length)];
 		MonsterBase monster = (MonsterBase)Activator.CreateInstance(monsterType)!;
 		return monster;
 	}

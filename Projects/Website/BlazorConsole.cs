@@ -73,6 +73,18 @@ public class BlazorConsole
 		set => WindowHeight = value;
 	}
 
+#pragma warning disable CA1822 // Mark members as static
+#pragma warning disable IDE0060 // Remove unused parameter
+
+	public void SetWindowPosition(int left, int top)
+
+	{
+		// do nothing :)
+	}
+
+#pragma warning restore IDE0060 // Remove unused parameter
+#pragma warning restore CA1822 // Mark members as static
+
 	public void SetWindowSize(int width, int height)
 	{
 		WindowWidth = width;
@@ -378,12 +390,8 @@ public class BlazorConsole
 		}
 	}
 
-	public async Task<ConsoleKeyInfo> ReadKey(bool capture)
+	public ConsoleKeyInfo ReadKeyNoRefresh(bool capture)
 	{
-		while (!KeyAvailableNoRefresh())
-		{
-			await Refresh();
-		}
 		var keyInfo = InputBuffer.Dequeue();
 		if (capture is false)
 		{
@@ -396,6 +404,15 @@ public class BlazorConsole
 			}
 		}
 		return keyInfo;
+	}
+
+	public async Task<ConsoleKeyInfo> ReadKey(bool capture)
+	{
+		while (!KeyAvailableNoRefresh())
+		{
+			await Refresh();
+		}
+		return ReadKeyNoRefresh(capture);
 	}
 
 	public async Task<string> ReadLine()
