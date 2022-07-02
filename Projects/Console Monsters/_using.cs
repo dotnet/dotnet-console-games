@@ -51,7 +51,7 @@ public static class _using
 
 	public static readonly Dictionary<Items, (string Name, string Description, string Sprite)> ItemDetails = new()
 	{
-		{ Items.CaptureDevice, ("A Monster Capture Device", "Used to trap and store monsters", Sprites.CaptureDevice)},
+		{ Items.MonsterBox, ("A Monster Box", "Used to trap and store monsters", Sprites.MonsterBox)},
 		{ Items.HealthPotion,  ("A Health Potion", "Used to restore hp to monsters", Sprites.HealthPotion)},
 	};
 

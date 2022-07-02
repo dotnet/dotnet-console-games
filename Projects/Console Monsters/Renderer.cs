@@ -252,8 +252,8 @@ public static class Renderer
 			currentMonster = -1;
 		}
 
-		Inventory.AddToStorage(Items.CaptureDevice);
-		Inventory.AddToStorage(Items.CaptureDevice);
+		Inventory.AddToStorage(Items.MonsterBox);
+		Inventory.AddToStorage(Items.MonsterBox);
 		Inventory.AddToStorage(Items.HealthPotion);
 
 		if (!Inventory.IsEmpty())
