@@ -525,6 +525,12 @@ public static class Sprites
 		@" ╞═●═╡ " + "\n" +
 		@" ╰───╯ " + "\n" +
 		@"       ";
+	public const string XPBerries =
+		@"   \   " + "\n" +
+		@" ()(() " + "\n" +
+		@"()()())" + "\n" +
+		@" (()() " + "\n" +
+		@"  ())  ";
 	#endregion
 
 	public const string Box =
