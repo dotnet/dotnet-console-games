@@ -17,9 +17,12 @@ public partial class Program
 				{
 					Console.SetWindowSize(screenWidth, screenHeight);
 					Console.SetBufferSize(screenWidth, screenHeight);
-					Console.SetWindowPosition(0, 0);
+					// Console.SetWindowPosition(0, 0);
 				}
-				catch { } // Left Blank on Purpose
+				catch
+				{
+					// empty on purpose
+				}
 			}
 
 			StartMenu();
@@ -85,12 +88,13 @@ public partial class Program
 		ConsoleKey key = Console.ReadKey(true).Key;
 		switch (key)
 		{
-			case ConsoleKey.UpArrow:   arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
-			case ConsoleKey.DownArrow: arrowOption = Math.Min(3, arrowOption + 1); goto ReDraw;
-			case ConsoleKey.Enter:
+			case ConsoleKey.UpArrow or ConsoleKey.W:   arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
+			case ConsoleKey.DownArrow or ConsoleKey.S: arrowOption = Math.Min(3, arrowOption + 1); goto ReDraw;
+			case ConsoleKey.Enter or ConsoleKey.E:
 				switch (arrowOption)
 				{
 					case 1:
+						FirstTimeLaunching = false;
 						break;
 					case 2:
 						Options();
@@ -130,31 +134,36 @@ public partial class Program
 		sb.AppendLine(@$"{titleIndent} ╚═════╝ ╚═╝        ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝");
 		sb.AppendLine(@$"{newLineTitle}");
 
-		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "╔══╗" : "╔══╗")}                              {(arrowOption is 1 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "║██║" : "║  ║")}  Disable Movement Animation  {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "╚══╝" : "╚══╝")}                              {(arrowOption is 1 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "╔══╗" : "╔══╗")}                      {(arrowOption is 1 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "║  ║" : "║██║")}  Movement Animation  {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "╚══╝" : "╚══╝")}                      {(arrowOption is 1 ? "╰───╯" : "     ")}");
 		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}    {(arrowOption is 2 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}║║  {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}    {(arrowOption is 2 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{(DisableBattleTransition ? "╔══╗" : "╔══╗")}                     {(arrowOption is 2 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{(DisableBattleTransition ? "║  ║" : "║██║")}  Battle Transition  {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{(DisableBattleTransition ? "╚══╝" : "╚══╝")}                     {(arrowOption is 2 ? "╰───╯" : "     ")}");
 		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}█▀▀▄  ▄▄   ▄▄▄ ▄  ▄   {(arrowOption is 3 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█■■█ █▄▄█ █    █■█    {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█▄▄▀ █  █ ▀▄▄▄ █  ▀▄  {(arrowOption is 3 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{(DisableBattle ? "╔══╗" : "╔══╗")}                      {(arrowOption is 3 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{(DisableBattle ? "║  ║" : "║██║")}  Battles (DEV TOOL)  {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{(DisableBattle ? "╚══╝" : "╚══╝")}                      {(arrowOption is 3 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{newLineOptions}");
+		sb.AppendLine(@$"{optionIndent}█▀▀▄  ▄▄   ▄▄▄ ▄  ▄   {(arrowOption is 4 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█■■█ █▄▄█ █    █■█    {(arrowOption is 4 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█▄▄▀ █  █ ▀▄▄▄ █  ▀▄  {(arrowOption is 4 ? "╰───╯" : "     ")}");
 
 		Console.SetCursorPosition(0, 0);
 		Console.WriteLine(sb);
 
 		switch (Console.ReadKey(true).Key)
 		{
-			case ConsoleKey.UpArrow:   arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
-			case ConsoleKey.DownArrow: arrowOption = Math.Min(3, arrowOption + 1); goto ReDraw;
-			case ConsoleKey.Enter:
+			case ConsoleKey.UpArrow or ConsoleKey.W:   arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
+			case ConsoleKey.DownArrow or ConsoleKey.S: arrowOption = Math.Min(4, arrowOption + 1); goto ReDraw;
+			case ConsoleKey.Enter or ConsoleKey.E:
 				switch (arrowOption)
 				{
-					case 1: DisableMovementAnimation = !DisableMovementAnimation; goto ReDraw; 
-					case 2: throw new NotImplementedException();
-					case 3: break;
+					case 1: DisableMovementAnimation = !DisableMovementAnimation; goto ReDraw;
+					case 2: DisableBattleTransition = !DisableBattleTransition; goto ReDraw;
+					case 3: DisableBattle = !DisableBattle; goto ReDraw;
+					case 4: break;
 				}
 				break;
 			case ConsoleKey.Escape: break;
@@ -164,77 +173,31 @@ public partial class Program
 
 	static void UpdateCharacter()
 	{
-		if (character.Animation == Sprites.RunUp) character.J--;
-		if (character.Animation == Sprites.RunDown) character.J++;
-		if (character.Animation == Sprites.RunLeft) character.I--;
-		if (character.Animation == Sprites.RunRight) character.I++;
+		if (character.Animation == Character.RunUp)    character.J--;
+		if (character.Animation == Character.RunDown)  character.J++;
+		if (character.Animation == Character.RunLeft)  character.I--;
+		if (character.Animation == Character.RunRight) character.I++;
 
 		character.AnimationFrame++;
 
-		if ((character.Animation == Sprites.RunUp && character.AnimationFrame >= Sprites.Height) ||
-			(character.Animation == Sprites.RunDown && character.AnimationFrame >= Sprites.Height) ||
-			(character.Animation == Sprites.RunLeft && character.AnimationFrame >= Sprites.Width) ||
-			(character.Animation == Sprites.RunRight && character.AnimationFrame >= Sprites.Width))
+		if ((character.Animation == Character.RunUp    && character.AnimationFrame >= Sprites.Height) ||
+			(character.Animation == Character.RunDown  && character.AnimationFrame >= Sprites.Height) ||
+			(character.Animation == Character.RunLeft  && character.AnimationFrame >= Sprites.Width) ||
+			(character.Animation == Character.RunRight && character.AnimationFrame >= Sprites.Width))
 		{
-			CheckTileForAction();
-			character.Animation = Sprites.IdlePlayer;
+			map.PerformTileAction();
+			character.Animation =
+				character.Animation == Character.RunUp    ? Character.IdleUp    :
+				character.Animation == Character.RunDown  ? Character.IdleDown  :
+				character.Animation == Character.RunLeft  ? Character.IdleLeft  :
+				character.Animation == Character.RunRight ? Character.IdleRight :
+				throw new NotImplementedException();
 			character.AnimationFrame = 0;
 		}
-		else if (character.Animation == Sprites.IdlePlayer && character.AnimationFrame >= character.Animation.Length)
+		else if (character.IsIdle && character.AnimationFrame >= character.Animation.Length)
 		{
 			character.AnimationFrame = 0;
 		}
-	}
-
-	static void CheckTileForAction()
-	{
-		var (i, j) = Map.ScreenToTile(character.I, character.J);
-		var s = map.SpriteSheet();
-		switch (s[j][i])
-		{
-			case 'v': EnterVet(); break;
-			case '0': Map.TransitionMapToTown(); break;
-			case '1': Map.TransitionMapToField(); break;
-			case 'G':
-				if (Random.Shared.Next(3) is 0)
-				{
-					Console.Clear();
-					Renderer.RenderBattleTransition();
-					Renderer.RenderBattleView();
-					Console.ReadKey(true);
-					Console.BackgroundColor = ConsoleColor.Black;
-					Console.ForegroundColor = ConsoleColor.Gray;
-					Console.Clear();
-				}
-				break;
-		}
-	}
-
-	static void RenderStatusString()
-	{
-		Console.Clear();
-		Console.WriteLine();
-		Console.WriteLine(" Monsters Status");
-		Console.WriteLine();
-		Console.WriteLine();
-		Console.Write(" Press [enter] to continue...");
-		PressEnterToContiue();
-	}
-
-	static void EnterVet()
-	{
-		Console.Clear();
-		Console.WriteLine();
-		Console.WriteLine(" You enter the vet.");
-		Console.WriteLine();
-		for (int i = 0; i < ownedMonsters.Count; i++)
-		{
-			ownedMonsters[i].CurrentHP = ownedMonsters[i].MaximumHP;
-		}
-		Console.WriteLine(" All your monsters are healed.");
-		Console.WriteLine();
-		Console.Write(" Press [enter] to continue...");
-		PressEnterToContiue();
 	}
 
 	static void HandleMapUserInput()
@@ -249,9 +212,13 @@ public partial class Program
 					ConsoleKey.DownArrow  or ConsoleKey.S or
 					ConsoleKey.LeftArrow  or ConsoleKey.A or
 					ConsoleKey.RightArrow or ConsoleKey.D:
-					if (character.Animation == Sprites.IdlePlayer)
+					if (promptText is not null)
 					{
-						var (i, j) = Map.ScreenToTile(character.I, character.J);
+						break;
+					}
+					if (character.IsIdle)
+					{
+						var (i, j) = MapBase.WorldToTile(character.I, character.J);
 						(i, j) = key switch
 						{
 							ConsoleKey.UpArrow    or ConsoleKey.W => (i, j - 1),
@@ -268,33 +235,65 @@ public partial class Program
 								{
 									case ConsoleKey.UpArrow    or ConsoleKey.W: character.J -= Sprites.Height; break;
 									case ConsoleKey.DownArrow  or ConsoleKey.S: character.J += Sprites.Height; break;
-									case ConsoleKey.LeftArrow  or ConsoleKey.A: character.I -= Sprites.Width; break;
-									case ConsoleKey.RightArrow or ConsoleKey.D: character.I += Sprites.Width; break;
+									case ConsoleKey.LeftArrow  or ConsoleKey.A: character.I -= Sprites.Width;  break;
+									case ConsoleKey.RightArrow or ConsoleKey.D: character.I += Sprites.Width;  break;
 								}
-								CheckTileForAction();
+								map.PerformTileAction();
 							}
 							else
 							{
 								switch (key)
 								{
-									case ConsoleKey.UpArrow    or ConsoleKey.W: character.AnimationFrame = 0; character.Animation = Sprites.RunUp; break;
-									case ConsoleKey.DownArrow  or ConsoleKey.S: character.AnimationFrame = 0; character.Animation = Sprites.RunDown; break;
-									case ConsoleKey.LeftArrow  or ConsoleKey.A: character.AnimationFrame = 0; character.Animation = Sprites.RunLeft; break;
-									case ConsoleKey.RightArrow or ConsoleKey.D: character.AnimationFrame = 0; character.Animation = Sprites.RunRight; break;
+									case ConsoleKey.UpArrow    or ConsoleKey.W: character.AnimationFrame = 0; character.Animation = Character.RunUp;    break;
+									case ConsoleKey.DownArrow  or ConsoleKey.S: character.AnimationFrame = 0; character.Animation = Character.RunDown;  break;
+									case ConsoleKey.LeftArrow  or ConsoleKey.A: character.AnimationFrame = 0; character.Animation = Character.RunLeft;  break;
+									case ConsoleKey.RightArrow or ConsoleKey.D: character.AnimationFrame = 0; character.Animation = Character.RunRight; break;
 								}
 							}
 						}
+						else
+						{
+							character.Animation = key switch
+							{
+								ConsoleKey.UpArrow    or ConsoleKey.W => Character.IdleUp,
+								ConsoleKey.DownArrow  or ConsoleKey.S => Character.IdleDown,
+								ConsoleKey.LeftArrow  or ConsoleKey.A => Character.IdleLeft,
+								ConsoleKey.RightArrow or ConsoleKey.D => Character.IdleRight,
+								_ => throw new Exception("bug"),
+							};
+						}
 					}
 					break;
-				case ConsoleKey.Enter: RenderStatusString(); break;
-				case ConsoleKey.Backspace: break;
-				case ConsoleKey.E:
+				case ConsoleKey.B:
+					if (promptText is not null)
 					{
-						var (i, j) = Map.ScreenToTile(character.I, character.J);
+						break;
+					}
+					activeMonsters.Clear();
+					for (int i = 0; i < (maxPartySize - GameRandom.Next(0, 3)); i++)
+					{
+						activeMonsters.Add(MonsterBase.GetRandom());
+					}
+					Renderer.RenderInventoryView();
+					PressEnterToContiue();
+					break;
+				case ConsoleKey.Enter:
+					promptText = null;
+					break;
+				case ConsoleKey.E:
+					if (promptText is not null)
+					{
+						promptText = null;
+						break;
+					}
+					{
+						var (i, j) = MapBase.WorldToTile(character.I, character.J);;
 						map.InteractWithMapTile(i, j);
 						break;
 					}
-				case ConsoleKey.Escape: FirstTimeLaunching = false; StartMenu() ; return;
+				case ConsoleKey.Escape:
+					StartMenu();
+					return;
 			}
 		}
 	}

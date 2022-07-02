@@ -1,12 +1,10 @@
 ﻿namespace Console_Monsters.Maps;
 
-class Route1 : Map
+class Route1 : MapBase
 {
-	public override char[][] SpriteSheet()
-	{
-		return new char[][]
+	public override char[][] SpriteSheet => new char[][]
 		{
-			"gggfgggggf  fgggggfg".ToCharArray(),
+			"gggfgggggf11fgggggfg".ToCharArray(),
 			"gggfgggggf  fgggggfg".ToCharArray(),
 			"gggfgggggf  fgggggfg".ToCharArray(),
 			"gggfgggggf  fgggggfg".ToCharArray(),
@@ -15,21 +13,21 @@ class Route1 : Map
 			"gggfgggggg  ggggggfg".ToCharArray(),
 			"gggfgggggg  ggggggfg".ToCharArray(),
 			"gggfgggggT        fg".ToCharArray(),
-			"gggfrrrrrTrrrr    fg".ToCharArray(),
+			"gggfŕŕŕŕŕTrrrr    fg".ToCharArray(),
 			"gggTgggggTGGGGGGGGfg".ToCharArray(),
 			"gggTgggggTGGGGGGGGfg".ToCharArray(),
 			"gggTgggggTGGGGGGGGfg".ToCharArray(),
-			"gggTrrrrrTGGGGGGGGfg".ToCharArray(),
+			"gggTŕŕŕŕŕTGGGGGGGGfg".ToCharArray(),
 			"gggTgggggggg      fg".ToCharArray(),
 			"gggTgggggggg      fg".ToCharArray(),
 			"gggTgggggggg  GGGGfg".ToCharArray(),
-			"gggTTTrrrrTTTTGGGGfg".ToCharArray(),
+			"gggTTTŕŕŕŕTTTTGGGGfg".ToCharArray(),
 			"gggfgggggggg  GGGGfg".ToCharArray(),
 			"gggfgggggggg  GGGGfg".ToCharArray(),
 			"gggfgg        ggggfg".ToCharArray(),
 			"gggfgg        ggggfg".ToCharArray(),
 			"gggfgg  ggggggggggfg".ToCharArray(),
-			"gggfr rrr rrrrrrrrfg".ToCharArray(),
+			"gggfŕşrrŕşŕŕŕŕŕŕŕŕfg".ToCharArray(),
 			"gggfgg            fg".ToCharArray(),
 			"gggfgg            fg".ToCharArray(),
 			"gggfgg      GGGG  fg".ToCharArray(),
@@ -47,11 +45,38 @@ class Route1 : Map
 			"gggTgggggfGGfgggggTg".ToCharArray(),
 			"gggfgggggf00fgggggfg".ToCharArray(),
 		};
+
+	public override string GetMapTileRender(int tileI, int tileJ)
+	{
+		char[][] s = map.SpriteSheet;
+		if (tileJ < 0 || tileJ >= s.Length || tileI < 0 || tileI >= s[tileJ].Length)
+		{
+			return Sprites.Open;
+		}
+		return s[tileJ][tileI] switch
+		{
+			// actions
+			'0' => Sprites.ArrowDown,
+			'1' => Sprites.ArrowUp,
+			// Decor
+			's' => Sprites.Sign,
+			'f' => Sprites.Fence,
+			// Nature
+			'g' => Sprites.GrassDec,
+			'G' => Sprites.Grass,
+			'T' => Sprites.Tree2,
+			'r' => Sprites.HalfRock,
+			'ŕ' => Sprites.HalfRockGrass,
+			'ş' => Sprites.HalfRockStairsGrass,
+			// Extra
+			' ' => Sprites.Open,
+			_ => Sprites.Error,
+		};
 	}
 
 	public override void InteractWithMapTile(int tileI, int tileJ)
 	{
-		var s = map.SpriteSheet();
+		char[][] s = map.SpriteSheet;
 
 		Interact(tileI, tileJ + 1);
 		Interact(tileI, tileJ - 1);
@@ -73,6 +98,58 @@ class Route1 : Map
 					PressEnterToContiue();
 				}
 			}
+		}
+	}
+
+	public override bool IsValidCharacterMapTile(int tileI, int tileJ)
+	{
+		char[][] s = map.SpriteSheet;
+		if (tileJ < 0 || tileJ >= s.Length || tileI < 0 || tileI >= s[tileJ].Length)
+		{
+			return false;
+		}
+		char c = s[tileJ][tileI];
+		return c switch
+		{
+			' ' => true,
+			'0' => true,
+			'1' => true,
+			'g' => true,
+			'G' => true,
+			'ş' => true,
+			_ => false,
+		};
+	}
+
+	public override void PerformTileAction()
+	{
+		var (i, j) = WorldToTile(character.I, character.J);
+		char[][] s = map.SpriteSheet;
+		switch (s[j][i])
+		{
+			case '0':
+				map = new PaletTown();
+				SpawnCharacterOn('1');
+				break;
+			case '1':
+				map = new Route2();
+				SpawnCharacterOn('0');
+				break;
+			case 'G':
+				if (!DisableBattle && Random.Shared.Next(2) is 0) // BATTLE CHANCE
+				{
+					Console.Clear();
+					if (!DisableBattleTransition)
+					{
+						Renderer.RenderBattleTransition();
+					}
+					Renderer.RenderBattleView();
+					PressEnterToContiue();
+					Console.BackgroundColor = ConsoleColor.Black;
+					Console.ForegroundColor = ConsoleColor.Gray;
+					Console.Clear();
+				}
+				break;
 		}
 	}
 }

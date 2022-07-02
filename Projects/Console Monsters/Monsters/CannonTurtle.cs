@@ -1,18 +1,20 @@
 ﻿namespace Console_Monsters.Monsters;
 
-internal class TurtleCannon : MonsterBase
+public class TurtleCannon : MonsterBase
 {
 	public TurtleCannon()
 	{
-		Sprite = (
-			"    ╭─────╮    " + '\n' +
-			" (O)│ ‾o‾ │(O) " + '\n' +
-			"╭─╨─╯╔═══╗╰─╨─╮" + '\n' +
-			"│ ╭╮╔╝   ╚╗╭╮ │" + '\n' +
-			"╰─╯╔╝     ╚╗╰─╯" + '\n' +
-			"   ╚╗     ╔╝   " + '\n' +
-			"  ╭╯╚╗   ╔╝╰╮  " + '\n' +
-			"  │ ╭╚═══╝╮ │  " + '\n' +
-			"  ╰─╯     ╰─╯  ").Split('\n');
+		Name = "Turtle Cannon";
 	}
+
+	public override string[] Sprite => (
+		"    ╭─────╮    " + '\n' +
+		" (O)│ ‾o‾ │(O) " + '\n' +
+		"╭─╨─╯╔═══╗╰─╨─╮" + '\n' +
+		"│ ╭╮╔╝   ╚╗╭╮ │" + '\n' +
+		"╰─╯╔╝     ╚╗╰─╯" + '\n' +
+		"   ╚╗     ╔╝   " + '\n' +
+		"  ╭╯╚╗   ╔╝╰╮  " + '\n' +
+		"  │ ╭╚═══╝╮ │  " + '\n' +
+		"  ╰─╯     ╰─╯  ").Split('\n');
 }
