@@ -84,12 +84,12 @@ class PaletTown : MapBase
 		char[][] s = map.SpriteSheet;
 
 
-		Interact(tileI, tileJ + 1, 'u');
-		Interact(tileI, tileJ - 1, 'd');
-		Interact(tileI - 1, tileJ, 'r');
-		Interact(tileI + 1, tileJ, 'l');
+		Interact(tileI, tileJ + 1);
+		Interact(tileI, tileJ - 1);
+		Interact(tileI - 1, tileJ);
+		Interact(tileI + 1, tileJ);
 
-		void Interact(int i, int j, char face)
+		void Interact(int i, int j)
 		{
 			if (j >= 0 && j < s.Length && i >= 0 && i < s[j].Length)
 			{
@@ -99,34 +99,15 @@ class PaletTown : MapBase
 				}
 				if (s[j][i] == 'ś') //Bottom sign
 				{
-					Console.Clear();
-					Console.WriteLine();
-					Console.WriteLine("Sign2 Says:");
-					Console.WriteLine();
-					Console.WriteLine();
-					Console.Write(" Press [enter] to continue...");
-					PressEnterToContiue();
+					promptText = new string[]
+						{
+							"Sign2 Says:",
+							"Hello! I am sign #2. :P",
+						};
 				}
-				if (s[j][i] == 'o') //NPC 6
+				if (s[j][i] == 'o')
 				{
-					messagePromt = true;
-					switch (face)
-					{
-						case 'u':
-
-							break;
-						case 'd':
-
-							break;
-						case 'l':
-							
-							break;
-						case 'r':
-							
-							break;
-					}
-					Renderer.RenderWorldMapView();
-					PressEnterToContiue();
+					promptText = scientist.Dialogue;
 				}
 			}
 		}

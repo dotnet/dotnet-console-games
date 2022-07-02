@@ -31,23 +31,32 @@ public static class _using
 	public static bool gameRunning = true;
 	public static bool startMenu = true;
 	public static bool inventoryOpen = false;
-	public static bool messagePromt = false;
 	public static List<MonsterBase> ownedMonsters = new();
 	public static List<MonsterBase> activeMonsters = new();
 
-	public static readonly string[] maptext = new[]
+	public static readonly string[] defaultMaptext = new[]
 	{
-		"Move: [↑←↓→] / [WASD]",
-		"Interact: [E]",
-		"Status: [Enter]",
-		"Pause: [Escape]",
+		"[↑ W ← A ↓ S → D]: Move, [E]: Interact, [B]: Status, [Escape]: Menu",
 	};
+
+	public static readonly string[] mapTextPressEnter = new string[]
+	{
+		"[Enter]: Continue, [Escape]: Menu",
+	};
+
+	public static string[] MapText => promptText is null
+		? defaultMaptext
+		: mapTextPressEnter;
+
+	//public static string[] mapText = defaultMaptext;
 
 	public static readonly string[] battletext = new[]
 	{
 		"Battles are still in development.",
 		"Press [enter] to continue...",
 	};
+
+	public static string[]? promptText = null;
 
 	public static readonly Dictionary<Items, (string Name, string Description, string Sprite)> ItemDetails = new()
 	{

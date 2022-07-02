@@ -4,7 +4,7 @@ public abstract class NPCBase : InteractableBase
 {
 	public abstract string? Name { get; }
 
-	public string? Dialogue { get; set; }
+	public string[]? Dialogue { get; set; }
 
 	public string Sprite { get; set; } = Sprites.Error;
 
