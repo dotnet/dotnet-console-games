@@ -2,14 +2,14 @@
 
 public static class Renderer
 {
-	public static StringBuilder LastMapRender = new StringBuilder();
+	public static StringBuilder LastMapRender = new();
 
 	public static void RenderWorldMapView()
 	{
 		Console.CursorVisible = false;
 
 		var (width, height) = GetWidthAndHeight();
-		int heightCutOff = height - maptext.Length - 3;
+		int heightCutOff = height - MapText.Length - 3;
 		int midWidth = width / 2;
 		int midHeight = heightCutOff / 2;
 
@@ -28,9 +28,9 @@ public static class Renderer
 				{
 					int line = j - heightCutOff - 1;
 					int character = i - 1;
-					if (i < width - 1 && character >= 0 && line >= 0 && line < maptext.Length && character < maptext[line].Length)
+					if (i < width - 1 && character >= 0 && line >= 0 && line < MapText.Length && character < MapText[line].Length)
 					{
-						char ch = maptext[line][character];
+						char ch = MapText[line][character];
 						sb.Append(char.IsWhiteSpace(ch) ? ' ' : ch);
 					}
 					else
@@ -72,6 +72,55 @@ public static class Renderer
 					continue;
 				}
 
+				// message prompt if there is one
+				if (promptText is not null)
+				{
+					if (i is 10 && j == midHeight + 4)
+					{
+						sb.Append('╔');
+						continue;
+					}
+					if (i is 10 && j == heightCutOff - 3)
+					{
+						sb.Append('╚');
+						continue;
+					}
+					if (i == width - 11 && j == midHeight + 4)
+					{
+						sb.Append('╗');
+						continue;
+					}
+					if (i == width - 11 && j == heightCutOff - 3)
+					{
+						sb.Append('╝');
+						continue;
+					}
+					if ((i is 10 || i == width - 11) && j > midHeight + 4 && j < heightCutOff - 3)
+					{
+						sb.Append('║');
+						continue;
+					}
+					if ((j == heightCutOff - 3 || j == midHeight + 4) && i > 10 && i < width - 11)
+					{
+						sb.Append('═');
+						continue;
+					}
+					if (i > 10 && i < width - 11 && j > midHeight + 4 && j < heightCutOff - 3)
+					{
+						if (j - (midHeight + 5) < promptText.Length)
+						{
+							string line = promptText[j - (midHeight + 5)];
+							if (i - 11 < line.Length)
+							{
+								sb.Append(line[i - 11]);
+								continue;
+							}
+						}
+						sb.Append(' ');
+						continue;
+					}
+				}
+
 				// character
 				if (i > midWidth - 4 && i < midWidth + 4 && j > midHeight - 3 && j < midHeight + 3)
 				{
@@ -80,11 +129,6 @@ public static class Renderer
 					string characterMapRender = character.Render;
 					sb.Append(characterMapRender[cj * (Sprites.Width + 1) + ci]);
 					continue;
-				}
-
-				if (messagePromt)
-				{
-					
 				}
 
 				// tiles
@@ -225,7 +269,7 @@ public static class Renderer
 
 		int minWidth = 4;
 		int minHeight = 2;
-		int maxHeight = height - maptext.Length - 3;
+		int maxHeight = height - MapText.Length - 3;
 
 		int nextMonster = 1;
 		int nextMonsterWidth = 0;

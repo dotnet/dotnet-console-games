@@ -209,6 +209,10 @@ public partial class Program
 					ConsoleKey.DownArrow  or ConsoleKey.S or
 					ConsoleKey.LeftArrow  or ConsoleKey.A or
 					ConsoleKey.RightArrow or ConsoleKey.D:
+					if (promptText is not null)
+					{
+						break;
+					}
 					if (character.IsIdle)
 					{
 						var (i, j) = MapBase.WorldToTile(character.I, character.J);
@@ -257,7 +261,11 @@ public partial class Program
 						}
 					}
 					break;
-				case ConsoleKey.Enter:
+				case ConsoleKey.B:
+					if (promptText is not null)
+					{
+						break;
+					}
 					activeMonsters.Clear();
 					for (int i = 0; i < (maxPartySize - GameRandom.Next(0, 3)); i++)
 					{
@@ -266,13 +274,22 @@ public partial class Program
 					Renderer.RenderInventoryView();
 					PressEnterToContiue();
 					break;
+				case ConsoleKey.Enter:
+					promptText = null;
+					break;
 				case ConsoleKey.E:
+					if (promptText is not null)
+					{
+						break;
+					}
 					{
 						var (i, j) = MapBase.WorldToTile(character.I, character.J);;
 						map.InteractWithMapTile(i, j);
 						break;
 					}
-				case ConsoleKey.Escape: StartMenu(); return;
+				case ConsoleKey.Escape:
+					StartMenu();
+					return;
 			}
 		}
 	}

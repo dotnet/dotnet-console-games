@@ -5,6 +5,12 @@ public class Scientist : NPCBase
 	public Scientist()
 	{
 		Sprite = IdleFront;
+
+		Dialogue = new string[]
+			{
+				"Scientist Says:",
+				"Hello! I am a scientist. :P",
+			};
 	}
 	public override string? Name => "Scientist";
 
