@@ -52,6 +52,7 @@ public enum Items // When adding Items ensure you add a description in _using.cs
 {
 	MonsterBox,
 	HealthPotion,
+	XPBerries,
 	Count, /* KEEP AT END */
 }
 

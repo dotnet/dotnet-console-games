@@ -278,16 +278,16 @@ public static class Renderer
 		int currentMonsterWidth = 0;
 		int currentMonsterHeight = 0;
 		int monsterWidthSpacing = 35;
-		int monsterHeightSpacing = 2;
+		int monsterHeightSpacing = 1;
 		int[] monsterSpriteIndex = new int[6];
 
 		string itemInfo;
 		string itemCount;
 		string[] itemSprite;
 		List<Items> items = new();
-		int inventoryWidth = (int)(width / 2) + minWidth;
+		int inventoryWidth = (width / 2) + minWidth;
 		int inventoryHeight = minHeight * 2;
-		int inventoryHeightSpacing = Sprites.Height;
+		int inventoryHeightSpacing = Sprites.Height + 1;
 		int spriteIndex = 0;
 		int itemIndex = 0;
 
@@ -297,7 +297,8 @@ public static class Renderer
 		}
 
 		Inventory.AddToStorage(Items.MonsterBox);
-		Inventory.AddToStorage(Items.MonsterBox);
+		Inventory.AddToStorage(Items.XPBerries);
+		Inventory.AddToStorage(Items.HealthPotion);
 		Inventory.AddToStorage(Items.HealthPotion);
 
 		if (!Inventory.IsEmpty())
@@ -317,7 +318,7 @@ public static class Renderer
 					currentMonsterHeight = activeMonsters[currentMonster].Sprite.GetLength(0);
 
 					if (i >= minWidth && i <= minWidth + currentMonsterWidth &&
-						j >= minHeight + monsterHeightSpacing && j < minHeight + currentMonsterHeight + monsterHeightSpacing)
+						j >= minHeight + monsterHeightSpacing && j < minHeight + currentMonsterHeight + monsterHeightSpacing && j < maxHeight - 1)
 					{
 						if (j == minHeight + monsterHeightSpacing + currentMonsterHeight - 1 && monsterSpriteIndex[currentMonster] == currentMonsterWidth)
 						{
@@ -335,7 +336,7 @@ public static class Renderer
 						continue;
 					}
 
-					if (i == minWidth && j == minHeight + currentMonsterHeight + monsterHeightSpacing)
+					if (i == minWidth && j == minHeight + currentMonsterHeight + monsterHeightSpacing && j < maxHeight - 1)
 					{
 						monsterDetails = $"{activeMonsters[currentMonster].Name}  HP:{activeMonsters[currentMonster].CurrentHP}";
 						sb.Append(monsterDetails);
@@ -351,7 +352,7 @@ public static class Renderer
 						nextMonsterHeight = activeMonsters[nextMonster].Sprite.GetLength(0);
 
 						if (i >= minWidth + monsterWidthSpacing && i <= minWidth + nextMonsterWidth + monsterWidthSpacing &&
-							j >= minHeight + monsterHeightSpacing && j < minHeight + nextMonsterHeight + monsterHeightSpacing)
+							j >= minHeight + monsterHeightSpacing && j < minHeight + nextMonsterHeight + monsterHeightSpacing && j < maxHeight - 1)
 						{
 							if (j == minHeight + monsterHeightSpacing + nextMonsterHeight - 1 && monsterSpriteIndex[nextMonster] == nextMonsterWidth)
 							{
@@ -370,7 +371,7 @@ public static class Renderer
 						}
 
 						if (i == minWidth + monsterWidthSpacing &&
-							j == minHeight + nextMonsterHeight + monsterHeightSpacing)
+							j == minHeight + nextMonsterHeight + monsterHeightSpacing && j < maxHeight - 1)
 						{
 							monsterDetails = $"{activeMonsters[nextMonster].Name}  HP:{activeMonsters[nextMonster].CurrentHP}";
 							sb.Append(monsterDetails);
@@ -394,15 +395,8 @@ public static class Renderer
 				// rendering items
 				if (items.Count > 0 && itemIndex < items.Count)
 				{
-					if (i == inventoryWidth + Sprites.Width && j == inventoryHeight + (itemIndex * inventoryHeightSpacing) + Sprites.Height - 1)
-					{
-						itemCount = $"x {Inventory.GetStorageCount((Items)itemIndex)}";
-						sb.Append(itemCount);
-						i += itemCount.Length - 1;
-						continue;
-					}
 					if (i >= inventoryWidth && i < inventoryWidth + Sprites.Width &&
-						j >= inventoryHeight + (itemIndex * inventoryHeightSpacing) && j < inventoryHeight + (itemIndex * inventoryHeightSpacing) + Sprites.Height)
+						j >= inventoryHeight + (itemIndex * inventoryHeightSpacing) && j < inventoryHeight + (itemIndex * inventoryHeightSpacing) + Sprites.Height && j < maxHeight - 1)
 					{
 						itemSprite = ItemDetails[items[itemIndex]].Sprite.Split('\n');
 
@@ -412,16 +406,24 @@ public static class Renderer
 
 						if (spriteIndex == Sprites.Height)
 						{
-							inventoryHeightSpacing++;
+							itemCount = $"x{Inventory.GetStorageCount((Items)itemIndex)}";
+							sb.Append(itemCount);
+							i += itemCount.Length;
+
 							spriteIndex = 0;
 							itemIndex++;
 						}
 						continue;
 					}
-					if (i == inventoryWidth + Sprites.Width && j == inventoryHeight + (itemIndex * inventoryHeightSpacing) + Sprites.Height / 2)
+
+					if (i == inventoryWidth + Sprites.Width + 1 && j == inventoryHeight + (itemIndex * inventoryHeightSpacing) + Sprites.Height / 2 && j < maxHeight - 1)
 					{
 						itemInfo = $"{ItemDetails[items[itemIndex]].Name} | {ItemDetails[items[itemIndex]].Description}";
-
+						if (i + itemInfo.Length > width)
+						{
+							//shorten info if too long
+							itemInfo = $"{itemInfo[..(width - i - 4)]}..."; 
+						}
 						sb.Append(itemInfo);
 						i += itemInfo.Length - 1;
 						continue;
