@@ -89,6 +89,12 @@ public static class Sprites
 		@"███████" + "\n" +
 		@"███████" + "\n" +
 		@"███████";
+	public const string DeskBottom =
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"███████";
 
 	#endregion
 
@@ -437,12 +443,6 @@ public static class Sprites
 		@"╭╰───╯╮" + '\n' +
 		@"╰├───┤╯" + '\n' +
 		@" │_|_│ ";
-	public static readonly string NPC2 =
-		@"╭─────╮" + '\n' +
-		@"│╭───╮│" + '\n' +
-		@"╰│^_^│╯" + '\n' +
-		@"╭╰───╯╮" + '\n' +
-		@"│├───┤│";
 	public static readonly string NPC3 =
 		@"╭╭───╮╮" + '\n' +
 		@" │^_^│ " + '\n' +
@@ -465,12 +465,6 @@ public static class Sprites
 		@" ╭───╮ " + '\n' +
 		@" /^_^\ " + '\n' +
 		@"╰─────╯" + '\n' +
-		@"╰├───┤╯" + '\n' +
-		@" │_|_│ ";
-	public static readonly string NPC8 =
-		@" ╭───╮ " + '\n' +
-		@" │‾_‾│ " + '\n' +
-		@"╭╰─▼─╯╮" + '\n' +
 		@"╰├───┤╯" + '\n' +
 		@" │_|_│ ";
 	public static readonly string NPC9 =
@@ -497,19 +491,6 @@ public static class Sprites
 		@"╭┴───┴╮" + '\n' +
 		@"│├───┤│" + '\n' +
 		@" │_ _│ ";
-	public static readonly string NPC13 =
-		@" ╭───╮ " + '\n' +
-		@" │^_^│ " + '\n' +
-		@"╭╰─┬─╯╮" + '\n' +
-		@"╰┬─┴─┬╯" + '\n' +
-		@"/_/‾\_\";
-	public static readonly string NPC14 =
-		@" ╭───╮ " + '\n' +
-		@" │^_^│ " + '\n' +
-		@"╭╰─┬─╯╮" + '\n' +
-		@"╰┬─┼─┬╯" + '\n' +
-		@"╰──┴──╯";
-
 	#endregion
 
 	#region Items
