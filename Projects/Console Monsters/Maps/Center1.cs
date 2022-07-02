@@ -5,8 +5,8 @@ public class Center1 : MapBase
 	public override char[][] SpriteSheet => new char[][]
 		{
 			"affffifffffjffffb".ToCharArray(),
-			"go   g  k  h   oh".ToCharArray(),
-			"g    mllpllnq   h".ToCharArray(),
+			"go   gttktth   oh".ToCharArray(),
+			"g    mlllllnq   h".ToCharArray(),
 			"g               h".ToCharArray(),
 			"go             oh".ToCharArray(),
 			"ceeeeee000eeeeeed".ToCharArray(),
@@ -35,8 +35,9 @@ public class Center1 : MapBase
 			'h' => Sprites.InteriorWallNSRight,
 			'i' => Sprites.InteriorWallSWEHighLeft,
 			'j' => Sprites.InteriorWallSWEHighRight,
-			'k' => Sprites.NPC2,
+			'k' => Nurse.Idle1,
 			'l' => Sprites.Desk,
+			't' => Sprites.DeskBottom,
 			'm' => Sprites.InteriorWallNLeft,
 			'n' => Sprites.InteriorWallNRight,
 			'o' => Sprites.PotPlant1,
@@ -60,7 +61,7 @@ public class Center1 : MapBase
 		{
 			if (j >= 0 && j < s.Length && i >= 0 && i < s[j].Length)
 			{
-				if (s[j][i] is 'p')
+				if (s[j][i] is 'k')
 				{
 					Console.Clear();
 					Console.WriteLine();
@@ -86,6 +87,7 @@ public class Center1 : MapBase
 		{
 			' ' => true,
 			'0' => true,
+			'l' => true,
 			_ => false,
 		};
 	}
