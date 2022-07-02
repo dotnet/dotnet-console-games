@@ -50,7 +50,7 @@ static class Inventory
 }
 public enum Items // When adding Items ensure you add a description in _using.cs
 {
-	CaptureDevice,
+	MonsterBox,
 	HealthPotion,
 	Count, /* KEEP AT END */
 }

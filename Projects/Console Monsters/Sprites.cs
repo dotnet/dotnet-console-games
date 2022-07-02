@@ -519,7 +519,7 @@ public static class Sprites
 		@" │   │ " + "\n" +
 		@" │   │ " + "\n" +
 		@" ╰───╯ ";
-	public const string CaptureDevice =
+	public const string MonsterBox =
 		@"       " + "\n" +
 		@" ╭───╮ " + "\n" +
 		@" ╞═●═╡ " + "\n" +
