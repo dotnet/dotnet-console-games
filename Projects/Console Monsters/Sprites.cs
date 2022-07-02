@@ -462,12 +462,24 @@ public static class Sprites
 		@"╭┴───┴╮" + '\n' +
 		@"│├───┤│" + '\n' +
 		@" │_ _│ ";
-	public static readonly string NPC6 =
+	public static string NPC6 =
 		@" ╭───╮ " + '\n' +
 		@" ├■_■┤ " + '\n' +
 		@"╭╰───╯╮" + '\n' +
 		@"╰├───┤╯" + '\n' +
 		@" │_|_│ ";
+	public static string NPC6Left =
+		@" ╭══╮  " + '\n' +
+		@" │■-│  " + '\n' +
+		@" ╰──╯  " + '\n' +
+		@" │||│  " + '\n' +
+		@" │__│  ";
+	public static string NPC6Right =
+		@"  ╭══╮ " + '\n' +
+		@"  │ ■│ " + '\n' +
+		@"  ╰──╯ " + '\n' +
+		@"  │||│ " + '\n' +
+		@"  │__│ ";
 	public static readonly string NPC7 =
 		@" ╭───╮ " + '\n' +
 		@" /^_^\ " + '\n' +

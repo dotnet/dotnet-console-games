@@ -205,7 +205,7 @@ public class Character
 		@"  │__│ ";
 	public static readonly string IdleRight2 =
 		@"  ╭══╮ " + '\n' +
-		@"  │ '│ " + '\n' +
+		@"  │ -│ " + '\n' +
 		@"  ╰──╯ " + '\n' +
 		@"  │||│ " + '\n' +
 		@"  │__│ ";
