@@ -1,4 +1,16 @@
-﻿namespace Console_Monsters.Maps;
+﻿using System;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using static Website.Games.Console_Monsters._using;
+using Website.Games.Console_Monsters.Maps;
+using Website.Games.Console_Monsters.Monsters;
+using Website.Games.Console_Monsters.Bases;
+using Website.Games.Console_Monsters.NPCs;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace Website.Games.Console_Monsters.Maps;
 
 class Route2 : MapBase
 {
@@ -40,32 +52,32 @@ class Route2 : MapBase
 		};
 	}
 
-	public override void InteractWithMapTile(int tileI, int tileJ)
+	public override async Task InteractWithMapTile(int tileI, int tileJ)
 	{
 		char[][] s = map.SpriteSheet;
 
-		Interact(tileI, tileJ + 1);
-		Interact(tileI, tileJ - 1);
-		Interact(tileI - 1, tileJ);
-		Interact(tileI + 1, tileJ);
+		await Interact(tileI, tileJ + 1);
+		await Interact(tileI, tileJ - 1);
+		await Interact(tileI - 1, tileJ);
+		await Interact(tileI + 1, tileJ);
 
-		void Interact(int i, int j)
+		async Task Interact(int i, int j)
 		{
 			if (j >= 0 && j < s.Length && i >= 0 && i < s[j].Length)
 			{
 				if (s[j][i] == 's')
 				{
-					Console.Clear();
-					Console.WriteLine();
-					Console.WriteLine("Sign Says:");
-					Console.WriteLine();
-					Console.WriteLine("----->");
-					Console.WriteLine("Aalborg City");
-					Console.WriteLine("<-----");
-					Console.WriteLine("Vejle Town");
-					Console.WriteLine();
-					Console.Write(" Press [enter] to continue...");
-					PressEnterToContiue();
+					await _using.Console.Clear();
+					await _using.Console.WriteLine();
+					await _using.Console.WriteLine("Sign Says:");
+					await _using.Console.WriteLine();
+					await _using.Console.WriteLine("----->");
+					await _using.Console.WriteLine("Aalborg City");
+					await _using.Console.WriteLine("<-----");
+					await _using.Console.WriteLine("Vejle Town");
+					await _using.Console.WriteLine();
+					await _using.Console.Write(" Press [enter] to continue...");
+					await PressEnterToContiue();
 				}
 			}
 		}
@@ -89,7 +101,7 @@ class Route2 : MapBase
 		};
 	}
 
-	public override void PerformTileAction()
+	public override async Task PerformTileAction()
 	{
 		var (i, j) = WorldToTile(character.I, character.J);
 		char[][] s = map.SpriteSheet;
@@ -102,16 +114,16 @@ class Route2 : MapBase
 			case 'G':
 				if (!DisableBattle && Random.Shared.Next(2) is 0) // BATTLE CHANCE
 				{
-					Console.Clear();
+					await _using.Console.Clear();
 					if (!DisableBattleTransition)
 					{
-						Renderer.RenderBattleTransition();
+						await Renderer.RenderBattleTransition();
 					}
-					Renderer.RenderBattleView();
-					PressEnterToContiue();
-					Console.BackgroundColor = ConsoleColor.Black;
-					Console.ForegroundColor = ConsoleColor.Gray;
-					Console.Clear();
+					await Renderer.RenderBattleView();
+					await PressEnterToContiue();
+					_using.Console.BackgroundColor = ConsoleColor.Black;
+					_using.Console.ForegroundColor = ConsoleColor.White;
+					await _using.Console.Clear();
 				}
 				break;
 		}
