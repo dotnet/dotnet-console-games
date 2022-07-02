@@ -10,8 +10,8 @@ public class CreepyHugger : MonsterBase
 	public override string[] Sprite => (
 		"   ╭───╮   " + '\n' +
 		"   │▪_▪│   " + '\n' +
-		"╭──╯ ▄ ╰──╮" + '\n' +
-		"╰─╭ ▀█▀ ╮─╯" + '\n' +
+		"╭──╯╭─╮╰──╮" + '\n' +
+		"╰─╭ ╰─╯ ╮─╯" + '\n' +
 		"  │ ╮─╭ │  " + '\n' +
 		"  ╰─╯ ╰─╯  ").Split('\n');
 }
