@@ -211,7 +211,7 @@ public partial class Program
 					ConsoleKey.RightArrow or ConsoleKey.D:
 					if (character.IsIdle)
 					{
-						var (i, j) = Map.WorldToTile(character.I, character.J);
+						var (i, j) = MapBase.WorldToTile(character.I, character.J);
 						(i, j) = key switch
 						{
 							ConsoleKey.UpArrow    or ConsoleKey.W => (i, j - 1),
@@ -268,7 +268,7 @@ public partial class Program
 					break;
 				case ConsoleKey.E:
 					{
-						var (i, j) = Map.WorldToTile(character.I, character.J);;
+						var (i, j) = MapBase.WorldToTile(character.I, character.J);;
 						map.InteractWithMapTile(i, j);
 						break;
 					}

@@ -1,6 +1,6 @@
-﻿namespace Console_Monsters.Maps;
+﻿namespace Console_Monsters.Bases;
 
-public abstract class Map
+public abstract class MapBase
 {
 	/// <summary>Converts from world (character) coordinates to tile coordinates.</summary>
 	public static (int I, int J) WorldToTile(int i, int j)
@@ -19,7 +19,7 @@ public abstract class Map
 	}
 
 	/// <summary>Finds the top-left most occurence of a character in a <see cref="SpriteSheet"/>.</summary>
-	public static (int I, int J)? FindTileInMap(Map map, char c)
+	public static (int I, int J)? FindTileInMap(MapBase map, char c)
 	{
 		char[][] s = map.SpriteSheet;
 		for (int j = 0; j < s.Length; j++)
@@ -35,7 +35,7 @@ public abstract class Map
 		return null;
 	}
 
-	/// <summary>Gets the sprite for a given tile coordinate in the <see cref="Map"/>.</summary>
+	/// <summary>Gets the sprite for a given tile coordinate in the <see cref="MapBase"/>.</summary>
 	public abstract string GetMapTileRender(int tileI, int tileJ);
 
 	/// <summary>Determines if the given tile coordinates are valid for the player to move to.</summary>
