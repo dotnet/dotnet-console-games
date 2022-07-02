@@ -1,7 +1,14 @@
 ﻿namespace Console_Monsters.Maps;
 
-class PaletTown : Map
+class PaletTown : MapBase
 {
+	public Scientist scientist;
+
+	public PaletTown()
+	{
+		scientist = new();
+	}
+
 	public override char[][] SpriteSheet => new char[][]
 		{
 			"ffffffffff11ffffffff".ToCharArray(),
@@ -63,7 +70,7 @@ class PaletTown : Map
 			'g' => Sprites.GrassDec,
 			// NPCs
 			'n' => Sprites.NPC1,
-			'o' => Sprites.NPC6,
+			'o' => scientist.Sprite,
 			'p' => Sprites.NPC5,
 			// Extra
 			'W' => Sprites.Wall_0000,
@@ -88,9 +95,7 @@ class PaletTown : Map
 			{
 				if (s[j][i] == 's') //Signs
 				{
-					messagePromt = true;
 					PressEnterToContiue();
-					messagePromt = false;
 				}
 				if (s[j][i] == 'ś') //Bottom sign
 				{
@@ -114,16 +119,14 @@ class PaletTown : Map
 
 							break;
 						case 'l':
-							Sprites.NPC6 = Sprites.NPC6Left;
+							
 							break;
 						case 'r':
-							Sprites.NPC6 = Sprites.NPC6Right;
+							
 							break;
 					}
 					Renderer.RenderWorldMapView();
 					PressEnterToContiue();
-					messagePromt = false;
-					Sprites.NPC6Left = Sprites.NPC6;
 				}
 			}
 		}

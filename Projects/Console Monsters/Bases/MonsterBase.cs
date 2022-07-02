@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Console_Monsters.Monsters;
+namespace Console_Monsters.Bases;
 
 public abstract class MonsterBase
 {

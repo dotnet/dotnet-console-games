@@ -5,6 +5,8 @@ global using System.Threading;
 global using static Console_Monsters._using;
 global using Console_Monsters.Maps;
 global using Console_Monsters.Monsters;
+global using Console_Monsters.Bases;
+global using Console_Monsters.NPCs;
 global using System.Collections.Generic;
 
 namespace Console_Monsters;
@@ -23,7 +25,7 @@ public static class _using
 
 	public static Random GameRandom = new(7);
 	public static Character character = new();
-	public static Map map = new PaletTown();
+	public static MapBase map = new PaletTown();
 	public static DateTime previoiusRender = DateTime.Now;
 	public static int maxPartySize = 6;
 	public static bool gameRunning = true;
@@ -35,7 +37,7 @@ public static class _using
 
 	public static readonly string[] maptext = new[]
 	{
-		"Move: [← ↑ → ↓] / [W A S D]",
+		"Move: [↑←↓→] / [WASD]",
 		"Interact: [E]",
 		"Status: [Enter]",
 		"Pause: [Escape]",
@@ -56,7 +58,7 @@ public static class _using
 	static _using()
 	{
 		map = new PaletTown();
-		var (i, j) = Map.FindTileInMap(map, 'X')!.Value;
+		var (i, j) = MapBase.FindTileInMap(map, 'X')!.Value;
 		character = new()
 		{
 			I = i * Sprites.Width,

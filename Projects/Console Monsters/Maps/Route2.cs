@@ -1,6 +1,6 @@
 ﻿namespace Console_Monsters.Maps;
 
-class Route2 : Map
+class Route2 : MapBase
 {
 	public override char[][] SpriteSheet => new char[][]
 		{
