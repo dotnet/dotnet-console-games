@@ -36,12 +36,12 @@ public static class _using
 
 	public static readonly string[] defaultMaptext = new[]
 	{
-		"[↑ W ← A ↓ S → D]: Move, [E]: Interact, [B]: Status, [Escape]: Menu",
+		"[↑, W, ←, A, ↓, S, →, D]: Move, [E]: Interact, [B]: Status, [Escape]: Menu",
 	};
 
 	public static readonly string[] mapTextPressEnter = new string[]
 	{
-		"[Enter]: Continue, [Escape]: Menu",
+		"[E, Enter]: Continue, [Escape]: Menu",
 	};
 
 	public static string[] MapText => promptText is null

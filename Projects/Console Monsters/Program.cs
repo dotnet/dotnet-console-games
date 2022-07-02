@@ -280,6 +280,7 @@ public partial class Program
 				case ConsoleKey.E:
 					if (promptText is not null)
 					{
+						promptText = null;
 						break;
 					}
 					{
