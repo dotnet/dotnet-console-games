@@ -8,6 +8,12 @@ namespace Website.Games.Battleship;
 public class Battleship
 {
 	public readonly BlazorConsole Console = new();
+	public BlazorConsole OperatingSystem;
+
+	public Battleship()
+	{
+		OperatingSystem = Console;
+	}
 
 	public async Task Run()
 	{
