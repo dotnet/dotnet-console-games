@@ -268,7 +268,7 @@ public partial class Program
 					break;
 				case ConsoleKey.E:
 					{
-						var (i, j) = Map.WorldToTile(character.I, character.J);
+						var (i, j) = Map.WorldToTile(character.I, character.J);;
 						map.InteractWithMapTile(i, j);
 						break;
 					}

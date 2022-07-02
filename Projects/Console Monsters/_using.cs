@@ -29,6 +29,7 @@ public static class _using
 	public static bool gameRunning = true;
 	public static bool startMenu = true;
 	public static bool inventoryOpen = false;
+	public static bool messagePromt = false;
 	public static List<MonsterBase> ownedMonsters = new();
 	public static List<MonsterBase> activeMonsters = new();
 
@@ -68,12 +69,9 @@ public static class _using
 	{
 	GetInput:
 		ConsoleKey key = Console.ReadKey(true).Key;
-		switch (key)
-		{
-			case ConsoleKey.Enter: return;
-			case ConsoleKey.Escape: gameRunning = false; return;
-			default: goto GetInput;
-		}
+		if(key == ConsoleKey.Enter)
+			return;
+		goto GetInput;
 	}
 }
 

@@ -82,8 +82,12 @@ public static class Renderer
 					continue;
 				}
 
-				// tiles
+				if (messagePromt)
+				{
+					
+				}
 
+				// tiles
 				// compute the map location that this screen pixel represents
 				int mapI = i - midWidth + character.I + 3;
 				int mapJ = j - midHeight + character.J + 2;
@@ -111,7 +115,8 @@ public static class Renderer
 		SleepAfterRender();
 	}
 
-	static (int Width, int Height) GetWidthAndHeight()
+
+	public static (int Width, int Height) GetWidthAndHeight()
 	{
 	RestartRender:
 		int width = Console.WindowWidth;
@@ -143,6 +148,85 @@ public static class Renderer
 		}
 		previoiusRender = DateTime.Now;
 	}
+	/*
+	public static void RenderTextPopup()
+	{
+		Console.CursorVisible = false;
+
+		var (width, height) = GetWidthAndHeight();
+		int heightCutOff = height - maptext.Length - 6;
+		int midWidth = width / 2;
+		int midHeight = heightCutOff / 2;
+		const int iValue = 20;
+		const int jValue = 25;
+
+		StringBuilder sb = new(width * height);
+		for (int j = 0; j < height; j++)
+		{
+			if (OperatingSystem.IsWindows() && j == height - 1)
+			{
+				break;
+			}
+
+			for (int i = 0; i < width; i++)
+			{
+				//iValue = 20, jValue = 25
+				if (i is iValue && j is jValue)
+				{
+					sb.Append('╔');
+					continue;
+				}
+				if (i is iValue && j == heightCutOff - 1)
+				{
+					sb.Append('╚');
+					continue;
+				}
+				if (i == width - iValue && j is jValue)
+				{
+					sb.Append('╗');
+					continue;
+				}
+				if (i == width - iValue && j == heightCutOff - 1)
+				{
+					sb.Append('╝');
+					continue;
+				}
+				if (j >= jValue && j <= heightCutOff - 1 && i >= iValue && i <= width - iValue)
+				{
+					if (i is iValue || i == width - iValue)
+					{
+						sb.Append('║');
+						continue;
+					}
+					if (j is jValue || j == heightCutOff - 1)
+					{
+						sb.Append('═');
+						continue;
+					}
+				}
+
+				int mapI = i - midWidth + character.I + 3;
+				int mapJ = j - midHeight + character.J + 2;
+
+				int tileI = mapI < 0 ? (mapI - (Sprites.Width - 1)) / Sprites.Width : mapI / Sprites.Width;
+				int tileJ = mapJ < 0 ? (mapJ - (Sprites.Height - 1)) / Sprites.Height : mapJ / Sprites.Height;
+
+				int pixelI = mapI < 0 ? (Sprites.Width - 1) + ((mapI + 1) % Sprites.Width) : (mapI % Sprites.Width);
+				int pixelJ = mapJ < 0 ? (Sprites.Height - 1) + ((mapJ + 1) % Sprites.Height) : (mapJ % Sprites.Height);
+
+				string tileRender = map.GetMapTileRender(tileI, tileJ);
+				char c = tileRender[pixelJ * (Sprites.Width + 1) + pixelI];
+				sb.Append(char.IsWhiteSpace(c) ? ' ' : '\t');
+			}
+			if (!OperatingSystem.IsWindows() && j < height - 1)
+			{
+				sb.AppendLine();
+			}
+		}
+		Console.SetCursorPosition(0, 0);
+		Console.Write(sb);
+		SleepAfterRender();
+	} */
 
 	public static void RenderBattleTransition()
 	{
@@ -300,7 +384,7 @@ public static class Renderer
 					{
 						nextMonsterWidth = activeMonsters[nextMonster].Sprite[0].Length;
 						nextMonsterHeight = activeMonsters[nextMonster].Sprite.GetLength(0);
-						
+
 						if (i >= minWidth + monsterWidthSpacing && i <= minWidth + nextMonsterWidth + monsterWidthSpacing &&
 							j >= minHeight + monsterHeightSpacing && j < minHeight + nextMonsterHeight + monsterHeightSpacing)
 						{
@@ -372,7 +456,7 @@ public static class Renderer
 					if (i == inventoryWidth + Sprites.Width && j == inventoryHeight + (itemIndex * inventoryHeightSpacing) + Sprites.Height / 2)
 					{
 						itemInfo = $"{ItemDetails[items[itemIndex]].Name} | {ItemDetails[items[itemIndex]].Description}";
-						
+
 						sb.Append(itemInfo);
 						i += itemInfo.Length - 1;
 						continue;

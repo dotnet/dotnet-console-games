@@ -63,7 +63,7 @@ class PaletTown : Map
 			'g' => Sprites.GrassDec,
 			// NPCs
 			'n' => Sprites.NPC1,
-			'o' => Sprites.NPC4,
+			'o' => Sprites.NPC6,
 			'p' => Sprites.NPC5,
 			// Extra
 			'W' => Sprites.Wall_0000,
@@ -76,26 +76,23 @@ class PaletTown : Map
 	{
 		char[][] s = map.SpriteSheet;
 
-		Interact(tileI, tileJ + 1);
-		Interact(tileI, tileJ - 1);
-		Interact(tileI - 1, tileJ);
-		Interact(tileI + 1, tileJ);
 
-		void Interact(int i, int j)
+		Interact(tileI, tileJ + 1, 'u');
+		Interact(tileI, tileJ - 1, 'd');
+		Interact(tileI - 1, tileJ, 'r');
+		Interact(tileI + 1, tileJ, 'l');
+
+		void Interact(int i, int j, char face)
 		{
 			if (j >= 0 && j < s.Length && i >= 0 && i < s[j].Length)
 			{
-				if (s[j][i] == 's')
+				if (s[j][i] == 's') //Signs
 				{
-					Console.Clear();
-					Console.WriteLine();
-					Console.WriteLine("Sign Says:");
-					Console.WriteLine();
-					Console.WriteLine();
-					Console.Write(" Press [enter] to continue...");
+					messagePromt = true;
 					PressEnterToContiue();
+					messagePromt = false;
 				}
-				if (s[j][i] == 'ś')
+				if (s[j][i] == 'ś') //Bottom sign
 				{
 					Console.Clear();
 					Console.WriteLine();
@@ -104,6 +101,29 @@ class PaletTown : Map
 					Console.WriteLine();
 					Console.Write(" Press [enter] to continue...");
 					PressEnterToContiue();
+				}
+				if (s[j][i] == 'o') //NPC 6
+				{
+					messagePromt = true;
+					switch (face)
+					{
+						case 'u':
+
+							break;
+						case 'd':
+
+							break;
+						case 'l':
+							Sprites.NPC6 = Sprites.NPC6Left;
+							break;
+						case 'r':
+							Sprites.NPC6 = Sprites.NPC6Right;
+							break;
+					}
+					Renderer.RenderWorldMapView();
+					PressEnterToContiue();
+					messagePromt = false;
+					Sprites.NPC6Left = Sprites.NPC6;
 				}
 			}
 		}
