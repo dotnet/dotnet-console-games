@@ -55,17 +55,11 @@ class Route2 : MapBase
 			{
 				if (s[j][i] == 's')
 				{
-					Console.Clear();
-					Console.WriteLine();
-					Console.WriteLine("Sign Says:");
-					Console.WriteLine();
-					Console.WriteLine("----->");
-					Console.WriteLine("Aalborg City");
-					Console.WriteLine("<-----");
-					Console.WriteLine("Vejle Town");
-					Console.WriteLine();
-					Console.Write(" Press [enter] to continue...");
-					PressEnterToContiue();
+					promptText = new string[]
+						{
+							"Sign Says:",
+							"Vejle Town <----- -----> Aalborg City",
+						};
 				}
 			}
 		}

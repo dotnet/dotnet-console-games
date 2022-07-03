@@ -63,13 +63,11 @@ public class Center1 : MapBase
 			{
 				if (s[j][i] is 'k')
 				{
-					Console.Clear();
-					Console.WriteLine();
-					Console.WriteLine(@" Hello and welcome to the monster center.");
-					Console.WriteLine(@" I will heal all your monsters.");
-					Console.WriteLine();
-					Console.Write(" Press [enter] to continue...");
-					PressEnterToContiue();
+					promptText = new string[]
+						{
+							" Hello and welcome to the monster center.",
+							" I will heal all your monsters.",
+						};
 				}
 			}
 		}

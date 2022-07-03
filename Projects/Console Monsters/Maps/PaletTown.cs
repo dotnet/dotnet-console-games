@@ -93,15 +93,19 @@ class PaletTown : MapBase
 		{
 			if (j >= 0 && j < s.Length && i >= 0 && i < s[j].Length)
 			{
-				if (s[j][i] == 's') //Signs
-				{
-					PressEnterToContiue();
-				}
-				if (s[j][i] == 'ś') //Bottom sign
+				if (s[j][i] == 's')
 				{
 					promptText = new string[]
 						{
-							"Sign2 Says:",
+							"Sign Says:",
+							"Hello! I am sign. :P",
+						};
+				}
+				if (s[j][i] == 'ś')
+				{
+					promptText = new string[]
+						{
+							"Sign #2 Says:",
 							"Hello! I am sign #2. :P",
 						};
 				}
