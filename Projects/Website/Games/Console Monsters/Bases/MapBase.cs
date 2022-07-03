@@ -54,9 +54,7 @@ public abstract class MapBase
 	public abstract bool IsValidCharacterMapTile(int tileI, int tileJ);
 
 	/// <summary>Interacts with adjacent tiles if there is anything to interact with.</summary>
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-	public virtual async Task InteractWithMapTile(int tileI, int tileJ) { throw new NotImplementedException(); }
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+	public abstract void InteractWithMapTile(int tileI, int tileJ);
 
 	/// <summary>If necessary, performs an action when the player moves onto a tile.</summary>
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
