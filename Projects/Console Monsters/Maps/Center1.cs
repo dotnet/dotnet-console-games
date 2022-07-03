@@ -22,7 +22,7 @@ public class Center1 : MapBase
 		return s[tileJ][tileI] switch
 		{
 			// actions
-			'0' => Sprites.ArrowDown,
+			'0' => Sprites.ArrowHeavyDown,
 			// non actions
 			'a' => Sprites.InteriorWallSE,
 			'b' => Sprites.InteriorWallSW,

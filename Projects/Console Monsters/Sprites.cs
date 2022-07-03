@@ -417,18 +417,30 @@ public static class Sprites
 		@" .   . " + "\n" +
 		@"▬▬▬▬▬▬▬" + "\n" +
 		@"▬▬▬▬▬▬▬";
-	public const string ArrowDown =
+	public const string ArrowLightDown =
 		@"  |‾|  " + "\n" +
 		@"  | |  " + "\n" +
 		@" _| |_ " + "\n" +
 		@" \   / " + "\n" +
 		@"  \ /  ";
-	public const string ArrowUp =
+	public const string ArrowLightUp =
 		@"  / \  " + "\n" +
 		@" /_ _\ " + "\n" +
 		@"  | |  " + "\n" +
 		@"  | |  " + "\n" +
 		@"  |_|  ";
+	public const string ArrowHeavyDown =
+		@"  ███  " + "\n" +
+		@"  ███  " + "\n" +
+		@"  ███  " + "\n" +
+		@"▀█████▀" + "\n" +
+		@"  ▀█▀  ";
+	public const string ArrowHeavyUp =
+		@"  ▄█▄  " + "\n" +
+		@"▄█████▄" + "\n" +
+		@"  ███  " + "\n" +
+		@"  ███  " + "\n" +
+		@"  ███  ";
 	public const string Mountains =
 		@" /_\   " + "\n" +
 		@"/   /_\" + "\n" +
