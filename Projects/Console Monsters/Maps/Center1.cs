@@ -6,7 +6,7 @@ public class Center1 : MapBase
 		{
 			"affffifffffjffffb".ToCharArray(),
 			"go   gttktth   oh".ToCharArray(),
-			"g    mlllllnq   h".ToCharArray(),
+			"g    mplllrnq   h".ToCharArray(),
 			"g               h".ToCharArray(),
 			"go             oh".ToCharArray(),
 			"ceeeeee000eeeeeed".ToCharArray(),
@@ -23,7 +23,6 @@ public class Center1 : MapBase
 		{
 			// actions
 			'0' => Sprites.ArrowDown,
-			'p' => Sprites.Desk,
 			// non actions
 			'a' => Sprites.InteriorWallSE,
 			'b' => Sprites.InteriorWallSW,
@@ -36,12 +35,14 @@ public class Center1 : MapBase
 			'i' => Sprites.InteriorWallSWEHighLeft,
 			'j' => Sprites.InteriorWallSWEHighRight,
 			'k' => Nurse.Idle1,
-			'l' => Sprites.Desk,
+			'l' => Sprites.DeskMiddle,
 			't' => Sprites.DeskBottom,
 			'm' => Sprites.InteriorWallNLeft,
 			'n' => Sprites.InteriorWallNRight,
 			'o' => Sprites.PotPlant1,
+			'p' => Sprites.DeskLeft,
 			'q' => Sprites.NPC3,
+			'r' => Sprites.DeskRight,
 			'x' => Sprites.Open,
 			' ' => Sprites.Open,
 			_ => Sprites.Error,
@@ -86,6 +87,8 @@ public class Center1 : MapBase
 			' ' => true,
 			'0' => true,
 			'l' => true,
+			'p' => true,
+			'r' => true,
 			_ => false,
 		};
 	}

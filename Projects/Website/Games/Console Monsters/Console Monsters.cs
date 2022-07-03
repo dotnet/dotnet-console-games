@@ -105,7 +105,6 @@ public class Console_Monsters
 		await Console.SetCursorPosition(0, 0);
 		await Console.WriteLine(sb);
 
-
 		ConsoleKey key = (await Console.ReadKey(true)).Key;
 		switch (key)
 		{
@@ -192,7 +191,7 @@ public class Console_Monsters
 		}
 	}
 
-	async Task UpdateCharacter()
+	static async Task UpdateCharacter()
 	{
 		if (character.Animation == Character.RunUp) character.J--;
 		if (character.Animation == Character.RunDown) character.J++;

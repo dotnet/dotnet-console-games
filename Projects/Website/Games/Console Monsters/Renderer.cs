@@ -214,9 +214,6 @@ public static class Renderer
 		int width = _using.Console.WindowWidth;
 		int height = _using.Console.WindowHeight;
 
-		_using.Console.ForegroundColor = ConsoleColor.White;
-
-
 		Random rnd = new();
 
 		switch (rnd.Next(1, 1))
@@ -520,8 +517,6 @@ public static class Renderer
 		MonsterBase monsterB = MonsterBase.GetRandom();
 
 		_using.Console.CursorVisible = false;
-		_using.Console.BackgroundColor = ConsoleColor.Black;
-		_using.Console.ForegroundColor = ConsoleColor.White;
 
 		var (width, height) = await GetWidthAndHeight();
 		int heightCutOff = height - battletext.Length - 3;

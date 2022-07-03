@@ -228,7 +228,7 @@ NextRound:
 				}
 			}
 		}
-		Thread.Sleep(TimeSpan.FromMilliseconds(50));
+		Thread.Sleep(TimeSpan.FromMilliseconds(40));
 	}
 	goto NextRound;
 }

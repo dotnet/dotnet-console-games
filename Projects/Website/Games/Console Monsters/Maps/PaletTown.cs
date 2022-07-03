@@ -31,7 +31,7 @@ class PaletTown : MapBase
 			"fg  p             gf".ToCharArray(),
 			"fg                gf".ToCharArray(),
 			"fg        RMMMMj  gf".ToCharArray(),
-			"fg  FFFs  hkkkky  gf".ToCharArray(),
+			"fg  FFFa  hkkkky  gf".ToCharArray(),
 			"fg  gggg  hkkkky  gf".ToCharArray(),
 			"fg  gggg  ul0llU  gf".ToCharArray(),
 			"fg         n      gf".ToCharArray(),
@@ -73,8 +73,9 @@ class PaletTown : MapBase
 			'j' => Sprites.TopRoofRight,
 			'k' => Sprites.MiddleWindow,
 			// Decor
-			's' => Sprites.Sign,
-			'ś' => Sprites.Sign,
+			'a' => Sprites.SignARight,
+			's' => Sprites.SignALeft,
+			'ś' => Sprites.SignALeft,
 			'f' => Sprites.Fence,
 			'F' => Sprites.FenceLow,
 			// Nature
@@ -104,7 +105,7 @@ class PaletTown : MapBase
 		{
 			if (j >= 0 && j < s.Length && i >= 0 && i < s[j].Length)
 			{
-				if (s[j][i] == 's') //Signs
+				if (s[j][i] is 's' or 'a') //Signs
 				{
 					promptText = new string[]
 						{
@@ -112,7 +113,7 @@ class PaletTown : MapBase
 							"Hello! I am sign. :P",
 						};
 				}
-				if (s[j][i] == 'ś') //Bottom sign
+				if (s[j][i] is 'ś') //Bottom sign
 				{
 					promptText = new string[]
 						{
@@ -120,7 +121,7 @@ class PaletTown : MapBase
 							"Hello! I am sign #2. :P",
 						};
 				}
-				if (s[j][i] == 'o')
+				if (s[j][i] is 'o')
 				{
 					promptText = scientist.Dialogue;
 				}
@@ -171,9 +172,6 @@ class PaletTown : MapBase
 					}
 					await Renderer.RenderBattleView();
 					await PressEnterToContiue();
-					_using.Console.BackgroundColor = ConsoleColor.Black;
-					_using.Console.ForegroundColor = ConsoleColor.White;
-					await _using.Console.Clear();
 				}
 				break;
 		}

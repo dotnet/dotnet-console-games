@@ -59,7 +59,7 @@ class Route1 : MapBase
 			'0' => Sprites.ArrowDown,
 			'1' => Sprites.ArrowUp,
 			// Decor
-			's' => Sprites.Sign,
+			's' => Sprites.SignALeft,
 			'f' => Sprites.Fence,
 			// Nature
 			'g' => Sprites.GrassDec,
@@ -87,7 +87,7 @@ class Route1 : MapBase
 		{
 			if (j >= 0 && j < s.Length && i >= 0 && i < s[j].Length)
 			{
-				if (s[j][i] == 's')
+				if (s[j][i] is 's')
 				{
 					promptText = new string[]
 						{
@@ -143,9 +143,6 @@ class Route1 : MapBase
 					}
 					Renderer.RenderBattleView();
 					PressEnterToContiue();
-					Console.BackgroundColor = ConsoleColor.Black;
-					Console.ForegroundColor = ConsoleColor.Gray;
-					Console.Clear();
 				}
 				break;
 		}
