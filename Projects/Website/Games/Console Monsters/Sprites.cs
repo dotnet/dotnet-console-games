@@ -20,7 +20,6 @@ public static class Sprites
 	public const int BattleSpriteHeight = 20;
 
 	#region Interior
-
 	public const string InteriorWallNE =
 		@" │ │   " + "\n" +
 		@" │ │   " + "\n" +
@@ -93,24 +92,9 @@ public static class Sprites
 		@"   │ │ " + "\n" +
 		@"   │ │ " + "\n" +
 		@"   ╰─╯ ";
-
-	public const string Desk =
-		@"███████" + "\n" +
-		@"███████" + "\n" +
-		@"███████" + "\n" +
-		@"███████" + "\n" +
-		@"███████";
-	public const string DeskBottom =
-		@"       " + "\n" +
-		@"       " + "\n" +
-		@"       " + "\n" +
-		@"       " + "\n" +
-		@"███████";
-
 	#endregion
 
 	#region Buildings
-
 	public const string BuildingSmall =
 		@"       " + "\n" +
 		@" /---\ " + "\n" +
@@ -195,11 +179,33 @@ public static class Sprites
 		@" ▐█ ▐█ " + "\n" +
 		@"       " + "\n" +
 		@"───────";
-
 	#endregion
 
 	#region Objects
-
+	public const string SignALeft =
+		@" ┬──┬─┐" + "\n" +
+		@"╭┴──┴╮│" + "\n" +
+		@"│Sign││" + "\n" +
+		@"╰────╯│" + "\n" +
+		@"      │";
+	public const string SignARight =
+		@"┌─┬──┬─" + "\n" +
+		@"│╭┴──┴╮" + "\n" +
+		@"││Sign│" + "\n" +
+		@"│╰────╯" + "\n" +
+		@"│      ";
+	public const string SignBLeft =
+		@"       " + "\n" +
+		@"╭────╮ " + "\n" +
+		@"│Sign│ " + "\n" +
+		@"╰─┬┬─╯ " + "\n" +
+		@"  ││   ";
+	public const string SignBRight =
+		@"       " + "\n" +
+		@" ╭────╮" + "\n" +
+		@" │Sign│" + "\n" +
+		@" ╰─┬┬─╯" + "\n" +
+		@"   ││  ";
 	public const string PotPlant1 =
 		@"  ╬╬╬  " + "\n" +
 		@" ╬╬╬╬╬ " + "\n" +
@@ -212,12 +218,6 @@ public static class Sprites
 		@"  ###  " + "\n" +
 		@" _|_|_ " + "\n" +
 		@" \___/ ";
-	public const string Sign = // Text TBC
-		@" ┬──┬─┐" + "\n" +
-		@"╭┴──┴╮│" + "\n" +
-		@"│Sign││" + "\n" +
-		@"╰────╯│" + "\n" +
-		@"      │";
 	public const string Fence =
 		@"       " + "\n" +
 		@"╔═════╗" + "\n" +
@@ -230,11 +230,33 @@ public static class Sprites
 		@"╦═════╦" + "\n" +
 		@"╬═════╬" + "\n" +
 		@"╩     ╩";
-
+	public const string DeskLeft =
+		@"███████" + "\n" +
+		@"███████" + "\n" +
+		@"║      " + "\n" +
+		@"╚══════" + "\n" +
+		@"       ";
+	public const string DeskRight =
+		@"███████" + "\n" +
+		@"███████" + "\n" +
+		@"      ║" + "\n" +
+		@"══════╝" + "\n" +
+		@"       ";
+	public const string DeskMiddle =
+		@"███████" + "\n" +
+		@"███████" + "\n" +
+		@"       " + "\n" +
+		@"═══════" + "\n" +
+		@"       ";
+	public const string DeskBottom =
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"███████";
 	#endregion
 
 	#region Wall
-
 	public const string Wall_0000 =
 		@"╔═════╗" + "\n" +
 		@"║█████║" + "\n" +
@@ -331,11 +353,9 @@ public static class Sprites
 		@"███████" + "\n" +
 		@"███████" + "\n" +
 		@"╗█████╔";
-
 	#endregion
 
 	#region Nature
-
 	public const string Water =
 		@"~~~~~~~" + "\n" +
 		@"~~~~~~~" + "\n" +
@@ -444,7 +464,6 @@ public static class Sprites
 		@"  /**\ " + "\n" +
 		@" /    \" + "\n" +
 		@"/      ";
-
 	#endregion
 
 	#region NPCs
@@ -525,12 +544,12 @@ public static class Sprites
 		@"  ())  ";
 	#endregion
 
-	public const string Box =
-		@"       " + "\n" +
-		@" ╭───╮ " + "\n" +
-		@" ╞═●═╡ " + "\n" +
-		@" ╰───╯ " + "\n" +
-		@"       ";
+	public const string FullBlock =
+		@"███████" + "\n" +
+		@"███████" + "\n" +
+		@"███████" + "\n" +
+		@"███████" + "\n" +
+		@"███████";
 	public const string Open =
 		@"       " + "\n" +
 		@"       " + "\n" +	
