@@ -52,32 +52,27 @@ class Route2 : MapBase
 		};
 	}
 
-	public override async Task InteractWithMapTile(int tileI, int tileJ)
+	public override void InteractWithMapTile(int tileI, int tileJ)
 	{
 		char[][] s = map.SpriteSheet;
 
-		await Interact(tileI, tileJ + 1);
-		await Interact(tileI, tileJ - 1);
-		await Interact(tileI - 1, tileJ);
-		await Interact(tileI + 1, tileJ);
+		Interact(tileI, tileJ + 1);
+		Interact(tileI, tileJ - 1);
+		Interact(tileI - 1, tileJ);
+		Interact(tileI + 1, tileJ);
 
-		async Task Interact(int i, int j)
+		void Interact(int i, int j)
 		{
 			if (j >= 0 && j < s.Length && i >= 0 && i < s[j].Length)
 			{
 				if (s[j][i] == 's')
 				{
-					await _using.Console.Clear();
-					await _using.Console.WriteLine();
-					await _using.Console.WriteLine("Sign Says:");
-					await _using.Console.WriteLine();
-					await _using.Console.WriteLine("----->");
-					await _using.Console.WriteLine("Aalborg City");
-					await _using.Console.WriteLine("<-----");
-					await _using.Console.WriteLine("Vejle Town");
-					await _using.Console.WriteLine();
-					await _using.Console.Write(" Press [enter] to continue...");
-					await PressEnterToContiue();
+					promptText = new string[]
+						{
+							"Sign Says:",
+							"",
+							"  Vejle Town <----- -----> Aalborg City",
+						};
 				}
 			}
 		}

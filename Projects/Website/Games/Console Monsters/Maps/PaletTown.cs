@@ -91,28 +91,32 @@ class PaletTown : MapBase
 		};
 	}
 
-	public override async Task InteractWithMapTile(int tileI, int tileJ)
+	public override void InteractWithMapTile(int tileI, int tileJ)
 	{
 		char[][] s = map.SpriteSheet;
 
-		await Interact(tileI, tileJ + 1);
-		await Interact(tileI, tileJ - 1);
-		await Interact(tileI - 1, tileJ);
-		await Interact(tileI + 1, tileJ);
+		Interact(tileI, tileJ + 1);
+		Interact(tileI, tileJ - 1);
+		Interact(tileI - 1, tileJ);
+		Interact(tileI + 1, tileJ);
 
-		async Task Interact(int i, int j)
+		void Interact(int i, int j)
 		{
 			if (j >= 0 && j < s.Length && i >= 0 && i < s[j].Length)
 			{
 				if (s[j][i] == 's') //Signs
 				{
-					await PressEnterToContiue();
+					promptText = new string[]
+						{
+							"Sign Says:",
+							"Hello! I am sign. :P",
+						};
 				}
 				if (s[j][i] == 'ś') //Bottom sign
 				{
 					promptText = new string[]
 						{
-							"Sign2 Says:",
+							"Sign #2 Says:",
 							"Hello! I am sign #2. :P",
 						};
 				}

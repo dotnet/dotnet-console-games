@@ -309,7 +309,7 @@ public class Console_Monsters
 					}
 					{
 						var (i, j) = MapBase.WorldToTile(character.I, character.J); ;
-						await map.InteractWithMapTile(i, j);
+						map.InteractWithMapTile(i, j);
 						break;
 					}
 				case ConsoleKey.Escape:

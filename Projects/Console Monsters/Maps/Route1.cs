@@ -89,13 +89,11 @@ class Route1 : MapBase
 			{
 				if (s[j][i] == 's')
 				{
-					Console.Clear();
-					Console.WriteLine();
-					Console.WriteLine("Sign Says:");
-					Console.WriteLine();
-					Console.WriteLine();
-					Console.Write(" Press [enter] to continue...");
-					PressEnterToContiue();
+					promptText = new string[]
+						{
+							"Sign Says:",
+							"Hello! I am a sign. :P",
+						};
 				}
 			}
 		}
