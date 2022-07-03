@@ -52,7 +52,7 @@ public class Drive
 					await Render();
 					if (gameRunning)
 					{
-						await Console.RefreshAndDelay(TimeSpan.FromMilliseconds(25));
+						await Console.RefreshAndDelay(TimeSpan.FromMilliseconds(33));
 					}
 				}
 				if (keepPlaying)

@@ -236,7 +236,7 @@ public class PacMan
 						}
 					}
 				}
-				await Console.RefreshAndDelay(TimeSpan.FromMilliseconds(10));
+				await Console.RefreshAndDelay(TimeSpan.FromMilliseconds(40));
 			}
 			goto NextRound;
 		}
