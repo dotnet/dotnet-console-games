@@ -30,7 +30,7 @@ public static class _using
 	public static int maxPartySize = 6;
 	public static bool gameRunning = true;
 	public static bool startMenu = true;
-	public static bool inventoryOpen = false;
+	public static bool inInventory = false;
 	public static List<MonsterBase> ownedMonsters = new();
 	public static List<MonsterBase> activeMonsters = new();
 
@@ -62,7 +62,21 @@ public static class _using
 	{
 		{ Items.MonsterBox, ("A Monster Box", "Used to trap and store monsters", Sprites.MonsterBox)},
 		{ Items.HealthPotion,  ("A Health Potion", "Used to restore hp to monsters", Sprites.HealthPotion)},
-		{ Items.XPBerries,  ("Magical XP Berries", "Used to increase a monsters experience", Sprites.XPBerries)},
+		{ Items.XPBerries,  ("Magical XP Berries", "Used to increase a monsters experience55", Sprites.XPBerries)},
+
+		{ Items.PLACEHOLDER1,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.HealthPotion)},
+		{ Items.PLACEHOLDER2,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.HealthPotion)},
+		{ Items.PLACEHOLDER3,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.HealthPotion)},
+		{ Items.PLACEHOLDER4,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.HealthPotion)},
+		{ Items.PLACEHOLDER5,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.HealthPotion)},
+		{ Items.PLACEHOLDER6,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.HealthPotion)},
+		{ Items.PLACEHOLDER7,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.HealthPotion)},
+		{ Items.PLACEHOLDER8,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.HealthPotion)},
+		{ Items.PLACEHOLDER9, ("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.HealthPotion)},
+		{ Items.PLACEHOLDER10,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.HealthPotion)},
+		{ Items.PLACEHOLDER11,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.HealthPotion)},
+		{ Items.PLACEHOLDER12,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.HealthPotion)},
+		{ Items.PLACEHOLDER13,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.HealthPotion)},
 	};
 
 	static _using()

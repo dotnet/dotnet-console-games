@@ -25,6 +25,32 @@ public partial class Program
 				}
 			}
 
+			#region DEBUGGING INVENTORY
+			Inventory.AddToStorage(Items.MonsterBox);
+			Inventory.AddToStorage(Items.XPBerries);
+			Inventory.AddToStorage(Items.HealthPotion);
+			Inventory.AddToStorage(Items.HealthPotion);
+			Inventory.AddToStorage(Items.PLACEHOLDER1);
+			Inventory.AddToStorage(Items.PLACEHOLDER2);
+			Inventory.AddToStorage(Items.PLACEHOLDER3);
+			Inventory.AddToStorage(Items.PLACEHOLDER4);
+			Inventory.AddToStorage(Items.PLACEHOLDER5);
+			Inventory.AddToStorage(Items.PLACEHOLDER6);
+			Inventory.AddToStorage(Items.PLACEHOLDER7);
+			Inventory.AddToStorage(Items.PLACEHOLDER8);
+			Inventory.AddToStorage(Items.PLACEHOLDER9);
+			Inventory.AddToStorage(Items.PLACEHOLDER10);
+			Inventory.AddToStorage(Items.PLACEHOLDER11);
+			Inventory.AddToStorage(Items.PLACEHOLDER12);
+			Inventory.AddToStorage(Items.PLACEHOLDER13);
+
+			for (int i = 0; i < (maxPartySize - GameRandom.Next(0, 3)); i++)
+			{
+				activeMonsters.Add(MonsterBase.GetRandom());
+			}
+			#endregion
+
+
 			StartMenu();
 			while (gameRunning)
 			{
@@ -267,15 +293,39 @@ public partial class Program
 				case ConsoleKey.B:
 					if (promptText is not null)
 					{
-						break;
+						break; 
 					}
-					activeMonsters.Clear();
-					for (int i = 0; i < (maxPartySize - GameRandom.Next(0, 3)); i++)
+
+					inInventory = true;
+					while (inInventory)
 					{
-						activeMonsters.Add(MonsterBase.GetRandom());
+						Renderer.RenderInventoryView();
+					
+						switch (Console.ReadKey(true).Key)
+						{
+							case ConsoleKey.UpArrow:
+								if (Inventory.SelectedItem > 0)
+								{
+									Inventory.SelectedItem--;
+								}
+								else
+								{
+									Inventory.SelectedItem = Inventory.Count - 1;
+								}
+								break;
+							case ConsoleKey.DownArrow:
+								if (Inventory.SelectedItem < Inventory.Count - 1)
+								{
+									Inventory.SelectedItem++;
+								}
+								else
+								{
+									Inventory.SelectedItem = 0;
+								}
+								break;
+							case ConsoleKey.Escape: inInventory = false; break;
+						}
 					}
-					Renderer.RenderInventoryView();
-					PressEnterToContiue();
 					break;
 				case ConsoleKey.Enter:
 					promptText = null;

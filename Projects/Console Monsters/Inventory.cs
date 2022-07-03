@@ -4,8 +4,18 @@ static class Inventory
 {
 	private const short MAX_STACK = 99;
 
+	public static int SelectedItem = 0;
 	public static int[] ItemStorage = new int[(int)Items.Count];
 
+	public static int Count
+	{
+		get { return GetListOfItems().Count; }
+	}
+
+	public static Items GetSelectedItem()
+	{
+		return GetListOfItems()[SelectedItem];
+	}
 	public static bool Contains(Items item)
 	{
 		return ItemStorage[(int)item] > 0;
@@ -53,6 +63,21 @@ public enum Items // When adding Items ensure you add a description in _using.cs
 	MonsterBox,
 	HealthPotion,
 	XPBerries,
+
+	PLACEHOLDER1,
+	PLACEHOLDER2,
+	PLACEHOLDER3,
+	PLACEHOLDER4,
+	PLACEHOLDER5,
+	PLACEHOLDER6,
+	PLACEHOLDER7,
+	PLACEHOLDER8,
+	PLACEHOLDER9,
+	PLACEHOLDER10,
+	PLACEHOLDER11,
+	PLACEHOLDER12,
+	PLACEHOLDER13,
+
 	Count, /* KEEP AT END */
 }
 
