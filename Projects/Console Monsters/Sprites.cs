@@ -418,7 +418,7 @@ public static class Sprites
 		@"▬▬▬▬▬▬▬" + "\n" +
 		@"▬▬▬▬▬▬▬";
 	public const string ArrowDown =
-		@"  |-|  " + "\n" +
+		@"  |‾|  " + "\n" +
 		@"  | |  " + "\n" +
 		@" _| |_ " + "\n" +
 		@" \   / " + "\n" +
