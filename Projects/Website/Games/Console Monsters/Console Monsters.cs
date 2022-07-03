@@ -253,11 +253,11 @@ public class Console_Monsters
 							{
 								switch (key)
 								{
-									case ConsoleKey.UpArrow or ConsoleKey.W: character.J -= Sprites.Height; break;
-									case ConsoleKey.DownArrow or ConsoleKey.S: character.J += Sprites.Height; break;
-									case ConsoleKey.LeftArrow or ConsoleKey.A: character.I -= Sprites.Width; break;
-									case ConsoleKey.RightArrow or ConsoleKey.D: character.I += Sprites.Width; break;
-}
+									case ConsoleKey.UpArrow or ConsoleKey.W: character.J -= Sprites.Height; character.Animation = Character.IdleUp; break;
+									case ConsoleKey.DownArrow or ConsoleKey.S: character.J += Sprites.Height; character.Animation = Character.IdleDown; break;
+									case ConsoleKey.LeftArrow or ConsoleKey.A: character.I -= Sprites.Width; character.Animation = Character.IdleLeft; break;
+									case ConsoleKey.RightArrow or ConsoleKey.D: character.I += Sprites.Width; character.Animation = Character.IdleRight; break;
+								}
 								await map.PerformTileAction();
 							}
 							else
