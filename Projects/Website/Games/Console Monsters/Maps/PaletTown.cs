@@ -171,9 +171,6 @@ class PaletTown : MapBase
 					}
 					await Renderer.RenderBattleView();
 					await PressEnterToContiue();
-					_using.Console.BackgroundColor = ConsoleColor.Black;
-					_using.Console.ForegroundColor = ConsoleColor.White;
-					await _using.Console.Clear();
 				}
 				break;
 		}

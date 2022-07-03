@@ -143,9 +143,6 @@ class Route1 : MapBase
 					}
 					Renderer.RenderBattleView();
 					PressEnterToContiue();
-					Console.BackgroundColor = ConsoleColor.Black;
-					Console.ForegroundColor = ConsoleColor.Gray;
-					Console.Clear();
 				}
 				break;
 		}
