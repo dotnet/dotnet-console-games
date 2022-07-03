@@ -56,8 +56,8 @@ class Route1 : MapBase
 		return s[tileJ][tileI] switch
 		{
 			// actions
-			'0' => Sprites.ArrowDown,
-			'1' => Sprites.ArrowUp,
+			'0' => Sprites.ArrowHeavyDown,
+			'1' => Sprites.ArrowHeavyUp,
 			// Decor
 			's' => Sprites.SignALeft,
 			'f' => Sprites.Fence,

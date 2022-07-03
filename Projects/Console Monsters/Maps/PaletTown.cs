@@ -48,7 +48,7 @@ class PaletTown : MapBase
 			'X' => Sprites.Open,
 			// actions
 			'0' => Sprites.Door,
-			'1' => Sprites.ArrowUp,
+			'1' => Sprites.ArrowHeavyUp,
 			// Buildings
 			'd' => Sprites.Door,
 			'l' => Sprites.LowWindow,
