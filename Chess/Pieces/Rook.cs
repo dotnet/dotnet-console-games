@@ -8,12 +8,12 @@ public class Rook : Piece
 
 	public override void InitRules()
 	{
-		Rules.Add(new Rule(
-				m => m.EndX == m.StartX
+		Rules.Add(new MovementRule(
+			m => m.EndX == m.StartX
 		));
 
-		Rules.Add(new Rule(
-				m => m.EndY == m.StartY
+		Rules.Add(new MovementRule(
+			m => m.EndY == m.StartY
 		));
 	}
 }
