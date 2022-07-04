@@ -1,4 +1,4 @@
-namespace Chess;
+﻿namespace Chess;
 
 public class Pawn : Piece
 {
@@ -6,7 +6,7 @@ public class Pawn : Piece
 
 	public Pawn(PieceColor color) : base(color) { }
 
-	protected override void InitRules()
+	 public override void InitRules()
 	{
 		// valid movement for a black pawn
 		Rules.Add(new MovementRule(

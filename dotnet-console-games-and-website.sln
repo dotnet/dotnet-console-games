@@ -89,7 +89,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Duck Hunt", "Projects\Duck 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers", "Projects\Checkers\Checkers.csproj", "{25D5F8B8-4E27-4F37-BF40-18C987D3644E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chess", "Chess\Chess.csproj", "{94B9889C-407D-48E1-8095-D5C2F83A5970}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chess", "Projects\Chess\Chess.csproj", "{94B9889C-407D-48E1-8095-D5C2F83A5970}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

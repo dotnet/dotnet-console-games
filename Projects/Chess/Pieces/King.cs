@@ -2,7 +2,7 @@ namespace Chess;
 
 public class King : Piece
 {
-	public override string Token { get { return "♔"; } }
+	public override string Icon { get { return "♔"; } }
 
 	public King(PieceColor color) : base(color) { }
 

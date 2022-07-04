@@ -5,13 +5,13 @@ namespace Chess;
 public abstract class Piece
 {
 	public abstract string Icon { get; }
-	protected PieceColor Color { get; private set; }
+	public PieceColor Color { get; private set; }
 
-	private Boolean IsAlive { get; set; }
+	public Boolean IsAlive { get; set; }
 
-	protected Collection<MovementRule> Rules;
+	public Collection<MovementRule> Rules;
 
-	protected Piece(PieceColor color)
+	public Piece(PieceColor color)
 	{
 		Rules = new Collection<MovementRule>();
 
@@ -41,6 +41,6 @@ public abstract class Piece
 		return Rules.Any(r => r.Validate(movement));
 	}
 
-	protected abstract void InitRules();
+	public abstract void InitRules();
 	
 }
