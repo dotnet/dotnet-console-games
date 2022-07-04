@@ -1,6 +1,6 @@
 ﻿namespace Chess;
 
-public class MovementRule
+public record MovementRule
 {
 	private int Id { get; set; }
 

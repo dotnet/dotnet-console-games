@@ -1,6 +1,6 @@
 ﻿namespace Chess;
 
-public class Move
+public record Move
 {
 	public bool UnitAttack;
 	public int StartX, StartY;

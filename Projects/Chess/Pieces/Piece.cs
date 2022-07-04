@@ -4,7 +4,7 @@ namespace Chess;
 
 public abstract class Piece
 {
-	public abstract string Icon { get; }
+	public abstract string Icon { get; set; }
 	public PieceColor Color { get; private set; }
 
 	public Boolean IsAlive { get; set; }
@@ -15,7 +15,9 @@ public abstract class Piece
 	{
 		Rules = new Collection<MovementRule>();
 
-		Color = (color == PieceColor.White ? PieceColor.White : PieceColor.Black);
+		Color = color == PieceColor.White ? PieceColor.White : PieceColor.Black;
+		
+		Icon = color == PieceColor.White ? "" : "";
 
 		IsAlive = true;
 
