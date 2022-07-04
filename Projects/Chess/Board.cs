@@ -85,7 +85,7 @@ public class Board
     }
 
     // try to do a movement of piece
-    public MoveOutcome MovePiece(
+    public MoveOutcome? MovePiece(
 	    char column, 
 	    int row, 
 	    char targetColumn, 
@@ -96,16 +96,12 @@ public class Board
     
         if(BoardColumns[targetColumn] is < 1 or > 8 || targetRow is < 1 or > 8)
         {
-            result.IsSuccess = false;
-
-            return result;
+	        return null;
         }
 
         if(column == targetColumn && row == targetRow)
         {
-            result.IsSuccess = false;
-
-            return result;
+	        return null;
         }
 
         var selectPiece = GetPiece(column, row);
@@ -113,17 +109,14 @@ public class Board
         // check if there is a piece at start position
         if(selectPiece is null)
         {
-            result.IsSuccess = false;
-
-            return result;
+	        return null;
         }
 
         // check color of piece
         if(color.HasValue) {
             if((color == PieceColor.White && selectPiece.Color == PieceColor.Black) ||
                 (color == PieceColor.Black && selectPiece.Color == PieceColor.White)) {
-                result.IsSuccess = false;
-                return result;
+                return null;
             }
         }
 
@@ -134,25 +127,19 @@ public class Board
             !selectPiece.Color.Equals(target.Color),
             row - 1, BoardColumns[column] - 1 , targetRow - 1, BoardColumns[targetColumn] - 1))
         {
-            result.IsSuccess = false;
-
-            return result;
+            return null;
         }
 
         // check that the path is free so long as the piece is not a knight
         if(selectPiece is not Knight && !CheckIfPathIsOpen( column, row, targetColumn, targetRow))
         {
-            result.IsSuccess = false;
-
-            return result;
+	        return null;
         }
 
         // check if target position there is already present a piece with same color
         if(target is not null && selectPiece.Color.Equals(target.Color))
         {
-            result.IsSuccess = false;
-
-            return result;
+	        return null;
         }
 
         // set result information after capture
