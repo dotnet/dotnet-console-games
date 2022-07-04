@@ -91,11 +91,10 @@ public static class _using
 
 	public static async Task PressEnterToContiue()
 	{
-	GetInput:
-		ConsoleKey key = (await Console.ReadKey(true)).Key;
-		if(key == ConsoleKey.Enter)
-			return;
-		goto GetInput;
+		while ((await Console.ReadKey(true)).Key is not ConsoleKey.Enter)
+		{
+			// inentionally blank
+		}
 	}
 }
 
