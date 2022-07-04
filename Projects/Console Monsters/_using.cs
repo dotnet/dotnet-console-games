@@ -61,7 +61,9 @@ public static class _using
 	public static readonly Dictionary<Items, (string Name, string Description, string Sprite)> ItemDetails = new()
 	{
 		{ Items.MonsterBox, ("A Monster Box", "Used to trap and store monsters", Sprites.MonsterBox)},
-		{ Items.HealthPotion,  ("A Health Potion", "Used to restore hp to monsters", Sprites.HealthPotion)},
+		{ Items.HealthPotionLarge,  ("A Large Health Potion", "Used to restore hp to monsters", Sprites.HealthPotionLarge)},
+		{ Items.HealthPotionMedium,  ("A Medium Health Potion", "Used to restore hp to monsters", Sprites.HealthPotionMedium)},
+		{ Items.HealthPotionSmall,  ("A Small Health Potion", "Used to restore hp to monsters", Sprites.HealthPotionSmall)},
 		{ Items.XPBerries,  ("Magical XP Berries", "Used to increase a monsters experience", Sprites.XPBerries)},
 	};
 

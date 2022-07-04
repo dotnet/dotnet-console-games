@@ -295,8 +295,9 @@ public static class Renderer
 
 		Inventory.AddToStorage(Items.MonsterBox);
 		Inventory.AddToStorage(Items.XPBerries);
-		Inventory.AddToStorage(Items.HealthPotion);
-		Inventory.AddToStorage(Items.HealthPotion);
+		Inventory.AddToStorage(Items.HealthPotionLarge);
+		Inventory.AddToStorage(Items.HealthPotionMedium);
+		Inventory.AddToStorage(Items.HealthPotionSmall);
 
 		if (!Inventory.IsEmpty())
 		{

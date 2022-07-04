@@ -525,12 +525,24 @@ public static class Sprites
 	#endregion
 
 	#region Items
-	public const string HealthPotion =
+	public const string HealthPotionLarge =
 		@" [╤═╤] " + "\n" +
 		@" ╭╯ ╰╮ " + "\n" +
 		@" │▄█▄│ " + "\n" +
 		@" │ ▀ │ " + "\n" +
 		@" ╰───╯ ";
+	public const string HealthPotionMedium =
+		@" [╤═╤] " + "\n" +
+		@" ╭╯ ╰╮ " + "\n" +
+		@" │╺╋╸│ " + "\n" +
+		@" ╰───╯ " + "\n" +
+		@"       ";
+	public const string HealthPotionSmall =
+		@" [╤╤]  " + "\n" +
+		@" ╭╯╰╮  " + "\n" +
+		@" │+ │  " + "\n" +
+		@" ╰──╯  " + "\n" +
+		@"       ";
 	public const string MonsterBox =
 		@"       " + "\n" +
 		@" ╭───╮ " + "\n" +
