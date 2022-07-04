@@ -539,8 +539,8 @@ public static class Sprites
 	public const string HealthPotion =
 		@" [╤═╤] " + "\n" +
 		@" ╭╯ ╰╮ " + "\n" +
-		@" │   │ " + "\n" +
-		@" │   │ " + "\n" +
+		@" │▄█▄│ " + "\n" +
+		@" │ ▀ │ " + "\n" +
 		@" ╰───╯ ";
 	public const string MonsterBox =
 		@"       " + "\n" +
