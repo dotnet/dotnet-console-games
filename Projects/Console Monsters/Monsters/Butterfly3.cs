@@ -1,8 +1,8 @@
 ﻿namespace Console_Monsters.Monsters;
 
-public class Butterfly : MonsterBase
+public class Butterfly3 : MonsterBase
 {
-	public Butterfly()
+	public Butterfly3()
 	{
 		Name = "Butterfly";
 	}
