@@ -4,7 +4,7 @@ namespace Chess;
 
 public abstract class Piece
 {
-	public abstract string Icon { get; set; }
+	public abstract string Icon { get; }
 	public PieceColor Color { get; private set; }
 
 	public Boolean IsAlive { get; set; }
@@ -17,7 +17,7 @@ public abstract class Piece
 
 		Color = color == PieceColor.White ? PieceColor.White : PieceColor.Black;
 		
-		Icon = color == PieceColor.White ? "" : "";
+		//Icon = color == PieceColor.White ? "" : "";
 
 		IsAlive = true;
 
