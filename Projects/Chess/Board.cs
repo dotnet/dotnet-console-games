@@ -94,7 +94,7 @@ public class Board
     {
         var result = new MoveOutcome();
     
-        if(BoardColumns[targetColumn] < 1 || BoardColumns[targetColumn] > 8 || targetRow is < 1 or > 8)
+        if(BoardColumns[targetColumn] is < 1 or > 8 || targetRow is < 1 or > 8)
         {
             result.IsSuccess = false;
 
