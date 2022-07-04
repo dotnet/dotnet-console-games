@@ -79,11 +79,10 @@ public static class _using
 
 	public static void PressEnterToContiue()
 	{
-	GetInput:
-		ConsoleKey key = Console.ReadKey(true).Key;
-		if(key == ConsoleKey.Enter)
-			return;
-		goto GetInput;
+		while (Console.ReadKey(true).Key is not ConsoleKey.Enter)
+		{
+			// inentionally blank
+		}
 	}
 }
 
