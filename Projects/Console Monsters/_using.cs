@@ -30,7 +30,7 @@ public static class _using
 	public static int maxPartySize = 6;
 	public static bool gameRunning = true;
 	public static bool startMenu = true;
-	public static bool inventoryOpen = false;
+	public static bool inInventory = false;
 	public static List<MonsterBase> ownedMonsters = new();
 	public static List<MonsterBase> activeMonsters = new();
 
@@ -61,10 +61,24 @@ public static class _using
 	public static readonly Dictionary<Items, (string Name, string Description, string Sprite)> ItemDetails = new()
 	{
 		{ Items.MonsterBox, ("A Monster Box", "Used to trap and store monsters", Sprites.MonsterBox)},
-		{ Items.HealthPotionLarge,  ("A Large Health Potion", "Used to restore hp to monsters", Sprites.HealthPotionLarge)},
-		{ Items.HealthPotionMedium,  ("A Medium Health Potion", "Used to restore hp to monsters", Sprites.HealthPotionMedium)},
-		{ Items.HealthPotionSmall,  ("A Small Health Potion", "Used to restore hp to monsters", Sprites.HealthPotionSmall)},
-		{ Items.XPBerries,  ("Magical XP Berries", "Used to increase a monsters experience", Sprites.XPBerries)},
+        { Items.HealthPotionLarge,  ("A Large Health Potion", "Used to restore hp to monsters", Sprites.HealthPotionLarge)},
+        { Items.HealthPotionMedium,  ("A Medium Health Potion", "Used to restore hp to monsters", Sprites.HealthPotionMedium)},
+        { Items.HealthPotionSmall,  ("A Small Health Potion", "Used to restore hp to monsters", Sprites.HealthPotionSmall)},
+        { Items.XPBerries,  ("Magical XP Berries", "Used to increase a monsters experience55", Sprites.XPBerries)},
+
+		{ Items.PLACEHOLDER1,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.Error)},
+		{ Items.PLACEHOLDER2,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.Error)},
+		{ Items.PLACEHOLDER3,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.Error)},
+		{ Items.PLACEHOLDER4,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.Error)},
+		{ Items.PLACEHOLDER5,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.Error)},
+		{ Items.PLACEHOLDER6,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.Error)},
+		{ Items.PLACEHOLDER7,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.Error)},
+		{ Items.PLACEHOLDER8,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.Error)},
+		{ Items.PLACEHOLDER9, ("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.Error)},
+		{ Items.PLACEHOLDER10,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.Error)},
+		{ Items.PLACEHOLDER11,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.Error)},
+		{ Items.PLACEHOLDER12,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.Error)},
+		{ Items.PLACEHOLDER13,("[PLACEHOLDER]", "[PLACEHOLDER]", Sprites.Error)},
 	};
 
 	static _using()
