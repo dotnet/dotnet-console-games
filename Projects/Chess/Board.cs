@@ -2,6 +2,7 @@
 
 public class Board
 {
+	// TODO: This could be safely deleted. For now it will remain.
 	public static char[] Letters { get; } = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'};
 
 	public static Dictionary<char, int> BoardColumns { get; } = new()
