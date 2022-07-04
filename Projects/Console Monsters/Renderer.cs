@@ -159,7 +159,6 @@ public static class Renderer
 		SleepAfterRender();
 	}
 
-
 	public static (int Width, int Height) GetWidthAndHeight()
 	{
 	RestartRender:
@@ -253,7 +252,7 @@ public static class Renderer
 			}
 		}
 	}
-
+	
 	public static void RenderInventoryView()
 	{
 		Console.CursorVisible = false;
@@ -278,12 +277,15 @@ public static class Renderer
 		int monsterHeightSpacing = 1;
 		int[] monsterSpriteIndex = new int[6];
 
+		int itemBorderGap = 4;
+		int scrollBorder = 2;
+		int startIndex = 0;
 		string itemInfo;
 		string itemCount;
 		string[] itemSprite;
 		List<Items> items = new();
 		int inventoryWidth = (width / 2) + minWidth;
-		int inventoryHeight = minHeight * 2;
+		int inventoryHeight = minHeight;
 		int inventoryHeightSpacing = Sprites.Height + 1;
 		int spriteIndex = 0;
 		int itemIndex = 0;
@@ -293,15 +295,14 @@ public static class Renderer
 			currentMonster = -1;
 		}
 
-		Inventory.AddToStorage(Items.MonsterBox);
-		Inventory.AddToStorage(Items.XPBerries);
-		Inventory.AddToStorage(Items.HealthPotionLarge);
-		Inventory.AddToStorage(Items.HealthPotionMedium);
-		Inventory.AddToStorage(Items.HealthPotionSmall);
-
 		if (!Inventory.IsEmpty())
 		{
 			items = Inventory.GetListOfItems();
+		}
+
+		if (Inventory.SelectedItem >= maxHeight / inventoryHeightSpacing)
+		{
+			startIndex = Inventory.SelectedItem - (maxHeight / inventoryHeightSpacing) + 1;
 		}
 
 		StringBuilder sb = new(width * height);
@@ -382,7 +383,7 @@ public static class Renderer
 					if (currentDone && nextDone)
 					{
 						monsterHeightSpacing += currentMonsterHeight > nextMonsterHeight ? currentMonsterHeight : nextMonsterHeight;
-						monsterHeightSpacing += 5;
+						monsterHeightSpacing += Sprites.Height;
 						currentMonster += 2;
 						nextMonster += 2;
 						currentDone = false;
@@ -390,13 +391,63 @@ public static class Renderer
 					}
 				}
 
+				{   // border for selected item
+					if (i == inventoryWidth - 1)
+					{
+						if (j == inventoryHeight + ((Inventory.SelectedItem - startIndex) * inventoryHeightSpacing) - 1)
+						{
+							sb.Append('╔'); // ┌╔
+							continue;
+						}
+						if (j > inventoryHeight + ((Inventory.SelectedItem - startIndex) * inventoryHeightSpacing) - 1 &&
+							j < inventoryHeight + ((Inventory.SelectedItem - startIndex) * inventoryHeightSpacing) + Sprites.Height)
+						{
+							sb.Append('║'); // │║
+							continue;
+						}
+						if (j == inventoryHeight + ((Inventory.SelectedItem - startIndex) * inventoryHeightSpacing) + Sprites.Height)
+						{
+							sb.Append('╚'); // └╚
+							continue;
+						}
+					}
+					if (i >= inventoryWidth && i < width - itemBorderGap)
+					{
+						if (j == inventoryHeight + ((Inventory.SelectedItem - startIndex) * inventoryHeightSpacing) - 1 ||
+							j == inventoryHeight + ((Inventory.SelectedItem - startIndex) * inventoryHeightSpacing) + Sprites.Height)
+						{
+							sb.Append('═'); // ─═
+							continue;
+						}
+					}
+					if (i == width - itemBorderGap)
+					{
+						if (j == inventoryHeight + ((Inventory.SelectedItem - startIndex) * inventoryHeightSpacing) - 1)
+						{
+							sb.Append('╗'); // ┐╗
+							continue;
+						}
+						if (j > inventoryHeight + ((Inventory.SelectedItem - startIndex) * inventoryHeightSpacing) - 1 &&
+							j < inventoryHeight + ((Inventory.SelectedItem - startIndex) * inventoryHeightSpacing) + Sprites.Height)
+						{
+							sb.Append('║'); // │║
+							continue;
+						}
+						if (j == inventoryHeight + ((Inventory.SelectedItem - startIndex) * inventoryHeightSpacing) + Sprites.Height)
+						{
+							sb.Append('╝'); // ┘╝
+							continue;
+						}
+					}
+				}
+
 				// rendering items
-				if (items.Count > 0 && itemIndex < items.Count)
+				if (items.Count > 0 && (itemIndex + startIndex) < items.Count)
 				{
 					if (i >= inventoryWidth && i < inventoryWidth + Sprites.Width &&
 						j >= inventoryHeight + (itemIndex * inventoryHeightSpacing) && j < inventoryHeight + (itemIndex * inventoryHeightSpacing) + Sprites.Height && j < maxHeight - 1)
 					{
-						itemSprite = ItemDetails[items[itemIndex]].Sprite.Split('\n');
+						itemSprite = ItemDetails[items[itemIndex + startIndex]].Sprite.Split('\n');
 
 						sb.Append(itemSprite[spriteIndex]);
 						i += itemSprite[spriteIndex].Length - 1;
@@ -404,7 +455,7 @@ public static class Renderer
 
 						if (spriteIndex == Sprites.Height)
 						{
-							itemCount = $"x{Inventory.GetStorageCount((Items)itemIndex)}";
+							itemCount = $"x{Inventory.GetStorageCount((Items)(itemIndex + startIndex))}";
 							sb.Append(itemCount);
 							i += itemCount.Length;
 
@@ -416,15 +467,50 @@ public static class Renderer
 
 					if (i == inventoryWidth + Sprites.Width + 1 && j == inventoryHeight + (itemIndex * inventoryHeightSpacing) + Sprites.Height / 2 && j < maxHeight - 1)
 					{
-						itemInfo = $"{ItemDetails[items[itemIndex]].Name} | {ItemDetails[items[itemIndex]].Description}";
-						if (i + itemInfo.Length > width)
+						string ellipsis = "...";
+						itemInfo = $"{ItemDetails[items[itemIndex + startIndex]].Name} | {ItemDetails[items[itemIndex + startIndex]].Description}";
+						if (i + itemInfo.Length > width - itemBorderGap)
 						{
 							//shorten info if too long
-							itemInfo = $"{itemInfo[..(width - i - 4)]}..."; 
+							itemInfo = $"{itemInfo[..(width - i - itemBorderGap - ellipsis.Length)]}{ellipsis}"; 
 						}
 						sb.Append(itemInfo);
 						i += itemInfo.Length - 1;
 						continue;
+					}
+				}
+
+				// rendering scroll bar
+				if (items.Count * Sprites.Height > maxHeight - scrollBorder)
+				{
+					if (i == width - 2)
+					{
+						if (j == 1)
+						{
+							sb.Append('▲');
+							continue;
+						}
+						if (j > 1 && j < maxHeight - scrollBorder)
+						{
+							if (j >= 1 + (Inventory.SelectedItem * inventoryHeightSpacing) && j <= 1 + ((Inventory.SelectedItem + 1) * inventoryHeightSpacing))
+							{
+								sb.Append('█');
+								continue;
+							}
+							if (Inventory.SelectedItem >= maxHeight / inventoryHeightSpacing && j > maxHeight - inventoryHeightSpacing - (scrollBorder * 2))
+							{
+								sb.Append('█');
+								continue;
+							}
+
+							sb.Append('│');
+							continue;
+						}
+						if (j == maxHeight - scrollBorder)
+						{
+							sb.Append('▼');
+							continue;
+						}
 					}
 				}
 
@@ -441,7 +527,7 @@ public static class Renderer
 						sb.Append('╤'); // ╦
 						continue;
 					}
-					if (j == maxHeight)
+					if (j == maxHeight - 1)
 					{
 						sb.Append('╧'); // ╩
 						continue;
@@ -494,6 +580,7 @@ public static class Renderer
 		Console.Write(sb);
 		SleepAfterRender();
 	}
+
 	public static void RenderBattleView()
 	{
 		int spriteheight = Sprites.BattleSpriteHeight + 1;
@@ -632,6 +719,4 @@ public static class Renderer
 		Console.Write(sb);
 		SleepAfterRender();
 	}
-
-
 }
