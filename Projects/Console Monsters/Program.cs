@@ -25,33 +25,6 @@ public partial class Program
 				}
 			}
 
-			#region DEBUGGING INVENTORY
-			Inventory.AddToStorage(Items.MonsterBox);
-			Inventory.AddToStorage(Items.XPBerries);
-			Inventory.AddToStorage(Items.HealthPotionLarge);
-			Inventory.AddToStorage(Items.HealthPotionMedium);
-			Inventory.AddToStorage(Items.HealthPotionSmall);
-			Inventory.AddToStorage(Items.PLACEHOLDER1);
-			Inventory.AddToStorage(Items.PLACEHOLDER2);
-			Inventory.AddToStorage(Items.PLACEHOLDER3);
-			Inventory.AddToStorage(Items.PLACEHOLDER4);
-			Inventory.AddToStorage(Items.PLACEHOLDER5);
-			Inventory.AddToStorage(Items.PLACEHOLDER6);
-			Inventory.AddToStorage(Items.PLACEHOLDER7);
-			Inventory.AddToStorage(Items.PLACEHOLDER8);
-			Inventory.AddToStorage(Items.PLACEHOLDER9);
-			Inventory.AddToStorage(Items.PLACEHOLDER10);
-			Inventory.AddToStorage(Items.PLACEHOLDER11);
-			Inventory.AddToStorage(Items.PLACEHOLDER12);
-			Inventory.AddToStorage(Items.PLACEHOLDER13);
-
-			for (int i = 0; i < (maxPartySize - GameRandom.Next(0, 3)); i++)
-			{
-				activeMonsters.Add(MonsterBase.GetRandom());
-			}
-			#endregion
-
-
 			StartMenu();
 			while (gameRunning)
 			{
@@ -297,6 +270,13 @@ public partial class Program
 						break; 
 					}
 
+					#warning TODO: this is temporary population of monsters during developemnt
+					activeMonsters.Clear();
+					for (int i = 0; i < (maxPartySize - GameRandom.Next(0, 3)); i++)
+					{
+						activeMonsters.Add(MonsterBase.GetRandom());
+					}
+
 					inInventory = true;
 					while (inInventory)
 					{
@@ -305,23 +285,23 @@ public partial class Program
 						switch (Console.ReadKey(true).Key)
 						{
 							case ConsoleKey.UpArrow:
-								if (Inventory.SelectedItem > 0)
+								if (SelectedPlayerInventoryItem > 0)
 								{
-									Inventory.SelectedItem--;
+									SelectedPlayerInventoryItem--;
 								}
 								else
 								{
-									Inventory.SelectedItem = Inventory.Count - 1;
+									SelectedPlayerInventoryItem = PlayerInventory.Distinct().Count() - 1;
 								}
 								break;
 							case ConsoleKey.DownArrow:
-								if (Inventory.SelectedItem < Inventory.Count - 1)
+								if (SelectedPlayerInventoryItem < PlayerInventory.Distinct().Count() - 1)
 								{
-									Inventory.SelectedItem++;
+									SelectedPlayerInventoryItem++;
 								}
 								else
 								{
-									Inventory.SelectedItem = 0;
+									SelectedPlayerInventoryItem = 0;
 								}
 								break;
 							case ConsoleKey.Escape: inInventory = false; break;
