@@ -522,6 +522,12 @@ public static class Sprites
 		@"╭┴───┴╮" + '\n' +
 		@"│├───┤│" + '\n' +
 		@" │_ _│ ";
+	public static readonly string NPC13 =
+		@" /███\ " + '\n' +
+		@"/│'_'│\" + '\n' +
+		@"╭╰───╯╮" + '\n' +
+		@"│├─\─┤│" + '\n' +
+		@" │_|_│ ";
 	#endregion
 
 	#region Items
@@ -575,4 +581,80 @@ public static class Sprites
 		@"║error║" + "\n" +
 		@"║error║" + "\n" +
 		@"╚═════╝";
+
+	#region Letters + Symbols
+	//WASD
+	public static string[] W =
+	{
+		"▄   ▄",
+		"█ ▄ █",
+		"█▀ ▀█"
+	};
+	public static string[] A = 
+	{ 
+		" ▄▄ ", 
+		"█▄▄█",
+		"█  █"
+	};
+	public static string[] S =
+	{
+		"▄▄▄▄",
+		"█▄▄▄",
+		"▄▄▄█"
+	};
+	public static string[] D =
+	{
+		"▄▄▄ ",
+		"█  █",
+		"█▄▄▀"
+	};
+	//ARROWS
+	public static string[] UpArrow =
+	{
+		" ▄█▄ ",
+		"▀ █ ▀",
+		"  █  "
+	};
+	public static string[] LeftArrow =
+	{
+		"  ▄  ",
+		"■█■■■",
+		"  ▀  "
+	};
+	public static string[] DownArrow =
+	{
+		"  █  ",
+		"▄ █ ▄",
+		" ▀█▀ "
+	};
+	public static string[] RightArrow =
+	{
+		"  ▄  ",
+		"■■■█■",
+		"  ▀  "
+	};
+	//INTERACT
+	public static string[] E =
+	{
+		"▄▄▄▄",
+		"█▄▄ ",
+		"█▄▄▄"
+	};
+	public static string[] Enter =
+	{
+		"  ▄ ▄",
+		"▄█▄▄█",
+		" ▀▄  "
+		//"    ",
+		//"◄──┘",
+		//"    "
+	};
+	//Status
+	public static string[] B =
+	{
+		"▄▄▄▄",
+		"█▄▄ ",
+		"█▄▄▄"
+	};
+	#endregion
 }
