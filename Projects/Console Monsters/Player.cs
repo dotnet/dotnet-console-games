@@ -1,6 +1,6 @@
 ﻿namespace Console_Monsters;
 
-public class Character
+public class Player
 {
 	/// <summary>Horizontal position in pixel coordinates.</summary>
 	public int I { get; set; }
