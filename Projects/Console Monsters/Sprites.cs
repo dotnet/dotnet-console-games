@@ -522,6 +522,18 @@ public static class Sprites
 		@"╭┴───┴╮" + '\n' +
 		@"│├───┤│" + '\n' +
 		@" │_ _│ ";
+	public static readonly string TrainConductorLeft =
+		@"  ____ " + '\n' +
+		@" ═│══│ " + '\n' +
+		@"  │^ │ " + '\n' +
+		@"  ╰──╯ " + '\n' +
+		@"  │||│ ";
+	public static readonly string TrainConductorRight =
+		@" ____  " + '\n' +
+		@" │══│═ " + '\n' +
+		@" │ ^│  " + '\n' +
+		@" ╰──╯  " + '\n' +
+		@" │||│  ";
 	#endregion
 
 	#region Items
