@@ -8,7 +8,7 @@ public static class Sprites
 	public const int BattleSpriteWidth = 70;
 	public const int BattleSpriteHeight = 20;
 
-	#region Interior
+	#region InteriorWalls
 	public const string InteriorWallNE =
 		@" │ │   " + "\n" +
 		@" │ │   " + "\n" +
@@ -243,6 +243,12 @@ public static class Sprites
 		@"       " + "\n" +
 		@"       " + "\n" +
 		@"███████";
+	public const string Locker =
+		@"╔═════╗" + "\n" +
+		@"║==│==║" + "\n" +
+		@"║● │● ║" + "\n" +
+		@"║  │  ║" + "\n" +
+		@"╚╦═══╦╝";
 	#endregion
 
 	#region Wall
@@ -522,6 +528,12 @@ public static class Sprites
 		@"╭┴───┴╮" + '\n' +
 		@"│├───┤│" + '\n' +
 		@" │_ _│ ";
+	public static readonly string NPC13 =
+		@" /███\ " + '\n' +
+		@"/│'_'│\" + '\n' +
+		@"╭╰───╯╮" + '\n' +
+		@"│├─\─┤│" + '\n' +
+		@" │_|_│ ";
 	public static readonly string TrainConductorLeft =
 		@"  ____ " + '\n' +
 		@" ═│══│ " + '\n' +
@@ -587,4 +599,80 @@ public static class Sprites
 		@"║error║" + "\n" +
 		@"║error║" + "\n" +
 		@"╚═════╝";
+
+	#region Letters + Symbols
+	//WASD
+	public static string[] W =
+	{
+		"▄   ▄",
+		"█ ▄ █",
+		"█▀ ▀█"
+	};
+	public static string[] A = 
+	{ 
+		" ▄▄ ", 
+		"█▄▄█",
+		"█  █"
+	};
+	public static string[] S =
+	{
+		"▄▄▄▄",
+		"█▄▄▄",
+		"▄▄▄█"
+	};
+	public static string[] D =
+	{
+		"▄▄▄ ",
+		"█  █",
+		"█▄▄▀"
+	};
+	//ARROWS
+	public static string[] UpArrow =
+	{
+		" ▄█▄ ",
+		"▀ █ ▀",
+		"  █  "
+	};
+	public static string[] LeftArrow =
+	{
+		"  ▄  ",
+		"■█■■■",
+		"  ▀  "
+	};
+	public static string[] DownArrow =
+	{
+		"  █  ",
+		"▄ █ ▄",
+		" ▀█▀ "
+	};
+	public static string[] RightArrow =
+	{
+		"  ▄  ",
+		"■■■█■",
+		"  ▀  "
+	};
+	//INTERACT
+	public static string[] E =
+	{
+		"▄▄▄▄",
+		"█▄▄ ",
+		"█▄▄▄"
+	};
+	public static string[] Enter =
+	{
+		"  ▄ ▄",
+		"▄█▄▄█",
+		" ▀▄  "
+		//"    ",
+		//"◄──┘",
+		//"    "
+	};
+	//Status
+	public static string[] B =
+	{
+		"▄▄▄▄",
+		"█▄▄ ",
+		"█▄▄▄"
+	};
+	#endregion
 }

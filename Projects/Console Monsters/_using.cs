@@ -8,6 +8,7 @@ global using Console_Monsters.Maps;
 global using Console_Monsters.Monsters;
 global using Console_Monsters.Bases;
 global using Console_Monsters.NPCs;
+global using Console_Monsters.Menus;
 global using System.Collections.Generic;
 
 namespace Console_Monsters;
@@ -25,7 +26,7 @@ public static class _using
 	#endregion
 
 	public static Random GameRandom = new(7);
-	public static Character character = new();
+	public static Player character = new();
 	public static MapBase map = new PaletTown();
 	public static DateTime previoiusRender = DateTime.Now;
 	public static int maxPartySize = 6;
@@ -70,7 +71,7 @@ public static class _using
 		{
 			I = i * Sprites.Width,
 			J = j * Sprites.Height,
-			Animation = Character.IdleDown,
+			Animation = Player.IdleDown,
 		};
 		PlayerInventory.TryAdd(ExperienceBerries.Instance);
 		PlayerInventory.TryAdd(HealthPotionLarge.Instance);

@@ -8,8 +8,8 @@ public class Key : ItemBase
 
 	public override string Sprite =>
 		@"  ═╗   " + "\n" +
-		@" ══╣   " + "\n" +
 		@"  ═╣   " + "\n" +
+		@"   ║   " + "\n" +
 		@"  ╔╩╗  " + "\n" +
 		@"  ╚═╝  ";
 

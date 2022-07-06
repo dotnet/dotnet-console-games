@@ -11,7 +11,7 @@ internal class Candle : ItemBase
 		@"  ┌┴┐  " + "\n" +
 		@"  │ │  " + "\n" +
 		@"  │ │  " + "\n" +
-		@"══╧═╧══";
+		@" ═╧═╧═ ";
 
 	public static readonly Candle Instance = new();
 }
