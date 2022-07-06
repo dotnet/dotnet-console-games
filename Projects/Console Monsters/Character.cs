@@ -296,7 +296,7 @@ public class Character
 
 	public static readonly string IdleLeft4 =
 		@" ____" + '\n' +
-	    @"═│══│" + '\n' +
+		@"═│══│" + '\n' +
 		@" │^ │" + '\n' +
 		@" ╰──╯" + '\n' +
 		@" │||│" + '\n' +
@@ -309,7 +309,7 @@ public class Character
 
 	public static readonly string TrainInstructorHat =
 		@"_____" + '\n' +
-	    @"│═══│";
+		@"│═══│";
 
 	public static readonly string[] IdleDown =
 		Enumerable.Repeat(IdleDown1, 100).Concat(Enumerable.Repeat(IdleDown2, 10)).ToArray();
