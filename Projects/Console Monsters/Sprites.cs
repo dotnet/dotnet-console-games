@@ -8,7 +8,7 @@ public static class Sprites
 	public const int BattleSpriteWidth = 70;
 	public const int BattleSpriteHeight = 20;
 
-	#region Interior
+	#region InteriorWalls
 	public const string InteriorWallNE =
 		@" │ │   " + "\n" +
 		@" │ │   " + "\n" +
@@ -243,6 +243,12 @@ public static class Sprites
 		@"       " + "\n" +
 		@"       " + "\n" +
 		@"███████";
+	public const string Locker =
+		@"╔═════╗" + "\n" +
+		@"║==│==║" + "\n" +
+		@"║● │● ║" + "\n" +
+		@"║  │  ║" + "\n" +
+		@"╚╦═══╦╝";
 	#endregion
 
 	#region Wall
