@@ -22,7 +22,7 @@ public class Player
 
 	#region Player Sprites
 
-	private PlayerData _playerData = new PlayerData();
+	private static readonly PlayerData PlayerData = new();
 
 	// Run animation
 	public static readonly string[] RunRight = PlayerData.Animations["RunRight"];

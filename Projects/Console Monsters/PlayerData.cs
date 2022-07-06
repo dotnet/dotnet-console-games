@@ -1,8 +1,8 @@
 ﻿namespace Console_Monsters;
 
-public struct PlayerData
+public class PlayerData
 {
-	public static readonly Dictionary<string, string[]> Animations = new()
+	public readonly Dictionary<string, string[]> Animations = new()
 	{
 		{
 			"RunRight",
@@ -252,5 +252,6 @@ public struct PlayerData
 
 
 	};
+	
 }
 
