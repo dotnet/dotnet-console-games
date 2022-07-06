@@ -422,5 +422,15 @@
 			"console": "externalTerminal",
 			"stopAtEntry": false,
 		},
+		{
+			"name": "Console Monsters",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Console Monsters",
+			"program": "${workspaceFolder}/Projects/Console Monsters/bin/Debug/Console Monsters.dll",
+			"cwd": "${workspaceFolder}/Projects/Console Monsters/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
 	],
 }

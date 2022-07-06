@@ -3,6 +3,19 @@
     "tasks":
     [
         {
+            "label": "Build Console Monsters",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/Console Monsters/Console Monsters.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
+        {
             "label": "Build Checkers",
             "command": "dotnet",
             "type": "process",

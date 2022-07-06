@@ -41,7 +41,7 @@
 		Console = Game.Console;
 		Console.WindowWidth = 50;
 		Console.WindowHeight = 27;
-		Console.StateHasChanged = StateHasChanged;
+		Console.TriggerRefresh = StateHasChanged;
 	}
 
 	protected override void OnInitialized() => InvokeAsync(Game.Run);

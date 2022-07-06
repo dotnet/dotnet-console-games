@@ -874,7 +874,7 @@ namespace Role_Playing_Game
 					if (Console.BufferHeight != height) Console.BufferHeight = height;
 					if (Console.BufferWidth != width)   Console.BufferWidth = width;
 				}
-				catch (ArgumentOutOfRangeException)
+				catch (Exception)
 				{
 					Console.Clear();
 					goto RestartRender;

@@ -16,16 +16,30 @@ public class BlazorConsole
 		public char Char;
 		public ConsoleColor BackgroundColor;
 		public ConsoleColor ForegroundColor;
+
+		public static bool operator ==(Pixel a, Pixel b) =>
+			a.Char == b.Char &&
+			a.ForegroundColor == b.ForegroundColor &&
+			a.BackgroundColor == b.BackgroundColor;
+
+		public static bool operator !=(Pixel a, Pixel b) => !(a == b);
+
+		public override bool Equals(object? obj) => obj is Pixel && this == (Pixel)obj;
+
+		public override int GetHashCode() => HashCode.Combine(Char, ForegroundColor, BackgroundColor);
 	}
 
+#pragma warning disable CA2211 // Non-constant fields should not be visible
 	public static BlazorConsole? ActiveConsole;
+#pragma warning restore CA2211 // Non-constant fields should not be visible
 
 	public const int Delay = 1; // miliseconds
 	public const int InactiveDelay = 1000; // milliseconds
 	public readonly Queue<ConsoleKeyInfo> InputBuffer = new();
-	public Action? StateHasChanged;
+	public Action? TriggerRefresh;
 	public bool RefreshOnInputOnly = true;
 	public Pixel[,] View;
+	public bool StateHasChanged = true;
 
 	public string? Title;
 	public ConsoleColor BackgroundColor = ConsoleColor.Black;
@@ -72,6 +86,17 @@ public class BlazorConsole
 		get => WindowHeight;
 		set => WindowHeight = value;
 	}
+
+#pragma warning disable CA1822 // Mark members as static
+#pragma warning disable IDE0060 // Remove unused parameter
+
+	public void SetWindowPosition(int left, int top)
+	{
+		// do nothing :)
+	}
+
+#pragma warning restore IDE0060 // Remove unused parameter
+#pragma warning restore CA1822 // Mark members as static
 
 	public void SetWindowSize(int width, int height)
 	{
@@ -174,7 +199,10 @@ public class BlazorConsole
 	public async Task RefreshAndDelay(TimeSpan timeSpan)
 	{
 		DieIfNotActiveGame();
-		StateHasChanged?.Invoke();
+		if (StateHasChanged)
+		{
+			TriggerRefresh?.Invoke();
+		}
 		await Task.Delay(timeSpan);
 	}
 
@@ -191,13 +219,17 @@ public class BlazorConsole
 					View[row, column] = old_view[row, column];
 				}
 			}
+			StateHasChanged = true;
 		}
 	}
 
 	public async Task Refresh()
 	{
 		DieIfNotActiveGame();
-		StateHasChanged?.Invoke();
+		if (StateHasChanged)
+		{
+			TriggerRefresh?.Invoke();
+		}
 		await Task.Delay(Delay);
 	}
 
@@ -228,20 +260,21 @@ public class BlazorConsole
 					stateBuilder.Append(HttpUtility.HtmlEncode(View[row, column].Char));
 					if (View[row, column].ForegroundColor is not ConsoleColor.White)
 					{
-						stateBuilder.Append(@"</span>");
+						stateBuilder.Append("</span>");
 					}
 					if (View[row, column].BackgroundColor is not ConsoleColor.Black)
 					{
-						stateBuilder.Append(@"</span>");
+						stateBuilder.Append("</span>");
 					}
 					if (CursorVisible && (CursorLeft, CursorTop) == (column, row))
 					{
-						stateBuilder.Append(@"</span>");
+						stateBuilder.Append("</span>");
 					}
 				}
 				stateBuilder.Append("<br />");
 			}
 			string state = stateBuilder.ToString();
+			StateHasChanged = false;
 			return (MarkupString)state;
 		}
 	}
@@ -270,12 +303,14 @@ public class BlazorConsole
 		{
 			for (int column = 0; column < View.GetLength(1); column++)
 			{
-				View[row, column] = new()
+				Pixel pixel = new()
 				{
 					Char = ' ',
 					BackgroundColor = BackgroundColor,
 					ForegroundColor = ForegroundColor,
 				};
+				StateHasChanged = StateHasChanged || pixel != View[row, column];
+				View[row, column] = pixel;
 			}
 		}
 		(CursorLeft, CursorTop) = (0, 0);
@@ -302,27 +337,34 @@ public class BlazorConsole
 			for (int row = 0; row < View.GetLength(0) - 1; row++)
 			{
 				for (int column = 0; column < View.GetLength(1); column++)
-				{
+{
+					StateHasChanged = StateHasChanged || View[row, column] != View[row + 1, column];
 					View[row, column] = View[row + 1, column];
 				}
 			}
 			for (int column = 0; column < View.GetLength(1); column++)
 			{
-				View[View.GetLength(0) - 1, column] = new()
+				Pixel pixel = new()
 				{
 					Char = ' ',
 					BackgroundColor = BackgroundColor,
 					ForegroundColor = ForegroundColor
 				};
+				StateHasChanged = StateHasChanged || View[View.GetLength(0) - 1, column] != pixel;
+				View[View.GetLength(0) - 1, column] = pixel;
 			}
 			CursorTop--;
 		}
-		View[CursorTop, CursorLeft] = new()
 		{
-			Char = c,
-			BackgroundColor = BackgroundColor,
-			ForegroundColor = ForegroundColor,
-		};
+			Pixel pixel = new()
+			{
+				Char = c,
+				BackgroundColor = BackgroundColor,
+				ForegroundColor = ForegroundColor
+			};
+			StateHasChanged = StateHasChanged || View[CursorTop, CursorLeft] != pixel;
+			View[CursorTop, CursorLeft] = pixel;
+		}
 		CursorLeft++;
 	}
 
@@ -378,11 +420,11 @@ public class BlazorConsole
 		}
 	}
 
-	public async Task<ConsoleKeyInfo> ReadKey(bool capture)
+	public ConsoleKeyInfo ReadKeyNoRefresh(bool capture)
 	{
-		while (!KeyAvailableNoRefresh())
+		if (!KeyAvailableNoRefresh())
 		{
-			await Refresh();
+			throw new InvalidOperationException("attempting a no refresh ReadKey with an empty input buffer");
 		}
 		var keyInfo = InputBuffer.Dequeue();
 		if (capture is false)
@@ -398,6 +440,15 @@ public class BlazorConsole
 		return keyInfo;
 	}
 
+	public async Task<ConsoleKeyInfo> ReadKey(bool capture)
+	{
+		while (!KeyAvailableNoRefresh())
+		{
+			await Refresh();
+		}
+		return ReadKeyNoRefresh(capture);
+	}
+
 	public async Task<string> ReadLine()
 	{
 		string line = string.Empty;
@@ -405,7 +456,7 @@ public class BlazorConsole
 		{
 			while (!KeyAvailableNoRefresh())
 			{
-				await Refresh();
+					await Refresh();
 			}
 			var keyInfo = InputBuffer.Dequeue();
 			switch (keyInfo.Key)
@@ -416,6 +467,7 @@ public class BlazorConsole
 						if (CursorLeft > 0)
 						{
 							CursorLeft--;
+							StateHasChanged = true;
 							View[CursorTop, CursorLeft].Char = ' ';
 						}
 						line = line[..^1];
@@ -484,6 +536,7 @@ public class BlazorConsole
 		}
 	}
 
+#pragma warning disable CA1822 // Mark members as static
 	/// <summary>
 	/// Returns true. Some members of <see cref="Console"/> only work
 	/// on Windows such as <see cref="Console.WindowWidth"/>, but even though this
@@ -492,4 +545,5 @@ public class BlazorConsole
 	/// </summary>
 	/// <returns>true</returns>
 	public bool IsWindows() => true;
+#pragma warning restore CA1822 // Mark members as static
 }

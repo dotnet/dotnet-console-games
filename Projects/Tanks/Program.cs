@@ -463,7 +463,7 @@ while (Tanks.Contains(Player) && Tanks.Count > 1)
 
 	Console.SetCursorPosition(0, 0);
 	Render(Map);
-	Thread.Sleep(TimeSpan.FromMilliseconds(10));
+	Thread.Sleep(TimeSpan.FromMilliseconds(80));
 }
 
 Console.SetCursorPosition(0, 33);

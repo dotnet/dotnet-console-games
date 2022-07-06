@@ -4,7 +4,7 @@
 
 <h1 align="center">
 	dotnet-console-games
-</h1>
+</h1> <!-- Comment -->
 
 <p align="center">
 	<a href="https://github.com/ZacharyPatten/dotnet-console-games" alt="GitHub repo"><img alt="flat" src=".github/resources/github-repo-black.svg"></a>
@@ -63,6 +63,7 @@
 |[Maze](Projects/Maze)|5|<sub>[![Play Now](.github/resources/play-badge.svg)](https://zacharypatten.github.io/dotnet-console-games/Maze)&nbsp;[![Status](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Maze%20Build/badge.svg)](https://github.com/ZacharyPatten/dotnet-console-games/actions)</sub>|
 |[PacMan](Projects/PacMan)|5|<sub>[![Play Now](.github/resources/play-badge.svg)](https://zacharypatten.github.io/dotnet-console-games/PacMan)&nbsp;[![Status](https://github.com/ZacharyPatten/dotnet-console-games/workflows/PacMan%20Build/badge.svg)](https://github.com/ZacharyPatten/dotnet-console-games/actions)</sub>|
 |[Role&nbsp;Playing&nbsp;Game](Projects/Role%20Playing%20Game)|6|<sub>[![Play Now](.github/resources/play-badge.svg)](https://zacharypatten.github.io/dotnet-console-games/Role%20Playing%20Game)&nbsp;[![Status](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Role%20Playing%20Game%20Build/badge.svg)](https://github.com/ZacharyPatten/dotnet-console-games/actions)</sub>|
+|[Console&nbsp;Monsters](Projects/Console%20Monsters)|7|<sub>[![Play Now](.github/resources/play-badge.svg)](https://zacharypatten.github.io/dotnet-console-games/Console%20Monsters)&nbsp;[![Status](https://github.com/ZacharyPatten/dotnet-console-games/workflows/Console%20Monsters%20Build/badge.svg)](https://github.com/ZacharyPatten/dotnet-console-games/actions)</sub><br/><sup>*_[Community&nbsp;Contribution](https://github.com/ZacharyPatten/dotnet-console-games/pull/45)_</sup><br/><sup>_Work&nbsp;In&nbsp;Progress_</sup>|
 
 <sup>\*_**Weight**: A relative rating for how advanced the source code is._</sup>
 <br/>
