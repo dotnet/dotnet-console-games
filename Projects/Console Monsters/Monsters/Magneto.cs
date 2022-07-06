@@ -14,8 +14,8 @@ public class Magneto : MonsterBase
 	}
 	public override string[] Sprite => (
 
-		"╮       ╭" + '\n' +
+	   "╮       ╭  " + '\n' +
 	   "╮ ╮╮╰ ╯╭╭ ╭" + '\n' +
 	   "╯ ╯╯ O ╰╰ ╰" + '\n' +
-		"╯      ╰").Split('\n');
+	   "╯       ╰  ").Split('\n');
 }
