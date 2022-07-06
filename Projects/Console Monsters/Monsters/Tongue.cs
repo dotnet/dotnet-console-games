@@ -9,7 +9,7 @@ internal class Tongue : MonsterBase
 {
 	public Tongue()
 	{
-		Name = "Turtle";
+		Name = "Tongue";
 	}
 
 	public override string[] Sprite => (
