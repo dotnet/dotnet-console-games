@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Console_Monsters.Monsters;
 internal class Tongue : MonsterBase
 {
-	public Turtle()
+	public Tongue()
 	{
 		Name = "Turtle";
 	}
