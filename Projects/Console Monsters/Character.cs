@@ -237,8 +237,8 @@ public class Character
 		@" │_|_│ ";
 
 	public static readonly string IdleUp3 =
-		  @"___" + '\n' +
-		 @"│─-─│" + '\n' +
+		@"  ___  " + '\n' +
+		@" │─-─│ " + '\n' +
 		@" │═══│ " + '\n' +
 		@" │   │ " + '\n' +
 		@"╭╰───╯╮" + '\n' +
@@ -246,8 +246,8 @@ public class Character
 		@" │_|_│ ";
 
 	public static readonly string IdleDown3 =
-		  @"___" + '\n' +
-		 @"│─♦─│" + '\n' +
+		@"  ___  " + '\n' +
+		@" │─♦─│ " + '\n' +
 		@" │═══│ " + '\n' +
 		@" │^_^│ " + '\n' +
 		@"╭╰───╯╮" + '\n' +
@@ -255,31 +255,31 @@ public class Character
 		@" │_|_│ ";
 	
 	public static readonly string IdleLeft3 =
-		@" │__│ " + '\n' +
+	   @"  │__│  " + '\n' +
 	   @" ═│══│  " + '\n' +
-		@" │- │  " + '\n' +
-		@" ╰──╯  " + '\n' +
-		@" │||│  " + '\n' +
-		@" │__│  ";
+	   @"  │- │  " + '\n' +
+	   @"  ╰──╯  " + '\n' +
+	   @"  │||│  " + '\n' +
+	   @"  │__│  ";
 
 	public static readonly string IdleRight3 =
-		 @" │__│ " + '\n' +
-		@"  │══│═ " + '\n' +
+		@"  │__│ " + '\n' +
+		@"  │══│═" + '\n' +
 		@"  │ ^│ " + '\n' +
 		@"  ╰──╯ " + '\n' +
 		@"  │||│ " + '\n' +
 		@"  │__│ ";
 
 	public static readonly string IdleUp4 =
-		 @"_____" + '\n' +
-		@" │═══│ " + '\n' +
-		@" │   │ " + '\n' +
-		@"╭╰───╯╮" + '\n' +
-		@"│├───┤│" + '\n' +
-		@" │_|_│ ";
+	   @" _____ " + '\n' +
+	   @" │═══│ " + '\n' +
+	   @" │   │ " + '\n' +
+	   @"╭╰───╯╮" + '\n' +
+	   @"│├───┤│" + '\n' +
+	   @" │_|_│ ";
 
 	public static readonly string IdleDown4 =
-		 @"_____" + '\n' +
+		@" _____ " + '\n' +
 		@" │═══│ " + '\n' +
 		@" │^_^│ " + '\n' +
 		@"╭╰───╯╮" + '\n' +
@@ -287,29 +287,29 @@ public class Character
 		@" │_|_│ ";
 
 	public static readonly string IdleRight4 =
-		 @" ____ " + '\n' +
-		@"  │══│═ " + '\n' +
-		@"  │ ^│ " + '\n' +
-		@"  ╰──╯ " + '\n' +
-		@"  │||│ " + '\n' +
-		@"  │__│ ";
+		  @"____" + '\n' +
+		  @"│══│═" + '\n' +
+		  @"│ ^│" + '\n' +
+		  @"╰──╯" + '\n' +
+		  @"│||│" + '\n' +
+		  @"│__│";
 
 	public static readonly string IdleLeft4 =
-		@" ____ " + '\n' +
-	   @" ═│══│  " + '\n' +
-		@" │- │  " + '\n' +
-		@" ╰──╯  " + '\n' +
-		@" │||│  " + '\n' +
-		@" │__│  ";
+		@" ____" + '\n' +
+	    @"═│══│" + '\n' +
+		@" │^ │" + '\n' +
+		@" ╰──╯" + '\n' +
+		@" │||│" + '\n' +
+		@" │__│";
 
 	public static readonly string Cap =
 		@"│───│" + '\n' +
 		@"│─♦─│" + '\n' +
-		@" ───";
+		@" ─── ";
 
 	public static readonly string TrainInstructorHat =
 		@"_____" + '\n' +
-	   @" │═══│ ";
+	    @"│═══│";
 
 	public static readonly string[] IdleDown =
 		Enumerable.Repeat(IdleDown1, 100).Concat(Enumerable.Repeat(IdleDown2, 10)).ToArray();

@@ -15,5 +15,5 @@ public class Musikradio : MonsterBase
 	public override string[] Sprite => (
 		"╭──♫♫♫──╮" + '\n' +
 		"│♪ ^_^ ♪│" + '\n' +
-		"╰───◌───╯ ").Split('\n');
+		"╰───◌───╯").Split('\n');
 }
