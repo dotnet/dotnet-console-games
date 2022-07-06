@@ -182,6 +182,7 @@ public class Player
 		@" │_├─┘ ",
 	};
 
+	#region IdleLeft
 	public static readonly string IdleLeft1 =
 		@" ╭══╮  " + '\n' +
 		@" │' │  " + '\n' +
@@ -196,7 +197,9 @@ public class Player
 		@" │__│  ";
 	public static readonly string[] IdleLeft =
 		Enumerable.Repeat(IdleLeft1, 100).Concat(Enumerable.Repeat(IdleLeft2, 10)).ToArray();
+	#endregion
 
+	#region IdleRight
 	public static readonly string IdleRight1 =
 		@"  ╭══╮ " + '\n' +
 		@"  │ '│ " + '\n' +
@@ -211,7 +214,9 @@ public class Player
 		@"  │__│ ";
 	public static readonly string[] IdleRight =
 		Enumerable.Repeat(IdleRight1, 100).Concat(Enumerable.Repeat(IdleRight2, 10)).ToArray();
+	#endregion
 
+	#region IdleUp
 	public static readonly string IdleUp1 =
 		@" ╭═══╮ " + '\n' +
 		@" │   │ " + '\n' +
@@ -221,7 +226,9 @@ public class Player
 	#warning TODO: need another idle sprite
 	public static readonly string[] IdleUp =
 		Enumerable.Repeat(IdleUp1, 100).Concat(Enumerable.Repeat(IdleUp1, 10)).ToArray();
+	#endregion
 
+	#region IdleDown
 	public static readonly string IdleDown1 =
 		@" ╭═══╮ " + '\n' +
 		@" │'_'│ " + '\n' +
@@ -238,6 +245,7 @@ public class Player
 
 	public static readonly string[] IdleDown =
 		Enumerable.Repeat(IdleDown1, 100).Concat(Enumerable.Repeat(IdleDown2, 10)).ToArray();
+	#endregion
 
 	#endregion
 }
