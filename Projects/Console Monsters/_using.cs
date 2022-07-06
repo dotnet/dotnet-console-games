@@ -3,6 +3,7 @@ global using System.Linq;
 global using System.Text;
 global using System.Threading;
 global using static Console_Monsters._using;
+global using Console_Monsters.Items;
 global using Console_Monsters.Maps;
 global using Console_Monsters.Monsters;
 global using Console_Monsters.Bases;
@@ -30,7 +31,7 @@ public static class _using
 	public static int maxPartySize = 6;
 	public static bool gameRunning = true;
 	public static bool startMenu = true;
-	public static bool inventoryOpen = false;
+	public static bool inInventory = false;
 	public static List<MonsterBase> ownedMonsters = new();
 	public static List<MonsterBase> activeMonsters = new();
 
@@ -58,14 +59,8 @@ public static class _using
 
 	public static string[]? promptText = null;
 
-	public static readonly Dictionary<Items, (string Name, string Description, string Sprite)> ItemDetails = new()
-	{
-		{ Items.MonsterBox, ("A Monster Box", "Used to trap and store monsters", Sprites.MonsterBox)},
-		{ Items.HealthPotionLarge,  ("A Large Health Potion", "Used to restore hp to monsters", Sprites.HealthPotionLarge)},
-		{ Items.HealthPotionMedium,  ("A Medium Health Potion", "Used to restore hp to monsters", Sprites.HealthPotionMedium)},
-		{ Items.HealthPotionSmall,  ("A Small Health Potion", "Used to restore hp to monsters", Sprites.HealthPotionSmall)},
-		{ Items.XPBerries,  ("Magical XP Berries", "Used to increase a monsters experience", Sprites.XPBerries)},
-	};
+	public static int SelectedPlayerInventoryItem = 0;
+	public static readonly Towel.DataStructures.IBag<ItemBase> PlayerInventory = Towel.DataStructures.BagMap.New<ItemBase>();
 
 	static _using()
 	{
@@ -77,6 +72,15 @@ public static class _using
 			J = j * Sprites.Height,
 			Animation = Character.IdleDown,
 		};
+		PlayerInventory.TryAdd(ExperienceBerries.Instance);
+		PlayerInventory.TryAdd(HealthPotionLarge.Instance);
+		PlayerInventory.TryAdd(HealthPotionMedium.Instance);
+		PlayerInventory.TryAdd(HealthPotionSmall.Instance);
+		PlayerInventory.TryAdd(MonsterBox.Instance);
+		PlayerInventory.TryAdd(Mushroom.Instance);
+		PlayerInventory.TryAdd(Leaf.Instance);
+		PlayerInventory.TryAdd(Key.Instance);
+		PlayerInventory.TryAdd(Candle.Instance);
 	}
 
 	public static void PressEnterToContiue()

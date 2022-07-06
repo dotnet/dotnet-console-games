@@ -267,15 +267,46 @@ public partial class Program
 				case ConsoleKey.B:
 					if (promptText is not null)
 					{
-						break;
+						break; 
 					}
+
+					#warning TODO: this is temporary population of monsters during developemnt
 					activeMonsters.Clear();
 					for (int i = 0; i < (maxPartySize - GameRandom.Next(0, 3)); i++)
 					{
 						activeMonsters.Add(MonsterBase.GetRandom());
 					}
-					Renderer.RenderInventoryView();
-					PressEnterToContiue();
+
+					inInventory = true;
+					while (inInventory)
+					{
+						Renderer.RenderInventoryView();
+					
+						switch (Console.ReadKey(true).Key)
+						{
+							case ConsoleKey.UpArrow:
+								if (SelectedPlayerInventoryItem > 0)
+								{
+									SelectedPlayerInventoryItem--;
+								}
+								else
+								{
+									SelectedPlayerInventoryItem = PlayerInventory.Distinct().Count() - 1;
+								}
+								break;
+							case ConsoleKey.DownArrow:
+								if (SelectedPlayerInventoryItem < PlayerInventory.Distinct().Count() - 1)
+								{
+									SelectedPlayerInventoryItem++;
+								}
+								else
+								{
+									SelectedPlayerInventoryItem = 0;
+								}
+								break;
+							case ConsoleKey.Escape: inInventory = false; break;
+						}
+					}
 					break;
 				case ConsoleKey.Enter:
 					promptText = null;
