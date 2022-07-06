@@ -25,7 +25,7 @@ public partial class Program
 				}
 			}
 
-			StartMenu();
+			Start.StartMenu();
 			while (gameRunning)
 			{
 				UpdateCharacter();
@@ -45,152 +45,26 @@ public partial class Program
 		}
 	}
 
-	static void StartMenu()
-	{
-		Console.Clear();
-		StringBuilder sb = new();
-
-		int arrowOption = 1;
-
-		string optionIndent = new(' ', 60);
-		string titleIndent = new(' ', 10);
-		string newLineOptions = new('\n', 2);
-		string newLineTitle = new('\n', 6);
-
-	ReDraw:
-		sb.Clear();
-
-		sb.AppendLine($"{newLineTitle}");
-		sb.AppendLine(@$"{titleIndent} ██████╗ ██████╗ ███╗   ██╗███████╗ ██████╗ ██╗     ███████╗    ███╗   ███╗ ██████╗ ███╗   ██╗███████╗████████╗███████╗██████╗ ███████╗");
-		sb.AppendLine(@$"{titleIndent}██╔════╝██╔═══██╗████╗  ██║██╔════╝██╔═══██╗██║     ██╔════╝    ████╗ ████║██╔═══██╗████╗  ██║██╔════╝╚══██╔══╝██╔════╝██╔══██╗██╔════╝");
-		sb.AppendLine(@$"{titleIndent}██║     ██║   ██║██╔██╗ ██║███████╗██║   ██║██║     █████╗      ██╔████╔██║██║   ██║██╔██╗ ██║███████╗   ██║   █████╗  ██████╔╝███████╗");
-		sb.AppendLine(@$"{titleIndent}██║     ██║   ██║██║╚██╗██║╚════██║██║   ██║██║     ██╔══╝      ██║╚██╔╝██║██║   ██║██║╚██╗██║╚════██║   ██║   ██╔══╝  ██╔══██╗╚════██║");
-		sb.AppendLine(@$"{titleIndent}╚██████╗╚██████╔╝██║ ╚████║███████║╚██████╔╝███████╗███████╗    ██║ ╚═╝ ██║╚██████╔╝██║ ╚████║███████║   ██║   ███████╗██║  ██║███████║");
-		sb.AppendLine(@$"{titleIndent} ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚══════╝╚══════╝    ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚══════╝");
-		sb.AppendLine(@$"{newLineTitle}");
-
-		sb.AppendLine(@$"{optionIndent} {(FirstTimeLaunching ? "  ▄▄▄▄▄ ▄▄▄▄▄  ▄▄  ▄▄▄  ▄▄▄▄▄" : "▄▄▄  ▄▄▄▄ ▄▄▄▄▄ ▄  ▄ ▄   ▄ ▄▄▄▄")}  {(arrowOption is 1 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent} {(FirstTimeLaunching ? "  █▄▄▄▄   █   █▄▄█ █▄▄▀   █  " : "█▄▄▀ █▄▄  █▄▄▄▄ █  █ █▀▄▀█ █▄▄ ")}  {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent} {(FirstTimeLaunching ? "  ▄▄▄▄█   █   █  █ █  █   █  " : "█  █ █▄▄▄ ▄▄▄▄█ ▀▄▄▀ █   █ █▄▄▄")}  {(arrowOption is 1 ? "╰───╯" : "     ")}");
-		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent} ▄▄  ▄▄▄  ▄▄▄▄▄ ▄  ▄▄  ▄   ▄ ▄▄▄▄▄  {(arrowOption is 2 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█  █ █▄▄▀   █   █ █  █ █▀▄ █ █▄▄▄▄  {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}▀▄▄▀ █      █   █ ▀▄▄▀ █  ▀█ ▄▄▄▄█  {(arrowOption is 2 ? "╰───╯" : "     ")}");
-		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}        ▄▄▄▄ ▄   ▄ ▄ ▄▄▄▄▄  {(arrowOption is 3 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}        █▄▄   ▀▄▀  █   █    {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}        █▄▄▄ ▄▀ ▀▄ █   █    {(arrowOption is 3 ? "╰───╯" : "     ")}");
-
-		Console.SetCursorPosition(0, 0);
-		Console.WriteLine(sb);
-
-
-		ConsoleKey key = Console.ReadKey(true).Key;
-		switch (key)
-		{
-			case ConsoleKey.UpArrow or ConsoleKey.W:   arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
-			case ConsoleKey.DownArrow or ConsoleKey.S: arrowOption = Math.Min(3, arrowOption + 1); goto ReDraw;
-			case ConsoleKey.Enter or ConsoleKey.E:
-				switch (arrowOption)
-				{
-					case 1:
-						FirstTimeLaunching = false;
-						break;
-					case 2:
-						Options();
-						Console.Clear();
-						goto ReDraw; // To not run "arrowOption" so it stays on "Options" after going back
-					case 3:
-						gameRunning = false;
-						break;
-				}
-				break;
-			case ConsoleKey.Escape: break;
-			default: goto ReDraw;
-		}
-	}
-
-	static void Options()
-	{
-		StringBuilder sb = new();
-
-		int arrowOption = 1;
-
-		string optionIndent = new(' ', 60);
-		string titleIndent = new(' ', 50);
-		string newLineOptions = new('\n', 2);
-		string newLineTitle = new('\n', 6);
-
-		Console.Clear();
-		ReDraw:
-		sb.Clear();
-
-		sb.AppendLine(@$"{newLineTitle}");
-		sb.AppendLine(@$"{titleIndent} ██████╗ ██████╗ ████████╗██╗ ██████╗ ███╗   ██╗███████╗");
-		sb.AppendLine(@$"{titleIndent}██╔═══██╗██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝");
-		sb.AppendLine(@$"{titleIndent}██║   ██║██████╔╝   ██║   ██║██║   ██║██╔██╗ ██║███████╗");
-		sb.AppendLine(@$"{titleIndent}██║   ██║██╔═══╝    ██║   ██║██║   ██║██║╚██╗██║╚════██║");
-		sb.AppendLine(@$"{titleIndent}╚██████╔╝██║        ██║   ██║╚██████╔╝██║ ╚████║███████║");
-		sb.AppendLine(@$"{titleIndent} ╚═════╝ ╚═╝        ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝");
-		sb.AppendLine(@$"{newLineTitle}");
-
-		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "╔══╗" : "╔══╗")}                      {(arrowOption is 1 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "║  ║" : "║██║")}  Movement Animation  {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "╚══╝" : "╚══╝")}                      {(arrowOption is 1 ? "╰───╯" : "     ")}");
-		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}{(DisableBattleTransition ? "╔══╗" : "╔══╗")}                     {(arrowOption is 2 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableBattleTransition ? "║  ║" : "║██║")}  Battle Transition  {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableBattleTransition ? "╚══╝" : "╚══╝")}                     {(arrowOption is 2 ? "╰───╯" : "     ")}");
-		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}{(DisableBattle ? "╔══╗" : "╔══╗")}                      {(arrowOption is 3 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableBattle ? "║  ║" : "║██║")}  Battles (DEV TOOL)  {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableBattle ? "╚══╝" : "╚══╝")}                      {(arrowOption is 3 ? "╰───╯" : "     ")}");
-		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}█▀▀▄  ▄▄   ▄▄▄ ▄  ▄   {(arrowOption is 4 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█■■█ █▄▄█ █    █■█    {(arrowOption is 4 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█▄▄▀ █  █ ▀▄▄▄ █  ▀▄  {(arrowOption is 4 ? "╰───╯" : "     ")}");
-
-		Console.SetCursorPosition(0, 0);
-		Console.WriteLine(sb);
-
-		switch (Console.ReadKey(true).Key)
-		{
-			case ConsoleKey.UpArrow or ConsoleKey.W:   arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
-			case ConsoleKey.DownArrow or ConsoleKey.S: arrowOption = Math.Min(4, arrowOption + 1); goto ReDraw;
-			case ConsoleKey.Enter or ConsoleKey.E:
-				switch (arrowOption)
-				{
-					case 1: DisableMovementAnimation = !DisableMovementAnimation; goto ReDraw;
-					case 2: DisableBattleTransition = !DisableBattleTransition; goto ReDraw;
-					case 3: DisableBattle = !DisableBattle; goto ReDraw;
-					case 4: break;
-				}
-				break;
-			case ConsoleKey.Escape: break;
-			default: goto ReDraw;
-		}
-	}
-
 	static void UpdateCharacter()
 	{
-		if (character.Animation == Character.RunUp)    character.J--;
-		if (character.Animation == Character.RunDown)  character.J++;
-		if (character.Animation == Character.RunLeft)  character.I--;
-		if (character.Animation == Character.RunRight) character.I++;
+		if (character.Animation == Player.RunUp)    character.J--;
+		if (character.Animation == Player.RunDown)  character.J++;
+		if (character.Animation == Player.RunLeft)  character.I--;
+		if (character.Animation == Player.RunRight) character.I++;
 
 		character.AnimationFrame++;
 
-		if ((character.Animation == Character.RunUp    && character.AnimationFrame >= Sprites.Height) ||
-			(character.Animation == Character.RunDown  && character.AnimationFrame >= Sprites.Height) ||
-			(character.Animation == Character.RunLeft  && character.AnimationFrame >= Sprites.Width) ||
-			(character.Animation == Character.RunRight && character.AnimationFrame >= Sprites.Width))
+		if ((character.Animation == Player.RunUp    && character.AnimationFrame >= Sprites.Height) ||
+			(character.Animation == Player.RunDown  && character.AnimationFrame >= Sprites.Height) ||
+			(character.Animation == Player.RunLeft  && character.AnimationFrame >= Sprites.Width) ||
+			(character.Animation == Player.RunRight && character.AnimationFrame >= Sprites.Width))
 		{
 			map.PerformTileAction();
 			character.Animation =
-				character.Animation == Character.RunUp    ? Character.IdleUp    :
-				character.Animation == Character.RunDown  ? Character.IdleDown  :
-				character.Animation == Character.RunLeft  ? Character.IdleLeft  :
-				character.Animation == Character.RunRight ? Character.IdleRight :
+				character.Animation == Player.RunUp    ? Player.IdleUp    :
+				character.Animation == Player.RunDown  ? Player.IdleDown  :
+				character.Animation == Player.RunLeft  ? Player.IdleLeft  :
+				character.Animation == Player.RunRight ? Player.IdleRight :
 				throw new NotImplementedException();
 			character.AnimationFrame = 0;
 		}
@@ -233,10 +107,10 @@ public partial class Program
 							{
 								switch (key)
 								{
-									case ConsoleKey.UpArrow    or ConsoleKey.W: character.J -= Sprites.Height; character.Animation = Character.IdleUp;    break;
-									case ConsoleKey.DownArrow  or ConsoleKey.S: character.J += Sprites.Height; character.Animation = Character.IdleDown;  break;
-									case ConsoleKey.LeftArrow  or ConsoleKey.A: character.I -= Sprites.Width;  character.Animation = Character.IdleLeft;  break;
-									case ConsoleKey.RightArrow or ConsoleKey.D: character.I += Sprites.Width;  character.Animation = Character.IdleRight; break;
+									case ConsoleKey.UpArrow    or ConsoleKey.W: character.J -= Sprites.Height; character.Animation = Player.IdleUp;    break;
+									case ConsoleKey.DownArrow  or ConsoleKey.S: character.J += Sprites.Height; character.Animation = Player.IdleDown;  break;
+									case ConsoleKey.LeftArrow  or ConsoleKey.A: character.I -= Sprites.Width;  character.Animation = Player.IdleLeft;  break;
+									case ConsoleKey.RightArrow or ConsoleKey.D: character.I += Sprites.Width;  character.Animation = Player.IdleRight; break;
 								}
 								map.PerformTileAction();
 							}
@@ -244,10 +118,10 @@ public partial class Program
 							{
 								switch (key)
 								{
-									case ConsoleKey.UpArrow    or ConsoleKey.W: character.AnimationFrame = 0; character.Animation = Character.RunUp;    break;
-									case ConsoleKey.DownArrow  or ConsoleKey.S: character.AnimationFrame = 0; character.Animation = Character.RunDown;  break;
-									case ConsoleKey.LeftArrow  or ConsoleKey.A: character.AnimationFrame = 0; character.Animation = Character.RunLeft;  break;
-									case ConsoleKey.RightArrow or ConsoleKey.D: character.AnimationFrame = 0; character.Animation = Character.RunRight; break;
+									case ConsoleKey.UpArrow    or ConsoleKey.W: character.AnimationFrame = 0; character.Animation = Player.RunUp;    break;
+									case ConsoleKey.DownArrow  or ConsoleKey.S: character.AnimationFrame = 0; character.Animation = Player.RunDown;  break;
+									case ConsoleKey.LeftArrow  or ConsoleKey.A: character.AnimationFrame = 0; character.Animation = Player.RunLeft;  break;
+									case ConsoleKey.RightArrow or ConsoleKey.D: character.AnimationFrame = 0; character.Animation = Player.RunRight; break;
 								}
 							}
 						}
@@ -255,10 +129,10 @@ public partial class Program
 						{
 							character.Animation = key switch
 							{
-								ConsoleKey.UpArrow    or ConsoleKey.W => Character.IdleUp,
-								ConsoleKey.DownArrow  or ConsoleKey.S => Character.IdleDown,
-								ConsoleKey.LeftArrow  or ConsoleKey.A => Character.IdleLeft,
-								ConsoleKey.RightArrow or ConsoleKey.D => Character.IdleRight,
+								ConsoleKey.UpArrow    or ConsoleKey.W => Player.IdleUp,
+								ConsoleKey.DownArrow  or ConsoleKey.S => Player.IdleDown,
+								ConsoleKey.LeftArrow  or ConsoleKey.A => Player.IdleLeft,
+								ConsoleKey.RightArrow or ConsoleKey.D => Player.IdleRight,
 								_ => throw new Exception("bug"),
 							};
 						}
@@ -267,15 +141,46 @@ public partial class Program
 				case ConsoleKey.B:
 					if (promptText is not null)
 					{
-						break;
+						break; 
 					}
+
+					#warning TODO: this is temporary population of monsters during developemnt
 					activeMonsters.Clear();
 					for (int i = 0; i < (maxPartySize - GameRandom.Next(0, 3)); i++)
 					{
 						activeMonsters.Add(MonsterBase.GetRandom());
 					}
-					Renderer.RenderInventoryView();
-					PressEnterToContiue();
+
+					inInventory = true;
+					while (inInventory)
+					{
+						Renderer.RenderInventoryView();
+					
+						switch (Console.ReadKey(true).Key)
+						{
+							case ConsoleKey.UpArrow:
+								if (SelectedPlayerInventoryItem > 0)
+								{
+									SelectedPlayerInventoryItem--;
+								}
+								else
+								{
+									SelectedPlayerInventoryItem = PlayerInventory.Distinct().Count() - 1;
+								}
+								break;
+							case ConsoleKey.DownArrow:
+								if (SelectedPlayerInventoryItem < PlayerInventory.Distinct().Count() - 1)
+								{
+									SelectedPlayerInventoryItem++;
+								}
+								else
+								{
+									SelectedPlayerInventoryItem = 0;
+								}
+								break;
+							case ConsoleKey.Escape: inInventory = false; break;
+						}
+					}
 					break;
 				case ConsoleKey.Enter:
 					promptText = null;
@@ -292,7 +197,7 @@ public partial class Program
 						break;
 					}
 				case ConsoleKey.Escape:
-					StartMenu();
+					Start.StartMenu();
 					return;
 			}
 		}
