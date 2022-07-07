@@ -15,7 +15,7 @@ class PaletTown : MapBase
 			"fg                gf".ToCharArray(),
 			"fg  RMMj    RMMj  gf".ToCharArray(),
 			"fg  hkky    hkky  gf".ToCharArray(),
-			"fg sudlU   sudlU  gf".ToCharArray(),
+			"fg su2lU   sudlU  gf".ToCharArray(),
 			"fg  p             gf".ToCharArray(),
 			"fg                gf".ToCharArray(),
 			"fg        RMMMMj  gf".ToCharArray(),
@@ -49,6 +49,7 @@ class PaletTown : MapBase
 			// actions
 			'0' => Sprites.Door,
 			'1' => Sprites.ArrowHeavyUp,
+			'2' => Sprites.Door,
 			// Buildings
 			'd' => Sprites.Door,
 			'l' => Sprites.LowWindow,
@@ -131,6 +132,7 @@ class PaletTown : MapBase
 			' ' => true,
 			'0' => true,
 			'1' => true,
+			'2' => true,
 			'X' => true,
 			'g' => true,
 			_ => false,
@@ -150,6 +152,22 @@ class PaletTown : MapBase
 			case '1':
 				map = new Route1();
 				SpawnCharacterOn('0');
+				break;
+			case '2':
+				map = new House1();
+				SpawnCharacterOn('0');
+				break;
+			case 'G':
+				if (!DisableBattle && Random.Shared.Next(2) is 0) // BATTLE CHANCE
+				{
+					Console.Clear();
+					if (!DisableBattleTransition)
+					{
+						Renderer.RenderBattleTransition();
+					}
+					Renderer.RenderBattleView();
+					PressEnterToContiue();
+				}
 				break;
 		}
 	}
