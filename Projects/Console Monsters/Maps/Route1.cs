@@ -141,7 +141,8 @@ class Route1 : MapBase
 					{
 						Renderer.RenderBattleTransition();
 					}
-					Renderer.RenderBattleView();
+					Renderer.RenderBattleView(PlayerMonster, OpponentMonster);
+					Battle();
 					PressEnterToContiue();
 				}
 				break;

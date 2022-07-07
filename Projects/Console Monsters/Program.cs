@@ -145,10 +145,11 @@ public partial class Program
 					}
 
 					#warning TODO: this is temporary population of monsters during developemnt
-					activeMonsters.Clear();
+					partyMonsters.Clear();
+					Turtle turtle = new();
 					for (int i = 0; i < (maxPartySize - GameRandom.Next(0, 3)); i++)
 					{
-						activeMonsters.Add(MonsterBase.GetRandom());
+						partyMonsters.Add(turtle);
 					}
 
 					inInventory = true;
