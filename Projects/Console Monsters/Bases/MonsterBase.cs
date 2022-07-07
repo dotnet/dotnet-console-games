@@ -22,13 +22,21 @@ public abstract class MonsterBase
 
 	public abstract string[] Sprite { get; }
 
-	//public AnimalType Type { get; set; }
+	public int AttackStat { get; set; }
 
-	//public string? Description { get; set; }
+	public int SpeedStat { get; set; }
+
+	public int DefenseStat { get; set; }
+
+	public List<string>? MoveSet { get; set; }
+
+	public string? Description { get; set; }
+
+	//public AnimalType Type { get; set; }
 
 	//public string? StatusCondition { get; set; }
 
-	
+
 	//public static MonsterBase GetRandom(){}
 
 	public static MonsterBase GetRandom()
