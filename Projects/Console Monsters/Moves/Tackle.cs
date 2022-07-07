@@ -12,7 +12,7 @@ public class Tackle : MoveBase
 	{
 		Name = "Tackle";
 		BaseDamge = 40;
-		FinalDamage = (((2 * PlayerMonster.Level / 5 + 2) * BaseDamge * PlayerMonster.AttackStat / OpponentMonster.DefenseStat) / 50 + 2) * BattleRandom.Next(85, 101) / 100;
+		FinalDamage = (((2 * AttackingMonster.Level / 5 + 2) * BaseDamge * AttackingMonster.AttackStat / DefendingMonster.DefenseStat) / 50 + 2) * BattleRandom.Next(85, 101) / 100;
 		EnergyTaken = 10; // Temp
 	}
 }
