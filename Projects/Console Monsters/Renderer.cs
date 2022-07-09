@@ -290,7 +290,7 @@ public static class Renderer
 		int spriteIndex = 0;
 		int itemIndex = 0;
 
-		if (activeMonsters.Count < 1)
+		if (partyMonsters.Count < 1)
 		{
 			currentMonster = -1;
 		}
@@ -309,10 +309,10 @@ public static class Renderer
 			for (int i = 0; i < width; i++)
 			{
 				// rendering monsters 
-				if (currentMonster < activeMonsters.Count)
+				if (currentMonster < partyMonsters.Count)
 				{
-					currentMonsterWidth = activeMonsters[currentMonster].Sprite[0].Length;
-					currentMonsterHeight = activeMonsters[currentMonster].Sprite.GetLength(0);
+					currentMonsterWidth = partyMonsters[currentMonster].Sprite[0].Length;
+					currentMonsterHeight = partyMonsters[currentMonster].Sprite.GetLength(0);
 
 					if (i >= minWidth && i <= minWidth + currentMonsterWidth &&
 						j >= minHeight + monsterHeightSpacing && j < minHeight + currentMonsterHeight + monsterHeightSpacing && j < maxHeight - 1)
@@ -328,14 +328,14 @@ public static class Renderer
 							sb.Append(' ');
 							continue;
 						}
-						sb.Append(activeMonsters[currentMonster].Sprite[j - minHeight - monsterHeightSpacing][monsterSpriteIndex[currentMonster]]);
+						sb.Append(partyMonsters[currentMonster].Sprite[j - minHeight - monsterHeightSpacing][monsterSpriteIndex[currentMonster]]);
 						monsterSpriteIndex[currentMonster]++;
 						continue;
 					}
 
 					if (i == minWidth && j == minHeight + currentMonsterHeight + monsterHeightSpacing && j < maxHeight - 1)
 					{
-						monsterDetails = $"{activeMonsters[currentMonster].Name}  HP:{activeMonsters[currentMonster].CurrentHP}";
+						monsterDetails = $"{partyMonsters[currentMonster].Name}  HP:{partyMonsters[currentMonster].CurrentHP}  Level:{partyMonsters[currentMonster].Level}";
 						sb.Append(monsterDetails);
 						i += monsterDetails.Length - 1;
 						currentDone = true;
@@ -343,10 +343,10 @@ public static class Renderer
 					}
 
 
-					if (nextMonster < activeMonsters.Count)
+					if (nextMonster < partyMonsters.Count)
 					{
-						nextMonsterWidth = activeMonsters[nextMonster].Sprite[0].Length;
-						nextMonsterHeight = activeMonsters[nextMonster].Sprite.GetLength(0);
+						nextMonsterWidth = partyMonsters[nextMonster].Sprite[0].Length;
+						nextMonsterHeight = partyMonsters[nextMonster].Sprite.GetLength(0);
 
 						if (i >= minWidth + monsterWidthSpacing && i <= minWidth + nextMonsterWidth + monsterWidthSpacing &&
 							j >= minHeight + monsterHeightSpacing && j < minHeight + nextMonsterHeight + monsterHeightSpacing && j < maxHeight - 1)
@@ -362,7 +362,7 @@ public static class Renderer
 								sb.Append(' ');
 								continue;
 							}
-							sb.Append(activeMonsters[nextMonster].Sprite[j - minHeight - monsterHeightSpacing][monsterSpriteIndex[nextMonster]]);
+							sb.Append(partyMonsters[nextMonster].Sprite[j - minHeight - monsterHeightSpacing][monsterSpriteIndex[nextMonster]]);
 							monsterSpriteIndex[nextMonster]++;
 							continue;
 						}
@@ -370,7 +370,7 @@ public static class Renderer
 						if (i == minWidth + monsterWidthSpacing &&
 							j == minHeight + nextMonsterHeight + monsterHeightSpacing && j < maxHeight - 1)
 						{
-							monsterDetails = $"{activeMonsters[nextMonster].Name}  HP:{activeMonsters[nextMonster].CurrentHP}";
+							monsterDetails = $"{partyMonsters[nextMonster].Name}  HP:{partyMonsters[nextMonster].CurrentHP}";
 							sb.Append(monsterDetails);
 							i += monsterDetails.Length - 1;
 							nextDone = true;
@@ -568,7 +568,7 @@ public static class Renderer
 				}
 
 				sb.AppendLine();
-				if (currentMonster < activeMonsters.Count)
+				if (currentMonster < partyMonsters.Count)
 				{
 					monsterSpriteIndex[currentMonster] = 0;
 				}
@@ -579,12 +579,9 @@ public static class Renderer
 		SleepAfterRender();
 	}
 
-	public static void RenderBattleView()
+	public static void RenderBattleView(MonsterBase monsterA, MonsterBase monsterB)
 	{
 		int spriteheight = Sprites.BattleSpriteHeight + 1;
-
-		MonsterBase monsterA = MonsterBase.GetRandom();
-		MonsterBase monsterB = MonsterBase.GetRandom();
 
 		Console.CursorVisible = false;
 
@@ -652,6 +649,7 @@ public static class Renderer
 					continue;
 				}
 
+				//Opponent Monster (MONSTER B)
 				if (i > midWidth - (Sprites.BattleSpriteWidth / 4) * 1 &&
 					i < midWidth + (Sprites.BattleSpriteWidth / 4) * 3 + 3 &&
 					j < midHeight &&
@@ -679,6 +677,7 @@ public static class Renderer
 					continue;
 				}
 
+				//Player Monster (MONSTER A)
 				if (i > midWidth - (Sprites.BattleSpriteWidth / 4) * 3 - 3 &&
 					i < midWidth + (Sprites.BattleSpriteWidth / 4) * 1 &&
 					j < midHeight + spriteheight &&
