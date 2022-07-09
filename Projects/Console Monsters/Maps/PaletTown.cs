@@ -157,18 +157,6 @@ class PaletTown : MapBase
 				map = new House1();
 				SpawnCharacterOn('0');
 				break;
-			case 'G':
-				if (!DisableBattle && Random.Shared.Next(2) is 0) // BATTLE CHANCE
-				{
-					Console.Clear();
-					if (!DisableBattleTransition)
-					{
-						Renderer.RenderBattleTransition();
-					}
-					Renderer.RenderBattleView();
-					PressEnterToContiue();
-				}
-				break;
 		}
 	}
 }

@@ -3,12 +3,14 @@ global using System.Linq;
 global using System.Text;
 global using System.Threading;
 global using static Console_Monsters._using;
+global using static Console_Monsters.BattleSystem;
 global using Console_Monsters.Items;
 global using Console_Monsters.Maps;
 global using Console_Monsters.Monsters;
 global using Console_Monsters.Bases;
 global using Console_Monsters.NPCs;
 global using Console_Monsters.Menus;
+global using Console_Monsters.Enums;
 global using System.Collections.Generic;
 
 namespace Console_Monsters;
@@ -26,6 +28,7 @@ public static class _using
 	#endregion
 
 	public static Random GameRandom = new(7);
+	public static Random BattleRandom = new(7);
 	public static Player character = new();
 	public static MapBase map = new PaletTown();
 	public static DateTime previoiusRender = DateTime.Now;
@@ -34,7 +37,7 @@ public static class _using
 	public static bool startMenu = true;
 	public static bool inInventory = false;
 	public static List<MonsterBase> ownedMonsters = new();
-	public static List<MonsterBase> activeMonsters = new();
+	public static List<MonsterBase> partyMonsters = new();
 
 	public static readonly string[] defaultMaptext = new[]
 	{
@@ -54,8 +57,7 @@ public static class _using
 
 	public static readonly string[] battletext = new[]
 	{
-		"Battles are still in development.",
-		"Press [enter] to continue...",
+		"[↑, W, ←, A, ↓, S, →, D]: Move Selection, [E]: Select, [Escape]: Back",
 	};
 
 	public static string[]? promptText = null;
