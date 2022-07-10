@@ -13,7 +13,7 @@ internal class Mushroom : ItemBase
 	public override string? Description => "It is a mushroom";
 
 	public override string Sprite =>
-		@"       " + "\n" +
+		@"   __  " + "\n" +
 		@"  / `\ " + "\n" +
 		@" (___:)" + "\n" +
 		@"  """""""" " + "\n" +
