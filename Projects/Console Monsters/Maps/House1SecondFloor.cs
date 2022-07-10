@@ -14,12 +14,11 @@ public class House1SecondFloor : MapBase
 
 	public override string GetMapTileRender(int tileI, int tileJ)
 	{
-		char[][] s = map.SpriteSheet;
-		if (tileJ < 0 || tileJ >= s.Length || tileI < 0 || tileI >= s[tileJ].Length)
+		if (tileJ < 0 || tileJ >= SpriteSheet.Length || tileI < 0 || tileI >= SpriteSheet[tileJ].Length)
 		{
 			return Sprites.Open;
 		}
-		return s[tileJ][tileI] switch
+		return SpriteSheet[tileJ][tileI] switch
 		{
 			// actions
 			'0' => Sprites.StairsLeft,
@@ -98,12 +97,11 @@ public class House1SecondFloor : MapBase
 
 	public override bool IsValidCharacterMapTile(int i, int j)
 	{
-		char[][] s = map.SpriteSheet;
-		if (j < 0 || j >= s.Length || i < 0 || i >= s[j].Length)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
 			return false;
 		}
-		char c = s[j][i];
+		char c = SpriteSheet[j][i];
 		return c switch
 		{
 			' ' => true,
@@ -123,11 +121,11 @@ public class House1SecondFloor : MapBase
 		{
 			case 'i':
 				map = new House1();
-				SpawnCharacterOn('1');
+				map.SpawnCharacterOn('1');
 				break;
 			case 'j':
 				map = new House1();
-				SpawnCharacterOn('2');
+				map.SpawnCharacterOn('2');
 				break;
 		}
 	}
