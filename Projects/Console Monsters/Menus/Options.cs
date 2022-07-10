@@ -46,7 +46,7 @@ public class Options
 		sb.AppendLine(@$"{optionIndent}█▀▀▄  ▄▄   ▄▄▄ ▄  ▄   {(arrowOption is maxOption ? "╭───╮" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}█■■█ █▄▄█ █    █■█    {(arrowOption is maxOption ? "╞═●═╡" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}█▄▄▀ █  █ ▀▄▄▄ █  ▀▄  {(arrowOption is maxOption ? "╰───╯" : "     ")}");
-		
+
 		Console.SetCursorPosition(0, 0);
 		Console.WriteLine(sb);
 
@@ -55,7 +55,6 @@ public class Options
 			case ConsoleKey.UpArrow or ConsoleKey.W: arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
 			case ConsoleKey.DownArrow or ConsoleKey.S: arrowOption = Math.Min(maxOption, arrowOption + 1); goto ReDraw;
 			case ConsoleKey.Enter or ConsoleKey.E:
-
 				switch (arrowOption)
 				{
 					case 1: DisableMovementAnimation = !DisableMovementAnimation; goto ReDraw;
