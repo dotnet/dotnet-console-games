@@ -60,8 +60,11 @@ public class House1 : MapBase
 		{
 			return false;
 		}
-
-		return false;
+		return SpriteSheet[j][i] switch
+		{
+			'q' => true,
+			_ => false,
+		};
 	}
 
 	public override void InteractWithMapTile(int i, int j)
@@ -116,11 +119,11 @@ public class House1 : MapBase
 				break;
 			case 'i':
 				map = new House1SecondFloor();
-				SpawnCharacterOn('i');
+				map.SpawnCharacterOn('i');
 				break;
 			case 'j':
 				map = new House1SecondFloor();
-				SpawnCharacterOn('j');
+				map.SpawnCharacterOn('j');
 				break;
 
 		}
