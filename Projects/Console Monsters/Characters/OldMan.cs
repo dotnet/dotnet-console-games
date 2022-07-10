@@ -1,6 +1,6 @@
 ﻿namespace Console_Monsters.NPCs;
 
-public class OldMan : NPCBase
+public class OldMan : CharacterBase
 {
 	public OldMan()
 	{

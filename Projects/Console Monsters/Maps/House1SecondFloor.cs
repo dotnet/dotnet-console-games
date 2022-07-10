@@ -56,49 +56,54 @@ public class House1SecondFloor : MapBase
 		};
 	}
 
-	public override void InteractWithMapTile(int tileI, int tileJ)
+	public override bool CanInteractWithMapTile(int i, int j)
 	{
-		char[][] s = map.SpriteSheet;
-
-		Interact(tileI, tileJ + 1);
-		Interact(tileI, tileJ - 1);
-		Interact(tileI - 1, tileJ);
-		Interact(tileI + 1, tileJ);
-
-		void Interact(int i, int j)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
-			if (j >= 0 && j < s.Length && i >= 0 && i < s[j].Length)
+			return false;
+		}
+		return SpriteSheet[j][i] switch
+		{
+			'r' => true,
+			'w' => true,
+			_ => false,
+		};
+	}
+
+	public override void InteractWithMapTile(int i, int j)
+	{
+		if (j >= 0 && j < SpriteSheet.Length && i >= 0 && i < SpriteSheet[j].Length)
+		{
+			switch (SpriteSheet[j][i])
 			{
-				if (s[j][i] is 'r')
-				{
+				case 'r':
 					promptText = new string[]
-						{
-							"Mozin0:",
-							"ZzzZzzZzz...",
-							"MonsterBoz...",
-							"ZzzZzzZzz...",
-						};
-				}
-				if (s[j][i] is 'w')
-				{
+					{
+						"Mozin0:",
+						"ZzzZzzZzz...",
+						"MonsterBoz...",
+						"ZzzZzzZzz...",
+					};
+					break;
+				case 'w':
 					promptText = new string[]
-						{
-							"Penguin:",
-							"BrrrRRRrrr!",
-						};
-				}
+					{
+						"Penguin:",
+						"BrrrRRRrrr!",
+					};
+					break;
 			}
 		}
 	}
 
-	public override bool IsValidCharacterMapTile(int tileI, int tileJ)
+	public override bool IsValidCharacterMapTile(int i, int j)
 	{
 		char[][] s = map.SpriteSheet;
-		if (tileJ < 0 || tileJ >= s.Length || tileI < 0 || tileI >= s[tileJ].Length)
+		if (j < 0 || j >= s.Length || i < 0 || i >= s[j].Length)
 		{
 			return false;
 		}
-		char c = s[tileJ][tileI];
+		char c = s[j][i];
 		return c switch
 		{
 			' ' => true,
@@ -112,11 +117,9 @@ public class House1SecondFloor : MapBase
 		};
 	}
 
-	public override void PerformTileAction()
+	public override void PerformTileAction(int i, int j)
 	{
-		var (i, j) = WorldToTile(character.I, character.J);
-		char[][] s = map.SpriteSheet;
-		switch (s[j][i])
+		switch (SpriteSheet[j][i])
 		{
 			case 'i':
 				map = new House1();

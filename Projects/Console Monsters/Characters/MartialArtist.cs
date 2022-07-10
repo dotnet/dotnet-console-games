@@ -1,6 +1,6 @@
 ﻿namespace Console_Monsters.NPCs;
 
-public class MartialArtist : NPCBase
+public class MartialArtist : CharacterBase
 {
 	public MartialArtist()
 	{

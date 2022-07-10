@@ -35,14 +35,13 @@ class PaletTown : MapBase
 			"ggggWwwWGGGGGGfggggg".ToCharArray(),
 		};
 
-	public override string GetMapTileRender(int tileI, int tileJ)
+	public override string GetMapTileRender(int i, int j)
 	{
-		char[][] s = map.SpriteSheet;
-		if (tileJ < 0 || tileJ >= s.Length || tileI < 0 || tileI >= s[tileJ].Length)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
 			return Sprites.Open;
 		}
-		return s[tileJ][tileI] switch
+		return SpriteSheet[j][i] switch
 		{
 			// spawn
 			'X' => Sprites.Open,
@@ -81,52 +80,55 @@ class PaletTown : MapBase
 		};
 	}
 
-	public override void InteractWithMapTile(int tileI, int tileJ)
+	public override bool CanInteractWithMapTile(int i, int j)
 	{
-		char[][] s = map.SpriteSheet;
-
-
-		Interact(tileI, tileJ + 1);
-		Interact(tileI, tileJ - 1);
-		Interact(tileI - 1, tileJ);
-		Interact(tileI + 1, tileJ);
-
-		void Interact(int i, int j)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
-			if (j >= 0 && j < s.Length && i >= 0 && i < s[j].Length)
+			return false;
+		}
+		return SpriteSheet[j][i] switch
+		{
+			's' or 'a' => true,
+			'ś' => true,
+			'o' => true,
+			_ => false,
+		};
+	}
+
+	public override void InteractWithMapTile(int i, int j)
+	{
+		if (j >= 0 && j < SpriteSheet.Length && i >= 0 && i < SpriteSheet[j].Length)
+		{
+			switch (SpriteSheet[j][i])
 			{
-				if (s[j][i] is 's' or 'a')
-				{
+				case 's' or 'a':
 					promptText = new string[]
-						{
-							"Sign Says:",
-							"Hello! I am sign. :P",
-						};
-				}
-				if (s[j][i] is 'ś')
-				{
+					{
+						"Sign Says:",
+						"Hello! I am sign. :P",
+					};
+					break;
+				case 'ś':
 					promptText = new string[]
-						{
-							"Sign #2 Says:",
-							"Hello! I am sign #2. :P",
-						};
-				}
-				if (s[j][i] is 'o')
-				{
+					{
+						"Sign #2 Says:",
+						"Hello! I am sign #2. :P",
+					};
+					break;
+				case 'o':
 					promptText = scientist.Dialogue;
-				}
+					break;
 			}
 		}
 	}
 
-	public override bool IsValidCharacterMapTile(int tileI, int tileJ)
+	public override bool IsValidCharacterMapTile(int i, int j)
 	{
-		char[][] s = map.SpriteSheet;
-		if (tileJ < 0 || tileJ >= s.Length || tileI < 0 || tileI >= s[tileJ].Length)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
 			return false;
 		}
-		char c = s[tileJ][tileI];
+		char c = SpriteSheet[j][i];
 		return c switch
 		{
 			' ' => true,
@@ -139,23 +141,25 @@ class PaletTown : MapBase
 		};
 	}
 
-	public override void PerformTileAction()
+	public override void PerformTileAction(int i, int j)
 	{
-		var (i, j) = WorldToTile(character.I, character.J);
-		char[][] s = map.SpriteSheet;
-		switch (s[j][i])
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
+		{
+			return;
+		}
+		switch (SpriteSheet[j][i])
 		{
 			case '0':
 				map = new Center1();
-				SpawnCharacterOn('0');
+				map.SpawnCharacterOn('0');
 				break;
 			case '1':
 				map = new Route1();
-				SpawnCharacterOn('0');
+				map.SpawnCharacterOn('0');
 				break;
 			case '2':
 				map = new House1();
-				SpawnCharacterOn('0');
+				map.SpawnCharacterOn('0');
 				break;
 		}
 	}

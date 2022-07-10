@@ -46,14 +46,13 @@ class Route1 : MapBase
 			"gggfgggggf00fgggggfg".ToCharArray(),
 		};
 
-	public override string GetMapTileRender(int tileI, int tileJ)
+	public override string GetMapTileRender(int i, int j)
 	{
-		char[][] s = map.SpriteSheet;
-		if (tileJ < 0 || tileJ >= s.Length || tileI < 0 || tileI >= s[tileJ].Length)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
 			return Sprites.Open;
 		}
-		return s[tileJ][tileI] switch
+		return SpriteSheet[j][i] switch
 		{
 			// actions
 			'0' => Sprites.ArrowHeavyDown,
@@ -74,39 +73,43 @@ class Route1 : MapBase
 		};
 	}
 
-	public override void InteractWithMapTile(int tileI, int tileJ)
+	public override bool CanInteractWithMapTile(int i, int j)
 	{
-		char[][] s = map.SpriteSheet;
-
-		Interact(tileI, tileJ + 1);
-		Interact(tileI, tileJ - 1);
-		Interact(tileI - 1, tileJ);
-		Interact(tileI + 1, tileJ);
-
-		void Interact(int i, int j)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
-			if (j >= 0 && j < s.Length && i >= 0 && i < s[j].Length)
+			return false;
+		}
+		return SpriteSheet[j][i] switch
+		{
+			's' => true,
+			_ => false,
+		};
+	}
+
+	public override void InteractWithMapTile(int i, int j)
+	{
+		if (j >= 0 && j < SpriteSheet.Length && i >= 0 && i < SpriteSheet[j].Length)
+		{
+			switch (SpriteSheet[j][i])
 			{
-				if (s[j][i] is 's')
-				{
+				case 's':
 					promptText = new string[]
-						{
-							"Sign Says:",
-							"Hello! I am a sign. :P",
-						};
-				}
+					{
+						"Sign Says:",
+						"Hello! I am a sign. :P",
+					};
+					break;
 			}
 		}
 	}
 
-	public override bool IsValidCharacterMapTile(int tileI, int tileJ)
+	public override bool IsValidCharacterMapTile(int i, int j)
 	{
-		char[][] s = map.SpriteSheet;
-		if (tileJ < 0 || tileJ >= s.Length || tileI < 0 || tileI >= s[tileJ].Length)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
 			return false;
 		}
-		char c = s[tileJ][tileI];
+		char c = SpriteSheet[j][i];
 		return c switch
 		{
 			' ' => true,
@@ -119,19 +122,21 @@ class Route1 : MapBase
 		};
 	}
 
-	public override void PerformTileAction()
+	public override void PerformTileAction(int i, int j)
 	{
-		var (i, j) = WorldToTile(character.I, character.J);
-		char[][] s = map.SpriteSheet;
-		switch (s[j][i])
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
+		{
+			return;
+		}
+		switch (SpriteSheet[j][i])
 		{
 			case '0':
 				map = new PaletTown();
-				SpawnCharacterOn('1');
+				map.SpawnCharacterOn('1');
 				break;
 			case '1':
 				map = new Route2();
-				SpawnCharacterOn('0');
+				map.SpawnCharacterOn('0');
 				break;
 			case 'G':
 				if (!DisableBattle && Random.Shared.Next(2) is 0) // BATTLE CHANCE

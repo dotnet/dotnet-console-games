@@ -1,6 +1,6 @@
 ﻿namespace Console_Monsters.NPCs;
 
-public class Scientist : NPCBase
+public class Scientist : CharacterBase
 {
 	public Scientist()
 	{
