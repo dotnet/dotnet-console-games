@@ -1,35 +1,33 @@
 ﻿namespace Console_Monsters.Maps;
 
-public class House1 : MapBase
+public class House1SecondFloor : MapBase
 {
 	public override char[][] SpriteSheet => new char[][]
 		{
 			"afffffffffffffffb".ToCharArray(),
-		    "hpmnh     wvwkijg".ToCharArray(),
-	        "hmq          kijg".ToCharArray(),
-	        "hlll         k12g".ToCharArray(),
-	        "hstr   uuu      g".ToCharArray(),
-			"cllllll000lllllld".ToCharArray(),
+		    "hpq  uv   -     g".ToCharArray(),
+			"hno          kemg".ToCharArray(),
+	        "h      yy   xkemg".ToCharArray(),
+	        "hrst       wzkijg".ToCharArray(),
+			"cllllllllllllllld".ToCharArray(),
 		};
 
-	public override string GetMapTileRender(int i, int j)
+	public override string GetMapTileRender(int tileI, int tileJ)
 	{
-		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
+		if (tileJ < 0 || tileJ >= SpriteSheet.Length || tileI < 0 || tileI >= SpriteSheet[tileJ].Length)
 		{
 			return Sprites.Open;
 		}
-		return SpriteSheet[j][i] switch
+		return SpriteSheet[tileJ][tileI] switch
 		{
 			// actions
-			'0' => Sprites.ArrowHeavyDown,
-			'1' => Sprites.StairsLeft,
-			'2' => Sprites.StairsRight,
+			'0' => Sprites.StairsLeft,
 			// non actions
 			'a' => Sprites.InteriorWallSEShort,
 			'b' => Sprites.InteriorWallSWShort,
 			'c' => Sprites.InteriorWallNEShort,
 			'd' => Sprites.InteriorWallNWShort,
-			'e' => Sprites.InteriorWallEWLow,
+			'e' => Sprites.StairsLeft,
 			'f' => Sprites.InteriorWallHorizontalBottmn,
 			'g' => Sprites.InteriorWallNSLeft,
 			'h' => Sprites.InteriorWallNSMid,
@@ -37,18 +35,21 @@ public class House1 : MapBase
 			'j' => Sprites.StairsRight,
 			'k' => Sprites.InteriorWallNSRightRight,
 			'l' => Sprites.InteriorWallHorizontalTop,
-			'm' => Sprites.Fridge,
-			'n' => Sprites.LowerCabnetWithDraws,
-			'o' => Sprites.PotPlant1,
-			'p' => Sprites.MicroWave,
-			'q' => Sprites.NPC11,
-			'r' => Sprites.ChairRight,
-			's' => Sprites.TVLeft,
-			't' => Sprites.TVRight,
-			'u' => Sprites.Carpet,
-			'v' => Sprites.WeirdMonster,
-			'w' => Sprites.PotPlant1,
-			'x' => Sprites.Open,
+			'm' => Sprites.StairsRight,
+			'n' => Sprites.TVDeskLeft,
+			'o' => Sprites.TVDeskRight,
+			'p' => Sprites.TVLeft,
+			'q' => Sprites.TVRight,
+			'r' => Sprites.PersonInBed1,
+			's' => Sprites.PersonInBed2,
+			't' => Sprites.PersonInBed3,
+			'u' => Sprites.ChairLeft	,
+			'v' => Sprites.Table,
+			'w' => Sprites.Penguin,
+			'x' => Sprites.Lamp,
+			'y' => Sprites.Carpet,
+			'z' => Sprites.Lamp2,
+			'-' => Sprites.PotPlant2,
 			' ' => Sprites.Open,
 			_ => Sprites.Error,
 		};
@@ -62,7 +63,8 @@ public class House1 : MapBase
 		}
 		return SpriteSheet[j][i] switch
 		{
-			'q' => true,
+			'r' => true,
+			'w' => true,
 			_ => false,
 		};
 	}
@@ -73,12 +75,20 @@ public class House1 : MapBase
 		{
 			switch (SpriteSheet[j][i])
 			{
-				case 'q':
+				case 'r':
 					promptText = new string[]
 					{
-						"Mozin0's Mum:",
-						"Welcome to my house, My son always gifts guests.",
-						"He's Upstairs, go talk to him to recieve your gift.",
+						"Mozin0:",
+						"ZzzZzzZzz...",
+						"MonsterBoz...",
+						"ZzzZzzZzz...",
+					};
+					break;
+				case 'w':
+					promptText = new string[]
+					{
+						"Penguin:",
+						"BrrrRRRrrr!",
 					};
 					break;
 			}
@@ -98,34 +108,25 @@ public class House1 : MapBase
 			'0' => true,
 			'i' => true,
 			'j' => true,
-			'1' => true,
-			'2' => true,
-			'u' => true,
+			'm' => true,
+			'e' => true,
+			'y' => true,
 			_ => false,
 		};
 	}
 
 	public override void PerformTileAction(int i, int j)
 	{
-		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
-		{
-			return;
-		}
 		switch (SpriteSheet[j][i])
 		{
-			case '0':
-				map = new PaletTown();
-				map.SpawnCharacterOn('2');
-				break;
 			case 'i':
-				map = new House1SecondFloor();
-				map.SpawnCharacterOn('i');
+				map = new House1();
+				map.SpawnCharacterOn('1');
 				break;
 			case 'j':
-				map = new House1SecondFloor();
-				map.SpawnCharacterOn('j');
+				map = new House1();
+				map.SpawnCharacterOn('2');
 				break;
-
 		}
 	}
 }
