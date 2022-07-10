@@ -1,6 +1,6 @@
-﻿namespace Console_Monsters.Menus;
+﻿namespace Console_Monsters.Screens.Menus;
 
-public class KeyMapping
+public static class KeyMapping
 {
 	public static void KeyMappingMenu()
 	{

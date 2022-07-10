@@ -1,6 +1,6 @@
-﻿namespace Console_Monsters.Menus;
+﻿namespace Console_Monsters.Screens.Menus;
 
-public class Options
+public static class Options
 {
 	public static void OptionsMenu()
 	{
