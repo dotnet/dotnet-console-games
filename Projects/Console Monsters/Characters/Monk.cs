@@ -1,6 +1,6 @@
 ﻿namespace Console_Monsters.NPCs;
 
-public class Monk : NPCBase
+public class Monk : CharacterBase
 {
 	public Monk()
 	{

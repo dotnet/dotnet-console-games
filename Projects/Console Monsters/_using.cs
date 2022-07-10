@@ -41,7 +41,12 @@ public static class _using
 
 	public static readonly string[] defaultMaptext = new[]
 	{
-		"[↑, W, ←, A, ↓, S, →, D]: Move, [E]: Interact, [B]: Status, [Escape]: Menu",
+		"[↑, W, ←, A, ↓, S, →, D]: Move, [B]: Status, [Escape]: Menu",
+	};
+
+	public static readonly string[] defaultMaptextWithInteract = new[]
+	{
+		"[↑, W, ←, A, ↓, S, →, D]: Move, [B]: Status, [Escape]: Menu, [E]: Interact",
 	};
 
 	public static readonly string[] mapTextPressEnter = new string[]
@@ -49,9 +54,25 @@ public static class _using
 		"[E, Enter]: Continue, [Escape]: Menu",
 	};
 
-	public static string[] MapText => promptText is null
-		? defaultMaptext
-		: mapTextPressEnter;
+	public static string[] MapText
+	{
+		get
+		{
+			if (promptText is not null)
+			{
+				return mapTextPressEnter;
+			}
+			if (character.IsIdle)
+			{
+				var interactTile = character.InteractTile;
+				if (map.CanInteractWithMapTile(interactTile.I, interactTile.J))
+				{
+					return defaultMaptextWithInteract;
+				}
+			}
+			return defaultMaptext;
+		}
+	}
 
 	//public static string[] mapText = defaultMaptext;
 
@@ -67,14 +88,12 @@ public static class _using
 
 	static _using()
 	{
-		map = new PaletTown();
-		var (i, j) = MapBase.FindTileInMap(map, 'X')!.Value;
 		character = new()
 		{
-			I = i * Sprites.Width,
-			J = j * Sprites.Height,
 			Animation = Player.IdleDown,
 		};
+		map = new PaletTown();
+		map.SpawnCharacterOn('X');
 		PlayerInventory.TryAdd(ExperienceBerries.Instance);
 		PlayerInventory.TryAdd(HealthPotionLarge.Instance);
 		PlayerInventory.TryAdd(HealthPotionMedium.Instance);
