@@ -1,6 +1,6 @@
-﻿namespace Console_Monsters.Menus;
+﻿namespace Console_Monsters.Screens.Menus;
 
-public class Start
+public static class Start
 {
 	public static void StartMenu()
 	{
