@@ -12,14 +12,13 @@ public class House1 : MapBase
 			"cllllll000lllllld".ToCharArray(),
 		};
 
-	public override string GetMapTileRender(int tileI, int tileJ)
+	public override string GetMapTileRender(int i, int j)
 	{
-		char[][] s = map.SpriteSheet;
-		if (tileJ < 0 || tileJ >= s.Length || tileI < 0 || tileI >= s[tileJ].Length)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
 			return Sprites.Open;
 		}
-		return s[tileJ][tileI] switch
+		return SpriteSheet[j][i] switch
 		{
 			// actions
 			'0' => Sprites.ArrowHeavyDown,
@@ -55,47 +54,41 @@ public class House1 : MapBase
 		};
 	}
 
-	public override void InteractWithMapTile(int tileI, int tileJ)
+	public override bool CanInteractWithMapTile(int i, int j)
 	{
-		char[][] s = map.SpriteSheet;
-
-		Interact(tileI, tileJ + 1);
-		Interact(tileI, tileJ - 1);
-		Interact(tileI - 1, tileJ);
-		Interact(tileI + 1, tileJ);
-
-		void Interact(int i, int j)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
-			if (j >= 0 && j < s.Length && i >= 0 && i < s[j].Length)
+			return false;
+		}
+
+		return false;
+	}
+
+	public override void InteractWithMapTile(int i, int j)
+	{
+		if (j >= 0 && j < SpriteSheet.Length && i >= 0 && i < SpriteSheet[j].Length)
+		{
+			switch (SpriteSheet[j][i])
 			{
-				if (s[j][i] is 'q')
-				{
+				case 'q':
 					promptText = new string[]
-						{
-							"Mozin0's Mum:",
-							"Welcome to my house, My son always gifts guests.",
-							"He's Upstairs, go talk to him to recieve your gift.",
-						};
-				}
-				if (s[j][i] is 'r')
-				{
-					promptText = new string[]
-						{
-							
-						};
-				}
+					{
+						"Mozin0's Mum:",
+						"Welcome to my house, My son always gifts guests.",
+						"He's Upstairs, go talk to him to recieve your gift.",
+					};
+					break;
 			}
 		}
 	}
 
-	public override bool IsValidCharacterMapTile(int tileI, int tileJ)
+	public override bool IsValidCharacterMapTile(int i, int j)
 	{
-		char[][] s = map.SpriteSheet;
-		if (tileJ < 0 || tileJ >= s.Length || tileI < 0 || tileI >= s[tileJ].Length)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
 			return false;
 		}
-		char c = s[tileJ][tileI];
+		char c = SpriteSheet[j][i];
 		return c switch
 		{
 			' ' => true,
@@ -109,15 +102,17 @@ public class House1 : MapBase
 		};
 	}
 
-	public override void PerformTileAction()
+	public override void PerformTileAction(int i, int j)
 	{
-		var (i, j) = WorldToTile(character.I, character.J);
-		char[][] s = map.SpriteSheet;
-		switch (s[j][i])
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
+		{
+			return;
+		}
+		switch (SpriteSheet[j][i])
 		{
 			case '0':
 				map = new PaletTown();
-				SpawnCharacterOn('2');
+				map.SpawnCharacterOn('2');
 				break;
 			case 'i':
 				map = new House1SecondFloor();

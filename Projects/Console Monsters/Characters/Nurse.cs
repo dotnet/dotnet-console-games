@@ -1,6 +1,6 @@
 ﻿namespace Console_Monsters.NPCs;
 
-public class Nurse : NPCBase
+public class Nurse : CharacterBase
 {
 	public Nurse()
 	{

@@ -6,29 +6,12 @@ public class KeyMapping
 	{
 		StringBuilder sb = new();
 
-		string[] MonsterBox =
-		{
-			//Closed
-			"╭───╮", //0
-			"╞═●═╡", //1
-			"╰───╯", //2
-			//Open
-			"╭─●─╮", //3
-			"├---┤", //4
-			"╰───╯", //5
-		};
-
-		int index = 0;
-
 		int arrowOption = 1;
 		const int maxOption = 6;
 
 		string optionIndent = new(' ', 50);
 		string headerIndent = new(' ', 85);
 		string titleIndent = new(' ', 40);
-		string newLineOptions = new('\n', 2);
-		string newLineTitle = new('\n', 3); // DEFAULT 6
-
 
 		string[] currentUp = Sprites.W;
 		string[] currentDown = Sprites.S;
@@ -40,41 +23,65 @@ public class KeyMapping
 		string[] currentLeftAlt = Sprites.LeftArrow;
 		string[] currentRightAlt = Sprites.RightArrow;
 
+		string[] currentInteract = Sprites.E;
+		string[] currentInteractAlt = Sprites.Enter;
+
+		string boxTop = Sprites.BoxTop;
+		string boxSide = Sprites.BoxSide;
+		string boxBottom = Sprites.BoxBottom;
+		string boxEmpty = new(' ', 9);
+
+		int upOption = 2;
+
 		Console.Clear();
 		ReDraw:
 		sb.Clear();
 
-		sb.AppendLine(@$"{newLineTitle}");
+		sb.Append('\n', 3); // SET TO 6 WHEN SCROLL
 		sb.AppendLine(@$"{titleIndent}██╗  ██╗███████╗██╗   ██╗    ███╗   ███╗ █████╗ ██████╗ ██████╗ ██╗███╗   ██╗ ██████╗ ");
 		sb.AppendLine(@$"{titleIndent}██║ ██╔╝██╔════╝╚██╗ ██╔╝    ████╗ ████║██╔══██╗██╔══██╗██╔══██╗██║████╗  ██║██╔════╝ ");
 		sb.AppendLine(@$"{titleIndent}█████╔╝ █████╗   ╚████╔╝     ██╔████╔██║███████║██████╔╝██████╔╝██║██╔██╗ ██║██║  ███╗");
 		sb.AppendLine(@$"{titleIndent}██╔═██╗ ██╔══╝    ╚██╔╝      ██║╚██╔╝██║██╔══██║██╔═══╝ ██╔═══╝ ██║██║╚██╗██║██║   ██║");
 		sb.AppendLine(@$"{titleIndent}██║  ██╗███████╗   ██║       ██║ ╚═╝ ██║██║  ██║██║     ██║     ██║██║ ╚████║╚██████╔╝");
 		sb.AppendLine(@$"{titleIndent}╚═╝  ╚═╝╚══════╝   ╚═╝       ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝     ╚═╝╚═╝  ╚═══╝ ╚═════╝ ");
-		sb.AppendLine(@$"{newLineTitle}");
+		sb.Append('\n', 3); // SET TO 6 WHEN SCROLL
 		sb.AppendLine($@"{headerIndent}▄   ▄  ▄▄  ▄ ▄   ▄   █    ▄▄  ▄   ▄▄▄▄▄");
 		sb.AppendLine(@$"{headerIndent}█▀▄▀█ █▄▄█ █ █▀▄ █   █   █▄▄█ █     █  ");
 		sb.AppendLine(@$"{headerIndent}█   █ █  █ █ █  ▀█   █   █  █ █▄▄   █  ");
-		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}▄  ▄ ▄▄▄   {new(' ', 30)}{currentUp[0]}{new(' ', 10)}█{new(' ', 11)}{currentUpAlt[0]}   {(arrowOption is 1 ? MonsterBox[index]   : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█  █ █▄▄▀ ▀{new(' ', 30)}{currentUp[1]}{new(' ', 10)}█{new(' ', 11)}{currentUpAlt[1]}   {(arrowOption is 1 ? MonsterBox[index+1] : "     ")}");
-		sb.AppendLine(@$"{optionIndent}▀▄▄▀ █    ▄{new(' ', 30)}{currentUp[2]}{new(' ', 10)}█{new(' ', 11)}{currentUpAlt[2]}   {(arrowOption is 1 ? MonsterBox[index+2] : "     ")}");
-		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}▄▄▄   ▄▄  ▄   ▄ ▄   ▄  {new(' ', 18)}{currentDown[0]}{new(' ', 12 + currentDown[0].Length)}█{new(' ', 16)}{currentDownAlt[0]}   {(arrowOption is 2 ? MonsterBox[index]   : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█  █ █  █ █ ▄ █ █▀▄ █ ▀{new(' ', 18)}{currentDown[1]}{new(' ', 12 + currentDown[1].Length)}█{new(' ', 16)}{currentDownAlt[1]}   {(arrowOption is 2 ? MonsterBox[index+1] : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█▄▄▀ ▀▄▄▀ █▀ ▀█ █  ▀█ ▄{new(' ', 18)}{currentDown[2]}{new(' ', 12 + currentDown[2].Length)}█{new(' ', 16)}{currentDownAlt[2]}   {(arrowOption is 2 ? MonsterBox[index+2] : "     ")}");
-		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}▄   ▄▄▄▄ ▄▄▄▄ ▄▄▄▄▄            {currentLeft[0]}{new(' ', 12 + currentLeft[0].Length)}█{new(' ', 11)}{currentLeftAlt[0]}   {(arrowOption is 3 ? MonsterBox[index]   : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█   █▄▄  █▄▄    █   ▀          {currentLeft[1]}{new(' ', 12 + currentLeft[1].Length)}█{new(' ', 11)}{currentLeftAlt[1]}   {(arrowOption is 3 ? MonsterBox[index+1] : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█▄▄ █▄▄▄ █      █   ▄          {currentLeft[2]}{new(' ', 12 + currentLeft[2].Length)}█{new(' ', 11)}{currentLeftAlt[2]}   {(arrowOption is 3 ? MonsterBox[index+2] : "     ")}");
-		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}▄▄▄  ▄  ▄▄▄  ▄  ▄ ▄▄▄▄▄        {currentRight[0]}{new(' ', 12 + currentRight[0].Length)}█{new(' ', 11)}{currentRightAlt[0]}   {(arrowOption is 4 ? MonsterBox[index]   : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█▄▄▀ █ █  ▄▄ █▄▄█   █   ▀      {currentRight[1]}{new(' ', 12 + currentRight[1].Length)}█{new(' ', 11)}{currentRightAlt[1]}   {(arrowOption is 4 ? MonsterBox[index+1] : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█  █ █ ▀▄▄▄▀ █  █   █   ▄      {currentRight[2]}{new(' ', 12 + currentRight[2].Length)}█{new(' ', 11)}{currentRightAlt[2]}   {(arrowOption is 4 ? MonsterBox[index+2] : "     ")}");
-		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent} ▄▄   ▄▄▄ ▄▄▄▄▄ ▄  ▄▄  ▄   ▄   {currentRight[0]}{new(' ', 12 + currentRight[0].Length)}█{new(' ', 11)}{currentRightAlt[0]}   {(arrowOption is 5 ? MonsterBox[index]   : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█▄▄█ █      █   █ █  █ █▀▄ █ ▀ {currentRight[1]}{new(' ', 12 + currentRight[1].Length)}█{new(' ', 11)}{currentRightAlt[1]}   {(arrowOption is 5 ? MonsterBox[index+1] : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█  █ ▀▄▄▄   █   █ ▀▄▄▀ █  ▀█ ▄ {currentRight[2]}{new(' ', 12 + currentRight[2].Length)}█{new(' ', 11)}{currentRightAlt[2]}   {(arrowOption is 5 ? MonsterBox[index+2] : "     ")}");
+		sb.AppendLine();
+		sb.AppendLine($@"{new(' ', 89)}{(upOption == 1 ? boxTop : boxEmpty)}{new(' ', 18)}{boxTop}");
+		sb.AppendLine(@$"{optionIndent}▄  ▄ ▄▄▄   {new(' ', 28)}{boxSide} {currentUp[0]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentUpAlt[0]}   {(arrowOption is 1 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█  █ █▄▄▀ ▀{new(' ', 28)}{boxSide} {currentUp[1]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentUpAlt[1]}   {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}▀▄▄▀ █    ▄{new(' ', 28)}{boxSide} {currentUp[2]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentUpAlt[2]}   {(arrowOption is 1 ? "╰───╯" : "     ")}");
+		sb.AppendLine($@"{new(' ', 89)}{boxBottom}{new(' ', 18)}{boxBottom}");
+		sb.AppendLine();
+		sb.AppendLine($@"{new(' ', 89)}{boxTop}{new(' ', 18)}{boxTop}");
+		sb.AppendLine(@$"{optionIndent}▄▄▄   ▄▄  ▄   ▄ ▄   ▄  {new(' ', 16)}{boxSide} {currentDown[0]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentDownAlt[0]}   {(arrowOption is 2 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█  █ █  █ █ ▄ █ █▀▄ █ ▀{new(' ', 16)}{boxSide} {currentDown[1]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentDownAlt[1]}   {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█▄▄▀ ▀▄▄▀ █▀ ▀█ █  ▀█ ▄{new(' ', 16)}{boxSide} {currentDown[2]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentDownAlt[2]}   {(arrowOption is 2 ? "╰───╯" : "     ")}");
+		sb.AppendLine($@"{new(' ', 89)}{boxBottom}{new(' ', 18)}{boxBottom}");
+		sb.AppendLine();
+		sb.AppendLine($@"{new(' ', 89)}{boxTop}{new(' ', 18)}{boxTop}");
+		sb.AppendLine(@$"{optionIndent}▄   ▄▄▄▄ ▄▄▄▄ ▄▄▄▄▄  {new(' ', 18)}{boxSide} {currentLeft[0]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentLeftAlt[0]}   {(arrowOption is 3 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█   █▄▄  █▄▄    █   ▀{new(' ', 18)}{boxSide} {currentLeft[1]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentLeftAlt[1]}   {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█▄▄ █▄▄▄ █      █   ▄{new(' ', 18)}{boxSide} {currentLeft[2]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentLeftAlt[2]}   {(arrowOption is 3 ? "╰───╯" : "     ")}");
+		sb.AppendLine($@"{new(' ', 89)}{boxBottom}{new(' ', 18)}{boxBottom}");
+		sb.AppendLine();
+		sb.AppendLine($@"{new(' ', 89)}{boxTop}{new(' ', 18)}{boxTop}");
+		sb.AppendLine(@$"{optionIndent}▄▄▄  ▄  ▄▄▄  ▄  ▄ ▄▄▄▄▄  {new(' ', 14)}{boxSide} {currentRight[0]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentRightAlt[0]}   {(arrowOption is 4 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█▄▄▀ █ █  ▄▄ █▄▄█   █   ▀{new(' ', 14)}{boxSide} {currentRight[1]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentRightAlt[1]}   {(arrowOption is 4 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█  █ █ ▀▄▄▄▀ █  █   █   ▄{new(' ', 14)}{boxSide} {currentRight[2]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentRightAlt[2]}   {(arrowOption is 4 ? "╰───╯" : "     ")}");
+		sb.AppendLine($@"{new(' ', 89)}{boxBottom}{new(' ', 18)}{boxBottom}");
+		sb.AppendLine();
+		sb.AppendLine($@"{new(' ', 89)}{boxTop}{new(' ', 18)}{boxTop}");
+		sb.AppendLine(@$"{optionIndent} ▄▄   ▄▄▄ ▄▄▄▄▄ ▄  ▄▄  ▄   ▄  {new(' ', 9)}{boxSide} {currentInteract[0]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentInteractAlt[0]}   {(arrowOption is 5 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█▄▄█ █      █   █ █  █ █▀▄ █ ▀{new(' ', 9)}{boxSide} {currentInteract[1]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentInteractAlt[1]}   {(arrowOption is 5 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█  █ ▀▄▄▄   █   █ ▀▄▄▀ █  ▀█ ▄{new(' ', 9)}{boxSide} {currentInteract[2]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentInteractAlt[2]}   {(arrowOption is 5 ? "╰───╯" : "     ")}");
+		sb.AppendLine($@"{new(' ', 89)}{boxBottom}{new(' ', 18)}{boxBottom}");
+		sb.AppendLine();
+		sb.AppendLine(@$"{optionIndent}█▀▀▄  ▄▄   ▄▄▄ ▄  ▄   {(arrowOption is maxOption ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█■■█ █▄▄█ █    █■█    {(arrowOption is maxOption ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█▄▄▀ █  █ ▀▄▄▄ █  ▀▄  {(arrowOption is maxOption ? "╰───╯" : "     ")}");
 
 		Console.SetCursorPosition(0, 0);
 		Console.WriteLine(sb);
@@ -84,15 +91,12 @@ public class KeyMapping
 			case ConsoleKey.UpArrow or ConsoleKey.W: arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
 			case ConsoleKey.DownArrow or ConsoleKey.S: arrowOption = Math.Min(maxOption, arrowOption + 1); goto ReDraw;
 			case ConsoleKey.Enter or ConsoleKey.E:
-
-			int MonsterBoxOpen = index == 0 ? index = 3 : index = 0;	
-		    
 				switch (arrowOption)
 				{
 					case 1: goto ReDraw;
 					case 2: goto ReDraw;
 					case 3: goto ReDraw;
-					case 4: break;
+					case 4: goto ReDraw;
 					case maxOption: break;
 				}
 				break;

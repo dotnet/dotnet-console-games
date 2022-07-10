@@ -847,6 +847,10 @@ public static class Sprites
 		@"╚═════╝";
 
 	#region Letters + Symbols
+	public static string BoxTop =    "╔═══════╗";
+	public static string BoxSide =   "║";   //║ 5 tall
+	public static string BoxBottom = "╚═══════╝";
+
 	//WASD
 	public static string[] W =
 	{
@@ -855,22 +859,22 @@ public static class Sprites
 		"█▀ ▀█"
 	};
 	public static string[] A = 
-	{ 
-		" ▄▄ ", 
-		"█▄▄█",
-		"█  █"
+	{
+		" ▄▄▄ ",
+		"█▄▄▄█",
+		"█   █"
 	};
 	public static string[] S =
 	{
-		"▄▄▄▄",
-		"█▄▄▄",
-		"▄▄▄█"
+		"▄▄▄▄▄",
+		"█▄▄▄▄",
+		"▄▄▄▄█"
 	};
 	public static string[] D =
 	{
-		"▄▄▄ ",
-		"█  █",
-		"█▄▄▀"
+		"▄▄▄▄ ",
+		"█   █",
+		"█▄▄▄▀"
 	};
 	//ARROWS
 	public static string[] UpArrow =
@@ -900,9 +904,9 @@ public static class Sprites
 	//INTERACT
 	public static string[] E =
 	{
-		"▄▄▄▄",
-		"█▄▄ ",
-		"█▄▄▄"
+		"▄▄▄▄▄",
+		"█▄▄▄ ",
+		"█▄▄▄▄"
 	};
 	public static string[] Enter =
 	{
@@ -916,9 +920,9 @@ public static class Sprites
 	//Status
 	public static string[] B =
 	{
-		"▄▄▄▄",
-		"█▄▄ ",
-		"█▄▄▄"
+		"▄▄▄▄ ",
+		"█▄▄▄▀",
+		"█▄▄▄▀"
 	};
 	#endregion
 }
