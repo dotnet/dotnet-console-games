@@ -17,7 +17,6 @@ public partial class Program
 				{
 					Console.SetWindowSize(screenWidth, screenHeight);
 					Console.SetBufferSize(screenWidth, screenHeight);
-					// Console.SetWindowPosition(0, 0);
 				}
 				catch
 				{
@@ -59,7 +58,8 @@ public partial class Program
 			(character.Animation == Player.RunLeft  && character.AnimationFrame >= Sprites.Width) ||
 			(character.Animation == Player.RunRight && character.AnimationFrame >= Sprites.Width))
 		{
-			map.PerformTileAction();
+			var (i, j) = MapBase.WorldToTile(character.I, character.J);
+			map.PerformTileAction(i, j);
 			character.Animation =
 				character.Animation == Player.RunUp    ? Player.IdleUp    :
 				character.Animation == Player.RunDown  ? Player.IdleDown  :
@@ -112,7 +112,8 @@ public partial class Program
 									case ConsoleKey.LeftArrow  or ConsoleKey.A: character.I -= Sprites.Width;  character.Animation = Player.IdleLeft;  break;
 									case ConsoleKey.RightArrow or ConsoleKey.D: character.I += Sprites.Width;  character.Animation = Player.IdleRight; break;
 								}
-								map.PerformTileAction();
+								var (i2, j2) = MapBase.WorldToTile(character.I, character.J);
+								map.PerformTileAction(i2, j2);
 							}
 							else
 							{
@@ -193,7 +194,7 @@ public partial class Program
 						break;
 					}
 					{
-						var (i, j) = MapBase.WorldToTile(character.I, character.J);;
+						var (i, j) = character.InteractTile;
 						map.InteractWithMapTile(i, j);
 						break;
 					}

@@ -12,14 +12,13 @@ public class House1 : MapBase
 			"ceeeeee000eeeeeed".ToCharArray(),
 		};
 
-	public override string GetMapTileRender(int tileI, int tileJ)
+	public override string GetMapTileRender(int i, int j)
 	{
-		char[][] s = map.SpriteSheet;
-		if (tileJ < 0 || tileJ >= s.Length || tileI < 0 || tileI >= s[tileJ].Length)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
 			return Sprites.Open;
 		}
-		return s[tileJ][tileI] switch
+		return SpriteSheet[j][i] switch
 		{
 			// actions
 			'0' => Sprites.ArrowHeavyDown,
@@ -39,32 +38,31 @@ public class House1 : MapBase
 		};
 	}
 
-	public override void InteractWithMapTile(int tileI, int tileJ)
+	public override bool CanInteractWithMapTile(int i, int j)
 	{
-		char[][] s = map.SpriteSheet;
-
-		Interact(tileI, tileJ + 1);
-		Interact(tileI, tileJ - 1);
-		Interact(tileI - 1, tileJ);
-		Interact(tileI + 1, tileJ);
-
-		void Interact(int i, int j)
-		{
-			if (j >= 0 && j < s.Length && i >= 0 && i < s[j].Length)
-			{
-				// currently no interactables
-			}
-		}
-	}
-
-	public override bool IsValidCharacterMapTile(int tileI, int tileJ)
-	{
-		char[][] s = map.SpriteSheet;
-		if (tileJ < 0 || tileJ >= s.Length || tileI < 0 || tileI >= s[tileJ].Length)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
 			return false;
 		}
-		char c = s[tileJ][tileI];
+
+		return false;
+	}
+
+	public override void InteractWithMapTile(int i, int j)
+	{
+		if (j >= 0 && j < SpriteSheet.Length && i >= 0 && i < SpriteSheet[j].Length)
+		{
+			// currently no interactables
+		}
+	}
+
+	public override bool IsValidCharacterMapTile(int i, int j)
+	{
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
+		{
+			return false;
+		}
+		char c = SpriteSheet[j][i];
 		return c switch
 		{
 			' ' => true,
@@ -73,15 +71,17 @@ public class House1 : MapBase
 		};
 	}
 
-	public override void PerformTileAction()
+	public override void PerformTileAction(int i, int j)
 	{
-		var (i, j) = WorldToTile(character.I, character.J);
-		char[][] s = map.SpriteSheet;
-		switch (s[j][i])
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
+		{
+			return;
+		}
+		switch (SpriteSheet[j][i])
 		{
 			case '0':
 				map = new PaletTown();
-				SpawnCharacterOn('2');
+				map.SpawnCharacterOn('2');
 				break;
 		}
 	}

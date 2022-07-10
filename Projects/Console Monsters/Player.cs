@@ -19,6 +19,31 @@ public class Player
 		Animation == IdleLeft ||
 		Animation == IdleRight;
 
+	public (int I, int J) InteractTile
+	{
+		get
+		{
+			var (tileI, tileJ) = MapBase.WorldToTile(I, J);
+			if (Animation == IdleDown)
+			{
+				return (tileI, tileJ + 1);
+			}
+			if (Animation == IdleUp)
+			{
+				return (tileI, tileJ - 1);
+			}
+			if (Animation == IdleLeft)
+			{
+				return (tileI - 1, tileJ);
+			}
+			if (Animation == IdleRight)
+			{
+				return (tileI + 1, tileJ);
+			}
+			throw new NotImplementedException();
+		}
+	}
+
 
 	#region Player Sprites
 
