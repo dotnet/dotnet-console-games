@@ -6,14 +6,12 @@ public static class KeyMapping
 	{
 		StringBuilder sb = new();
 
-
 		int arrowOption = 1;
 		const int maxOption = 6;
 
 		string optionIndent = new(' ', 50);
 		string headerIndent = new(' ', 85);
 		string titleIndent = new(' ', 40);
-
 
 		string[] currentUp = Sprites.W;
 		string[] currentDown = Sprites.S;
@@ -34,10 +32,6 @@ public static class KeyMapping
 		string boxEmpty = new(' ', 9);
 
 		int upOption = 2;
-		int downOption = 1;
-		int leftOption = 1;
-		int rightOption = 1;
-		int actionOption = 1;
 
 		Console.Clear();
 		ReDraw:
@@ -99,35 +93,15 @@ public static class KeyMapping
 			case ConsoleKey.Enter or ConsoleKey.E:
 				switch (arrowOption)
 				{
-					case 1: KeyMappingSelect(arrowOption); goto ReDraw;
-					case 2: KeyMappingSelect(arrowOption); goto ReDraw;
-					case 3: KeyMappingSelect(arrowOption); goto ReDraw;
-					case 4: KeyMappingSelect(arrowOption); goto ReDraw;
+					case 1: goto ReDraw;
+					case 2: goto ReDraw;
+					case 3: goto ReDraw;
+					case 4: goto ReDraw;
 					case maxOption: break;
 				}
 				break;
 			case ConsoleKey.Escape: Options.OptionsMenu(); break;
 			default: goto ReDraw;
-		}
-
-		void KeyMappingSelect(int currentOption)
-		{
-			int boxOption = 1;
-
-			ReSelect:
-			switch (Console.ReadKey(true).Key)
-			{
-				case ConsoleKey.LeftArrow or ConsoleKey.A:
-					
-					break;
-				case ConsoleKey.RightArrow or ConsoleKey.D:
-
-					break;
-				case ConsoleKey.Enter or ConsoleKey.E:
-
-					break;
-				default: goto ReSelect;
-			}
 		}
 	}
 }
