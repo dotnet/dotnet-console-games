@@ -1,6 +1,6 @@
-﻿namespace Console_Monsters.Screens.Menus;
+﻿namespace Console_Monsters.Screens;
 
-public static class Start
+public static class StartScreen
 {
 	public static void StartMenu()
 	{
@@ -54,7 +54,7 @@ public static class Start
 						FirstTimeLaunching = false;
 						break;
 					case 2:
-						Options.OptionsMenu();
+						OptionsScreen.OptionsMenu();
 						Console.Clear();
 						goto ReDraw; // To not run "arrowOption" so it stays on "Options" after going back
 					case 3:

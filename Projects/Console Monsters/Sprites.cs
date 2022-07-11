@@ -827,25 +827,6 @@ public static class Sprites
 		@"  ())  ";
 	#endregion
 
-	public const string FullBlock =
-		@"███████" + "\n" +
-		@"███████" + "\n" +
-		@"███████" + "\n" +
-		@"███████" + "\n" +
-		@"███████";
-	public const string Open =
-		@"       " + "\n" +
-		@"       " + "\n" +	
-		@"       " + "\n" +
-		@"       " + "\n" +
-		@"       ";
-	public const string Error =
-		@"╔═════╗" + "\n" +
-		@"║error║" + "\n" +
-		@"║error║" + "\n" +
-		@"║error║" + "\n" +
-		@"╚═════╝";
-
 	#region Letters + Symbols
 	public static string BoxTop =    "╔═══════╗";
 	public static string BoxSide =   "║";   //║ 5 tall
@@ -925,4 +906,23 @@ public static class Sprites
 		"█▄▄▄▀"
 	};
 	#endregion
+
+	public const string FullBlock =
+		@"███████" + "\n" +
+		@"███████" + "\n" +
+		@"███████" + "\n" +
+		@"███████" + "\n" +
+		@"███████";
+	public const string Open =
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"       ";
+	public const string Error =
+		@"╔═════╗" + "\n" +
+		@"║error║" + "\n" +
+		@"║error║" + "\n" +
+		@"║error║" + "\n" +
+		@"╚═════╝";
 }

@@ -10,7 +10,6 @@ global using Console_Monsters.Monsters;
 global using Console_Monsters.Bases;
 global using Console_Monsters.Characters;
 global using Console_Monsters.Screens;
-global using Console_Monsters.Screens.Menus;
 global using Console_Monsters.Enums;
 global using System.Collections.Generic;
 
@@ -28,6 +27,7 @@ public static class _using
 	public static bool FirstTimeLaunching = true;
 	#endregion
 
+	public static Random BattleTransitionRandom = new();
 	public static Random GameRandom = new(7);
 	public static Random BattleRandom = new(7);
 	public static Player character = new();
@@ -74,8 +74,6 @@ public static class _using
 			return defaultMaptext;
 		}
 	}
-
-	//public static string[] mapText = defaultMaptext;
 
 	public static readonly string[] battletext = new[]
 	{

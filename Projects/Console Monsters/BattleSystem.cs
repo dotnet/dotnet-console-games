@@ -3,7 +3,7 @@
 public class BattleSystem
 {
 	// TEMP FOR DEVELOPMENT, YES VERY MESSY, PLEASE FIX
-#pragma warning disable CS8618	
+#pragma warning disable CS8618
 	public static FireLizard fireLizard = new();
 	public static Turtle turtle = new();
 
