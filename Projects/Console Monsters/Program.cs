@@ -24,14 +24,15 @@ public partial class Program
 				}
 			}
 
-			Start.StartMenu();
+			StartScreen.StartMenu();
 			while (gameRunning)
 			{
 				UpdateCharacter();
 				HandleMapUserInput();
 				if (gameRunning)
 				{
-					Renderer.RenderWorldMapView();
+					MapScreen.Render();
+					SleepAfterRender();
 				}
 			}
 		}
@@ -156,7 +157,7 @@ public partial class Program
 					inInventory = true;
 					while (inInventory)
 					{
-						Renderer.RenderInventoryView();
+						InventoryScreen.Render();
 					
 						switch (Console.ReadKey(true).Key)
 						{
@@ -199,9 +200,21 @@ public partial class Program
 						break;
 					}
 				case ConsoleKey.Escape:
-					Start.StartMenu();
+					StartScreen.StartMenu();
 					return;
 			}
 		}
+	}
+
+	public static void SleepAfterRender()
+	{
+		// frame rate control targeting 30 frames per second
+		DateTime now = DateTime.Now;
+		TimeSpan sleep = TimeSpan.FromMilliseconds(33) - (now - previoiusRender);
+		if (sleep > TimeSpan.Zero)
+		{
+			Thread.Sleep(sleep);
+		}
+		previoiusRender = DateTime.Now;
 	}
 }

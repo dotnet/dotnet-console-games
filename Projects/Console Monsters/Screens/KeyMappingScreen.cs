@@ -1,6 +1,6 @@
-﻿namespace Console_Monsters.Screens.Menus;
+﻿namespace Console_Monsters.Screens;
 
-public static class KeyMapping
+public static class KeyMappingScreen
 {
 	public static void KeyMappingMenu()
 	{
@@ -34,7 +34,7 @@ public static class KeyMapping
 		int upOption = 2;
 
 		Console.Clear();
-		ReDraw:
+	ReDraw:
 		sb.Clear();
 
 		sb.Append('\n', 3); // SET TO 6 WHEN SCROLL
@@ -100,7 +100,7 @@ public static class KeyMapping
 					case maxOption: break;
 				}
 				break;
-			case ConsoleKey.Escape: Options.OptionsMenu(); break;
+			case ConsoleKey.Escape: OptionsScreen.OptionsMenu(); break;
 			default: goto ReDraw;
 		}
 	}
