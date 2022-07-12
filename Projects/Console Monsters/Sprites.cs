@@ -684,7 +684,7 @@ public static class Sprites
 		@"/      ";
 	#endregion
 
-	#region NPCs
+	#region Characters
 	public static readonly string NPC1 =
 		@"/_____\" + '\n' +
 		@" │'_'│ " + '\n' +
@@ -757,6 +757,12 @@ public static class Sprites
 		@"│──│├─│" + '\n' +
 		@"├───┤  " + '\n' +
 		@"│_|_│  ";
+	public static readonly string NPC16 =
+		@" ╭───○ " + '\n' +
+		@"╰╯^_^╰╯" + '\n' +
+		@"╭┴───┴╮" + '\n' +
+		@"│├───┤│" + '\n' +
+		@" │_|_│ ";
 	public static readonly string TrainConductorLeft =
 		@"  ____ " + '\n' +
 		@" ═│══│ " + '\n' +
