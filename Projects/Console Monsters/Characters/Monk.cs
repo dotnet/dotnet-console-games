@@ -1,4 +1,4 @@
-﻿namespace Console_Monsters.NPCs;
+﻿namespace Console_Monsters.Characters;
 
 public class Monk : CharacterBase
 {

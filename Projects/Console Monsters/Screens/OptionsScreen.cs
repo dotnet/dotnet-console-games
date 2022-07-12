@@ -1,6 +1,6 @@
-﻿namespace Console_Monsters.Menus;
+﻿namespace Console_Monsters.Screens;
 
-public class Options
+public static class OptionsScreen
 {
 	public static void OptionsMenu()
 	{
@@ -26,7 +26,7 @@ public class Options
 		string newLineTitle = new('\n', 6);
 
 		Console.Clear();
-		ReDraw:
+	ReDraw:
 		sb.Clear();
 
 		sb.AppendLine(@$"{newLineTitle}");
@@ -72,7 +72,7 @@ public class Options
 					case 1: DisableMovementAnimation = !DisableMovementAnimation; goto ReDraw;
 					case 2: DisableBattleTransition = !DisableBattleTransition; goto ReDraw;
 					case 3: DisableBattle = !DisableBattle; goto ReDraw;
-					case 4: KeyMapping.KeyMappingMenu(); break;
+					case 4: KeyMappingScreen.KeyMappingMenu(); break;
 					case maxOption: break;
 				}
 				break;
