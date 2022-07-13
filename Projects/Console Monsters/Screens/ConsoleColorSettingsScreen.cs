@@ -76,7 +76,8 @@ public static class ConsoleColorSettingsScreen
 			case ConsoleKey.Enter or ConsoleKey.E:
 				switch (arrowOption)
 				{
-					case 1: goto ReDraw;
+                                        // TODO: finish this implementation and experimentation 
+					case 1: Console.BackgroundColor = ConsoleColor.Blue; goto ReDraw;
 					case 2: goto ReDraw;
 					case 3: goto ReDraw;
 					case 4: goto ReDraw;
