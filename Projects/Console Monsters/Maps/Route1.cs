@@ -144,9 +144,9 @@ class Route1 : MapBase
 					Console.Clear();
 					if (!DisableBattleTransition)
 					{
-						Renderer.RenderBattleTransition();
+						BattleTransition.Random();
 					}
-					Renderer.RenderBattleView(PlayerMonster, OpponentMonster);
+					BattleScreen.Render(PlayerMonster, OpponentMonster);
 					Battle();
 					PressEnterToContiue();
 				}

@@ -684,7 +684,7 @@ public static class Sprites
 		@"/      ";
 	#endregion
 
-	#region NPCs
+	#region Characters
 	public static readonly string NPC1 =
 		@"/_____\" + '\n' +
 		@" │'_'│ " + '\n' +
@@ -757,6 +757,12 @@ public static class Sprites
 		@"│──│├─│" + '\n' +
 		@"├───┤  " + '\n' +
 		@"│_|_│  ";
+	public static readonly string NPC16 =
+		@" ╭───○ " + '\n' +
+		@"╰╯^_^╰╯" + '\n' +
+		@"╭┴───┴╮" + '\n' +
+		@"│├───┤│" + '\n' +
+		@" │_|_│ ";
 	public static readonly string TrainConductorLeft =
 		@"  ____ " + '\n' +
 		@" ═│══│ " + '\n' +
@@ -826,25 +832,6 @@ public static class Sprites
 		@" (()() " + "\n" +
 		@"  ())  ";
 	#endregion
-
-	public const string FullBlock =
-		@"███████" + "\n" +
-		@"███████" + "\n" +
-		@"███████" + "\n" +
-		@"███████" + "\n" +
-		@"███████";
-	public const string Open =
-		@"       " + "\n" +
-		@"       " + "\n" +	
-		@"       " + "\n" +
-		@"       " + "\n" +
-		@"       ";
-	public const string Error =
-		@"╔═════╗" + "\n" +
-		@"║error║" + "\n" +
-		@"║error║" + "\n" +
-		@"║error║" + "\n" +
-		@"╚═════╝";
 
 	#region Letters + Symbols
 	public static string BoxTop =    "╔═══════╗";
@@ -925,4 +912,23 @@ public static class Sprites
 		"█▄▄▄▀"
 	};
 	#endregion
+
+	public const string FullBlock =
+		@"███████" + "\n" +
+		@"███████" + "\n" +
+		@"███████" + "\n" +
+		@"███████" + "\n" +
+		@"███████";
+	public const string Open =
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"       ";
+	public const string Error =
+		@"╔═════╗" + "\n" +
+		@"║error║" + "\n" +
+		@"║error║" + "\n" +
+		@"║error║" + "\n" +
+		@"╚═════╝";
 }
