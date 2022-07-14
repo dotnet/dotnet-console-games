@@ -27,9 +27,10 @@ public static class ConsoleColorSettingsScreen
 	ReDraw:
 		sb.Clear();
 
-		// TODO: Fix this formatting later when the ability to select individual colors is available
-		sb.Append('\n', 3); // SET TO 6 WHEN SCROLL
-		sb.AppendLine(@$"{titleIndent}██████╗ ██████╗ ██╗      ██████╗ ██████╗     ███████╗ ██████╗██╗  ██╗███████╗███╗   ███╗███████╗");
+		sb.AppendLine();
+		sb.AppendLine();
+		sb.AppendLine();
+		sb.AppendLine(@$"{titleIndent}██████╗ ██████╗  ██╗      ██████╗ ██████╗     ███████╗ ██████╗██╗  ██╗███████╗███╗   ███╗███████╗");
 		sb.AppendLine(@$"{titleIndent}██╔════╝██╔═══██╗██║     ██╔═══██╗██╔══██╗    ██╔════╝██╔════╝██║  ██║██╔════╝████╗ ████║██╔════╝");
 		sb.AppendLine(@$"{titleIndent}██║     ██║   ██║██║     ██║   ██║██████╔╝    ███████╗██║     ███████║█████╗  ██╔████╔██║█████╗  ");
 		sb.AppendLine(@$"{titleIndent}██║     ██║   ██║██║     ██║   ██║██╔══██╗    ╚════██║██║     ██╔══██║██╔══╝  ██║╚██╔╝██║██╔══╝  ");
