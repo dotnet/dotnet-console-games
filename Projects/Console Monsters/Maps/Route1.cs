@@ -148,7 +148,7 @@ class Route1 : MapBase
 					}
 					BattleScreen.Render(PlayerMonster, OpponentMonster);
 					Battle();
-					PressEnterToContiue();
+					ConsoleHelper.PressToContinue();
 				}
 				break;
 		}

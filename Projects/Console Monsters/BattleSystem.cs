@@ -39,7 +39,7 @@ public class BattleSystem
 				else
 				{
 
-					PressEnterToContiue();
+					ConsoleHelper.PressToContinue();
 					MoveBase playerMove = MoveBase.GetRandomMove();
 					PlayerMonster.CurrentEnergy -= playerMove.EnergyTaken;
 					OpponentMonster.CurrentHP -= (int)playerMove.FinalDamage;
@@ -59,7 +59,7 @@ public class BattleSystem
 				}
 				else
 				{
-					PressEnterToContiue();
+					ConsoleHelper.PressToContinue();
 					MoveBase opponentMove = MoveBase.GetRandomMove();
 					OpponentMonster.CurrentEnergy -= opponentMove.EnergyTaken;
 					PlayerMonster.CurrentHP -= (int)opponentMove.FinalDamage;
