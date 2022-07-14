@@ -68,10 +68,14 @@ public class Center1 : MapBase
 			if (SpriteSheet[j][i] is 'k')
 			{
 				promptText = new string[]
-					{
-						" Hello and welcome to the monster center.",
-						" I will heal all your monsters.",
-					};
+				{
+					" Hello and welcome to the monster center.",
+					" I will heal all your monsters.",
+				};
+				for(int p = 0; p < partyMonsters.Count; p++)
+				{
+					partyMonsters[p].CurrentHP = partyMonsters[p].MaximumHP;
+				}
 			}
 		}
 	}
