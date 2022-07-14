@@ -229,7 +229,7 @@ public class Character
 		@"╭╰───╯╮" + '\n' +
 		@"│├───┤│" + '\n' +
 		@" │_|_│ ";
-	#warning TODO: need another idle sprite
+	//#warning TODO: need another idle sprite
 	public static readonly string[] IdleUp =
 		Enumerable.Repeat(IdleUp1, 100).Concat(Enumerable.Repeat(IdleUp1, 10)).ToArray();
 

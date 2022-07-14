@@ -24,7 +24,7 @@ public class BlazorConsole
 
 		public static bool operator !=(Pixel a, Pixel b) => !(a == b);
 
-		public override bool Equals(object? obj) => obj is Pixel && this == (Pixel)obj;
+		public override bool Equals(object? obj) => obj is Pixel pixel && this == pixel;
 
 		public override int GetHashCode() => HashCode.Combine(Char, ForegroundColor, BackgroundColor);
 	}

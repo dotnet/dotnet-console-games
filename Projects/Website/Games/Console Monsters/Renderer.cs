@@ -14,7 +14,7 @@ namespace Website.Games.Console_Monsters;
 
 public static class Renderer
 {
-	public static StringBuilder LastMapRender = new();
+	//public static StringBuilder LastMapRender = new();
 
 	public static async Task RenderWorldMapView()
 	{
@@ -285,11 +285,11 @@ public static class Renderer
 		int maxHeight = height - MapText.Length - 3;
 
 		int nextMonster = 1;
-		int nextMonsterWidth = 0;
+		int nextMonsterWidth;
 		int nextMonsterHeight = 0;
 		int currentMonster = 0;
-		int currentMonsterWidth = 0;
-		int currentMonsterHeight = 0;
+		int currentMonsterWidth;
+		int currentMonsterHeight;
 		int monsterWidthSpacing = 35;
 		int monsterHeightSpacing = 1;
 		int[] monsterSpriteIndex = new int[6];
