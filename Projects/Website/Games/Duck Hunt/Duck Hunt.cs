@@ -571,17 +571,17 @@ public class Duck_Hunt
 		}
 	}
 
-struct Point
+	struct Point
 	{
 		public int X;
 		public int Y;
+
 		public Point(int x, int y)
 		{
 			X = x;
 			Y = y;
 		}
-		public static Point operator +(Point a, Point b)
-			=> new Point(a.X + b.X, a.Y + b.Y);
+		public static Point operator +(Point a, Point b) => new(a.X + b.X, a.Y + b.Y);
 	}
 
 	class Bird
@@ -626,8 +626,8 @@ struct Point
 		public double[] X = new double[2];
 		public double[] Y = new double[2];
 
-		private double XOffset;
-		private double YOffset;
+		private readonly double XOffset;
+		private readonly double YOffset;
 		public Bullet(Point position, double angle, BlazorConsole console)
 		{
 			Console = console;
@@ -672,11 +672,11 @@ struct Point
 		public static int SPRITE_MAXWIDTH => ScreenWidth - 2;
 		public static int SPRITE_MAXHEIGHT => ScreenHeight - 2;
 
-		private static string middleBorder => "║" + new string(' ', SPRITE_MAXWIDTH) + "║" + NEWLINE_CHAR;
+		private static string MiddleBorder => "║" + new string(' ', SPRITE_MAXWIDTH) + "║" + NEWLINE_CHAR;
 
 		public static char[] Border =>
 			("╔" + new string('═', SPRITE_MAXWIDTH) + "╗" + NEWLINE_CHAR +
-			string.Concat(Enumerable.Repeat(middleBorder, SPRITE_MAXHEIGHT)) +
+			string.Concat(Enumerable.Repeat(MiddleBorder, SPRITE_MAXHEIGHT)) +
 			"╚" + new string('═', SPRITE_MAXWIDTH) + "╝").ToCharArray();
 
 		public static class Enviroment

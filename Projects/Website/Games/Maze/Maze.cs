@@ -119,8 +119,6 @@ public class Maze
 			int? start_row = null, int? start_column = null,
 			int? end_row = null, int? end_column = null)
 		{
-#pragma warning disable IDE0042 // Deconstruct variable declaration
-
 			// parameter defaults
 			start_row ??= 0;
 			start_column ??= 0;
@@ -382,7 +380,6 @@ public class Maze
 			}
 
 			return maze;
-#pragma warning restore IDE0042 // Deconstruct variable declaration
 		}
 
 		#endregion

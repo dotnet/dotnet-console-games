@@ -2,9 +2,9 @@
 
 public static class BattleTransition
 {
-	private static TimeSpan Delay = TimeSpan.FromTicks(7500);
+	private static readonly TimeSpan Delay = TimeSpan.FromTicks(7500);
 
-	private static Action[] Transitions = new[]
+	private static readonly Action[] Transitions = new[]
 		{
 			LeftToRight,
 			RightToLeft,

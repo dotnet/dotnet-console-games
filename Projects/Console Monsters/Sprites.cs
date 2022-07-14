@@ -834,68 +834,68 @@ public static class Sprites
 	#endregion
 
 	#region Letters + Symbols
-	public static string BoxTop =    "╔═══════╗";
-	public static string BoxSide =   "║";   //║ 5 tall
-	public static string BoxBottom = "╚═══════╝";
+	public static readonly string BoxTop =    "╔═══════╗";
+	public static readonly string BoxSide =   "║";   //║ 5 tall
+	public static readonly string BoxBottom = "╚═══════╝";
 
 	//WASD
-	public static string[] W =
+	public static readonly string[] W =
 	{
 		"▄   ▄",
 		"█ ▄ █",
 		"█▀ ▀█"
 	};
-	public static string[] A = 
+	public static readonly string[] A = 
 	{
 		" ▄▄▄ ",
 		"█▄▄▄█",
 		"█   █"
 	};
-	public static string[] S =
+	public static readonly string[] S =
 	{
 		"▄▄▄▄▄",
 		"█▄▄▄▄",
 		"▄▄▄▄█"
 	};
-	public static string[] D =
+	public static readonly string[] D =
 	{
 		"▄▄▄▄ ",
 		"█   █",
 		"█▄▄▄▀"
 	};
 	//ARROWS
-	public static string[] UpArrow =
+	public static readonly string[] UpArrow =
 	{
 		" ▄█▄ ",
 		"▀ █ ▀",
 		"  █  "
 	};
-	public static string[] LeftArrow =
+	public static readonly string[] LeftArrow =
 	{
 		"  ▄  ",
 		"■█■■■",
 		"  ▀  "
 	};
-	public static string[] DownArrow =
+	public static readonly string[] DownArrow =
 	{
 		"  █  ",
 		"▄ █ ▄",
 		" ▀█▀ "
 	};
-	public static string[] RightArrow =
+	public static readonly string[] RightArrow =
 	{
 		"  ▄  ",
 		"■■■█■",
 		"  ▀  "
 	};
 	//INTERACT
-	public static string[] E =
+	public static readonly string[] E =
 	{
 		"▄▄▄▄▄",
 		"█▄▄▄ ",
 		"█▄▄▄▄"
 	};
-	public static string[] Enter =
+	public static readonly string[] Enter =
 	{
 		"  ▄ ▄",
 		"▄█▄▄█",
@@ -905,7 +905,7 @@ public static class Sprites
 		//"    "
 	};
 	//Status
-	public static string[] B =
+	public static readonly string[] B =
 	{
 		"▄▄▄▄ ",
 		"█▄▄▄▀",
