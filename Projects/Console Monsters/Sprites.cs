@@ -317,10 +317,10 @@ public static class Sprites
 		@"░░░░░░░";
 	public const string Table =
 		@"       " + "\n" +
-		@"══════╗" + "\n" +
-		@"      ║" + "\n" +
-		@"══════║" + "\n" +
-		@"      ║";
+		@"╔═════╗" + "\n" +
+		@"║     ║" + "\n" +
+		@"║     ║" + "\n" +
+		@"╚╦═══╦╝";
 	public const string Chair =
 		@" │───│ " + "\n" +
 		@" │   │ " + "\n" +
@@ -329,10 +329,10 @@ public static class Sprites
 		@" ┴   ┴ ";
 	public const string ChairLeft =
 		@"       " + "\n" +
-		@" │    ╔" + "\n" +
-		@" │___ ║" + "\n" +
-		@" │   │║" + "\n" +
-		@" ┴   ┴║";
+		@" │     " + "\n" +
+		@" │___  " + "\n" +
+		@" │   │ " + "\n" +
+		@" ┴   ┴ ";
 	public const string ChairRight =
 		@"       " + "\n" +
 		@"     │ " + "\n" +
