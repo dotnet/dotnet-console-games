@@ -51,8 +51,8 @@ public static class OptionsScreen
 		sb.AppendLine(@$"{optionIndent}█    █   █ █▀▄ █   █   █▄▄▀ █   █ █   █▄▄▄   {(arrowOption is 5 ? "╞═●═╡" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}▀▄▄▄ ▀▄▄▄▀ █  ▀█   █   █  █ ▀▄▄▄▀ █▄▄ ▄▄▄█   {(arrowOption is 5 ? "╰───╯" : "     ")}");
 		sb.AppendLine();
-		sb.AppendLine(@$"{optionIndent}█▀▀▄  ▄▄   ▄▄▄ ▄  ▄   {(arrowOption is maxOption ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█■■█ █▄▄█ █    █▄▀    {(arrowOption is maxOption ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}▄▄▄   ▄▄   ▄▄▄ ▄  ▄   {(arrowOption is maxOption ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█▄▄█ █▄▄█ █    █▄▀    {(arrowOption is maxOption ? "╞═●═╡" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}█▄▄▀ █  █ ▀▄▄▄ █ ▀▄   {(arrowOption is maxOption ? "╰───╯" : "     ")}");
 
 		Console.SetCursorPosition(0, 0);
