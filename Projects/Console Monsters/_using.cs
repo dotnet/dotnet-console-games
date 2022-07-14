@@ -13,6 +13,8 @@ global using Console_Monsters.Screens;
 global using Console_Monsters.Enums;
 global using Console_Monsters.Utilities;
 global using System.Collections.Generic;
+global using Towel;
+global using static Towel.Statics;
 
 namespace Console_Monsters;
 
@@ -103,14 +105,6 @@ public static class _using
 		PlayerInventory.TryAdd(Leaf.Instance);
 		PlayerInventory.TryAdd(Key.Instance);
 		PlayerInventory.TryAdd(Candle.Instance);
-	}
-
-	public static void PressEnterToContiue()
-	{
-		while (Console.ReadKey(true).Key is not ConsoleKey.Enter)
-		{
-			// inentionally blank
-		}
 	}
 }
 
