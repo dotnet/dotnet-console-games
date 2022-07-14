@@ -26,17 +26,17 @@ public static class StartScreen
 		sb.AppendLine(@$"{titleIndent} ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚══════╝╚══════╝    ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚══════╝");
 		sb.AppendLine(@$"{newLineTitle}");
 
-		sb.AppendLine(@$"{optionIndent} {(FirstTimeLaunching ? "  ▄▄▄▄ ▄▄▄▄▄  ▄▄  ▄▄▄  ▄▄▄▄▄" : "▄▄▄  ▄▄▄▄ ▄▄▄▄ ▄  ▄ ▄   ▄ ▄▄▄▄")}  {(arrowOption is 1 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent} {(FirstTimeLaunching ? "  █▄▄▄   █   █▄▄█ █▄▄▀   █  " : "█▄▄▀ █▄▄  █▄▄▄ █  █ █▀▄▀█ █▄▄ ")}  {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent} {(FirstTimeLaunching ? "  ▄▄▄█   █   █  █ █  █   █  " : "█  █ █▄▄▄ ▄▄▄█ ▀▄▄▀ █   █ █▄▄▄")}  {(arrowOption is 1 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{optionIndent} {(FirstTimeLaunching ? "  ▄▄▄▄ ▄▄▄▄▄  ▄▄  ▄▄▄  ▄▄▄▄▄" : "▄▄▄  ▄▄▄▄ ▄▄▄▄ ▄   ▄ ▄   ▄ ▄▄▄▄")}   {(arrowOption is 1 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent} {(FirstTimeLaunching ? "  █▄▄▄   █   █▄▄█ █▄▄▀   █  " : "█▄▄▀ █▄▄  █▄▄▄ █   █ █▀▄▀█ █▄▄ ")}   {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent} {(FirstTimeLaunching ? "  ▄▄▄█   █   █  █ █  █   █  " : "█  █ █▄▄▄ ▄▄▄█ ▀▄▄▄▀ █   █ █▄▄▄")}   {(arrowOption is 1 ? "╰───╯" : "     ")}");
 		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent} ▄▄  ▄▄▄  ▄▄▄▄▄ ▄  ▄▄  ▄   ▄ ▄▄▄▄  {(arrowOption is 2 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█  █ █▄▄▀   █   █ █  █ █▀▄ █ █▄▄▄  {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}▀▄▄▀ █      █   █ ▀▄▄▀ █  ▀█ ▄▄▄█  {(arrowOption is 2 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{optionIndent} ▄▄▄  ▄▄▄  ▄▄▄▄▄ ▄  ▄▄▄  ▄   ▄ ▄▄▄▄   {(arrowOption is 2 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█   █ █▄▄▀   █   █ █   █ █▀▄ █ █▄▄▄   {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}▀▄▄▄▀ █      █   █ ▀▄▄▄▀ █  ▀█ ▄▄▄█   {(arrowOption is 2 ? "╰───╯" : "     ")}");
 		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}        ▄▄▄▄ ▄   ▄ ▄ ▄▄▄▄▄  {(arrowOption is 3 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}        █▄▄   ▀▄▀  █   █    {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}        █▄▄▄ ▄▀ ▀▄ █   █    {(arrowOption is 3 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}        ▄▄▄▄ ▄   ▄ ▄ ▄▄▄▄▄   {(arrowOption is 3 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}        █▄▄   ▀▄▀  █   █     {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}        █▄▄▄ ▄▀ ▀▄ █   █     {(arrowOption is 3 ? "╰───╯" : "     ")}");
 
 		Console.SetCursorPosition(0, 0);
 		Console.WriteLine(sb);
