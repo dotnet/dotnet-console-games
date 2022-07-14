@@ -13,6 +13,8 @@ public class Duck_Hunt
 
 	public async Task Run()
 	{
+		Exception? exception = null;
+
 		Sprites.Console = Console;
 		Sprites.Initialize();
 
@@ -554,12 +556,17 @@ public class Duck_Hunt
 				Console.ForegroundColor = ConsoleColor.White;
 			}
 		}
+		catch (Exception e)
+		{
+			exception = e;
+			throw;
+		}
 		finally
 		{
 			Console.CursorVisible = true;
 			Console.ResetColor();
 			await Console.Clear();
-			await Console.Write("Duck Hunt was closed.");
+			await Console.WriteLine(exception?.ToString() ?? "Duck Hunt was closed.");
 			await Console.Refresh();
 		}
 	}

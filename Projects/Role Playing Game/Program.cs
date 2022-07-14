@@ -55,6 +55,7 @@ namespace Role_Playing_Game
 
 		public static void Main()
 		{
+			Exception? exception = null;
 			try
 			{
 				Console.CursorVisible = false;
@@ -71,10 +72,15 @@ namespace Role_Playing_Game
 					}
 				}
 			}
+			catch (Exception e)
+			{
+				exception = e;
+				throw;
+			}
 			finally
 			{
 				Console.Clear();
-				Console.WriteLine("Role Playing Game was closed.");
+				Console.WriteLine(exception?.ToString() ?? "Role Playing Game was closed.");
 				Console.CursorVisible = true;
 			}
 		}

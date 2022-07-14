@@ -10,6 +10,8 @@ public class Wordle
 
 	public async Task Run()
 	{
+		Exception? exception = null;
+
 		try
 		{
 			Random random = new();
@@ -139,11 +141,16 @@ public class Wordle
 					goto GetInput;
 			}
 		}
+		catch (Exception e)
+		{
+			exception = e;
+			throw;
+		}
 		finally
 		{
 			Console.ResetColor();
 			await Console.Clear();
-			await Console.WriteLine("Wordle was closed.");
+			await Console.WriteLine(exception?.ToString() ?? "Wordle was closed.");
 			await Console.Refresh();
 		}
 

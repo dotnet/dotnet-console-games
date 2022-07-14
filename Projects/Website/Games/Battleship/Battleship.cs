@@ -17,6 +17,8 @@ public class Battleship
 
 	public async Task Run()
 	{
+		Exception? exception = null;
+
 		const int boardHeight = 10;
 		const int boardWidth = 10;
 		bool[,] offense;
@@ -133,12 +135,17 @@ public class Battleship
 				await GetEnterOrEscape();
 			}
 		}
+		catch (Exception e)
+		{
+			exception = e;
+			throw;
+		}
 		finally
 		{
 			Console.CursorVisible = true;
 			Console.ResetColor();
 			await Console.Clear();
-			await Console.Write("Battleship was closed.");
+			await Console.WriteLine(exception?.ToString() ?? "Battleship was closed.");
 			await Console.Refresh();
 		}
 

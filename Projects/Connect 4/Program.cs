@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 
+Exception? exception = null;
+
 bool?[,] board = new bool?[7, 6];
 bool player1Turn;
 bool player1MovesFirst = true;
@@ -113,11 +115,16 @@ GetInput:
 		default: goto GetInput;
 	}
 }
+catch (Exception e)
+{
+	exception = e;
+	throw;
+}
 finally
 {
 	Console.CursorVisible = true;
 	Console.Clear();
-	Console.Write("Connect 4 was closed.");
+	Console.WriteLine(exception?.ToString() ?? "Connect 4 was closed.");
 }
 
 void ResetBoard()

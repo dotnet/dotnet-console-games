@@ -11,6 +11,8 @@ public class Sliding_Puzzle
 
 	public async Task Run()
 	{
+		Exception? exception = null;
+
 		const string menu = @"
   Sliding Puzzle
 
@@ -107,12 +109,17 @@ public class Sliding_Puzzle
 				}
 			}
 		}
+		catch (Exception e)
+		{
+			exception = e;
+			throw;
+		}
 		finally
 		{
 			Console.CursorVisible = true;
 			Console.ResetColor();
 			await Console.Clear();
-			await Console.Write("Sliding Puzzle was closed.");
+			await Console.WriteLine(exception?.ToString() ?? "Sliding Puzzle was closed.");
 			await Console.Refresh();
 		}
 

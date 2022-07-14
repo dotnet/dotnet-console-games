@@ -12,6 +12,8 @@ public class Blackjack
 
 	public async Task Run()
 	{
+		Exception? exception = null;
+
 		Random random = new();
 		List<Card> deck;
 		List<Card> discardPile;
@@ -164,11 +166,16 @@ public class Blackjack
 				default: goto GetEnterOrEscape;
 			}
 		}
+		catch (Exception e)
+		{
+			exception = e;
+			throw;
+		}
 		finally
 		{
 			Console.CursorVisible = true;
 			await Console.Clear();
-			await Console.Write("Blackjack was closed.");
+			await Console.WriteLine(exception?.ToString() ?? "Blackjack was closed.");
 			await Console.Refresh();
 		}
 

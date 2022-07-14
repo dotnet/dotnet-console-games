@@ -11,6 +11,8 @@ public class Memory
 
 	public async Task Run()
 	{
+		Exception? exception = null;
+
 		Tile[,] board;
 		(int Row, int Column)? firstSelection = null;
 		(int Row, int Column)? secondSelection = null;
@@ -62,12 +64,17 @@ public class Memory
 				}
 			}
 		}
+		catch (Exception e)
+		{
+			exception = e;
+			throw;
+		}
 		finally
 		{
 			Console.ResetColor();
 			Console.CursorVisible = true;
 			await Console.Clear();
-			await Console.WriteLine("Memory was closed.");
+			await Console.WriteLine(exception?.ToString() ?? "Memory was closed.");
 			await Console.Refresh();
 		}
 
