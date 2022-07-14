@@ -12,14 +12,14 @@ public static class ConsoleColorSettingsScreen
 		string optionIndent = new(' ', 60);
 		string titleIndent = new(' ', 30);
 
-		string[] blackAsciiText = TextGenerator.GenerateAsciiText("black");
-		string[] greenAsciiText = TextGenerator.GenerateAsciiText("green");
-		string[] redAsciiText = TextGenerator.GenerateAsciiText("red");
-		string[] blueAsciiText = TextGenerator.GenerateAsciiText("blue");
-		string[] yellowAsciiText = TextGenerator.GenerateAsciiText("yellow");
-		string[] invertAsciiText = TextGenerator.GenerateAsciiText("invert");
-		string[] resetAsciiText = TextGenerator.GenerateAsciiText("reset");
-		string[] returnToOptionsText = TextGenerator.GenerateAsciiText("Back");
+		string[] blackAsciiText = AsciiGenerator.ToAscii("black");
+		string[] greenAsciiText = AsciiGenerator.ToAscii("green");
+		string[] redAsciiText = AsciiGenerator.ToAscii("red");
+		string[] blueAsciiText = AsciiGenerator.ToAscii("blue");
+		string[] yellowAsciiText = AsciiGenerator.ToAscii("yellow");
+		string[] invertAsciiText = AsciiGenerator.ToAscii("invert");
+		string[] resetAsciiText = AsciiGenerator.ToAscii("reset");
+		string[] returnToOptionsText = AsciiGenerator.ToAscii("Back");
 		
 		Console.Clear();
 	ReDraw:
