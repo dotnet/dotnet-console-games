@@ -10,6 +10,8 @@ public class Connect_4
 
 	public async Task Run()
 	{
+		Exception? exception = null;
+
 		bool?[,] board = new bool?[7, 6];
 		bool player1Turn;
 		bool player1MovesFirst = true;
@@ -122,11 +124,16 @@ public class Connect_4
 				default: goto GetInput;
 			}
 		}
+		catch (Exception e)
+		{
+			exception = e;
+			throw;
+		}
 		finally
 		{
 			Console.CursorVisible = true;
 			await Console.Clear();
-			await Console.Write("Connect 4 was closed.");
+			await Console.WriteLine(exception?.ToString() ?? "Connect 4 was closed.");
 			await Console.Refresh();
 		}
 

@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
+Exception? exception = null;
+
 try
 {
 	Random random = new();
@@ -145,11 +147,16 @@ GetInput:
 			goto GetInput;
 	}
 }
+catch (Exception e)
+{
+	exception = e;
+	throw;
+}
 finally
 {
 	Console.ResetColor();
 	Console.Clear();
-	Console.WriteLine("Wordle was closed.");
+	Console.WriteLine(exception?.ToString() ?? "Wordle was closed.");
 }
 
 bool CheckForYellow(int index, string word, char[] letters)

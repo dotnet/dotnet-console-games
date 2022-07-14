@@ -24,6 +24,8 @@ public class Console_Monsters
 
 	public async Task Run()
 	{
+		Exception? exception = null;
+
 		Encoding encoding = Console.OutputEncoding!;
 		try
 		{
@@ -56,11 +58,16 @@ public class Console_Monsters
 				}
 			}
 		}
+		catch (Exception e)
+		{
+			exception = e;
+			throw;
+		}
 		finally
 		{
 			Console.OutputEncoding = encoding;
 			await Console.Clear();
-			await Console.WriteLine("Console Monsters was closed.");
+			await Console.WriteLine(exception?.ToString() ?? "Console Monsters was closed.");
 			Console.CursorVisible = true;
 			await Console.Refresh();
 		}

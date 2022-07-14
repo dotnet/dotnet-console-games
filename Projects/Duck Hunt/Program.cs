@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
+Exception? exception = null;
+
 const char NULL_CHAR = '\0';
 const char EMPTY_CHAR = '-';
 const int BARREL_LENGTH = 10;
@@ -533,12 +535,17 @@ try
 		Console.ForegroundColor = ConsoleColor.White;
 	}
 }
+catch (Exception e)
+{
+	exception = e;
+	throw;
+}
 finally
 {
 	Console.CursorVisible = true;
 	Console.ResetColor();
 	Console.Clear();
-	Console.Write("Duck Hunt was closed.");
+	Console.WriteLine(exception?.ToString() ?? "Duck Hunt was closed.");
 }
 
 struct Point

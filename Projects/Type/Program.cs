@@ -4,6 +4,8 @@ using System.Reflection;
 using Towel;
 using Towel.DataStructures;
 
+Exception? exception = null;
+
 int Score = 0;
 Random Random = new();
 string[] WordPool;
@@ -104,12 +106,17 @@ try
 		Render();
 	}
 }
+catch (Exception e)
+{
+	exception = e;
+	throw;
+}
 finally
 {
 	Console.ResetColor();
 	Console.Clear();
 	Console.CursorVisible = true;
-	Console.WriteLine("Type was closed.");
+	Console.WriteLine(exception?.ToString() ?? "Type was closed.");
 }
 
 void GetWord()

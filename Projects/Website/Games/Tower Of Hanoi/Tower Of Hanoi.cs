@@ -11,6 +11,8 @@ public class Tower_Of_Hanoi
 
 	public async Task Run()
 	{
+		Exception? exception = null;
+
 		int disks;
 		int minimumNumberOfMoves;
 		List<int>[] stacks;
@@ -107,12 +109,17 @@ public class Tower_Of_Hanoi
 				default: goto GetEnterOrEscape;
 			}
 		}
+		catch (Exception e)
+		{
+			exception = e;
+			throw;
+		}
 		finally
 		{
 			Console.CursorVisible = true;
 			Console.ResetColor();
 			await Console.Clear();
-			await Console.Write("Tower Of Hanoi was closed.");
+			await Console.WriteLine(exception?.ToString() ?? "Tower Of Hanoi was closed.");
 			await Console.Refresh();
 		}
 

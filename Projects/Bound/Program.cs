@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
+Exception? exception = null;
+
 ((int Left, int Top) StartPosition, (string Map, TimeSpan Delay)[])[] levels =
 {
 	#region level 00
@@ -1773,9 +1775,14 @@ YouLose:
 		}
 	}
 }
+catch (Exception e)
+{
+	exception = e;
+	throw;
+}
 finally
 {
 	Console.CursorVisible = true;
 	Console.Clear();
-	Console.WriteLine("Bound was closed.");
+	Console.WriteLine(exception?.ToString() ?? "Bound was closed.");
 }

@@ -10,6 +10,8 @@ public class Snake
 
 	public async Task Run()
 	{
+		Exception? exception = null;
+
 		char[] DirectionChars = { '^', 'v', '<', '>', };
 		TimeSpan sleep = TimeSpan.FromMilliseconds(35);
 		int width = Console.WindowWidth;
@@ -81,11 +83,16 @@ public class Snake
 				await Console.RefreshAndDelay(sleep);
 			}
 		}
+		catch (Exception e)
+		{
+			exception = e;
+			throw;
+		}
 		finally
 		{
 			Console.CursorVisible = true;
 			await Console.Clear();
-			await Console.Write("Snake was closed.");
+			await Console.WriteLine(exception?.ToString() ?? "Snake was closed.");
 			await Console.Refresh();
 		}
 

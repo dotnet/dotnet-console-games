@@ -2,6 +2,8 @@
 using System.Globalization;
 using static Towel.Statics;
 
+Exception? exception = null;
+
 const string menu = @"
   Sliding Puzzle
 
@@ -98,12 +100,17 @@ try
 		}
 	}
 }
+catch (Exception e)
+{
+	exception = e;
+	throw;
+}
 finally
 {
 	Console.CursorVisible = true;
 	Console.ResetColor();
 	Console.Clear();
-	Console.Write("Sliding Puzzle was closed.");
+	Console.WriteLine(exception?.ToString() ?? "Sliding Puzzle was closed.");
 }
 
 void Render(int[,] board)

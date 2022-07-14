@@ -13,6 +13,7 @@ public class Checkers
 
 	public async Task Run()
 	{
+		Exception? exception = null;
 
 		Encoding? encoding = Console.OutputEncoding;
 
@@ -25,12 +26,17 @@ public class Checkers
 			await RenderGameState(game, promptPressKey: true);
 			await Console.ReadKey(true);
 		}
+		catch (Exception e)
+		{
+			exception = e;
+			throw;
+		}
 		finally
 		{
 			Console.OutputEncoding = encoding;
 			Console.CursorVisible = true;
 			await Console.Clear();
-			await Console.Write("Checkers was closed.");
+			await Console.WriteLine(exception?.ToString() ?? "Checkers was closed.");
 		}
 
 		async Task<Game> ShowIntroScreenAndGetOption()
