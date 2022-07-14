@@ -11,37 +11,46 @@ public static class OptionsScreen
 
 		string optionIndent = new(' ', 50);
 		string titleIndent = new(' ', 50);
-		string newLineOptions = new('\n', 2);
-		string newLineTitle = new('\n', 6);
 
 		Console.Clear();
 	ReDraw:
 		sb.Clear();
-		// TODO: Refactor the code here so this bug will go away
-		sb.AppendLine(@$"{newLineTitle}");
+
+		sb.AppendLine();
+		sb.AppendLine();
+		sb.AppendLine();
+		sb.AppendLine();
+		sb.AppendLine();
+		sb.AppendLine();
 		sb.AppendLine(@$"{titleIndent} ██████╗ ██████╗ ████████╗██╗ ██████╗ ███╗   ██╗███████╗");
 		sb.AppendLine(@$"{titleIndent}██╔═══██╗██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝");
 		sb.AppendLine(@$"{titleIndent}██║   ██║██████╔╝   ██║   ██║██║   ██║██╔██╗ ██║███████╗");
 		sb.AppendLine(@$"{titleIndent}██║   ██║██╔═══╝    ██║   ██║██║   ██║██║╚██╗██║╚════██║");
 		sb.AppendLine(@$"{titleIndent}╚██████╔╝██║        ██║   ██║╚██████╔╝██║ ╚████║███████║");
 		sb.AppendLine(@$"{titleIndent} ╚═════╝ ╚═╝        ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝");
-		sb.AppendLine(@$"{newLineOptions}");
+		sb.AppendLine();
+		sb.AppendLine();
+		sb.AppendLine();
 		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "╔══╗" : "╔══╗")}                      {(arrowOption is 1 ? "╭───╮" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "║  ║" : "║██║")}  Movement Animation  {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "╚══╝" : "╚══╝")}                      {(arrowOption is 1 ? "╰───╯" : "     ")}");
+		sb.AppendLine();
 		sb.AppendLine(@$"{optionIndent}{(DisableBattleTransition ? "╔══╗" : "╔══╗")}                     {(arrowOption is 2 ? "╭───╮" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}{(DisableBattleTransition ? "║  ║" : "║██║")}  Battle Transition  {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}{(DisableBattleTransition ? "╚══╝" : "╚══╝")}                     {(arrowOption is 2 ? "╰───╯" : "     ")}");
+		sb.AppendLine();
 		sb.AppendLine(@$"{optionIndent}{(DisableBattle ? "╔══╗" : "╔══╗")}                      {(arrowOption is 3 ? "╭───╮" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}{(DisableBattle ? "║  ║" : "║██║")}  Battles (DEV TOOL)  {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}{(DisableBattle ? "╚══╝" : "╚══╝")}                      {(arrowOption is 3 ? "╰───╯" : "     ")}");
-		sb.AppendLine(@$"{optionIndent} ▄▄▄  ▄▄▄  ▄     ▄▄▄  ▄▄▄     ▄▄▄ ▄▄▄▄ ▄▄▄▄▄ ▄▄▄▄▄ ▄ ▄   ▄  ▄▄▄   ▄▄▄   {(arrowOption is 4 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█    █   █ █    █   █ █▄▄▀   ▀■■▄ █▄▄    █     █   █ █▀▄ █ █  ▄▄ ▀■■▄   {(arrowOption is 4 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}▀▄▄▄ ▀▄▄▄▀ █▄▄▄ ▀▄▄▄▀ █  ▀▄  ■■■▀ █▄▄▄   █     █   █ █  ▀█ ▀▄▄▄▀ ■■■▀   {(arrowOption is 4 ? "╰───╯" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}▄  ▄  ▄▄▄▄ ▄   ▄   ▄   ▄  ▄▄  ▄▄▄  ▄▄▄  ▄ ▄   ▄  ▄▄▄    {(arrowOption is 5 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█■█   █▄▄   ▀▄▀    █▀▄▀█ █▄▄█ █▄▄▀ █▄▄▀ █ █▀▄ █ █  ▄▄   {(arrowOption is 5 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█  ▀▄ █▄▄▄   █     █   █ █  █ █    █    █ █  ▀█ ▀▄▄▄▀   {(arrowOption is 5 ? "╰───╯" : "     ")}");
-		sb.AppendLine(@$"{newLineOptions}");
+		sb.AppendLine();
+		sb.AppendLine(@$"{optionIndent} ▄▄▄  ▄▄▄  ▄     ▄▄▄  ▄▄▄    ▄▄▄   {(arrowOption is 4 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█    █   █ █    █   █ █▄▄▀  ▀■■▄   {(arrowOption is 4 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}▀▄▄▄ ▀▄▄▄▀ █▄▄▄ ▀▄▄▄▀ █  ▀▄ ■■■▀   {(arrowOption is 4 ? "╰───╯" : "     ")}");
+		sb.AppendLine();
+		sb.AppendLine(@$"{optionIndent}▄ ▄   ▄ ▄▄▄  ▄   ▄ ▄▄▄▄▄   {(arrowOption is 5 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█ █▀▄ █ █▄▄▀ █   █   █     {(arrowOption is 5 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█ █  ▀█ █    ▀▄▄▄▀   █     {(arrowOption is 5 ? "╰───╯" : "     ")}");
+		sb.AppendLine();
 		sb.AppendLine(@$"{optionIndent}█▀▀▄  ▄▄   ▄▄▄ ▄  ▄   {(arrowOption is maxOption ? "╭───╮" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}█■■█ █▄▄█ █    █■█    {(arrowOption is maxOption ? "╞═●═╡" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}█▄▄▀ █  █ ▀▄▄▄ █  ▀▄  {(arrowOption is maxOption ? "╰───╯" : "     ")}");
