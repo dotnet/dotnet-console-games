@@ -7,7 +7,7 @@ public static class OptionsScreen
 		StringBuilder sb = new();
 
 		int arrowOption = 1;
-		const int maxOption = 5;
+		const int maxOption = 6;
 
 		string optionIndent = new(' ', 50);
 		string titleIndent = new(' ', 50);
@@ -17,7 +17,7 @@ public static class OptionsScreen
 		Console.Clear();
 	ReDraw:
 		sb.Clear();
-
+		// TODO: Refactor the code here so this bug will go away
 		sb.AppendLine(@$"{newLineTitle}");
 		sb.AppendLine(@$"{titleIndent} ██████╗ ██████╗ ████████╗██╗ ██████╗ ███╗   ██╗███████╗");
 		sb.AppendLine(@$"{titleIndent}██╔═══██╗██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝");
@@ -39,9 +39,13 @@ public static class OptionsScreen
 		sb.AppendLine(@$"{optionIndent}{(DisableBattle ? "║  ║" : "║██║")}  Battles (DEV TOOL)  {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}{(DisableBattle ? "╚══╝" : "╚══╝")}                      {(arrowOption is 3 ? "╰───╯" : "     ")}");
 		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}▄  ▄  ▄▄▄▄ ▄   ▄   ▄   ▄  ▄▄  ▄▄▄  ▄▄▄  ▄ ▄   ▄  ▄▄▄    {(arrowOption is 4 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█■█   █▄▄   ▀▄▀    █▀▄▀█ █▄▄█ █▄▄▀ █▄▄▀ █ █▀▄ █ █  ▄▄   {(arrowOption is 4 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█  ▀▄ █▄▄▄   █     █   █ █  █ █    █    █ █  ▀█ ▀▄▄▄▀   {(arrowOption is 4 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{optionIndent} ▄▄▄  ▄▄▄  ▄     ▄▄▄  ▄▄▄     ▄▄▄ ▄▄▄▄ ▄▄▄▄▄ ▄▄▄▄▄ ▄ ▄   ▄  ▄▄▄   ▄▄▄   {(arrowOption is 4 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█    █   █ █    █   █ █▄▄▀   ▀■■▄ █▄▄    █     █   █ █▀▄ █ █  ▄▄ ▀■■▄   {(arrowOption is 4 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}▀▄▄▄ ▀▄▄▄▀ █▄▄▄ ▀▄▄▄▀ █  ▀▄  ■■■▀ █▄▄▄   █     █   █ █  ▀█ ▀▄▄▄▀ ■■■▀   {(arrowOption is 4 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{newLineOptions}");
+		sb.AppendLine(@$"{optionIndent}▄  ▄  ▄▄▄▄ ▄   ▄   ▄   ▄  ▄▄  ▄▄▄  ▄▄▄  ▄ ▄   ▄  ▄▄▄    {(arrowOption is 5 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█■█   █▄▄   ▀▄▀    █▀▄▀█ █▄▄█ █▄▄▀ █▄▄▀ █ █▀▄ █ █  ▄▄   {(arrowOption is 5 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█  ▀▄ █▄▄▄   █     █   █ █  █ █    █    █ █  ▀█ ▀▄▄▄▀   {(arrowOption is 5 ? "╰───╯" : "     ")}");
 		sb.AppendLine(@$"{newLineOptions}");
 		sb.AppendLine(@$"{optionIndent}█▀▀▄  ▄▄   ▄▄▄ ▄  ▄   {(arrowOption is maxOption ? "╭───╮" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}█■■█ █▄▄█ █    █■█    {(arrowOption is maxOption ? "╞═●═╡" : "     ")}");
@@ -60,7 +64,8 @@ public static class OptionsScreen
 					case 1: DisableMovementAnimation = !DisableMovementAnimation; goto ReDraw;
 					case 2: DisableBattleTransition = !DisableBattleTransition; goto ReDraw;
 					case 3: DisableBattle = !DisableBattle; goto ReDraw;
-					case 4: KeyMappingScreen.KeyMappingMenu(); break;
+					case 4: ConsoleColorSettingsScreen.ColorSchemeMenu(); break;
+					case 5: KeyMappingScreen.KeyMappingMenu(); break;
 					case maxOption: break;
 				}
 				break;
