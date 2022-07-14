@@ -35,35 +35,30 @@ public static class ConsoleColorSettingsScreen
 		sb.AppendLine(@$"{titleIndent}██║     ██║   ██║██║     ██║   ██║██╔══██╗    ╚════██║██║     ██╔══██║██╔══╝  ██║╚██╔╝██║██╔══╝  ");
 		sb.AppendLine(@$"{titleIndent}╚██████╗╚██████╔╝███████╗╚██████╔╝██║  ██║    ███████║╚██████╗██║  ██║███████╗██║ ╚═╝ ██║███████╗");
 		sb.AppendLine(@$"{titleIndent} ╚═════╝ ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝    ╚══════╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚══════╝");
-		sb.Append('\n', 3); // SET TO 6 WHEN SCROLL
+		sb.AppendLine();
 		sb.AppendLine($@"{headerIndent}{headerAsciiText[0]}");
 		sb.AppendLine(@$"{headerIndent}{headerAsciiText[1]}");
 		sb.AppendLine(@$"{headerIndent}{headerAsciiText[2]}");
-		sb.AppendLine();
 		sb.AppendLine($@"{new(' ', 89)}{new(' ', 18)}");
 		sb.AppendLine(@$"{optionIndent}{blackAsciiText[0]}{new(' ', 28)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 1 ? "╭───╮" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}{blackAsciiText[1]}{new(' ', 28)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}{blackAsciiText[2]}{new(' ', 28)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 1 ? "╰───╯" : "     ")}");
 		sb.AppendLine($@"{new(' ', 89)}{new(' ', 18)}");
-		sb.AppendLine();
 		sb.AppendLine($@"{new(' ', 89)}{new(' ', 18)}");
 		sb.AppendLine(@$"{optionIndent}{whiteAsciiText[0]}{new(' ', 16)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 2 ? "╭───╮" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}{whiteAsciiText[1]}{new(' ', 16)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}{whiteAsciiText[2]}{new(' ', 16)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 2 ? "╰───╯" : "     ")}");
 		sb.AppendLine($@"{new(' ', 89)}{new(' ', 18)}");
-		sb.AppendLine();
 		sb.AppendLine($@"{new(' ', 89)}{new(' ', 18)}");
 		sb.AppendLine(@$"{optionIndent}{greenAsciiText[0]}{new(' ', 18)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 3 ? "╭───╮" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}{greenAsciiText[1]}{new(' ', 18)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}{greenAsciiText[2]}{new(' ', 18)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 3 ? "╰───╯" : "     ")}");
 		sb.AppendLine($@"{new(' ', 89)}{new(' ', 18)}");
-		sb.AppendLine();
 		sb.AppendLine($@"{new(' ', 89)}{new(' ', 18)}");
 		sb.AppendLine(@$"{optionIndent}{redAsciiText[0]}{new(' ', 14)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 4 ? "╭───╮" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}{redAsciiText[1]}{new(' ', 14)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 4 ? "╞═●═╡" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}{redAsciiText[2]}{new(' ', 14)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 4 ? "╰───╯" : "     ")}");
 		sb.AppendLine($@"{new(' ', 89)}{new(' ', 18)}");
-		sb.AppendLine();
 		sb.AppendLine($@"{new(' ', 89)}{new(' ', 18)}");
 		sb.AppendLine(@$"{optionIndent}{blueAsciiText[0]}{new(' ', 9)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 5 ? "╭───╮" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}{blueAsciiText[1]}{new(' ', 9)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 5 ? "╞═●═╡" : "     ")}");
@@ -79,23 +74,39 @@ public static class ConsoleColorSettingsScreen
 
 		switch (Console.ReadKey(true).Key)
 		{
-			case ConsoleKey.UpArrow or ConsoleKey.W: arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
+			case ConsoleKey.UpArrow   or ConsoleKey.W: arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
 			case ConsoleKey.DownArrow or ConsoleKey.S: arrowOption = Math.Min(maxOption, arrowOption + 1); goto ReDraw;
 			case ConsoleKey.Enter or ConsoleKey.E:
 				switch (arrowOption)
 				{ 
-					// TODO: Add the ability to choose what background and foreground you want to use individually
-					case 1: Console.BackgroundColor = ConsoleColor.Black;
-						Console.ForegroundColor = ConsoleColor.White; goto ReDraw;
-					case 2: Console.BackgroundColor = ConsoleColor.White;
-						Console.ForegroundColor = ConsoleColor.Black; goto ReDraw;
-					case 3: Console.BackgroundColor = ConsoleColor.Green;
-						Console.ForegroundColor = ConsoleColor.Black; goto ReDraw;
-					case 4: Console.BackgroundColor = ConsoleColor.Red;
-						Console.ForegroundColor = ConsoleColor.Black; goto ReDraw;
-					case 5: Console.BackgroundColor = ConsoleColor.Blue;
-						Console.ForegroundColor = ConsoleColor.Black; goto ReDraw;
-					case maxOption: break;
+					#warning TODO: Add the ability to choose what background and foreground you want to use individually
+					case 1:
+						Console.BackgroundColor = ConsoleColor.Black;
+						Console.ForegroundColor = ConsoleColor.White;
+						Console.Clear();
+						goto ReDraw;
+					case 2:
+						Console.BackgroundColor = ConsoleColor.White;
+						Console.ForegroundColor = ConsoleColor.Black;
+						Console.Clear();
+						goto ReDraw;
+					case 3:
+						Console.BackgroundColor = ConsoleColor.Green;
+						Console.ForegroundColor = ConsoleColor.Black;
+						Console.Clear();
+						goto ReDraw;
+					case 4:
+						Console.BackgroundColor = ConsoleColor.Red;
+						Console.ForegroundColor = ConsoleColor.Black;
+						Console.Clear();
+						goto ReDraw;
+					case 5:
+						Console.BackgroundColor = ConsoleColor.Blue;
+						Console.ForegroundColor = ConsoleColor.Black;
+						Console.Clear();
+						goto ReDraw;
+					case maxOption:
+						break;
 				}
 				break;
 			case ConsoleKey.Escape: OptionsScreen.OptionsMenu(); break;
