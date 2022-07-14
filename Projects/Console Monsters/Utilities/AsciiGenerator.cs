@@ -45,8 +45,8 @@ public static class AsciiGenerator
 				},
 			'b' => new[]
 				{
-					"█▀▀▄",
-					"█■■█",
+					"▄▄▄ ",
+					"█▄▄█",
 					"█▄▄▀"
 				},
 			'c' => new[]
@@ -57,7 +57,7 @@ public static class AsciiGenerator
 				},
 			'd' => new[]
 				{
-					"█▀▀▄",
+					"▄▄▄ ",
 					"█  █",
 					"█▄▄▀"
 				},
@@ -171,9 +171,9 @@ public static class AsciiGenerator
 				},
 			'w' => new[]
 				{
-					" ▄     ▄",
-					" █     █",
-					"  ▀▄▀▄▀ "
+					"▄   ▄",
+					"█ ▄ █",
+					"▀▄▀▄▀"
 				},
 			'x' => new[]
 				{
@@ -189,9 +189,9 @@ public static class AsciiGenerator
 				},
 			'z' => new[]
 				{
-					"▄▄▄▄▄",
-					"  ▄▀ ",
-					"▄█▄▄▄"
+					"▄▄▄▄",
+					" ▄▄▀",
+					"█▄▄▄"
 				},
 			_ => throw new NotImplementedException(),
 		};
