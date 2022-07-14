@@ -109,6 +109,8 @@ public class House1SecondFloor : MapBase
 			'i' => true,
 			'j' => true,
 			'm' => true,
+			'n' => true,
+			'o' => true,
 			'e' => true,
 			'y' => true,
 			_ => false,
