@@ -11,7 +11,6 @@ public partial class Program
 			Console.OutputEncoding = Encoding.UTF8;
 			if (OperatingSystem.IsWindows())
 			{
-				// TODO: Make this dynamic at some point as it is causing a bug with our menus
 				const int screenWidth = 150;
 				const int screenHeight = 50;
 				try
