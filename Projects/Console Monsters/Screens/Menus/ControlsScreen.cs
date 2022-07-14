@@ -1,8 +1,8 @@
 ﻿namespace Console_Monsters.Screens;
 
-public static class KeyMappingScreen
+public static class ControlsScreen
 {
-	public static void KeyMappingMenu()
+	public static void ControlsMenu()
 	{
 		StringBuilder sb = new();
 
@@ -31,7 +31,7 @@ public static class KeyMappingScreen
 		string boxBottom = Sprites.BoxBottom;
 		string boxEmpty = new(' ', 9);
 
-		int upOption = 2;
+		int upOption = 1;
 
 		Console.Clear();
 	ReDraw:
@@ -50,15 +50,15 @@ public static class KeyMappingScreen
 		sb.AppendLine(@$"{headerIndent}█   █ █  █ █ █  ▀█   █   █  █ █▄▄   █  ");
 		sb.AppendLine();
 		sb.AppendLine($@"{new(' ', 89)}{(upOption == 1 ? boxTop : boxEmpty)}{new(' ', 18)}{boxTop}");
-		sb.AppendLine(@$"{optionIndent}▄  ▄ ▄▄▄   {new(' ', 28)}{boxSide} {currentUp[0]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentUpAlt[0]}   {(arrowOption is 1 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█  █ █▄▄▀ ▀{new(' ', 28)}{boxSide} {currentUp[1]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentUpAlt[1]}   {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}▀▄▄▀ █    ▄{new(' ', 28)}{boxSide} {currentUp[2]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentUpAlt[2]}   {(arrowOption is 1 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}▄   ▄ ▄▄▄   {new(' ', 27)}{boxSide} {currentUp[0]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentUpAlt[0]}   {(arrowOption is 1 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█   █ █▄▄▀ ▀{new(' ', 27)}{boxSide} {currentUp[1]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentUpAlt[1]}   {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}▀▄▄▄▀ █    ▄{new(' ', 27)}{boxSide} {currentUp[2]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentUpAlt[2]}   {(arrowOption is 1 ? "╰───╯" : "     ")}");
 		sb.AppendLine($@"{new(' ', 89)}{boxBottom}{new(' ', 18)}{boxBottom}");
 		sb.AppendLine();
 		sb.AppendLine($@"{new(' ', 89)}{boxTop}{new(' ', 18)}{boxTop}");
-		sb.AppendLine(@$"{optionIndent}▄▄▄   ▄▄  ▄   ▄ ▄   ▄  {new(' ', 16)}{boxSide} {currentDown[0]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{boxSide} {currentDownAlt[0]} {boxSide}   {(arrowOption is 2 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█  █ █  █ █ ▄ █ █▀▄ █ ▀{new(' ', 16)}{boxSide} {currentDown[1]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{boxSide} {currentDownAlt[1]} {boxSide}   {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█▄▄▀ ▀▄▄▀ █▀ ▀█ █  ▀█ ▄{new(' ', 16)}{boxSide} {currentDown[2]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{boxSide} {currentDownAlt[2]} {boxSide}   {(arrowOption is 2 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}▄▄▄   ▄▄▄  ▄   ▄ ▄   ▄  {new(' ', 15)}{boxSide} {currentDown[0]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{boxSide} {currentDownAlt[0]} {boxSide}   {(arrowOption is 2 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█  █ █   █ █ ▄ █ █▀▄ █ ▀{new(' ', 15)}{boxSide} {currentDown[1]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{boxSide} {currentDownAlt[1]} {boxSide}   {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█▄▄▀ ▀▄▄▄▀ █▀ ▀█ █  ▀█ ▄{new(' ', 15)}{boxSide} {currentDown[2]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{boxSide} {currentDownAlt[2]} {boxSide}   {(arrowOption is 2 ? "╰───╯" : "     ")}");
 		sb.AppendLine($@"{new(' ', 89)}{boxBottom}{new(' ', 18)}{boxBottom}");
 		sb.AppendLine();
 		sb.AppendLine($@"{new(' ', 89)}{boxTop}{new(' ', 18)}{boxTop}");
@@ -74,14 +74,14 @@ public static class KeyMappingScreen
 		sb.AppendLine($@"{new(' ', 89)}{boxBottom}{new(' ', 18)}{boxBottom}");
 		sb.AppendLine();
 		sb.AppendLine($@"{new(' ', 89)}{boxTop}{new(' ', 18)}{boxTop}");
-		sb.AppendLine(@$"{optionIndent} ▄▄   ▄▄▄ ▄▄▄▄▄ ▄  ▄▄  ▄   ▄  {new(' ', 9)}{boxSide} {currentInteract[0]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentInteractAlt[0]}   {(arrowOption is 5 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█▄▄█ █      █   █ █  █ █▀▄ █ ▀{new(' ', 9)}{boxSide} {currentInteract[1]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentInteractAlt[1]}   {(arrowOption is 5 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█  █ ▀▄▄▄   █   █ ▀▄▄▀ █  ▀█ ▄{new(' ', 9)}{boxSide} {currentInteract[2]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentInteractAlt[2]}   {(arrowOption is 5 ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{optionIndent} ▄▄   ▄▄▄ ▄▄▄▄▄ ▄  ▄▄▄  ▄   ▄  {new(' ', 8)}{boxSide} {currentInteract[0]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentInteractAlt[0]}   {(arrowOption is 5 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█▄▄█ █      █   █ █   █ █▀▄ █ ▀{new(' ', 8)}{boxSide} {currentInteract[1]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentInteractAlt[1]}   {(arrowOption is 5 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█  █ ▀▄▄▄   █   █ ▀▄▄▄▀ █  ▀█ ▄{new(' ', 8)}{boxSide} {currentInteract[2]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentInteractAlt[2]}   {(arrowOption is 5 ? "╰───╯" : "     ")}");
 		sb.AppendLine($@"{new(' ', 89)}{boxBottom}{new(' ', 18)}{boxBottom}");
 		sb.AppendLine();
-		sb.AppendLine(@$"{optionIndent}█▀▀▄  ▄▄   ▄▄▄ ▄  ▄   {(arrowOption is maxOption ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█■■█ █▄▄█ █    █■█    {(arrowOption is maxOption ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█▄▄▀ █  █ ▀▄▄▄ █  ▀▄  {(arrowOption is maxOption ? "╰───╯" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}▄▄▄   ▄▄   ▄▄▄ ▄  ▄   {(arrowOption is maxOption ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█▄▄█ █▄▄█ █    █▄▀    {(arrowOption is maxOption ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}█▄▄▀ █  █ ▀▄▄▄ █ ▀▄   {(arrowOption is maxOption ? "╰───╯" : "     ")}");
 
 		Console.SetCursorPosition(0, 0);
 		Console.WriteLine(sb);

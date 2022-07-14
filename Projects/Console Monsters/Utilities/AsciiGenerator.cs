@@ -45,8 +45,8 @@ public static class AsciiGenerator
 				},
 			'b' => new[]
 				{
-					"█▀▀▄",
-					"█■■█",
+					"▄▄▄ ",
+					"█▄▄█",
 					"█▄▄▀"
 				},
 			'c' => new[]
@@ -57,7 +57,7 @@ public static class AsciiGenerator
 				},
 			'd' => new[]
 				{
-					"█▀▀▄",
+					"▄▄▄ ",
 					"█  █",
 					"█▄▄▀"
 				},
@@ -81,9 +81,9 @@ public static class AsciiGenerator
 				},
 			'h' => new[]
 				{
-					"▄   ▄",
-					"█▄▄▄█",
-					"█   █"
+					"▄  ▄",
+					"█▄▄█",
+					"█  █"
 				},
 			'i' => new[]
 				{
@@ -99,15 +99,15 @@ public static class AsciiGenerator
 				},
 			'k' => new[]
 				{
-					"▄  ▄ ",
-					"█■█  ",
-					"█  ▀▄"
+					"▄  ▄",
+					"█▄▀ ",
+					"█ ▀▄"
 				},
 			'l' => new[]
 				{
-					"▄   ",
-					"█   ",
-					"█▄▄▄"
+					"▄  ",
+					"█  ",
+					"█▄▄"
 				},
 			'm' => new[]
 				{
@@ -135,21 +135,21 @@ public static class AsciiGenerator
 				},
 			'q' => new[]
 				{
-					" ▄▄▄▄   ",
-					"█    █  ",
-					"▀▄▄▄■▀■▄"
+					" ▄▄▄  ",
+					"█   █ ",
+					"▀▄▄▄▀▄"
 				},
 			'r' => new[]
 				{
-					"▄▄▄  ",
-					"█▄▄▀ ",
-					"█  ▀▄"
+					"▄▄▄ ",
+					"█▄▄▀",
+					"█  █"
 				},
 			's' => new[]
 				{
-					" ▄▄▄",
-					"▀■■▄",
-					"■■■▀"
+					"▄▄▄▄",
+					"█▄▄▄",
+					"▄▄▄█"
 				},
 			't' => new[]
 				{
@@ -165,15 +165,15 @@ public static class AsciiGenerator
 				},
 			'v' => new[]
 				{
-					"▄     ▄",
-					" █   █ ",
-					"  ▀▄▀  "
+					"▄   ▄",
+					"█   █",
+					" ▀▄▀ "
 				},
 			'w' => new[]
 				{
-					" ▄       ▄",
-					" █   ▄   █",
-					"  ▀▄▀ ▀▄▀ "
+					"▄   ▄",
+					"█ ▄ █",
+					"▀▄▀▄▀"
 				},
 			'x' => new[]
 				{
@@ -189,9 +189,9 @@ public static class AsciiGenerator
 				},
 			'z' => new[]
 				{
-					"▄▄▄▄▄",
-					"  ▄▀ ",
-					"▄█▄▄▄"
+					"▄▄▄▄",
+					" ▄▄▀",
+					"█▄▄▄"
 				},
 			_ => throw new NotImplementedException(),
 		};
