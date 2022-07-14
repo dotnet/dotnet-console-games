@@ -39,6 +39,7 @@ public partial class Program
 		finally
 		{
 			Console.OutputEncoding = encoding;
+			Console.ResetColor();
 			Console.Clear();
 			Console.WriteLine("Console Monsters was closed.");
 			Console.CursorVisible = true;
