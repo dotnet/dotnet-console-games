@@ -9,19 +9,19 @@ public static class ConsoleColorSettingsScreen
 		StringBuilder sb = new();
 
 		int arrowOption = 1;
-		const int maxOption = 6;
+		const int maxOption = 8;
 
-		string optionIndent = new(' ', 50);
-		//string headerIndent = new(' ', 85);
-		string titleIndent = new(' ', 40);
+		string optionIndent = new(' ', 30);
+		string titleIndent = new(' ', 20);
 
-		var headerAsciiText = TextGenerator.GenerateAsciiText(@$"background {new(' ', 8)}|{new(' ', 8)} text");
-		var blackAsciiText = TextGenerator.GenerateAsciiText("black");
-		var whiteAsciiText = TextGenerator.GenerateAsciiText("white");
-		var greenAsciiText = TextGenerator.GenerateAsciiText("green");
-		var redAsciiText = TextGenerator.GenerateAsciiText("red");
-		var blueAsciiText = TextGenerator.GenerateAsciiText("blue");
-		var returnToOptionsText = TextGenerator.GenerateAsciiText("Back");
+		string[] blackAsciiText = TextGenerator.GenerateAsciiText("black");
+		string[] greenAsciiText = TextGenerator.GenerateAsciiText("green");
+		string[] redAsciiText = TextGenerator.GenerateAsciiText("red");
+		string[] blueAsciiText = TextGenerator.GenerateAsciiText("blue");
+		string[] yellowAsciiText = TextGenerator.GenerateAsciiText("yellow");
+		string[] invertAsciiText = TextGenerator.GenerateAsciiText("invert");
+		string[] resetAsciiText = TextGenerator.GenerateAsciiText("reset");
+		string[] returnToOptionsText = TextGenerator.GenerateAsciiText("Back");
 		
 		Console.Clear();
 	ReDraw:
@@ -37,38 +37,39 @@ public static class ConsoleColorSettingsScreen
 		sb.AppendLine(@$"{titleIndent}╚██████╗╚██████╔╝███████╗╚██████╔╝██║  ██║    ███████║╚██████╗██║  ██║███████╗██║ ╚═╝ ██║███████╗");
 		sb.AppendLine(@$"{titleIndent} ╚═════╝ ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝    ╚══════╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚══════╝");
 		sb.AppendLine();
-		//sb.AppendLine($@"{headerIndent}{headerAsciiText[0]}");
-		//sb.AppendLine(@$"{headerIndent}{headerAsciiText[1]}");
-		//sb.AppendLine(@$"{headerIndent}{headerAsciiText[2]}");
-		sb.AppendLine($@"{new(' ', 89)}{new(' ', 18)}");
-		sb.AppendLine(@$"{optionIndent}{blackAsciiText[0]}{new(' ', 28)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 1 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{blackAsciiText[1]}{new(' ', 28)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{blackAsciiText[2]}{new(' ', 28)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 1 ? "╰───╯" : "     ")}");
-		sb.AppendLine($@"{new(' ', 89)}{new(' ', 18)}");
-		sb.AppendLine($@"{new(' ', 89)}{new(' ', 18)}");
-		sb.AppendLine(@$"{optionIndent}{whiteAsciiText[0]}{new(' ', 16)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 2 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{whiteAsciiText[1]}{new(' ', 16)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{whiteAsciiText[2]}{new(' ', 16)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 2 ? "╰───╯" : "     ")}");
-		sb.AppendLine($@"{new(' ', 89)}{new(' ', 18)}");
-		sb.AppendLine($@"{new(' ', 89)}{new(' ', 18)}");
-		sb.AppendLine(@$"{optionIndent}{greenAsciiText[0]}{new(' ', 18)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 3 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{greenAsciiText[1]}{new(' ', 18)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{greenAsciiText[2]}{new(' ', 18)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 3 ? "╰───╯" : "     ")}");
-		sb.AppendLine($@"{new(' ', 89)}{new(' ', 18)}");
-		sb.AppendLine($@"{new(' ', 89)}{new(' ', 18)}");
-		sb.AppendLine(@$"{optionIndent}{redAsciiText[0]}{new(' ', 14)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 4 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{redAsciiText[1]}{new(' ', 14)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 4 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{redAsciiText[2]}{new(' ', 14)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 4 ? "╰───╯" : "     ")}");
-		sb.AppendLine($@"{new(' ', 89)}{new(' ', 18)}");
-		sb.AppendLine($@"{new(' ', 89)}{new(' ', 18)}");
-		sb.AppendLine(@$"{optionIndent}{blueAsciiText[0]}{new(' ', 9)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 5 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{blueAsciiText[1]}{new(' ', 9)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 5 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{blueAsciiText[2]}{new(' ', 9)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 5 ? "╰───╯" : "     ")}");
-		sb.AppendLine($@"{new(' ', 89)}{new(' ', 18)}");
 		sb.AppendLine();
-		sb.AppendLine(@$"{optionIndent}{returnToOptionsText[0]} {(arrowOption is maxOption ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{returnToOptionsText[1]} {(arrowOption is maxOption ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{returnToOptionsText[2]} {(arrowOption is maxOption ? "╰───╯" : "     ")}");
+		sb.AppendLine();
+		sb.AppendLine(@$"{optionIndent}{blackAsciiText[0]}   {(arrowOption is 1 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{blackAsciiText[1]}   {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{blackAsciiText[2]}   {(arrowOption is 1 ? "╰───╯" : "     ")}");
+		sb.AppendLine();
+		sb.AppendLine(@$"{optionIndent}{greenAsciiText[0]}   {(arrowOption is 2 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{greenAsciiText[1]}   {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{greenAsciiText[2]}   {(arrowOption is 2 ? "╰───╯" : "     ")}");
+		sb.AppendLine();
+		sb.AppendLine(@$"{optionIndent}{redAsciiText[0]}   {(arrowOption is 3 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{redAsciiText[1]}   {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{redAsciiText[2]}   {(arrowOption is 3 ? "╰───╯" : "     ")}");
+		sb.AppendLine();
+		sb.AppendLine(@$"{optionIndent}{blueAsciiText[0]}   {(arrowOption is 4 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{blueAsciiText[1]}   {(arrowOption is 4 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{blueAsciiText[2]}   {(arrowOption is 4 ? "╰───╯" : "     ")}");
+		sb.AppendLine();
+		sb.AppendLine(@$"{optionIndent}{yellowAsciiText[0]}   {(arrowOption is 5 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{yellowAsciiText[1]}   {(arrowOption is 5 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{yellowAsciiText[2]}   {(arrowOption is 5 ? "╰───╯" : "     ")}");
+		sb.AppendLine();
+		sb.AppendLine(@$"{optionIndent}{invertAsciiText[0]}   {(arrowOption is 6 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{invertAsciiText[1]}   {(arrowOption is 6 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{invertAsciiText[2]}   {(arrowOption is 6 ? "╰───╯" : "     ")}");
+		sb.AppendLine();
+		sb.AppendLine(@$"{optionIndent}{resetAsciiText[0]}   {(arrowOption is 7 ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{resetAsciiText[1]}   {(arrowOption is 7 ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{resetAsciiText[2]}   {(arrowOption is 7 ? "╰───╯" : "     ")}");
+		sb.AppendLine();
+		sb.AppendLine(@$"{optionIndent}{returnToOptionsText[0]}   {(arrowOption is maxOption ? "╭───╮" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{returnToOptionsText[1]}   {(arrowOption is maxOption ? "╞═●═╡" : "     ")}");
+		sb.AppendLine(@$"{optionIndent}{returnToOptionsText[2]}   {(arrowOption is maxOption ? "╰───╯" : "     ")}");
 
 		Console.SetCursorPosition(0, 0);
 		Console.WriteLine(sb);
@@ -79,31 +80,38 @@ public static class ConsoleColorSettingsScreen
 			case ConsoleKey.DownArrow or ConsoleKey.S: arrowOption = Math.Min(maxOption, arrowOption + 1); goto ReDraw;
 			case ConsoleKey.Enter or ConsoleKey.E:
 				switch (arrowOption)
-				{ 
-					#warning TODO: Add the ability to choose what background and foreground you want to use individually
+				{
 					case 1:
 						Console.BackgroundColor = ConsoleColor.Black;
 						Console.ForegroundColor = ConsoleColor.White;
 						Console.Clear();
 						goto ReDraw;
 					case 2:
-						Console.BackgroundColor = ConsoleColor.White;
-						Console.ForegroundColor = ConsoleColor.Black;
+						Console.BackgroundColor = ConsoleColor.Black;
+						Console.ForegroundColor = ConsoleColor.Green;
 						Console.Clear();
 						goto ReDraw;
 					case 3:
-						Console.BackgroundColor = ConsoleColor.Green;
-						Console.ForegroundColor = ConsoleColor.Black;
+						Console.BackgroundColor = ConsoleColor.Black;
+						Console.ForegroundColor = ConsoleColor.Red;
 						Console.Clear();
 						goto ReDraw;
 					case 4:
-						Console.BackgroundColor = ConsoleColor.Red;
-						Console.ForegroundColor = ConsoleColor.Black;
+						Console.BackgroundColor = ConsoleColor.Black;
+						Console.ForegroundColor = ConsoleColor.Blue;
 						Console.Clear();
 						goto ReDraw;
 					case 5:
-						Console.BackgroundColor = ConsoleColor.Blue;
-						Console.ForegroundColor = ConsoleColor.Black;
+						Console.BackgroundColor = ConsoleColor.Black;
+						Console.ForegroundColor = ConsoleColor.Yellow;
+						Console.Clear();
+						goto ReDraw;
+					case 6:
+						(Console.BackgroundColor, Console.ForegroundColor) = (Console.ForegroundColor, Console.BackgroundColor);
+						Console.Clear();
+						goto ReDraw;
+					case 7:
+						Console.ResetColor();
 						Console.Clear();
 						goto ReDraw;
 					case maxOption:
