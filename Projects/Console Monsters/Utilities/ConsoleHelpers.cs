@@ -1,4 +1,4 @@
-﻿namespace Console_Monsters;
+﻿namespace Console_Monsters.Utilities;
 
 public static class ConsoleHelpers
 {

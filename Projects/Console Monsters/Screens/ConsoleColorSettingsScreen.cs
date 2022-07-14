@@ -1,5 +1,3 @@
-using Console_Monsters.Util;
-
 namespace Console_Monsters.Screens;
 
 public static class ConsoleColorSettingsScreen

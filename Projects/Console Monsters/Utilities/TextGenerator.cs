@@ -1,4 +1,4 @@
-﻿namespace Console_Monsters.Util;
+﻿namespace Console_Monsters.Utilities;
 
 public static class TextGenerator
 {
