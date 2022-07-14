@@ -12,7 +12,7 @@ public static class ConsoleColorSettingsScreen
 		const int maxOption = 6;
 
 		string optionIndent = new(' ', 50);
-		string headerIndent = new(' ', 85);
+		//string headerIndent = new(' ', 85);
 		string titleIndent = new(' ', 40);
 
 		var headerAsciiText = TextGenerator.GenerateAsciiText(@$"background {new(' ', 8)}|{new(' ', 8)} text");
@@ -36,9 +36,9 @@ public static class ConsoleColorSettingsScreen
 		sb.AppendLine(@$"{titleIndent}╚██████╗╚██████╔╝███████╗╚██████╔╝██║  ██║    ███████║╚██████╗██║  ██║███████╗██║ ╚═╝ ██║███████╗");
 		sb.AppendLine(@$"{titleIndent} ╚═════╝ ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝    ╚══════╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚══════╝");
 		sb.AppendLine();
-		sb.AppendLine($@"{headerIndent}{headerAsciiText[0]}");
-		sb.AppendLine(@$"{headerIndent}{headerAsciiText[1]}");
-		sb.AppendLine(@$"{headerIndent}{headerAsciiText[2]}");
+		//sb.AppendLine($@"{headerIndent}{headerAsciiText[0]}");
+		//sb.AppendLine(@$"{headerIndent}{headerAsciiText[1]}");
+		//sb.AppendLine(@$"{headerIndent}{headerAsciiText[2]}");
 		sb.AppendLine($@"{new(' ', 89)}{new(' ', 18)}");
 		sb.AppendLine(@$"{optionIndent}{blackAsciiText[0]}{new(' ', 28)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 1 ? "╭───╮" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}{blackAsciiText[1]}{new(' ', 28)}{new(' ', 8)}█{new(' ', 11)}   {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
