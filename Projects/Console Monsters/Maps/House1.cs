@@ -5,10 +5,10 @@ public class House1 : MapBase
 	public override char[][] SpriteSheet => new char[][]
 		{
 			"afffffffffffffffb".ToCharArray(),
-		    "hpmnh     wvwkijg".ToCharArray(),
-	        "hmq          kijg".ToCharArray(),
-	        "hlll         k12g".ToCharArray(),
-	        "hstr   uuu      g".ToCharArray(),
+			"hpmn      wvwkijg".ToCharArray(),
+			"hmq          kijg".ToCharArray(),
+			"h            k12g".ToCharArray(),
+			"hstry  uuu      g".ToCharArray(),
 			"cllllll000lllllld".ToCharArray(),
 		};
 
@@ -42,13 +42,14 @@ public class House1 : MapBase
 			'o' => Sprites.PotPlant1,
 			'p' => Sprites.MicroWave,
 			'q' => Sprites.NPC11,
-			'r' => Sprites.ChairRight,
-			's' => Sprites.TVLeft,
-			't' => Sprites.TVRight,
+			'r' => Sprites.DiningSet[2],
+			's' => Sprites.DiningSet[0],
+			't' => Sprites.DiningSet[1],
 			'u' => Sprites.Carpet,
 			'v' => Sprites.WeirdMonster,
 			'w' => Sprites.PotPlant1,
 			'x' => Sprites.Open,
+			'y' => Sprites.DiningSet[3],
 			' ' => Sprites.Open,
 			_ => Sprites.Error,
 		};
