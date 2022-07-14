@@ -11,8 +11,8 @@ public static class ConsoleColorSettingsScreen
 		int arrowOption = 1;
 		const int maxOption = 8;
 
-		string optionIndent = new(' ', 30);
-		string titleIndent = new(' ', 20);
+		string optionIndent = new(' ', 60);
+		string titleIndent = new(' ', 30);
 
 		string[] blackAsciiText = TextGenerator.GenerateAsciiText("black");
 		string[] greenAsciiText = TextGenerator.GenerateAsciiText("green");
