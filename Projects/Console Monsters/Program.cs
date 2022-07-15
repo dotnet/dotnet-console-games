@@ -37,11 +37,11 @@ public partial class Program
 				}
 			}
 		}
-		catch (Exception e)
+		/*catch (Exception e)
 		{
 			exception = e;
 			throw;
-		}
+		}*/
 		finally
 		{
 			Console.OutputEncoding = encoding;
