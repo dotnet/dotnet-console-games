@@ -53,9 +53,9 @@ class PaletTown : MapBase
 			'1' => Sprites.ArrowHeavyUp,
 			'2' => Sprites.Door,
 			// Buildings
-			'b' => Sprites.Building3x4.Get(Subtract((i, j), FindTileInMap('b')!.Value).Reverse()),
-			'c' => Sprites.Building3x4.Get(Subtract((i, j), FindTileInMap('c')!.Value).Reverse()),
-			'd' => Sprites.Building4x6.Get(Subtract((i, j), FindTileInMap('d')!.Value).Reverse()),
+			'b' => Sprites.House.Get(Subtract((i, j), FindTileInMap('b')!.Value).Reverse()),
+			'c' => Sprites.House.Get(Subtract((i, j), FindTileInMap('c')!.Value).Reverse()),
+			'd' => Sprites.House.Get(Subtract((i, j), FindTileInMap('d')!.Value).Reverse()),
 			// Decor
 			'a' => Sprites.SignARight,
 			's' => Sprites.SignALeft,
