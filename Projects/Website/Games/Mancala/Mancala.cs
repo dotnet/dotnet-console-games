@@ -12,6 +12,8 @@ public class Mancala
 
 	public async Task Run()
 	{
+		Exception? exception = null;
+
 		int[] pitsAndStores;
 		int[] changes;
 		bool closeRequested;
@@ -118,11 +120,16 @@ public class Mancala
 					goto GetInput;
 			}
 		}
+		catch (Exception e)
+		{
+			exception = e;
+			throw;
+		}
 		finally
 		{
 			Console.ResetColor();
 			await Console.Clear();
-			await Console.Write("Mancala closed.");
+			await Console.WriteLine(exception?.ToString() ?? "Mancala closed.");
 			Console.CursorVisible = true;
 			await Console.Refresh();
 		}

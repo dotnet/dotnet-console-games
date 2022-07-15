@@ -9,6 +9,8 @@ public class Tug_Of_War
 
 	public async Task Run()
 	{
+		Exception? exception = null;
+
 		try
 		{
 			while (true)
@@ -153,11 +155,16 @@ public class Tug_Of_War
 				}
 			}
 		}
+		catch (Exception e)
+		{
+			exception = e;
+			throw;
+		}
 		finally
 		{
 			Console.CursorVisible = true;
 			await Console.Clear();
-			await Console.Write("Tug Of War was closed.");
+			await Console.WriteLine(exception?.ToString() ?? "Tug Of War was closed.");
 			await Console.Refresh();
 		}
 	}

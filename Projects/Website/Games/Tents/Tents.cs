@@ -18,6 +18,8 @@ public class Tents
 
 	public async Task Run()
 	{
+		Exception? exception = null;
+
 		Tile[,] map;
 		int[] columnTents;
 		int[] rowTents;
@@ -68,12 +70,18 @@ public class Tents
 				default: goto GetEnterOrEscape;
 			}
 		}
+		catch (Exception e)
+		{
+			exception = e;
+			throw;
+		}
 		finally
 		{
 			Console.ResetColor();
 			Console.CursorVisible = true;
 			await Console.Clear();
-			await Console.Write("Tents was closed.");
+			await Console.WriteLine(exception?.ToString() ?? "Tents was closed.");
+			await Console.Refresh();
 		}
 
 		char[,] StringToSprite(string s)

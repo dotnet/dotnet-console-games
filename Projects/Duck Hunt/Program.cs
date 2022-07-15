@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
+Exception? exception = null;
+
 const char NULL_CHAR = '\0';
 const char EMPTY_CHAR = '-';
 const int BARREL_LENGTH = 10;
@@ -533,25 +535,31 @@ try
 		Console.ForegroundColor = ConsoleColor.White;
 	}
 }
+catch (Exception e)
+{
+	exception = e;
+	throw;
+}
 finally
 {
 	Console.CursorVisible = true;
 	Console.ResetColor();
 	Console.Clear();
-	Console.Write("Duck Hunt was closed.");
+	Console.WriteLine(exception?.ToString() ?? "Duck Hunt was closed.");
 }
 
 struct Point
 {
 	public int X;
 	public int Y;
+
 	public Point(int x, int y)
 	{
 		X = x;
 		Y = y;
 	}
-	public static Point operator +(Point a, Point b)
-		=> new Point(a.X + b.X, a.Y + b.Y);
+
+	public static Point operator +(Point a, Point b) => new(a.X + b.X, a.Y + b.Y);
 }
 
 class Bird
@@ -595,8 +603,8 @@ class Bullet
 	public double[] X = new double[2];
 	public double[] Y = new double[2];
 
-	private double XOffset;
-	private double YOffset;
+	private readonly double XOffset;
+	private readonly double YOffset;
 	public Bullet(Point position, double angle)
 	{
 		for (int i = 0; i < 2; i++)
@@ -632,11 +640,11 @@ static class Sprites
 	public static int SPRITE_MAXWIDTH => ScreenWidth - 2;
 	public static int SPRITE_MAXHEIGHT => ScreenHeight - 2;
 
-	private static string middleBorder => "║" + new string(' ', SPRITE_MAXWIDTH) + "║" + NEWLINE_CHAR;
+	private static string MiddleBorder => "║" + new string(' ', SPRITE_MAXWIDTH) + "║" + NEWLINE_CHAR;
 
 	public static char[] Border =>
 		("╔" + new string('═', SPRITE_MAXWIDTH) + "╗" + NEWLINE_CHAR +
-		string.Concat(Enumerable.Repeat(middleBorder, SPRITE_MAXHEIGHT)) +
+		string.Concat(Enumerable.Repeat(MiddleBorder, SPRITE_MAXHEIGHT)) +
 		"╚" + new string('═', SPRITE_MAXWIDTH) + "╝").ToCharArray();
 
 	public static class Enviroment

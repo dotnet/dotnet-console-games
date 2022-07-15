@@ -10,6 +10,8 @@ public class Quick_Draw
 
 	public async Task Run()
 	{
+		Exception? exception = null;
+
 		Random random = new();
 
 		const string menu = @"
@@ -144,11 +146,16 @@ public class Quick_Draw
 				}
 			}
 		}
+		catch (Exception e)
+		{
+			exception = e;
+			throw;
+		}
 		finally
 		{
 			await Console.Clear();
 			Console.CursorVisible = true;
-			await Console.Write("Quick Draw was closed.");
+			await Console.WriteLine(exception?.ToString() ?? "Quick Draw was closed.");
 			await Console.Refresh();
 		}
 	}

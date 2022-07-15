@@ -132,6 +132,43 @@ public static class Sprites
 	#endregion
 
 	#region Buildings
+	public readonly static string[,] House3x4 = Split(
+		@"    __ ╥╥ ______________    ",
+		@"   ╱  │║║│              ╲   ",
+		@"  ╱    ‾‾                ╲  ",
+		@" ╱                        ╲ ",
+		@"/__________________________╲",
+		@"│                          │",
+		@"│      ╔══╦══╗   ╔══╦══╗   │",
+		@"│      ║██║██║   ║██║██║   │",
+		@"│      ╚══╩══╝   ╚══╩══╝   │",
+		@"│                          │",
+		@"│      ╔═════╗   ╔══╦══╗   │",
+		@"│      ║ ■■■ ║   ║██║██║   │",
+		@"│      ║    o║   ╚══╩══╝   │",
+		@"│      ║     ║             │",
+		@"└──────╚═════╝─────────────┘");
+	public readonly static string[,] House4x6 = Split(
+		@"    __ ╥╥ ____________________________    ",
+		@"   ╱  │║║│                            ╲   ",
+		@"  ╱    ‾‾                              ╲  ",
+		@" ╱                                      ╲ ",
+		@"╱________________________________________╲",
+		@"│                                        │",
+		@"│                                        │",
+		@"│      ╔══╦══╗     ╔══╦══╗     ╔══╦══╗   │",
+		@"│      ║██║██║     ║██║██║     ║██║██║   │",
+		@"│      ╚══╩══╝     ╚══╩══╝     ╚══╩══╝   │",
+		@"│                                        │",
+		@"│      ╔══╦══╗     ╔══╦══╗     ╔══╦══╗   │",
+		@"│      ║██║██║     ║██║██║     ║██║██║   │",
+		@"│      ╚══╩══╝     ╚══╩══╝     ╚══╩══╝   │",
+		@"│                                        │",
+		@"│      ╔═════╗     ╔══╦══╗     ╔══╦══╗   │",
+		@"│      ║ ■■■ ║     ║██║██║     ║██║██║   │",
+		@"│      ║    o║     ╚══╩══╝     ╚══╩══╝   │",
+		@"│      ║     ║                           │",
+		@"└──────╚═════╝───────────────────────────┘");
 	public const string BuildingSmall =
 		@"       " + "\n" +
 		@" /---\ " + "\n" +
@@ -156,66 +193,6 @@ public static class Sprites
 		@"║    o║" + "\n" +
 		@"║     ║" + "\n" +
 		@"╚═════╝";
-	public const string TopRoofLeft =
-		@"       " + "\n" +
-		@"   ////" + "\n" +
-		@"  /////" + "\n" +
-		@" //////" + "\n" +
-		@"///////";
-	public const string TopRoofRight =
-		@"       " + "\n" +
-		@"\\\\   " + "\n" +
-		@"\\\\\  " + "\n" +
-		@"\\\\\\ " + "\n" +
-		@"\\\\\\\";
-	public const string MiddleRoof =
-		@"       " + "\n" +
-		@"|||||||" + "\n" +
-		@"|||||||" + "\n" +
-		@"|||||||" + "\n" +
-		@"|||||||";
-	public const string BuildingLeft =
-		@"│      " + "\n" +
-		@"│      " + "\n" +
-		@"│      " + "\n" +
-		@"│      " + "\n" +
-		@"│      ";
-	public const string BuildingBaseLeft =
-		@"│      " + "\n" +
-		@"│      " + "\n" +
-		@"│      " + "\n" +
-		@"│      " + "\n" +
-		@"└──────";
-	public const string BuildingRight =
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │";
-	public const string BuildingBaseRight =
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"──────┘";
-	public const string MiddleWindow =
-		@"       " + "\n" +
-		@"       " + "\n" +
-		@" ▐█ ▐█ " + "\n" +
-		@"       " + "\n" +
-		@"       ";
-	public const string LowWindowSideLeft =
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │";
-	public const string LowWindow =
-		@"       " + "\n" +
-		@"       " + "\n" +
-		@" ▐█ ▐█ " + "\n" +
-		@"       " + "\n" +
-		@"───────";
 	#endregion
 
 	#region Objects
@@ -317,10 +294,10 @@ public static class Sprites
 		@"░░░░░░░";
 	public const string Table =
 		@"       " + "\n" +
-		@"══════╗" + "\n" +
-		@"      ║" + "\n" +
-		@"══════║" + "\n" +
-		@"      ║";
+		@"╔═════╗" + "\n" +
+		@"║     ║" + "\n" +
+		@"║     ║" + "\n" +
+		@"╚╦═══╦╝";
 	public const string Chair =
 		@" │───│ " + "\n" +
 		@" │   │ " + "\n" +
@@ -329,10 +306,10 @@ public static class Sprites
 		@" ┴   ┴ ";
 	public const string ChairLeft =
 		@"       " + "\n" +
-		@" │    ╔" + "\n" +
-		@" │___ ║" + "\n" +
-		@" │   │║" + "\n" +
-		@" ┴   ┴║";
+		@" │     " + "\n" +
+		@" │___  " + "\n" +
+		@" │   │ " + "\n" +
+		@" ┴   ┴ ";
 	public const string ChairRight =
 		@"       " + "\n" +
 		@"     │ " + "\n" +
@@ -412,24 +389,6 @@ public static class Sprites
 		@"       " + "\n" +
 		@"       " + "\n" +
 		@"       ";
-	public static readonly string PersonInBed1 =
-		@"╭────│─" + '\n' +
-		@"│ ╭──│ " + '\n' +
-		@"│ ╰──│ " + '\n' +
-		@"├────│─" + '\n' +
-		@"└──────";
-	public static readonly string PersonInBed2 =
-		@"───────" + '\n' +
-		@"       " + '\n' +
-		@"       " + '\n' +
-		@"───────" + '\n' +
-		@"───────";
-	public static readonly string PersonInBed3 =
-		@"──────│" + '\n' +
-		@"      │" + '\n' +
-		@"      │" + '\n' +
-		@"──────│" + '\n' +
-		@"──────│";
 	public const string StairsLeft =
 		@"│──────" + "\n" +
 		@"│──────" + "\n" +
@@ -460,6 +419,29 @@ public static class Sprites
 		@"│      " + "\n" +
 		@"│      " + "\n" +
 		@"│      ";
+	public readonly static string[,] DiningSet = Split(
+		@"                            ",
+		@"  ║         @╮          ║   ",
+		@"  ║     ╭═╨──∏──╨═╮     ║   ",
+		@"  ╠══╗  ╰────╥────╯  ╔══╣   ",
+		@"  ╨  ╨       ╨       ╨  ╨   ");
+	public readonly static string[,] GrandfatherClock2x1 = Split(
+		@"╔═════╗",
+		@"║/ |_\║",
+		@"║\___/║",
+		@"╚╦═╤═╦╝",
+		@" ║ │ ║ ",
+		@" ║ │ ║ ",
+		@" ║ O ║ ",
+		@" ║   ║ ",
+		@" ╚═══╝ ",
+		@"       ");
+	public readonly static string[,] Bed1x3 = Split(
+		@"╔╗╭────┬────────────╮",
+		@"║╠│╭─╮ │            │",
+		@"║║│╰─╯ │            │",
+		@"║╠├────│────────────┤",
+		@"╚╝└────┴────────────┘");
 	#endregion
 
 	#region Wall
@@ -834,68 +816,68 @@ public static class Sprites
 	#endregion
 
 	#region Letters + Symbols
-	public static string BoxTop =    "╔═══════╗";
-	public static string BoxSide =   "║";   //║ 5 tall
-	public static string BoxBottom = "╚═══════╝";
+	public static readonly string BoxTop =    "╔═══════╗";
+	public static readonly string BoxSide =   "║";   //║ 5 tall
+	public static readonly string BoxBottom = "╚═══════╝";
 
 	//WASD
-	public static string[] W =
+	public static readonly string[] W =
 	{
 		"▄   ▄",
 		"█ ▄ █",
 		"█▀ ▀█"
 	};
-	public static string[] A = 
+	public static readonly string[] A = 
 	{
 		" ▄▄▄ ",
 		"█▄▄▄█",
 		"█   █"
 	};
-	public static string[] S =
+	public static readonly string[] S =
 	{
 		"▄▄▄▄▄",
 		"█▄▄▄▄",
 		"▄▄▄▄█"
 	};
-	public static string[] D =
+	public static readonly string[] D =
 	{
 		"▄▄▄▄ ",
 		"█   █",
 		"█▄▄▄▀"
 	};
 	//ARROWS
-	public static string[] UpArrow =
+	public static readonly string[] UpArrow =
 	{
 		" ▄█▄ ",
 		"▀ █ ▀",
 		"  █  "
 	};
-	public static string[] LeftArrow =
+	public static readonly string[] LeftArrow =
 	{
 		"  ▄  ",
 		"■█■■■",
 		"  ▀  "
 	};
-	public static string[] DownArrow =
+	public static readonly string[] DownArrow =
 	{
 		"  █  ",
 		"▄ █ ▄",
 		" ▀█▀ "
 	};
-	public static string[] RightArrow =
+	public static readonly string[] RightArrow =
 	{
 		"  ▄  ",
 		"■■■█■",
 		"  ▀  "
 	};
 	//INTERACT
-	public static string[] E =
+	public static readonly string[] E =
 	{
 		"▄▄▄▄▄",
 		"█▄▄▄ ",
 		"█▄▄▄▄"
 	};
-	public static string[] Enter =
+	public static readonly string[] Enter =
 	{
 		"  ▄ ▄",
 		"▄█▄▄█",
@@ -905,7 +887,7 @@ public static class Sprites
 		//"    "
 	};
 	//Status
-	public static string[] B =
+	public static readonly string[] B =
 	{
 		"▄▄▄▄ ",
 		"█▄▄▄▀",
@@ -931,4 +913,33 @@ public static class Sprites
 		@"║error║" + "\n" +
 		@"║error║" + "\n" +
 		@"╚═════╝";
+
+	public static string[,] Split(params string[] rows)
+	{
+		if (rows is null) throw new ArgumentNullException(nameof(rows));
+		if (sourceof(rows.Length % Height is not 0, out string check1)) throw new ArgumentException(check1, nameof(rows));
+		if (sourceof(rows[0].Length % Width is not 0, out string check2)) throw new ArgumentException(check2, nameof(rows));
+		if (sourceof(rows.Any(row => row.Length != rows[0].Length), out string check3)) throw new ArgumentException(check3, nameof(rows));
+		string[,] tiles = new string[rows.Length / Height, rows[0].Length / Width];
+		for (int tileI = 0; tileI < tiles.GetLength(1); tileI++)
+		{
+			for (int tileJ = 0; tileJ < tiles.GetLength(0); tileJ++)
+			{
+				StringBuilder sb = new();
+				for (int j = 0; j < Height; j++)
+				{
+					for (int i = 0; i < Width; i++)
+					{
+						sb.Append(rows[j + tileJ * Height][i + tileI * Width]);
+					}
+					if (j < Height - 1)
+					{
+						sb.Append('\n');
+					}
+				}
+				tiles[tileJ, tileI] = sb.ToString();
+			}
+		}
+		return tiles;
+	}
 }

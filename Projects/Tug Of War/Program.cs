@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
 
+Exception? exception = null;
+
 try
 {
 	while (true)
@@ -145,9 +147,14 @@ try
 		}
 	}
 }
+catch (Exception e)
+{
+	exception = e;
+	throw;
+}
 finally
 {
 	Console.CursorVisible = true;
 	Console.Clear();
-	Console.Write("Tug Of War was closed.");
+	Console.WriteLine(exception?.ToString() ?? "Tug Of War was closed.");
 }

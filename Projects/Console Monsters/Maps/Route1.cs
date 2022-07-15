@@ -2,49 +2,52 @@
 
 class Route1 : MapBase
 {
-	public override char[][] SpriteSheet => new char[][]
+	private readonly char[][] spriteSheet = new char[][]
 		{
-			"gggfgggggf11fgggggfg".ToCharArray(),
-			"gggfgggggf  fgggggfg".ToCharArray(),
-			"gggfgggggf  fgggggfg".ToCharArray(),
-			"gggfgggggf  fgggggfg".ToCharArray(),
-			"gggfgggggf  fgggggfg".ToCharArray(),
-			"gggfffffff  fffffffg".ToCharArray(),
-			"gggfgggggg  ggggggfg".ToCharArray(),
-			"gggfgggggg  ggggggfg".ToCharArray(),
-			"gggfgggggT        fg".ToCharArray(),
-			"gggfŕŕŕŕŕTrrrr    fg".ToCharArray(),
-			"gggTgggggTGGGGGGGGfg".ToCharArray(),
-			"gggTgggggTGGGGGGGGfg".ToCharArray(),
-			"gggTgggggTGGGGGGGGfg".ToCharArray(),
-			"gggTŕŕŕŕŕTGGGGGGGGfg".ToCharArray(),
-			"gggTgggggggg      fg".ToCharArray(),
-			"gggTgggggggg      fg".ToCharArray(),
-			"gggTgggggggg  GGGGfg".ToCharArray(),
-			"gggTTTŕŕŕŕTTTTGGGGfg".ToCharArray(),
-			"gggfgggggggg  GGGGfg".ToCharArray(),
-			"gggfgggggggg  GGGGfg".ToCharArray(),
-			"gggfgg        ggggfg".ToCharArray(),
-			"gggfgg        ggggfg".ToCharArray(),
-			"gggfgg  ggggggggggfg".ToCharArray(),
-			"gggfŕşrrŕşŕŕŕŕŕŕŕŕfg".ToCharArray(),
-			"gggfgg            fg".ToCharArray(),
-			"gggfgg            fg".ToCharArray(),
-			"gggfgg      GGGG  fg".ToCharArray(),
-			"gggfTTTTTTTTGGGGrrfg".ToCharArray(),
-			"gggfggggggggGGGG  fg".ToCharArray(),
-			"gggfggggggggGGGG  fg".ToCharArray(),
-			"gggf              fg".ToCharArray(),
-			"gggTrr   srrrrrrrrTg".ToCharArray(),
-			"gggTggGGGG  ggGGGGTg".ToCharArray(),
-			"gggTggGGGG  ggGGGGTg".ToCharArray(),
-			"gggTggGGGG  GGGGggTg".ToCharArray(),
-			"gggTGGGGgg  GGGGggTg".ToCharArray(),
-			"gggTffffffGGffffffTg".ToCharArray(),
-			"gggTgggggfGGfgggggTg".ToCharArray(),
-			"gggTgggggfGGfgggggTg".ToCharArray(),
-			"gggfgggggf00fgggggfg".ToCharArray(),
+			"ggggggggggggfgggggf11fgggggfgggggggggg".ToCharArray(),
+			"ggggggggggggfgggggf  fgggggfgggggggggg".ToCharArray(),
+			"ggggggggggggfgggggf  fgggggfgggggggggg".ToCharArray(),
+			"ggggggggggggfgggggf  fgggggfgggggggggg".ToCharArray(),
+			"ggggggggggggfgggggf  fgggggfgggggggggg".ToCharArray(),
+			"ggggggggggggfffffff  fffffffgggggggggg".ToCharArray(),
+			"ggggggggggggfgggggg  ggggggfgggggggggg".ToCharArray(),
+			"ggggggggggggfgggggg  ggggggfgggggggggg".ToCharArray(),
+			"ggggggggggggfgggggT        fgggggggggg".ToCharArray(),
+			"ggggggggggggfŕŕŕŕŕTrrrr    fgggggggggg".ToCharArray(),
+			"ggggggggggggTgggggTGGGGGGGGfgggggggggg".ToCharArray(),
+			"ggggggggggggTgggggTGGGGGGGGfgggggggggg".ToCharArray(),
+			"ggggggggggggTgggggTGGGGGGGGfgggggggggg".ToCharArray(),
+			"ggggggggggggTŕŕŕŕŕTGGGGGGGGfgggggggggg".ToCharArray(),
+			"ggggggggggggTgggggggg      fgggggggggg".ToCharArray(),
+			"ggggggggggggTgggggggg      fgggggggggg".ToCharArray(),
+			"ggggggggggggTgggggggg  GGGGfgggggggggg".ToCharArray(),
+			"ggggggggggggTTTŕŕŕŕTTTTGGGGfgggggggggg".ToCharArray(),
+			"ggggggggggggfgggggggg  GGGGfgggggggggg".ToCharArray(),
+			"ggggggggggggfgggggggg  GGGGfgggggggggg".ToCharArray(),
+			"ggggggggggggfgg        ggggfgggggggggg".ToCharArray(),
+			"ggggggggggggfgg        ggggfgggggggggg".ToCharArray(),
+			"ggggggggggggfgg  ggggggggggfgggggggggg".ToCharArray(),
+			"ggggggggggggfŕşrrŕşŕŕŕŕŕŕŕŕfgggggggggg".ToCharArray(),
+			"ggggggggggggfgg            fgggggggggg".ToCharArray(),
+			"ggggggggggggfgg            fgggggggggg".ToCharArray(),
+			"ggggggggggggfgg      GGGG  fgggggggggg".ToCharArray(),
+			"ggggggggggggfTTTTTTTTGGGGrrfgggggggggg".ToCharArray(),
+			"ggggggggggggfggggggggGGGG  fgggggggggg".ToCharArray(),
+			"ggggggggggggfggggggggGGGG  fgggggggggg".ToCharArray(),
+			"ggggggggggggf              fgggggggggg".ToCharArray(),
+			"ggggggggggggTrr   srrrrrrrrTgggggggggg".ToCharArray(),
+			"ggggggggggggTggGGGG  ggGGGGTgggggggggg".ToCharArray(),
+			"ggggggggggggTggGGGG  ggGGGGTgggggggggg".ToCharArray(),
+			"ggggggggggggTggGGGG  GGGGggTgggggggggg".ToCharArray(),
+			"ggggggggggggTGGGGgg  GGGGggTgggggggggg".ToCharArray(),
+			"ggggggggggggTffffffGGffffffTgggggggggg".ToCharArray(),
+			"ggggggggggggTgggggfGGfgggggTgggggggggg".ToCharArray(),
+			"ggggggggggggTgggggfGGfgggggTgggggggggg".ToCharArray(),
+			"ggggggggggggfgggggf00fgggggfgggggggggg".ToCharArray(),
+
 		};
+
+	public override char[][] SpriteSheet => spriteSheet;
 
 	public override string GetMapTileRender(int i, int j)
 	{
@@ -146,9 +149,9 @@ class Route1 : MapBase
 					{
 						BattleTransition.Random();
 					}
-					BattleScreen.Render(PlayerMonster, OpponentMonster);
-					Battle();
-					PressEnterToContiue();
+					BattleScreen.Render(MonsterBase.GetRandom(), MonsterBase.GetRandom());
+					//Battle();
+					ConsoleHelper.PressToContinue();
 				}
 				break;
 		}

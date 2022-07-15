@@ -13,8 +13,15 @@
 		<EmbeddedResource Include="Words.txt" />
 	</ItemGroup>
 	<ItemGroup>
+		<AdditionalFiles Include="BannedSymbols.txt" />
+	</ItemGroup>
+	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.2" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="3.3.3">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Towel" Version="1.0.40" />
 	</ItemGroup>
 </Project>

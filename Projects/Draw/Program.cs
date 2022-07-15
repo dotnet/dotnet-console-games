@@ -1,6 +1,8 @@
 ﻿using System;
 using Point = System.ValueTuple<int, int>;
 
+Exception? exception = null;
+
 try
 {
 	const int drawingWidth = 11;
@@ -143,9 +145,14 @@ GetEnterOrEscape:
 		}
 	}
 }
+catch (Exception e)
+{
+	exception = e;
+	throw;
+}
 finally
 {
 	Console.CursorVisible = true;
 	Console.Clear();
-	Console.Write("Draw was closed.");
+	Console.WriteLine(exception?.ToString() ?? "Draw was closed.");
 }

@@ -3,16 +3,14 @@
 public class BattleSystem
 {
 	// TEMP FOR DEVELOPMENT, YES VERY MESSY, PLEASE FIX
-#pragma warning disable CS8618
-	public static FireLizard fireLizard = new();
-	public static Turtle turtle = new();
+	public static FireLizard FireLizard { get; set; } = new();
+	public static Turtle Turtle { get; set; } = new();
 
-	public static MonsterBase PlayerMonster = turtle;
-	public static MonsterBase OpponentMonster = fireLizard;
+	public static MonsterBase PlayerMonster { get; set; } = Turtle;
+	public static MonsterBase OpponentMonster { get; set; } = FireLizard;
 
-	public static MonsterBase AttackingMonster;
-	public static MonsterBase DefendingMonster;
-#pragma warning restore CS8618
+	public static MonsterBase? AttackingMonster { get; set; }
+	public static MonsterBase? DefendingMonster { get; set; }
 
 	public static void Battle()
 	{
@@ -39,7 +37,7 @@ public class BattleSystem
 				else
 				{
 
-					PressEnterToContiue();
+					ConsoleHelper.PressToContinue();
 					MoveBase playerMove = MoveBase.GetRandomMove();
 					PlayerMonster.CurrentEnergy -= playerMove.EnergyTaken;
 					OpponentMonster.CurrentHP -= (int)playerMove.FinalDamage;
@@ -59,7 +57,7 @@ public class BattleSystem
 				}
 				else
 				{
-					PressEnterToContiue();
+					ConsoleHelper.PressToContinue();
 					MoveBase opponentMove = MoveBase.GetRandomMove();
 					OpponentMonster.CurrentEnergy -= opponentMove.EnergyTaken;
 					PlayerMonster.CurrentHP -= (int)opponentMove.FinalDamage;
@@ -69,7 +67,7 @@ public class BattleSystem
 			}
 		}
 
-		void DrawStats(bool playerTurn)
+		static void DrawStats(bool playerTurn)
 		{
 			//TEMP
 			Console.SetCursorPosition(63, 34);

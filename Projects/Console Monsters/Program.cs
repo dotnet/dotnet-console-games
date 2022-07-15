@@ -4,6 +4,7 @@ public partial class Program
 {
 	public static void Main()
 	{
+		Exception? exception = null;
 		Encoding encoding = Console.OutputEncoding;
 		try
 		{
@@ -36,11 +37,17 @@ public partial class Program
 				}
 			}
 		}
+		catch (Exception e)
+		{
+			exception = e;
+			throw;
+		}
 		finally
 		{
 			Console.OutputEncoding = encoding;
+			Console.ResetColor();
 			Console.Clear();
-			Console.WriteLine("Console Monsters was closed.");
+			Console.WriteLine(exception?.ToString() ?? "Console Monsters was closed.");
 			Console.CursorVisible = true;
 		}
 	}

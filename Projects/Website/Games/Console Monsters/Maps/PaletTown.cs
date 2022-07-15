@@ -2,12 +2,20 @@
 using System.Linq;
 using System.Text;
 using System.Threading;
-using static Website.Games.Console_Monsters._using;
+using static Website.Games.Console_Monsters.Statics;
+//using Website.Games.Console_Monsters.Screens;
+using Website.Games.Console_Monsters.Items;
 using Website.Games.Console_Monsters.Maps;
 using Website.Games.Console_Monsters.Monsters;
 using Website.Games.Console_Monsters.Bases;
-using Website.Games.Console_Monsters.NPCs;
+using Website.Games.Console_Monsters.Characters;
+using Website.Games.Console_Monsters.Screens;
+using Website.Games.Console_Monsters.Screens.Menus;
+using Website.Games.Console_Monsters.Enums;
+using Website.Games.Console_Monsters.Utilities;
 using System.Collections.Generic;
+using Towel;
+using static Towel.Statics;
 using System.Threading.Tasks;
 
 namespace Website.Games.Console_Monsters.Maps;
@@ -21,59 +29,55 @@ class PaletTown : MapBase
 		scientist = new();
 	}
 
-	public override char[][] SpriteSheet => new char[][]
+	private readonly char[][] spriteSheet = new char[][]
 		{
-			"ffffffffff11ffffffff".ToCharArray(),
-			"fg                gf".ToCharArray(),
-			"fg  RMMj    RMMj  gf".ToCharArray(),
-			"fg  hkky    hkky  gf".ToCharArray(),
-			"fg sudlU   sudlU  gf".ToCharArray(),
-			"fg  p             gf".ToCharArray(),
-			"fg                gf".ToCharArray(),
-			"fg        RMMMMj  gf".ToCharArray(),
-			"fg  FFFa  hkkkky  gf".ToCharArray(),
-			"fg  gggg  hkkkky  gf".ToCharArray(),
-			"fg  gggg  ul0llU  gf".ToCharArray(),
-			"fg         n      gf".ToCharArray(),
-			"fg      X         gf".ToCharArray(),
-			"fg  o     FFFśFF  gf".ToCharArray(),
-			"fgggWWWW  gggggg  gf".ToCharArray(),
-			"fgggWwwW  gggggg  gf".ToCharArray(),
-			"fgggWwwW          gf".ToCharArray(),
-			"ffggWwwWffffffffffff".ToCharArray(),
-			"ffffWwwWffffffffffff".ToCharArray(),
-			"ggggWwwWggggggfggggg".ToCharArray(),
-			"ggggWwwWggggggfggggg".ToCharArray(),
-			"ggggWwwWGGGGGGfggggg".ToCharArray(),
+			"tttttgggggggfgggggf11fgggggfgggggttttt".ToCharArray(),
+			"tttttggggffffffffff  ffffffffggggttttt".ToCharArray(),
+			"tttttggggfg                gfggggttttt".ToCharArray(),
+			"tttttggggfg  bbbb    cccc  gfggggttttt".ToCharArray(),
+			"tttttggggfg  bbbb    cccc  gfggggttttt".ToCharArray(),
+			"tttttggggfg sb2bb   scccc  gfggggttttt".ToCharArray(),
+			"tttttggggfg  p             gfggggttttt".ToCharArray(),
+			"tttttggggfg                gfggggttttt".ToCharArray(),
+			"tttttggggfg        dddddd  gfggggttttt".ToCharArray(),
+			"tttttggggfg  FFFš  dddddd  gfggggttttt".ToCharArray(),
+			"tttttggggfg  gggg  dddddd  gfggggttttt".ToCharArray(),
+			"tttttggggfg  gggg  d0dddd  gfggggttttt".ToCharArray(),
+			"tttttggggfg           n    gfggggttttt".ToCharArray(),
+			"tttttggggfg      X         gfggggttttt".ToCharArray(),
+			"tttttggggfg  o     FFFśFF  gfggggttttt".ToCharArray(),
+			"tttttggggfgggWWWW  gggggg  gfggggttttt".ToCharArray(),
+			"tttttggggfgggWwwW  gggggg  gfggggttttt".ToCharArray(),
+			"tttttggggfgggWwwW          gfggggttttt".ToCharArray(),
+			"tttttggggffggWwwWffffffffffffggggttttt".ToCharArray(),
+			"tttttggggffffWwwWffffffffffffggggttttt".ToCharArray(),
+			"tttttggggggggWwwWggggggfgggggggggttttt".ToCharArray(),
+			"tttttggggggggWwwWggggggfgggggggggttttt".ToCharArray(),
 		};
 
-	public override string GetMapTileRender(int tileI, int tileJ)
+	public override char[][] SpriteSheet => spriteSheet;
+
+	public override string GetMapTileRender(int i, int j)
 	{
-		char[][] s = map.SpriteSheet;
-		if (tileJ < 0 || tileJ >= s.Length || tileI < 0 || tileI >= s[tileJ].Length)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
 			return Sprites.Open;
 		}
-		return s[tileJ][tileI] switch
+
+		return SpriteSheet[j][i] switch
 		{
 			// spawn
 			'X' => Sprites.Open,
 			// actions
 			'0' => Sprites.Door,
 			'1' => Sprites.ArrowHeavyUp,
+			'2' => Sprites.Door,
 			// Buildings
-			'd' => Sprites.Door,
-			'l' => Sprites.LowWindow,
-			'h' => Sprites.BuildingLeft,
-			'u' => Sprites.BuildingBaseLeft,
-			'y' => Sprites.BuildingRight,
-			'U' => Sprites.BuildingBaseRight,
-			'M' => Sprites.MiddleRoof,
-			'R' => Sprites.TopRoofLeft,
-			'j' => Sprites.TopRoofRight,
-			'k' => Sprites.MiddleWindow,
+			'b' => Sprites.House3x4.Get(Subtract((i, j), FindTileInMap('b')!.Value).Reverse()),
+			'c' => Sprites.House3x4.Get(Subtract((i, j), FindTileInMap('c')!.Value).Reverse()),
+			'd' => Sprites.House4x6.Get(Subtract((i, j), FindTileInMap('d')!.Value).Reverse()),
 			// Decor
-			'a' => Sprites.SignARight,
+			'š' => Sprites.SignARight,
 			's' => Sprites.SignALeft,
 			'ś' => Sprites.SignALeft,
 			'f' => Sprites.Fence,
@@ -81,98 +85,103 @@ class PaletTown : MapBase
 			// Nature
 			'w' => Sprites.Water,
 			'g' => Sprites.GrassDec,
+			'G' => Sprites.Grass,
+			't' => Sprites.Tree,
+			'T' => Sprites.Tree2,
 			// NPCs
 			'n' => Sprites.NPC1,
 			'o' => scientist.Sprite,
 			'p' => Sprites.NPC5,
 			// Extra
 			'W' => Sprites.Wall_0000,
+			'z' => Sprites.Door,
 			' ' => Sprites.Open,
 			_ => Sprites.Error,
 		};
 	}
 
-	public override void InteractWithMapTile(int tileI, int tileJ)
+	public override bool CanInteractWithMapTile(int i, int j)
 	{
-		char[][] s = map.SpriteSheet;
-
-		Interact(tileI, tileJ + 1);
-		Interact(tileI, tileJ - 1);
-		Interact(tileI - 1, tileJ);
-		Interact(tileI + 1, tileJ);
-
-		void Interact(int i, int j)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
-			if (j >= 0 && j < s.Length && i >= 0 && i < s[j].Length)
+			return false;
+		}
+		return SpriteSheet[j][i] switch
+		{
+			's' or 'a' => true,
+			'ś' => true,
+			'o' => true,
+			_ => false,
+		};
+	}
+
+	public override void InteractWithMapTile(int i, int j)
+	{
+		if (j >= 0 && j < SpriteSheet.Length && i >= 0 && i < SpriteSheet[j].Length)
+		{
+			switch (SpriteSheet[j][i])
 			{
-				if (s[j][i] is 's' or 'a') //Signs
-				{
+				case 's' or 'a':
 					promptText = new string[]
-						{
-							"Sign Says:",
-							"Hello! I am sign. :P",
-						};
-				}
-				if (s[j][i] is 'ś') //Bottom sign
-				{
+					{
+						"Sign Says:",
+						"Hello! I am sign. :P",
+					};
+					break;
+				case 'ś':
 					promptText = new string[]
-						{
-							"Sign #2 Says:",
-							"Hello! I am sign #2. :P",
-						};
-				}
-				if (s[j][i] is 'o')
-				{
+					{
+						"Sign #2 Says:",
+						"Hello! I am sign #2. :P",
+					};
+					break;
+				case 'o':
 					promptText = scientist.Dialogue;
-				}
+					break;
 			}
 		}
 	}
 
-	public override bool IsValidCharacterMapTile(int tileI, int tileJ)
+	public override bool IsValidCharacterMapTile(int i, int j)
 	{
-		char[][] s = map.SpriteSheet;
-		if (tileJ < 0 || tileJ >= s.Length || tileI < 0 || tileI >= s[tileJ].Length)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
 			return false;
 		}
-		char c = s[tileJ][tileI];
+		char c = SpriteSheet[j][i];
 		return c switch
 		{
 			' ' => true,
 			'0' => true,
 			'1' => true,
+			'2' => true,
 			'X' => true,
 			'g' => true,
 			_ => false,
 		};
 	}
 
-	public override async Task PerformTileAction()
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+	public override async Task PerformTileAction(int i, int j)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
-		var (i, j) = WorldToTile(character.I, character.J);
-		char[][] s = map.SpriteSheet;
-		switch (s[j][i])
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
+		{
+			return;
+		}
+		switch (SpriteSheet[j][i])
 		{
 			case '0':
 				map = new Center1();
-				SpawnCharacterOn('0');
+				map.SpawnCharacterOn('0');
 				break;
 			case '1':
 				map = new Route1();
-				SpawnCharacterOn('0');
+				map.SpawnCharacterOn('0');
 				break;
-			case 'G':
-				if (!DisableBattle && Random.Shared.Next(2) is 0) // BATTLE CHANCE
-				{
-					await _using.Console.Clear();
-					if (!DisableBattleTransition)
-					{
-						await Renderer.RenderBattleTransition();
-					}
-					await Renderer.RenderBattleView();
-					await PressEnterToContiue();
-				}
+			case '2':
+				map = new House1();
+				map.SpawnCharacterOn('0');
 				break;
 		}
 	}

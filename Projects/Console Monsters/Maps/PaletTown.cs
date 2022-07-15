@@ -9,31 +9,33 @@ class PaletTown : MapBase
 		scientist = new();
 	}
 
-	public override char[][] SpriteSheet => new char[][]
+	private readonly char[][] spriteSheet = new char[][]
 		{
-			"ffffffffff11ffffffff".ToCharArray(),
-			"fg                gf".ToCharArray(),
-			"fg  RMMj    RMMj  gf".ToCharArray(),
-			"fg  hkky    hkky  gf".ToCharArray(),
-			"fg su2lU   sudlU  gf".ToCharArray(),
-			"fg  p             gf".ToCharArray(),
-			"fg                gf".ToCharArray(),
-			"fg        RMMMMj  gf".ToCharArray(),
-			"fg  FFFa  hkkkky  gf".ToCharArray(),
-			"fg  gggg  hkkkky  gf".ToCharArray(),
-			"fg  gggg  ul0llU  gf".ToCharArray(),
-			"fg         n      gf".ToCharArray(),
-			"fg      X         gf".ToCharArray(),
-			"fg  o     FFFśFF  gf".ToCharArray(),
-			"fgggWWWW  gggggg  gf".ToCharArray(),
-			"fgggWwwW  gggggg  gf".ToCharArray(),
-			"fgggWwwW          gf".ToCharArray(),
-			"ffggWwwWffffffffffff".ToCharArray(),
-			"ffffWwwWffffffffffff".ToCharArray(),
-			"ggggWwwWggggggfggggg".ToCharArray(),
-			"ggggWwwWggggggfggggg".ToCharArray(),
-			"ggggWwwWGGGGGGfggggg".ToCharArray(),
+			"tttttgggggggfgggggf11fgggggfgggggttttt".ToCharArray(),
+			"tttttggggffffffffff  ffffffffggggttttt".ToCharArray(),
+			"tttttggggfg                gfggggttttt".ToCharArray(),
+			"tttttggggfg  bbbb    cccc  gfggggttttt".ToCharArray(),
+			"tttttggggfg  bbbb    cccc  gfggggttttt".ToCharArray(),
+			"tttttggggfg sb2bb   scccc  gfggggttttt".ToCharArray(),
+			"tttttggggfg  p             gfggggttttt".ToCharArray(),
+			"tttttggggfg                gfggggttttt".ToCharArray(),
+			"tttttggggfg        dddddd  gfggggttttt".ToCharArray(),
+			"tttttggggfg  FFFš  dddddd  gfggggttttt".ToCharArray(),
+			"tttttggggfg  gggg  dddddd  gfggggttttt".ToCharArray(),
+			"tttttggggfg  gggg  d0dddd  gfggggttttt".ToCharArray(),
+			"tttttggggfg           n    gfggggttttt".ToCharArray(),
+			"tttttggggfg      X         gfggggttttt".ToCharArray(),
+			"tttttggggfg  o     FFFśFF  gfggggttttt".ToCharArray(),
+			"tttttggggfgggWWWW  gggggg  gfggggttttt".ToCharArray(),
+			"tttttggggfgggWwwW  gggggg  gfggggttttt".ToCharArray(),
+			"tttttggggfgggWwwW          gfggggttttt".ToCharArray(),
+			"tttttggggffggWwwWffffffffffffggggttttt".ToCharArray(),
+			"tttttggggffffWwwWffffffffffffggggttttt".ToCharArray(),
+			"tttttggggggggWwwWggggggfgggggggggttttt".ToCharArray(),
+			"tttttggggggggWwwWggggggfgggggggggttttt".ToCharArray(),
 		};
+
+	public override char[][] SpriteSheet => spriteSheet;
 
 	public override string GetMapTileRender(int i, int j)
 	{
@@ -41,6 +43,7 @@ class PaletTown : MapBase
 		{
 			return Sprites.Open;
 		}
+
 		return SpriteSheet[j][i] switch
 		{
 			// spawn
@@ -50,18 +53,11 @@ class PaletTown : MapBase
 			'1' => Sprites.ArrowHeavyUp,
 			'2' => Sprites.Door,
 			// Buildings
-			'd' => Sprites.Door,
-			'l' => Sprites.LowWindow,
-			'h' => Sprites.BuildingLeft,
-			'u' => Sprites.BuildingBaseLeft,
-			'y' => Sprites.BuildingRight,
-			'U' => Sprites.BuildingBaseRight,
-			'M' => Sprites.MiddleRoof,
-			'R' => Sprites.TopRoofLeft,
-			'j' => Sprites.TopRoofRight,
-			'k' => Sprites.MiddleWindow,
+			'b' => Sprites.House3x4.Get(Subtract((i, j), FindTileInMap('b')!.Value).Reverse()),
+			'c' => Sprites.House3x4.Get(Subtract((i, j), FindTileInMap('c')!.Value).Reverse()),
+			'd' => Sprites.House4x6.Get(Subtract((i, j), FindTileInMap('d')!.Value).Reverse()),
 			// Decor
-			'a' => Sprites.SignARight,
+			'š' => Sprites.SignARight,
 			's' => Sprites.SignALeft,
 			'ś' => Sprites.SignALeft,
 			'f' => Sprites.Fence,
@@ -69,12 +65,16 @@ class PaletTown : MapBase
 			// Nature
 			'w' => Sprites.Water,
 			'g' => Sprites.GrassDec,
+			'G' => Sprites.Grass,
+			't' => Sprites.Tree,
+			'T' => Sprites.Tree2,
 			// NPCs
 			'n' => Sprites.NPC1,
 			'o' => scientist.Sprite,
 			'p' => Sprites.NPC5,
 			// Extra
 			'W' => Sprites.Wall_0000,
+			'z' => Sprites.Door,
 			' ' => Sprites.Open,
 			_ => Sprites.Error,
 		};

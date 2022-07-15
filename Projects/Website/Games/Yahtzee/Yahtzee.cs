@@ -11,6 +11,8 @@ public class Yahtzee
 
 	public async Task Run()
 	{
+		Exception? exception = null;
+
 		const string welcome =
 @"                                                 
   See the README for instructions if needed.     
@@ -165,11 +167,16 @@ const string gameComplete =
 				default: goto PlayAgainCheck;
 			}
 		}
+		catch (Exception e)
+		{
+			exception = e;
+			throw;
+		}
 		finally
 		{
 			Console.ResetColor();
 			await Console.Clear();
-			await Console.Write("Yahtzee was closed.");
+			await Console.WriteLine(exception?.ToString() ?? "Yahtzee was closed.");
 			await Console.Refresh();
 		}
 

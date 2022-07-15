@@ -2,6 +2,7 @@
 using Towel;
 using Towel.DataStructures;
 
+Exception? exception = null;
 const int boardHeight = 10;
 const int boardWidth = 10;
 bool[,] offense;
@@ -118,12 +119,17 @@ try
 		GetEnterOrEscape();
 	}
 }
+catch (Exception e)
+{
+	exception = e;
+	throw;
+}
 finally
 {
 	Console.CursorVisible = true;
 	Console.ResetColor();
 	Console.Clear();
-	Console.Write("Battleship was closed.");
+	Console.WriteLine(exception?.ToString() ?? "Battleship was closed.");
 }
 
 void PlaceDefenseShips()

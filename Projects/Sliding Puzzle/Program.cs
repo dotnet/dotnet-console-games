@@ -2,6 +2,8 @@
 using System.Globalization;
 using static Towel.Statics;
 
+Exception? exception = null;
+
 const string menu = @"
   Sliding Puzzle
 
@@ -98,15 +100,20 @@ try
 		}
 	}
 }
+catch (Exception e)
+{
+	exception = e;
+	throw;
+}
 finally
 {
 	Console.CursorVisible = true;
 	Console.ResetColor();
 	Console.Clear();
-	Console.Write("Sliding Puzzle was closed.");
+	Console.WriteLine(exception?.ToString() ?? "Sliding Puzzle was closed.");
 }
 
-void Render(int[,] board)
+static void Render(int[,] board)
 {
 	int space = board.FlatLength();
 	Console.SetCursorPosition(0, 0);
@@ -212,9 +219,7 @@ static int Inversions(int[,] board)
 	return inversions;
 }
 
-#pragma warning disable CA1050 // Declare types in namespaces
 public static class Extensions
-#pragma warning restore CA1050 // Declare types in namespaces
 {
 	public static int FlatLength<T>(this T[,] array2d) =>
 		array2d.GetLength(0) * array2d.GetLength(1);

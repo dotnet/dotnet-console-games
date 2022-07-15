@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+Exception? exception = null;
+
 char[] DirectionChars = { '^', 'v', '<', '>', };
 TimeSpan sleep = TimeSpan.FromMilliseconds(70);
 int width = Console.WindowWidth;
@@ -70,11 +72,16 @@ try
 		System.Threading.Thread.Sleep(sleep);
 	}
 }
+catch (Exception e)
+{
+	exception = e;
+	throw;
+}
 finally
 {
 	Console.CursorVisible = true;
 	Console.Clear();
-	Console.Write("Snake was closed.");
+	Console.WriteLine(exception?.ToString() ?? "Snake was closed.");
 }
 
 void GetDirection()
