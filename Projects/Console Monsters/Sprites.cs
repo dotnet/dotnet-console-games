@@ -371,24 +371,6 @@ public static class Sprites
 		@"       " + "\n" +
 		@"       " + "\n" +
 		@"       ";
-	public static readonly string PersonInBed1 =
-		@"╭────│─" + '\n' +
-		@"│ ╭──│ " + '\n' +
-		@"│ ╰──│ " + '\n' +
-		@"├────│─" + '\n' +
-		@"└──────";
-	public static readonly string PersonInBed2 =
-		@"───────" + '\n' +
-		@"       " + '\n' +
-		@"       " + '\n' +
-		@"───────" + '\n' +
-		@"───────";
-	public static readonly string PersonInBed3 =
-		@"──────│" + '\n' +
-		@"      │" + '\n' +
-		@"      │" + '\n' +
-		@"──────│" + '\n' +
-		@"──────│";
 	public const string StairsLeft =
 		@"│──────" + "\n" +
 		@"│──────" + "\n" +
@@ -425,6 +407,23 @@ public static class Sprites
 		@"  ║     ╭═╨──∏──╨═╮     ║   ",
 		@"  ╠══╗  ╰────╥────╯  ╔══╣   ",
 		@"  ╨  ╨       ╨       ╨  ╨   ");
+	public readonly static string[,] GrandfatherClock2x1 = Split(
+		@"╔═════╗",
+		@"║/ |_\║",
+		@"║\___/║",
+		@"╚╦═╤═╦╝",
+		@" ║ │ ║ ",
+		@" ║ │ ║ ",
+		@" ║ O ║ ",
+		@" ║   ║ ",
+		@" ╚═══╝ ",
+		@"       ");
+	public readonly static string[,] Bed1x3 = Split(
+		@"╔╗╭────┬────────────╮",
+		@"║╠│╭─╮ │            │",
+		@"║║│╰─╯ │            │",
+		@"║╠├────│────────────┤",
+		@"╚╝└────┴────────────┘");
 	#endregion
 
 	#region Wall
