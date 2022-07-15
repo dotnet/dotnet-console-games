@@ -2,19 +2,27 @@
 using System.Linq;
 using System.Text;
 using System.Threading;
-using static Website.Games.Console_Monsters._using;
+using static Website.Games.Console_Monsters.Statics;
+//using Website.Games.Console_Monsters.Screens;
+using Website.Games.Console_Monsters.Items;
 using Website.Games.Console_Monsters.Maps;
 using Website.Games.Console_Monsters.Monsters;
 using Website.Games.Console_Monsters.Bases;
-using Website.Games.Console_Monsters.NPCs;
+using Website.Games.Console_Monsters.Characters;
+using Website.Games.Console_Monsters.Screens;
+using Website.Games.Console_Monsters.Screens.Menus;
+using Website.Games.Console_Monsters.Enums;
+using Website.Games.Console_Monsters.Utilities;
 using System.Collections.Generic;
+using Towel;
+using static Towel.Statics;
 using System.Threading.Tasks;
 
 namespace Website.Games.Console_Monsters.Maps;
 
 public class Center1 : MapBase
 {
-	public override char[][] SpriteSheet => new char[][]
+	private readonly char[][] spriteSheet = new char[][]
 		{
 			"affffifffffjffffb".ToCharArray(),
 			"go   gttktth   oh".ToCharArray(),
@@ -24,14 +32,15 @@ public class Center1 : MapBase
 			"ceeeeee000eeeeeed".ToCharArray(),
 		};
 
+	public override char[][] SpriteSheet => spriteSheet;
+
 	public override string GetMapTileRender(int tileI, int tileJ)
 	{
-		char[][] s = map.SpriteSheet;
-		if (tileJ < 0 || tileJ >= s.Length || tileI < 0 || tileI >= s[tileJ].Length)
+		if (tileJ < 0 || tileJ >= SpriteSheet.Length || tileI < 0 || tileI >= SpriteSheet[tileJ].Length)
 		{
 			return Sprites.Open;
 		}
-		return s[tileJ][tileI] switch
+		return SpriteSheet[tileJ][tileI] switch
 		{
 			// actions
 			'0' => Sprites.ArrowHeavyDown,
@@ -61,39 +70,45 @@ public class Center1 : MapBase
 		};
 	}
 
-	public override void InteractWithMapTile(int tileI, int tileJ)
+	public override bool CanInteractWithMapTile(int i, int j)
 	{
-		char[][] s = map.SpriteSheet;
-
-		Interact(tileI, tileJ + 1);
-		Interact(tileI, tileJ - 1);
-		Interact(tileI - 1, tileJ);
-		Interact(tileI + 1, tileJ);
-
-		void Interact(int i, int j)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
-			if (j >= 0 && j < s.Length && i >= 0 && i < s[j].Length)
+			return false;
+		}
+		return SpriteSheet[j][i] switch
+		{
+			'k' => true,
+			_ => false,
+		};
+	}
+
+	public override void InteractWithMapTile(int i, int j)
+	{
+		if (j >= 0 && j < SpriteSheet.Length && i >= 0 && i < SpriteSheet[j].Length)
+		{
+			if (SpriteSheet[j][i] is 'k')
 			{
-				if (s[j][i] is 'k')
+				promptText = new string[]
 				{
-					promptText = new string[]
-						{
-							" Hello and welcome to the monster center.",
-							" I will heal all your monsters.",
-						};
+					" Hello and welcome to the monster center.",
+					" I will heal all your monsters.",
+				};
+				for(int p = 0; p < partyMonsters.Count; p++)
+				{
+					partyMonsters[p].CurrentHP = partyMonsters[p].MaximumHP;
 				}
 			}
 		}
 	}
 
-	public override bool IsValidCharacterMapTile(int tileI, int tileJ)
+	public override bool IsValidCharacterMapTile(int i, int j)
 	{
-		char[][] s = map.SpriteSheet;
-		if (tileJ < 0 || tileJ >= s.Length || tileI < 0 || tileI >= s[tileJ].Length)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
 			return false;
 		}
-		char c = s[tileJ][tileI];
+		char c = SpriteSheet[j][i];
 		return c switch
 		{
 			' ' => true,
@@ -106,16 +121,18 @@ public class Center1 : MapBase
 	}
 
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-	public override async Task PerformTileAction()
+	public override async Task PerformTileAction(int i, int j)
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
-		var (i, j) = WorldToTile(character.I, character.J);
-		char[][] s = map.SpriteSheet;
-		switch (s[j][i])
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
+		{
+			return;
+		}
+		switch (SpriteSheet[j][i])
 		{
 			case '0':
 				map = new PaletTown();
-				SpawnCharacterOn('0');
+				map.SpawnCharacterOn('0');
 				break;
 		}
 	}

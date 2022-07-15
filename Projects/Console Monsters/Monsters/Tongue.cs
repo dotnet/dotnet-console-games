@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Console_Monsters.Monsters;
 
-namespace Console_Monsters.Monsters;
 internal class Tongue : MonsterBase
 {
 	public Tongue()

@@ -1,4 +1,4 @@
-﻿namespace Console_Monsters.Screens;
+﻿namespace Console_Monsters.Screens.Menus;
 
 public static class ControlsScreen
 {

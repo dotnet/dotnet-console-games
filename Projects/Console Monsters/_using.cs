@@ -10,6 +10,7 @@ global using Console_Monsters.Monsters;
 global using Console_Monsters.Bases;
 global using Console_Monsters.Characters;
 global using Console_Monsters.Screens;
+global using Console_Monsters.Screens.Menus;
 global using Console_Monsters.Enums;
 global using Console_Monsters.Utilities;
 global using System.Collections.Generic;

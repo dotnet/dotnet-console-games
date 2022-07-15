@@ -2,12 +2,20 @@
 using System.Linq;
 using System.Text;
 using System.Threading;
-using static Website.Games.Console_Monsters._using;
+using static Website.Games.Console_Monsters.Statics;
+//using Website.Games.Console_Monsters.Screens;
+using Website.Games.Console_Monsters.Items;
 using Website.Games.Console_Monsters.Maps;
 using Website.Games.Console_Monsters.Monsters;
 using Website.Games.Console_Monsters.Bases;
-using Website.Games.Console_Monsters.NPCs;
+using Website.Games.Console_Monsters.Characters;
+using Website.Games.Console_Monsters.Screens;
+using Website.Games.Console_Monsters.Screens.Menus;
+using Website.Games.Console_Monsters.Enums;
+using Website.Games.Console_Monsters.Utilities;
 using System.Collections.Generic;
+using Towel;
+using static Towel.Statics;
 using System.Threading.Tasks;
 
 namespace Website.Games.Console_Monsters.Bases;
@@ -17,28 +25,31 @@ public abstract class MapBase
 	/// <summary>Converts from world (character) coordinates to tile coordinates.</summary>
 	public static (int I, int J) WorldToTile(int i, int j)
 	{
-		int tilei = i < 0 ? (i - 6) / 7 : i / 7;
-		int tilej = j < 0 ? (j - 4) / 5 : j / 5;
+		int tilei = i < 0 ? (i - (Sprites.Width - 1)) / Sprites.Width : i / Sprites.Width;
+		int tilej = j < 0 ? (j - (Sprites.Height - 1)) / Sprites.Height : j / Sprites.Height;
 		return (tilei, tilej);
 	}
 
 	/// <summary>Relocates the player to the top-left most occurence of a character in a <see cref="SpriteSheet"/>.</summary>
-	public static void SpawnCharacterOn(char c)
+	public void SpawnCharacterOn(char c)
 	{
-		var (i, j) = FindTileInMap(map, c)!.Value;
-		character.I = i * 7;
-		character.J = j * 5;
+		(int I, int J)? tile = FindTileInMap(c);
+		if (tile is null)
+		{
+			throw new InvalidOperationException("Attempting to spawn the player on a non-existing tile.");
+		}
+		character.I = tile.Value.I * Sprites.Width;
+		character.J = tile.Value.J * Sprites.Height;
 	}
 
 	/// <summary>Finds the top-left most occurence of a character in a <see cref="SpriteSheet"/>.</summary>
-	public static (int I, int J)? FindTileInMap(MapBase map, char c)
+	public (int I, int J)? FindTileInMap(char c)
 	{
-		char[][] s = map.SpriteSheet;
-		for (int j = 0; j < s.Length; j++)
+		for (int j = 0; j < SpriteSheet.Length; j++)
 		{
-			for (int i = 0; i < s[j].Length; i++)
+			for (int i = 0; i < SpriteSheet[j].Length; i++)
 			{
-				if (s[j][i] == c)
+				if (SpriteSheet[j][i] == c)
 				{
 					return (i, j);
 				}
@@ -48,18 +59,19 @@ public abstract class MapBase
 	}
 
 	/// <summary>Gets the sprite for a given tile coordinate in the <see cref="MapBase"/>.</summary>
-	public abstract string GetMapTileRender(int tileI, int tileJ);
+	public abstract string GetMapTileRender(int i, int j);
 
 	/// <summary>Determines if the given tile coordinates are valid for the player to move to.</summary>
-	public abstract bool IsValidCharacterMapTile(int tileI, int tileJ);
+	public abstract bool IsValidCharacterMapTile(int i, int j);
 
-	/// <summary>Interacts with adjacent tiles if there is anything to interact with.</summary>
-	public abstract void InteractWithMapTile(int tileI, int tileJ);
+	/// <summary>Interacts with the tile the player is facing.</summary>
+	public abstract void InteractWithMapTile(int i, int j);
+
+	/// <summary>Checks if the player can interact with the map tile they are facing.</summary>
+	public abstract bool CanInteractWithMapTile(int i, int j);
 
 	/// <summary>If necessary, performs an action when the player moves onto a tile.</summary>
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-	public virtual async Task PerformTileAction() { throw new NotImplementedException(); }
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+	public abstract Task PerformTileAction(int i, int j);
 
 	public abstract char[][] SpriteSheet { get; }
 }
