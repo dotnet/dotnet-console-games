@@ -21,8 +21,8 @@ class PaletTown : MapBase
 			"fg        dddddd  gf".ToCharArray(),
 			"fg  FFFa  dddddd  gf".ToCharArray(),
 			"fg  gggg  dddddd  gf".ToCharArray(),
-			"fg  gggg  dd0ddd  gf".ToCharArray(),
-			"fg         n      gf".ToCharArray(),
+			"fg  gggg  d0dddd  gf".ToCharArray(),
+			"fg           n    gf".ToCharArray(),
 			"fg      X         gf".ToCharArray(),
 			"fg  o     FFFśFF  gf".ToCharArray(),
 			"fgggWWWW  gggggg  gf".ToCharArray(),
@@ -53,9 +53,9 @@ class PaletTown : MapBase
 			'1' => Sprites.ArrowHeavyUp,
 			'2' => Sprites.Door,
 			// Buildings
-			'b' => Sprites.House.Get(Subtract((i, j), FindTileInMap('b')!.Value).Reverse()),
-			'c' => Sprites.House.Get(Subtract((i, j), FindTileInMap('c')!.Value).Reverse()),
-			'd' => Sprites.House.Get(Subtract((i, j), FindTileInMap('d')!.Value).Reverse()),
+			'b' => Sprites.House3x4.Get(Subtract((i, j), FindTileInMap('b')!.Value).Reverse()),
+			'c' => Sprites.House3x4.Get(Subtract((i, j), FindTileInMap('c')!.Value).Reverse()),
+			'd' => Sprites.House4x6.Get(Subtract((i, j), FindTileInMap('d')!.Value).Reverse()),
 			// Decor
 			'a' => Sprites.SignARight,
 			's' => Sprites.SignALeft,
