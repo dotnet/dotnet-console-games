@@ -88,4 +88,7 @@ public static class Statics
 		PlayerInventory.TryAdd(Key.Instance);
 		PlayerInventory.TryAdd(Candle.Instance);
 	}
+
+	[System.Diagnostics.DebuggerHidden]
+	public static (int, int) Subtract((int, int) a, (int, int) b) => (a.Item1 - b.Item1, a.Item2 - b.Item2);
 }

@@ -44,10 +44,6 @@ class PaletTown : MapBase
 			return Sprites.Open;
 		}
 
-		string b((int I, int J) offset) => Sprites.Building3x4[j - offset.J, i - offset.I];
-		string c((int I, int J) offset) => Sprites.Building3x4[j - offset.J, i - offset.I];
-		string d((int I, int J) offset) => Sprites.Building4x6[j - offset.J, i - offset.I];
-
 		return SpriteSheet[j][i] switch
 		{
 			// spawn
@@ -57,9 +53,9 @@ class PaletTown : MapBase
 			'1' => Sprites.ArrowHeavyUp,
 			'2' => Sprites.Door,
 			// Buildings
-			'b' => b(FindTileInMap('b')!.Value),
-			'c' => c(FindTileInMap('c')!.Value),
-			'd' => d(FindTileInMap('d')!.Value),
+			'b' => Sprites.Building3x4.Get(Subtract((i, j), FindTileInMap('b')!.Value).Reverse()),
+			'c' => Sprites.Building3x4.Get(Subtract((i, j), FindTileInMap('c')!.Value).Reverse()),
+			'd' => Sprites.Building4x6.Get(Subtract((i, j), FindTileInMap('d')!.Value).Reverse()),
 			// Decor
 			'a' => Sprites.SignARight,
 			's' => Sprites.SignALeft,

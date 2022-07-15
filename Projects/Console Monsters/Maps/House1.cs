@@ -20,9 +20,6 @@ public class House1 : MapBase
 		{
 			return Sprites.Open;
 		}
-
-		string s((int I, int J) offset) => Sprites.DiningSet[j - offset.J, i - offset.I];
-
 		return SpriteSheet[j][i] switch
 		{
 			// actions
@@ -47,7 +44,7 @@ public class House1 : MapBase
 			'o' => Sprites.PotPlant1,
 			'p' => Sprites.MicroWave,
 			'q' => Sprites.NPC11,
-			's' => s(FindTileInMap('s')!.Value),
+			's' => Sprites.DiningSet.Get(Subtract((i, j), FindTileInMap('s')!.Value).Reverse()),
 			'u' => Sprites.Carpet,
 			'v' => Sprites.WeirdMonster,
 			'w' => Sprites.PotPlant1,
