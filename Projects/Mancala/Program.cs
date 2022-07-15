@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
+Exception? exception = null;
+
 int[] pitsAndStores;
 int[] changes;
 bool closeRequested;
@@ -109,11 +111,16 @@ GetInput:
 			goto GetInput;
 	}
 }
+catch (Exception e)
+{
+	exception = e;
+	throw;
+}
 finally
 {
 	Console.ResetColor();
 	Console.Clear();
-	Console.Write("Mancala closed.");
+	Console.WriteLine(exception?.ToString() ?? "Mancala closed.");
 	Console.CursorVisible = true;
 }
 

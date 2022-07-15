@@ -2,6 +2,8 @@
 using System.Globalization;
 using System.Linq;
 
+Exception? exception = null;
+
 const string welcome =
 @"                                                 
   See the README for instructions if needed.     
@@ -156,11 +158,16 @@ try
 		default: goto PlayAgainCheck;
 	}
 }
+catch (Exception e)
+{
+	exception = e;
+	throw;
+}
 finally
 {
 	Console.ResetColor();
 	Console.Clear();
-	Console.Write("Yahtzee was closed.");
+	Console.WriteLine(exception?.ToString() ?? "Yahtzee was closed.");
 }
 
 void Render(bool selectingDice, bool selectingScore, bool successiveRoll)

@@ -1,14 +1,22 @@
 ﻿using System;
-using System.Text;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Text;
 using System.Threading;
-using static Website.Games.Console_Monsters._using;
+using static Website.Games.Console_Monsters.Statics;
+//using static Website.Games.Console_Monsters.BattleSystem;
+using Website.Games.Console_Monsters.Items;
 using Website.Games.Console_Monsters.Maps;
 using Website.Games.Console_Monsters.Monsters;
 using Website.Games.Console_Monsters.Bases;
-using Website.Games.Console_Monsters.NPCs;
+using Website.Games.Console_Monsters.Characters;
+using Website.Games.Console_Monsters.Screens;
+using Website.Games.Console_Monsters.Screens.Menus;
+using Website.Games.Console_Monsters.Enums;
+using Website.Games.Console_Monsters.Utilities;
 using System.Collections.Generic;
+using Towel;
+using static Towel.Statics;
+using System.Threading.Tasks;
 
 namespace Website.Games.Console_Monsters;
 
@@ -20,10 +28,13 @@ public class Console_Monsters
 	public Console_Monsters()
 	{
 		OperatingSystem = Console;
+		Statics.Console = Console;
+		Statics.OperatingSystem = Console;
 	}
 
 	public async Task Run()
 	{
+		Exception? exception = null;
 		Encoding encoding = Console.OutputEncoding!;
 		try
 		{
@@ -37,7 +48,6 @@ public class Console_Monsters
 				{
 					Console.SetWindowSize(screenWidth, screenHeight);
 					Console.SetBufferSize(screenWidth, screenHeight);
-					//Console.SetWindowPosition(0, 0);
 				}
 				catch
 				{
@@ -45,172 +55,55 @@ public class Console_Monsters
 				}
 			}
 
-			await StartMenu();
+			await StartScreen.StartMenu();
 			while (gameRunning)
 			{
 				await UpdateCharacter();
 				await HandleMapUserInput();
 				if (gameRunning)
 				{
-					await Renderer.RenderWorldMapView();
+					await MapScreen.Render();
+					await SleepAfterRender();
 				}
 			}
+		}
+		catch (Exception e)
+		{
+			exception = e;
+			throw;
 		}
 		finally
 		{
 			Console.OutputEncoding = encoding;
+			Console.ResetColor();
 			await Console.Clear();
-			await Console.WriteLine("Console Monsters was closed.");
+			await Console.WriteLine(exception?.ToString() ?? "Console Monsters was closed.");
 			Console.CursorVisible = true;
 			await Console.Refresh();
 		}
 	}
 
-	async Task StartMenu()
-	{
-		await Console.Clear();
-		StringBuilder sb = new();
-
-		int arrowOption = 1;
-
-		string optionIndent = new(' ', 60);
-		string titleIndent = new(' ', 10);
-		string newLineOptions = new('\n', 2);
-		string newLineTitle = new('\n', 6);
-
-	ReDraw:
-		sb.Clear();
-
-		sb.AppendLine($"{newLineTitle}");
-		sb.AppendLine(@$"{titleIndent} ██████╗ ██████╗ ███╗   ██╗███████╗ ██████╗ ██╗     ███████╗    ███╗   ███╗ ██████╗ ███╗   ██╗███████╗████████╗███████╗██████╗ ███████╗");
-		sb.AppendLine(@$"{titleIndent}██╔════╝██╔═══██╗████╗  ██║██╔════╝██╔═══██╗██║     ██╔════╝    ████╗ ████║██╔═══██╗████╗  ██║██╔════╝╚══██╔══╝██╔════╝██╔══██╗██╔════╝");
-		sb.AppendLine(@$"{titleIndent}██║     ██║   ██║██╔██╗ ██║███████╗██║   ██║██║     █████╗      ██╔████╔██║██║   ██║██╔██╗ ██║███████╗   ██║   █████╗  ██████╔╝███████╗");
-		sb.AppendLine(@$"{titleIndent}██║     ██║   ██║██║╚██╗██║╚════██║██║   ██║██║     ██╔══╝      ██║╚██╔╝██║██║   ██║██║╚██╗██║╚════██║   ██║   ██╔══╝  ██╔══██╗╚════██║");
-		sb.AppendLine(@$"{titleIndent}╚██████╗╚██████╔╝██║ ╚████║███████║╚██████╔╝███████╗███████╗    ██║ ╚═╝ ██║╚██████╔╝██║ ╚████║███████║   ██║   ███████╗██║  ██║███████║");
-		sb.AppendLine(@$"{titleIndent} ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚══════╝╚══════╝    ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚══════╝");
-		sb.AppendLine(@$"{newLineTitle}");
-
-		sb.AppendLine(@$"{optionIndent} {(FirstTimeLaunching ? "  ▄▄▄▄▄ ▄▄▄▄▄  ▄▄  ▄▄▄  ▄▄▄▄▄" : "▄▄▄  ▄▄▄▄ ▄▄▄▄▄ ▄  ▄ ▄   ▄ ▄▄▄▄")}  {(arrowOption is 1 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent} {(FirstTimeLaunching ? "  █▄▄▄▄   █   █▄▄█ █▄▄▀   █  " : "█▄▄▀ █▄▄  █▄▄▄▄ █  █ █▀▄▀█ █▄▄ ")}  {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent} {(FirstTimeLaunching ? "  ▄▄▄▄█   █   █  █ █  █   █  " : "█  █ █▄▄▄ ▄▄▄▄█ ▀▄▄▀ █   █ █▄▄▄")}  {(arrowOption is 1 ? "╰───╯" : "     ")}");
-		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent} ▄▄  ▄▄▄  ▄▄▄▄▄ ▄  ▄▄  ▄   ▄ ▄▄▄▄▄  {(arrowOption is 2 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█  █ █▄▄▀   █   █ █  █ █▀▄ █ █▄▄▄▄  {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}▀▄▄▀ █      █   █ ▀▄▄▀ █  ▀█ ▄▄▄▄█  {(arrowOption is 2 ? "╰───╯" : "     ")}");
-		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}        ▄▄▄▄ ▄   ▄ ▄ ▄▄▄▄▄  {(arrowOption is 3 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}        █▄▄   ▀▄▀  █   █    {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}        █▄▄▄ ▄▀ ▀▄ █   █    {(arrowOption is 3 ? "╰───╯" : "     ")}");
-
-		await Console.SetCursorPosition(0, 0);
-		await Console.WriteLine(sb);
-
-		ConsoleKey key = (await Console.ReadKey(true)).Key;
-		switch (key)
-		{
-			case ConsoleKey.UpArrow or ConsoleKey.W: arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
-			case ConsoleKey.DownArrow or ConsoleKey.S: arrowOption = Math.Min(3, arrowOption + 1); goto ReDraw;
-			case ConsoleKey.Enter or ConsoleKey.E:
-				switch (arrowOption)
-				{
-					case 1:
-						FirstTimeLaunching = false;
-						break;
-					case 2:
-						await Options();
-						await Console.Clear();
-						goto ReDraw; // To not run "arrowOption" so it stays on "Options" after going back
-					case 3:
-						gameRunning = false;
-						break;
-				}
-				break;
-			case ConsoleKey.Escape: break;
-			default: goto ReDraw;
-		}
-	}
-
-	async Task Options()
-	{
-		StringBuilder sb = new();
-
-		int arrowOption = 1;
-
-		string optionIndent = new(' ', 60);
-		string titleIndent = new(' ', 50);
-		string newLineOptions = new('\n', 2);
-		string newLineTitle = new('\n', 6);
-
-		await Console.Clear();
-	ReDraw:
-		sb.Clear();
-
-		sb.AppendLine(@$"{newLineTitle}");
-		sb.AppendLine(@$"{titleIndent} ██████╗ ██████╗ ████████╗██╗ ██████╗ ███╗   ██╗███████╗");
-		sb.AppendLine(@$"{titleIndent}██╔═══██╗██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝");
-		sb.AppendLine(@$"{titleIndent}██║   ██║██████╔╝   ██║   ██║██║   ██║██╔██╗ ██║███████╗");
-		sb.AppendLine(@$"{titleIndent}██║   ██║██╔═══╝    ██║   ██║██║   ██║██║╚██╗██║╚════██║");
-		sb.AppendLine(@$"{titleIndent}╚██████╔╝██║        ██║   ██║╚██████╔╝██║ ╚████║███████║");
-		sb.AppendLine(@$"{titleIndent} ╚═════╝ ╚═╝        ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝");
-		sb.AppendLine(@$"{newLineTitle}");
-
-		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "╔══╗" : "╔══╗")}                      {(arrowOption is 1 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "║  ║" : "║██║")}  Movement Animation  {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "╚══╝" : "╚══╝")}                      {(arrowOption is 1 ? "╰───╯" : "     ")}");
-		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}{(DisableBattleTransition ? "╔══╗" : "╔══╗")}                     {(arrowOption is 2 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableBattleTransition ? "║  ║" : "║██║")}  Battle Transition  {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableBattleTransition ? "╚══╝" : "╚══╝")}                     {(arrowOption is 2 ? "╰───╯" : "     ")}");
-		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}{(DisableBattle ? "╔══╗" : "╔══╗")}                      {(arrowOption is 3 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableBattle ? "║  ║" : "║██║")}  Battles (DEV TOOL)  {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableBattle ? "╚══╝" : "╚══╝")}                      {(arrowOption is 3 ? "╰───╯" : "     ")}");
-		sb.AppendLine(@$"{newLineOptions}");
-		sb.AppendLine(@$"{optionIndent}█▀▀▄  ▄▄   ▄▄▄ ▄  ▄   {(arrowOption is 4 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█■■█ █▄▄█ █    █■█    {(arrowOption is 4 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█▄▄▀ █  █ ▀▄▄▄ █  ▀▄  {(arrowOption is 4 ? "╰───╯" : "     ")}");
-
-		await Console.SetCursorPosition(0, 0);
-		await Console.WriteLine(sb);
-
-		switch ((await Console.ReadKey(true)).Key)
-		{
-			case ConsoleKey.UpArrow or ConsoleKey.W: arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
-			case ConsoleKey.DownArrow or ConsoleKey.S: arrowOption = Math.Min(4, arrowOption + 1); goto ReDraw;
-			case ConsoleKey.Enter or ConsoleKey.E:
-				switch (arrowOption)
-				{
-					case 1: DisableMovementAnimation = !DisableMovementAnimation; goto ReDraw;
-					case 2: DisableBattleTransition = !DisableBattleTransition; goto ReDraw;
-					case 3: DisableBattle = !DisableBattle; goto ReDraw;
-					case 4: break;
-				}
-				break;
-			case ConsoleKey.Escape: break;
-			default: goto ReDraw;
-		}
-	}
-
 	static async Task UpdateCharacter()
 	{
-		if (character.Animation == Character.RunUp) character.J--;
-		if (character.Animation == Character.RunDown) character.J++;
-		if (character.Animation == Character.RunLeft) character.I--;
-		if (character.Animation == Character.RunRight) character.I++;
+		if (character.Animation == Player.RunUp) character.J--;
+		if (character.Animation == Player.RunDown) character.J++;
+		if (character.Animation == Player.RunLeft) character.I--;
+		if (character.Animation == Player.RunRight) character.I++;
 
 		character.AnimationFrame++;
 
-		if ((character.Animation == Character.RunUp && character.AnimationFrame >= Sprites.Height) ||
-			(character.Animation == Character.RunDown && character.AnimationFrame >= Sprites.Height) ||
-			(character.Animation == Character.RunLeft && character.AnimationFrame >= Sprites.Width) ||
-			(character.Animation == Character.RunRight && character.AnimationFrame >= Sprites.Width))
-{
-			await map.PerformTileAction();
+		if ((character.Animation == Player.RunUp && character.AnimationFrame >= Sprites.Height) ||
+			(character.Animation == Player.RunDown && character.AnimationFrame >= Sprites.Height) ||
+			(character.Animation == Player.RunLeft && character.AnimationFrame >= Sprites.Width) ||
+			(character.Animation == Player.RunRight && character.AnimationFrame >= Sprites.Width))
+		{
+			var (i, j) = MapBase.WorldToTile(character.I, character.J);
+			await map.PerformTileAction(i, j);
 			character.Animation =
-				character.Animation == Character.RunUp ? Character.IdleUp :
-				character.Animation == Character.RunDown ? Character.IdleDown :
-				character.Animation == Character.RunLeft ? Character.IdleLeft :
-				character.Animation == Character.RunRight ? Character.IdleRight :
+				character.Animation == Player.RunUp ? Player.IdleUp :
+				character.Animation == Player.RunDown ? Player.IdleDown :
+				character.Animation == Player.RunLeft ? Player.IdleLeft :
+				character.Animation == Player.RunRight ? Player.IdleRight :
 				throw new NotImplementedException();
 			character.AnimationFrame = 0;
 		}
@@ -222,9 +115,9 @@ public class Console_Monsters
 
 	async Task HandleMapUserInput()
 	{
-		while (Console.KeyAvailableNoRefresh())
+		while (await Console.KeyAvailable())
 		{
-			ConsoleKey key = Console.ReadKeyNoRefresh(true).Key;
+			ConsoleKey key = (await Console.ReadKey(true)).Key;
 			switch (key)
 			{
 				case
@@ -246,28 +139,29 @@ public class Console_Monsters
 							ConsoleKey.LeftArrow or ConsoleKey.A => (i - 1, j),
 							ConsoleKey.RightArrow or ConsoleKey.D => (i + 1, j),
 							_ => throw new Exception("bug"),
-};
+						};
 						if (map.IsValidCharacterMapTile(i, j))
 						{
 							if (DisableMovementAnimation)
 							{
 								switch (key)
 								{
-									case ConsoleKey.UpArrow or ConsoleKey.W: character.J -= Sprites.Height; character.Animation = Character.IdleUp; break;
-									case ConsoleKey.DownArrow or ConsoleKey.S: character.J += Sprites.Height; character.Animation = Character.IdleDown; break;
-									case ConsoleKey.LeftArrow or ConsoleKey.A: character.I -= Sprites.Width; character.Animation = Character.IdleLeft; break;
-									case ConsoleKey.RightArrow or ConsoleKey.D: character.I += Sprites.Width; character.Animation = Character.IdleRight; break;
+									case ConsoleKey.UpArrow or ConsoleKey.W: character.J -= Sprites.Height; character.Animation = Player.IdleUp; break;
+									case ConsoleKey.DownArrow or ConsoleKey.S: character.J += Sprites.Height; character.Animation = Player.IdleDown; break;
+									case ConsoleKey.LeftArrow or ConsoleKey.A: character.I -= Sprites.Width; character.Animation = Player.IdleLeft; break;
+									case ConsoleKey.RightArrow or ConsoleKey.D: character.I += Sprites.Width; character.Animation = Player.IdleRight; break;
 								}
-								await map.PerformTileAction();
+								var (i2, j2) = MapBase.WorldToTile(character.I, character.J);
+								await map.PerformTileAction(i2, j2);
 							}
 							else
 							{
 								switch (key)
 								{
-									case ConsoleKey.UpArrow or ConsoleKey.W: character.AnimationFrame = 0; character.Animation = Character.RunUp; break;
-									case ConsoleKey.DownArrow or ConsoleKey.S: character.AnimationFrame = 0; character.Animation = Character.RunDown; break;
-									case ConsoleKey.LeftArrow or ConsoleKey.A: character.AnimationFrame = 0; character.Animation = Character.RunLeft; break;
-									case ConsoleKey.RightArrow or ConsoleKey.D: character.AnimationFrame = 0; character.Animation = Character.RunRight; break;
+									case ConsoleKey.UpArrow or ConsoleKey.W: character.AnimationFrame = 0; character.Animation = Player.RunUp; break;
+									case ConsoleKey.DownArrow or ConsoleKey.S: character.AnimationFrame = 0; character.Animation = Player.RunDown; break;
+									case ConsoleKey.LeftArrow or ConsoleKey.A: character.AnimationFrame = 0; character.Animation = Player.RunLeft; break;
+									case ConsoleKey.RightArrow or ConsoleKey.D: character.AnimationFrame = 0; character.Animation = Player.RunRight; break;
 								}
 							}
 						}
@@ -275,10 +169,10 @@ public class Console_Monsters
 						{
 							character.Animation = key switch
 							{
-								ConsoleKey.UpArrow or ConsoleKey.W => Character.IdleUp,
-								ConsoleKey.DownArrow or ConsoleKey.S => Character.IdleDown,
-								ConsoleKey.LeftArrow or ConsoleKey.A => Character.IdleLeft,
-								ConsoleKey.RightArrow or ConsoleKey.D => Character.IdleRight,
+								ConsoleKey.UpArrow or ConsoleKey.W => Player.IdleUp,
+								ConsoleKey.DownArrow or ConsoleKey.S => Player.IdleDown,
+								ConsoleKey.LeftArrow or ConsoleKey.A => Player.IdleLeft,
+								ConsoleKey.RightArrow or ConsoleKey.D => Player.IdleRight,
 								_ => throw new Exception("bug"),
 							};
 						}
@@ -289,13 +183,45 @@ public class Console_Monsters
 					{
 						break;
 					}
-					activeMonsters.Clear();
+
+//#warning TODO: this is temporary population of monsters during developemnt
+					partyMonsters.Clear();
+					Turtle turtle = new();
 					for (int i = 0; i < (maxPartySize - GameRandom.Next(0, 3)); i++)
 					{
-						activeMonsters.Add(MonsterBase.GetRandom());
+						partyMonsters.Add(turtle);
 					}
-					await Renderer.RenderInventoryView();
-					await PressEnterToContiue();
+
+					inInventory = true;
+					while (inInventory)
+					{
+						await InventoryScreen.Render();
+
+						switch ((await Console.ReadKey(true)).Key)
+						{
+							case ConsoleKey.UpArrow:
+								if (SelectedPlayerInventoryItem > 0)
+								{
+									SelectedPlayerInventoryItem--;
+								}
+								else
+								{
+									SelectedPlayerInventoryItem = PlayerInventory.Distinct().Count() - 1;
+								}
+								break;
+							case ConsoleKey.DownArrow:
+								if (SelectedPlayerInventoryItem < PlayerInventory.Distinct().Count() - 1)
+								{
+									SelectedPlayerInventoryItem++;
+								}
+								else
+								{
+									SelectedPlayerInventoryItem = 0;
+								}
+								break;
+							case ConsoleKey.Escape: inInventory = false; break;
+						}
+					}
 					break;
 				case ConsoleKey.Enter:
 					promptText = null;
@@ -307,14 +233,30 @@ public class Console_Monsters
 						break;
 					}
 					{
-						var (i, j) = MapBase.WorldToTile(character.I, character.J); ;
+						var (i, j) = character.InteractTile;
 						map.InteractWithMapTile(i, j);
 						break;
 					}
 				case ConsoleKey.Escape:
-					await StartMenu();
+					await StartScreen.StartMenu();
 					return;
 			}
 		}
+	}
+
+	public async Task SleepAfterRender()
+	{
+		// frame rate control targeting 30 frames per second
+		DateTime now = DateTime.Now;
+		TimeSpan sleep = TimeSpan.FromMilliseconds(33) - (now - previoiusRender);
+		if (sleep > TimeSpan.Zero)
+		{
+			await Console.RefreshAndDelay(sleep);
+		}
+		else
+		{
+			await Console.Refresh();
+		}
+		previoiusRender = DateTime.Now;
 	}
 }

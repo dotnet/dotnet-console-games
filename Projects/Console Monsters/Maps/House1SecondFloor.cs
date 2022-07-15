@@ -2,23 +2,25 @@
 
 public class House1SecondFloor : MapBase
 {
-	public override char[][] SpriteSheet => new char[][]
+	private readonly char[][] spriteSheet = new char[][]
 		{
 			"afffffffffffffffb".ToCharArray(),
-		    "hpq  uv   -     g".ToCharArray(),
+			"hpq  uv   -     g".ToCharArray(),
 			"hno          kemg".ToCharArray(),
-	        "h      yy   xkemg".ToCharArray(),
-	        "hrst       wzkijg".ToCharArray(),
+			"h      yy   xkemg".ToCharArray(),
+			"hrrr       wzkijg".ToCharArray(),
 			"cllllllllllllllld".ToCharArray(),
 		};
 
-	public override string GetMapTileRender(int tileI, int tileJ)
+	public override char[][] SpriteSheet => spriteSheet;
+
+	public override string GetMapTileRender(int i, int j)
 	{
-		if (tileJ < 0 || tileJ >= SpriteSheet.Length || tileI < 0 || tileI >= SpriteSheet[tileJ].Length)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
 			return Sprites.Open;
 		}
-		return SpriteSheet[tileJ][tileI] switch
+		return SpriteSheet[j][i] switch
 		{
 			// actions
 			'0' => Sprites.StairsLeft,
@@ -40,10 +42,8 @@ public class House1SecondFloor : MapBase
 			'o' => Sprites.TVDeskRight,
 			'p' => Sprites.TVLeft,
 			'q' => Sprites.TVRight,
-			'r' => Sprites.PersonInBed1,
-			's' => Sprites.PersonInBed2,
-			't' => Sprites.PersonInBed3,
-			'u' => Sprites.ChairLeft	,
+			'r' => Sprites.Bed1x3.Get(Subtract((i, j), FindTileInMap('r')!.Value).Reverse()),
+			'u' => Sprites.ChairLeft,
 			'v' => Sprites.Table,
 			'w' => Sprites.Penguin,
 			'x' => Sprites.Lamp,
@@ -109,6 +109,8 @@ public class House1SecondFloor : MapBase
 			'i' => true,
 			'j' => true,
 			'm' => true,
+			'n' => true,
+			'o' => true,
 			'e' => true,
 			'y' => true,
 			_ => false,

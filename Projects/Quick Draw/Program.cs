@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 
+Exception? exception = null;
+
 Random random = new();
 
 const string menu = @"
@@ -135,9 +137,14 @@ try
 		}
 	}
 }
+catch (Exception e)
+{
+	exception = e;
+	throw;
+}
 finally
 {
 	Console.Clear();
 	Console.CursorVisible = true;
-	Console.Write("Quick Draw was closed.");
+	Console.WriteLine(exception?.ToString() ?? "Quick Draw was closed.");
 }

@@ -10,6 +10,8 @@ public class Role_Playing_Game
 
 	public async Task Run()
 	{
+		Exception? exception = null;
+
 		Random random = new();
 		Character character;
 		char[][] map;
@@ -51,10 +53,15 @@ public class Role_Playing_Game
 				}
 			}
 		}
+		catch (Exception e)
+		{
+			exception = e;
+			throw;
+		}
 		finally
 		{
 			await Console.Clear();
-			await Console.WriteLine("Role Playing Game was closed.");
+			await Console.WriteLine(exception?.ToString() ?? "Role Playing Game was closed.");
 			Console.CursorVisible = true;
 			await Console.Refresh();
 		}

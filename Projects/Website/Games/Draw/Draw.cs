@@ -10,6 +10,8 @@ public class Draw
 
 	public async Task Run()
 	{
+		Exception? exception = null;
+
 		try
 		{
 			const int drawingWidth = 11;
@@ -152,11 +154,16 @@ public class Draw
 				}
 			}
 		}
+		catch (Exception e)
+		{
+			exception = e;
+			throw;
+		}
 		finally
 		{
 			Console.CursorVisible = true;
 			await Console.Clear();
-			await Console.Write("Draw was closed.");
+			await Console.WriteLine(exception?.ToString() ?? "Draw was closed.");
 			await Console.Refresh();
 		}
 	}

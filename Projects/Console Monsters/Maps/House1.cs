@@ -2,15 +2,17 @@
 
 public class House1 : MapBase
 {
-	public override char[][] SpriteSheet => new char[][]
+	private readonly char[][] spriteSheet = new char[][]
 		{
 			"afffffffffffffffb".ToCharArray(),
-		    "hpmnh     wvwkijg".ToCharArray(),
-	        "hmq          kijg".ToCharArray(),
-	        "hlll         k12g".ToCharArray(),
-	        "hstr   uuu      g".ToCharArray(),
+			"hpmn      wvwkijg".ToCharArray(),
+			"hmq          kijg".ToCharArray(),
+			"h            k12g".ToCharArray(),
+			"hssss  uuu      g".ToCharArray(),
 			"cllllll000lllllld".ToCharArray(),
 		};
+
+	public override char[][] SpriteSheet => spriteSheet;
 
 	public override string GetMapTileRender(int i, int j)
 	{
@@ -42,9 +44,7 @@ public class House1 : MapBase
 			'o' => Sprites.PotPlant1,
 			'p' => Sprites.MicroWave,
 			'q' => Sprites.NPC11,
-			'r' => Sprites.ChairRight,
-			's' => Sprites.TVLeft,
-			't' => Sprites.TVRight,
+			's' => Sprites.DiningSet.Get(Subtract((i, j), FindTileInMap('s')!.Value).Reverse()),
 			'u' => Sprites.Carpet,
 			'v' => Sprites.WeirdMonster,
 			'w' => Sprites.PotPlant1,

@@ -2,7 +2,7 @@
 
 class Route2 : MapBase
 {
-	public override char[][] SpriteSheet => new char[][]
+	private readonly char[][] spriteSheet = new char[][]
 		{
 			"ffffffffffffffffffffffffffffffffffffffffffffffffffff".ToCharArray(),
 			"fggggggggggggggggggggggg    ggggggggg       GGGGGGGf".ToCharArray(),
@@ -17,6 +17,8 @@ class Route2 : MapBase
 			"fggggggggggggggggggggggT    TTTTTTTTgggggggggggggggf".ToCharArray(),
 			"fffffffffffffffffffffffff00fffffffffffffffffffffffff".ToCharArray(),
 		};
+
+	public override char[][] SpriteSheet => spriteSheet;
 
 	public override string GetMapTileRender(int i, int j)
 	{
@@ -106,8 +108,9 @@ class Route2 : MapBase
 					{
 						BattleTransition.Random();
 					}
-					BattleScreen.Render(PlayerMonster, OpponentMonster);
-					PressEnterToContiue();
+					BattleScreen.Render(MonsterBase.GetRandom(), MonsterBase.GetRandom());
+					//Battle();
+					ConsoleHelper.PressToContinue();
 				}
 				break;
 		}

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 
+Exception? exception = null;
+
 int disks;
 int minimumNumberOfMoves;
 List<int>[] stacks;
@@ -98,12 +100,17 @@ GetEnterOrEscape:
 		default: goto GetEnterOrEscape;
 	}
 }
+catch (Exception e)
+{
+	exception = e;
+	throw;
+}
 finally
 {
 	Console.CursorVisible = true;
 	Console.ResetColor();
 	Console.Clear();
-	Console.Write("Tower Of Hanoi was closed.");
+	Console.WriteLine(exception?.ToString() ?? "Tower Of Hanoi was closed.");
 }
 
 void HandleStackButtonPress(int stack)

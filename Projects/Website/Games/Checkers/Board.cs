@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using static Website.Games.Checkers._using;
+using static Website.Games.Checkers.Statics;
 
 namespace Website.Games.Checkers;
 

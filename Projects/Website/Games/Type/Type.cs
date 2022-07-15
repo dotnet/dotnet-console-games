@@ -17,6 +17,8 @@ public class Type
 
 	public async Task Run()
 	{
+		Exception? exception = null;
+
 		if (Resources.Words is null || Resources.Words.Length is 0)
 		{
 			await Console.WriteLine("Error: Missing \"Words.txt\" embedded resource.");
@@ -100,12 +102,17 @@ public class Type
 				await Render();
 			}
 		}
+		catch (Exception e)
+		{
+			exception = e;
+			throw;
+		}
 		finally
 		{
 			Console.ResetColor();
 			await Console.Clear();
 			Console.CursorVisible = true;
-			await Console.WriteLine("Type was closed.");
+			await Console.WriteLine(exception?.ToString() ?? "Type was closed.");
 			await Console.Refresh();
 		}
 

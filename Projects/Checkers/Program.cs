@@ -1,4 +1,6 @@
-﻿Encoding encoding = Console.OutputEncoding;
+﻿Exception? exception = null;
+
+Encoding encoding = Console.OutputEncoding;
 
 try
 {
@@ -9,12 +11,17 @@ try
 	RenderGameState(game, promptPressKey: true);
 	Console.ReadKey(true);
 }
+catch (Exception e)
+{
+	exception = e;
+	throw;
+}
 finally
 {
 	Console.OutputEncoding = encoding;
 	Console.CursorVisible = true;
 	Console.Clear();
-	Console.Write("Checkers was closed.");
+	Console.WriteLine(exception?.ToString() ?? "Checkers was closed.");
 }
 
 Game ShowIntroScreenAndGetOption()

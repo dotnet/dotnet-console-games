@@ -17,11 +17,11 @@ internal class InventoryScreen
 		int maxHeight = height - MapText.Length - 3;
 
 		int nextMonster = 1;
-		int nextMonsterWidth = 0;
+		int nextMonsterWidth;
 		int nextMonsterHeight = 0;
 		int currentMonster = 0;
-		int currentMonsterWidth = 0;
-		int currentMonsterHeight = 0;
+		int currentMonsterWidth;
+		int currentMonsterHeight;
 		int monsterWidthSpacing = 35;
 		int monsterHeightSpacing = 1;
 		int[] monsterSpriteIndex = new int[6];
@@ -32,7 +32,7 @@ internal class InventoryScreen
 		string itemInfo;
 		string itemCount;
 		string[] itemSprite;
-		List<ItemBase> items = new();
+		List<ItemBase> items;
 		int inventoryWidth = (width / 2) + minWidth;
 		int inventoryHeight = minHeight;
 		int inventoryHeightSpacing = Sprites.Height + 1;

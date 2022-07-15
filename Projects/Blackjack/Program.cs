@@ -3,6 +3,8 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Globalization;
 
+Exception? exception = null;
+
 Random random = new();
 List<Card> deck;
 List<Card> discardPile;
@@ -155,11 +157,16 @@ GetEnterOrEscape:
 		default: goto GetEnterOrEscape;
 	}
 }
+catch (Exception e)
+{
+	exception = e;
+	throw;
+}
 finally
 {
 	Console.CursorVisible = true;
 	Console.Clear();
-	Console.Write("Blackjack was closed.");
+	Console.WriteLine(exception?.ToString() ?? "Blackjack was closed.");
 }
 
 void Render()

@@ -2,6 +2,8 @@
 using System.Globalization;
 using static Towel.Statics;
 
+Exception? exception = null;
+
 Tile[,] board;
 (int Row, int Column)? firstSelection = null;
 (int Row, int Column)? secondSelection = null;
@@ -53,11 +55,17 @@ try
 		}
 	}
 }
+catch (Exception e)
+{
+	exception = e;
+	throw;
+}
 finally
 {
 	Console.ResetColor();
 	Console.CursorVisible = true;
 	Console.Clear();
+	Console.WriteLine(exception?.ToString() ?? "Memory was closed.");
 }
 
 void RandomizeBoard()

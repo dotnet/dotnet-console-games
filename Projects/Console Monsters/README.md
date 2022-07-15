@@ -11,7 +11,7 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
-> **Note** This game was a *[Community Contribution](https://github.com/ZacharyPatten/dotnet-console-games/pull/45)!
+> **Note** This game was a *Community&nbsp;Collaboration!
 
 > **Warning** This game is still a work-in-progress. The game is being developed in the [`console-monsters`](https://github.com/ZacharyPatten/dotnet-console-games/tree/console-monsters/Projects/Console%20Monsters) branch and will be occasionally merged into the `main` branch. If you would like to help out with the development of this game, please [join the discord server](https://discord.gg/4XbQbwF) to discuss. :)
 

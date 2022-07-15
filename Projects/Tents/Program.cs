@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
+Exception? exception = null;
+
 Tile[,] map;
 int[] columnTents;
 int[] rowTents;
@@ -53,12 +55,17 @@ GetEnterOrEscape:
 		default: goto GetEnterOrEscape;
 	}
 }
+catch (Exception e)
+{
+	exception = e;
+	throw;
+}
 finally
 {
 	Console.ResetColor();
 	Console.CursorVisible = true;
 	Console.Clear();
-	Console.Write("Tents was closed.");
+	Console.WriteLine(exception?.ToString() ?? "Tents was closed.");
 }
 
 char[,] StringToSprite(string s)
