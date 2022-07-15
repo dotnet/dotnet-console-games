@@ -132,6 +132,22 @@ public static class Sprites
 	#endregion
 
 	#region Buildings
+	public readonly static string[,] House = Split(
+		@"                            ",
+		@"   ////||||||||||||||\\\\   ",
+		@"  /////||||||||||||||\\\\\  ",
+		@" //////||||||||||||||\\\\\\ ",
+		@"///////||||||||||||||\\\\\\\",
+		@"│                          │",
+		@"│                          │",
+		@"│       ▐█ ▐█  ▐█ ▐█       │",
+		@"│                          │",
+		@"│                          │",
+		@"│      ╔═════╗             │",
+		@"│      ║ ■■■ ║             │",
+		@"│      ║    o║ ▐█ ▐█       │",
+		@"│      ║     ║             │",
+		@"└──────╚═════╝─────────────┘");
 	public const string BuildingSmall =
 		@"       " + "\n" +
 		@" /---\ " + "\n" +
@@ -460,9 +476,9 @@ public static class Sprites
 		@"│      " + "\n" +
 		@"│      " + "\n" +
 		@"│      ";
-	public readonly static string[] DiningSet = SplitRowOfTiles(
-        @"                            ",
-        @"  ║         @╮          ║   ",
+	public readonly static string[,] DiningSet = Split(
+		@"                            ",
+		@"  ║         @╮          ║   ",
 		@"  ║     ╭═╨──∏──╨═╮     ║   ",
 		@"  ╠══╗  ╰────╥────╯  ╔══╣   ",
 		@"  ╨  ╨       ╨       ╨  ╨   ");
@@ -938,28 +954,31 @@ public static class Sprites
 		@"║error║" + "\n" +
 		@"╚═════╝";
 
-	public static string[] SplitRowOfTiles(params string[] rows)
+	public static string[,] Split(params string[] rows)
 	{
 		if (rows is null) throw new ArgumentNullException(nameof(rows));
-		if (sourceof(rows.Length is not Height, out string check1)) throw new ArgumentException(check1, nameof(rows));
+		if (sourceof(rows.Length % Height is not 0, out string check1)) throw new ArgumentException(check1, nameof(rows));
 		if (sourceof(rows[0].Length % Width is not 0, out string check2)) throw new ArgumentException(check2, nameof(rows));
 		if (sourceof(rows.Any(row => row.Length != rows[0].Length), out string check3)) throw new ArgumentException(check3, nameof(rows));
-		string[] tiles = new string[rows[0].Length / 7];
-		for (int tile = 0; tile < tiles.Length; tile++)
+		string[,] tiles = new string[rows.Length / Height, rows[0].Length / Width];
+		for (int tileI = 0; tileI < tiles.GetLength(1); tileI++)
 		{
-			StringBuilder sb = new();
-			for (int j = 0; j < Height; j++)
+			for (int tileJ = 0; tileJ < tiles.GetLength(0); tileJ++)
 			{
-				for (int i = 0; i < Width; i++)
+				StringBuilder sb = new();
+				for (int j = 0; j < Height; j++)
 				{
-					sb.Append(rows[j][i + tile * Width]);
+					for (int i = 0; i < Width; i++)
+					{
+						sb.Append(rows[j + tileJ * Height][i + tileI * Width]);
+					}
+					if (j < Height - 1)
+					{
+						sb.Append('\n');
+					}
 				}
-				if (j < Height - 1)
-				{
-					sb.Append('\n');
-				}
+				tiles[tileJ, tileI] = sb.ToString();
 			}
-			tiles[tile] = sb.ToString();
 		}
 		return tiles;
 	}

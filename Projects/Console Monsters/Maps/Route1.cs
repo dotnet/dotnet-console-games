@@ -2,7 +2,7 @@
 
 class Route1 : MapBase
 {
-	public override char[][] SpriteSheet => new char[][]
+	private readonly char[][] spriteSheet = new char[][]
 		{
 			"gggfgggggf11fgggggfg".ToCharArray(),
 			"gggfgggggf  fgggggfg".ToCharArray(),
@@ -45,6 +45,8 @@ class Route1 : MapBase
 			"gggTgggggfGGfgggggTg".ToCharArray(),
 			"gggfgggggf00fgggggfg".ToCharArray(),
 		};
+
+	public override char[][] SpriteSheet => spriteSheet;
 
 	public override string GetMapTileRender(int i, int j)
 	{

@@ -2,15 +2,17 @@
 
 public class House1SecondFloor : MapBase
 {
-	public override char[][] SpriteSheet => new char[][]
+	private readonly char[][] spriteSheet = new char[][]
 		{
 			"afffffffffffffffb".ToCharArray(),
-		    "hpq  uv   -     g".ToCharArray(),
+			"hpq  uv   -     g".ToCharArray(),
 			"hno          kemg".ToCharArray(),
-	        "h      yy   xkemg".ToCharArray(),
-	        "hrst       wzkijg".ToCharArray(),
+			"h      yy   xkemg".ToCharArray(),
+			"hrst       wzkijg".ToCharArray(),
 			"cllllllllllllllld".ToCharArray(),
 		};
+
+	public override char[][] SpriteSheet => spriteSheet;
 
 	public override string GetMapTileRender(int tileI, int tileJ)
 	{
