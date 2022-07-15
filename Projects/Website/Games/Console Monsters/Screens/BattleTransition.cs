@@ -22,7 +22,7 @@ namespace Website.Games.Console_Monsters.Screens;
 
 public static class BattleTransition
 {
-	private static readonly TimeSpan Delay = TimeSpan.FromTicks(7500);
+	private static readonly TimeSpan Delay = TimeSpan.FromMilliseconds(1);
 
 	private static readonly Func<Task>[] Transitions = new Func<Task>[]
 		{
