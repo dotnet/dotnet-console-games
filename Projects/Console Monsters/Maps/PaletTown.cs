@@ -9,13 +9,13 @@ class PaletTown : MapBase
 		scientist = new();
 	}
 
-	public override char[][] SpriteSheet => new char[][]
+	private readonly char[][] spriteSheet = new char[][]
 		{
 			"ffffffffff11ffffffff".ToCharArray(),
 			"fg                gf".ToCharArray(),
-			"fg  RMMj    RMMj  gf".ToCharArray(),
-			"fg  hkky    hkky  gf".ToCharArray(),
-			"fg su2lU   sudlU  gf".ToCharArray(),
+			"fg  bbbb    cccc  gf".ToCharArray(),
+			"fg  bbbb    cccc  gf".ToCharArray(),
+			"fg sb2bb   scccc  gf".ToCharArray(),
 			"fg  p             gf".ToCharArray(),
 			"fg                gf".ToCharArray(),
 			"fg        RMMMMj  gf".ToCharArray(),
@@ -35,12 +35,18 @@ class PaletTown : MapBase
 			"ggggWwwWGGGGGGfggggg".ToCharArray(),
 		};
 
+	public override char[][] SpriteSheet => spriteSheet;
+
 	public override string GetMapTileRender(int i, int j)
 	{
 		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
 			return Sprites.Open;
 		}
+
+		string b((int I, int J) offset) => Sprites.House[j - offset.J, i - offset.I];
+		string c((int I, int J) offset) => Sprites.House[j - offset.J, i - offset.I];
+
 		return SpriteSheet[j][i] switch
 		{
 			// spawn
@@ -50,7 +56,8 @@ class PaletTown : MapBase
 			'1' => Sprites.ArrowHeavyUp,
 			'2' => Sprites.Door,
 			// Buildings
-			'd' => Sprites.Door,
+			'b' => b(FindTileInMap('b')!.Value),
+			'c' => c(FindTileInMap('c')!.Value),
 			'l' => Sprites.LowWindow,
 			'h' => Sprites.BuildingLeft,
 			'u' => Sprites.BuildingBaseLeft,
@@ -75,6 +82,7 @@ class PaletTown : MapBase
 			'p' => Sprites.NPC5,
 			// Extra
 			'W' => Sprites.Wall_0000,
+			'z' => Sprites.Door,
 			' ' => Sprites.Open,
 			_ => Sprites.Error,
 		};

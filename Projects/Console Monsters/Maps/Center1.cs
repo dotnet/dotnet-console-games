@@ -2,7 +2,7 @@
 
 public class Center1 : MapBase
 {
-	public override char[][] SpriteSheet => new char[][]
+	private readonly char[][] spriteSheet = new char[][]
 		{
 			"affffifffffjffffb".ToCharArray(),
 			"go   gttktth   oh".ToCharArray(),
@@ -11,6 +11,8 @@ public class Center1 : MapBase
 			"go             oh".ToCharArray(),
 			"ceeeeee000eeeeeed".ToCharArray(),
 		};
+
+	public override char[][] SpriteSheet => spriteSheet;
 
 	public override string GetMapTileRender(int tileI, int tileJ)
 	{
