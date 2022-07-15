@@ -2,70 +2,80 @@
 using System.Linq;
 using System.Text;
 using System.Threading;
-using static Website.Games.Console_Monsters._using;
+using static Website.Games.Console_Monsters.Statics;
+//using Website.Games.Console_Monsters.Screens;
+using Website.Games.Console_Monsters.Items;
 using Website.Games.Console_Monsters.Maps;
 using Website.Games.Console_Monsters.Monsters;
 using Website.Games.Console_Monsters.Bases;
-using Website.Games.Console_Monsters.NPCs;
+using Website.Games.Console_Monsters.Characters;
+using Website.Games.Console_Monsters.Screens;
+using Website.Games.Console_Monsters.Screens.Menus;
+using Website.Games.Console_Monsters.Enums;
+using Website.Games.Console_Monsters.Utilities;
 using System.Collections.Generic;
+using Towel;
+using static Towel.Statics;
 using System.Threading.Tasks;
 
 namespace Website.Games.Console_Monsters.Maps;
 
 class Route1 : MapBase
 {
-	public override char[][] SpriteSheet => new char[][]
+	private readonly char[][] spriteSheet = new char[][]
 		{
-			"gggfgggggf11fgggggfg".ToCharArray(),
-			"gggfgggggf  fgggggfg".ToCharArray(),
-			"gggfgggggf  fgggggfg".ToCharArray(),
-			"gggfgggggf  fgggggfg".ToCharArray(),
-			"gggfgggggf  fgggggfg".ToCharArray(),
-			"gggfffffff  fffffffg".ToCharArray(),
-			"gggfgggggg  ggggggfg".ToCharArray(),
-			"gggfgggggg  ggggggfg".ToCharArray(),
-			"gggfgggggT        fg".ToCharArray(),
-			"gggfŕŕŕŕŕTrrrr    fg".ToCharArray(),
-			"gggTgggggTGGGGGGGGfg".ToCharArray(),
-			"gggTgggggTGGGGGGGGfg".ToCharArray(),
-			"gggTgggggTGGGGGGGGfg".ToCharArray(),
-			"gggTŕŕŕŕŕTGGGGGGGGfg".ToCharArray(),
-			"gggTgggggggg      fg".ToCharArray(),
-			"gggTgggggggg      fg".ToCharArray(),
-			"gggTgggggggg  GGGGfg".ToCharArray(),
-			"gggTTTŕŕŕŕTTTTGGGGfg".ToCharArray(),
-			"gggfgggggggg  GGGGfg".ToCharArray(),
-			"gggfgggggggg  GGGGfg".ToCharArray(),
-			"gggfgg        ggggfg".ToCharArray(),
-			"gggfgg        ggggfg".ToCharArray(),
-			"gggfgg  ggggggggggfg".ToCharArray(),
-			"gggfŕşrrŕşŕŕŕŕŕŕŕŕfg".ToCharArray(),
-			"gggfgg            fg".ToCharArray(),
-			"gggfgg            fg".ToCharArray(),
-			"gggfgg      GGGG  fg".ToCharArray(),
-			"gggfTTTTTTTTGGGGrrfg".ToCharArray(),
-			"gggfggggggggGGGG  fg".ToCharArray(),
-			"gggfggggggggGGGG  fg".ToCharArray(),
-			"gggf              fg".ToCharArray(),
-			"gggTrr   srrrrrrrrTg".ToCharArray(),
-			"gggTggGGGG  ggGGGGTg".ToCharArray(),
-			"gggTggGGGG  ggGGGGTg".ToCharArray(),
-			"gggTggGGGG  GGGGggTg".ToCharArray(),
-			"gggTGGGGgg  GGGGggTg".ToCharArray(),
-			"gggTffffffGGffffffTg".ToCharArray(),
-			"gggTgggggfGGfgggggTg".ToCharArray(),
-			"gggTgggggfGGfgggggTg".ToCharArray(),
-			"gggfgggggf00fgggggfg".ToCharArray(),
+			"ggggggggggggfgggggf11fgggggfgggggggggg".ToCharArray(),
+			"ggggggggggggfgggggf  fgggggfgggggggggg".ToCharArray(),
+			"ggggggggggggfgggggf  fgggggfgggggggggg".ToCharArray(),
+			"ggggggggggggfgggggf  fgggggfgggggggggg".ToCharArray(),
+			"ggggggggggggfgggggf  fgggggfgggggggggg".ToCharArray(),
+			"ggggggggggggfffffff  fffffffgggggggggg".ToCharArray(),
+			"ggggggggggggfgggggg  ggggggfgggggggggg".ToCharArray(),
+			"ggggggggggggfgggggg  ggggggfgggggggggg".ToCharArray(),
+			"ggggggggggggfgggggT        fgggggggggg".ToCharArray(),
+			"ggggggggggggfŕŕŕŕŕTrrrr    fgggggggggg".ToCharArray(),
+			"ggggggggggggTgggggTGGGGGGGGfgggggggggg".ToCharArray(),
+			"ggggggggggggTgggggTGGGGGGGGfgggggggggg".ToCharArray(),
+			"ggggggggggggTgggggTGGGGGGGGfgggggggggg".ToCharArray(),
+			"ggggggggggggTŕŕŕŕŕTGGGGGGGGfgggggggggg".ToCharArray(),
+			"ggggggggggggTgggggggg      fgggggggggg".ToCharArray(),
+			"ggggggggggggTgggggggg      fgggggggggg".ToCharArray(),
+			"ggggggggggggTgggggggg  GGGGfgggggggggg".ToCharArray(),
+			"ggggggggggggTTTŕŕŕŕTTTTGGGGfgggggggggg".ToCharArray(),
+			"ggggggggggggfgggggggg  GGGGfgggggggggg".ToCharArray(),
+			"ggggggggggggfgggggggg  GGGGfgggggggggg".ToCharArray(),
+			"ggggggggggggfgg        ggggfgggggggggg".ToCharArray(),
+			"ggggggggggggfgg        ggggfgggggggggg".ToCharArray(),
+			"ggggggggggggfgg  ggggggggggfgggggggggg".ToCharArray(),
+			"ggggggggggggfŕşrrŕşŕŕŕŕŕŕŕŕfgggggggggg".ToCharArray(),
+			"ggggggggggggfgg            fgggggggggg".ToCharArray(),
+			"ggggggggggggfgg            fgggggggggg".ToCharArray(),
+			"ggggggggggggfgg      GGGG  fgggggggggg".ToCharArray(),
+			"ggggggggggggfTTTTTTTTGGGGrrfgggggggggg".ToCharArray(),
+			"ggggggggggggfggggggggGGGG  fgggggggggg".ToCharArray(),
+			"ggggggggggggfggggggggGGGG  fgggggggggg".ToCharArray(),
+			"ggggggggggggf              fgggggggggg".ToCharArray(),
+			"ggggggggggggTrr   srrrrrrrrTgggggggggg".ToCharArray(),
+			"ggggggggggggTggGGGG  ggGGGGTgggggggggg".ToCharArray(),
+			"ggggggggggggTggGGGG  ggGGGGTgggggggggg".ToCharArray(),
+			"ggggggggggggTggGGGG  GGGGggTgggggggggg".ToCharArray(),
+			"ggggggggggggTGGGGgg  GGGGggTgggggggggg".ToCharArray(),
+			"ggggggggggggTffffffGGffffffTgggggggggg".ToCharArray(),
+			"ggggggggggggTgggggfGGfgggggTgggggggggg".ToCharArray(),
+			"ggggggggggggTgggggfGGfgggggTgggggggggg".ToCharArray(),
+			"ggggggggggggfgggggf00fgggggfgggggggggg".ToCharArray(),
+
 		};
 
-	public override string GetMapTileRender(int tileI, int tileJ)
+	public override char[][] SpriteSheet => spriteSheet;
+
+	public override string GetMapTileRender(int i, int j)
 	{
-		char[][] s = map.SpriteSheet;
-		if (tileJ < 0 || tileJ >= s.Length || tileI < 0 || tileI >= s[tileJ].Length)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
 			return Sprites.Open;
 		}
-		return s[tileJ][tileI] switch
+		return SpriteSheet[j][i] switch
 		{
 			// actions
 			'0' => Sprites.ArrowHeavyDown,
@@ -86,39 +96,43 @@ class Route1 : MapBase
 		};
 	}
 
-	public override void InteractWithMapTile(int tileI, int tileJ)
+	public override bool CanInteractWithMapTile(int i, int j)
 	{
-		char[][] s = map.SpriteSheet;
-
-		Interact(tileI, tileJ + 1);
-		Interact(tileI, tileJ - 1);
-		Interact(tileI - 1, tileJ);
-		Interact(tileI + 1, tileJ);
-
-		void Interact(int i, int j)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
-			if (j >= 0 && j < s.Length && i >= 0 && i < s[j].Length)
+			return false;
+		}
+		return SpriteSheet[j][i] switch
+		{
+			's' => true,
+			_ => false,
+		};
+	}
+
+	public override void InteractWithMapTile(int i, int j)
+	{
+		if (j >= 0 && j < SpriteSheet.Length && i >= 0 && i < SpriteSheet[j].Length)
+		{
+			switch (SpriteSheet[j][i])
 			{
-				if (s[j][i] is 's')
-				{
+				case 's':
 					promptText = new string[]
-						{
-							"Sign Says:",
-							"Hello! I am a sign. :P",
-						};
-				}
+					{
+						"Sign Says:",
+						"Hello! I am a sign. :P",
+					};
+					break;
 			}
 		}
 	}
 
-	public override bool IsValidCharacterMapTile(int tileI, int tileJ)
+	public override bool IsValidCharacterMapTile(int i, int j)
 	{
-		char[][] s = map.SpriteSheet;
-		if (tileJ < 0 || tileJ >= s.Length || tileI < 0 || tileI >= s[tileJ].Length)
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
 		{
 			return false;
 		}
-		char c = s[tileJ][tileI];
+		char c = SpriteSheet[j][i];
 		return c switch
 		{
 			' ' => true,
@@ -131,30 +145,33 @@ class Route1 : MapBase
 		};
 	}
 
-	public override async Task PerformTileAction()
+	public override async Task PerformTileAction(int i, int j)
 	{
-		var (i, j) = WorldToTile(character.I, character.J);
-		char[][] s = map.SpriteSheet;
-		switch (s[j][i])
+		if (j < 0 || j >= SpriteSheet.Length || i < 0 || i >= SpriteSheet[j].Length)
+		{
+			return;
+		}
+		switch (SpriteSheet[j][i])
 		{
 			case '0':
 				map = new PaletTown();
-				SpawnCharacterOn('1');
+				map.SpawnCharacterOn('1');
 				break;
 			case '1':
 				map = new Route2();
-				SpawnCharacterOn('0');
+				map.SpawnCharacterOn('0');
 				break;
 			case 'G':
 				if (!DisableBattle && Random.Shared.Next(2) is 0) // BATTLE CHANCE
 				{
-					await _using.Console.Clear();
+					await Statics.Console.Clear();
 					if (!DisableBattleTransition)
 					{
-						await Renderer.RenderBattleTransition();
+						await BattleTransition.Random();
 					}
-					await Renderer.RenderBattleView();
-					await PressEnterToContiue();
+					await BattleScreen.Render(MonsterBase.GetRandom(), MonsterBase.GetRandom());
+					//Battle();
+					await Statics.Console.PressToContinue();
 				}
 				break;
 		}

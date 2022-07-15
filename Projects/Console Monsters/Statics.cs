@@ -62,7 +62,10 @@ public static class Statics
 
 	public static readonly string[] battletext = new[]
 	{
-		"[↑, W, ←, A, ↓, S, →, D]: Move Selection, [E]: Select, [Escape]: Back",
+		//"[↑, W, ←, A, ↓, S, →, D]: Move Selection, [E]: Select, [Escape]: Back",
+		"Battles are still in development.",
+		"We are just showing two random monsters at the moment.",
+		"[Enter]: exit battle"
 	};
 
 	public static string[]? promptText = null;

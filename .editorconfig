@@ -15,3 +15,6 @@ dotnet_diagnostic.CA1050.severity = none
 
 # IDE0028: Simplify collection initialization
 dotnet_diagnostic.IDE0028.severity = none
+
+# RS0030: Do not used banned APIs
+dotnet_diagnostic.RS0030.severity = error

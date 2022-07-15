@@ -108,7 +108,8 @@ class Route2 : MapBase
 					{
 						BattleTransition.Random();
 					}
-					BattleScreen.Render(PlayerMonster, OpponentMonster);
+					BattleScreen.Render(MonsterBase.GetRandom(), MonsterBase.GetRandom());
+					//Battle();
 					ConsoleHelper.PressToContinue();
 				}
 				break;

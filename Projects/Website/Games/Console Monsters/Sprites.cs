@@ -2,12 +2,21 @@
 using System.Linq;
 using System.Text;
 using System.Threading;
-using static Website.Games.Console_Monsters._using;
+using static Website.Games.Console_Monsters.Statics;
+//using Website.Games.Console_Monsters.Screens;
+using Website.Games.Console_Monsters.Items;
 using Website.Games.Console_Monsters.Maps;
 using Website.Games.Console_Monsters.Monsters;
 using Website.Games.Console_Monsters.Bases;
-using Website.Games.Console_Monsters.NPCs;
+using Website.Games.Console_Monsters.Characters;
+using Website.Games.Console_Monsters.Screens;
+using Website.Games.Console_Monsters.Screens.Menus;
+using Website.Games.Console_Monsters.Enums;
+using Website.Games.Console_Monsters.Utilities;
 using System.Collections.Generic;
+using Towel;
+using static Towel.Statics;
+using System.Threading.Tasks;
 
 namespace Website.Games.Console_Monsters;
 
@@ -19,18 +28,30 @@ public static class Sprites
 	public const int BattleSpriteWidth = 70;
 	public const int BattleSpriteHeight = 20;
 
-	#region Interior
+	#region InteriorWalls
 	public const string InteriorWallNE =
 		@" │ │   " + "\n" +
 		@" │ │   " + "\n" +
 		@" │ ╰───" + "\n" +
 		@" ╰─────" + "\n" +
 		@"       ";
+	public const string InteriorWallNEShort =
+		@"  │ ╰── " + "\n" +
+		@" ╰───── " + "\n" +
+		@"        " + "\n" +
+		@"        " + "\n" + 
+		@"        ";
 	public const string InteriorWallNW =
 		@"   │ │ " + "\n" +
 		@"   │ │ " + "\n" +
 		@"───╯ │ " + "\n" +
 		@"─────╯ " + "\n" +
+		@"       ";
+	public const string InteriorWallNWShort =
+		@"─╯ │   " + "\n" +
+		@"───╯   " + "\n" +
+		@"       " + "\n" +
+		@"       " + "\n" +
 		@"       ";
 	public const string InteriorWallSW =
 		@"       " + "\n" +
@@ -38,12 +59,24 @@ public static class Sprites
 		@"───╮ │ " + "\n" +
 		@"   │ │ " + "\n" +
 		@"   │ │ ";
+	public const string InteriorWallSWShort =
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"───╮   " + "\n" +
+		@"─╮ │   ";
 	public const string InteriorWallSE =
 		@"       " + "\n" +
 		@" ╭─────" + "\n" +
 		@" │ ╭───" + "\n" +
 		@" │ │   " + "\n" +
 		@" │ │   ";
+	public const string InteriorWallSEShort =
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"  ╭────" + "\n" +
+		@"  │ ╭──";
 	public const string InteriorWallEWHigh =
 		@"       " + "\n" +
 		@"───────" + "\n" +
@@ -68,6 +101,18 @@ public static class Sprites
 		@"   │ │ " + "\n" +
 		@"   │ │ " + "\n" +
 		@"   │ │ ";
+	public const string InteriorWallNSRightRight =
+		@"    │ │" + "\n" +
+		@"    │ │" + "\n" +
+		@"    │ │" + "\n" +
+		@"    │ │" + "\n" +
+		@"    │ │";
+	public const string InteriorWallNSMid =
+		@"  │ │  " + "\n" +
+		@"  │ │  " + "\n" +
+		@"  │ │  " + "\n" +
+		@"  │ │  " + "\n" +
+		@"  │ │  ";
 	public const string InteriorWallSWEHighLeft =
 		@"       " + "\n" +
 		@"───────" + "\n" +
@@ -92,9 +137,58 @@ public static class Sprites
 		@"   │ │ " + "\n" +
 		@"   │ │ " + "\n" +
 		@"   ╰─╯ ";
+	public const string InteriorWallHorizontalBottmn =
+	@"       " + "\n" +
+	@"       " + "\n" +
+	@"       " + "\n" +
+	@"───────" + "\n" +
+	@"───────";
+	public const string InteriorWallHorizontalTop =
+	@"───────" + "\n" +
+	@"───────" + "\n" +
+	@"       " + "\n" +
+	@"       " + "\n" +
+	@"       ";
 	#endregion
 
 	#region Buildings
+	public readonly static string[,] House3x4 = Split(
+		@"    __ ╥╥ ______________    ",
+		@"   ╱  │║║│              ╲   ",
+		@"  ╱    ‾‾                ╲  ",
+		@" ╱                        ╲ ",
+		@"/__________________________╲",
+		@"│                          │",
+		@"│      ╔══╦══╗   ╔══╦══╗   │",
+		@"│      ║██║██║   ║██║██║   │",
+		@"│      ╚══╩══╝   ╚══╩══╝   │",
+		@"│                          │",
+		@"│      ╔═════╗   ╔══╦══╗   │",
+		@"│      ║ ■■■ ║   ║██║██║   │",
+		@"│      ║    o║   ╚══╩══╝   │",
+		@"│      ║     ║             │",
+		@"└──────╚═════╝─────────────┘");
+	public readonly static string[,] House4x6 = Split(
+		@"    __ ╥╥ ____________________________    ",
+		@"   ╱  │║║│                            ╲   ",
+		@"  ╱    ‾‾                              ╲  ",
+		@" ╱                                      ╲ ",
+		@"╱________________________________________╲",
+		@"│                                        │",
+		@"│                                        │",
+		@"│      ╔══╦══╗     ╔══╦══╗     ╔══╦══╗   │",
+		@"│      ║██║██║     ║██║██║     ║██║██║   │",
+		@"│      ╚══╩══╝     ╚══╩══╝     ╚══╩══╝   │",
+		@"│                                        │",
+		@"│      ╔══╦══╗     ╔══╦══╗     ╔══╦══╗   │",
+		@"│      ║██║██║     ║██║██║     ║██║██║   │",
+		@"│      ╚══╩══╝     ╚══╩══╝     ╚══╩══╝   │",
+		@"│                                        │",
+		@"│      ╔═════╗     ╔══╦══╗     ╔══╦══╗   │",
+		@"│      ║ ■■■ ║     ║██║██║     ║██║██║   │",
+		@"│      ║    o║     ╚══╩══╝     ╚══╩══╝   │",
+		@"│      ║     ║                           │",
+		@"└──────╚═════╝───────────────────────────┘");
 	public const string BuildingSmall =
 		@"       " + "\n" +
 		@" /---\ " + "\n" +
@@ -119,66 +213,6 @@ public static class Sprites
 		@"║    o║" + "\n" +
 		@"║     ║" + "\n" +
 		@"╚═════╝";
-	public const string TopRoofLeft =
-		@"       " + "\n" +
-		@"   ////" + "\n" +
-		@"  /////" + "\n" +
-		@" //////" + "\n" +
-		@"///////";
-	public const string TopRoofRight =
-		@"       " + "\n" +
-		@"\\\\   " + "\n" +
-		@"\\\\\  " + "\n" +
-		@"\\\\\\ " + "\n" +
-		@"\\\\\\\";
-	public const string MiddleRoof =
-		@"       " + "\n" +
-		@"|||||||" + "\n" +
-		@"|||||||" + "\n" +
-		@"|||||||" + "\n" +
-		@"|||||||";
-	public const string BuildingLeft =
-		@"│      " + "\n" +
-		@"│      " + "\n" +
-		@"│      " + "\n" +
-		@"│      " + "\n" +
-		@"│      ";
-	public const string BuildingBaseLeft =
-		@"│      " + "\n" +
-		@"│      " + "\n" +
-		@"│      " + "\n" +
-		@"│      " + "\n" +
-		@"└──────";
-	public const string BuildingRight =
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │";
-	public const string BuildingBaseRight =
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"──────┘";
-	public const string MiddleWindow =
-		@"       " + "\n" +
-		@"       " + "\n" +
-		@" ▐█ ▐█ " + "\n" +
-		@"       " + "\n" +
-		@"       ";
-	public const string LowWindowSideLeft =
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │";
-	public const string LowWindow =
-		@"       " + "\n" +
-		@"       " + "\n" +
-		@" ▐█ ▐█ " + "\n" +
-		@"       " + "\n" +
-		@"───────";
 	#endregion
 
 	#region Objects
@@ -217,7 +251,7 @@ public static class Sprites
 		@" ##### " + "\n" +
 		@"  ###  " + "\n" +
 		@" _|_|_ " + "\n" +
-		@" \___/ ";
+		@" \___/ ";	
 	public const string Fence =
 		@"       " + "\n" +
 		@"╔═════╗" + "\n" +
@@ -254,6 +288,180 @@ public static class Sprites
 		@"       " + "\n" +
 		@"       " + "\n" +
 		@"███████";
+	public const string Locker =
+		@"╔═════╗" + "\n" +
+		@"║==│==║" + "\n" +
+		@"║● │● ║" + "\n" +
+		@"║  │  ║" + "\n" +
+		@"╚╦═══╦╝";
+	public const string Lamp =
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"  ╮  ╭ " + "\n" +
+		@"  ╰╮╭╯ ";
+	public const string Lamp2 =
+		@"   ││  " + "\n" +
+		@"   ││  " + "\n" +
+		@"   ││  " + "\n" +
+		@"   ││  " + "\n" +
+		@"  ╭╯╰╮ ";
+	public const string Carpet =
+		@"░░░░░░░" + "\n" +
+		@"░░░░░░░" + "\n" +
+		@"░░░░░░░" + "\n" +
+		@"░░░░░░░" + "\n" +
+		@"░░░░░░░";
+	public const string Table =
+		@"       " + "\n" +
+		@"╔═════╗" + "\n" +
+		@"║     ║" + "\n" +
+		@"║     ║" + "\n" +
+		@"╚╦═══╦╝";
+	public const string Chair =
+		@" │───│ " + "\n" +
+		@" │   │ " + "\n" +
+		@" │___│ " + "\n" +
+		@" │   │ " + "\n" +
+		@" ┴   ┴ ";
+	public const string ChairLeft =
+		@"       " + "\n" +
+		@" │     " + "\n" +
+		@" │___  " + "\n" +
+		@" │   │ " + "\n" +
+		@" ┴   ┴ ";
+	public const string ChairRight =
+		@"       " + "\n" +
+		@"     │ " + "\n" +
+		@"  ___│ " + "\n" +
+		@" │   │ " + "\n" +
+		@" ┴   ┴ ";
+	public const string StopSign =
+		@" ╭───╮ " + "\n" +
+		@" │╲│╱│ " + "\n" +
+		@" │╱│╲│ " + "\n" +
+		@" ╰─╦─╯ " + "\n" +
+		@"   ║   ";
+	public const string StopSign2 =
+		@"   ║   " + "\n" +
+		@"   ║   " + "\n" +
+		@"  ╱│╲  " + "\n" +
+		@"       " + "\n" +
+		@"       ";
+	public const string Fridge =
+		@"╔═════╗" + "\n" +
+		@"║     ║" + "\n" +
+		@"║     ║" + "\n" +
+		@"║     ║" + "\n" +
+		@"╚═════╝";
+	public const string MicroWave =
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"╔═════╗" + "\n" +
+		@"║   │=║" + "\n" +
+		@"╚═════╝";
+	public const string LowCabnetWithHandle =
+		@"       " + "\n" +
+		@"╔═════╗" + "\n" +
+		@"║●    ║" + "\n" +
+		@"║     ║" + "\n" +
+		@"╚═════╝";
+	public const string HigherCabnetWithHandle =
+		@"       " + "\n" +
+		@"╔═════╗" + "\n" +
+		@"║     ║" + "\n" +
+		@"║●    ║" + "\n" +
+		@"╚═════╝";
+	public const string LowCabnetWithDraws =
+		@"       " + "\n" +
+		@"╔═════╗" + "\n" +
+		@"║ === ║" + "\n" +
+		@"║ === ║" + "\n" +
+		@"╚═════╝";
+	public const string LowerCabnetWithDraws =
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"╔═════╗" + "\n" +
+		@"║ === ║" + "\n" +
+		@"╚═════╝";
+
+	public const string TVLeft =
+		@"╔══════" + "\n" +
+		@"║      " + "\n" +
+		@"║      " + "\n" +
+		@"║      " + "\n" +
+		@"╚═╦╦═══";
+	public const string TVRight =
+		@"══════╗" + "\n" +
+		@"      ║" + "\n" +
+		@"      ║" + "\n" +
+		@"      ║" + "\n" +
+		@"═══╦╦═╝";
+	public const string TVDeskLeft =
+		@"╔═╩╩═══" + "\n" +
+		@"╚══════" + "\n" +
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"       ";
+	public const string TVDeskRight =
+		@"═══╩╩═╗" + "\n" +
+		@"══════╝" + "\n" +
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@"       ";
+	public const string StairsLeft =
+		@"│──────" + "\n" +
+		@"│──────" + "\n" +
+		@"│──────" + "\n" +
+		@"│──────" + "\n" +
+		@"│──────";
+	public const string StairsRight =
+		@"──────│" + "\n" +
+		@"──────│" + "\n" +
+		@"──────│" + "\n" +
+		@"──────│" + "\n" +
+		@"──────│";
+	public const string StairsDown =
+		@"────── " + "\n" +
+		@"││││││ " + "\n" +
+		@"││││││ " + "\n" +
+		@"││││││ " + "\n" +
+		@"────── ";
+	public const string StairsDown2 =
+		@"────── " + "\n" +
+		@"────── " + "\n" +
+		@"────── " + "\n" +
+		@"────── " + "\n" +
+		@"────── ";
+	public const string StairsDown4 =
+		@"│      " + "\n" +
+		@"│      " + "\n" +
+		@"│      " + "\n" +
+		@"│      " + "\n" +
+		@"│      ";
+	public readonly static string[,] DiningSet = Split(
+		@"                            ",
+		@"  ║         @╮          ║   ",
+		@"  ║     ╭═╨──∏──╨═╮     ║   ",
+		@"  ╠══╗  ╰────╥────╯  ╔══╣   ",
+		@"  ╨  ╨       ╨       ╨  ╨   ");
+	public readonly static string[,] GrandfatherClock2x1 = Split(
+		@"╔═════╗",
+		@"║/ |_\║",
+		@"║\___/║",
+		@"╚╦═╤═╦╝",
+		@" ║ │ ║ ",
+		@" ║ │ ║ ",
+		@" ║ O ║ ",
+		@" ║   ║ ",
+		@" ╚═══╝ ",
+		@"       ");
+	public readonly static string[,] Bed1x3 = Split(
+		@"╔╗╭────┬────────────╮",
+		@"║╠│╭─╮ │            │",
+		@"║║│╰─╯ │            │",
+		@"║╠├────│────────────┤",
+		@"╚╝└────┴────────────┘");
 	#endregion
 
 	#region Wall
@@ -478,7 +686,7 @@ public static class Sprites
 		@"/      ";
 	#endregion
 
-	#region NPCs
+	#region Characters
 	public static readonly string NPC1 =
 		@"/_____\" + '\n' +
 		@" │'_'│ " + '\n' +
@@ -533,6 +741,59 @@ public static class Sprites
 		@"╭┴───┴╮" + '\n' +
 		@"│├───┤│" + '\n' +
 		@" │_ _│ ";
+	public static readonly string NPC13 =
+		@" /███\ " + '\n' +
+		@"/│'_'│\" + '\n' +
+		@"╭╰───╯╮" + '\n' +
+		@"│├─\─┤│" + '\n' +
+		@" │_|_│ ";
+	public static readonly string NPC14 =
+		@" ╭√─√╮ " + '\n' +
+		@" │^∞^│ " + '\n' +
+		@"╚├───│╝" + '\n' +
+		@" ├───┤ " + '\n' +
+		@" │_|_│ ";
+	public static readonly string NPC15 =
+		@"╭∏─∏╮ Ʌ" + '\n' +
+		@"│-_-│ │" + '\n' +
+		@"│──│├─│" + '\n' +
+		@"├───┤  " + '\n' +
+		@"│_|_│  ";
+	public static readonly string NPC16 =
+		@" ╭───○ " + '\n' +
+		@"╰╯^_^╰╯" + '\n' +
+		@"╭┴───┴╮" + '\n' +
+		@"│├───┤│" + '\n' +
+		@" │_|_│ ";
+	public static readonly string TrainConductorLeft =
+		@"  ____ " + '\n' +
+		@" ═│══│ " + '\n' +
+		@"  │^ │ " + '\n' +
+		@"  ╰──╯ " + '\n' +
+		@"  │||│ ";
+	public static readonly string TrainConductorRight =
+		@" ____  " + '\n' +
+		@" │══│═ " + '\n' +
+		@" │ ^│  " + '\n' +
+		@" ╰──╯  " + '\n' +
+		@" │||│  ";
+
+	#endregion
+
+	#region Monsters
+	public static readonly string Penguin =
+		@"╭─────╮" + '\n' +
+		@"│▪^_^▪│" + '\n' +
+		@"│╷╭─╮╷│" + '\n' +
+		@"├╯╰─╯╰┤" + '\n' +
+		@"╰─╯‾╰─╯";
+	public static readonly string WeirdMonster =
+		@" │@_@│ " + '\n' +
+		@"╭─╔══╗╮" + '\n' +
+		@"╰╝│││╚╯" + '\n' +
+		@"╭╗│││╔╮" + '\n' +
+		@"╰─╚══╝╯";
+
 	#endregion
 
 	#region Items
@@ -560,12 +821,98 @@ public static class Sprites
 		@" ╞═●═╡ " + "\n" +
 		@" ╰───╯ " + "\n" +
 		@"       ";
+	public const string MonsterBoxOpen =
+		@"       " + "\n" +
+		@" ╭─●─╮ " + "\n" +
+		@" ├---┤ " + "\n" +
+		@" ╰───╯ " + "\n" +
+		@"       ";
 	public const string XPBerries =
 		@"   \   " + "\n" +
 		@" ()(() " + "\n" +
 		@"()()())" + "\n" +
 		@" (()() " + "\n" +
 		@"  ())  ";
+	#endregion
+
+	#region Letters + Symbols
+	public static readonly string BoxTop =    "╔═══════╗";
+	public static readonly string BoxSide =   "║";   //║ 5 tall
+	public static readonly string BoxBottom = "╚═══════╝";
+
+	//WASD
+	public static readonly string[] W =
+	{
+		"▄   ▄",
+		"█ ▄ █",
+		"█▀ ▀█"
+	};
+	public static readonly string[] A = 
+	{
+		" ▄▄▄ ",
+		"█▄▄▄█",
+		"█   █"
+	};
+	public static readonly string[] S =
+	{
+		"▄▄▄▄▄",
+		"█▄▄▄▄",
+		"▄▄▄▄█"
+	};
+	public static readonly string[] D =
+	{
+		"▄▄▄▄ ",
+		"█   █",
+		"█▄▄▄▀"
+	};
+	//ARROWS
+	public static readonly string[] UpArrow =
+	{
+		" ▄█▄ ",
+		"▀ █ ▀",
+		"  █  "
+	};
+	public static readonly string[] LeftArrow =
+	{
+		"  ▄  ",
+		"■█■■■",
+		"  ▀  "
+	};
+	public static readonly string[] DownArrow =
+	{
+		"  █  ",
+		"▄ █ ▄",
+		" ▀█▀ "
+	};
+	public static readonly string[] RightArrow =
+	{
+		"  ▄  ",
+		"■■■█■",
+		"  ▀  "
+	};
+	//INTERACT
+	public static readonly string[] E =
+	{
+		"▄▄▄▄▄",
+		"█▄▄▄ ",
+		"█▄▄▄▄"
+	};
+	public static readonly string[] Enter =
+	{
+		"  ▄ ▄",
+		"▄█▄▄█",
+		" ▀▄  "
+		//"    ",
+		//"◄──┘",
+		//"    "
+	};
+	//Status
+	public static readonly string[] B =
+	{
+		"▄▄▄▄ ",
+		"█▄▄▄▀",
+		"█▄▄▄▀"
+	};
 	#endregion
 
 	public const string FullBlock =
@@ -576,7 +923,7 @@ public static class Sprites
 		@"███████";
 	public const string Open =
 		@"       " + "\n" +
-		@"       " + "\n" +	
+		@"       " + "\n" +
 		@"       " + "\n" +
 		@"       " + "\n" +
 		@"       ";
@@ -586,4 +933,33 @@ public static class Sprites
 		@"║error║" + "\n" +
 		@"║error║" + "\n" +
 		@"╚═════╝";
+
+	public static string[,] Split(params string[] rows)
+	{
+		if (rows is null) throw new ArgumentNullException(nameof(rows));
+		if (sourceof(rows.Length % Height is not 0, out string check1)) throw new ArgumentException(check1, nameof(rows));
+		if (sourceof(rows[0].Length % Width is not 0, out string check2)) throw new ArgumentException(check2, nameof(rows));
+		if (sourceof(rows.Any(row => row.Length != rows[0].Length), out string check3)) throw new ArgumentException(check3, nameof(rows));
+		string[,] tiles = new string[rows.Length / Height, rows[0].Length / Width];
+		for (int tileI = 0; tileI < tiles.GetLength(1); tileI++)
+		{
+			for (int tileJ = 0; tileJ < tiles.GetLength(0); tileJ++)
+			{
+				StringBuilder sb = new();
+				for (int j = 0; j < Height; j++)
+				{
+					for (int i = 0; i < Width; i++)
+					{
+						sb.Append(rows[j + tileJ * Height][i + tileI * Width]);
+					}
+					if (j < Height - 1)
+					{
+						sb.Append('\n');
+					}
+				}
+				tiles[tileJ, tileI] = sb.ToString();
+			}
+		}
+		return tiles;
+	}
 }
