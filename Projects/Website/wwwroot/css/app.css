@@ -100,6 +100,7 @@ a, .btn-link {
     background-image: none !important;
     background-color: #24292e !important;
     color: hsla(0,0%,100%,.7) !important;
+    overflow-y: scroll;
 }
 
 nav.flex-column {
