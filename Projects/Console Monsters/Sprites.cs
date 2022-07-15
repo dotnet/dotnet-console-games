@@ -132,7 +132,7 @@ public static class Sprites
 	#endregion
 
 	#region Buildings
-	public readonly static string[,] House = Split(
+	public readonly static string[,] Building3x4 = Split(
 		@"                            ",
 		@"   ////||||||||||||||\\\\   ",
 		@"  /////||||||||||||||\\\\\  ",
@@ -148,90 +148,33 @@ public static class Sprites
 		@"│      ║    o║ ▐█ ▐█       │",
 		@"│      ║     ║             │",
 		@"└──────╚═════╝─────────────┘");
-	public const string BuildingSmall =
-		@"       " + "\n" +
-		@" /---\ " + "\n" +
-		@"/-----\" + "\n" +
-		@"|     |" + "\n" +
-		@"|  █  |";
-	public const string VetSmall = // REMOVE? (Make it bigger like the pokecenter?)
-		@"       " + "\n" +
-		@" /---\ " + "\n" +
-		@"/-Vet-\" + "\n" +
-		@"|     |" + "\n" +
-		@"|  █  |";
-	public const string Store = // REMOVE? (Make it bigger like the pokemart?)
-		@"       " + "\n" +
-		@" /---\ " + "\n" +
-		@"/Store\" + "\n" +
-		@"|     |" + "\n" +
-		@"|  █  |";
+	public readonly static string[,] Building4x6 = Split(
+		@"                                          ",
+		@"   ////||||||||||||||||||||||||||||\\\\   ",
+		@"  /////||||||||||||||||||||||||||||\\\\\  ",
+		@" //////||||||||||||||||||||||||||||\\\\\\ ",
+		@"///////||||||||||||||||||||||||||||\\\\\\\",
+		@"│                                        │",
+		@"│                                        │",
+		@"│       ▐█ ▐█  ▐█ ▐█  ▐█ ▐█  ▐█ ▐█       │",
+		@"│                                        │",
+		@"│                                        │",
+		@"│                                        │",
+		@"│                                        │",
+		@"│       ▐█ ▐█  ▐█ ▐█  ▐█ ▐█  ▐█ ▐█       │",
+		@"│                                        │",
+		@"│                                        │",
+		@"│             ╔═════╗                    │",
+		@"│             ║ ■■■ ║                    │",
+		@"│       ▐█ ▐█ ║    o║ ▐█ ▐█  ▐█ ▐█       │",
+		@"│             ║     ║                    │",
+		@"└─────────────╚═════╝────────────────────┘");
 	public const string Door =
 		@"╔═════╗" + "\n" +
 		@"║ ■■■ ║" + "\n" +
 		@"║    o║" + "\n" +
 		@"║     ║" + "\n" +
 		@"╚═════╝";
-	public const string TopRoofLeft =
-		@"       " + "\n" +
-		@"   ////" + "\n" +
-		@"  /////" + "\n" +
-		@" //////" + "\n" +
-		@"///////";
-	public const string TopRoofRight =
-		@"       " + "\n" +
-		@"\\\\   " + "\n" +
-		@"\\\\\  " + "\n" +
-		@"\\\\\\ " + "\n" +
-		@"\\\\\\\";
-	public const string MiddleRoof =
-		@"       " + "\n" +
-		@"|||||||" + "\n" +
-		@"|||||||" + "\n" +
-		@"|||||||" + "\n" +
-		@"|||||||";
-	public const string BuildingLeft =
-		@"│      " + "\n" +
-		@"│      " + "\n" +
-		@"│      " + "\n" +
-		@"│      " + "\n" +
-		@"│      ";
-	public const string BuildingBaseLeft =
-		@"│      " + "\n" +
-		@"│      " + "\n" +
-		@"│      " + "\n" +
-		@"│      " + "\n" +
-		@"└──────";
-	public const string BuildingRight =
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │";
-	public const string BuildingBaseRight =
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"──────┘";
-	public const string MiddleWindow =
-		@"       " + "\n" +
-		@"       " + "\n" +
-		@" ▐█ ▐█ " + "\n" +
-		@"       " + "\n" +
-		@"       ";
-	public const string LowWindowSideLeft =
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │" + "\n" +
-		@"      │";
-	public const string LowWindow =
-		@"       " + "\n" +
-		@"       " + "\n" +
-		@" ▐█ ▐█ " + "\n" +
-		@"       " + "\n" +
-		@"───────";
 	#endregion
 
 	#region Objects

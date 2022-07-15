@@ -18,10 +18,10 @@ class PaletTown : MapBase
 			"fg sb2bb   scccc  gf".ToCharArray(),
 			"fg  p             gf".ToCharArray(),
 			"fg                gf".ToCharArray(),
-			"fg        RMMMMj  gf".ToCharArray(),
-			"fg  FFFa  hkkkky  gf".ToCharArray(),
-			"fg  gggg  hkkkky  gf".ToCharArray(),
-			"fg  gggg  ul0llU  gf".ToCharArray(),
+			"fg        dddddd  gf".ToCharArray(),
+			"fg  FFFa  dddddd  gf".ToCharArray(),
+			"fg  gggg  dddddd  gf".ToCharArray(),
+			"fg  gggg  dd0ddd  gf".ToCharArray(),
 			"fg         n      gf".ToCharArray(),
 			"fg      X         gf".ToCharArray(),
 			"fg  o     FFFśFF  gf".ToCharArray(),
@@ -44,8 +44,9 @@ class PaletTown : MapBase
 			return Sprites.Open;
 		}
 
-		string b((int I, int J) offset) => Sprites.House[j - offset.J, i - offset.I];
-		string c((int I, int J) offset) => Sprites.House[j - offset.J, i - offset.I];
+		string b((int I, int J) offset) => Sprites.Building3x4[j - offset.J, i - offset.I];
+		string c((int I, int J) offset) => Sprites.Building3x4[j - offset.J, i - offset.I];
+		string d((int I, int J) offset) => Sprites.Building4x6[j - offset.J, i - offset.I];
 
 		return SpriteSheet[j][i] switch
 		{
@@ -58,15 +59,7 @@ class PaletTown : MapBase
 			// Buildings
 			'b' => b(FindTileInMap('b')!.Value),
 			'c' => c(FindTileInMap('c')!.Value),
-			'l' => Sprites.LowWindow,
-			'h' => Sprites.BuildingLeft,
-			'u' => Sprites.BuildingBaseLeft,
-			'y' => Sprites.BuildingRight,
-			'U' => Sprites.BuildingBaseRight,
-			'M' => Sprites.MiddleRoof,
-			'R' => Sprites.TopRoofLeft,
-			'j' => Sprites.TopRoofRight,
-			'k' => Sprites.MiddleWindow,
+			'd' => d(FindTileInMap('d')!.Value),
 			// Decor
 			'a' => Sprites.SignARight,
 			's' => Sprites.SignALeft,
