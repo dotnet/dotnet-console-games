@@ -201,11 +201,13 @@ public partial class Program
 						promptText = null;
 						break;
 					}
+					if(character.IsIdle)
 					{
 						var (i, j) = character.InteractTile;
 						map.InteractWithMapTile(i, j);
-						break;
 					}
+					break;
+
 				case ConsoleKey.Escape:
 					StartScreen.StartMenu();
 					return;
