@@ -2,10 +2,10 @@
 
 public class Center1 : MapBase
 {
-	private readonly char[][] spriteSheet = new char[][]
+	private static readonly char[][] spriteSheet = new char[][]
 		{
 			"affffifffffjffffb".ToCharArray(),
-			"go   gttktth   oh".ToCharArray(),
+			"go   gttktths  oh".ToCharArray(),
 			"g    mplllrnq   h".ToCharArray(),
 			"g               h".ToCharArray(),
 			"go             oh".ToCharArray(),
@@ -25,6 +25,7 @@ public class Center1 : MapBase
 			// actions
 			'0' => Sprites.ArrowHeavyDown,
 			// non actions
+			//Walls
 			'a' => Sprites.InteriorWallSE,
 			'b' => Sprites.InteriorWallSW,
 			'c' => Sprites.InteriorWallNE,
@@ -35,15 +36,20 @@ public class Center1 : MapBase
 			'h' => Sprites.InteriorWallNSRight,
 			'i' => Sprites.InteriorWallSWEHighLeft,
 			'j' => Sprites.InteriorWallSWEHighRight,
-			'k' => Nurse.Idle1,
-			'l' => Sprites.DeskMiddle,
-			't' => Sprites.DeskBottom,
 			'm' => Sprites.InteriorWallNLeft,
 			'n' => Sprites.InteriorWallNRight,
+			// Objects
+			'l' => Sprites.DeskMiddle,
+			't' => Sprites.DeskBottom,
 			'o' => Sprites.PotPlant1,
 			'p' => Sprites.DeskLeft,
-			'q' => Sprites.NPC3,
 			'r' => Sprites.DeskRight,
+			// NPC's
+			'k' => Nurse.Idle1,
+			'q' => Sprites.NPC3,
+			// Items
+			's' => Sprites.MonsterBox,
+			// Extra
 			'x' => Sprites.Open,
 			' ' => Sprites.Open,
 			_ => Sprites.Error,
@@ -59,6 +65,8 @@ public class Center1 : MapBase
 		return SpriteSheet[j][i] switch
 		{
 			'k' => true,
+			's' => true,
+			'q' => true,
 			_ => false,
 		};
 	}
@@ -67,19 +75,34 @@ public class Center1 : MapBase
 	{
 		if (j >= 0 && j < SpriteSheet.Length && i >= 0 && i < SpriteSheet[j].Length)
 		{
-			if (SpriteSheet[j][i] is 'k')
+			switch (SpriteSheet[j][i])
 			{
-				promptText = new string[]
-				{
+				case 'k':
+					promptText = new string[]
+					{
 					" Hello and welcome to the monster center.",
 					" I will heal all your monsters.",
-				};
-				for(int p = 0; p < partyMonsters.Count; p++)
-				{
-					partyMonsters[p].CurrentHP = partyMonsters[p].MaximumHP;
-				}
-			}
-		}
+					};
+					for (int p = 0; p < partyMonsters.Count; p++)
+					{
+						partyMonsters[p].CurrentHP = partyMonsters[p].MaximumHP;
+					}
+					break;
+				case 's':
+					promptText = new string[]
+					{
+						"You picked up a MonsterBox",
+					};
+					PlayerInventory.TryAdd(MonsterBox.Instance);
+					spriteSheet[j][i] = ' ';
+					break;
+				case 'q':
+					promptText = new string[]
+					{
+						"...",
+					};
+					break;
+			}	}
 	}
 
 	public override bool IsValidCharacterMapTile(int i, int j)

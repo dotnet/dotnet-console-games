@@ -2,10 +2,10 @@
 
 public class House1SecondFloor : MapBase
 {
-	private readonly char[][] spriteSheet = new char[][]
+	private static readonly char[][] spriteSheet = new char[][]
 		{
 			"afffffffffffffffb".ToCharArray(),
-			"hpq  uv   -     g".ToCharArray(),
+			"hpq! uv   -     g".ToCharArray(),
 			"hno          kemg".ToCharArray(),
 			"h      yy   xkemg".ToCharArray(),
 			"hrrr       wzkijg".ToCharArray(),
@@ -25,6 +25,7 @@ public class House1SecondFloor : MapBase
 			// actions
 			'0' => Sprites.StairsLeft,
 			// non actions
+			// Walls&Stairs
 			'a' => Sprites.InteriorWallSEShort,
 			'b' => Sprites.InteriorWallSWShort,
 			'c' => Sprites.InteriorWallNEShort,
@@ -38,6 +39,7 @@ public class House1SecondFloor : MapBase
 			'k' => Sprites.InteriorWallNSRightRight,
 			'l' => Sprites.InteriorWallHorizontalTop,
 			'm' => Sprites.StairsRight,
+			// Objects
 			'n' => Sprites.TVDeskLeft,
 			'o' => Sprites.TVDeskRight,
 			'p' => Sprites.TVLeft,
@@ -45,11 +47,15 @@ public class House1SecondFloor : MapBase
 			'r' => Sprites.Bed1x3.Get(Subtract((i, j), FindTileInMap('r')!.Value).Reverse()),
 			'u' => Sprites.ChairLeft,
 			'v' => Sprites.Table,
-			'w' => Sprites.Penguin,
 			'x' => Sprites.Lamp,
 			'y' => Sprites.Carpet,
 			'z' => Sprites.Lamp2,
 			'-' => Sprites.PotPlant2,
+			// Monsters
+			'w' => Sprites.Penguin,
+			// Items
+			'!' => Sprites.MonsterBox,
+			// Extras
 			' ' => Sprites.Open,
 			_ => Sprites.Error,
 		};
@@ -65,6 +71,7 @@ public class House1SecondFloor : MapBase
 		{
 			'r' => true,
 			'w' => true,
+			'!' => true,
 			_ => false,
 		};
 	}
@@ -80,7 +87,7 @@ public class House1SecondFloor : MapBase
 					{
 						"Mozin0:",
 						"ZzzZzzZzz...",
-						"MonsterBoz...",
+						"MonsterBox...",
 						"ZzzZzzZzz...",
 					};
 					break;
@@ -90,6 +97,14 @@ public class House1SecondFloor : MapBase
 						"Penguin:",
 						"BrrrRRRrrr!",
 					};
+					break;
+				case '!':
+					promptText = new string[]
+					{
+						"You picked up a MonsterBox",
+					};
+					PlayerInventory.TryAdd(MonsterBox.Instance);
+					spriteSheet[j][i] = ' ';
 					break;
 			}
 		}
