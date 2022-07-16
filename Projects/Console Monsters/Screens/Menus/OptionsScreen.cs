@@ -5,7 +5,6 @@ public static class OptionsScreen
 	public static void OptionsMenu()
 	{
 		StringBuilder sb = new();
-
 		int arrowOption = 1;
 		const int maxOption = 6;
 
