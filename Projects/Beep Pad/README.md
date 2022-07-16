@@ -11,9 +11,9 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
-Beep Pad is a game that provides you a randomly generated pass code in the form of beeps. You must match the beeps to the buttons and replicate the pass code.
+> **Warning** This game is only supported on the Windows operating system. If you do not hear audio while playing this game, it may not be compatible with your system.
 
-**_If you do not hear audio while playing this game, it may not be compatible with your system._**
+Beep Pad is a game that provides you a randomly generated pass code in the form of beeps. You must match the beeps to the buttons and replicate the pass code.
 
 ```
     BeepPad
