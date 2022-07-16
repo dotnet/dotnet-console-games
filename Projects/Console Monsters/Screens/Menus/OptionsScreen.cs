@@ -5,17 +5,6 @@ public static class OptionsScreen
 	public static void OptionsMenu()
 	{
 		StringBuilder sb = new();
-		string[] MonsterBox =
-		{			
-			//Open
-			"╭─●─╮", //0
-			"├---┤", //1
-			"╰───╯", //2
-			//Closed
-			"╭───╮", //3
-			"╞═●═╡", //4
-			"╰───╯", //5
-		};
 		int index = 0;
 		int arrowOption = 1;
 		const int maxOption = 6;
@@ -74,7 +63,6 @@ public static class OptionsScreen
 			case ConsoleKey.UpArrow or ConsoleKey.W: arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
 			case ConsoleKey.DownArrow or ConsoleKey.S: arrowOption = Math.Min(maxOption, arrowOption + 1); goto ReDraw;
 			case ConsoleKey.Enter or ConsoleKey.E:
-				int MonsterBoxOpen = index == 0 ? index = 3 : index = 0;
 				switch (arrowOption)
 				{
 					case 1: DisableMovementAnimation = !DisableMovementAnimation; goto ReDraw;
