@@ -6,7 +6,7 @@ public class House1 : MapBase
 		{
 			"afffffffffffffffb".ToCharArray(),
 			"hpmn      wvwkijg".ToCharArray(),
-			"hmq    x     kijg".ToCharArray(),
+			"hmq          kijg".ToCharArray(),
 			"h            k12g".ToCharArray(),
 			"hssss  uuu      g".ToCharArray(),
 			"cllllll000lllllld".ToCharArray(),
@@ -51,7 +51,6 @@ public class House1 : MapBase
 			'w' => Sprites.PotPlant1,
 			//NPC's
 			'q' => Sprites.NPC11,
-			'x' => Sprites.NPC15,
 			// Extras
 			' ' => Sprites.Open,
 			_ => Sprites.Error,
@@ -92,10 +91,6 @@ public class House1 : MapBase
 						"Funky:",
 						"Slurp Slurp",
 					};
-					break;
-				case 'x':
-					Shop shop = new Shop();
-					shop.ListItemsPrices();
 					break;
 			}
 		}
