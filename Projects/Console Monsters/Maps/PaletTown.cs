@@ -9,7 +9,7 @@ class PaletTown : MapBase
 		scientist = new();
 	}
 
-	private readonly char[][] spriteSheet = new char[][]
+	private readonly static char[][] spriteSheet = new char[][]
 		{
 			"tttttgggggggfgggggf11fgggggfgggggttttt".ToCharArray(),
 			"tttttggggffffffffff  ffffffffggggttttt".ToCharArray(),
@@ -27,9 +27,9 @@ class PaletTown : MapBase
 			"tttttggggfg      X         gfggggttttt".ToCharArray(),
 			"tttttggggfg  o     FFFśFF  gfggggttttt".ToCharArray(),
 			"tttttggggfgggWWWW  gggggg  gfggggttttt".ToCharArray(),
-			"tttttggggfgggWwwW  gggggg  gfggggttttt".ToCharArray(),
+			"tttttggggfgggWwwW  gggegg  gfggggttttt".ToCharArray(),
 			"tttttggggfgggWwwW          gfggggttttt".ToCharArray(),
-			"tttttggggffggWwwWffffffffffffggggttttt".ToCharArray(),
+			"tttttggggffgeWwwWffffffffffffggggttttt".ToCharArray(),
 			"tttttggggffffWwwWffffffffffffggggttttt".ToCharArray(),
 			"tttttggggggggWwwWggggggfgggggggggttttt".ToCharArray(),
 			"tttttggggggggWwwWggggggfgggggggggttttt".ToCharArray(),
@@ -72,6 +72,9 @@ class PaletTown : MapBase
 			'n' => Sprites.NPC1,
 			'o' => scientist.Sprite,
 			'p' => Sprites.NPC5,
+			// Items
+			'e' => Sprites.MonsterBoxPickableOnGround,
+			'h' => Sprites.MonsterBox,
 			// Extra
 			'W' => Sprites.Wall_0000,
 			'z' => Sprites.Door,
@@ -91,6 +94,7 @@ class PaletTown : MapBase
 			's' or 'a' => true,
 			'ś' => true,
 			'o' => true,
+			'e' => true,
 			_ => false,
 		};
 	}
@@ -117,6 +121,14 @@ class PaletTown : MapBase
 					break;
 				case 'o':
 					promptText = scientist.Dialogue;
+					break;
+				case 'e':
+					promptText = new string[]
+					{
+						"You picked up a MonsterBox",
+					};
+					PlayerInventory.TryAdd(MonsterBox.Instance);
+					spriteSheet[j][i] = 'g';
 					break;
 			}
 		}
