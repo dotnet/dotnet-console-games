@@ -801,6 +801,12 @@ public static class Sprites
 		@" ╞═●═╡ " + "\n" +
 		@" ╰───╯ " + "\n" +
 		@"       ";
+	public const string MonsterBoxPickableOnGround =
+		@"       " + "\n" +
+		@"       " + "\n" +
+		@" ╭───╮ " + "\n" +
+		@" ╞═●═╡ " + "\n" +
+		@" ╰───╯ ";
 	public const string MonsterBoxOpen =
 		@"       " + "\n" +
 		@" ╭─●─╮ " + "\n" +

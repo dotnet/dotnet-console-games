@@ -2,11 +2,11 @@
 
 public class House1 : MapBase
 {
-	private readonly char[][] spriteSheet = new char[][]
+	private static readonly char[][] spriteSheet = new char[][]
 		{
 			"afffffffffffffffb".ToCharArray(),
 			"hpmn      wvwkijg".ToCharArray(),
-			"hmq          kijg".ToCharArray(),
+			"hmq    x     kijg".ToCharArray(),
 			"h            k12g".ToCharArray(),
 			"hssss  uuu      g".ToCharArray(),
 			"cllllll000lllllld".ToCharArray(),
@@ -27,6 +27,7 @@ public class House1 : MapBase
 			'1' => Sprites.StairsLeft,
 			'2' => Sprites.StairsRight,
 			// non actions
+			// Walls&Stairs
 			'a' => Sprites.InteriorWallSEShort,
 			'b' => Sprites.InteriorWallSWShort,
 			'c' => Sprites.InteriorWallNEShort,
@@ -39,16 +40,19 @@ public class House1 : MapBase
 			'j' => Sprites.StairsRight,
 			'k' => Sprites.InteriorWallNSRightRight,
 			'l' => Sprites.InteriorWallHorizontalTop,
+			// Objects
 			'm' => Sprites.Fridge,
 			'n' => Sprites.LowerCabnetWithDraws,
 			'o' => Sprites.PotPlant1,
 			'p' => Sprites.MicroWave,
-			'q' => Sprites.NPC11,
 			's' => Sprites.DiningSet.Get(Subtract((i, j), FindTileInMap('s')!.Value).Reverse()),
 			'u' => Sprites.Carpet,
 			'v' => Sprites.WeirdMonster,
 			'w' => Sprites.PotPlant1,
-			'x' => Sprites.Open,
+			//NPC's
+			'q' => Sprites.NPC11,
+			'x' => Sprites.NPC15,
+			// Extras
 			' ' => Sprites.Open,
 			_ => Sprites.Error,
 		};
@@ -63,6 +67,7 @@ public class House1 : MapBase
 		return SpriteSheet[j][i] switch
 		{
 			'q' => true,
+			'v' => true,
 			_ => false,
 		};
 	}
@@ -80,6 +85,17 @@ public class House1 : MapBase
 						"Welcome to my house, My son always gifts guests.",
 						"He's Upstairs, go talk to him to recieve your gift.",
 					};
+					break;
+				case 'v':
+					promptText = new string[]
+					{
+						"Funky:",
+						"Slurp Slurp",
+					};
+					break;
+				case 'x':
+					Shop shop = new Shop();
+					shop.ListItemsPrices();
 					break;
 			}
 		}
