@@ -9,7 +9,7 @@ class PaletTown : MapBase
 		scientist = new();
 	}
 
-	private readonly char[][] spriteSheet = new char[][]
+	private readonly static char[][] spriteSheet = new char[][]
 		{
 			"tttttgggggggfgggggf11fgggggfgggggttttt".ToCharArray(),
 			"tttttggggffffffffff  ffffffffggggttttt".ToCharArray(),
@@ -20,16 +20,16 @@ class PaletTown : MapBase
 			"tttttggggfg  p             gfggggttttt".ToCharArray(),
 			"tttttggggfg                gfggggttttt".ToCharArray(),
 			"tttttggggfg        dddddd  gfggggttttt".ToCharArray(),
-			"tttttggggfg  FFFš  dddddd  gfggggttttt".ToCharArray(),
+			"tttttggggfg  FFFa  dddddd  gfggggttttt".ToCharArray(),
 			"tttttggggfg  gggg  dddddd  gfggggttttt".ToCharArray(),
 			"tttttggggfg  gggg  d0dddd  gfggggttttt".ToCharArray(),
 			"tttttggggfg           n    gfggggttttt".ToCharArray(),
 			"tttttggggfg      X         gfggggttttt".ToCharArray(),
-			"tttttggggfg  o     FFFśFF  gfggggttttt".ToCharArray(),
+			"tttttggggfg  o     FFFsFF  gfggggttttt".ToCharArray(),
 			"tttttggggfgggWWWW  gggggg  gfggggttttt".ToCharArray(),
-			"tttttggggfgggWwwW  gggggg  gfggggttttt".ToCharArray(),
+			"tttttggggfgggWwwW  gggegg  gfggggttttt".ToCharArray(),
 			"tttttggggfgggWwwW          gfggggttttt".ToCharArray(),
-			"tttttggggffggWwwWffffffffffffggggttttt".ToCharArray(),
+			"tttttggggffgeWwwWffffffffffffggggttttt".ToCharArray(),
 			"tttttggggffffWwwWffffffffffffggggttttt".ToCharArray(),
 			"tttttggggggggWwwWggggggfgggggggggttttt".ToCharArray(),
 			"tttttggggggggWwwWggggggfgggggggggttttt".ToCharArray(),
@@ -57,9 +57,8 @@ class PaletTown : MapBase
 			'c' => Sprites.House3x4.Get(Subtract((i, j), FindTileInMap('c')!.Value).Reverse()),
 			'd' => Sprites.House4x6.Get(Subtract((i, j), FindTileInMap('d')!.Value).Reverse()),
 			// Decor
-			'š' => Sprites.SignARight,
 			's' => Sprites.SignALeft,
-			'ś' => Sprites.SignALeft,
+			'a' => Sprites.SignARight,
 			'f' => Sprites.Fence,
 			'F' => Sprites.FenceLow,
 			// Nature
@@ -72,6 +71,9 @@ class PaletTown : MapBase
 			'n' => Sprites.NPC1,
 			'o' => scientist.Sprite,
 			'p' => Sprites.NPC5,
+			// Items
+			'e' => Sprites.MonsterBoxPickableOnGround,
+			'h' => Sprites.MonsterBox,
 			// Extra
 			'W' => Sprites.Wall_0000,
 			'z' => Sprites.Door,
@@ -88,9 +90,12 @@ class PaletTown : MapBase
 		}
 		return SpriteSheet[j][i] switch
 		{
-			's' or 'a' => true,
-			'ś' => true,
+			'a' => true,
+			's' => true,
 			'o' => true,
+			'e' => true,
+			'p' => true,
+			'n' => true,
 			_ => false,
 		};
 	}
@@ -108,15 +113,22 @@ class PaletTown : MapBase
 						"Hello! I am sign. :P",
 					};
 					break;
-				case 'ś':
-					promptText = new string[]
-					{
-						"Sign #2 Says:",
-						"Hello! I am sign #2. :P",
-					};
-					break;
 				case 'o':
 					promptText = scientist.Dialogue;
+					break;
+				case 'p' or 'n':
+					promptText = new string[]
+					{
+						"...",
+					};
+					break;
+				case 'e':
+					promptText = new string[]
+					{
+						"You picked up a MonsterBox",
+					};
+					PlayerInventory.TryAdd(MonsterBox.Instance);
+					spriteSheet[j][i] = 'g';
 					break;
 			}
 		}
