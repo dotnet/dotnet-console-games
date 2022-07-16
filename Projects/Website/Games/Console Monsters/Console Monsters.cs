@@ -232,11 +232,12 @@ public class Console_Monsters
 						promptText = null;
 						break;
 					}
+					if (character.IsIdle)
 					{
 						var (i, j) = character.InteractTile;
 						map.InteractWithMapTile(i, j);
-						break;
 					}
+					break;
 				case ConsoleKey.Escape:
 					await StartScreen.StartMenu();
 					return;
