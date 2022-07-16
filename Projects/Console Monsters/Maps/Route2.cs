@@ -2,7 +2,7 @@
 
 class Route2 : MapBase
 {
-	private readonly char[][] spriteSheet = new char[][]
+	private static readonly char[][] spriteSheet = new char[][]
 		{
 			"ffffffffffffffffffffffffffffffffffffffffffffffffffff".ToCharArray(),
 			"fggggggggggggggggggggggg    ggggggggg       GGGGGGGf".ToCharArray(),
