@@ -72,7 +72,7 @@ public static class ColorsScreen
 				{
 					string[] render = new[]
 					{
-						$@"Console Monsters",
+						$@"Color Scheme",
 						$@"{(selectedOption is 0 ? ">" : " ")} Black",
 						$@"{(selectedOption is 1 ? ">" : " ")} Green",
 						$@"{(selectedOption is 2 ? ">" : " ")} Red",
