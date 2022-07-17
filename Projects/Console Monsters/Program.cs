@@ -25,7 +25,7 @@ public partial class Program
 				}
 			}
 
-			StartScreen.StartMenu();
+			StartScreen.Show();
 			while (gameRunning)
 			{
 				UpdateCharacter();
@@ -209,7 +209,7 @@ public partial class Program
 					break;
 
 				case ConsoleKey.Escape:
-					StartScreen.StartMenu();
+					StartScreen.Show();
 					return;
 			}
 		}

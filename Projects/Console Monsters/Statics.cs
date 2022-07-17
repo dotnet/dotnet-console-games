@@ -15,10 +15,10 @@ public static class Statics
 	public readonly static Random GameRandom = new(7);
 	public readonly static Random BattleRandom = new(7);
 	public readonly static Player character = new();
-    public readonly static List<MonsterBase> ownedMonsters = new();
-    public readonly static List<MonsterBase> partyMonsters = new();
+	public readonly static List<MonsterBase> ownedMonsters = new();
+	public readonly static List<MonsterBase> partyMonsters = new();
 
-    public static MapBase map = new PaletTown();
+	public static MapBase map = new PaletTown();
 	public static DateTime previoiusRender = DateTime.Now;
 	public static int maxPartySize = 6;
 	public static bool gameRunning { get; set; } = true;
