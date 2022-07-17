@@ -51,16 +51,10 @@ public static class StartScreen
 						{
 							render[i++] = line;
 						}
-						for (int j = 0; j < bigHeaderPadding; j++)
-						{
-							render[i++] = "";
-						}
+						i += bigHeaderPadding;
 						foreach (string[] option in options)
 						{
-							for (int j = 0; j < optionPadding; j++)
-							{
-								render[i++] = "";
-							}
+							i += optionPadding;
 							foreach (string line in option)
 							{
 								render[i++] = indent + line;
