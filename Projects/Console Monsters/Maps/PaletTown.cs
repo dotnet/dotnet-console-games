@@ -116,11 +116,14 @@ class PaletTown : MapBase
 				case 'o':
 					promptText = scientist.Dialogue;
 					break;
-				case 'p' or 'n':
+				case 'p':
 					promptText = new string[]
 					{
 						"...",
 					};
+					break;
+				case 'n':
+					ShopScreen.Render();
 					break;
 				case 'e':
 					promptText = new string[]

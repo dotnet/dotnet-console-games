@@ -193,6 +193,30 @@ public static class AsciiGenerator
 					" ▄▄▀",
 					"█▄▄▄"
 				},
+			'0' => new[]
+				{
+					" ▄▄▄ ",
+					"█▄▀ █",
+					"▀▄▄▄▀"
+				},
+			'1' => new[]
+				{
+				   "▄▄",
+					"█",
+					"█"
+				},
+			'2' => new[]
+				{
+					"▄▄▄▄",
+					"▄▄▄▀",
+					"█▄▄▄"
+				},
+			':' => new[]
+				{
+					"▄",
+					" ",
+					"▄"
+				},
 			_ => throw new NotImplementedException(),
 		};
 }

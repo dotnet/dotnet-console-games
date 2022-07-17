@@ -24,6 +24,8 @@ public static class Statics
 	public static bool gameRunning { get; set; } = true;
 	public static bool startMenu { get; set; } = true;
 	public static bool inInventory { get; set; } = false;
+	public static bool shopMenu { get; set; } = true;
+
 
 	public static readonly string[] defaultMaptext = new[]
 	{
@@ -38,6 +40,11 @@ public static class Statics
 	public static readonly string[] mapTextPressEnter = new string[]
 	{
 		"[E, Enter]: Continue, [Escape]: Menu",
+	};
+
+	public static readonly string[] shopTextPressEnter = new string[]
+	{
+		"[Escape]: Exit Shop",
 	};
 
 	public static string[] MapText
