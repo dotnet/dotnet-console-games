@@ -16,8 +16,6 @@ public static class StartScreen
 		int bigHeaderWidth = bigHeader.Max(line => line.Length);
 		const int bigHeaderPadding = 2;
 		const int optionPadding = 1;
-		MonsterBase monserA = MonsterBase.GetRandom();
-		MonsterBase monserB = MonsterBase.GetRandom();
 		var (consoleWidth, consoleHeight) = ConsoleHelpers.GetWidthAndHeight();
 		Console.Clear();
 		int selectedOption = 0;
