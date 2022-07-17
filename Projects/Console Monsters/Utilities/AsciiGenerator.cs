@@ -193,6 +193,21 @@ public static class AsciiGenerator
 					" ▄▄▀",
 					"█▄▄▄"
 				},
+
+			// the '■' and '□' sprites must be the same size
+			'■' => new[]
+				{
+					"╭───╮",
+					"╞═●═╡",
+					"╰───╯"
+				},
+			'□' => new[]
+				{
+					"     ",
+					"     ",
+					"     "
+				},
+
 			_ => throw new NotImplementedException(),
 		};
 }

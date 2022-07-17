@@ -17,11 +17,30 @@ public static class ConsoleHelpers
 				}
 				catch (Exception)
 				{
-					Console.Clear();
+					try
+					{
+						Console.Clear();
+					}
+					catch
+					{
+						// intentionally left blank
+					}
 					continue;
 				}
 			}
 			return (width, height);
 		}
+	}
+
+	public static bool ClearIfConsoleResized(ref int previousWidth, ref int previousHeight)
+	{
+		var (width, height) = ConsoleHelpers.GetWidthAndHeight();
+		if ((previousWidth, previousHeight) != (width, height))
+		{
+			(previousWidth, previousHeight) = (width, height);
+			Console.Clear();
+			return true;
+		}
+		return false;
 	}
 }
