@@ -114,7 +114,8 @@ public static class StartScreen
 						return;
 				}
 			}
-			Thread.Sleep(TimeSpan.FromTicks(1));
+			// prevent CPU spiking
+			Thread.Sleep(TimeSpan.FromMilliseconds(1));
 		}
 	}
 }

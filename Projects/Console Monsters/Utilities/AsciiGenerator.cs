@@ -208,6 +208,40 @@ public static class AsciiGenerator
 					"     "
 				},
 
+			// the '●' and '○' sprites must be the same size
+			'●' => new[]
+				{
+					"╔══╗",
+					"║██║",
+					"╚══╝"
+				},
+			'○' => new[]
+				{
+					"╔══╗",
+					"║  ║",
+					"╚══╝"
+				},
+
 			_ => throw new NotImplementedException(),
 		};
+
+	public static string[] Concat(params string[][] sprites)
+	{
+		StringBuilder a = new();
+		StringBuilder b = new();
+		StringBuilder c = new();
+
+		foreach (string[] sprite in sprites)
+		{
+			int length = sprite.Max(l => l is null ? 0 : l.Length);
+			for (int i = 0; i < length; i++)
+			{
+				a.Append(sprite is null || sprite.Length < 1 || sprite[0] is null || sprite[0].Length <= i ? ' ' : sprite[0][i]);
+				b.Append(sprite is null || sprite.Length < 2 || sprite[1] is null || sprite[1].Length <= i ? ' ' : sprite[1][i]);
+				c.Append(sprite is null || sprite.Length < 3 || sprite[2] is null || sprite[2].Length <= i ? ' ' : sprite[2][i]);
+			}
+		}
+
+		return new[] { a.ToString(), b.ToString(), c.ToString() };
+	}
 }
