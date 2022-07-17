@@ -60,7 +60,7 @@ public static class OptionsScreen
 			if (needToRender)
 			{
 				StringBuilder? buffer = null;
-				if (consoleWidth >= bigHeaderWidth)
+				if (consoleWidth - 1 >= bigHeaderWidth)
 				{
 					string[][] options = new[]
 					{
@@ -73,7 +73,7 @@ public static class OptionsScreen
 					};
 					int optionsWidth = options.Max(o => o.Max(l => l.Length));
 					int bigRenderHeight = bigHeader.Length + options.Sum(o => o.Length) + bigHeaderPadding + optionPadding * options.Length;
-					if (consoleHeight >= bigRenderHeight && consoleWidth >= optionsWidth)
+					if (consoleHeight - 1 >= bigRenderHeight && consoleWidth - 1 >= optionsWidth)
 					{
 						int indentSize = Math.Max(0, (bigHeaderWidth - optionsWidth) / 2);
 						string indent = new(' ', indentSize);
@@ -101,8 +101,8 @@ public static class OptionsScreen
 					{
 						$@"Options",
 						$@"{(selectedOption is 0 ? "> " : "  ")}Movement Animation {(DisableMovementAnimation ? "□" : "■")}",
-						$@"{(selectedOption is 1 ? "> " : "  ")}Battle Transition {(DisableBattleTransition ? "□" : "■")}",
-						$@"{(selectedOption is 2 ? "> " : "  ")}Battles {(DisableBattle ? "□" : "■")}",
+						$@"{(selectedOption is 1 ? "> " : "  ")}Battle Transition  {(DisableBattleTransition ? "□" : "■")}",
+						$@"{(selectedOption is 2 ? "> " : "  ")}Battles            {(DisableBattle ? "□" : "■")}",
 						$@"{(selectedOption is 3 ? "> " : "  ")}Colors",
 						$@"{(selectedOption is 4 ? "> " : "  ")}Controls",
 						$@"{(selectedOption is 5 ? "> " : "  ")}Exit",
