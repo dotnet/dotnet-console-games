@@ -2,6 +2,7 @@
 
 public class Player
 {
+	public int currentMoney { get; set; }
 	/// <summary>Horizontal position in pixel coordinates.</summary>
 	public int I { get; set; }
 	/// <summary>Vertical position in pixel coordinates.</summary>
