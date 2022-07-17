@@ -68,9 +68,9 @@ public static class StartScreen
 					string[] render = new[]
 					{
 						$@"Console Monsters",
-						$@"{(selectedOption is 0 ? "> " : "  ")} {(FirstTimeLaunching ? "Start" : "Resume")}",
-						$@"{(selectedOption is 1 ? "> " : "  ")} Options",
-						$@"{(selectedOption is 2 ? "> " : "  ")} Exit",
+						$@"{(selectedOption is 0 ? "> " : "  ")}{(FirstTimeLaunching ? "Start" : "Resume")}",
+						$@"{(selectedOption is 1 ? "> " : "  ")}Options",
+						$@"{(selectedOption is 2 ? "> " : "  ")}Exit",
 					};
 					buffer = ScreenHelpers.Center(render, (consoleHeight - 1, consoleWidth - 1));
 				}
