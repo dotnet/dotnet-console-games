@@ -84,7 +84,7 @@ public static class StartScreen
 				Console.Write(buffer);
 				needToRender = false;
 			}
-			if (Console.KeyAvailable)
+			while (Console.KeyAvailable)
 			{
 				switch (Console.ReadKey(true).Key)
 				{
