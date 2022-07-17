@@ -31,7 +31,7 @@ public static class StartScreen
 			if (needToRender)
 			{
 				StringBuilder? buffer = null;
-				if (consoleWidth >= bigHeaderWidth)
+				if (consoleWidth - 1 >= bigHeaderWidth)
 				{
 					string[][] options = new[]
 					{
@@ -41,7 +41,7 @@ public static class StartScreen
 					};
 					int optionsWidth = options.Max(o => o.Max(l => l.Length));
 					int bigRenderHeight = bigHeader.Length + options.Sum(o => o.Length) + bigHeaderPadding + optionPadding * options.Length;
-					if (consoleHeight >= bigRenderHeight && consoleWidth >= optionsWidth)
+					if (consoleHeight - 1 >= bigRenderHeight && consoleWidth - 1 >= optionsWidth)
 					{
 						int indentSize = Math.Max(0, (bigHeaderWidth - optionsWidth) / 2);
 						string indent = new(' ', indentSize);
