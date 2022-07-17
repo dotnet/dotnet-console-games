@@ -35,9 +35,9 @@ public static class StartScreen
 				{
 					string[][] options = new[]
 					{
-						AsciiGenerator.ToAscii((selectedOption is 0 ? "■" : "□") + (FirstTimeLaunching ? "start" : "resume")),
-						AsciiGenerator.ToAscii((selectedOption is 1 ? "■" : "□") + "options"),
-						AsciiGenerator.ToAscii((selectedOption is 2 ? "■" : "□") + "exit"),
+						AsciiGenerator.ToAscii((selectedOption is 0 ? "■" : "□") + (FirstTimeLaunching ? " start" : " resume")),
+						AsciiGenerator.ToAscii((selectedOption is 1 ? "■" : "□") + " options"),
+						AsciiGenerator.ToAscii((selectedOption is 2 ? "■" : "□") + " exit"),
 					};
 					int optionsWidth = options.Max(o => o.Max(l => l.Length));
 					int bigRenderHeight = bigHeader.Length + options.Sum(o => o.Length) + bigHeaderPadding + optionPadding * options.Length;
@@ -68,9 +68,9 @@ public static class StartScreen
 					string[] render = new[]
 					{
 						$@"Console Monsters",
-						$@"{(selectedOption is 0 ? "> " : "  ")}{(FirstTimeLaunching ? "Start" : "Resume")}",
-						$@"{(selectedOption is 1 ? "> " : "  ")}Options",
-						$@"{(selectedOption is 2 ? "> " : "  ")}Exit",
+						$@"{(selectedOption is 0 ? ">" : " ")} {(FirstTimeLaunching ? "Start" : "Resume")}",
+						$@"{(selectedOption is 1 ? ">" : " ")} Options",
+						$@"{(selectedOption is 2 ? ">" : " ")} Exit",
 					};
 					buffer = ScreenHelpers.Center(render, (consoleHeight - 1, consoleWidth - 1));
 				}
@@ -104,6 +104,8 @@ public static class StartScreen
 							case 2:
 								gameRunning = false;
 								return;
+							default:
+								throw new NotImplementedException();
 						}
 						break;
 					case ConsoleKey.Escape:

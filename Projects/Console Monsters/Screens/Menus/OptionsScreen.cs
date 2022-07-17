@@ -43,13 +43,6 @@ public static class OptionsScreen
 			"                        ",
 		};
 
-		string[] spaceX3 = new[]
-		{
-			"   ",
-			"   ",
-			"   ",
-		};
-
 		while (true)
 		{
 			if (ConsoleHelpers.ClearIfConsoleResized(ref consoleWidth, ref consoleHeight))
@@ -64,12 +57,12 @@ public static class OptionsScreen
 				{
 					string[][] options = new[]
 					{
-						AsciiGenerator.Concat(AsciiGenerator.ToAscii(selectedOption is 0 ? "■" : "□"), movementAnimation, AsciiGenerator.ToAscii(DisableMovementAnimation ? "○" : "●")),
-						AsciiGenerator.Concat(AsciiGenerator.ToAscii(selectedOption is 1 ? "■" : "□"), battleTransition, AsciiGenerator.ToAscii(DisableBattleTransition ? "○" : "●")),
-						AsciiGenerator.Concat(AsciiGenerator.ToAscii(selectedOption is 2 ? "■" : "□"), battles, AsciiGenerator.ToAscii(DisableBattle ? "○" : "●")),
-						AsciiGenerator.Concat(AsciiGenerator.ToAscii(selectedOption is 3 ? "■" : "□"), spaceX3, AsciiGenerator.ToAscii("colors")),
-						AsciiGenerator.Concat(AsciiGenerator.ToAscii(selectedOption is 4 ? "■" : "□"), spaceX3, AsciiGenerator.ToAscii("controls")),
-						AsciiGenerator.Concat(AsciiGenerator.ToAscii(selectedOption is 5 ? "■" : "□"), spaceX3, AsciiGenerator.ToAscii("back")),
+						AsciiGenerator.Concat(AsciiGenerator.ToAscii(selectedOption is 0 ? "■ " : "□ "), movementAnimation, AsciiGenerator.ToAscii(DisableMovementAnimation ? "○" : "●")),
+						AsciiGenerator.Concat(AsciiGenerator.ToAscii(selectedOption is 1 ? "■ " : "□ "), battleTransition, AsciiGenerator.ToAscii(DisableBattleTransition ? "○" : "●")),
+						AsciiGenerator.Concat(AsciiGenerator.ToAscii(selectedOption is 2 ? "■ " : "□ "), battles, AsciiGenerator.ToAscii(DisableBattle ? "○" : "●")),
+						AsciiGenerator.Concat(AsciiGenerator.ToAscii((selectedOption is 3 ? "■" : "□") + " colors")),
+						AsciiGenerator.Concat(AsciiGenerator.ToAscii((selectedOption is 4 ? "■" : "□") + " controls")),
+						AsciiGenerator.Concat(AsciiGenerator.ToAscii((selectedOption is 5 ? "■" : "□") + " back")),
 					};
 					int optionsWidth = options.Max(o => o.Max(l => l.Length));
 					int bigRenderHeight = bigHeader.Length + options.Sum(o => o.Length) + bigHeaderPadding + optionPadding * options.Length;
@@ -100,12 +93,12 @@ public static class OptionsScreen
 					string[] render = new[]
 					{
 						$@"Options",
-						$@"{(selectedOption is 0 ? "> " : "  ")}Movement Animation {(DisableMovementAnimation ? "□" : "■")}",
-						$@"{(selectedOption is 1 ? "> " : "  ")}Battle Transition  {(DisableBattleTransition ? "□" : "■")}",
-						$@"{(selectedOption is 2 ? "> " : "  ")}Battles            {(DisableBattle ? "□" : "■")}",
-						$@"{(selectedOption is 3 ? "> " : "  ")}Colors",
-						$@"{(selectedOption is 4 ? "> " : "  ")}Controls",
-						$@"{(selectedOption is 5 ? "> " : "  ")}Exit",
+						$@"{(selectedOption is 0 ? ">" : " ")} Movement Animation {(DisableMovementAnimation ? "□" : "■")}",
+						$@"{(selectedOption is 1 ? ">" : " ")} Battle Transition  {(DisableBattleTransition ? "□" : "■")}",
+						$@"{(selectedOption is 2 ? ">" : " ")} Battles            {(DisableBattle ? "□" : "■")}",
+						$@"{(selectedOption is 3 ? ">" : " ")} Colors",
+						$@"{(selectedOption is 4 ? ">" : " ")} Controls",
+						$@"{(selectedOption is 5 ? ">" : " ")} Exit",
 					};
 					buffer = ScreenHelpers.Center(render, (consoleHeight - 1, consoleWidth - 1));
 				}
@@ -117,6 +110,7 @@ public static class OptionsScreen
 			{
 				switch (Console.ReadKey(true).Key)
 				{
+					case ConsoleKey.Escape: return;
 					case ConsoleKey.UpArrow or ConsoleKey.W:   selectedOption = Math.Max(0, selectedOption - 1); needToRender = true; break;
 					case ConsoleKey.DownArrow or ConsoleKey.S: selectedOption = Math.Min(5, selectedOption + 1); needToRender = true; break;
 					case ConsoleKey.Enter or ConsoleKey.E:
@@ -125,12 +119,12 @@ public static class OptionsScreen
 							case 0: DisableMovementAnimation = !DisableMovementAnimation; needToRender = true; break;
 							case 1: DisableBattleTransition = !DisableBattleTransition; needToRender = true; break;
 							case 2: DisableBattle = !DisableBattle; needToRender = true; break;
-							case 3: ConsoleColorSettingsScreen.ColorSchemeMenu(); needToRender = true; break;
+							case 3: ColorsScreen.ColorSchemeMenu(); needToRender = true; break;
 							case 4: ControlsScreen.ControlsMenu(); needToRender = true; break;
 							case 5: return;
+							default: throw new NotImplementedException();
 						}
 						break;
-					case ConsoleKey.Escape: return;
 				}
 			}
 			// prevent CPU spiking
