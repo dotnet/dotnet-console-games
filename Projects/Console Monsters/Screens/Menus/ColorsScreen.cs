@@ -2,7 +2,7 @@ namespace Console_Monsters.Screens.Menus;
 
 public static class ColorsScreen
 {
-	public static void ColorSchemeMenu()
+	public static void Show()
 	{
 		string[] bigHeader = new[]
 		{

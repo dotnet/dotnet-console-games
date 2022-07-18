@@ -97,8 +97,8 @@ class Route2 : MapBase
 		switch (SpriteSheet[j][i])
 		{
 			case '0':
-				map = new Route1();
-				map.SpawnCharacterOn('1');
+				Map = new Route1();
+				Map.SpawnCharacterOn('1');
 				break;
 			case 'G':
 				if (!DisableBattle && Random.Shared.Next(2) is 0) // BATTLE CHANCE

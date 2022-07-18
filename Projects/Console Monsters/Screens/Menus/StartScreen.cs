@@ -97,12 +97,12 @@ public static class StartScreen
 								FirstTimeLaunching = false;
 								return;
 							case 1:
-								OptionsScreen.OptionsMenu();
+								OptionsScreen.Show();
 								Console.Clear();
 								needToRender = true;
 								break;
 							case 2:
-								gameRunning = false;
+								GameRunning = false;
 								return;
 							default:
 								throw new NotImplementedException();
@@ -111,7 +111,7 @@ public static class StartScreen
 					case ConsoleKey.Escape:
 						if (FirstTimeLaunching)
 						{
-							gameRunning = false;
+							GameRunning = false;
 						}
 						return;
 				}
