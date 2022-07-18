@@ -25,26 +25,29 @@ public static class AudioController
 
 	public static void PlaySound(string fileName)
 	{
-		if (OperatingSystem.IsWindows())
+		if (AudioEnabled)
 		{
-			if (!File.Exists(fileName)) throw new FileNotFoundException("attempted to play a non-existant audio file", fileName);
-			if (soundPlayer is not null)
+			if (OperatingSystem.IsWindows())
 			{
-				if (!(isPlaying && soundPlayer.SoundLocation == fileName))
+				if (!File.Exists(fileName)) throw new FileNotFoundException("attempted to play a non-existant audio file", fileName);
+				if (soundPlayer is not null)
 				{
-					try
+					if (!(isPlaying && soundPlayer.SoundLocation == fileName))
 					{
-						soundPlayer.SoundLocation = fileName;
-						soundPlayer.PlayLooping();
-					}
-					catch
-					{
-						// intentionally left blank
+						try
+						{
+							soundPlayer.SoundLocation = fileName;
+							soundPlayer.PlayLooping();
+						}
+						catch
+						{
+							// intentionally left blank
+						}
 					}
 				}
 			}
+			isPlaying = true;
 		}
-		isPlaying = true;
 	}
 
 	public static void StopSound()
