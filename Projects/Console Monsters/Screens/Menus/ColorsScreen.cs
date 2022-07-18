@@ -90,12 +90,12 @@ public static class ColorsScreen
 			}
 			while (Console.KeyAvailable)
 			{
-				switch (Console.ReadKey(true).Key)
+				switch (keyMappings.GetValueOrDefault(Console.ReadKey(true).Key))
 				{
-					case ConsoleKey.Escape: return;
-					case ConsoleKey.UpArrow or ConsoleKey.W:   selectedOption = Math.Max(0, selectedOption - 1); needToRender = true; break;
-					case ConsoleKey.DownArrow or ConsoleKey.S: selectedOption = Math.Min(7, selectedOption + 1); needToRender = true; break;
-					case ConsoleKey.Enter or ConsoleKey.E:
+					case UserKeyPress.Escape: return;
+					case UserKeyPress.Up:   selectedOption = Math.Max(0, selectedOption - 1); needToRender = true; break;
+					case UserKeyPress.Down: selectedOption = Math.Min(7, selectedOption + 1); needToRender = true; break;
+					case UserKeyPress.Confirm:
 						switch (selectedOption)
 						{
 							case 0:

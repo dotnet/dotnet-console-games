@@ -79,7 +79,8 @@ public static class ControlsScreen
 						$@"{(selectedOption is 5 ? ">" : " ")} Confirm:  {reverseKeyMappings[UserKeyPress.Confirm].ToDisplayString()}           ",
 						$@"{(selectedOption is 6 ? ">" : " ")} Status:   {reverseKeyMappings[UserKeyPress.Status].ToDisplayString() }           ",
 						$@"{(selectedOption is 7 ? ">" : " ")} Escape:   {reverseKeyMappings[UserKeyPress.Escape].ToDisplayString() }           ",
-						$@"{(selectedOption is 8 ? ">" : " ")} Back",
+						$@"{(selectedOption is 8 ? ">" : " ")} Restore Defaults",
+						$@"{(selectedOption is 9 ? ">" : " ")} Back",
 					};
 					buffer = ScreenHelpers.Center(render, (consoleHeight - 1, consoleWidth - 1));
 				}
@@ -89,17 +90,17 @@ public static class ControlsScreen
 			}
 			while (Console.KeyAvailable)
 			{
-				switch (Console.ReadKey(true).Key)
+				switch (keyMappings.GetValueOrDefault(Console.ReadKey(true).Key))
 				{
-					case ConsoleKey.UpArrow or ConsoleKey.W:
+					case UserKeyPress.Up:
 						selectedOption = Math.Max(0, selectedOption - 1);
 						needToRender = true;
 						break;
-					case ConsoleKey.DownArrow or ConsoleKey.S:
-						selectedOption = Math.Min(8, selectedOption + 1);
+					case UserKeyPress.Down:
+						selectedOption = Math.Min(9, selectedOption + 1);
 						needToRender = true;
 						break;
-					case ConsoleKey.Enter or ConsoleKey.E:
+					case UserKeyPress.Confirm:
 						switch (selectedOption)
 						{
 							case 0: PerformKeyMap(UserKeyPress.Up);      needToRender = true; break;
@@ -110,14 +111,15 @@ public static class ControlsScreen
 							case 5: PerformKeyMap(UserKeyPress.Confirm); needToRender = true; break;
 							case 6: PerformKeyMap(UserKeyPress.Status);  needToRender = true; break;
 							case 7: PerformKeyMap(UserKeyPress.Escape);  needToRender = true; break;
-							case 8:
+							case 8: DefaultKeyMappings(); needToRender = true; break;
+							case 9:
 								GameRunning = false;
 								return;
 							default:
 								throw new NotImplementedException();
 						}
 						break;
-					case ConsoleKey.Escape:
+					case UserKeyPress.Escape:
 						if (FirstTimeLaunching)
 						{
 							GameRunning = false;
