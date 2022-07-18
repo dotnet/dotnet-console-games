@@ -61,7 +61,7 @@ class Route2 : MapBase
 			switch (SpriteSheet[j][i])
 			{
 				case 's':
-					promptText = new string[]
+					PromptText = new string[]
 					{
 						"Sign Says:",
 						"Vejle Town <----- -----> Aalborg City",
@@ -108,7 +108,7 @@ class Route2 : MapBase
 					{
 						BattleTransition.Random();
 					}
-					BattleScreen.Render(MonsterBase.GetRandom(), MonsterBase.GetRandom());
+					BattleScreen.Render(partyMonsters[0], MonsterBase.GetRandom());
 					//Battle();
 					ConsoleHelper.PressToContinue();
 				}

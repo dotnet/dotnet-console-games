@@ -71,7 +71,7 @@ internal static class MapScreen
 				}
 
 				// message prompt if there is one
-				if (promptText is not null)
+				if (PromptText is not null)
 				{
 					if (i is 10 && j == midHeight + 4)
 					{
@@ -105,9 +105,9 @@ internal static class MapScreen
 					}
 					if (i > 10 && i < width - 11 && j > midHeight + 4 && j < heightCutOff - 3)
 					{
-						if (j - (midHeight + 5) < promptText.Length)
+						if (j - (midHeight + 5) < PromptText.Length)
 						{
-							string line = promptText[j - (midHeight + 5)];
+							string line = PromptText[j - (midHeight + 5)];
 							if (i - 11 < line.Length)
 							{
 								sb.Append(line[i - 11]);

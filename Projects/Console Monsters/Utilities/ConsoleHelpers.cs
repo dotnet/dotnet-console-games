@@ -13,7 +13,7 @@ public static class ConsoleHelpers
 				try
 				{
 					if (Console.BufferHeight != height) Console.BufferHeight = height;
-					if (Console.BufferWidth != width) Console.BufferWidth = width;
+					if (Console.BufferWidth  != width)  Console.BufferWidth  = width;
 				}
 				catch (Exception)
 				{
@@ -34,7 +34,7 @@ public static class ConsoleHelpers
 
 	public static bool ClearIfConsoleResized(ref int previousWidth, ref int previousHeight)
 	{
-		var (width, height) = ConsoleHelpers.GetWidthAndHeight();
+		var (width, height) = GetWidthAndHeight();
 		if ((previousWidth, previousHeight) != (width, height))
 		{
 			(previousWidth, previousHeight) = (width, height);

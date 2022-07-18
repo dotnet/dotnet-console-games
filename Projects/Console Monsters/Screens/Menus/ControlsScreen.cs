@@ -142,7 +142,7 @@ public static class ControlsScreen
 			return;
 		}
 		Console.Clear();
-		Console.Write($"Press a key to use for the Alternate {userInput} input...");
+		Console.Write($"Press a key to use for the Alternate {userInput} input or [{reverseKeyMappings[UserKeyPress.Escape].ToDisplayString()}] to leave empty...");
 		ConsoleKey? alternate = Console.ReadKey(true).Key;
 		if (keyMappings.ContainsKey(alternate.Value) && keyMappings[alternate.Value] is UserKeyPress.Escape)
 		{

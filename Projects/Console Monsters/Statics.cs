@@ -8,6 +8,7 @@ public static class Statics
 	public static bool DisableBattle { get; set; } = false;
 	public static bool DisableBattleTransition { get; set; } = false;
 	public static bool FirstTimeLaunching { get; set; } = true;
+	public static bool AudioEnabled { get; set; } = true;
 
 	#endregion
 
@@ -17,11 +18,27 @@ public static class Statics
 	public readonly static Player character = new();
 	public readonly static List<MonsterBase> ownedMonsters = new();
 	public readonly static List<MonsterBase> partyMonsters = new();
-
 	public readonly static Dictionary<ConsoleKey, UserKeyPress> keyMappings = new();
 	public readonly static Dictionary<UserKeyPress, (ConsoleKey Main, ConsoleKey? Alternate)> reverseKeyMappings = new();
 
-	public static MapBase Map { get; set; } = new PaletTown();
+	private static MapBase map = null!;
+
+	public static MapBase Map
+	{
+		get => map;
+		set
+		{
+			map = value;
+			if (map is not null && map.AudioFile is not null)
+			{
+				AudioController.PlaySound(map.AudioFile);
+			}
+			else
+			{
+				AudioController.StopSound();
+			}
+		}
+	}
 	public static DateTime PrevioiusRender { get; set; } = DateTime.Now;
 	public const int MaxPartySize = 6;
 	public static bool GameRunning { get; set; } = true;
@@ -60,7 +77,7 @@ public static class Statics
 	{
 		get
 		{
-			if (promptText is not null)
+			if (PromptText is not null)
 			{
 				return MapTextPressEnter;
 			}
@@ -76,17 +93,16 @@ public static class Statics
 		}
 	}
 
-	public static readonly string[] battletext = new[]
+	public static string[] BattleText => new[]
 	{
-		//"[↑, W, ←, A, ↓, S, →, D]: Move Selection, [E]: Select, [Escape]: Back",
-		"Battles are still in development.",
-		"We are just showing two random monsters at the moment.",
-		"[Enter]: exit battle"
+		$"Battles are still in development.",
+		$"Let's just pretend you won this battle. :D",
+		$"[{reverseKeyMappings[UserKeyPress.Confirm].ToDisplayString()}]: exit battle"
 	};
 
-	public static string[]? promptText = null;
+	public static string[]? PromptText { get; set; } = null;
 
-	public static int SelectedPlayerInventoryItem = 0;
+	public static int SelectedPlayerInventoryItem { get; set; } = 0;
 	public static readonly Towel.DataStructures.IBag<ItemBase> PlayerInventory = Towel.DataStructures.BagMap.New<ItemBase>();
 
 	static Statics()
@@ -95,8 +111,6 @@ public static class Statics
 		{
 			Animation = Player.IdleDown,
 		};
-		Map = new PaletTown();
-		Map.SpawnCharacterOn('X');
 		PlayerInventory.TryAdd(ExperienceBerries.Instance);
 		PlayerInventory.TryAdd(HealthPotionLarge.Instance);
 		PlayerInventory.TryAdd(HealthPotionMedium.Instance);
@@ -107,6 +121,8 @@ public static class Statics
 		PlayerInventory.TryAdd(Key.Instance);
 		PlayerInventory.TryAdd(Candle.Instance);
 		DefaultKeyMappings();
+		partyMonsters.Clear();
+		partyMonsters.Add(new Turtle());
 	}
 
 	[System.Diagnostics.DebuggerHidden]

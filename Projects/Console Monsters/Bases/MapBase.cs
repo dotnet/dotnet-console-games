@@ -38,6 +38,9 @@ public abstract class MapBase
 		return null;
 	}
 
+	/// <summary>The file name for the audio that will be played when this map is active.</summary>
+	public virtual string? AudioFile => null;
+
 	/// <summary>Gets the sprite for a given tile coordinate in the <see cref="MapBase"/>.</summary>
 	public abstract string GetMapTileRender(int i, int j);
 
