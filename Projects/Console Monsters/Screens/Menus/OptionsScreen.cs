@@ -2,7 +2,7 @@
 
 public static class OptionsScreen
 {
-	public static void OptionsMenu()
+	public static void Show()
 	{
 		string[] bigHeader = new[]
 		{
@@ -119,7 +119,7 @@ public static class OptionsScreen
 							case 0: DisableMovementAnimation = !DisableMovementAnimation; needToRender = true; break;
 							case 1: DisableBattleTransition = !DisableBattleTransition; needToRender = true; break;
 							case 2: DisableBattle = !DisableBattle; needToRender = true; break;
-							case 3: ColorsScreen.ColorSchemeMenu(); needToRender = true; break;
+							case 3: ColorsScreen.Show(); needToRender = true; break;
 							case 4: ControlsScreen.ControlsMenu(); needToRender = true; break;
 							case 5: return;
 							default: throw new NotImplementedException();

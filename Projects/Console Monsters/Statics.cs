@@ -18,12 +18,26 @@ public static class Statics
 	public readonly static List<MonsterBase> ownedMonsters = new();
 	public readonly static List<MonsterBase> partyMonsters = new();
 
-	public static MapBase map = new PaletTown();
-	public static DateTime previoiusRender = DateTime.Now;
-	public static int maxPartySize = 6;
-	public static bool gameRunning { get; set; } = true;
-	public static bool startMenu { get; set; } = true;
-	public static bool inInventory { get; set; } = false;
+	public readonly static Dictionary<ConsoleKey, UserKeyPress> keyMappings = new();
+	public readonly static Dictionary<UserKeyPress, (ConsoleKey Main, ConsoleKey? Alternate)> reverseKeyMappings = new()
+	{
+		// input                main                    alternate
+		{ UserKeyPress.Up,      (ConsoleKey.UpArrow,    ConsoleKey.W) },
+		{ UserKeyPress.Down,    (ConsoleKey.DownArrow,  ConsoleKey.S) },
+		{ UserKeyPress.Left,    (ConsoleKey.LeftArrow,  ConsoleKey.A) },
+		{ UserKeyPress.Right,   (ConsoleKey.RightArrow, ConsoleKey.D) },
+		{ UserKeyPress.Confirm, (ConsoleKey.Enter,      null) },
+		{ UserKeyPress.Action,  (ConsoleKey.E,          null) },
+		{ UserKeyPress.Status,  (ConsoleKey.B,          null) },
+		{ UserKeyPress.Escape,  (ConsoleKey.Escape,     null) },
+	};
+
+	public static MapBase Map { get; set; } = new PaletTown();
+	public static DateTime PrevioiusRender { get; set; } = DateTime.Now;
+	public const int MaxPartySize = 6;
+	public static bool GameRunning { get; set; } = true;
+	public static bool StartMenu { get; set; } = true;
+	public static bool InInventory { get; set; } = false;
 
 	public static readonly string[] defaultMaptext = new[]
 	{
@@ -51,7 +65,7 @@ public static class Statics
 			if (character.IsIdle)
 			{
 				var interactTile = character.InteractTile;
-				if (map.CanInteractWithMapTile(interactTile.I, interactTile.J))
+				if (Map.CanInteractWithMapTile(interactTile.I, interactTile.J))
 				{
 					return defaultMaptextWithInteract;
 				}
@@ -79,8 +93,8 @@ public static class Statics
 		{
 			Animation = Player.IdleDown,
 		};
-		map = new PaletTown();
-		map.SpawnCharacterOn('X');
+		Map = new PaletTown();
+		Map.SpawnCharacterOn('X');
 		PlayerInventory.TryAdd(ExperienceBerries.Instance);
 		PlayerInventory.TryAdd(HealthPotionLarge.Instance);
 		PlayerInventory.TryAdd(HealthPotionMedium.Instance);
@@ -90,8 +104,22 @@ public static class Statics
 		PlayerInventory.TryAdd(Leaf.Instance);
 		PlayerInventory.TryAdd(Key.Instance);
 		PlayerInventory.TryAdd(Candle.Instance);
+		ApplyKeyMappings();
 	}
 
 	[System.Diagnostics.DebuggerHidden]
 	public static (int, int) Subtract((int, int) a, (int, int) b) => (a.Item1 - b.Item1, a.Item2 - b.Item2);
+
+	public static void ApplyKeyMappings()
+	{
+		keyMappings.Clear();
+		foreach (var pair in reverseKeyMappings)
+		{
+			keyMappings.Add(pair.Value.Main, pair.Key);
+			if (pair.Value.Alternate is not null)
+			{
+				keyMappings.Add(pair.Value.Alternate.Value, pair.Key);
+			}
+		}
+	}
 }

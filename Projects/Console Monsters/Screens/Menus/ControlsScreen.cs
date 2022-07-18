@@ -4,104 +4,167 @@ public static class ControlsScreen
 {
 	public static void ControlsMenu()
 	{
-		StringBuilder sb = new();
-
-		int arrowOption = 1;
-		const int maxOption = 6;
-
-		string optionIndent = new(' ', 50);
-		string headerIndent = new(' ', 85);
-		string titleIndent = new(' ', 40);
-
-		string[] currentUp = Sprites.W;
-		string[] currentDown = Sprites.S;
-		string[] currentLeft = Sprites.A;
-		string[] currentRight = Sprites.D;
-
-		string[] currentUpAlt = Sprites.UpArrow;
-		string[] currentDownAlt = Sprites.DownArrow;
-		string[] currentLeftAlt = Sprites.LeftArrow;
-		string[] currentRightAlt = Sprites.RightArrow;
-
-		string[] currentInteract = Sprites.E;
-		string[] currentInteractAlt = Sprites.Enter;
-
-		string boxTop = Sprites.BoxTop;
-		string boxSide = Sprites.BoxSide;
-		string boxBottom = Sprites.BoxBottom;
-		string boxEmpty = new(' ', 9);
-
-		int upOption = 1;
-
-		Console.Clear();
-	ReDraw:
-		sb.Clear();
-
-		sb.Append('\n', 3); // SET TO 6 WHEN SCROLL
-		sb.AppendLine(@$"{titleIndent}██╗  ██╗███████╗██╗   ██╗    ███╗   ███╗ █████╗ ██████╗ ██████╗ ██╗███╗   ██╗ ██████╗ ");
-		sb.AppendLine(@$"{titleIndent}██║ ██╔╝██╔════╝╚██╗ ██╔╝    ████╗ ████║██╔══██╗██╔══██╗██╔══██╗██║████╗  ██║██╔════╝ ");
-		sb.AppendLine(@$"{titleIndent}█████╔╝ █████╗   ╚████╔╝     ██╔████╔██║███████║██████╔╝██████╔╝██║██╔██╗ ██║██║  ███╗");
-		sb.AppendLine(@$"{titleIndent}██╔═██╗ ██╔══╝    ╚██╔╝      ██║╚██╔╝██║██╔══██║██╔═══╝ ██╔═══╝ ██║██║╚██╗██║██║   ██║");
-		sb.AppendLine(@$"{titleIndent}██║  ██╗███████╗   ██║       ██║ ╚═╝ ██║██║  ██║██║     ██║     ██║██║ ╚████║╚██████╔╝");
-		sb.AppendLine(@$"{titleIndent}╚═╝  ╚═╝╚══════╝   ╚═╝       ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝     ╚═╝╚═╝  ╚═══╝ ╚═════╝ ");
-		sb.Append('\n', 3); // SET TO 6 WHEN SCROLL
-		sb.AppendLine($@"{headerIndent}▄   ▄  ▄▄  ▄ ▄   ▄   █    ▄▄  ▄   ▄▄▄▄▄");
-		sb.AppendLine(@$"{headerIndent}█▀▄▀█ █▄▄█ █ █▀▄ █   █   █▄▄█ █     █  ");
-		sb.AppendLine(@$"{headerIndent}█   █ █  █ █ █  ▀█   █   █  █ █▄▄   █  ");
-		sb.AppendLine();
-		sb.AppendLine($@"{new(' ', 89)}{(upOption == 1 ? boxTop : boxEmpty)}{new(' ', 18)}{boxTop}");
-		sb.AppendLine(@$"{optionIndent}▄   ▄ ▄▄▄   {new(' ', 27)}{boxSide} {currentUp[0]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentUpAlt[0]}   {(arrowOption is 1 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█   █ █▄▄▀ ▀{new(' ', 27)}{boxSide} {currentUp[1]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentUpAlt[1]}   {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}▀▄▄▄▀ █    ▄{new(' ', 27)}{boxSide} {currentUp[2]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentUpAlt[2]}   {(arrowOption is 1 ? "╰───╯" : "     ")}");
-		sb.AppendLine($@"{new(' ', 89)}{boxBottom}{new(' ', 18)}{boxBottom}");
-		sb.AppendLine();
-		sb.AppendLine($@"{new(' ', 89)}{boxTop}{new(' ', 18)}{boxTop}");
-		sb.AppendLine(@$"{optionIndent}▄▄▄   ▄▄▄  ▄   ▄ ▄   ▄  {new(' ', 15)}{boxSide} {currentDown[0]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{boxSide} {currentDownAlt[0]} {boxSide}   {(arrowOption is 2 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█  █ █   █ █ ▄ █ █▀▄ █ ▀{new(' ', 15)}{boxSide} {currentDown[1]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{boxSide} {currentDownAlt[1]} {boxSide}   {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█▄▄▀ ▀▄▄▄▀ █▀ ▀█ █  ▀█ ▄{new(' ', 15)}{boxSide} {currentDown[2]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{boxSide} {currentDownAlt[2]} {boxSide}   {(arrowOption is 2 ? "╰───╯" : "     ")}");
-		sb.AppendLine($@"{new(' ', 89)}{boxBottom}{new(' ', 18)}{boxBottom}");
-		sb.AppendLine();
-		sb.AppendLine($@"{new(' ', 89)}{boxTop}{new(' ', 18)}{boxTop}");
-		sb.AppendLine(@$"{optionIndent}▄   ▄▄▄▄ ▄▄▄▄ ▄▄▄▄▄  {new(' ', 18)}{boxSide} {currentLeft[0]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentLeftAlt[0]}   {(arrowOption is 3 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█   █▄▄  █▄▄    █   ▀{new(' ', 18)}{boxSide} {currentLeft[1]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentLeftAlt[1]}   {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█▄▄ █▄▄▄ █      █   ▄{new(' ', 18)}{boxSide} {currentLeft[2]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentLeftAlt[2]}   {(arrowOption is 3 ? "╰───╯" : "     ")}");
-		sb.AppendLine($@"{new(' ', 89)}{boxBottom}{new(' ', 18)}{boxBottom}");
-		sb.AppendLine();
-		sb.AppendLine($@"{new(' ', 89)}{boxTop}{new(' ', 18)}{boxTop}");
-		sb.AppendLine(@$"{optionIndent}▄▄▄  ▄  ▄▄▄  ▄  ▄ ▄▄▄▄▄  {new(' ', 14)}{boxSide} {currentRight[0]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentRightAlt[0]}   {(arrowOption is 4 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█▄▄▀ █ █  ▄▄ █▄▄█   █   ▀{new(' ', 14)}{boxSide} {currentRight[1]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentRightAlt[1]}   {(arrowOption is 4 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█  █ █ ▀▄▄▄▀ █  █   █   ▄{new(' ', 14)}{boxSide} {currentRight[2]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentRightAlt[2]}   {(arrowOption is 4 ? "╰───╯" : "     ")}");
-		sb.AppendLine($@"{new(' ', 89)}{boxBottom}{new(' ', 18)}{boxBottom}");
-		sb.AppendLine();
-		sb.AppendLine($@"{new(' ', 89)}{boxTop}{new(' ', 18)}{boxTop}");
-		sb.AppendLine(@$"{optionIndent} ▄▄   ▄▄▄ ▄▄▄▄▄ ▄  ▄▄▄  ▄   ▄  {new(' ', 8)}{boxSide} {currentInteract[0]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentInteractAlt[0]}   {(arrowOption is 5 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█▄▄█ █      █   █ █   █ █▀▄ █ ▀{new(' ', 8)}{boxSide} {currentInteract[1]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentInteractAlt[1]}   {(arrowOption is 5 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█  █ ▀▄▄▄   █   █ ▀▄▄▄▀ █  ▀█ ▄{new(' ', 8)}{boxSide} {currentInteract[2]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentInteractAlt[2]}   {(arrowOption is 5 ? "╰───╯" : "     ")}");
-		sb.AppendLine($@"{new(' ', 89)}{boxBottom}{new(' ', 18)}{boxBottom}");
-		sb.AppendLine();
-		sb.AppendLine(@$"{optionIndent}▄▄▄   ▄▄   ▄▄▄ ▄  ▄   {(arrowOption is maxOption ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█▄▄█ █▄▄█ █    █▄▀    {(arrowOption is maxOption ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█▄▄▀ █  █ ▀▄▄▄ █ ▀▄   {(arrowOption is maxOption ? "╰───╯" : "     ")}");
-
-		Console.SetCursorPosition(0, 0);
-		Console.WriteLine(sb);
-
-		switch (Console.ReadKey(true).Key)
+		string[] bigHeader = new[]
 		{
-			case ConsoleKey.UpArrow or ConsoleKey.W: arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
-			case ConsoleKey.DownArrow or ConsoleKey.S: arrowOption = Math.Min(maxOption, arrowOption + 1); goto ReDraw;
-			case ConsoleKey.Enter or ConsoleKey.E:
-				switch (arrowOption)
+			"██╗  ██╗███████╗██╗   ██╗    ███╗   ███╗ █████╗ ██████╗ ██████╗ ██╗███╗   ██╗ ██████╗ ",
+			"██║ ██╔╝██╔════╝╚██╗ ██╔╝    ████╗ ████║██╔══██╗██╔══██╗██╔══██╗██║████╗  ██║██╔════╝ ",
+			"█████╔╝ █████╗   ╚████╔╝     ██╔████╔██║███████║██████╔╝██████╔╝██║██╔██╗ ██║██║  ███╗",
+			"██╔═██╗ ██╔══╝    ╚██╔╝      ██║╚██╔╝██║██╔══██║██╔═══╝ ██╔═══╝ ██║██║╚██╗██║██║   ██║",
+			"██║  ██╗███████╗   ██║       ██║ ╚═╝ ██║██║  ██║██║     ██║     ██║██║ ╚████║╚██████╔╝",
+			"╚═╝  ╚═╝╚══════╝   ╚═╝       ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝     ╚═╝╚═╝  ╚═══╝ ╚═════╝ ",
+		};
+		int bigHeaderWidth = bigHeader.Max(line => line.Length);
+		const int bigHeaderPadding = 2;
+		const int optionPadding = 1;
+		var (consoleWidth, consoleHeight) = ConsoleHelpers.GetWidthAndHeight();
+		Console.Clear();
+		int selectedOption = 0;
+		bool needToRender = true;
+		Console.CursorVisible = false;
+		while (true)
+		{
+			if (ConsoleHelpers.ClearIfConsoleResized(ref consoleWidth, ref consoleHeight))
+			{
+				needToRender = true;
+				Console.CursorVisible = false;
+			}
+			if (needToRender)
+			{
+				StringBuilder? buffer = null;
+				//if (consoleWidth - 1 >= bigHeaderWidth)
+				//{
+				//	string[][] options = new[]
+				//	{
+				//		AsciiGenerator.ToAscii((selectedOption is 0 ? "■" : "□") + " up:"),
+				//		AsciiGenerator.ToAscii((selectedOption is 0 ? "■" : "□") + " down:"),
+				//		AsciiGenerator.ToAscii((selectedOption is 0 ? "■" : "□") + " left:"),
+				//		AsciiGenerator.ToAscii((selectedOption is 0 ? "■" : "□") + " right:"),
+				//		AsciiGenerator.ToAscii((selectedOption is 1 ? "■" : "□") + " options"),
+				//		AsciiGenerator.ToAscii((selectedOption is 2 ? "■" : "□") + " exit"),
+				//	};
+				//	int optionsWidth = options.Max(o => o.Max(l => l.Length));
+				//	int bigRenderHeight = bigHeader.Length + options.Sum(o => o.Length) + bigHeaderPadding + optionPadding * options.Length;
+				//	if (consoleHeight - 1 >= bigRenderHeight && consoleWidth - 1 >= optionsWidth)
+				//	{
+				//		int indentSize = Math.Max(0, (bigHeaderWidth - optionsWidth) / 2);
+				//		string indent = new(' ', indentSize);
+				//		string[] render = new string[bigRenderHeight];
+				//		int i = 0;
+				//		foreach (string line in bigHeader)
+				//		{
+				//			render[i++] = line;
+				//		}
+				//		i += bigHeaderPadding;
+				//		foreach (string[] option in options)
+				//		{
+				//			i += optionPadding;
+				//			foreach (string line in option)
+				//			{
+				//				render[i++] = indent + line;
+				//			}
+				//		}
+				//		buffer = ScreenHelpers.Center(render, (consoleHeight - 1, consoleWidth - 1));
+				//	}
+				//}
+				if (buffer is null)
 				{
-					case 1: goto ReDraw;
-					case 2: goto ReDraw;
-					case 3: goto ReDraw;
-					case 4: goto ReDraw;
-					case maxOption: break;
+					string[] render = new[]
+					{
+						$@"Key Mapping",
+						$@"{(selectedOption is 0 ? ">" : " ")} Up:       {reverseKeyMappings[UserKeyPress.Up].ToDisplayString()     }           ",
+						$@"{(selectedOption is 1 ? ">" : " ")} Down:     {reverseKeyMappings[UserKeyPress.Down].ToDisplayString()   }           ",
+						$@"{(selectedOption is 2 ? ">" : " ")} Left:     {reverseKeyMappings[UserKeyPress.Left].ToDisplayString()   }           ",
+						$@"{(selectedOption is 3 ? ">" : " ")} Right:    {reverseKeyMappings[UserKeyPress.Right].ToDisplayString()  }           ",
+						$@"{(selectedOption is 4 ? ">" : " ")} Action:   {reverseKeyMappings[UserKeyPress.Action].ToDisplayString() }           ",
+						$@"{(selectedOption is 5 ? ">" : " ")} Confirm:  {reverseKeyMappings[UserKeyPress.Confirm].ToDisplayString()}           ",
+						$@"{(selectedOption is 6 ? ">" : " ")} Status:   {reverseKeyMappings[UserKeyPress.Status].ToDisplayString() }           ",
+						$@"{(selectedOption is 7 ? ">" : " ")} Escape:   {reverseKeyMappings[UserKeyPress.Escape].ToDisplayString() }           ",
+						$@"{(selectedOption is 8 ? ">" : " ")} Back",
+					};
+					buffer = ScreenHelpers.Center(render, (consoleHeight - 1, consoleWidth - 1));
 				}
-				break;
-			case ConsoleKey.Escape: OptionsScreen.OptionsMenu(); break;
-			default: goto ReDraw;
+				Console.SetCursorPosition(0, 0);
+				Console.Write(buffer);
+				needToRender = false;
+			}
+			while (Console.KeyAvailable)
+			{
+				switch (Console.ReadKey(true).Key)
+				{
+					case ConsoleKey.UpArrow or ConsoleKey.W:
+						selectedOption = Math.Max(0, selectedOption - 1);
+						needToRender = true;
+						break;
+					case ConsoleKey.DownArrow or ConsoleKey.S:
+						selectedOption = Math.Min(8, selectedOption + 1);
+						needToRender = true;
+						break;
+					case ConsoleKey.Enter or ConsoleKey.E:
+						switch (selectedOption)
+						{
+							case 0: PerformKeyMap(UserKeyPress.Up);      needToRender = true; break;
+							case 1: PerformKeyMap(UserKeyPress.Down);    needToRender = true; break;
+							case 2: PerformKeyMap(UserKeyPress.Left);    needToRender = true; break;
+							case 3: PerformKeyMap(UserKeyPress.Right);   needToRender = true; break;
+							case 4: PerformKeyMap(UserKeyPress.Action);  needToRender = true; break;
+							case 5: PerformKeyMap(UserKeyPress.Confirm); needToRender = true; break;
+							case 6: PerformKeyMap(UserKeyPress.Status);  needToRender = true; break;
+							case 7: PerformKeyMap(UserKeyPress.Escape);  needToRender = true; break;
+							case 8:
+								GameRunning = false;
+								return;
+							default:
+								throw new NotImplementedException();
+						}
+						break;
+					case ConsoleKey.Escape:
+						if (FirstTimeLaunching)
+						{
+							GameRunning = false;
+						}
+						return;
+				}
+			}
+			// prevent CPU spiking
+			Thread.Sleep(TimeSpan.FromMilliseconds(1));
+		}
+	}
+
+	private static void PerformKeyMap(UserKeyPress userInput)
+	{
+		Console.Clear();
+		Console.Write($"Press a key to use for the Main {userInput} input...");
+		ConsoleKey main = Console.ReadKey(true).Key;
+		if (keyMappings.ContainsKey(main) && keyMappings[main] is UserKeyPress.Escape)
+		{
+			return;
+		}
+		Console.Clear();
+		Console.Write($"Press a key to use for the Alternate {userInput} input...");
+		ConsoleKey? alternate = Console.ReadKey(true).Key;
+		if (keyMappings.ContainsKey(alternate.Value) && keyMappings[alternate.Value] is UserKeyPress.Escape)
+		{
+			alternate = null;
+		}
+		bool valid_main = !keyMappings.ContainsKey(main) || keyMappings[main] == userInput;
+		bool valid_alternate = alternate is null || !keyMappings.ContainsKey(alternate.Value) || keyMappings[alternate.Value] == userInput;
+		if (valid_main && valid_alternate)
+		{
+			reverseKeyMappings[userInput] = (main, alternate);
+			ApplyKeyMappings();
+		}
+		else
+		{
+			Console.Clear();
+			Console.Write($"Keys were already in use. Setting could not be applied. Press {reverseKeyMappings[UserKeyPress.Confirm].ToDisplayString()} to continue...");
+			while (true)
+			{
+				ConsoleKey key = Console.ReadKey(true).Key;
+				if (keyMappings.ContainsKey(key) && keyMappings[key] is UserKeyPress.Confirm)
+				{
+					break;
+				}
+			}
 		}
 	}
 }

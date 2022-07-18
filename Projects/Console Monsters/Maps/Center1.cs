@@ -132,8 +132,8 @@ public class Center1 : MapBase
 		switch (SpriteSheet[j][i])
 		{
 			case '0':
-				map = new PaletTown();
-				map.SpawnCharacterOn('0');
+				Map = new PaletTown();
+				Map.SpawnCharacterOn('0');
 				break;
 		}
 	}

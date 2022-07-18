@@ -125,16 +125,16 @@ public class House1 : MapBase
 		switch (SpriteSheet[j][i])
 		{
 			case '0':
-				map = new PaletTown();
-				map.SpawnCharacterOn('2');
+				Map = new PaletTown();
+				Map.SpawnCharacterOn('2');
 				break;
 			case 'i':
-				map = new House1SecondFloor();
-				map.SpawnCharacterOn('i');
+				Map = new House1SecondFloor();
+				Map.SpawnCharacterOn('i');
 				break;
 			case 'j':
-				map = new House1SecondFloor();
-				map.SpawnCharacterOn('j');
+				Map = new House1SecondFloor();
+				Map.SpawnCharacterOn('j');
 				break;
 
 		}

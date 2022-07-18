@@ -137,12 +137,12 @@ public class House1SecondFloor : MapBase
 		switch (SpriteSheet[j][i])
 		{
 			case 'i':
-				map = new House1();
-				map.SpawnCharacterOn('1');
+				Map = new House1();
+				Map.SpawnCharacterOn('1');
 				break;
 			case 'j':
-				map = new House1();
-				map.SpawnCharacterOn('2');
+				Map = new House1();
+				Map.SpawnCharacterOn('2');
 				break;
 		}
 	}
