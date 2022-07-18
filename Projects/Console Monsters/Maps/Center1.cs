@@ -2,6 +2,8 @@
 
 public class Center1 : MapBase
 {
+	public override string? AudioFile => AudioController.CoDA_Lullaby;
+
 	private static readonly char[][] spriteSheet = new char[][]
 		{
 			"affffifffffjffffb".ToCharArray(),
@@ -78,7 +80,7 @@ public class Center1 : MapBase
 			switch (SpriteSheet[j][i])
 			{
 				case 'k':
-					promptText = new string[]
+					PromptText = new string[]
 					{
 					" Hello and welcome to the monster center.",
 					" I will heal all your monsters.",
@@ -89,7 +91,7 @@ public class Center1 : MapBase
 					}
 					break;
 				case 's':
-					promptText = new string[]
+					PromptText = new string[]
 					{
 						"You picked up a MonsterBox",
 					};
@@ -97,7 +99,7 @@ public class Center1 : MapBase
 					spriteSheet[j][i] = ' ';
 					break;
 				case 'q':
-					promptText = new string[]
+					PromptText = new string[]
 					{
 						"...",
 					};

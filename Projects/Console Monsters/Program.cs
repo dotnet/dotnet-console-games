@@ -95,7 +95,7 @@ public partial class Program
 					UserKeyPress.Down or
 					UserKeyPress.Left or
 					UserKeyPress.Right:
-					if (promptText is not null)
+					if (PromptText is not null)
 					{
 						break;
 					}
@@ -149,19 +149,10 @@ public partial class Program
 					}
 					break;
 				case UserKeyPress.Status:
-					if (promptText is not null)
+					if (PromptText is not null)
 					{
 						break; 
 					}
-
-					#warning TODO: this is temporary population of monsters during developemnt
-					partyMonsters.Clear();
-					Turtle turtle = new();
-					for (int i = 0; i < (MaxPartySize - GameRandom.Next(0, 3)); i++)
-					{
-						partyMonsters.Add(turtle);
-					}
-
 					InInventory = true;
 					while (InInventory)
 					{
@@ -194,12 +185,12 @@ public partial class Program
 					}
 					break;
 				case UserKeyPress.Confirm:
-					promptText = null;
+					PromptText = null;
 					break;
 				case UserKeyPress.Action:
-					if (promptText is not null)
+					if (PromptText is not null)
 					{
-						promptText = null;
+						PromptText = null;
 						break;
 					}
 					if(character.IsIdle)

@@ -94,6 +94,11 @@ public static class StartScreen
 						switch (selectedOption)
 						{
 							case 0:
+								if (FirstTimeLaunching)
+								{
+									Map = new PaletTown();
+									Map.SpawnCharacterOn('X');
+								}
 								FirstTimeLaunching = false;
 								return;
 							case 1:
