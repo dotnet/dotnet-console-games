@@ -19,18 +19,7 @@ public static class Statics
 	public readonly static List<MonsterBase> partyMonsters = new();
 
 	public readonly static Dictionary<ConsoleKey, UserKeyPress> keyMappings = new();
-	public readonly static Dictionary<UserKeyPress, (ConsoleKey Main, ConsoleKey? Alternate)> reverseKeyMappings = new()
-	{
-		// input                main                    alternate
-		{ UserKeyPress.Up,      (ConsoleKey.UpArrow,    ConsoleKey.W) },
-		{ UserKeyPress.Down,    (ConsoleKey.DownArrow,  ConsoleKey.S) },
-		{ UserKeyPress.Left,    (ConsoleKey.LeftArrow,  ConsoleKey.A) },
-		{ UserKeyPress.Right,   (ConsoleKey.RightArrow, ConsoleKey.D) },
-		{ UserKeyPress.Confirm, (ConsoleKey.Enter,      null) },
-		{ UserKeyPress.Action,  (ConsoleKey.E,          null) },
-		{ UserKeyPress.Status,  (ConsoleKey.B,          null) },
-		{ UserKeyPress.Escape,  (ConsoleKey.Escape,     null) },
-	};
+	public readonly static Dictionary<UserKeyPress, (ConsoleKey Main, ConsoleKey? Alternate)> reverseKeyMappings = new();
 
 	public static MapBase Map { get; set; } = new PaletTown();
 	public static DateTime PrevioiusRender { get; set; } = DateTime.Now;
@@ -39,19 +28,32 @@ public static class Statics
 	public static bool StartMenu { get; set; } = true;
 	public static bool InInventory { get; set; } = false;
 
-	public static readonly string[] defaultMaptext = new[]
+	public static string[] DefaultMaptext => new[]
 	{
-		"[↑, W, ←, A, ↓, S, →, D]: Move, [B]: Status, [Escape]: Menu",
+		$" [{reverseKeyMappings[UserKeyPress.Up].ToDisplayString()}]: Up" +
+		$" [{reverseKeyMappings[UserKeyPress.Left].ToDisplayString()}]: Left" +
+		$" [{reverseKeyMappings[UserKeyPress.Down].ToDisplayString()}]: Down" +
+		$" [{reverseKeyMappings[UserKeyPress.Right].ToDisplayString()}]: Right" +
+		$" [{reverseKeyMappings[UserKeyPress.Status].ToDisplayString()}]: Status" +
+		$" [{reverseKeyMappings[UserKeyPress.Escape].ToDisplayString()}]: Menu",
 	};
 
-	public static readonly string[] defaultMaptextWithInteract = new[]
+	public static string[] DefaultMaptextWithInteract => new[]
 	{
-		"[↑, W, ←, A, ↓, S, →, D]: Move, [B]: Status, [Escape]: Menu, [E]: Interact",
+		$" [{reverseKeyMappings[UserKeyPress.Up].ToDisplayString()}]: Up" +
+		$" [{reverseKeyMappings[UserKeyPress.Left].ToDisplayString()}]: Left" +
+		$" [{reverseKeyMappings[UserKeyPress.Down].ToDisplayString()}]: Down" +
+		$" [{reverseKeyMappings[UserKeyPress.Right].ToDisplayString()}]: Right" +
+		$" [{reverseKeyMappings[UserKeyPress.Status].ToDisplayString()}]: Status" +
+		$" [{reverseKeyMappings[UserKeyPress.Escape].ToDisplayString()}]: Menu" +
+		$" [{reverseKeyMappings[UserKeyPress.Action].ToDisplayString()}]: Action",
 	};
 
-	public static readonly string[] mapTextPressEnter = new string[]
+	public static string[] MapTextPressEnter => new string[]
 	{
-		"[E, Enter]: Continue, [Escape]: Menu",
+		$" [{reverseKeyMappings[UserKeyPress.Confirm].ToDisplayString()}]: Confirm" +
+		$" [{reverseKeyMappings[UserKeyPress.Action].ToDisplayString()}]: Exit Dialogue" +
+		$" [{reverseKeyMappings[UserKeyPress.Escape].ToDisplayString()}]: Menu",
 	};
 
 	public static string[] MapText
@@ -60,17 +62,17 @@ public static class Statics
 		{
 			if (promptText is not null)
 			{
-				return mapTextPressEnter;
+				return MapTextPressEnter;
 			}
 			if (character.IsIdle)
 			{
 				var interactTile = character.InteractTile;
 				if (Map.CanInteractWithMapTile(interactTile.I, interactTile.J))
 				{
-					return defaultMaptextWithInteract;
+					return DefaultMaptextWithInteract;
 				}
 			}
-			return defaultMaptext;
+			return DefaultMaptext;
 		}
 	}
 
@@ -104,11 +106,25 @@ public static class Statics
 		PlayerInventory.TryAdd(Leaf.Instance);
 		PlayerInventory.TryAdd(Key.Instance);
 		PlayerInventory.TryAdd(Candle.Instance);
-		ApplyKeyMappings();
+		DefaultKeyMappings();
 	}
 
 	[System.Diagnostics.DebuggerHidden]
 	public static (int, int) Subtract((int, int) a, (int, int) b) => (a.Item1 - b.Item1, a.Item2 - b.Item2);
+
+	public static void DefaultKeyMappings()
+	{
+		reverseKeyMappings.Clear();
+		reverseKeyMappings.Add(UserKeyPress.Up,      (ConsoleKey.UpArrow,    ConsoleKey.W));
+		reverseKeyMappings.Add(UserKeyPress.Down,    (ConsoleKey.DownArrow,  ConsoleKey.S));
+		reverseKeyMappings.Add(UserKeyPress.Left,    (ConsoleKey.LeftArrow,  ConsoleKey.A));
+		reverseKeyMappings.Add(UserKeyPress.Right,   (ConsoleKey.RightArrow, ConsoleKey.D));
+		reverseKeyMappings.Add(UserKeyPress.Confirm, (ConsoleKey.Enter,      null));
+		reverseKeyMappings.Add(UserKeyPress.Action,  (ConsoleKey.E,          null));
+		reverseKeyMappings.Add(UserKeyPress.Status,  (ConsoleKey.B,          null));
+		reverseKeyMappings.Add(UserKeyPress.Escape,  (ConsoleKey.Escape,     null));
+		ApplyKeyMappings();
+	}
 
 	public static void ApplyKeyMappings()
 	{
