@@ -2,78 +2,133 @@
 
 public static class OptionsScreen
 {
-	public static void OptionsMenu()
+	public static void Show()
 	{
-		StringBuilder sb = new();
-		int arrowOption = 1;
-		const int maxOption = 6;
-
-		string optionIndent = new(' ', 50);
-		string titleIndent = new(' ', 50);
-
-		Console.Clear();
-	ReDraw:
-		sb.Clear();
-
-		sb.AppendLine();
-		sb.AppendLine();
-		sb.AppendLine();
-		sb.AppendLine();
-		sb.AppendLine();
-		sb.AppendLine();
-		sb.AppendLine(@$"{titleIndent} ██████╗ ██████╗ ████████╗██╗ ██████╗ ███╗   ██╗███████╗");
-		sb.AppendLine(@$"{titleIndent}██╔═══██╗██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝");
-		sb.AppendLine(@$"{titleIndent}██║   ██║██████╔╝   ██║   ██║██║   ██║██╔██╗ ██║███████╗");
-		sb.AppendLine(@$"{titleIndent}██║   ██║██╔═══╝    ██║   ██║██║   ██║██║╚██╗██║╚════██║");
-		sb.AppendLine(@$"{titleIndent}╚██████╔╝██║        ██║   ██║╚██████╔╝██║ ╚████║███████║");
-		sb.AppendLine(@$"{titleIndent} ╚═════╝ ╚═╝        ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝");
-		sb.AppendLine();
-		sb.AppendLine();
-		sb.AppendLine();
-		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "╔══╗" : "╔══╗")}                       {(arrowOption is 1 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "║  ║" : "║██║")}  Movement Animation   {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableMovementAnimation ? "╚══╝" : "╚══╝")}                       {(arrowOption is 1 ? "╰───╯" : "     ")}");
-		sb.AppendLine();
-		sb.AppendLine(@$"{optionIndent}{(DisableBattleTransition ? "╔══╗" : "╔══╗")}                      {(arrowOption is 2 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableBattleTransition ? "║  ║" : "║██║")}  Battle Transition   {(arrowOption is 2 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableBattleTransition ? "╚══╝" : "╚══╝")}                      {(arrowOption is 2 ? "╰───╯" : "     ")}");
-		sb.AppendLine();
-		sb.AppendLine(@$"{optionIndent}{(DisableBattle ? "╔══╗" : "╔══╗")}                       {(arrowOption is 3 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableBattle ? "║  ║" : "║██║")}  Battles (DEV TOOL)   {(arrowOption is 3 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}{(DisableBattle ? "╚══╝" : "╚══╝")}                       {(arrowOption is 3 ? "╰───╯" : "     ")}");
-		sb.AppendLine();
-		sb.AppendLine(@$"{optionIndent} ▄▄▄  ▄▄▄  ▄    ▄▄▄  ▄▄▄  ▄▄▄▄   {(arrowOption is 4 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█    █   █ █   █   █ █▄▄▀ █▄▄▄   {(arrowOption is 4 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}▀▄▄▄ ▀▄▄▄▀ █▄▄ ▀▄▄▄▀ █  █ ▄▄▄█   {(arrowOption is 4 ? "╰───╯" : "     ")}");
-		sb.AppendLine();
-		sb.AppendLine(@$"{optionIndent} ▄▄▄  ▄▄▄  ▄   ▄ ▄▄▄▄▄ ▄▄▄   ▄▄▄  ▄   ▄▄▄▄   {(arrowOption is 5 ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█    █   █ █▀▄ █   █   █▄▄▀ █   █ █   █▄▄▄   {(arrowOption is 5 ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}▀▄▄▄ ▀▄▄▄▀ █  ▀█   █   █  █ ▀▄▄▄▀ █▄▄ ▄▄▄█   {(arrowOption is 5 ? "╰───╯" : "     ")}");
-		sb.AppendLine();
-		sb.AppendLine(@$"{optionIndent}▄▄▄   ▄▄   ▄▄▄ ▄  ▄   {(arrowOption is maxOption ? "╭───╮" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█▄▄█ █▄▄█ █    █▄▀    {(arrowOption is maxOption ? "╞═●═╡" : "     ")}");
-		sb.AppendLine(@$"{optionIndent}█▄▄▀ █  █ ▀▄▄▄ █ ▀▄   {(arrowOption is maxOption ? "╰───╯" : "     ")}");
-
-		Console.SetCursorPosition(0, 0);
-		Console.WriteLine(sb);
-
-		switch (Console.ReadKey(true).Key)
+		string[] bigHeader = new[]
 		{
-			case ConsoleKey.UpArrow or ConsoleKey.W: arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
-			case ConsoleKey.DownArrow or ConsoleKey.S: arrowOption = Math.Min(maxOption, arrowOption + 1); goto ReDraw;
-			case ConsoleKey.Enter or ConsoleKey.E:
-				switch (arrowOption)
+			" ██████╗ ██████╗ ████████╗██╗ ██████╗ ███╗   ██╗███████╗",
+			"██╔═══██╗██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝",
+			"██║   ██║██████╔╝   ██║   ██║██║   ██║██╔██╗ ██║███████╗",
+			"██║   ██║██╔═══╝    ██║   ██║██║   ██║██║╚██╗██║╚════██║",
+			"╚██████╔╝██║        ██║   ██║╚██████╔╝██║ ╚████║███████║",
+			" ╚═════╝ ╚═╝        ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝",
+		};
+		int bigHeaderWidth = bigHeader.Max(line => line.Length);
+		const int bigHeaderPadding = 2;
+		const int optionPadding = 1;
+		var (consoleWidth, consoleHeight) = ConsoleHelpers.GetWidthAndHeight();
+		Console.Clear();
+		int selectedOption = 0;
+		bool needToRender = true;
+		Console.CursorVisible = false;
+
+		string[] movementAnimation = new[]
+		{
+			"                        ",
+			"   Movement Animation   ",
+			"                        ",
+		};
+
+		string[] battleTransition = new[]
+		{
+			"                        ",
+			"   Battle Transition    ",
+			"                        ",
+		};
+
+		string[] battles = new[]
+		{
+			"                        ",
+			"   Battles              ",
+			"                        ",
+		};
+
+		while (true)
+		{
+			if (ConsoleHelpers.ClearIfConsoleResized(ref consoleWidth, ref consoleHeight))
+			{
+				needToRender = true;
+				Console.CursorVisible = false;
+			}
+			if (needToRender)
+			{
+				StringBuilder? buffer = null;
+				if (consoleWidth - 1 >= bigHeaderWidth)
 				{
-					case 1: DisableMovementAnimation = !DisableMovementAnimation; goto ReDraw;
-					case 2: DisableBattleTransition = !DisableBattleTransition; goto ReDraw;
-					case 3: DisableBattle = !DisableBattle; goto ReDraw;
-					case 4: ConsoleColorSettingsScreen.ColorSchemeMenu(); break;
-					case 5: ControlsScreen.ControlsMenu(); break;
-					case maxOption: break;
+					string[][] options = new[]
+					{
+						AsciiGenerator.Concat(AsciiGenerator.ToAscii(selectedOption is 0 ? "■ " : "□ "), movementAnimation, AsciiGenerator.ToAscii(DisableMovementAnimation ? "○" : "●")),
+						AsciiGenerator.Concat(AsciiGenerator.ToAscii(selectedOption is 1 ? "■ " : "□ "), battleTransition, AsciiGenerator.ToAscii(DisableBattleTransition ? "○" : "●")),
+						AsciiGenerator.Concat(AsciiGenerator.ToAscii(selectedOption is 2 ? "■ " : "□ "), battles, AsciiGenerator.ToAscii(DisableBattle ? "○" : "●")),
+						AsciiGenerator.Concat(AsciiGenerator.ToAscii((selectedOption is 3 ? "■" : "□") + " colors")),
+						AsciiGenerator.Concat(AsciiGenerator.ToAscii((selectedOption is 4 ? "■" : "□") + " controls")),
+						AsciiGenerator.Concat(AsciiGenerator.ToAscii((selectedOption is 5 ? "■" : "□") + " back")),
+					};
+					int optionsWidth = options.Max(o => o.Max(l => l.Length));
+					int bigRenderHeight = bigHeader.Length + options.Sum(o => o.Length) + bigHeaderPadding + optionPadding * options.Length;
+					if (consoleHeight - 1 >= bigRenderHeight && consoleWidth - 1 >= optionsWidth)
+					{
+						int indentSize = Math.Max(0, (bigHeaderWidth - optionsWidth) / 2);
+						string indent = new(' ', indentSize);
+						string[] render = new string[bigRenderHeight];
+						int i = 0;
+						foreach (string line in bigHeader)
+						{
+							render[i++] = line;
+						}
+						i += bigHeaderPadding;
+						foreach (string[] option in options)
+						{
+							i += optionPadding;
+							foreach (string line in option)
+							{
+								render[i++] = indent + line;
+							}
+						}
+						buffer = ScreenHelpers.Center(render, (consoleHeight - 1, consoleWidth - 1));
+					}
 				}
-				break;
-			case ConsoleKey.Escape: break;
-			default: goto ReDraw;
+				if (buffer is null)
+				{
+					string[] render = new[]
+					{
+						$@"Options",
+						$@"{(selectedOption is 0 ? ">" : " ")} Movement Animation {(DisableMovementAnimation ? "□" : "■")}",
+						$@"{(selectedOption is 1 ? ">" : " ")} Battle Transition  {(DisableBattleTransition ? "□" : "■")}",
+						$@"{(selectedOption is 2 ? ">" : " ")} Battles            {(DisableBattle ? "□" : "■")}",
+						$@"{(selectedOption is 3 ? ">" : " ")} Colors",
+						$@"{(selectedOption is 4 ? ">" : " ")} Controls",
+						$@"{(selectedOption is 5 ? ">" : " ")} Exit",
+					};
+					buffer = ScreenHelpers.Center(render, (consoleHeight - 1, consoleWidth - 1));
+				}
+				Console.SetCursorPosition(0, 0);
+				Console.Write(buffer);
+				needToRender = false;
+			}
+			while (Console.KeyAvailable)
+			{
+				switch (Console.ReadKey(true).Key)
+				{
+					case ConsoleKey.Escape: return;
+					case ConsoleKey.UpArrow or ConsoleKey.W:   selectedOption = Math.Max(0, selectedOption - 1); needToRender = true; break;
+					case ConsoleKey.DownArrow or ConsoleKey.S: selectedOption = Math.Min(5, selectedOption + 1); needToRender = true; break;
+					case ConsoleKey.Enter or ConsoleKey.E:
+						switch (selectedOption)
+						{
+							case 0: DisableMovementAnimation = !DisableMovementAnimation; needToRender = true; break;
+							case 1: DisableBattleTransition = !DisableBattleTransition; needToRender = true; break;
+							case 2: DisableBattle = !DisableBattle; needToRender = true; break;
+							case 3: ColorsScreen.Show(); needToRender = true; break;
+							case 4: ControlsScreen.ControlsMenu(); needToRender = true; break;
+							case 5: return;
+							default: throw new NotImplementedException();
+						}
+						break;
+				}
+			}
+			// prevent CPU spiking
+			Thread.Sleep(TimeSpan.FromMilliseconds(1));
 		}
 	}
 }

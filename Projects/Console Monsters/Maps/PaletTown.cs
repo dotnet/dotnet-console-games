@@ -165,16 +165,16 @@ class PaletTown : MapBase
 		switch (SpriteSheet[j][i])
 		{
 			case '0':
-				map = new Center1();
-				map.SpawnCharacterOn('0');
+				Map = new Center1();
+				Map.SpawnCharacterOn('0');
 				break;
 			case '1':
-				map = new Route1();
-				map.SpawnCharacterOn('0');
+				Map = new Route1();
+				Map.SpawnCharacterOn('0');
 				break;
 			case '2':
-				map = new House1();
-				map.SpawnCharacterOn('0');
+				Map = new House1();
+				Map.SpawnCharacterOn('0');
 				break;
 		}
 	}

@@ -25,12 +25,12 @@ public partial class Program
 				}
 			}
 
-			StartScreen.StartMenu();
-			while (gameRunning)
+			StartScreen.Show();
+			while (GameRunning)
 			{
 				UpdateCharacter();
 				HandleMapUserInput();
-				if (gameRunning)
+				if (GameRunning)
 				{
 					MapScreen.Render();
 					SleepAfterRender();
@@ -67,7 +67,7 @@ public partial class Program
 			(character.Animation == Player.RunRight && character.AnimationFrame >= Sprites.Width))
 		{
 			var (i, j) = MapBase.WorldToTile(character.I, character.J);
-			map.PerformTileAction(i, j);
+			Map.PerformTileAction(i, j);
 			character.Animation =
 				character.Animation == Player.RunUp    ? Player.IdleUp    :
 				character.Animation == Player.RunDown  ? Player.IdleDown  :
@@ -109,7 +109,7 @@ public partial class Program
 							ConsoleKey.RightArrow or ConsoleKey.D => (i + 1, j),
 							_ => throw new Exception("bug"),
 						};
-						if (map.IsValidCharacterMapTile(i, j))
+						if (Map.IsValidCharacterMapTile(i, j))
 						{
 							if (DisableMovementAnimation)
 							{
@@ -121,7 +121,7 @@ public partial class Program
 									case ConsoleKey.RightArrow or ConsoleKey.D: character.I += Sprites.Width;  character.Animation = Player.IdleRight; break;
 								}
 								var (i2, j2) = MapBase.WorldToTile(character.I, character.J);
-								map.PerformTileAction(i2, j2);
+								Map.PerformTileAction(i2, j2);
 							}
 							else
 							{
@@ -156,13 +156,13 @@ public partial class Program
 					#warning TODO: this is temporary population of monsters during developemnt
 					partyMonsters.Clear();
 					Turtle turtle = new();
-					for (int i = 0; i < (maxPartySize - GameRandom.Next(0, 3)); i++)
+					for (int i = 0; i < (MaxPartySize - GameRandom.Next(0, 3)); i++)
 					{
 						partyMonsters.Add(turtle);
 					}
 
-					inInventory = true;
-					while (inInventory)
+					InInventory = true;
+					while (InInventory)
 					{
 						InventoryScreen.Render();
 					
@@ -188,7 +188,7 @@ public partial class Program
 									SelectedPlayerInventoryItem = 0;
 								}
 								break;
-							case ConsoleKey.Escape: inInventory = false; break;
+							case ConsoleKey.Escape: InInventory = false; break;
 						}
 					}
 					break;
@@ -204,12 +204,12 @@ public partial class Program
 					if(character.IsIdle)
 					{
 						var (i, j) = character.InteractTile;
-						map.InteractWithMapTile(i, j);
+						Map.InteractWithMapTile(i, j);
 					}
 					break;
 
 				case ConsoleKey.Escape:
-					StartScreen.StartMenu();
+					StartScreen.Show();
 					return;
 			}
 		}
@@ -219,11 +219,11 @@ public partial class Program
 	{
 		// frame rate control targeting 30 frames per second
 		DateTime now = DateTime.Now;
-		TimeSpan sleep = TimeSpan.FromMilliseconds(33) - (now - previoiusRender);
+		TimeSpan sleep = TimeSpan.FromMilliseconds(33) - (now - PrevioiusRender);
 		if (sleep > TimeSpan.Zero)
 		{
 			Thread.Sleep(sleep);
 		}
-		previoiusRender = DateTime.Now;
+		PrevioiusRender = DateTime.Now;
 	}
 }
