@@ -3,10 +3,12 @@
 class PaletTown : MapBase
 {
 	public Scientist scientist;
+	public ChineseMan chineseMan;
 
 	public PaletTown()
 	{
 		scientist = new();
+		chineseMan = new();
 	}
 
 	public override string? AudioFile => AudioController.CoDA_Lullaby;
@@ -70,7 +72,7 @@ class PaletTown : MapBase
 			't' => Sprites.Tree,
 			'T' => Sprites.Tree2,
 			// NPCs
-			'n' => Sprites.NPC1,
+			'n' => chineseMan.Sprite,
 			'o' => scientist.Sprite,
 			'p' => Sprites.NPC5,
 			// Items

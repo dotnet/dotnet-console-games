@@ -667,18 +667,6 @@ public static class Sprites
 	#endregion
 
 	#region Characters
-	public static readonly string NPC1 =
-		@"/_____\" + '\n' +
-		@" │'_'│ " + '\n' +
-		@"╭╰───╯╮" + '\n' +
-		@"╰├───┤╯" + '\n' +
-		@" │_|_│ ";
-	public static readonly string NPC3 =
-		@"╭╭───╮╮" + '\n' +
-		@" │^_^│ " + '\n' +
-		@"╭┴───┴╮" + '\n' +
-		@"│├───┤│" + '\n' +
-		@" │_|_│ ";
 	public static readonly string NPC4 =
 		@"////\\\" + '\n' +
 		@"//^_^\\" + '\n' +
@@ -721,12 +709,6 @@ public static class Sprites
 		@"╭┴───┴╮" + '\n' +
 		@"│├───┤│" + '\n' +
 		@" │_ _│ ";
-	public static readonly string NPC13 =
-		@" /███\ " + '\n' +
-		@"/│'_'│\" + '\n' +
-		@"╭╰───╯╮" + '\n' +
-		@"│├─\─┤│" + '\n' +
-		@" │_|_│ ";
 	public static readonly string NPC14 =
 		@" ╭√─√╮ " + '\n' +
 		@" │^∞^│ " + '\n' +
