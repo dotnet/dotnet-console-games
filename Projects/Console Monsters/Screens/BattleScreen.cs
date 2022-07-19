@@ -9,7 +9,7 @@ public static class BattleScreen
 		Console.CursorVisible = false;
 
 		var (width, height) = ConsoleHelpers.GetWidthAndHeight();
-		int heightCutOff = height - battletext.Length - 3;
+		int heightCutOff = height - BattleText.Length - 3;
 		int midWidth = width / 2;
 		int midHeight = heightCutOff / 2;
 
@@ -28,9 +28,9 @@ public static class BattleScreen
 				{
 					int line = j - heightCutOff - 1;
 					int character = i - 1;
-					if (i < width - 1 && character >= 0 && line >= 0 && line < battletext.Length && character < battletext[line].Length)
+					if (i < width - 1 && character >= 0 && line >= 0 && line < BattleText.Length && character < BattleText[line].Length)
 					{
-						char ch = battletext[line][character];
+						char ch = BattleText[line][character];
 						sb.Append(char.IsWhiteSpace(ch) ? ' ' : ch);
 					}
 					else

@@ -87,88 +87,80 @@ public partial class Program
 		while (Console.KeyAvailable)
 		{
 			ConsoleKey key = Console.ReadKey(true).Key;
-			switch (key)
+			UserKeyPress input = keyMappings.GetValueOrDefault(key);
+			switch (input)
 			{
 				case
-					ConsoleKey.UpArrow    or ConsoleKey.W or
-					ConsoleKey.DownArrow  or ConsoleKey.S or
-					ConsoleKey.LeftArrow  or ConsoleKey.A or
-					ConsoleKey.RightArrow or ConsoleKey.D:
-					if (promptText is not null)
+					UserKeyPress.Up or
+					UserKeyPress.Down or
+					UserKeyPress.Left or
+					UserKeyPress.Right:
+					if (PromptText is not null)
 					{
 						break;
 					}
 					if (character.IsIdle)
 					{
 						var (i, j) = MapBase.WorldToTile(character.I, character.J);
-						(i, j) = key switch
+						(i, j) = input switch
 						{
-							ConsoleKey.UpArrow    or ConsoleKey.W => (i, j - 1),
-							ConsoleKey.DownArrow  or ConsoleKey.S => (i, j + 1),
-							ConsoleKey.LeftArrow  or ConsoleKey.A => (i - 1, j),
-							ConsoleKey.RightArrow or ConsoleKey.D => (i + 1, j),
+							UserKeyPress.Up    => (i, j - 1),
+							UserKeyPress.Down  => (i, j + 1),
+							UserKeyPress.Left  => (i - 1, j),
+							UserKeyPress.Right => (i + 1, j),
 							_ => throw new Exception("bug"),
 						};
 						if (Map.IsValidCharacterMapTile(i, j))
 						{
 							if (DisableMovementAnimation)
 							{
-								switch (key)
+								switch (input)
 								{
-									case ConsoleKey.UpArrow    or ConsoleKey.W: character.J -= Sprites.Height; character.Animation = Player.IdleUp;    break;
-									case ConsoleKey.DownArrow  or ConsoleKey.S: character.J += Sprites.Height; character.Animation = Player.IdleDown;  break;
-									case ConsoleKey.LeftArrow  or ConsoleKey.A: character.I -= Sprites.Width;  character.Animation = Player.IdleLeft;  break;
-									case ConsoleKey.RightArrow or ConsoleKey.D: character.I += Sprites.Width;  character.Animation = Player.IdleRight; break;
+									case UserKeyPress.Up:    character.J -= Sprites.Height; character.Animation = Player.IdleUp;    break;
+									case UserKeyPress.Down:  character.J += Sprites.Height; character.Animation = Player.IdleDown;  break;
+									case UserKeyPress.Left:  character.I -= Sprites.Width;  character.Animation = Player.IdleLeft;  break;
+									case UserKeyPress.Right: character.I += Sprites.Width;  character.Animation = Player.IdleRight; break;
 								}
 								var (i2, j2) = MapBase.WorldToTile(character.I, character.J);
 								Map.PerformTileAction(i2, j2);
 							}
 							else
 							{
-								switch (key)
+								switch (input)
 								{
-									case ConsoleKey.UpArrow    or ConsoleKey.W: character.AnimationFrame = 0; character.Animation = Player.RunUp;    break;
-									case ConsoleKey.DownArrow  or ConsoleKey.S: character.AnimationFrame = 0; character.Animation = Player.RunDown;  break;
-									case ConsoleKey.LeftArrow  or ConsoleKey.A: character.AnimationFrame = 0; character.Animation = Player.RunLeft;  break;
-									case ConsoleKey.RightArrow or ConsoleKey.D: character.AnimationFrame = 0; character.Animation = Player.RunRight; break;
+									case UserKeyPress.Up:    character.AnimationFrame = 0; character.Animation = Player.RunUp;    break;
+									case UserKeyPress.Down:  character.AnimationFrame = 0; character.Animation = Player.RunDown;  break;
+									case UserKeyPress.Left:  character.AnimationFrame = 0; character.Animation = Player.RunLeft;  break;
+									case UserKeyPress.Right: character.AnimationFrame = 0; character.Animation = Player.RunRight; break;
 								}
 							}
 						}
 						else
 						{
-							character.Animation = key switch
+							character.Animation = input switch
 							{
-								ConsoleKey.UpArrow    or ConsoleKey.W => Player.IdleUp,
-								ConsoleKey.DownArrow  or ConsoleKey.S => Player.IdleDown,
-								ConsoleKey.LeftArrow  or ConsoleKey.A => Player.IdleLeft,
-								ConsoleKey.RightArrow or ConsoleKey.D => Player.IdleRight,
+								UserKeyPress.Up    => Player.IdleUp,
+								UserKeyPress.Down  => Player.IdleDown,
+								UserKeyPress.Left  => Player.IdleLeft,
+								UserKeyPress.Right => Player.IdleRight,
 								_ => throw new Exception("bug"),
 							};
 						}
 					}
 					break;
-				case ConsoleKey.B:
-					if (promptText is not null)
+				case UserKeyPress.Status:
+					if (PromptText is not null)
 					{
 						break; 
 					}
-
-					#warning TODO: this is temporary population of monsters during developemnt
-					partyMonsters.Clear();
-					Turtle turtle = new();
-					for (int i = 0; i < (MaxPartySize - GameRandom.Next(0, 3)); i++)
-					{
-						partyMonsters.Add(turtle);
-					}
-
 					InInventory = true;
 					while (InInventory)
 					{
 						InventoryScreen.Render();
 					
-						switch (Console.ReadKey(true).Key)
+						switch (keyMappings.GetValueOrDefault(Console.ReadKey(true).Key))
 						{
-							case ConsoleKey.UpArrow:
+							case UserKeyPress.Up:
 								if (SelectedPlayerInventoryItem > 0)
 								{
 									SelectedPlayerInventoryItem--;
@@ -178,7 +170,7 @@ public partial class Program
 									SelectedPlayerInventoryItem = PlayerInventory.Distinct().Count() - 1;
 								}
 								break;
-							case ConsoleKey.DownArrow:
+							case UserKeyPress.Down:
 								if (SelectedPlayerInventoryItem < PlayerInventory.Distinct().Count() - 1)
 								{
 									SelectedPlayerInventoryItem++;
@@ -188,17 +180,17 @@ public partial class Program
 									SelectedPlayerInventoryItem = 0;
 								}
 								break;
-							case ConsoleKey.Escape: InInventory = false; break;
+							case UserKeyPress.Escape: InInventory = false; break;
 						}
 					}
 					break;
-				case ConsoleKey.Enter:
-					promptText = null;
+				case UserKeyPress.Confirm:
+					PromptText = null;
 					break;
-				case ConsoleKey.E:
-					if (promptText is not null)
+				case UserKeyPress.Action:
+					if (PromptText is not null)
 					{
-						promptText = null;
+						PromptText = null;
 						break;
 					}
 					if(character.IsIdle)
@@ -208,7 +200,7 @@ public partial class Program
 					}
 					break;
 
-				case ConsoleKey.Escape:
+				case UserKeyPress.Escape:
 					StartScreen.Show();
 					return;
 			}

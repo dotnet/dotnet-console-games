@@ -3,11 +3,15 @@
 class PaletTown : MapBase
 {
 	public Scientist scientist;
+	public ChineseMan chineseMan;
 
 	public PaletTown()
 	{
 		scientist = new();
+		chineseMan = new();
 	}
+
+	public override string? AudioFile => AudioController.CoDA_Lullaby;
 
 	private readonly static char[][] spriteSheet = new char[][]
 		{
@@ -68,7 +72,7 @@ class PaletTown : MapBase
 			't' => Sprites.Tree,
 			'T' => Sprites.Tree2,
 			// NPCs
-			'n' => Sprites.NPC1,
+			'n' => chineseMan.Sprite,
 			'o' => scientist.Sprite,
 			'p' => Sprites.NPC5,
 			// Items
@@ -107,17 +111,17 @@ class PaletTown : MapBase
 			switch (SpriteSheet[j][i])
 			{
 				case 's' or 'a':
-					promptText = new string[]
+					PromptText = new string[]
 					{
 						"Sign Says:",
 						"Hello! I am sign. :P",
 					};
 					break;
 				case 'o':
-					promptText = scientist.Dialogue;
+					PromptText = scientist.Dialogue;
 					break;
-				case 'p':
-					promptText = new string[]
+				case 'p' or 'n':
+					PromptText = new string[]
 					{
 						"...",
 					};
@@ -126,7 +130,7 @@ class PaletTown : MapBase
 					ShopScreen.Render();
 					break;
 				case 'e':
-					promptText = new string[]
+					PromptText = new string[]
 					{
 						"You picked up a MonsterBox",
 					};

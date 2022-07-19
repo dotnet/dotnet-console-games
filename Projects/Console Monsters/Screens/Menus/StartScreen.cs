@@ -80,20 +80,25 @@ public static class StartScreen
 			}
 			while (Console.KeyAvailable)
 			{
-				switch (Console.ReadKey(true).Key)
+				switch (keyMappings.GetValueOrDefault(Console.ReadKey(true).Key))
 				{
-					case ConsoleKey.UpArrow or ConsoleKey.W:
+					case UserKeyPress.Up:
 						selectedOption = Math.Max(0, selectedOption - 1);
 						needToRender = true;
 						break;
-					case ConsoleKey.DownArrow or ConsoleKey.S:
+					case UserKeyPress.Down:
 						selectedOption = Math.Min(2, selectedOption + 1);
 						needToRender = true;
 						break;
-					case ConsoleKey.Enter or ConsoleKey.E:
+					case UserKeyPress.Confirm:
 						switch (selectedOption)
 						{
 							case 0:
+								if (FirstTimeLaunching)
+								{
+									Map = new PaletTown();
+									Map.SpawnCharacterOn('X');
+								}
 								FirstTimeLaunching = false;
 								return;
 							case 1:
@@ -108,7 +113,7 @@ public static class StartScreen
 								throw new NotImplementedException();
 						}
 						break;
-					case ConsoleKey.Escape:
+					case UserKeyPress.Escape:
 						if (FirstTimeLaunching)
 						{
 							GameRunning = false;

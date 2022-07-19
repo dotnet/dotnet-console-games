@@ -6,6 +6,12 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
+	  <PackageReference Include="System.Windows.Extensions" Version="6.0.0" />
 	  <PackageReference Include="Towel" Version="1.0.40" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="Audio\CoDA-Lullaby.wav">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 </Project>

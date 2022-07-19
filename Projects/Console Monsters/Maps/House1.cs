@@ -2,6 +2,8 @@
 
 public class House1 : MapBase
 {
+	public override string? AudioFile => AudioController.CoDA_Lullaby;
+
 	private static readonly char[][] spriteSheet = new char[][]
 		{
 			"afffffffffffffffb".ToCharArray(),
@@ -78,7 +80,7 @@ public class House1 : MapBase
 			switch (SpriteSheet[j][i])
 			{
 				case 'q':
-					promptText = new string[]
+					PromptText = new string[]
 					{
 						"Mozin0's Mum:",
 						"Welcome to my house, My son always gifts guests.",
@@ -86,7 +88,7 @@ public class House1 : MapBase
 					};
 					break;
 				case 'v':
-					promptText = new string[]
+					PromptText = new string[]
 					{
 						"Funky:",
 						"Slurp Slurp",
