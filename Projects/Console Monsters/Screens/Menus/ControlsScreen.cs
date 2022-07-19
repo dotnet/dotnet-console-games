@@ -119,19 +119,11 @@ public static class ControlsScreen
 							case 6: PerformKeyMap(UserKeyPress.Status);  needToRender = true; break;
 							case 7: PerformKeyMap(UserKeyPress.Escape);  needToRender = true; break;
 							case 8: DefaultKeyMappings(); needToRender = true; break;
-							case 9:
-								GameRunning = false;
-								return;
-							default:
-								throw new NotImplementedException();
+							case 9: return;
+							default: throw new NotImplementedException();
 						}
 						break;
-					case UserKeyPress.Escape:
-						if (FirstTimeLaunching)
-						{
-							GameRunning = false;
-						}
-						return;
+					case UserKeyPress.Escape: return;
 				}
 			}
 			// prevent CPU spiking
