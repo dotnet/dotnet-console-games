@@ -1,4 +1,4 @@
-﻿/*using static Extensions.Audio.AudioDevice;
+﻿using static Extensions.Audio.AudioDevice;
 
 namespace Extensions.Audio;
 
@@ -25,4 +25,4 @@ public struct AudioBuffer : IDisposable
 		Al.DeleteBuffer(Handle);
 	}
 	
-}*/
+}

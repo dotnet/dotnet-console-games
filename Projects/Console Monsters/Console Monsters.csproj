@@ -14,4 +14,7 @@
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Extensions\Extensions.csproj" />
+	</ItemGroup>
 </Project>

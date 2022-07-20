@@ -91,6 +91,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkers", "Projects\Checke
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Console Monsters", "Projects\Console Monsters\Console Monsters.csproj", "{9DA287B7-0532-4CAD-987E-A8633B6532F3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions", "Projects\Extensions\Extensions.csproj", "{FE95596E-E1E5-4012-B680-9152181D46BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -273,6 +275,10 @@ Global
 		{9DA287B7-0532-4CAD-987E-A8633B6532F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DA287B7-0532-4CAD-987E-A8633B6532F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DA287B7-0532-4CAD-987E-A8633B6532F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE95596E-E1E5-4012-B680-9152181D46BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE95596E-E1E5-4012-B680-9152181D46BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE95596E-E1E5-4012-B680-9152181D46BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE95596E-E1E5-4012-B680-9152181D46BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

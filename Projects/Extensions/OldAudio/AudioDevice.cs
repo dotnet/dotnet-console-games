@@ -1,5 +1,4 @@
-﻿/*
-using System;
+﻿using System;
 using System.Numerics;
 using System.Threading;
 using Silk.NET.OpenAL;
@@ -11,112 +10,149 @@ namespace Extensions.Audio;
 /// </summary>
 public sealed unsafe class AudioDevice : IDisposable
 {
+    public event OnBufferFinished BufferFinished;
 
-	public event OnBufferFinished BufferFinished;
-	internal static AL Al;
+    internal static AL Al;
 
-	private readonly Device* _device;
-	private readonly Context* _context;
+    private readonly Device* _device;
+    private readonly Context* _context;
+    
+    private readonly uint[] _sources;
+    private readonly (bool persist, bool loop)[] _channels;
 
-	private readonly uint[] _sources;
-	private readonly (bool persist, bool loop)[] _channels;
+    private float _masterVolume;
+    private float[] _floatBuf;
 
-	private float _masterVolume;
+    // When a tracker track is playing, sounds will not be able to automatically play on the channels it allocates,
+    // unless manually told to play on those channels
+    internal int TrackChannels;
 
-	/// <summary>
-	/// The master volume for this <see cref="AudioDevice"/>. A value of 1.0 is "full volume".
-	/// </summary>
-	public float MasterVolume
-	{
-		get => _masterVolume;
-		set
-		{
-			_masterVolume = value;
-			Al.SetListenerProperty(ListenerFloat.Gain, value);
-		}
-	}
+    /// <summary>
+    /// The master volume for this <see cref="AudioDevice"/>. A value of 1.0 is "full volume".
+    /// </summary>
+    public float MasterVolume
+    {
+        get => _masterVolume;
+        set
+        {
+            _masterVolume = value;
+            Al.SetListenerProperty(ListenerFloat.Gain, value);
+        }
+    }
 
-	/// <summary>
-	/// The number of channels this <see cref="AudioDevice"/> has. This value represents the maximum number of
-	/// <see cref="Sound"/>s that can be played at once.
-	/// </summary>
-	public readonly int NumChannels;
+    /// <summary>
+    /// The number of channels this <see cref="AudioDevice"/> has. This value represents the maximum number of
+    /// <see cref="Sound"/>s that can be played at once.
+    /// </summary>
+    public readonly int NumChannels;
 
-	private int _channelCount;
+    private int _channelCount;
+    
+    internal unsafe AudioDevice(int numChannels)
+    {
+        Al = AL.GetApi(true);
+        ALContext alc = ALContext.GetApi(true);
+        _device = alc.OpenDevice(null);
+        _context = alc.CreateContext(_device, null);
+        alc.MakeContextCurrent(_context);
+        _channels = new (bool persist, bool loop)[numChannels];
+        _sources = Al.GenSources(numChannels);
 
-	internal unsafe AudioDevice(int numChannels)
-	{
-		Al = AL.GetApi(true);
-		ALContext alc = ALContext.GetApi(true);
-		_device = alc.OpenDevice(null);
-		_context = alc.CreateContext(_device, null);
-		alc.MakeContextCurrent(_context);
-		_channels = new (bool persist, bool loop)[numChannels];
-		_sources = Al.GenSources(numChannels);
+        MasterVolume = 1;
+        NumChannels = numChannels;
+        _channelCount = -1;
+        //_floatBuf = new float[6];
+    }
 
-		MasterVolume = 1;
-		NumChannels = numChannels;
-		_channelCount = -1;
+    /*/// <summary>
+    /// The position of the camera in the world.
+    /// </summary>
+    public Vector3 CameraPosition
+    {
+        set => Al.SetListenerProperty(ListenerVector3.Position, value.X, value.Y, value.Z);
+    }
 
-	}
-	
-	
-	/// <summary>
-	/// Play the given buffer on the given channel. If any other sound is playing in this channel, it will be overwritten
-	/// by the new sound. This is still the case even if the current sound is set to persistent.
-	/// </summary>
-	/// <param name="channel">The channel to play the sound.</param>
-	/// <param name="buffer">The audio buffer itself.</param>
-	/// <param name="pitch">The pitch the sound should be played at. (1 = normal speed, 0.5 = half speed, etc)</param>
-	/// <param name="volume">The volume the sound should be played at. (1 = actual volume, 0.5 = half volume, etc)</param>
-	/// <param name="loop">If true, the sound will loop back to the start when its end is reached.</param>
-	/// <param name="persistent">If true, the sound will not be overwritten when a new sound is allocated to a channel.</param>
-	public void PlayBuffer(int channel, AudioBuffer buffer, float pitch = 1, float volume = 1, bool loop = false, bool persistent = false)
-	{
-		_channels[channel].persist = persistent;
-		uint source = _sources[channel];
-		Al.SourceStop(source);
-		Al.SetSourceProperty(source, SourceInteger.Buffer, 0);
-		Al.SourceQueueBuffers(source, 1, &buffer.Handle);
-		Al.SetSourceProperty(source, SourceFloat.Pitch, pitch);
-		Al.SetSourceProperty(source, SourceFloat.Gain, volume);
-		Al.SetSourceProperty(source, SourceBoolean.Looping, loop);
-		Al.SourcePlay(source);
-	}
-	
-	/// <summary>
-	/// Play & allocate the given buffer to a free channel. If none are available, a random non-persistent sound will be
-	/// overwritten.
-	/// </summary>
-	/// <param name="buffer">The audio buffer itself.</param>
-	/// <param name="pitch">The pitch the sound should be played at. (1 = normal speed, 0.5 = half speed, etc)</param>
-	/// <param name="volume">The volume the sound should be played at. (1 = actual volume, 0.5 = half volume, etc)</param>
-	/// <param name="loop">If true, the sound will loop back to the start when its end is reached.</param>
-	/// <param name="persistent">If true, the sound will not be overwritten when a new sound is allocated to a channel.</param>
-	/// <returns>The channel number this sound is playing on.</returns>
-	public int PlayBuffer(AudioBuffer buffer, float pitch = 1, float volume = 1, bool loop = false, bool persistent = false)
-	{
-		//IncrementChannelCount(NumChannels);
-		PlayBuffer(_channelCount, buffer, pitch, volume, loop, persistent);
-		return _channelCount;
-	}
+    /// <summary>
+    /// The orientation of the camera in the world.
+    /// </summary>
+    public Quaternion CameraOrientation
+    {
+        set
+        {
+            Quaternion quat = new Quaternion(value.X, value.Y, value.Z, value.W);
+            Vector3 direction = Vector3.Transform(Vector3.UnitZ, quat);
+            Vector3 up = Vector3.Transform(Vector3.UnitY, quat);
+            _floatBuf[0] = direction.X;
+            _floatBuf[1] = direction.Y;
+            _floatBuf[2] = direction.Z;
+            _floatBuf[3] = up.X;
+            _floatBuf[4] = up.Y;
+            _floatBuf[5] = up.Z;
+            
+            fixed (float* p = _floatBuf)
+                Al.SetListenerProperty(ListenerFloatArray.Orientation, p);
+        }
+    }*/
 
-	/// <summary>
-	/// Queue a buffer to play on the given channel. Once the currently playing buffer has finished, the queued buffer
-	/// will start playing immediately. Use this to perform audio streaming.
-	/// </summary>
-	/// <param name="channel">The channel to queue the buffer</param>
-	/// <param name="buffer">The audio buffer itself.</param>
-	/// <param name="loop">If true, this queued buffer will loop once it starts playing.</param>
-	/// <remarks>The current channel must be <b>playing</b> for this to work - the sound will not play otherwise.</remarks>
-	public void QueueBuffer(int channel, AudioBuffer buffer, bool loop = false)
-	{
-		uint source = _sources[channel];
-		Al.SourceQueueBuffers(source, 1, &buffer.Handle);
-		_channels[channel].loop = loop;
-	}
-	
-	    private void IncrementChannelCount(int minChannel, int maxChannel)
+    /// <summary>
+    /// Play the given buffer on the given channel. If any other sound is playing in this channel, it will be overwritten
+    /// by the new sound. This is still the case even if the current sound is set to persistent.
+    /// </summary>
+    /// <param name="channel">The channel to play the sound.</param>
+    /// <param name="buffer">The audio buffer itself.</param>
+    /// <param name="pitch">The pitch the sound should be played at. (1 = normal speed, 0.5 = half speed, etc)</param>
+    /// <param name="volume">The volume the sound should be played at. (1 = actual volume, 0.5 = half volume, etc)</param>
+    /// <param name="loop">If true, the sound will loop back to the start when its end is reached.</param>
+    /// <param name="persistent">If true, the sound will not be overwritten when a new sound is allocated to a channel.</param>
+    public void PlayBuffer(int channel, AudioBuffer buffer, float pitch = 1, float volume = 1, bool loop = false, bool persistent = false)
+    {
+        _channels[channel].persist = persistent;
+        uint source = _sources[channel];
+        Al.SourceStop(source);
+        Al.SetSourceProperty(source, SourceInteger.Buffer, 0);
+        Al.SourceQueueBuffers(source, 1, &buffer.Handle);
+        Al.SetSourceProperty(source, SourceFloat.Pitch, pitch);
+        Al.SetSourceProperty(source, SourceFloat.Gain, volume);
+        Al.SetSourceProperty(source, SourceBoolean.Looping, loop);
+        // Al.SetSourceProperty(source, SourceVector3.Position, position.X, position.Y, position.Z);
+        // Al.SetSourceProperty(source, SourceBoolean.SourceRelative, relative);
+        Al.SourcePlay(source);
+    }
+
+    // TODO: Audio priority system.
+    /// <summary>
+    /// Play & allocate the given buffer to a free channel. If none are available, a random non-persistent sound will be
+    /// overwritten.
+    /// </summary>
+    /// <param name="buffer">The audio buffer itself.</param>
+    /// <param name="pitch">The pitch the sound should be played at. (1 = normal speed, 0.5 = half speed, etc)</param>
+    /// <param name="volume">The volume the sound should be played at. (1 = actual volume, 0.5 = half volume, etc)</param>
+    /// <param name="loop">If true, the sound will loop back to the start when its end is reached.</param>
+    /// <param name="persistent">If true, the sound will not be overwritten when a new sound is allocated to a channel.</param>
+    /// <returns>The channel number this sound is playing on.</returns>
+    public int PlayBuffer(AudioBuffer buffer, float pitch = 1, float volume = 1, bool loop = false, bool persistent = false)
+    {
+        IncrementChannelCount(TrackChannels, NumChannels);
+        PlayBuffer(_channelCount, buffer, pitch, volume, loop, persistent);
+        return _channelCount;
+    }
+
+    /// <summary>
+    /// Queue a buffer to play on the given channel. Once the currently playing buffer has finished, the queued buffer
+    /// will start playing immediately. Use this to perform audio streaming.
+    /// </summary>
+    /// <param name="channel">The channel to queue the buffer</param>
+    /// <param name="buffer">The audio buffer itself.</param>
+    /// <param name="loop">If true, this queued buffer will loop once it starts playing.</param>
+    /// <remarks>The current channel must be <b>playing</b> for this to work - the sound will not play otherwise.</remarks>
+    public void QueueBuffer(int channel, AudioBuffer buffer, bool loop = false)
+    {
+        uint source = _sources[channel];
+        Al.SourceQueueBuffers(source, 1, &buffer.Handle);
+        _channels[channel].loop = loop;
+    }
+
+    private void IncrementChannelCount(int minChannel, int maxChannel)
     {
         int numIterations = 0;
         do
@@ -281,10 +317,10 @@ public sealed unsafe class AudioDevice : IDisposable
         _channels[channel].persist = persistent;
     }
 
-    public void SetPosition(int channel, Vector3 position)
-    {
-        Al.SetSourceProperty(_sources[channel], SourceVector3.Position, position.X, position.Y, position.Z);
-    }
+    // public void SetPosition(int channel, Vector3 position)
+    // {
+    //     Al.SetSourceProperty(_sources[channel], SourceVector3.Position, position.X, position.Y, position.Z);
+    // }
 
     /// <summary>
     /// Create an audio buffer.
@@ -319,7 +355,7 @@ public sealed unsafe class AudioDevice : IDisposable
 
     internal void Update()
     {
-        // This is a jank solution but we do this because in theory if the frame rate is slow enough it could screw
+        // I hate the fact that I have to do this cause in theory if the frame rate is slow enough it could screw
         // up this whole thing, but in practice it shouldn't be a massive deal, it just needs to run at some point
         // for the queue to be cleared, before it loops
         for (int i = 0; i < NumChannels; i++)
@@ -362,4 +398,3 @@ public enum AudioFormat
     Stereo8,
     Stereo16
 }
-*/

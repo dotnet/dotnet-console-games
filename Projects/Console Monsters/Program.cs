@@ -1,9 +1,28 @@
-﻿namespace Console_Monsters;
+﻿using Extensions.Audio;
 
-public partial class Program
+namespace Console_Monsters;
+
+public partial class Program : IDisposable
 {
+	public void Dispose()
+	{
+		AudioDevice.Dispose();
+	}
+	
+	public static AudioDevice AudioDevice { get; private set; }
+
 	public static void Main()
 	{
+		//AudioBuffer buffer = new AudioBuffer();
+		//AudioDevice dev = new AudioDevice(1);
+		
+		//var testSound = new Sound(new AudioDevice(1), )
+
+		uint channels = 32;
+		AudioDevice = new AudioDevice(channels);
+		
+		
+		
 		Exception? exception = null;
 		Encoding encoding = Console.OutputEncoding;
 		try
@@ -218,4 +237,5 @@ public partial class Program
 		}
 		PrevioiusRender = DateTime.Now;
 	}
+
 }
