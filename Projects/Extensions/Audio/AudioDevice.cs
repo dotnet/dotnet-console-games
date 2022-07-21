@@ -1,7 +1,4 @@
-﻿using System;
-using System.Numerics;
-using System.Threading;
-using Silk.NET.OpenAL;
+﻿using Silk.NET.OpenAL;
 
 namespace Extensions.Audio;
 
@@ -21,7 +18,7 @@ public sealed unsafe class AudioDevice : IDisposable
     private readonly (bool persist, bool loop)[] _channels;
 
     private float _masterVolume;
-    private float[] _floatBuf;
+    //private float[] _floatBuf;
 
     // When a tracker track is playing, sounds will not be able to automatically play on the channels it allocates,
     // unless manually told to play on those channels
@@ -47,8 +44,8 @@ public sealed unsafe class AudioDevice : IDisposable
     public readonly int NumChannels;
 
     private int _channelCount;
-    
-    internal unsafe AudioDevice(int numChannels)
+
+    public unsafe AudioDevice(int numChannels)
     {
         Al = AL.GetApi(true);
         ALContext alc = ALContext.GetApi(true);

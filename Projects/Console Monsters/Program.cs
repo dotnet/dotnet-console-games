@@ -18,7 +18,7 @@ public partial class Program : IDisposable
 		
 		//var testSound = new Sound(new AudioDevice(1), )
 
-		uint channels = 32;
+		int channels = 16;
 		AudioDevice = new AudioDevice(channels);
 		
 		
