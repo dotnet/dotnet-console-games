@@ -1,0 +1,37 @@
+name: Binaries Deploy
+on:
+  push:
+    branches:
+    - main
+    paths:
+    - '**.sln'
+    - '**.slnf'
+    - '**.csproj'
+    - '**.cs'
+  workflow_dispatch:
+jobs:
+  deployment:
+    if: ${{ github.repository == 'ZacharyPatten/dotnet-console-games' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+    - uses: actions/checkout@v2
+    - name: setup dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: publish win-x64
+      run: dotnet publish dotnet-console-games.slnf --output bin/win-x64 --configuration Release /p:PublishSingleFile=true --runtime win-x64 --self-contained /p:PublishTrimmed=true
+    - name: publish osx-x64
+      run: dotnet publish dotnet-console-games.slnf --output bin/osx-x64 --configuration Release /p:PublishSingleFile=true --runtime osx-x64 --self-contained /p:PublishTrimmed=true
+    - name: publish linux-x64
+      run: dotnet publish dotnet-console-games.slnf --output bin/linux-x64 --configuration Release /p:PublishSingleFile=true --runtime linux-x64 --self-contained /p:PublishTrimmed=true
+    - name: deploy to binaries branch
+      run: |
+        cd bin
+        git init
+        git config user.name "${GITHUB_ACTOR}"
+        git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+        git add .
+        git commit -m 'deploy to binaries branch'
+        git push --force "https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" master:binaries
