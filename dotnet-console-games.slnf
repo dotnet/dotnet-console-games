@@ -1,6 +1,6 @@
 {
   "solution": {
-    "path": "dotnet-console-games-and-website.sln",
+    "path": "dotnet-console-games.sln",
     "projects": [
       "Projects\\2048\\2048.csproj",
       "Projects\\Battleship\\Battleship.csproj",
