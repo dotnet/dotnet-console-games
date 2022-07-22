@@ -14,6 +14,7 @@ jobs:
   deployment:
     if: ${{ github.repository == 'ZacharyPatten/dotnet-console-games' }}
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
     - uses: actions/checkout@v2
     - name: setup dotnet
@@ -28,12 +29,6 @@ jobs:
       run: sed -i 's/\/?p=\//\/dotnet-console-games\/?p=\//g' /home/runner/work/dotnet-console-games/dotnet-console-games/Projects/Website/bin/Release/publish/wwwroot/404.html
     - name: .nojekyll
       run: touch /home/runner/work/dotnet-console-games/dotnet-console-games/Projects/Website/bin/Release/publish/wwwroot/.nojekyll
-    - name: publish win-x64
-      run: dotnet publish dotnet-console-games.slnf --output Projects/Website/bin/Release/publish/wwwroot/win-x64 --configuration Release /p:PublishSingleFile=true --runtime win-x64
-    - name: publish osx-x64
-      run: dotnet publish dotnet-console-games.slnf --output Projects/Website/bin/Release/publish/wwwroot/osx-x64 --configuration Release /p:PublishSingleFile=true --runtime osx-x64
-    - name: publish linux-x64
-      run: dotnet publish dotnet-console-games.slnf --output Projects/Website/bin/Release/publish/wwwroot/linux-x64 --configuration Release /p:PublishSingleFile=true --runtime linux-x64
     - uses: maxheld83/ghpages@master
       name: gh-pages publish
       env:
