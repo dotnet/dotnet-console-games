@@ -20,8 +20,10 @@ public static class ControlsScreen
 		Console.Clear();
 		int selectedOption = 0;
 		bool needToRender = true;
+		string[] spacingSmall = {"\n"};
+		string[] spacingLarge = {"\n","\n"};
 		Console.CursorVisible = false;
-		while (true)
+		while (true) 
 		{
 			if (ConsoleHelpers.ClearIfConsoleResized(ref consoleWidth, ref consoleHeight))
 			{
@@ -31,41 +33,46 @@ public static class ControlsScreen
 			if (needToRender)
 			{
 				StringBuilder? buffer = null;
-				//if (consoleWidth - 1 >= bigHeaderWidth)
-				//{
-				//	string[][] options = new[]
-				//	{
-				//		AsciiGenerator.ToAscii((selectedOption is 0 ? "■" : "□") + " up:"),
-				//		AsciiGenerator.ToAscii((selectedOption is 0 ? "■" : "□") + " down:"),
-				//		AsciiGenerator.ToAscii((selectedOption is 0 ? "■" : "□") + " left:"),
-				//		AsciiGenerator.ToAscii((selectedOption is 0 ? "■" : "□") + " right:"),
-				//		AsciiGenerator.ToAscii((selectedOption is 1 ? "■" : "□") + " options"),
-				//		AsciiGenerator.ToAscii((selectedOption is 2 ? "■" : "□") + " exit"),
-				//	};
-				//	int optionsWidth = options.Max(o => o.Max(l => l.Length));
-				//	int bigRenderHeight = bigHeader.Length + options.Sum(o => o.Length) + bigHeaderPadding + optionPadding * options.Length;
-				//	if (consoleHeight - 1 >= bigRenderHeight && consoleWidth - 1 >= optionsWidth)
-				//	{
-				//		int indentSize = Math.Max(0, (bigHeaderWidth - optionsWidth) / 2);
-				//		string indent = new(' ', indentSize);
-				//		string[] render = new string[bigRenderHeight];
-				//		int i = 0;
-				//		foreach (string line in bigHeader)
-				//		{
-				//			render[i++] = line;
-				//		}
-				//		i += bigHeaderPadding;
-				//		foreach (string[] option in options)
-				//		{
-				//			i += optionPadding;
-				//			foreach (string line in option)
-				//			{
-				//				render[i++] = indent + line;
-				//			}
-				//		}
-				//		buffer = ScreenHelpers.Center(render, (consoleHeight - 1, consoleWidth - 1));
-				//	}
-				//}
+				if (consoleWidth - 1 >= bigHeaderWidth)
+				{
+					string[][] options = new[]
+					{
+						AsciiGenerator.ToAscii((selectedOption is 0 ? "■" : "□") + " up:       "+ reverseKeyMappings[UserKeyPress.Up].ToDisplayString()     ), spacingSmall,
+						AsciiGenerator.ToAscii((selectedOption is 1 ? "■" : "□") + " down:     "+ reverseKeyMappings[UserKeyPress.Down].ToDisplayString()   ), spacingSmall,
+						AsciiGenerator.ToAscii((selectedOption is 2 ? "■" : "□") + " left:     "+ reverseKeyMappings[UserKeyPress.Left].ToDisplayString()   ), spacingSmall,
+						AsciiGenerator.ToAscii((selectedOption is 3 ? "■" : "□") + " right:    "+ reverseKeyMappings[UserKeyPress.Right].ToDisplayString()  ), spacingSmall,
+						AsciiGenerator.ToAscii((selectedOption is 4 ? "■" : "□") + " action:   "+ reverseKeyMappings[UserKeyPress.Action].ToDisplayString() ), spacingSmall,
+						AsciiGenerator.ToAscii((selectedOption is 5 ? "■" : "□") + " confirm:  "+ reverseKeyMappings[UserKeyPress.Confirm].ToDisplayString()), spacingSmall,
+						AsciiGenerator.ToAscii((selectedOption is 6 ? "■" : "□") + " status:   "+ reverseKeyMappings[UserKeyPress.Status].ToDisplayString() ), spacingSmall,
+						AsciiGenerator.ToAscii((selectedOption is 7 ? "■" : "□") + " pause:    "+ reverseKeyMappings[UserKeyPress.Escape].ToDisplayString() ), 
+						spacingLarge, //NEEDS FULL SCREEN TO SHOW ALL
+						AsciiGenerator.ToAscii((selectedOption is 8 ? "■" : "□") + " restore defaults"),
+						AsciiGenerator.ToAscii((selectedOption is 9 ? "■" : "□") + " back"),
+					};
+					int optionsWidth = options.Max(o => o.Max(l => l.Length));
+					int bigRenderHeight = bigHeader.Length + options.Sum(o => o.Length) + bigHeaderPadding + optionPadding * options.Length;
+					if (consoleHeight - 1 >= bigRenderHeight && consoleWidth - 1 >= optionsWidth)
+					{
+						int indentSize = Math.Max(0, (bigHeaderWidth - optionsWidth) / 2);
+						string indent = new(' ', indentSize);
+						string[] render = new string[bigRenderHeight];
+						int i = 0;
+						foreach (string line in bigHeader)
+						{
+							render[i++] = line;
+						}
+						i += bigHeaderPadding;
+						foreach (string[] option in options)
+						{
+							i += optionPadding;
+							foreach (string line in option)
+							{
+								render[i++] = indent + line;
+							}
+						}
+						buffer = ScreenHelpers.Center(render, (consoleHeight - 1, consoleWidth - 1));
+					}
+				}
 				if (buffer is null)
 				{
 					string[] render = new[]
@@ -78,7 +85,7 @@ public static class ControlsScreen
 						$@"{(selectedOption is 4 ? ">" : " ")} Action:   {reverseKeyMappings[UserKeyPress.Action].ToDisplayString() }           ",
 						$@"{(selectedOption is 5 ? ">" : " ")} Confirm:  {reverseKeyMappings[UserKeyPress.Confirm].ToDisplayString()}           ",
 						$@"{(selectedOption is 6 ? ">" : " ")} Status:   {reverseKeyMappings[UserKeyPress.Status].ToDisplayString() }           ",
-						$@"{(selectedOption is 7 ? ">" : " ")} Escape:   {reverseKeyMappings[UserKeyPress.Escape].ToDisplayString() }           ",
+						$@"{(selectedOption is 7 ? ">" : " ")} Pause:    {reverseKeyMappings[UserKeyPress.Escape].ToDisplayString() }           ",
 						$@"{(selectedOption is 8 ? ">" : " ")} Restore Defaults",
 						$@"{(selectedOption is 9 ? ">" : " ")} Back",
 					};
@@ -112,19 +119,11 @@ public static class ControlsScreen
 							case 6: PerformKeyMap(UserKeyPress.Status);  needToRender = true; break;
 							case 7: PerformKeyMap(UserKeyPress.Escape);  needToRender = true; break;
 							case 8: DefaultKeyMappings(); needToRender = true; break;
-							case 9:
-								GameRunning = false;
-								return;
-							default:
-								throw new NotImplementedException();
+							case 9: return;
+							default: throw new NotImplementedException();
 						}
 						break;
-					case UserKeyPress.Escape:
-						if (FirstTimeLaunching)
-						{
-							GameRunning = false;
-						}
-						return;
+					case UserKeyPress.Escape: return;
 				}
 			}
 			// prevent CPU spiking

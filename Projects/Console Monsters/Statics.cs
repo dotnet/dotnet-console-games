@@ -128,6 +128,9 @@ public static class Statics
 	[System.Diagnostics.DebuggerHidden]
 	public static (int, int) Subtract((int, int) a, (int, int) b) => (a.Item1 - b.Item1, a.Item2 - b.Item2);
 
+	[System.Diagnostics.DebuggerHidden]
+	public static (int, int) Modulus((int, int) a, (int?, int?) b) => (b.Item1 is null ? a.Item1 : a.Item1 % b.Item1.Value, b.Item2 is null ? a.Item2 : a.Item2 % b.Item2.Value);
+
 	public static void DefaultKeyMappings()
 	{
 		reverseKeyMappings.Clear();

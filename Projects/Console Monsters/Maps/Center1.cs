@@ -4,6 +4,15 @@ public class Center1 : MapBase
 {
 	public override string? AudioFile => AudioController.CoDA_Lullaby;
 
+	public Nurse nurse;
+	public LittleGirl littleGirl;
+
+	public Center1()
+	{
+		nurse = new();
+		littleGirl = new();
+	}
+
 	private static readonly char[][] spriteSheet = new char[][]
 		{
 			"affffifffffjffffb".ToCharArray(),
@@ -47,8 +56,8 @@ public class Center1 : MapBase
 			'p' => Sprites.DeskLeft,
 			'r' => Sprites.DeskRight,
 			// NPC's
-			'k' => Nurse.Idle1,
-			'q' => Sprites.NPC3,
+			'k' => nurse.Sprite,
+			'q' => littleGirl.Sprite,
 			// Items
 			's' => Sprites.MonsterBox,
 			// Extra
