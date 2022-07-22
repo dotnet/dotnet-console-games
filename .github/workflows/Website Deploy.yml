@@ -8,7 +8,7 @@ on:
     - '.github/**'
     - 'LICENSE'
     - 'README.md'
-    - '**.md' # <- may remove this in future to copy game readmes into website
+    - '**.md'
   workflow_dispatch:
 jobs:
   deployment:
@@ -29,8 +29,12 @@ jobs:
       run: sed -i 's/\/?p=\//\/dotnet-console-games\/?p=\//g' /home/runner/work/dotnet-console-games/dotnet-console-games/Projects/Website/bin/Release/publish/wwwroot/404.html
     - name: .nojekyll
       run: touch /home/runner/work/dotnet-console-games/dotnet-console-games/Projects/Website/bin/Release/publish/wwwroot/.nojekyll
-    - uses: maxheld83/ghpages@master
-      name: gh-pages publish
-      env:
-        BUILD_DIR: /home/runner/work/dotnet-console-games/dotnet-console-games/Projects/Website/bin/Release/publish/wwwroot
-        GH_PAT: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+    - name: deploy to github-pages branch
+      run: |
+        cd Projects/Website/bin/Release/publish/wwwroot
+        git init
+        git config user.name "${GITHUB_ACTOR}"
+        git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+        git add .
+        git commit -m 'deploy to binaries branch'
+        git push --force "https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" master:github-pages
