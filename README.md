@@ -4,7 +4,7 @@
 
 <h1 align="center">
 	dotnet-console-games
-</h1> <!-- Comment -->
+</h1>
 
 <p align="center">
 	<a href="https://github.com/ZacharyPatten/dotnet-console-games" alt="GitHub repo"><img alt="flat" src=".github/resources/github-repo-black.svg"></a>
@@ -18,6 +18,9 @@
 <p align="center">
 	Game examples implemented as .NET console applications primarily for providing education and inspiration. :)
 </p>
+
+> **Recommendation**<br/>
+> Play the games, pick a game you like, and try to code the game yourself from scratch.
 
 |Game|\*_Weight_|Notes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
 |:-|:-|:-|
@@ -81,22 +84,21 @@
 	<sup>Hosted On GitHub Pages</sup>
 </p>
 
-## Get Started
+## Local Setup
 
-> **Recommendation**<br/>
-> Use these game examples for learning. Play the games, pick a game you like, and try to code the game yourself from scratch.
-
-[Clone the repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) or [download the repository](https://github.com/ZacharyPatten/dotnet-console-games/archive/main.zip) and unzip the contents. `dotnet-console-games` should build with any standard .NET build process, but one of the following is recommended:
+[Clone the repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) or [download the repository](https://github.com/ZacharyPatten/dotnet-console-games/archive/main.zip) and unzip the contents. `dotnet-console-games` should build with any .NET build process, such as one of the following:
 
 <details>
 <summary>
-:page_facing_up: Visual Studio <sub>[Expand]</sub>
+Visual Studio <sub>[Expand]</sub>
 </summary>
 <p>
 
 > 1. Install [Visual Studio](https://visualstudio.microsoft.com/) if not already installed.
 >
 > 2. Open the <sub>[![File](.github/resources/file-16.svg)](#)</sub> **`dotnet-console-games.slnf`** file in Visual Studio.
+>
+> 3. Run the games with the `Debug`->`Start Debugging` (default hotkey `F5`) option in the menu strip. You can switch games by right clicking the projects in the solution explorer and using the `Set as Startup Project` option.
 >
 > **Note** This is optional, but [here are some settings you can change in Visual Studio](https://gist.github.com/ZacharyPatten/693f35653f6c21fbe6c85444792e524b).
 
@@ -105,7 +107,7 @@
 
 <details>
 <summary>
-:page_facing_up: Visual Studio Code <sub>[Expand]</sub>
+Visual Studio Code <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -114,6 +116,8 @@
 > 2. Install [Visual Studio Code](https://visualstudio.microsoft.com/) if not already installed.
 >
 > 3. Open the <sub>[![Directory](.github/resources/file-directory-16.svg)](#)</sub> **`root folder`** of the repository in Visual Studio Code.
+>
+> 4. Run the games using the `Start Debugging` green triangle button (default hotkey `F5`) in the `Run and Debug` tab. You can switch games in the drop down next to the `Start Debugging` button.
 >
 > **Note** The following files are included in the repository:
 > - `.vscode/extensions.json` <sub>recommends Vistual Studio Code extension dependencies</sub>
@@ -127,9 +131,24 @@
 </p>
 </details>
 
-> **Relevant Articles**<br/>
-> [Beginner's Guide To Console Input In C#](https://github.com/ZacharyPatten/ZacharyPatten/blob/main/Articles/2020-08-01.md) <sub>August 1, 2020</sub><br/>
-> [dotnet Console Games Tips And Tricks](https://github.com/ZacharyPatten/ZacharyPatten/blob/main/Articles/2022-04-07.md) <sub>April 7, 2022</sub>
+<details>
+<summary>
+Command Line <sub>[Expand]</sub>
+</summary>
+<p>
+
+> 1. Install the [.NET SDK](https://dotnet.microsoft.com/download) if not already installed.
+>
+> 2. Run the games using the [`dotnet run --project <PROJECT>` command](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-run) where `<PROJECT>` is the file path to one of the `.csproj` files. For example, running the `dotnet run --project Projects/Drive/Drive.csproj` command from the root of the repository will run the `Drive` game.
+
+</p>
+</details>
+
+## Relevant Articles
+
+[Beginner's Guide To Console Input In C#](https://github.com/ZacharyPatten/ZacharyPatten/blob/main/Articles/2020-08-01.md) <sub>August 1, 2020</sub><br/>
+
+[dotnet Console Games Tips And Tricks](https://github.com/ZacharyPatten/ZacharyPatten/blob/main/Articles/2022-04-07.md) <sub>April 7, 2022</sub>
 
 ## Get Involved
 
