@@ -21,14 +21,15 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: publish win-x64
-      run: dotnet publish dotnet-console-games.slnf --output bin/win-x64 --configuration Release /p:PublishSingleFile=true --runtime win-x64 --self-contained /p:PublishTrimmed=true
+      run: dotnet publish dotnet-console-games.slnf --output bin/win-x64 --configuration Release /p:PublishSingleFile=true --runtime win-x64 --self-contained /p:PublishTrimmed=true /p:DebugType=embedded
     - name: publish osx-x64
-      run: dotnet publish dotnet-console-games.slnf --output bin/osx-x64 --configuration Release /p:PublishSingleFile=true --runtime osx-x64 --self-contained /p:PublishTrimmed=true
+      run: dotnet publish dotnet-console-games.slnf --output bin/osx-x64 --configuration Release /p:PublishSingleFile=true --runtime osx-x64 --self-contained /p:PublishTrimmed=true /p:DebugType=embedded
     - name: publish linux-x64
-      run: dotnet publish dotnet-console-games.slnf --output bin/linux-x64 --configuration Release /p:PublishSingleFile=true --runtime linux-x64 --self-contained /p:PublishTrimmed=true
+      run: dotnet publish dotnet-console-games.slnf --output bin/linux-x64 --configuration Release /p:PublishSingleFile=true --runtime linux-x64 --self-contained /p:PublishTrimmed=true /p:DebugType=embedded
     - name: deploy to binaries branch
       run: |
         cd bin
+        echo "* @ZacharyPatten" > CODEOWNERS
         git init
         git config user.name "${GITHUB_ACTOR}"
         git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
