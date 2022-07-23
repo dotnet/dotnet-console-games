@@ -11,12 +11,6 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
-Connect 4 is a game where you try to get 4 pieces in a line before your oponent does on a 7x6 board by dropping them the pieces in from the top.
-
-## Input
-
-The **right and left arrow keys (←, →)** are used to move your drop location. The **enter key** will drop in your piece. The **escape** key may be used to close the game at any time.
-
 <p align="center">
 	You can play this game in your browser:
 	<br />
@@ -26,3 +20,37 @@ The **right and left arrow keys (←, →)** are used to move your drop location
 	<br />
 	<sup>Hosted On GitHub Pages</sup>
 </p>
+
+Connect 4 is a game where you try to get 4 pieces in a line before your oponent does on a 7x6 board by dropping them the pieces in from the top.
+
+```
+       v
+   ╔---------------╗
+   ║               ║
+   ║               ║
+   ║               ║
+   ║               ║
+   ║               ║
+   ║               ║
+   ║               ║
+   ║   █   █       ║
+   ║               ║
+   ║ █ █   █ █     ║
+   ║               ║
+   ║ █ █   █ █   █ ║
+   ╚═══════════════╝
+```
+
+## Input
+
+- `←`, `→`: move your drop location
+- `enter`: drop in your piece
+- `escape`: exit game
+
+## Downloads
+
+[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Connect%204.exe)
+
+[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Connect%204)
+
+[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Connect%204)

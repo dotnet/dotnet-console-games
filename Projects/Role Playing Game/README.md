@@ -11,6 +11,16 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
+<p align="center">
+	You can play this game in your browser:
+	<br />
+	<a href="https://zacharypatten.github.io/dotnet-console-games/Role%20Playing%20Game" alt="Play Now">
+		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
+	</a>
+	<br />
+	<sup>Hosted On GitHub Pages</sup>
+</p>
+
 Role Playing Game is a game where you explore a world and fight enemies along the way.
 
 ```
@@ -65,14 +75,15 @@ Quit: [escape]
 
 ## Input
 
-The **arrow (↑, ↓, ←, →) or (w, a, s, d) keys** are used to move. The **number keys (1, 2, 3)** select an option during battle. Use **enter** to confirm prompts and check character status. The **escape** key may be used to close the game at any time.
+- `↑`, `↓`, `←`, `→`, `W`, `A`, `S`, `D`: movement
+- `1`, `2`, `3`: select options in battle
+- `enter`: confirm prompts and check character status
+- `escape`: exit game
 
-<p align="center">
-	You can play this game in your browser:
-	<br />
-	<a href="https://zacharypatten.github.io/dotnet-console-games/Role%20Playing%20Game" alt="Play Now">
-		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
-	</a>
-	<br />
-	<sup>Hosted On GitHub Pages</sup>
-</p>
+## Downloads
+
+[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Role%20Playing%20Game.exe)
+
+[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Role%20Playing%20Game)
+
+[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Role%20Playing%20Game)

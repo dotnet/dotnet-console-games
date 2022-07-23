@@ -11,6 +11,16 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
+<p align="center">
+	You can play this game in your browser:
+	<br />
+	<a href="https://zacharypatten.github.io/dotnet-console-games/Blackjack" alt="Play Now">
+		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
+	</a>
+	<br />
+	<sup>Hosted On GitHub Pages</sup>
+</p>
+
 This is the Blackjack card game. It is played with a standard 52 count playing card deck. The goal is to get closer to 21 than the dealer without busting (going over 21). At the start of each round you will place a bet, then the dealer will deal you two cards and himself two cards (one face up and one face down). Then you will choose your move: stay, hit, double down, or split (up to 3 times) until your turn is complete. Then the dealer will reveal his face down card and draw cards as needed in attempts to be closer to 21 as you.
 
 Bets must be in multiples of $2, because if you are dealt a blackjack you will get payed out 3:2.
@@ -66,20 +76,19 @@ Card Values...
 
 ## Input
 
-- `enter` confirm
-- `↑` & `↓` arrow keys: increase/decrease bet
-- `1` stay
-- `2` hit
-- `3` double down
-- `4` split
-- `escape` close the game
+- `enter`: confirm
+- `↑`: increase bet
+- `↓`: decrease bet
+- `1`: stay
+- `2`: hit
+- `3`: double down
+- `4`: split
+- `escape`: close the game
 
-<p align="center">
-	You can play this game in your browser:
-	<br />
-	<a href="https://zacharypatten.github.io/dotnet-console-games/Blackjack" alt="Play Now">
-		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
-	</a>
-	<br />
-	<sup>Hosted On GitHub Pages</sup>
-</p>
+## Downloads
+
+[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Blackjack.exe)
+
+[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Blackjack)
+
+[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Blackjack)

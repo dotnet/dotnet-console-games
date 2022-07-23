@@ -11,6 +11,16 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
+<p align="center">
+	You can play this game in your browser:
+	<br />
+	<a href="https://zacharypatten.github.io/dotnet-console-games/Wumpus%20World" alt="Play Now">
+		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
+	</a>
+	<br />
+	<sup>Hosted On GitHub Pages</sup>
+</p>
+
 Wumpus World is a game where you explore a dark, dangerous cave in search of gold. The cave is a 4x4 grid and is randomized upon entering it. Being unable to see in the darkness, you must guess where to move and hope for the best. Step into a pit and you will fall to your death. Wake up the Wumpus and he will eat you alive. Find the gold, and you win. Although you cannot see, your other senses to help guide you. If you are adjacent to a pit, you will feel a breeze. If you are adjacent to the Wumpus, you can smell his foul odor.
 
 ### Example
@@ -32,8 +42,9 @@ Wumpus World is a game where you explore a dark, dangerous cave in search of gol
 
 ## Input
 
-This game uses commands. Each screen will give you the list of available commands you may use at the time.
+This game uses commands. Type out the command you wish to use and press `enter`.
 
+Commands:
 - `quit`
 - `info`
 - `up`
@@ -43,18 +54,10 @@ This game uses commands. Each screen will give you the list of available command
 - `yes`
 - `no`
 
-## Dependencies
+## Downloads
 
-Don't forget these dependencies if you copy the code:
+[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Wumpus%20World.exe)
 
-- [Towel](https://github.com/ZacharyPatten/Towel) nuget package _(referenced in [Wumpus World.csproj](Wumpus%20World.csproj))_
+[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Wumpus%20World)
 
-<p align="center">
-	You can play this game in your browser:
-	<br />
-	<a href="https://zacharypatten.github.io/dotnet-console-games/Wumpus%20World" alt="Play Now">
-		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
-	</a>
-	<br />
-	<sup>Hosted On GitHub Pages</sup>
-</p>
+[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Wumpus%20World)

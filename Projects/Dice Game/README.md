@@ -11,14 +11,6 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
-> **Note** This game was a *[Community Contribution](https://github.com/ZacharyPatten/dotnet-console-games/pull/31)!
-
-In Dice Game you and a computer Rival will play 10 rounds where you will each roll a 6-sided dice, and the player with the highest dice value will win the round. The player who wins the most rounds wins the game. Good luck!
-
-## Input
-
-- any key press to confirm prompts
-
 <p align="center">
 	You can play this game in your browser:
 	<br />
@@ -28,3 +20,19 @@ In Dice Game you and a computer Rival will play 10 rounds where you will each ro
 	<br />
 	<sup>Hosted On GitHub Pages</sup>
 </p>
+
+> **Note** This game was a *[Community Contribution](https://github.com/ZacharyPatten/dotnet-console-games/pull/31)!
+
+In Dice Game you and a computer Rival will play 10 rounds where you will each roll a 6-sided dice, and the player with the highest dice value will win the round. The player who wins the most rounds wins the game. Good luck!
+
+## Input
+
+- `enter`: confirm
+
+## Downloads
+
+[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Dice%20Game.exe)
+
+[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Dice%20Game)
+
+[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Dice%20Game)

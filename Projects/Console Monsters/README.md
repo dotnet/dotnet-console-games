@@ -11,6 +11,16 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
+<p align="center">
+	You can play this game in your browser:
+	<br />
+	<a href="https://zacharypatten.github.io/dotnet-console-games/Console%20Monsters" alt="Play Now">
+		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
+	</a>
+	<br />
+	<sup>Hosted On GitHub Pages</sup>
+</p>
+
 > **Note** This game was a *Community&nbsp;Collaboration!
 
 > **Warning** This game is still a work-in-progress. The game is being developed in the [`console-monsters`](https://github.com/ZacharyPatten/dotnet-console-games/tree/console-monsters/Projects/Console%20Monsters) branch and will be occasionally merged into the `main` branch. If you would like to help out with the development of this game, please [join the discord server](https://discord.gg/4XbQbwF) to discuss. :)
@@ -69,14 +79,28 @@ Console Monsters is a role playing game where you catch and train monsters.
 
 ## Input
 
-_todo_
+This game supports re-mapping input keys in the options menu. Here are the default key mappings:
 
-<p align="center">
-	You can play this game in your browser:
-	<br />
-	<a href="https://zacharypatten.github.io/dotnet-console-games/Console%20Monsters" alt="Play Now">
-		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
-	</a>
-	<br />
-	<sup>Hosted On GitHub Pages</sup>
-</p>
+- `↑`, `↓`, `←`, `→`: movement
+- `enter`: confirm
+- `E`: action
+- `B`: status
+- `escape`: open menu, back, or close
+
+## Downloads
+
+[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Console%20Monsters.exe)
+
+[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Console%20Monsters)
+
+[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Console%20Monsters)
+
+## Contributors
+
+Here is the first pull request from each contributor of `Console Monsters`:
+
+- https://github.com/ZacharyPatten/dotnet-console-games/pull/45
+- https://github.com/ZacharyPatten/dotnet-console-games/pull/58
+- https://github.com/ZacharyPatten/dotnet-console-games/pull/60
+- https://github.com/ZacharyPatten/dotnet-console-games/pull/61
+- https://github.com/ZacharyPatten/dotnet-console-games/pull/64

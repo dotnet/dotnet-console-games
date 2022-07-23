@@ -11,6 +11,16 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
+<p align="center">
+	You can play this game in your browser:
+	<br />
+	<a href="https://zacharypatten.github.io/dotnet-console-games/Wordle" alt="Play Now">
+		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
+	</a>
+	<br />
+	<sup>Hosted On GitHub Pages</sup>
+</p>
+
 Wordle is a game where you try to guess a 5 letter word. After each attempt you make to guess the word, the letters you guessed will be colored:
 
 - green: this letter is correct and in the correct position
@@ -40,20 +50,12 @@ Use these colored clues to guess the word. Each guess you make must be a valid w
  - a b, c, ... y, z: input letters
  - left/right arrow: move cursor
  - enter: submit or confirm
- - escape: exit
+ - escape: exit game
 
-## Dependencies
+## Downloads
 
-Don't forget these dependencies if you copy the code:
+[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Wordle.exe)
 
-- "FiveLetterWords.txt" embedded resource _(included in source)_
+[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Wordle)
 
-<p align="center">
-	You can play this game in your browser:
-	<br />
-	<a href="https://zacharypatten.github.io/dotnet-console-games/Wordle" alt="Play Now">
-		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
-	</a>
-	<br />
-	<sup>Hosted On GitHub Pages</sup>
-</p>
+[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Wordle)

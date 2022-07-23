@@ -11,6 +11,16 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
+<p align="center">
+	You can play this game in your browser:
+	<br />
+	<a href="https://zacharypatten.github.io/dotnet-console-games/Sliding%20Puzzle" alt="Play Now">
+		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
+	</a>
+	<br />
+	<sup>Hosted On GitHub Pages</sup>
+</p>
+
 Sliding Puzzle is a game where you start with a randomized NxN board that has one empty space in place of a tile. Tiles adjacent to the empty space may be slid into the empty space. You goal is to get all tiles in least-to_greatest order and the empty space in the lower right corner.
 
 ```
@@ -25,22 +35,14 @@ Sliding Puzzle is a game where you start with a randomized NxN board that has on
 ## Input
 
 - `1`, `2`, and `3`: choose options in the menu
-- [`↑`, `↓`, `←`, `→`] or [`W`, `A`, `S`, `D`]: slide tiles into the empty space
+- `↑`, `↓`, `←`, `→`, `W`, `A`, `S`, `D`: slide tiles into the empty space
 - `enter`: return to menu after solving a puzzle
-- `escape`: return to menu or close game
+- `escape`: return to menu or exit game
 
-## Dependencies
+## Downloads
 
-Don't forget these dependencies if you copy the code:
+[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Sliding%20Puzzle.exe)
 
-- [Towel](https://github.com/ZacharyPatten/Towel) nuget package _(referenced in [Sliding Puzzle.csproj](Sliding%20Puzzle.csproj))_
+[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Sliding%20Puzzle)
 
-<p align="center">
-	You can play this game in your browser:
-	<br />
-	<a href="https://zacharypatten.github.io/dotnet-console-games/Sliding%20Puzzle" alt="Play Now">
-		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
-	</a>
-	<br />
-	<sup>Hosted On GitHub Pages</sup>
-</p>
+[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Sliding%20Puzzle)
