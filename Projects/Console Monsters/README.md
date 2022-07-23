@@ -100,6 +100,7 @@ This game supports re-mapping input keys in the options menu. Here are the defau
 Here is the first pull request from each contributor of `Console Monsters`:
 
 - https://github.com/ZacharyPatten/dotnet-console-games/pull/45
+- https://github.com/ZacharyPatten/dotnet-console-games/pull/53
 - https://github.com/ZacharyPatten/dotnet-console-games/pull/58
 - https://github.com/ZacharyPatten/dotnet-console-games/pull/60
 - https://github.com/ZacharyPatten/dotnet-console-games/pull/61
