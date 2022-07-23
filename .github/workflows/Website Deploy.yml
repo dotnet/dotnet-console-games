@@ -24,14 +24,15 @@ jobs:
     - name: publish website
       run: dotnet publish Projects/Website/Website.csproj --configuration Release
     - name: index.html base tag
-      run: sed -i 's/<base href="\/" \/>/<base href="\/dotnet-console-games\/" \/>/g' /home/runner/work/dotnet-console-games/dotnet-console-games/Projects/Website/bin/Release/publish/wwwroot/index.html
+      run: sed -i 's/<base href="\/" \/>/<base href="\/dotnet-console-games\/" \/>/g' Projects/Website/bin/Release/publish/wwwroot/index.html
     - name: 404.html
-      run: sed -i 's/\/?p=\//\/dotnet-console-games\/?p=\//g' /home/runner/work/dotnet-console-games/dotnet-console-games/Projects/Website/bin/Release/publish/wwwroot/404.html
+      run: sed -i 's/\/?p=\//\/dotnet-console-games\/?p=\//g' Projects/Website/bin/Release/publish/wwwroot/404.html
     - name: .nojekyll
-      run: touch /home/runner/work/dotnet-console-games/dotnet-console-games/Projects/Website/bin/Release/publish/wwwroot/.nojekyll
+      run: touch Projects/Website/bin/Release/publish/wwwroot/.nojekyll
     - name: deploy to github-pages branch
       run: |
         cd Projects/Website/bin/Release/publish/wwwroot
+        echo "* @ZacharyPatten" > CODEOWNERS
         git init
         git config user.name "${GITHUB_ACTOR}"
         git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
