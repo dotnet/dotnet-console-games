@@ -127,7 +127,10 @@ class PaletTown : MapBase
 					};
 					break;
 				case 'n':
-					ShopScreen.Render();
+					ShopText = new string[]
+					{
+						"rest"
+					};
 					break;
 				case 'e':
 					PromptText = new string[]

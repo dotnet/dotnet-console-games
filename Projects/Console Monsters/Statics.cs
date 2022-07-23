@@ -113,6 +113,7 @@ public static class Statics
 	};
 
 	public static string[]? PromptText { get; set; } = null;
+	public static string[]? ShopText { get; set; } = null;
 
 	public static int SelectedPlayerInventoryItem { get; set; } = 0;
 	public static readonly Towel.DataStructures.IBag<ItemBase> PlayerInventory = Towel.DataStructures.BagMap.New<ItemBase>();
