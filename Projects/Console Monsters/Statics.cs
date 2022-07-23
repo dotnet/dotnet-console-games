@@ -9,6 +9,7 @@ public static class Statics
 	public static bool DisableBattleTransition { get; set; } = false;
 	public static bool FirstTimeLaunching { get; set; } = true;
 	public static bool AudioEnabled { get; set; } = true;
+	public static bool FastText { get; set; } = true;
 
 	#endregion
 
@@ -154,6 +155,23 @@ public static class Statics
 			if (pair.Value.Alternate is not null)
 			{
 				keyMappings.Add(pair.Value.Alternate.Value, pair.Key);
+			}
+		}
+	}
+
+	public static void SlowText(string text)
+	{
+		var KeyPressed = Console.ReadKey(true).Key;
+		if (KeyPressed == ConsoleKey.Spacebar)
+		{
+			Console.WriteLine(text);
+		}
+		else if (KeyPressed == ConsoleKey.Enter)
+		{
+			foreach (var item in text)
+			{
+				Console.Write(item);
+				Thread.Sleep(40);
 			}
 		}
 	}
