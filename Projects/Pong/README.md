@@ -11,6 +11,16 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
+<p align="center">
+	You can play this game in your browser:
+	<br />
+	<a href="https://zacharypatten.github.io/dotnet-console-games/Pong" alt="Play Now">
+		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
+	</a>
+	<br />
+	<sup>Hosted On GitHub Pages</sup>
+</p>
+
 Pong is a game where you try to prevent a ball from getting past you. You may only move your paddle vertically. The first player to score 3 points wins.
 
 ```
@@ -29,14 +39,15 @@ Pong is a game where you try to prevent a ball from getting past you. You may on
 
 ## Input
 
-The **up arrow (↑)** and **down arrow (↓)** keys are used to move tyour paddle. The **escape** key may be used to close the game at any time. If you **resize** the console widow the game will be closed.
+- `↑`, `↓`: move your paddle (left)
+- `escape`: exit game
 
-<p align="center">
-	You can play this game in your browser:
-	<br />
-	<a href="https://zacharypatten.github.io/dotnet-console-games/Pong" alt="Play Now">
-		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
-	</a>
-	<br />
-	<sup>Hosted On GitHub Pages</sup>
-</p>
+> resizing the console window will cause the game to close
+
+## Downloads
+
+[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Pong.exe)
+
+[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Pong)
+
+[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Pong)

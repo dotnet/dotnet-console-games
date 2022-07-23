@@ -11,6 +11,16 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
+<p align="center">
+	You can play this game in your browser:
+	<br />
+	<a href="https://zacharypatten.github.io/dotnet-console-games/Maze" alt="Play Now">
+		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
+	</a>
+	<br />
+	<sup>Hosted On GitHub Pages</sup>
+</p>
+
 Maze is a pretty self explanatory game. Solve the randomly generated maze. The maze size if coded to be 8x20. You always start in the top left and the end is always in the bottom right.
 
 ```
@@ -42,7 +52,8 @@ Maze is a pretty self explanatory game. Solve the randomly generated maze. The m
 
 ## Input
 
-The **arrow keys (↑, ↓, ←, →)** are used to change the direction you are moving. The **escape** key may be used to close the game at any time.
+- `↑`, `↓`, `←`, `→`: movement
+- `escape`: exit game
 
 ## Notes
 
@@ -51,18 +62,10 @@ At the top of the **[source code](Program.cs)** you will see compiler directive(
 - `#define DebugRandomMazeGeneration`: Uncomment this directive and you can watch the maze generation algorithm step-by-step.
 - `#define UsePrims`: Uncomment this directive to use an alternative algorithm for generating mazes.
 
-## Dependencies
+## Downloads
 
-Don't forget these dependencies if you copy the code:
+[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Maze.exe)
 
-- [Towel](https://github.com/ZacharyPatten/Towel) nuget package _(referenced in [Maze.csproj](Maze.csproj))_
+[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Maze)
 
-<p align="center">
-	You can play this game in your browser:
-	<br />
-	<a href="https://zacharypatten.github.io/dotnet-console-games/Maze" alt="Play Now">
-		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
-	</a>
-	<br />
-	<sup>Hosted On GitHub Pages</sup>
-</p>
+[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Maze)

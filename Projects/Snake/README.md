@@ -11,6 +11,16 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
+<p align="center">
+	You can play this game in your browser:
+	<br />
+	<a href="https://zacharypatten.github.io/dotnet-console-games/Snake" alt="Play Now">
+		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
+	</a>
+	<br />
+	<sup>Hosted On GitHub Pages</sup>
+</p>
+
 Snake is a game where you play as a snake and try to eat as much food as possible. Once you start moving you may not stop. You lose if you fall out of bounds or attempt to eat yourself. Every time you eat food, you grow in length, making it harder to avoid auto-cannibalism. The bounds are the edges of the console window.
 
 Food: `+`
@@ -28,14 +38,15 @@ v>>>>>>>>>>>>>
 
 ## Input
 
-The **arrow keys (↑, ↓, ←, →)** are used to change the direction you are moving. The **escape** key may be used to close the game at any time. If you **resize** the console widow the game will be closed.
+- `↑`, `↓`, `←`, `→`: change the direction you are moving
+- `escape`: exit game
 
-<p align="center">
-	You can play this game in your browser:
-	<br />
-	<a href="https://zacharypatten.github.io/dotnet-console-games/Snake" alt="Play Now">
-		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
-	</a>
-	<br />
-	<sup>Hosted On GitHub Pages</sup>
-</p>
+> resizing the console window will cause the game to close
+
+## Downloads
+
+[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Snake.exe)
+
+[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Snake)
+
+[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Snake)

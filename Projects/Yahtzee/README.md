@@ -11,6 +11,16 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
+<p align="center">
+	You can play this game in your browser:
+	<br />
+	<a href="https://zacharypatten.github.io/dotnet-console-games/Yahtzee" alt="Play Now">
+		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
+	</a>
+	<br />
+	<sup>Hosted On GitHub Pages</sup>
+</p>
+
 Yahtzee is a dice roll-and-write game. You roll 5 dice, choose any number of those dice to re-roll up to 2 times, and then choose one of 13 lines to fill in on your score sheet. Aim to get the highest total score by the end of the game.
 
 ```
@@ -62,18 +72,16 @@ Score Sheet Explanations:
 
 ## Input
 
-- `enter` confirm
-- `space` roll dice
-- `↑, ←, → arrow keys` select dice to re-roll
-- `↑, ↓ arrow keys` select score sheet item
-- `escape` close game
+- `enter`: confirm
+- `space`: roll dice
+- `↑`, `←`, `→`: select dice to re-roll
+- `↑`, `↓`: select score sheet item
+- `escape`: exit game
 
-<p align="center">
-	You can play this game in your browser:
-	<br />
-	<a href="https://zacharypatten.github.io/dotnet-console-games/Yahtzee" alt="Play Now">
-		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
-	</a>
-	<br />
-	<sup>Hosted On GitHub Pages</sup>
-</p>
+## Downloads
+
+[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Yahtzee.exe)
+
+[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Yahtzee)
+
+[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Yahtzee)

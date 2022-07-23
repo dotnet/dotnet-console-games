@@ -11,6 +11,16 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
+<p align="center">
+	You can play this game in your browser:
+	<br />
+	<a href="https://zacharypatten.github.io/dotnet-console-games/Sudoku" alt="Play Now">
+		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
+	</a>
+	<br />
+	<sup>Hosted On GitHub Pages</sup>
+</p>
+
 Sudoku is a randomly generated number puzzle game.The goal is to fill in the entire board with the numbers 1 through 9. However, you cannot duplicate the values within the same row, column, or 3x3 square.
 
 ```
@@ -31,25 +41,22 @@ Sudoku is a randomly generated number puzzle game.The goal is to fill in the ent
 
 ## Input
 
-The **arrow keys(↑, ↓, ←, →)** are used to change the selected cell.The **1 - 9 number keys** are used to insert a value into the current cell(if the move is valid). The **\[delete\] and \[backspace\] keys** will remove values from the board. The **\[end\] key** will generate a new puzzle if you get stuck. The **\[enter\] key** will generate a new puzzle after you win.The **\[escape\] key** will exit the game.
+- `↑`, `↓`, `←`, `→`: change the selected cell
+- `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`: insert a value into the current cell (if the move is valid)
+- `delete`, `backspace`: remove values from the board
+- `end`: generate a new puzzle
+- `enter`: confirm
+- `escape`: exit game
 
 ## Notes
 
 At the top of the **[source code](Program.cs)** you will see compiler directive(s):
 - `#define DebugAlgorithm`: Uncomment this directive and you can watch the sudoku generation algorithm step-by-step.
 
-## Dependencies
+## Downloads
 
-Don't forget these dependencies if you copy the code:
+[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Sudoku.exe)
 
-- [Towel](https://github.com/ZacharyPatten/Towel) nuget package _(referenced in [Sudoku.csproj](Sudoku.csproj))_
+[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Sudoku)
 
-<p align="center">
-	You can play this game in your browser:
-	<br />
-	<a href="https://zacharypatten.github.io/dotnet-console-games/Sudoku" alt="Play Now">
-		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
-	</a>
-	<br />
-	<sup>Hosted On GitHub Pages</sup>
-</p>
+[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Sudoku)

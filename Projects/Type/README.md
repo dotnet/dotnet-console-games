@@ -11,6 +11,16 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
+<p align="center">
+	You can play this game in your browser:
+	<br />
+	<a href="https://zacharypatten.github.io/dotnet-console-games/Type" alt="Play Now">
+		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
+	</a>
+	<br />
+	<sup>Hosted On GitHub Pages</sup>
+</p>
+
 Type is typing game. Type the words as they appear as quickly as you can. With each successful word you complete you will have less time on the next. Run out of time to complete a word and it is game over.
 
 ```
@@ -29,21 +39,13 @@ Type is typing game. Type the words as they appear as quickly as you can. With e
 
 ## Input
 
-Input involves typing the english characters of the words that appear ('a', 'b', 'c'... 'z'). The **escape** key may be used to close the game at any time.
+- `a`, `b`, `c`... `z`: type letters
+- `escape`: exit game
 
-## Dependencies
+## Downloads
 
-Don't forget these dependencies if you copy the code:
+[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Type.exe)
 
-- "Words.txt" embedded resource _(included in source)_
-- [Towel](https://github.com/ZacharyPatten/Towel) nuget package _(referenced in [Type.csproj](Type.csproj))_
+[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Type)
 
-<p align="center">
-	You can play this game in your browser:
-	<br />
-	<a href="https://zacharypatten.github.io/dotnet-console-games/Type" alt="Play Now">
-		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
-	</a>
-	<br />
-	<sup>Hosted On GitHub Pages</sup>
-</p>
+[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Type)

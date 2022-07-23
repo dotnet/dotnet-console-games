@@ -11,6 +11,16 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
+<p align="center">
+	You can play this game in your browser:
+	<br />
+	<a href="https://zacharypatten.github.io/dotnet-console-games/Draw" alt="Play Now">
+		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
+	</a>
+	<br />
+	<sup>Hosted On GitHub Pages</sup>
+</p>
+
 Draw is a drawing game. A drawing will be randomly generated on the right hand side and you need to replicate it on the left hand side. However you are using a new dual-feature pen that writes and erases.
 
 ```
@@ -31,17 +41,15 @@ Draw is a drawing game. A drawing will be randomly generated on the right hand s
 
 ## Input
 
-- arrow `↑`, `↓`, `←`, `→` or `w`, `a`, `s`, `d` keys: draw
-- `end` or `home`: jump to new drawing
-- `enter`: play again after completed drawing
-- `escape`: close the game
+- `↑`, `↓`, `←`, `→`, `W`, `A`, `S`, `D`: draw
+- `end`, `home`: jump to new drawing
+- `enter`: play again
+- `escape`: exit game
 
-<p align="center">
-	You can play this game in your browser:
-	<br />
-	<a href="https://zacharypatten.github.io/dotnet-console-games/Draw" alt="Play Now">
-		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
-	</a>
-	<br />
-	<sup>Hosted On GitHub Pages</sup>
-</p>
+## Downloads
+
+[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Draw.exe)
+
+[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Draw)
+
+[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Draw)

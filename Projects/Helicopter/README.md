@@ -11,6 +11,16 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
+<p align="center">
+	You can play this game in your browser:
+	<br />
+	<a href="https://zacharypatten.github.io/dotnet-console-games/Helicopter" alt="Play Now">
+		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
+	</a>
+	<br />
+	<sup>Hosted On GitHub Pages</sup>
+</p>
+
 Helicopter is a game where you pilot an attack helicopter and shoot down unidentified flying objects (UFOs) otehrwise known as... ALIENS!!! Kill them. Kill them all. Let them get by you and they destroy the earth and you lose.
 
 ```
@@ -36,14 +46,16 @@ Helicopter is a game where you pilot an attack helicopter and shoot down unident
 
 ## Input
 
-The **up arrow key (↑)** and **down arrow key (↓)** are used to control your elevation. The **right arrow key (→)** is used to fire you guns. The **escape** key may be used to close the game at any time. If you **resize** the console widow the game will be closed.
+- `↑`, `↓`: control your altitude
+- `→`: fire you guns
+- `escape`: exit game
 
-<p align="center">
-	You can play this game in your browser:
-	<br />
-	<a href="https://zacharypatten.github.io/dotnet-console-games/Helicopter" alt="Play Now">
-		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
-	</a>
-	<br />
-	<sup>Hosted On GitHub Pages</sup>
-</p>
+> resizing the console window will cause the game to close
+
+## Downloads
+
+[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Helicopter.exe)
+
+[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Helicopter)
+
+[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Helicopter)

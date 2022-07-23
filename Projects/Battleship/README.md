@@ -11,6 +11,16 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
+<p align="center">
+	You can play this game in your browser:
+	<br />
+	<a href="https://zacharypatten.github.io/dotnet-console-games/Battleship" alt="Play Now">
+		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
+	</a>
+	<br />
+	<sup>Hosted On GitHub Pages</sup>
+</p>
+
 This is a guessing game where you will place your battle ships on a grid, and then shoot locations of the enemy grid trying to find and sink all of their ships. The first player to sink all the enemy ships wins.
 
 ```
@@ -48,17 +58,15 @@ This is a guessing game where you will place your battle ships on a grid, and th
 
 ## Input
 
-- `enter` confirm boat or shot location
-- `↑`, `↓`, `←`, or `→` arrow keys: move boat or aim shot
-- `spacebar` rotate ship
-- `escape` close the game
+- `enter`: confirm boat or shot location
+- `↑`, `↓`, `←`, `→`: move boat or aim shot
+- `spacebar`: rotate ship
+- `escape`: exit game
 
-<p align="center">
-	You can play this game in your browser:
-	<br />
-	<a href="https://zacharypatten.github.io/dotnet-console-games/Battleship" alt="Play Now">
-		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
-	</a>
-	<br />
-	<sup>Hosted On GitHub Pages</sup>
-</p>
+## Downloads
+
+[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Battleship.exe)
+
+[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Battleship)
+
+[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Battleship)

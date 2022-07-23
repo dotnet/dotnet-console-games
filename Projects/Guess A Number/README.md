@@ -11,12 +11,6 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
-Guess A Number is a guessing game. A secret number will be randomly generated. You will guess a number and be told if your guess is lower, higher, or equal to the secret number. Keep guessing until you guess the secret number.
-
-## Input
-
-Type out a number such as `1`, `10`, or `100` and then press `enter` to guess.
-
 <p align="center">
 	You can play this game in your browser:
 	<br />
@@ -26,3 +20,17 @@ Type out a number such as `1`, `10`, or `100` and then press `enter` to guess.
 	<br />
 	<sup>Hosted On GitHub Pages</sup>
 </p>
+
+Guess A Number is a guessing game. A secret number will be randomly generated. You will guess a number and be told if your guess is lower, higher, or equal to the secret number. Keep guessing until you guess the secret number.
+
+## Input
+
+Type out a number such as `1`, `10`, or `100` and then press `enter` to guess.
+
+## Downloads
+
+[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Guess%20A%20Number.exe)
+
+[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Guess%20A%20Number)
+
+[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Guess%20A%20Number)

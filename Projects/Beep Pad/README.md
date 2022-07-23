@@ -29,4 +29,17 @@ Beep Pad is a game that provides you a randomly generated pass code in the form 
 
 ## Input
 
-The **arrow keys (↑, ↓, ←, →)** are used to change the selected button. The **enter** key is used to press the currently selected button. The **spacebar** is used to replay the audio of the answer. The **escape** key may be used to close the game at any time. If you **resize** the console widow the game will be closed.
+- `↑`, `↓`, `←`, `→`: change the selected button
+- `enter`: press the currently selected button
+- `spacebar`: replay the audio of the answer
+- `escape`: exit game
+
+> resizing the console window will cause the game to close
+
+## Downloads
+
+[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Beep%20Pad.exe)
+
+~linux-x64~ (not supported)
+
+~osx-x64~ (not supported)

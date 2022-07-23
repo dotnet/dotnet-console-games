@@ -11,6 +11,16 @@
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
 
+<p align="center">
+	You can play this game in your browser:
+	<br />
+	<a href="https://zacharypatten.github.io/dotnet-console-games/Drive" alt="Play Now">
+		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
+	</a>
+	<br />
+	<sup>Hosted On GitHub Pages</sup>
+</p>
+
 Drive is a... driving game. Use the W, A, and D keys to control your velocity. Stay on the road!
 
 ```
@@ -48,14 +58,16 @@ Drive is a... driving game. Use the W, A, and D keys to control your velocity. S
 
 ## Input
 
-The **arrow (↑, ↓, ←, →) or (w, a, s, d) keys** are used to control your velocity. Use **enter** to confirm prompts. The **escape** key may be used to close the game at any time. If you **resize** the console widow too small the game will be closed.
+- `↑`, `↓`, `←`, `→`, `W`, `A`, `S`, `D`: control your velocity
+- `enter`: confirm
+- `escape`: exit game
 
-<p align="center">
-	You can play this game in your browser:
-	<br />
-	<a href="https://zacharypatten.github.io/dotnet-console-games/Drive" alt="Play Now">
-		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
-	</a>
-	<br />
-	<sup>Hosted On GitHub Pages</sup>
-</p>
+> resizing the console window will cause the game to close
+
+## Downloads
+
+[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Drive.exe)
+
+[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Drive)
+
+[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Drive)
