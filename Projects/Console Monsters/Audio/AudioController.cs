@@ -1,12 +1,14 @@
-﻿namespace Console_Monsters.Audio;
+﻿using System.Reflection;
+
+namespace Console_Monsters.Audio;
 
 public static class AudioController
 {
-	public static readonly string CoDA_Lullaby = Path.Combine("Audio", "CoDA-Lullaby.wav");
+	public static readonly string CoDA_Lullaby = "Console_Monsters.Audio.CoDA-Lullaby.wav";
 
 	private readonly static System.Media.SoundPlayer? soundPlayer;
 
-	private static bool isPlaying;
+	private static string? recoursePlaying;
 
 	static AudioController()
 	{
@@ -23,20 +25,23 @@ public static class AudioController
 		}
 	}
 
-	public static void PlaySound(string fileName)
+	public static void PlaySound(string resourceName)
 	{
+		if (resourceName is null) throw new ArgumentNullException(nameof(resourceName));
 		if (AudioEnabled)
 		{
 			if (OperatingSystem.IsWindows())
 			{
-				if (!File.Exists(fileName)) throw new FileNotFoundException("attempted to play a non-existant audio file", fileName);
 				if (soundPlayer is not null)
 				{
-					if (!(isPlaying && soundPlayer.SoundLocation == fileName))
+					if (recoursePlaying != resourceName)
 					{
+						Assembly assembly = Assembly.GetExecutingAssembly();
+						Stream? stream = assembly.GetManifestResourceStream(resourceName);
+						if (stream is null) throw new ArgumentException($"the {nameof(resourceName)} embedded resource was not found");
 						try
 						{
-							soundPlayer.SoundLocation = fileName;
+							soundPlayer.Stream = stream;
 							soundPlayer.PlayLooping();
 						}
 						catch
@@ -46,13 +51,13 @@ public static class AudioController
 					}
 				}
 			}
-			isPlaying = true;
+			recoursePlaying = resourceName;
 		}
 	}
 
 	public static void StopSound()
 	{
-		if (isPlaying)
+		if (recoursePlaying is not null)
 		{
 			if (OperatingSystem.IsWindows())
 			{
@@ -68,7 +73,7 @@ public static class AudioController
 					}
 				}
 			}
-			isPlaying = false;
+			recoursePlaying = null;
 		}
 	}
 }

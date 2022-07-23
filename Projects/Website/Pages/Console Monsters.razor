@@ -11,7 +11,7 @@
 </a>
 
 <div class="alert alert-warning" role="alert" style="margin-top: 0.5rem;">
-	&#9888; WARNING! This game is still a work in progress. It is unfinished and still being developed.
+	&#9888; WARNING! This game is still a work in progress. It is unfinished and still being developed. Also, this web version of the game may not be up to date with the console version due to the currently manual porting process.
 </div>
 
 <div class="console-window text-center my-3" @onkeydown="@Console.OnKeyDown" tabindex="0">
@@ -25,8 +25,8 @@
 		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.DownArrow) ">↓</button>
 		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.LeftArrow) ">←</button>
 		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.RightArrow)">→</button>
-		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.E)        ">E</button>
-		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.B)        ">B</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.E)         ">E</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.B)         ">B</button>
 		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Enter)     ">enter</button>
 		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Escape)    ">escape</button>
 	</div>
@@ -49,8 +49,8 @@
 	{
 		Game = new();
 		Console = Game.Console;
-		//Console.WindowWidth = PLACEHOLDER;
-		//Console.WindowHeight = PLACEHOLDER;
+		Console.WindowWidth = 150;
+		Console.WindowHeight = 50;
 		Console.TriggerRefresh = StateHasChanged;
 	}
 

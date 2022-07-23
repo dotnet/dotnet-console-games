@@ -2,20 +2,32 @@
 
 class Route2 : MapBase
 {
+	public Camper camper;
+
+	public Route2()
+	{
+		camper = new();
+	}
+
 	private static readonly char[][] spriteSheet = new char[][]
 		{
-			"ffffffffffffffffffffffffffffffffffffffffffffffffffff".ToCharArray(),
-			"fggggggggggggggggggggggg    ggggggggg       GGGGGGGf".ToCharArray(),
-			"!ggggggggggggggggggggggg    ggggggggg       GGGGGGGf".ToCharArray(),
-			"!ggggggggggggggggggggggg    gggggggggTTTTTTTGGGGGGGf".ToCharArray(),
-			"fggggggggggggggggggggggg    gggggggggggggggT       f".ToCharArray(),
-			"fggggggggggggggggggggggg    gggggggggggggggT       f".ToCharArray(),
-			"fggggggggggggggTTTTTTTTTTTTTTggggggggggggggT       f".ToCharArray(),
-			"fgggggggggggggg             TTTTTTTTgggggggT       !".ToCharArray(),
-			"fgggggggggggggg             GGGGGGGGgggggggT       !".ToCharArray(),
-			"fggggggggggggggTTTTTTTTTs   GGGGGGGGgggggggTTTTTTTTf".ToCharArray(),
-			"fggggggggggggggggggggggT    TTTTTTTTgggggggggggggggf".ToCharArray(),
-			"fffffffffffffffffffffffff00fffffffffffffffffffffffff".ToCharArray(),
+			"TTTTTTTTTTTTT                                            ".ToCharArray(),
+			"TTTTTTTTTTTTT                                            ".ToCharArray(),
+			"TTTTaaaaaaaaa                                            ".ToCharArray(),
+			"TTTTaaaaaaaaa                                            ".ToCharArray(),
+			"TTTTaaaaaaaaa                                            ".ToCharArray(),
+			"TTTTaaaaaaaaaffffffffffffffffffffffffffffffffffffffffffff".ToCharArray(),
+			"TTTTaaaaaaaaagggggggggggggggg    ggggggggg       GGGGGGGf".ToCharArray(),
+			"TTTTaaaaaabaagggggggggggggggg    ggggggggg       GGGGGGGf".ToCharArray(),
+			"     !ggggggggggggggggggggggg    gggggggggTTTTTTTGGGGGGGf".ToCharArray(),
+			"     fggggggggggggggggggggggg    gggggggggggggggT       f".ToCharArray(),
+			"     fggggggggggggggggggggggg    gggggggggggggggT       f".ToCharArray(),
+			"     fggggggggggggggTTTTTTTTTTTTTTggggggggggggggT       f".ToCharArray(),
+			"     fgggggggggggggg             TTTTTTTTgggggggT       1".ToCharArray(),
+			"     fgggggggggggggg             GGGGGGGGgggggggT       1".ToCharArray(),
+			"     fggggggggggggggTTTTTTTTTs   GGGGGGGGgggggggTTTTTTTTf".ToCharArray(),
+			"     fggggggggggggggggggggggT    TTTTTTTTgggggggggggggggf".ToCharArray(),
+			"     fffffffffffffffffffffffff00fffffffffffffffffffffffff".ToCharArray(),
 		};
 
 	public override char[][] SpriteSheet => spriteSheet;
@@ -30,12 +42,15 @@ class Route2 : MapBase
 		{
 			// actions
 			'0' => Sprites.ArrowHeavyDown,
+			'1' => Sprites.ArrowHeavyRight,
 			// no actions
 			's' => Sprites.SignARight,
 			'f' => Sprites.Fence,
 			'g' => Sprites.GrassDec,
 			'G' => Sprites.Grass,
 			'T' => Sprites.Tree2,
+			'a' => Sprites.Camping6x9.Get(Subtract((i, j), FindTileInMap('a')!.Value).Reverse()),
+			'b' => camper.Sprite,
 			' ' => Sprites.Open,
 			_ => Sprites.Error,
 		};
@@ -50,6 +65,7 @@ class Route2 : MapBase
 		return SpriteSheet[j][i] switch
 		{
 			's' => true,
+			'b' => true,
 			_ => false,
 		};
 	}
@@ -60,6 +76,9 @@ class Route2 : MapBase
 		{
 			switch (SpriteSheet[j][i])
 			{
+				case 'b':
+					PromptText = camper.Dialogue;
+					break;
 				case 's':
 					PromptText = new string[]
 					{
@@ -82,6 +101,7 @@ class Route2 : MapBase
 		{
 			' ' => true,
 			'0' => true,
+			'1' => true,
 			'g' => true,
 			'G' => true,
 			_ => false,
@@ -99,6 +119,10 @@ class Route2 : MapBase
 			case '0':
 				Map = new Route1();
 				Map.SpawnCharacterOn('1');
+				break;
+			case '1':
+				Map = new Western();
+				Map.SpawnCharacterOn('0');
 				break;
 			case 'G':
 				if (!DisableBattle && Random.Shared.Next(2) is 0) // BATTLE CHANCE

@@ -47,7 +47,7 @@ public class House1 : MapBase
 			'n' => Sprites.LowerCabnetWithDraws,
 			'o' => Sprites.PotPlant1,
 			'p' => Sprites.MicroWave,
-			's' => Sprites.DiningSet.Get(Subtract((i, j), FindTileInMap('s')!.Value).Reverse()),
+			's' => Sprites.DiningSet1x4.Get(Subtract((i, j), FindTileInMap('s')!.Value).Reverse()),
 			'u' => Sprites.Carpet,
 			'v' => Sprites.WeirdMonster,
 			'w' => Sprites.PotPlant1,
