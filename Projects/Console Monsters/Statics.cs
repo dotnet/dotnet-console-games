@@ -44,7 +44,6 @@ public static class Statics
 	public static bool GameRunning { get; set; } = true;
 	public static bool StartMenu { get; set; } = true;
 	public static bool InInventory { get; set; } = false;
-    public static MapBase map = new PaletTown();
 	public static DateTime previoiusRender = DateTime.Now;
 	public static int maxPartySize = 6;
 	public static bool gameRunning { get; set; } = true;

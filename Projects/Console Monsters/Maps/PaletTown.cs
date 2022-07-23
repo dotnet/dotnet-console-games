@@ -120,7 +120,7 @@ class PaletTown : MapBase
 				case 'o':
 					PromptText = scientist.Dialogue;
 					break;
-				case 'p' or 'n':
+				case 'p':
 					PromptText = new string[]
 					{
 						"...",
