@@ -127,7 +127,7 @@ internal static class MapScreen
 						sb.Append('╔');
 						continue;
 					}
-					if (i is 5 && j == heightCutOff - 3)
+					if (i is 5 && j == heightCutOff - 6)
 					{
 						sb.Append('╚');
 						continue;
@@ -137,17 +137,17 @@ internal static class MapScreen
 						sb.Append('╗');
 						continue;
 					}
-					if (i == midWidth - 20 && j == heightCutOff - 3)
+					if (i == midWidth - 20 && j == heightCutOff - 6)
 					{
 						sb.Append('╝');
 						continue;
 					}
-					if ((i is 5 || i == midWidth - 20) && j > 4 && j < heightCutOff - 3)
+					if ((i is 5 || i == midWidth - 20) && j > 4 && j < heightCutOff - 5)
 					{
 						sb.Append('║');
 						continue;
 					}
-					if ((j == heightCutOff - 3 || j == 4) && i > 5 && i < midWidth - 20)
+					if ((j == heightCutOff - 6 || j == 4) && i > 5 && i < midWidth - 20)
 					{
 						sb.Append('═');
 						continue;
@@ -160,6 +160,55 @@ internal static class MapScreen
 							if (i - 6 < line.Length)
 							{
 								sb.Append(line[i - 6]);
+								continue;
+							}
+						}
+						sb.Append(' ');
+						continue;
+					}
+				}
+
+				// shop middle prompt if there is one
+				if (PromptShopText is not null)
+				{
+					if (i is 20 && j == 20)
+					{
+						sb.Append('╔');
+						continue;
+					}
+					if (i is 20 && j == heightCutOff - 20)
+					{
+						sb.Append('╚');
+						continue;
+					}
+					if (i == midWidth - 40 && j == 20)
+					{
+						sb.Append('╗');
+						continue;
+					}
+					if (i == midWidth - 40 && j == heightCutOff - 20)
+					{
+						sb.Append('╝');
+						continue;
+					}
+					if ((i is 20 || i == midWidth - 40) && j > 20 && j < heightCutOff - 20)
+					{
+						sb.Append('║');
+						continue;
+					}
+					if ((j == heightCutOff - 20 || j == 20) && i > 20 && i < midWidth - 40)
+					{
+						sb.Append('═');
+						continue;
+					}
+					if (i > 20 && i < midWidth - 40 && j > 20 && j < heightCutOff - 20)
+					{
+						if (j - (21) < PromptShopText.Length)
+						{
+							string line = PromptShopText[j - (21)];
+							if (i - 21 < line.Length)
+							{
+								sb.Append(line[i - 21]);
 								continue;
 							}
 						}

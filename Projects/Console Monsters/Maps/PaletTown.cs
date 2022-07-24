@@ -127,10 +127,11 @@ class PaletTown : MapBase
 					};
 					break;
 				case 'n':
-					ShopText = new string[]
-					{
-						"rest"
-					};
+					ShopScreen.Render();
+					//PromptShopText = new string[]
+					//{
+					//	"Hi"
+					//};
 					break;
 				case 'e':
 					PromptText = new string[]
@@ -185,4 +186,6 @@ class PaletTown : MapBase
 				break;
 		}
 	}
+
+	
 }

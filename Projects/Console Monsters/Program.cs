@@ -101,6 +101,14 @@ public partial class Program
 					{
 						break;
 					}
+					if (ShopText is not null)
+					{
+						break;
+					}
+					if (PromptShopText is not null)
+					{
+						break;
+					}
 					if (character.IsIdle)
 					{
 						var (i, j) = MapBase.WorldToTile(character.I, character.J);
@@ -155,6 +163,14 @@ public partial class Program
 					{
 						break; 
 					}
+					if (ShopText is not null)
+					{
+						break;
+					}
+					if (PromptShopText is not null)
+					{
+						break;
+					}
 					InInventory = true;
 					while (InInventory)
 					{
@@ -188,6 +204,9 @@ public partial class Program
 					break;
 				case UserKeyPress.Confirm:
 					PromptText = null;
+					ShopText = null;
+					PromptText = null;
+
 					break;
 				case UserKeyPress.Action:
 					if (PromptText is not null)
@@ -195,7 +214,17 @@ public partial class Program
 						PromptText = null;
 						break;
 					}
-					if(character.IsIdle)
+					if (ShopText is not null)
+					{
+						ShopText = null;
+						break;
+					}
+					if (PromptShopText is not null)
+					{
+						PromptShopText = null;
+						break;
+					}
+					if (character.IsIdle)
 					{
 						var (i, j) = character.InteractTile;
 						Map.InteractWithMapTile(i, j);

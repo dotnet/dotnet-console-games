@@ -80,9 +80,9 @@ public static class Statics
 		$" [{reverseKeyMappings[UserKeyPress.Escape].ToDisplayString()}]: Menu",
 	};
 
-	public static readonly string[] shopTextPressEnter = new string[]
+	public static readonly string[] ShopTextPressEnter = new string[]
 	{
-		"[Escape]: Exit Shop",
+		"[Escape]: Exit Shop, [Enter]: Buy Item",
 	};
 
 	public static string[] MapText
@@ -92,6 +92,14 @@ public static class Statics
 			if (PromptText is not null)
 			{
 				return MapTextPressEnter;
+			}
+			if (ShopText is not null)
+			{
+				return ShopTextPressEnter;
+			}
+			if (PromptShopText is not null)
+			{
+				return ShopTextPressEnter;
 			}
 			if (character.IsIdle)
 			{
@@ -114,6 +122,8 @@ public static class Statics
 
 	public static string[]? PromptText { get; set; } = null;
 	public static string[]? ShopText { get; set; } = null;
+	public static string[]? PromptShopText { get; set; } = null;
+
 
 	public static int SelectedPlayerInventoryItem { get; set; } = 0;
 	public static readonly Towel.DataStructures.IBag<ItemBase> PlayerInventory = Towel.DataStructures.BagMap.New<ItemBase>();

@@ -8,143 +8,162 @@ namespace Console_Monsters.Screens.Menus;
 
 public class ShopScreen
 {
+	 static int quantity1 { get; set; } = Random.Shared.Next(1, 10);
+	 static int quantity2 { get; set; } = Random.Shared.Next(1, 10);
+	 static int quantity3 { get; set; } = Random.Shared.Next(1, 10);
 	public static void Render()
 	{
-		Player player = new();
-		string MonsterBoxString =
-		   @"╭───╮" +
-		  @" ╞═●═╡"+ 
-		   @"╰───╯";
-
-
 		string SpaceIndent = new(' ', 50);
+		string SpaceIndent3 = new(' ', 20);
+		string SpaceIndent4 = new(' ', 15);
 		string SpaceIndent2 = new(' ', 25);
 		string titleIndent = new(' ', 50);
 
 		int arrowOption = 1;
-		const int maxOption = 6;
-
-		StringBuilder sb = new StringBuilder();
 
 		List<(ItemBase items, int Price)> Shop = new();
-		Shop.Add((HealthPotionSmall.Instance, 0));
+		Shop.Add((HealthPotionSmall.Instance, 10));
 		Shop.Add((HealthPotionMedium.Instance, 25));
 		Shop.Add((HealthPotionLarge.Instance, 50));
 
-		var itemSprite = Shop.First().items.Sprite;
+		var itemSprite = Shop.First().items.Sprite.Split('\n');
 		var itemName = Shop.First().items.Name;
 		var itemDesc = Shop.First().items.Description;
-		var itemSPrite2 = Shop[1].items.Sprite;
+		var itemSprite2 = Shop[1].items.Sprite.Split('\n');
 		var itemName2 = Shop[1].items.Name;
 		var itemDesc2 = Shop[1].items.Description;
-		var itemSprite3 = Shop[2].items.Sprite;
+		var itemSprite3 = Shop[2].items.Sprite.Split('\n');
 		var itemName3 = Shop[2].items.Name;
 		var itemDesc3 = Shop[2].items.Description;
 
 		string[] ShopAsciiText = AsciiGenerator.ToAscii("Shop");
-		string[] ItemsAsciiText = AsciiGenerator.ToAscii("Items");
-		string[] InAsciiText = AsciiGenerator.ToAscii("In");
-		string[] StockAsciiText = AsciiGenerator.ToAscii("Stock");
-		string[] ColonAsciiText = AsciiGenerator.ToAscii(":");
-		string[] PotionsAsciiText = AsciiGenerator.ToAscii("Potions");
-		string[] MonsterAsciiText = AsciiGenerator.ToAscii("Monster");
-		string[] MiscAsciiText = AsciiGenerator.ToAscii("Misc");
-		string[] PriceAsciiText = AsciiGenerator.ToAscii("Price");
-		string[] QuantityAsciiText = AsciiGenerator.ToAscii("Quantity");
-		string[] ZeroAsciiText = AsciiGenerator.ToAscii("0");
 
-		var textAtBottom = shopTextPressEnter;
+	Redraw:
 
-		foreach (var item in Shop)
+		ShopText = new string[]
 		{
-			var itemNames = item.items.Name;
-		}
-		Console.CursorVisible = false;
+			$"{SpaceIndent2}     {ShopAsciiText[0]}",
+			$"{SpaceIndent2}     {ShopAsciiText[1]}",
+			$"{SpaceIndent2}     {ShopAsciiText[2]}",
+			"",
+			"",
+			$"{itemSprite[0]} {itemName}",
+			$"{itemSprite[1]}",
+			$"{itemSprite[2]} ${Shop[0].Price} {(arrowOption is 1 ? $"{SpaceIndent}<<Current" : "         ")}",
+			$"{itemSprite[3]} Stock Left: {quantity1}",
+			$"{itemDesc}",
+			"",
+			$"{itemSprite2[0]}{itemName2}",
+			$"{itemSprite2[1]}",
+			$"{itemSprite2[2]} ${Shop[1].Price}{(arrowOption is 2 ? $"{SpaceIndent}<<Current" : "         ")}",
+			$"{itemSprite2[3]} Stock Left: {quantity2}",
+			$" {itemDesc2}",
+			"",
+			$"{itemSprite3[0]}{itemName3}",
+			$"{itemSprite3[1]}",
+			$"{itemSprite3[2]} ${Shop[2].Price}{(arrowOption is 3 ? $"{SpaceIndent}<<Current" : "         ")}",
+			$"{itemSprite3[3]} Stock Left: {quantity3}",
+			$"{itemSprite3[4]}",
+			$" {itemDesc3}"
+		};
+		MapScreen.Render();
+		PromptText = null;
 
-		Console.Clear();
+		var keyPressed = Console.ReadKey(true).Key;
 
-		while (shopMenu)
+		switch (keyMappings.GetValueOrDefault(keyPressed))
 		{
-			ReDraw:
-			sb.AppendLine();
-			sb.AppendLine();
-			sb.AppendLine();
-			sb.AppendLine();
-			sb.AppendLine();
-			sb.AppendLine();
-			sb.AppendLine($"{titleIndent}{titleIndent}{ShopAsciiText[0]}");
-			sb.AppendLine($"{titleIndent}{titleIndent}{ShopAsciiText[1]}");
-			sb.AppendLine($"{titleIndent}{titleIndent}{ShopAsciiText[2]}");
-			sb.AppendLine();
-			sb.AppendLine();
-			sb.AppendLine();
-			sb.AppendLine($"  {ItemsAsciiText[0]}    {InAsciiText[0]}    {StockAsciiText[0]}  {ColonAsciiText[0]}");
-			sb.AppendLine($"  {ItemsAsciiText[1]}    {InAsciiText[1]}    {StockAsciiText[1]}  {ColonAsciiText[1]}");
-			sb.AppendLine($"  {ItemsAsciiText[2]}    {InAsciiText[2]}    {StockAsciiText[2]}  {ColonAsciiText[2]}");
-			sb.AppendLine();
-			sb.AppendLine();
-			sb.AppendLine();
-			//sb.AppendLine($"  {PotionsAsciiText[0]}	   {MonsterAsciiText[0]}     {MiscAsciiText[0]}");
-			//sb.AppendLine($"  {PotionsAsciiText[1]}    {MonsterAsciiText[1]}     {MiscAsciiText[1]}");
-			//sb.AppendLine($"  {PotionsAsciiText[2]}    {MonsterAsciiText[2]}     {MiscAsciiText[2]}");
-			sb.AppendLine($"{SpaceIndent2}{ItemsAsciiText[0]} {SpaceIndent}{PriceAsciiText[0]}{SpaceIndent2}  {QuantityAsciiText[0]}");
-			sb.AppendLine($"{SpaceIndent2}{ItemsAsciiText[1]} {SpaceIndent}{PriceAsciiText[1]}{SpaceIndent2}  {QuantityAsciiText[1]}");
-			sb.AppendLine($"{SpaceIndent2}{ItemsAsciiText[2]} {SpaceIndent}{PriceAsciiText[2]}{SpaceIndent2}  {QuantityAsciiText[2]}");
-			sb.AppendLine();
-			sb.AppendLine($"{itemSprite.IndentLines().IndentLines()}");
-			sb.AppendLine($"");
-			//sb.AppendLine($"{(arrowOption is 1 ? : "     ")}");
-			sb.AppendLine($"{itemSPrite2} {itemSprite}");
-			sb.AppendLine();
-			sb.AppendLine();
-			sb.AppendLine($"{itemSprite3}");
-			sb.AppendLine();
-			sb.AppendLine();
-			sb.AppendLine();
+			case UserKeyPress.Up: arrowOption = Math.Min(3, arrowOption - 1); goto Redraw;
+			case UserKeyPress.Down: arrowOption = Math.Max(1, arrowOption + 1); goto Redraw;
+			case UserKeyPress.Confirm:
+				switch (arrowOption)
+				{
+					case 1:
+						if (Player.currentMoney >= Shop[0].Price && quantity1 > 0)
+						{
+							quantity1--;
 
-			Console.SetCursorPosition(0, 0);
-			//sb.AppendLine($"{textAtBottom}");
-			Console.WriteLine(sb);
-			var keyPressed = Console.ReadKey(true).Key;
-			switch (keyPressed)
-			{
-				case ConsoleKey.UpArrow or ConsoleKey.W: arrowOption = Math.Max(1, arrowOption - 1); goto ReDraw;
-				case ConsoleKey.DownArrow or ConsoleKey.S: arrowOption = Math.Min(maxOption, arrowOption + 1); goto ReDraw;
-			    case ConsoleKey.Enter:
-					foreach (var item in Shop)
-					{
-						if (player.currentMoney >= item.Price)
-						{
-							player.currentMoney = player.currentMoney - item.Price;
-							sb.AppendLine($"You have Purchased this item");
-						}
-						else
-						{
-							sb.AppendLine($"Sorry, You do not have enough Money to buy this");
-						}
-					}
-					switch(arrowOption)
-					{
-						case 1:
+							Player.currentMoney -= Shop[0].Price;
+
 							PlayerInventory.TryAdd(HealthPotionSmall.Instance);
-							break;
-						case 2:
-							PlayerInventory.TryAdd(HealthPotionMedium.Instance);
-							break;
-						case 3:
-							PlayerInventory.TryAdd(HealthPotionLarge.Instance);
-							break;
-					}
-					break;
-			}
-			if (keyPressed == ConsoleKey.Escape)
-			{
-				Console.Clear();
-				MapScreen.Render();
-				break;
-			}
-		}
+							PromptText = new string[]
+							{
+							"Purchase Complete"
+							};
+						}
+						else if (Player.currentMoney <= Shop[0].Price)
+						{
+							PromptText = new string[]
+							{
+							"Sorry Not enough money"
+							};
+						}
+						else if (quantity1 < 0)
+						{
+							PromptText = new string[]
+							{
+							"Item Out of Stock"
+							};
+						}
+						goto Redraw;
+					case 2:
+						if (Player.currentMoney >= Shop[1].Price && quantity2 > 0)
+						{
+							quantity2--;
+							Player.currentMoney -= Shop[1].Price;
 
-		
+							PlayerInventory.TryAdd(HealthPotionSmall.Instance);
+							PromptText = new string[]
+							{
+							"Purchase Complete"
+							};
+						}
+						else if (Player.currentMoney <= Shop[1].Price)
+						{
+							PromptText = new string[]
+							{
+							"Sorry Not enough money"
+							};
+						}
+						else if (quantity2 <= 0)
+						{
+							PromptText = new string[]
+							{
+							"Item Out of Stock"
+							};
+						}
+						goto Redraw;
+					case 3:
+						if (Player.currentMoney >= Shop[2].Price && quantity3 > 0)
+						{
+							quantity3--;
+							Player.currentMoney -= Shop[2].Price;
+
+							PlayerInventory.TryAdd(HealthPotionSmall.Instance);
+							PromptText = new string[]
+							{
+							"Purchase Complete"
+							};
+						}
+						else if (Player.currentMoney <= Shop[2].Price)
+						{
+							PromptText = new string[]
+							{
+							"Sorry Not enough money"
+							};
+						}
+						else if (quantity3 <= 0)
+						{
+							PromptText = new string[]
+							{
+							"Item Out of Stock"
+							};
+						}
+						goto Redraw;
+				}
+				goto Redraw;
+			case UserKeyPress.Escape: ShopText = null; break;
+			case UserKeyPress.Action: goto Redraw;
+		}
 	}
 }
