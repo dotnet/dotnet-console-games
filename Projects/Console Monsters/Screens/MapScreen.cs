@@ -201,7 +201,7 @@ internal static class MapScreen
 						sb.Append('═');
 						continue;
 					}
-					if (i > 5 && i < midWidth - 20 && j > 4 && j < heightCutOff - 3)
+					if (i > 5 && i < midWidth - 20 && j > 4 && j < heightCutOff - 6)
 					{
 						if (j - (5) < ShopText.Length)
 						{
