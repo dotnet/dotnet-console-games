@@ -11,7 +11,7 @@ public class ShopScreen
 		int selection = 0;
 		int category = 0;
 		string[] TomsAsciiText = AsciiGenerator.ToAscii(Shop?.Name ?? "Shop");
-		(ItemBase Item, int Price, int Quantity)[] itemsInCategory = Shop.Inventory.Where(row => row.Item.Category == categories[category]).ToArray();
+		ShopBase.Row[] itemsInCategory = Shop.Inventory.Where(row => row.Item.Category == categories[category]).ToArray();
 
 		while (Shop is not null)
 		{
@@ -32,7 +32,7 @@ public class ShopScreen
 
 			// items
 			int r = 0;
-			foreach ((ItemBase Item, int Price, int Quantity) row in itemsInCategory)
+			foreach (ShopBase.Row row in itemsInCategory)
 			{
 				string[] sprite = row.Item.Sprite.Split('\n');
 
