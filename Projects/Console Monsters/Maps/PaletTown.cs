@@ -10,7 +10,7 @@ class PaletTown : MapBase
 	{
 		scientist = new();
 		chineseMan = new();
-		oldMan = new();
+		oldMan = OldMan.Instance;
 	}
 
 	public override string? AudioFile => AudioController.CoDA_Lullaby;
@@ -133,11 +133,8 @@ class PaletTown : MapBase
 					};
 					break;
 				case 'i':
+					Shop = TomsShop.Instance;
 					ShopScreen.Render();
-					//PromptShopText = new string[]
-					//{
-					//	"Hi"
-					//};
 					break;
 				case 'e':
 					PromptText = new string[]
@@ -154,7 +151,7 @@ class PaletTown : MapBase
 					};
 					if (CanInteractWithMapTile(i,j))
 					{
-						Player.currentMoney += 10;
+						character.Money += 10;
 					}
 					spriteSheet[j][i] = ' ';
 					break;

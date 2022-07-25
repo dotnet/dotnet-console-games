@@ -2,7 +2,7 @@
 
 public class OldMan : CharacterBase
 {
-	public OldMan()
+	private OldMan()
 	{
 		Sprite = IdleFront;
 	}
@@ -15,4 +15,6 @@ public class OldMan : CharacterBase
 		@"╭╰─▼─╯╮" + '\n' +
 		@"╰├───┤╯" + '\n' +
 		@" │_|_│ ";
+
+	public static readonly OldMan Instance = new();
 }

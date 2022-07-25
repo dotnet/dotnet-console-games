@@ -51,6 +51,7 @@ public static class Statics
 	public static bool inInventory { get; set; } = false;
 	public static bool shopMenu { get; set; } = true;
 
+	public static ShopBase? Shop { get; set; } = null;
 
 	public static string[] DefaultMaptext => new[]
 	{

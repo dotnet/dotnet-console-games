@@ -217,6 +217,12 @@ public static class AsciiGenerator
 					" ",
 					"▄"
 				},
+			'\'' => new[]
+				{
+					"█",
+					" ",
+					" "
+				},
 
 			// ←   ↑   →   ↓ 
 			'↑' => new[]
