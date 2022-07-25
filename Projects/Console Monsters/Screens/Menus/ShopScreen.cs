@@ -63,6 +63,7 @@ public class ShopScreen
 						if (selection is 0)
 						{
 							category = Math.Max(0, category - 1);
+							itemsInCategory = Shop.Inventory.Where(row => row.Item.Category == categories[category]).ToArray();
 						}
 						break;
 					case UserKeyPress.Right:
@@ -73,6 +74,7 @@ public class ShopScreen
 						if (selection is 0)
 						{
 							category = Math.Min(categories.Length - 1, category + 1);
+							itemsInCategory = Shop.Inventory.Where(row => row.Item.Category == categories[category]).ToArray();
 						}
 						break;
 					case UserKeyPress.Up:
