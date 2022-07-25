@@ -144,7 +144,7 @@ public class Center1 : MapBase
 		{
 			case '0':
 				Map = new PaletTown();
-				Map.SpawnCharacterOn('0');
+				Map.SpawnPlayerOn('0');
 				break;
 		}
 	}

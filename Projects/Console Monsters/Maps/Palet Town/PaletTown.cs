@@ -4,13 +4,11 @@ class PaletTown : MapBase
 {
 	public Scientist scientist;
 	public ChineseMan chineseMan;
-	public OldMan oldMan;
 
 	public PaletTown()
 	{
 		scientist = new();
 		chineseMan = new();
-		oldMan = OldMan.Instance;
 	}
 
 	public override string? AudioFile => AudioController.CoDA_Lullaby;
@@ -29,7 +27,7 @@ class PaletTown : MapBase
 			"tttttggggfg  FFFa  dddddd  gfggggttttt".ToCharArray(),
 			"tttttggggfg  gggg  dddddd  gfggggttttt".ToCharArray(),
 			"tttttggggfg  gggg  d0dddd  gfggggttttt".ToCharArray(),
-			"tttttggggfg   ji      n    gfggggttttt".ToCharArray(),
+			"tttttggggfg           n    gfggggttttt".ToCharArray(),
 			"tttttggggfg      X         gfggggttttt".ToCharArray(),
 			"tttttggggfg  o     FFFsFF  gfggggttttt".ToCharArray(),
 			"tttttggggfgggWWWW  gggggg  gfggggttttt".ToCharArray(),
@@ -77,11 +75,9 @@ class PaletTown : MapBase
 			'n' => chineseMan.Sprite,
 			'o' => scientist.Sprite,
 			'p' => Sprites.NPC5,
-			'i' => oldMan.Sprite,
 			// Items
 			'e' => Sprites.MonsterBoxPickableOnGround,
 			'h' => Sprites.MonsterBox,
-			'j' => Coin.Instance.Sprite,
 			// Extra
 			'W' => Sprites.Wall_0000,
 			'z' => Sprites.Door,
@@ -104,8 +100,6 @@ class PaletTown : MapBase
 			'e' => true,
 			'p' => true,
 			'n' => true,
-			'i' => true,
-			'j' => true,
 			_ => false,
 		};
 	}
@@ -132,10 +126,6 @@ class PaletTown : MapBase
 						"...",
 					};
 					break;
-				case 'i':
-					Shop = TomsShop.Instance;
-					ShopScreen.Render();
-					break;
 				case 'e':
 					PromptText = new string[]
 					{
@@ -143,17 +133,6 @@ class PaletTown : MapBase
 					};
 					PlayerInventory.TryAdd(MonsterBox.Instance);
 					spriteSheet[j][i] = 'g';
-					break;
-				case 'j':
-					PromptText = new string[]
-					{
-						"You picked up a Coin",
-					};
-					if (CanInteractWithMapTile(i,j))
-					{
-						character.Money += 10;
-					}
-					spriteSheet[j][i] = ' ';
 					break;
 			}
 		}
@@ -188,18 +167,16 @@ class PaletTown : MapBase
 		{
 			case '0':
 				Map = new Center1();
-				Map.SpawnCharacterOn('0');
+				Map.SpawnPlayerOn('0');
 				break;
 			case '1':
 				Map = new Route1();
-				Map.SpawnCharacterOn('0');
+				Map.SpawnPlayerOn('0');
 				break;
 			case '2':
 				Map = new House1();
-				Map.SpawnCharacterOn('0');
+				Map.SpawnPlayerOn('0');
 				break;
 		}
 	}
-
-	
 }

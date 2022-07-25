@@ -128,15 +128,15 @@ public class House1 : MapBase
 		{
 			case '0':
 				Map = new PaletTown();
-				Map.SpawnCharacterOn('2');
+				Map.SpawnPlayerOn('2');
 				break;
 			case 'i':
 				Map = new House1SecondFloor();
-				Map.SpawnCharacterOn('i');
+				Map.SpawnPlayerOn('i');
 				break;
 			case 'j':
 				Map = new House1SecondFloor();
-				Map.SpawnCharacterOn('j');
+				Map.SpawnPlayerOn('j');
 				break;
 
 		}
