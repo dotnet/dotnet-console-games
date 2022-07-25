@@ -119,6 +119,104 @@ internal static class MapScreen
 					}
 				}
 
+				// shop middle prompt if there is one
+				if (PromptShopText is not null)
+				{
+					if (i is 20 && j == 20)
+					{
+						sb.Append('╔');
+						continue;
+					}
+					if (i is 20 && j == heightCutOff - 20)
+					{
+						sb.Append('╚');
+						continue;
+					}
+					if (i == midWidth - 40 && j == 20)
+					{
+						sb.Append('╗');
+						continue;
+					}
+					if (i == midWidth - 40 && j == heightCutOff - 20)
+					{
+						sb.Append('╝');
+						continue;
+					}
+					if ((i is 20 || i == midWidth - 40) && j > 20 && j < heightCutOff - 20)
+					{
+						sb.Append('║');
+						continue;
+					}
+					if ((j == heightCutOff - 20 || j == 20) && i > 20 && i < midWidth - 40)
+					{
+						sb.Append('═');
+						continue;
+					}
+					if (i > 20 && i < midWidth - 40 && j > 20 && j < heightCutOff - 20)
+					{
+						if (j - (21) < PromptShopText.Length)
+						{
+							string line = PromptShopText[j - (21)];
+							if (i - 21 < line.Length)
+							{
+								sb.Append(line[i - 21]);
+								continue;
+							}
+						}
+						sb.Append(' ');
+						continue;
+					}
+				}
+
+				// shop prompt if there is one
+				if (ShopText is not null)
+				{
+					if (i is 5 && j == 4)
+					{
+						sb.Append('╔');
+						continue;
+					}
+					if (i is 5 && j == heightCutOff - 6)
+					{
+						sb.Append('╚');
+						continue;
+					}
+					if (i == midWidth - 20 && j == 4)
+					{
+						sb.Append('╗');
+						continue;
+					}
+					if (i == midWidth - 20 && j == heightCutOff - 6)
+					{
+						sb.Append('╝');
+						continue;
+					}
+					if ((i is 5 || i == midWidth - 20) && j > 4 && j < heightCutOff - 5)
+					{
+						sb.Append('║');
+						continue;
+					}
+					if ((j == heightCutOff - 6 || j == 4) && i > 5 && i < midWidth - 20)
+					{
+						sb.Append('═');
+						continue;
+					}
+					if (i > 5 && i < midWidth - 20 && j > 4 && j < heightCutOff - 3)
+					{
+						if (j - (5) < ShopText.Length)
+						{
+							string line = ShopText[j - (5)];
+							if (i - 6 < line.Length)
+							{
+								sb.Append(line[i - 6]);
+								continue;
+							}
+						}
+						sb.Append(' ');
+						continue;
+					}
+				}
+
 				// character
 				if (i > midWidth - 4 && i < midWidth + 4 && j > midHeight - 3 && j < midHeight + 3)
 				{

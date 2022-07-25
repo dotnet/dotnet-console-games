@@ -6,6 +6,8 @@ public class HealthPotionSmall : ItemBase
 
 	public override string? Description => "Used to restore hp to monsters";
 
+	public override ItemCategory Category => ItemCategory.Potions;
+
 	public override string Sprite =>
 		@" [╤╤]  " + "\n" +
 		@" ╭╯╰╮  " + "\n" +

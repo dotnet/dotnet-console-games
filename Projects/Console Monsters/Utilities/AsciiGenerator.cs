@@ -193,6 +193,36 @@ public static class AsciiGenerator
 					" ▄▄▀",
 					"█▄▄▄"
 				},
+			'0' => new[]
+				{
+					" ▄▄▄ ",
+					"█▄▀ █",
+					"▀▄▄▄▀"
+				},
+			'1' => new[]
+				{
+				   "▄▄",
+					"█",
+					"█"
+				},
+			'2' => new[]
+				{
+					"▄▄▄▄",
+					"▄▄▄▀",
+					"█▄▄▄"
+				},
+			':' => new[]
+				{
+					"▄",
+					" ",
+					"▄"
+				},
+			'\'' => new[]
+				{
+					"█",
+					" ",
+					" "
+				},
 
 			// ←   ↑   →   ↓ 
 			'↑' => new[]
@@ -219,13 +249,6 @@ public static class AsciiGenerator
 					"■■■█■",
 					"  ▀  "
 				},
-			':' => new[]
-				{
-					"▄",
-					" ",
-					"▀"
-				},
-
 			// the '■' and '□' sprites must be the same size
 			'■' => new[]
 				{
