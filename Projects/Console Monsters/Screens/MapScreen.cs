@@ -222,15 +222,15 @@ internal static class MapScreen
 				{
 					int ci = i - (midWidth - 3);
 					int cj = j - (midHeight - 2);
-					string characterMapRender = character.Render;
+					string characterMapRender = player.Render;
 					sb.Append(characterMapRender[cj * (Sprites.Width + 1) + ci]);
 					continue;
 				}
 
 				// tiles
 				// compute the map location that this screen pixel represents
-				int mapI = i - midWidth + character.I + 3;
-				int mapJ = j - midHeight + character.J + 2;
+				int mapI = i - midWidth + player.I + 3;
+				int mapJ = j - midHeight + player.J + 2;
 
 				// compute the coordinates of the tile
 				int tileI = mapI < 0 ? (mapI - (Sprites.Width - 1)) / Sprites.Width : mapI / Sprites.Width;

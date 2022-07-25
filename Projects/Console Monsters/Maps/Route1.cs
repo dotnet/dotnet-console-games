@@ -135,11 +135,11 @@ class Route1 : MapBase
 		{
 			case '0':
 				Map = new PaletTown();
-				Map.SpawnCharacterOn('1');
+				Map.SpawnPlayerOn('1');
 				break;
 			case '1':
 				Map = new Route2();
-				Map.SpawnCharacterOn('0');
+				Map.SpawnPlayerOn('0');
 				break;
 			case 'G':
 				if (!DisableBattle && Random.Shared.Next(2) is 0) // BATTLE CHANCE

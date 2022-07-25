@@ -15,7 +15,7 @@ public static class Statics
 	public readonly static Random BattleTransitionRandom = new();
 	public readonly static Random GameRandom = new(7);
 	public readonly static Random BattleRandom = new(7);
-	public readonly static Player character = new();
+	public readonly static Player player = new();
 	public readonly static List<MonsterBase> ownedMonsters = new();
 	public readonly static List<MonsterBase> partyMonsters = new();
 	public readonly static Dictionary<ConsoleKey, UserKeyPress> keyMappings = new();
@@ -96,9 +96,9 @@ public static class Statics
 			{
 				return ShopTextPressEnter;
 			}
-			if (character.IsIdle)
+			if (player.IsIdle)
 			{
-				var interactTile = character.InteractTile;
+				var interactTile = player.InteractTile;
 				if (Map.CanInteractWithMapTile(interactTile.I, interactTile.J))
 				{
 					return DefaultMaptextWithInteract;
@@ -125,7 +125,7 @@ public static class Statics
 
 	static Statics()
 	{
-		character = new()
+		player = new()
 		{
 			Animation = Player.IdleDown,
 		};

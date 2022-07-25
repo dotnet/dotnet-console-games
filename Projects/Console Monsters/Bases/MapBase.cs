@@ -11,15 +11,15 @@ public abstract class MapBase
 	}
 
 	/// <summary>Relocates the player to the top-left most occurence of a character in a <see cref="SpriteSheet"/>.</summary>
-	public void SpawnCharacterOn(char c)
+	public void SpawnPlayerOn(char c)
 	{
 		(int I, int J)? tile = FindTileInMap(c);
 		if (tile is null)
 		{
 			throw new InvalidOperationException("Attempting to spawn the player on a non-existing tile.");
 		}
-		character.I = tile.Value.I * Sprites.Width;
-		character.J = tile.Value.J * Sprites.Height;
+		player.I = tile.Value.I * Sprites.Width;
+		player.J = tile.Value.J * Sprites.Height;
 	}
 
 	/// <summary>Finds the top-left most occurence of a character in a <see cref="SpriteSheet"/>.</summary>

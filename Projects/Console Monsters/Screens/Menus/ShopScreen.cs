@@ -107,7 +107,7 @@ public class ShopScreen
 								};
 								break;
 							}
-							if (itemsInCategory[selection - 1].Price > character.Money)
+							if (itemsInCategory[selection - 1].Price > player.Money)
 							{
 								PromptShopText = new[]
 								{
@@ -115,7 +115,7 @@ public class ShopScreen
 								};
 								break;
 							}
-							character.Money -= itemsInCategory[selection - 1].Price;
+							player.Money -= itemsInCategory[selection - 1].Price;
 							PlayerInventory.TryAdd(itemsInCategory[selection - 1].Item);
 							itemsInCategory[selection - 1].Quantity--;
 							PromptShopText = new[]
