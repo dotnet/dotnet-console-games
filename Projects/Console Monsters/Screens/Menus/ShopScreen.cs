@@ -124,6 +124,11 @@ public class ShopScreen
 						}
 						break;
 					case UserKeyPress.Escape:
+						if (PromptShopText is not null)
+						{
+							PromptShopText = null;
+							break;
+						}
 						Shop = null;
 						ShopText = null;
 						break;
