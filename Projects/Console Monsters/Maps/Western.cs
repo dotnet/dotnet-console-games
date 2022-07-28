@@ -86,7 +86,7 @@ class Western : MapBase
 		{
 			case '0':
 				Map = new Route2();
-				Map.SpawnCharacterOn('1');
+				Map.SpawnPlayerOn('1');
 				break;
 			case 'a':
 				if (!DisableBattle && Random.Shared.Next(4) is 0) // BATTLE CHANCE

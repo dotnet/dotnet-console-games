@@ -97,7 +97,7 @@ public static class StartScreen
 								if (FirstTimeLaunching)
 								{
 									Map = new PaletTown();
-									Map.SpawnCharacterOn('X');
+									Map.SpawnPlayerOn('X');
 								}
 								FirstTimeLaunching = false;
 								return;

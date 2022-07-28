@@ -118,11 +118,11 @@ class Route2 : MapBase
 		{
 			case '0':
 				Map = new Route1();
-				Map.SpawnCharacterOn('1');
+				Map.SpawnPlayerOn('1');
 				break;
 			case '1':
 				Map = new Western();
-				Map.SpawnCharacterOn('0');
+				Map.SpawnPlayerOn('0');
 				break;
 			case 'G':
 				if (!DisableBattle && Random.Shared.Next(2) is 0) // BATTLE CHANCE

@@ -140,11 +140,11 @@ public class House1SecondFloor : MapBase
 		{
 			case 'i':
 				Map = new House1();
-				Map.SpawnCharacterOn('1');
+				Map.SpawnPlayerOn('1');
 				break;
 			case 'j':
 				Map = new House1();
-				Map.SpawnCharacterOn('2');
+				Map.SpawnPlayerOn('2');
 				break;
 		}
 	}
