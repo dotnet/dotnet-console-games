@@ -24,7 +24,7 @@ public partial class Program
 			//	catch
 			//	{
 			//		// empty on purpose
-			//	}
+			//	} 
 			//}
 
 			StartScreen.Show();
