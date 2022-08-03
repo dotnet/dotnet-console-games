@@ -58,5 +58,5 @@ public abstract class MapBase
 
 	public abstract char[][] SpriteSheet { get; }
 
-	public string SpawnType { get; set; }
+	public string? SpawnType { get; set; }
 }

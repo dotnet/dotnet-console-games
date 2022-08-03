@@ -151,14 +151,12 @@ class Route1 : MapBase
 						BattleTransition.Random();
 					}
 					//(just to get it working) REFACTOR
-					MonsterBase playerMonster = partyMonsters[0];
-					ReRoll:
 					MonsterBase OpponentMonster = MonsterBase.GetRandom();
-					if(OpponentMonster.MonsterType == SpawnType)
+					while (!(OpponentMonster.MonsterType == SpawnType))
 					{
-						BattleScreen.Render(playerMonster, OpponentMonster);
-					} 
-					else { goto ReRoll; }
+						OpponentMonster = MonsterBase.GetRandom();
+					}
+					BattleScreen.Render(partyMonsters[0], OpponentMonster);
 					//Battle();
 					ConsoleHelper.PressToContinue();
 				}
