@@ -57,4 +57,6 @@ public abstract class MapBase
 	public abstract void PerformTileAction(int i, int j);
 
 	public abstract char[][] SpriteSheet { get; }
+
+	public string SpawnType { get; set; }
 }

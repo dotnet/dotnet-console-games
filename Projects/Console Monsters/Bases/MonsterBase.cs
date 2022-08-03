@@ -8,6 +8,8 @@ public abstract class MonsterBase
 
 	public int Level { get; set; }
 
+	public string? MonsterType { get; set; }
+
 	public int ExperiencePoints { get; set; }
 
 	public int CurrentHP { get; set; }
@@ -22,6 +24,9 @@ public abstract class MonsterBase
 
 	public abstract string[] Sprite { get; }
 
+	//// In case we want the monster to follow the player in the map view.
+	//public abstract string[] SmallSprite { get; }
+
 	public int AttackStat { get; set; }
 
 	public int SpeedStat { get; set; }
@@ -31,8 +36,6 @@ public abstract class MonsterBase
 	public List<string>? MoveSet { get; set; }
 
 	public string? Description { get; set; }
-
-	//public AnimalType Type { get; set; }
 
 	//public string? StatusCondition { get; set; }
 

@@ -142,6 +142,7 @@ class Route1 : MapBase
 				Map.SpawnPlayerOn('0');
 				break;
 			case 'G':
+				SpawnType = "Grass";
 				if (!DisableBattle && Random.Shared.Next(2) is 0) // BATTLE CHANCE
 				{
 					Console.Clear();
@@ -149,7 +150,15 @@ class Route1 : MapBase
 					{
 						BattleTransition.Random();
 					}
-					BattleScreen.Render(partyMonsters[0], MonsterBase.GetRandom());
+					//(just to get it working) REFACTOR
+					MonsterBase playerMonster = partyMonsters[0];
+					ReRoll:
+					MonsterBase OpponentMonster = MonsterBase.GetRandom();
+					if(OpponentMonster.MonsterType == SpawnType)
+					{
+						BattleScreen.Render(playerMonster, OpponentMonster);
+					} 
+					else { goto ReRoll; }
 					//Battle();
 					ConsoleHelper.PressToContinue();
 				}
