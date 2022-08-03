@@ -175,31 +175,37 @@ public partial class Program
 					while (InInventory)
 					{
 						InventoryScreen.Render();
-					
-						switch (keyMappings.GetValueOrDefault(Console.ReadKey(true).Key))
+
+						if (Console.KeyAvailable)
 						{
-							case UserKeyPress.Up:
-								if (SelectedPlayerInventoryItem > 0)
-								{
-									SelectedPlayerInventoryItem--;
-								}
-								else
-								{
-									SelectedPlayerInventoryItem = PlayerInventory.Distinct().Count() - 1;
-								}
-								break;
-							case UserKeyPress.Down:
-								if (SelectedPlayerInventoryItem < PlayerInventory.Distinct().Count() - 1)
-								{
-									SelectedPlayerInventoryItem++;
-								}
-								else
-								{
-									SelectedPlayerInventoryItem = 0;
-								}
-								break;
-							case UserKeyPress.Escape: InInventory = false; break;
+							switch (keyMappings.GetValueOrDefault(Console.ReadKey(true).Key))
+							{
+								case UserKeyPress.Up:
+									ItemDescriptionScrollFrame = 0;
+									if (SelectedPlayerInventoryItem > 0)
+									{
+										SelectedPlayerInventoryItem--;
+									}
+									else
+									{
+										SelectedPlayerInventoryItem = PlayerInventory.Distinct().Count() - 1;
+									}
+									break;
+								case UserKeyPress.Down:
+									ItemDescriptionScrollFrame = 0;
+									if (SelectedPlayerInventoryItem < PlayerInventory.Distinct().Count() - 1)
+									{
+										SelectedPlayerInventoryItem++;
+									}
+									else
+									{
+										SelectedPlayerInventoryItem = 0;
+									}
+									break;
+								case UserKeyPress.Escape: InInventory = false; break;
+							}
 						}
+						ItemDescriptionScrollFrame++;
 					}
 					break;
 				case UserKeyPress.Confirm:
