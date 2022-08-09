@@ -2,7 +2,7 @@
 
 public class OldMan : CharacterBase
 {
-	private OldMan()
+	public OldMan()
 	{
 		Sprite = IdleFront;
 	}

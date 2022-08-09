@@ -142,7 +142,7 @@ class Route1 : MapBase
 				Map.SpawnPlayerOn('0');
 				break;
 			case 'G':
-				SpawnType = "Grass";
+				//SpawnType = "Grass";
 				if (!DisableBattle && Random.Shared.Next(2) is 0) // BATTLE CHANCE
 				{
 					Console.Clear();
@@ -150,12 +150,18 @@ class Route1 : MapBase
 					{
 						BattleTransition.Random();
 					}
-					//(just to get it working) REFACTOR
-					MonsterBase OpponentMonster = MonsterBase.GetRandom();
-					while (!(OpponentMonster.MonsterType == SpawnType))
+					Type[] typesThatCanSpawn =
 					{
-						OpponentMonster = MonsterBase.GetRandom();
-					}
+						typeof(Ant),
+						typeof(Goat),
+						typeof(Owl),
+						typeof(Pig),
+						typeof(Pinecone),
+						typeof(Fox),
+						typeof(Ladybug),
+					};
+					Type typeOfMonsterToSpawn = Random.Shared.Choose(typesThatCanSpawn);
+					MonsterBase OpponentMonster = (MonsterBase)Activator.CreateInstance(typeOfMonsterToSpawn)!;
 					BattleScreen.Render(partyMonsters[0], OpponentMonster);
 					//Battle();
 					ConsoleHelper.PressToContinue();
