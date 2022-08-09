@@ -6,7 +6,7 @@ public abstract class MoveBase
 {
 	public string? Name { get; set; }
 
-	public double BaseDamge { get; set; }
+	public double BaseDamage { get; set; }
 
 	public double FinalDamage { get; set; }
 
