@@ -14,7 +14,7 @@ public class Monk : CharacterBase
 	}
 	public override string? Name => "Scientist";
 
-	public static readonly string IdleFront =
+	private static readonly string IdleFront =
 		@" ╭───╮ " + '\n' +
 		@" │^_^│ " + '\n' +
 		@"╭╰─┬─╯╮" + '\n' +

@@ -15,7 +15,7 @@ public class Camper : CharacterBase
 
 	public override string? Name => "Camper";
 
-	public static readonly string IdleFront =
+	private static readonly string IdleFront =
 		@"  ((())" + '\n' +
 		@" ((( ^│" + '\n' +
 		@"  ╭╰─┬╯" + '\n' +
