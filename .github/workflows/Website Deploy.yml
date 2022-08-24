@@ -33,9 +33,9 @@ jobs:
       run: |
         cd Projects/Website/bin/Release/publish/wwwroot
         echo "* @ZacharyPatten" > CODEOWNERS
-        git init
+        git init --initial-branch=github-pages
         git config user.name "${GITHUB_ACTOR}"
         git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
         git add .
-        git commit -m 'deploy to binaries branch'
-        git push --force "https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" master:github-pages
+        git commit -m 'deploy to github-pages branch'
+        git push --force "https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" github-pages:github-pages
