@@ -1,4 +1,4 @@
-﻿namespace Console_Monsters.Maps;
+namespace Console_Monsters.Maps;
 
 class PaletTown : MapBase
 {
@@ -13,7 +13,7 @@ class PaletTown : MapBase
 
 	public override string? AudioFile => AudioController.CoDA_Lullaby;
 
-	private readonly static char[][] spriteSheet = new char[][]
+	private static readonly char[][] spriteSheet = new char[][]
 		{
 			"tttttgggggggfgggggf11fgggggfgggggttttt".ToCharArray(),
 			"tttttggggffffffffff  ffffffffggggttttt".ToCharArray(),

@@ -12,14 +12,14 @@ public static class Statics
 
 	#endregion
 
-	public readonly static Random BattleTransitionRandom = new();
-	public readonly static Random GameRandom = new(7);
-	public readonly static Random BattleRandom = new(7);
-	public readonly static Player character = new();
-	public readonly static List<MonsterBase> ownedMonsters = new();
-	public readonly static List<MonsterBase> partyMonsters = new();
-	public readonly static Dictionary<ConsoleKey, UserKeyPress> keyMappings = new();
-	public readonly static Dictionary<UserKeyPress, (ConsoleKey Main, ConsoleKey? Alternate)> reverseKeyMappings = new();
+	public static readonly Random BattleTransitionRandom = new();
+	public static readonly Random GameRandom = new(7);
+	public static readonly Random BattleRandom = new(7);
+	public static readonly Player character = new();
+	public static readonly List<MonsterBase> ownedMonsters = new();
+	public static readonly List<MonsterBase> partyMonsters = new();
+	public static readonly Dictionary<ConsoleKey, UserKeyPress> keyMappings = new();
+	public static readonly Dictionary<UserKeyPress, (ConsoleKey Main, ConsoleKey? Alternate)> reverseKeyMappings = new();
 
 	private static MapBase map = null!;
 

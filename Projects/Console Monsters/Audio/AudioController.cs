@@ -6,7 +6,7 @@ public static class AudioController
 {
 	public static readonly string CoDA_Lullaby = "Console_Monsters.Audio.CoDA-Lullaby.wav";
 
-	private readonly static System.Media.SoundPlayer? soundPlayer;
+	private static readonly System.Media.SoundPlayer? soundPlayer;
 
 	private static string? recoursePlaying;
 
