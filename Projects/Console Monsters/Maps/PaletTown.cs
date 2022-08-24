@@ -1,9 +1,9 @@
-namespace Console_Monsters.Maps;
+﻿namespace Console_Monsters.Maps;
 
 class PaletTown : MapBase
 {
-	public Scientist scientist;
-	public ChineseMan chineseMan;
+	private Scientist scientist;
+	private ChineseMan chineseMan;
 
 	public PaletTown()
 	{
