@@ -150,6 +150,18 @@ public static class Statics
 	[System.Diagnostics.DebuggerHidden]
 	public static (int, int) Modulus((int, int) a, (int?, int?) b) => (b.Item1 is null ? a.Item1 : a.Item1 % b.Item1.Value, b.Item2 is null ? a.Item2 : a.Item2 % b.Item2.Value);
 
+	public static MonsterBase GetFirstAvailableMonster()
+	{
+		for(int i = 0; i < partyMonsters.Count; i++)
+		{
+			if(partyMonsters[i].CurrentHP > 0)
+			{
+				return partyMonsters[i];
+			}
+		}
+		return new _ErrorMonster(); //TEMP: returns the error monster in case all party monsters are dead
+	}
+
 	public static void DefaultKeyMappings()
 	{
 		reverseKeyMappings.Clear();
