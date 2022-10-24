@@ -17,7 +17,7 @@ class PaletTown : MapBase
 		{
 			"tttttgggggggfgggggf11fgggggfgggggttttt".ToCharArray(),
 			"tttttggggffffffffff  ffffffffggggttttt".ToCharArray(),
-			"tttttggggfg                gfggggttttt".ToCharArray(),
+			"tttttggggfg        X       gfggggttttt".ToCharArray(),
 			"tttttggggfg  bbbb    cccc  gfggggttttt".ToCharArray(),
 			"tttttggggfg  bbbb    cccc  gfggggttttt".ToCharArray(),
 			"tttttggggfg sb2bb   scccc  gfggggttttt".ToCharArray(),
@@ -28,7 +28,7 @@ class PaletTown : MapBase
 			"tttttggggfg  gggg  dddddd  gfggggttttt".ToCharArray(),
 			"tttttggggfg  gggg  d0dddd  gfggggttttt".ToCharArray(),
 			"tttttggggfg           n    gfggggttttt".ToCharArray(),
-			"tttttggggfg      X         gfggggttttt".ToCharArray(),
+			"tttttggggfg                gfggggttttt".ToCharArray(),
 			"tttttggggfg  o     FFFsFF  gfggggttttt".ToCharArray(),
 			"tttttggggfgggWWWW  gggggg  gfggggttttt".ToCharArray(),
 			"tttttggggfgggWwwW  gggegg  gfggggttttt".ToCharArray(),

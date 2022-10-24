@@ -11,21 +11,21 @@ public partial class Program
 			Console.CursorVisible = false;
 			Console.OutputEncoding = Encoding.UTF8;
 
-			//// disabled because this breaks on Windows Terminal
-			//if (OperatingSystem.IsWindows())
-			//{
-			//	const int screenWidth = 150;
-			//	const int screenHeight = 50;
-			//	try
-			//	{
-			//		Console.SetWindowSize(screenWidth, screenHeight);
-			//		Console.SetBufferSize(screenWidth, screenHeight);
-			//	}
-			//	catch
-			//	{
-			//		// empty on purpose
-			//	} 
-			//}
+			// disabled because this breaks on Windows Terminal
+			if (OperatingSystem.IsWindows())
+			{
+				const int screenWidth = 150;
+				const int screenHeight = 50;
+				try
+				{
+					Console.SetWindowSize(screenWidth, screenHeight);
+					Console.SetBufferSize(screenWidth, screenHeight);
+				}
+				catch
+				{
+					// empty on purpose
+				}
+			}
 
 			StartScreen.Show();
 			while (GameRunning)

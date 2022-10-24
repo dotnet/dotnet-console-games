@@ -8,7 +8,7 @@ public static class Statics
 	public static bool DisableBattle { get; set; } = false;
 	public static bool DisableBattleTransition { get; set; } = false;
 	public static bool FirstTimeLaunching { get; set; } = true;
-	public static bool AudioEnabled { get; set; } = true;
+	public static bool AudioEnabled { get; set; } = false;
 
 	#endregion
 

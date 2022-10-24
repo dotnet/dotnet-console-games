@@ -162,8 +162,9 @@ class Route1 : MapBase
 					};
 					Type typeOfMonsterToSpawn = Random.Shared.Choose(typesThatCanSpawn);
 					MonsterBase OpponentMonster = (MonsterBase)Activator.CreateInstance(typeOfMonsterToSpawn)!;
-					BattleScreen.Render(partyMonsters[0], OpponentMonster);
-					//Battle();
+					MonsterBase PlayerMonster = GetFirstAvailableMonster();
+					BattleScreen.Render(PlayerMonster, OpponentMonster);
+					Battle(PlayerMonster, OpponentMonster);
 					ConsoleHelper.PressToContinue();
 				}
 				break;
