@@ -75,7 +75,7 @@ public static class BattleScreen
 				// message prompt if there is one
 				if (PromptBattleText is not null)
 				{
-					if (i is 10 && j == midHeight + 4)
+					if (i is 10 && j == midHeight + 6)
 					{
 						sb.Append('╔');
 						continue;
@@ -85,7 +85,7 @@ public static class BattleScreen
 						sb.Append('╚');
 						continue;
 					}
-					if (i == width - 11 && j == midHeight + 4)
+					if (i == width - 11 && j == midHeight + 6)
 					{
 						sb.Append('╗');
 						continue;
@@ -95,17 +95,17 @@ public static class BattleScreen
 						sb.Append('╝');
 						continue;
 					}
-					if ((i is 10 || i == width - 11) && j > midHeight + 4 && j < heightCutOff - 3)
+					if ((i is 10 || i == width - 11) && j > midHeight + 6 && j < heightCutOff - 3)
 					{
 						sb.Append('║');
 						continue;
 					}
-					if ((j == heightCutOff - 3 || j == midHeight + 4) && i > 10 && i < width - 11)
+					if ((j == heightCutOff - 3 || j == midHeight + 6) && i > 10 && i < width - 11)
 					{
 						sb.Append('═');
 						continue;
 					}
-					if (i > 10 && i < width - 11 && j > midHeight + 4 && j < heightCutOff - 3)
+					if (i > 10 && i < width - 11 && j > midHeight + 6 && j < heightCutOff - 3)
 					{
 						if (j - (midHeight + 5) < PromptBattleText.Length)
 						{
@@ -124,10 +124,10 @@ public static class BattleScreen
 				//Opponent Monster (MONSTER B)
 				if (i > midWidth - (Sprites.BattleSpriteWidth / 4) * 1 &&
 					i < midWidth + (Sprites.BattleSpriteWidth / 4) * 3 + 3 &&
-					j < midHeight &&
-					j > midHeight - spriteheight)
+					j < midHeight - 7 &&
+					j > midHeight - spriteheight )
 				{
-					int spriteJ = j - (midHeight - spriteheight) - 1 - (Sprites.BattleSpriteHeight - monsterB.Sprite.Length) / 2;
+					int spriteJ = j - (midHeight - spriteheight) + 1 - (Sprites.BattleSpriteHeight - monsterB.Sprite.Length) / 2;
 					char c;
 					if (spriteJ < 0 || spriteJ >= monsterB.Sprite.Length)
 					{
@@ -148,14 +148,14 @@ public static class BattleScreen
 					sb.Append(char.IsWhiteSpace(c) ? ' ' : c);
 					continue;
 				}
-
+				
 				//Player Monster (MONSTER A)
 				if (i > midWidth - (Sprites.BattleSpriteWidth / 4) * 3 - 3 &&
 					i < midWidth + (Sprites.BattleSpriteWidth / 4) * 1 &&
-					j < midHeight + spriteheight &&
-					j > midHeight)
+					j < midHeight + spriteheight - 15 &&
+					j > midHeight - 8)
 				{
-					int spriteJ = j - midHeight - 1 - (Sprites.BattleSpriteHeight - monsterB.Sprite.Length) / 2;
+					int spriteJ = j - midHeight + 8 - (Sprites.BattleSpriteHeight - monsterB.Sprite.Length) / 2;
 					char c;
 					if (spriteJ < 0 || spriteJ >= monsterA.Sprite.Length)
 					{
@@ -189,8 +189,8 @@ public static class BattleScreen
 	}
 	public static void DrawStats(bool playerTurn, MonsterBase PlayerMonster, MonsterBase OpponentMonster)
 	{
-		//TEMP
-		Console.SetCursorPosition(63, 34);
+		//TEMP                    34
+		Console.SetCursorPosition(63, 26);
 		Console.WriteLine($"HP:{PlayerMonster.CurrentHP}  Energy:{PlayerMonster.CurrentEnergy}  ");
 
 		Console.SetCursorPosition(102, 13);
