@@ -72,6 +72,55 @@ public static class BattleScreen
 					continue;
 				}
 
+				// message prompt if there is one
+				if (PromptBattleText is not null)
+				{
+					if (i is 10 && j == midHeight + 4)
+					{
+						sb.Append('╔');
+						continue;
+					}
+					if (i is 10 && j == heightCutOff - 3)
+					{
+						sb.Append('╚');
+						continue;
+					}
+					if (i == width - 11 && j == midHeight + 4)
+					{
+						sb.Append('╗');
+						continue;
+					}
+					if (i == width - 11 && j == heightCutOff - 3)
+					{
+						sb.Append('╝');
+						continue;
+					}
+					if ((i is 10 || i == width - 11) && j > midHeight + 4 && j < heightCutOff - 3)
+					{
+						sb.Append('║');
+						continue;
+					}
+					if ((j == heightCutOff - 3 || j == midHeight + 4) && i > 10 && i < width - 11)
+					{
+						sb.Append('═');
+						continue;
+					}
+					if (i > 10 && i < width - 11 && j > midHeight + 4 && j < heightCutOff - 3)
+					{
+						if (j - (midHeight + 5) < PromptBattleText.Length)
+						{
+							string line = PromptBattleText[j - (midHeight + 5)];
+							if (i - 11 < line.Length)
+							{
+								sb.Append(line[i - 11]);
+								continue;
+							}
+						}
+						sb.Append(' ');
+						continue;
+					}
+				}
+
 				//Opponent Monster (MONSTER B)
 				if (i > midWidth - (Sprites.BattleSpriteWidth / 4) * 1 &&
 					i < midWidth + (Sprites.BattleSpriteWidth / 4) * 3 + 3 &&
@@ -137,5 +186,26 @@ public static class BattleScreen
 		}
 		Console.SetCursorPosition(0, 0);
 		Console.Write(sb);
+	}
+	public static void DrawStats(bool playerTurn, MonsterBase PlayerMonster, MonsterBase OpponentMonster)
+	{
+		//TEMP
+		Console.SetCursorPosition(63, 34);
+		Console.WriteLine($"HP:{PlayerMonster.CurrentHP}  Energy:{PlayerMonster.CurrentEnergy}  ");
+
+		Console.SetCursorPosition(102, 13);
+		Console.WriteLine($"HP:{OpponentMonster.CurrentHP}  Energy:{OpponentMonster.CurrentEnergy}  ");
+
+		Console.SetCursorPosition(35, 5);
+		string turn;
+		if (playerTurn)
+		{
+			turn = "Player Turn";
+		}
+		else
+		{
+			turn = "CPU Turn   ";
+		}
+		Console.WriteLine(turn);
 	}
 }

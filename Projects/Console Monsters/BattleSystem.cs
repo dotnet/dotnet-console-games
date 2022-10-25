@@ -14,87 +14,54 @@ public class BattleSystem
 		OpponentMonster.CurrentEnergy = 40;
 		OpponentMonster.DefenseStat = 10;
 		OpponentMonster.AttackStat = 10;
-		
+		OpponentMonster.SpeedStat = 9;
 
-		bool playerTurn = true;
+
+		bool playerTurn = false;
 		bool battleOver = false;
 
-		DrawStats(playerTurn, PlayerMonster, OpponentMonster);
+		BattleScreen.DrawStats(playerTurn, PlayerMonster, OpponentMonster);
+
+		PromptBattleText = new string[]
+		{
+			$"You Encountered A Wild {OpponentMonster.Name}"
+		};
+		BattleScreen.Render(PlayerMonster, OpponentMonster);
+		ConsoleHelper.PressToContinue();
+		PromptBattleText = null;
+		BattleScreen.Render(PlayerMonster, OpponentMonster);
+		
+
 		while (!battleOver)
 		{
-			if (OpponentMonster.SpeedStat > PlayerMonster.SpeedStat)
+			playerTurn = false;
+			if (PlayerMonster.SpeedStat > OpponentMonster.SpeedStat)
 			{
-				playerTurn = false;
+				playerTurn = true;
 			}
-			if (playerTurn)
+			//In case they have the same Speed Stat
+			else if(PlayerMonster.SpeedStat == OpponentMonster.SpeedStat)
 			{
-				AttackingMonster = PlayerMonster;
-				DefendingMonster = OpponentMonster;
-				if (PlayerMonster.CurrentHP <= 0)
-				{
-					Console.Clear();
-					Console.WriteLine("Player Lost");
-					PlayerMonster.CurrentHP = 0;
-					battleOver = true;
-				}
-				else if(PlayerMonster.CurrentEnergy <= 0)
-				{
-					playerTurn = !playerTurn;
-					DrawStats(playerTurn, PlayerMonster, OpponentMonster);
-				}
-				else
-				{
-					ConsoleHelper.PressToContinue();
-					MoveBase playerMove = MoveBase.GetRandomMove();
-					PlayerMonster.CurrentEnergy -= playerMove.EnergyTaken;
-					OpponentMonster.CurrentHP -= (int)playerMove.FinalDamage;
-					playerTurn = false;
-					DrawStats(playerTurn, PlayerMonster, OpponentMonster);
-				}
+				playerTurn = Random.Shared.Next(2) == 0;
 			}
-			if (!playerTurn)
-			{
-				AttackingMonster = OpponentMonster;
-				DefendingMonster = PlayerMonster;
-				if (OpponentMonster.CurrentHP <= 0)
-				{
-					Console.Clear();
-					Console.WriteLine("CPU Lost");
-					battleOver = true;
-				}
-				else
-				{
-					ConsoleHelper.PressToContinue();
-					MoveBase opponentMove = MoveBase.GetRandomMove();
-					OpponentMonster.CurrentEnergy -= opponentMove.EnergyTaken;
-					PlayerMonster.CurrentHP -= (int)opponentMove.FinalDamage;
-					playerTurn = true;
-					DrawStats(playerTurn, PlayerMonster, OpponentMonster);
-				}
-			}
+			
+
+
+			BattleScreen.DrawStats(playerTurn, PlayerMonster, OpponentMonster);
+			battleOver = CheckLostAllMonster();
 		}
 
-		static void DrawStats(bool playerTurn, MonsterBase PlayerMonster, MonsterBase OpponentMonster)
+		static bool CheckLostAllMonster()
 		{
-			//TEMP
-			Console.SetCursorPosition(63, 34);
-			Console.WriteLine($"HP:{PlayerMonster.CurrentHP}  Energy:{PlayerMonster.CurrentEnergy}  ");
-
-			Console.SetCursorPosition(102, 13);
-			Console.WriteLine($"HP:{OpponentMonster.CurrentHP}  Energy:{OpponentMonster.CurrentEnergy}  ");
-
-			Console.SetCursorPosition(35, 5);
-			string turn;
-			if (playerTurn)
+			if (partyMonsters.All(x => x.CurrentHP <= 0))
 			{
-				turn = "Player Turn";
+				return true;
 			}
-			else
+			if (trainerMonsters.All(x => x.CurrentHP <= 0))
 			{
-				turn = "CPU Turn   ";
+				return true;
 			}
-			Console.WriteLine(turn);
+			return false;
 		}
-
 	}
 }

@@ -211,7 +211,7 @@ public partial class Program
 				case UserKeyPress.Confirm:
 					PromptText = null;
 					ShopText = null;
-					PromptText = null;
+					PromptBattleText = null;
 
 					break;
 				case UserKeyPress.Action:

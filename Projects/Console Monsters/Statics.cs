@@ -18,6 +18,7 @@ public static class Statics
 	public readonly static Player player = new();
 	public readonly static List<MonsterBase> ownedMonsters = new();
 	public readonly static List<MonsterBase> partyMonsters = new();
+	public readonly static List<MonsterBase> trainerMonsters = new();
 	public readonly static Dictionary<ConsoleKey, UserKeyPress> keyMappings = new();
 	public readonly static Dictionary<UserKeyPress, (ConsoleKey Main, ConsoleKey? Alternate)> reverseKeyMappings = new();
 
@@ -116,6 +117,7 @@ public static class Statics
 	};
 
 	public static string[]? PromptText { get; set; } = null;
+	public static string[]? PromptBattleText { get; set; } = null;
 	public static string[]? ShopText { get; set; } = null;
 	public static string[]? PromptShopText { get; set; } = null;
 
@@ -142,6 +144,7 @@ public static class Statics
 		DefaultKeyMappings();
 		partyMonsters.Clear();
 		partyMonsters.Add(new Turtle());
+		partyMonsters.Add(new FireLizard());
 	}
 
 	[System.Diagnostics.DebuggerHidden]
