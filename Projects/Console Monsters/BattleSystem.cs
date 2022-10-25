@@ -19,13 +19,13 @@ public class BattleSystem
 		bool playerTurn = true;
 		bool battleOver = false;
 
-		if (OpponentMonster.SpeedStat > PlayerMonster.SpeedStat)
-		{
-			playerTurn = false;
-		}
 		DrawStats(playerTurn, PlayerMonster, OpponentMonster);
 		while (!battleOver)
 		{
+			if (OpponentMonster.SpeedStat > PlayerMonster.SpeedStat)
+			{
+				playerTurn = false;
+			}
 			if (playerTurn)
 			{
 				AttackingMonster = PlayerMonster;
@@ -34,16 +34,16 @@ public class BattleSystem
 				{
 					Console.Clear();
 					Console.WriteLine("Player Lost");
+					PlayerMonster.CurrentHP = 0;
 					battleOver = true;
 				}
 				else if(PlayerMonster.CurrentEnergy <= 0)
 				{
-					playerTurn = false;
+					playerTurn = !playerTurn;
 					DrawStats(playerTurn, PlayerMonster, OpponentMonster);
 				}
 				else
 				{
-
 					ConsoleHelper.PressToContinue();
 					MoveBase playerMove = MoveBase.GetRandomMove();
 					PlayerMonster.CurrentEnergy -= playerMove.EnergyTaken;
