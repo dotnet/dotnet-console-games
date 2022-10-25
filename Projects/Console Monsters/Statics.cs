@@ -145,6 +145,7 @@ public static class Statics
 		partyMonsters.Clear();
 		partyMonsters.Add(new Turtle());
 		partyMonsters.Add(new FireLizard());
+		partyMonsters.Add(new ToadBud());
 	}
 
 	[System.Diagnostics.DebuggerHidden]
