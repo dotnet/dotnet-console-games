@@ -162,6 +162,19 @@ public static class Statics
 		return new _ErrorMonster(); //TEMP: returns the error monster in case all party monsters are dead
 	}
 
+	public static bool IsAnyAvailableMonster()
+	{
+		for (int i = 0; i < partyMonsters.Count; i++)
+		{
+			if (partyMonsters[i].CurrentHP > 0)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public static void DefaultKeyMappings()
 	{
 		reverseKeyMappings.Clear();
