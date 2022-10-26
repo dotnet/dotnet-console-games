@@ -21,6 +21,7 @@ public class BattleSystem
 
 		PromptBattleText = new string[]
 		{
+			//$"{AsciiGenerator.ToAscii($"You Encountered A Wild {OpponentMonster.Name}")}",
 			$"You Encountered A Wild {OpponentMonster.Name}!"
 		};
 
@@ -36,30 +37,37 @@ public class BattleSystem
 		while (!battleOver)
 		{
 			BattleScreen.DrawStats(playerTurn, PlayerMonster, OpponentMonster);
+			ConsoleHelper.PressToContinue();
 
-			Round(PlayerMonster, OpponentMonster, playerTurn);
+			// Who starts based on speed
+			playerTurn = SelectStartingMonster(PlayerMonster, OpponentMonster);
+			Turn(PlayerMonster, OpponentMonster, playerTurn);
+			Turn(PlayerMonster, OpponentMonster, playerTurn);
+
+			BattleScreen.DrawStats(playerTurn, PlayerMonster, OpponentMonster);
 
 			//Are all monsters dead on one side?
 			battleOver = CheckLostAllMonsters();
-			ConsoleHelper.PressToContinue();
 		}
-
+		//Battle is over, remove the losing monster from screen
+		BattleScreen.Render(PlayerMonster, OpponentMonster);
 	}
 
-	public static void Round(MonsterBase PlayerMonster, MonsterBase OpponentMonster, bool playerTurn)
+	public static void Turn(MonsterBase PlayerMonster, MonsterBase OpponentMonster, bool playerTurn)
 	{
-		// Who starts based on speed
-		playerTurn = SelectStartingMonster(PlayerMonster, OpponentMonster);
-
 		if (playerTurn)
 		{
 
+
+			
 		}
 		else
 		{
 
-		}
 
+			
+		}
+		playerTurn = !playerTurn;
 	}
 
 	public static bool SelectStartingMonster(MonsterBase PlayerMonster, MonsterBase OpponentMonster)
