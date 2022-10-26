@@ -105,11 +105,11 @@ public static class BattleScreen
 						sb.Append('═');
 						continue;
 					}
-					if (i > 10 && i < width - 11 && j > midHeight + 6 && j < heightCutOff - 3)
+					if (i > 10 && i < width - 11 && j > midHeight + 8 && j < heightCutOff - 3)
 					{
-						if (j - (midHeight + 5) < PromptBattleText.Length)
+						if (j - (midHeight + 9) < PromptBattleText.Length)
 						{
-							string line = PromptBattleText[j - (midHeight + 5)];
+							string line = PromptBattleText[j - (midHeight + 9)];
 							if (i - 11 < line.Length)
 							{
 								sb.Append(line[i - 11]);
