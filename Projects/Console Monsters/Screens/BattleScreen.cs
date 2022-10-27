@@ -210,7 +210,7 @@ public static class BattleScreen
 
 		static double CalculatePercentage(double currentHP, double maxHP)
 		{
-			return currentHP / maxHP * 100;
+			return (int)(currentHP / maxHP * 100);
 		}
 	}
 }
