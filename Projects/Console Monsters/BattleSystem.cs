@@ -18,21 +18,7 @@ public class BattleSystem
 		bool playerTurn = false, battleOver = false;
 
 		BattleScreen.DrawStats(playerTurn, PlayerMonster, OpponentMonster);
-
-		PromptBattleText = new string[]
-		{
-			//$"{AsciiGenerator.ToAscii($"You Encountered A Wild {OpponentMonster.Name}")}",
-			$"You Encountered A Wild {OpponentMonster.Name}!"
-		};
-
-		BattleScreen.Render(PlayerMonster, OpponentMonster);
-		ConsoleHelper.PressToContinue();
-
-		PromptBattleText = new string[]
-		{
-			" "
-		};
-		BattleScreen.Render(PlayerMonster, OpponentMonster);
+		SetBattleText($"You Encountered A Wild {OpponentMonster.Name}", PlayerMonster, OpponentMonster);
 		
 		while (!battleOver)
 		{
@@ -88,5 +74,20 @@ public class BattleSystem
 	{
 		// Credit: Ero#1111
 		return partyMonsters.All(m => m.CurrentHP <= 0) || trainerMonsters.All(m => m.CurrentHP <= 0);
+	}
+
+	public static void SetBattleText(string prompt, MonsterBase PlayerMonster, MonsterBase OpponentMonster)
+	{
+		PromptBattleText = new string[]
+		{
+			//$"{AsciiGenerator.ToAscii($"You Encountered A Wild {OpponentMonster.Name}")}",
+			//$"You Encountered A Wild {OpponentMonster.Name}!"
+			prompt,
+		};
+		BattleScreen.Render(PlayerMonster, OpponentMonster);
+		ConsoleHelper.PressToContinue();
+
+		PromptBattleText = null;
+		BattleScreen.Render(PlayerMonster, OpponentMonster);
 	}
 }
