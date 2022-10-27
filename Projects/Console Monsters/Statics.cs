@@ -9,12 +9,13 @@ public static class Statics
 	public static bool DisableBattleTransition { get; set; } = false;
 	public static bool FirstTimeLaunching { get; set; } = true;
 	public static bool AudioEnabled { get; set; } = false;
+	public static bool FastText { get; set; } = false;
 
 	#endregion
 
 	public readonly static Random BattleTransitionRandom = new();
 	public readonly static Random GameRandom = new(7);
-	public readonly static Random BattleRandom = new(7);
+	public readonly static Random BattleRandom = new();
 	public readonly static Player player = new();
 	public readonly static List<MonsterBase> ownedMonsters = new();
 	public readonly static List<MonsterBase> partyMonsters = new();
