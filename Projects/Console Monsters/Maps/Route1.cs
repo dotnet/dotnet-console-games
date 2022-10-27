@@ -152,13 +152,13 @@ class Route1 : MapBase
 					}
 					Type[] typesThatCanSpawn =
 					{
-						typeof(Ant),
-						typeof(Goat),
-						typeof(Owl),
-						typeof(Pig),
-						typeof(Pinecone),
 						typeof(Fox),
-						typeof(Ladybug),
+						//typeof(Ant),
+						//typeof(Goat),
+						//typeof(Owl),
+						//typeof(Pig),
+						//typeof(Pinecone),
+						//typeof(Ladybug),
 					};
 					Type typeOfMonsterToSpawn = Random.Shared.Choose(typesThatCanSpawn);
 					MonsterBase OpponentMonster = (MonsterBase)Activator.CreateInstance(typeOfMonsterToSpawn)!;
