@@ -1,4 +1,6 @@
-﻿namespace Console_Monsters.Monsters;
+﻿using Console_Monsters.Moves;
+
+namespace Console_Monsters.Monsters;
 
 public class Turtle : MonsterBase
 {
@@ -14,6 +16,12 @@ public class Turtle : MonsterBase
 		AttackStat = 10;
 		SpeedStat = 10;
 		DefenseStat = 10;
+		MoveSet = new List<MoveBase>
+		{
+			new Punch(),
+			new Tackle(),
+			new Scratch()
+		};
 	}
 
 	public override string[] Sprite => (

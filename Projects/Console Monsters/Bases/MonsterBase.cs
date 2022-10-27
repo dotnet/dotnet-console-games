@@ -12,9 +12,9 @@ public abstract class MonsterBase
 
 	public int ExperiencePoints { get; set; }
 
-	public int CurrentHP { get; set; }
+	public double CurrentHP { get; set; }
 
-	public int MaximumHP { get; set; }
+	public double MaximumHP { get; set; }
 
 	public int CurrentEnergy { get; set; }
 
@@ -33,7 +33,7 @@ public abstract class MonsterBase
 
 	public int DefenseStat { get; set; }
 
-	public List<string>? MoveSet { get; set; }
+	public List<MoveBase>? MoveSet { get; set; }
 
 	public string? Description { get; set; }
 

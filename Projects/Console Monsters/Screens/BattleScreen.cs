@@ -191,10 +191,10 @@ public static class BattleScreen
 	{
 		//TEMP                    34
 		Console.SetCursorPosition(63, 26);
-		Console.WriteLine($"HP:{PlayerMonster.CurrentHP}  Energy:{PlayerMonster.CurrentEnergy}  ");
+		Console.WriteLine($"HP:{CalculatePercentage(PlayerMonster.CurrentHP, PlayerMonster.MaximumHP)}%  Energy:{PlayerMonster.CurrentEnergy}  ");
 
 		Console.SetCursorPosition(102, 13);
-		Console.WriteLine($"HP:{OpponentMonster.CurrentHP}  Energy:{OpponentMonster.CurrentEnergy}  ");
+		Console.WriteLine($"HP:{CalculatePercentage(OpponentMonster.CurrentHP, OpponentMonster.MaximumHP)}%  Energy:{OpponentMonster.CurrentEnergy}  ");
 
 		Console.SetCursorPosition(35, 5);
 		string turn;
@@ -207,5 +207,10 @@ public static class BattleScreen
 			turn = "CPU Turn   ";
 		}
 		Console.WriteLine(turn);
+
+		static double CalculatePercentage(double currentHP, double maxHP)
+		{
+			return currentHP / maxHP * 100;
+		}
 	}
 }
