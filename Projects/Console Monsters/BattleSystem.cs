@@ -38,6 +38,7 @@ public class BattleSystem
 			playerTurn = !playerTurn;
 			BattleScreen.DrawStats(playerTurn, PlayerMonster, OpponentMonster);
 
+			if (CheckLostAllMonsters(OpponentMonster)) break;
 			WaitBetweenAction();
 
 			Turn(PlayerMonster, OpponentMonster, playerTurn);
@@ -48,7 +49,7 @@ public class BattleSystem
 			battleOver = CheckLostAllMonsters(OpponentMonster);
 		}
 		//Battle is over, remove the losing monster from screen
-		BattleScreen.Render(PlayerMonster, OpponentMonster);
+		DrawBattleText($"", PlayerMonster, OpponentMonster, playerTurn);
 	}
 
 	public static void Turn(MonsterBase PlayerMonster, MonsterBase OpponentMonster, bool playerTurn)
@@ -57,11 +58,12 @@ public class BattleSystem
 		{
 			AttackingMonster = PlayerMonster;
 			DefendingMonster = OpponentMonster;
+			int attackStat = AttackingMonster.AttackStat;
 
 			DrawMoveText(PlayerMonster, OpponentMonster, playerTurn);
 			//Gives too low damage output ▼
 			MoveBase playerMove = InputToMonsterMove(PlayerMonster);
-			//MoveBase playerMove = new Punch(); < --- THIS WORKS FOR SOME REASON?!?!
+			//MoveBase playerMove = new Punch(); //< --- THIS WORKS FOR SOME REASON?!?!
 
 			DrawBattleText($"{PlayerMonster.Name} used {playerMove.Name}", PlayerMonster, OpponentMonster, playerTurn);
 			PlayerMonster.CurrentEnergy -= playerMove.EnergyTaken;
@@ -93,12 +95,20 @@ public class BattleSystem
 		}
 		return false;
 	}
-
 	public static bool CheckLostAllMonsters(MonsterBase OpponentMonster)
+	{
+		return CheckLostAllPlayerMonsters() && CheckLostAllOpponentMonsters(OpponentMonster);
+	}
+
+	public static bool CheckLostAllPlayerMonsters()
 	{
 		// Credit: Ero#1111   -   Commented out due to trainerMonsters being empty for the time being
 		//return partyMonsters.All(m => m.CurrentHP <= 0) || trainerMonsters.All(m => m.CurrentHP <= 0);
-		return partyMonsters.All(m => m.CurrentHP <= 0) || OpponentMonster.CurrentHP <= 0;
+		return partyMonsters.All(m => m.CurrentHP <= 0);
+	}
+	public static bool CheckLostAllOpponentMonsters(MonsterBase OpponentMonster)
+	{
+		return OpponentMonster.CurrentHP <= 0;
 	}
 
 	public static void DrawMoveText(MonsterBase PlayerMonster, MonsterBase OpponentMonster, bool playerTurn)
