@@ -57,8 +57,6 @@ public class BattleSystem
 		{
 			AttackingMonster = PlayerMonster;
 			DefendingMonster = OpponentMonster;
-			int attackStat = AttackingMonster.AttackStat;
-			int defenseStat = DefendingMonster.DefenseStat;
 
 			DrawMoveText(PlayerMonster, OpponentMonster, playerTurn);
 			//Gives too low damage output ▼
@@ -73,8 +71,6 @@ public class BattleSystem
 		{
 			AttackingMonster = OpponentMonster;
 			DefendingMonster = PlayerMonster;
-			int attackStat = AttackingMonster.AttackStat;
-			int defenseStat = DefendingMonster.DefenseStat;
 
 			MoveBase opponentMove = new Punch();
 

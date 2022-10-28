@@ -14,7 +14,7 @@ internal class Fox : MonsterBase
 		CurrentEnergy = MaximumEnergy;
 		Evolution = 1;
 		AttackStat = 10;
-		SpeedStat = 10;
+		SpeedStat = 9;
 		DefenseStat = 10;
 		MoveSet = new List<MoveBase>
 		{
