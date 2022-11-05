@@ -40,7 +40,7 @@ public static class BattleScreen
 					continue;
 				}
 
-				// map outline
+				// battle screen outline
 				if (i == midWidth - Sprites.BattleSpriteWidth && j == midHeight - spriteheight)
 				{
 					sb.Append('╔');
@@ -75,44 +75,53 @@ public static class BattleScreen
 				// message prompt if there is one
 				if (PromptBattleText is not null)
 				{
-					if (i is 10 && j == midHeight + 6)
+					int leftBattleMenuBox = (midWidth - Sprites.BattleSpriteWidth) + 4; // Dependant on outer border
+					int rightBattleMenuBox = (midWidth + Sprites.BattleSpriteWidth) - 4;
+
+					int topBattleMenuBox = midHeight + 6; // Dependant on screen height
+					int bottomBattleMenuBox = heightCutOff - 3;
+
+					if (i == leftBattleMenuBox && j == topBattleMenuBox)
 					{
 						sb.Append('╔');
 						continue;
 					}
-					if (i is 10 && j == heightCutOff - 3)
+					if (i == leftBattleMenuBox && j == bottomBattleMenuBox)
 					{
 						sb.Append('╚');
 						continue;
 					}
-					if (i == width - 11 && j == midHeight + 6)
+					if (i == rightBattleMenuBox && j == topBattleMenuBox)
 					{
 						sb.Append('╗');
 						continue;
 					}
-					if (i == width - 11 && j == heightCutOff - 3)
+					if (i == rightBattleMenuBox && j == bottomBattleMenuBox)
 					{
 						sb.Append('╝');
 						continue;
 					}
-					if ((i is 10 || i == width - 11) && j > midHeight + 6 && j < heightCutOff - 3)
+					if ((i == leftBattleMenuBox || i == rightBattleMenuBox) && j > topBattleMenuBox && j < bottomBattleMenuBox)
 					{
 						sb.Append('║');
 						continue;
 					}
-					if ((j == heightCutOff - 3 || j == midHeight + 6) && i > 10 && i < width - 11)
+					if ((j == bottomBattleMenuBox || j == topBattleMenuBox) && i > leftBattleMenuBox && i < rightBattleMenuBox)
 					{
 						sb.Append('═');
 						continue;
 					}
-					if (i > 10 && i < width - 11 && j > midHeight + 8 && j < heightCutOff - 3)
+					#warning TODO: MAJOR REWORK 
+					if (i > leftBattleMenuBox && i < rightBattleMenuBox && j > topBattleMenuBox && j < bottomBattleMenuBox) //Are we at the box?
 					{
-						if (j - (midHeight + 9) < PromptBattleText.Length)
+						int leftBattleMenuTextOffset = leftBattleMenuBox + 2; // For now has to be 2, NEEDS REWORK
+						int topBattleMenuTextOffset = topBattleMenuBox + 1;
+						if (j - (topBattleMenuTextOffset) < PromptBattleText.Length) //Are we inside the box?
 						{
-							string line = PromptBattleText[j - (midHeight + 9)];
-							if (i - 11 < line.Length)
+							string line = PromptBattleText[j - (topBattleMenuTextOffset)];
+							if (i - leftBattleMenuTextOffset < line.Length - 1)
 							{
-								sb.Append(line[i - 11]);
+								sb.Append(line[i - 10]);
 								continue;
 							}
 						}
@@ -187,13 +196,41 @@ public static class BattleScreen
 		Console.SetCursorPosition(0, 0);
 		Console.Write(sb);
 	}
+
+	// For giving more offest to the battle text
+	#warning TODO: FIX
+	private static string[] NewBattleText(string[] oldBattleText)
+	{
+		int offset = 4;
+		string BattleTextOffset = string.Empty;
+
+		for(int i = 0; i < offset; i++)
+		{
+			BattleTextOffset.Concat(" ");
+		}
+
+		for(int i = 0; i < oldBattleText.Length; i++)
+		{
+			oldBattleText[i] = BattleTextOffset + oldBattleText[i];
+		}
+
+		return oldBattleText;
+	}
+
 	public static void DrawStats(bool playerTurn, MonsterBase PlayerMonster, MonsterBase OpponentMonster)
 	{
-		//TEMP                    34
-		Console.SetCursorPosition(63, 26);
+		Console.SetCursorPosition(66, 24);
+		Console.WriteLine($"{PlayerMonster.Name}");
+		Console.SetCursorPosition(66, 25);
+		Console.WriteLine($"Lvl:{PlayerMonster.Level}");
+		Console.SetCursorPosition(66, 26);
 		Console.WriteLine($"HP:{CalculatePercentage(PlayerMonster.CurrentHP, PlayerMonster.MaximumHP)}%  Energy:{PlayerMonster.CurrentEnergy}  ");
 
-		Console.SetCursorPosition(102, 13);
+		Console.SetCursorPosition(103, 10);
+		Console.WriteLine($"{OpponentMonster.Name}");
+		Console.SetCursorPosition(103, 11);
+		Console.WriteLine($"Lvl:{OpponentMonster.Level}");
+		Console.SetCursorPosition(103, 12);
 		Console.WriteLine($"HP:{CalculatePercentage(OpponentMonster.CurrentHP, OpponentMonster.MaximumHP)}%  Energy:{OpponentMonster.CurrentEnergy}  ");
 
 		Console.SetCursorPosition(35, 5);
