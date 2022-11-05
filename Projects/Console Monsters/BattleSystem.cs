@@ -5,10 +5,6 @@ namespace Console_Monsters;
 
 public class BattleSystem
 {
-	// TEMP FOR DEVELOPMENT, YES VERY MESSY, PLEASE FIX
-	public static MonsterBase? AttackingMonster { get; set; } = new _ErrorMonster();
-	public static MonsterBase? DefendingMonster { get; set; } = new _ErrorMonster();
-
 	public static void Battle(MonsterBase PlayerMonster, MonsterBase OpponentMonster)
 	{
 		bool playerTurn = SelectStartingMonster(PlayerMonster, OpponentMonster), battleOver = false;
@@ -46,10 +42,6 @@ public class BattleSystem
 	{
 		if (playerTurn)
 		{
-			AttackingMonster = PlayerMonster;
-			DefendingMonster = OpponentMonster;
-			int attackStat = AttackingMonster.AttackStat;
-
 			DrawMoveText(PlayerMonster, OpponentMonster, playerTurn);
 			MoveBase playerMove = InputToMonsterMove(PlayerMonster);
 
@@ -59,10 +51,7 @@ public class BattleSystem
 		}
 		else
 		{
-			AttackingMonster = OpponentMonster;
-			DefendingMonster = PlayerMonster;
-
-			MoveBase opponentMove = new Punch();
+			MoveBase opponentMove = MoveBase.GetRandomMove();
 
 			DrawBattleText($"{OpponentMonster.Name} used {opponentMove.Name}", PlayerMonster, OpponentMonster, playerTurn);
 			OpponentMonster.CurrentEnergy -= opponentMove.EnergyTaken;
@@ -106,6 +95,7 @@ public class BattleSystem
 			$"1.{PlayerMonster.MoveSet[0].Name}  3.{PlayerMonster.MoveSet[2].Name}",
 			$"2.{PlayerMonster.MoveSet[1].Name}"
 		};
+
 		BattleScreen.Render(PlayerMonster, OpponentMonster);
 		BattleScreen.DrawStats(playerTurn, PlayerMonster, OpponentMonster);
 	}
