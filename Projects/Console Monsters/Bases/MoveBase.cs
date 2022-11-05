@@ -8,8 +8,6 @@ public abstract class MoveBase
 
 	public double BaseDamage { get; set; }
 
-	public double FinalDamage { get; set; }
-
 	public int EnergyTaken { get; set; }
 
 	public DamageType? DamageType { get; }
@@ -25,5 +23,14 @@ public abstract class MoveBase
 		Type moveType = moveTypes[Random.Shared.Next(moveTypes.Length)];
 		MoveBase move = (MoveBase)Activator.CreateInstance(moveType)!;
 		return move;
+	}
+
+	public double CalculateDamage(MonsterBase attackingMonster, MonsterBase defendingMonster)
+	{
+		double dmg = (((2 * attackingMonster.Level / 5 + 2)
+					* BaseDamage * attackingMonster.AttackStat / defendingMonster.DefenseStat) / 50 + 2)
+					* BattleRandom.Next(85, 101) / 100;
+
+		return dmg;
 	}
 }

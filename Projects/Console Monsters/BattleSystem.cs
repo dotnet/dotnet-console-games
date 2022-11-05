@@ -11,16 +11,6 @@ public class BattleSystem
 
 	public static void Battle(MonsterBase PlayerMonster, MonsterBase OpponentMonster)
 	{
-		//// Temp
-		//OpponentMonster.CurrentHP = 20;
-		//OpponentMonster.MaximumHP = 20;
-		//OpponentMonster.CurrentEnergy = 40;
-		//OpponentMonster.DefenseStat = 10;
-		//OpponentMonster.AttackStat = 10;
-		//OpponentMonster.SpeedStat = 9;
-
-
-
 		bool playerTurn = SelectStartingMonster(PlayerMonster, OpponentMonster), battleOver = false;
 
 		BattleScreen.DrawStats(playerTurn, PlayerMonster, OpponentMonster);
@@ -61,13 +51,11 @@ public class BattleSystem
 			int attackStat = AttackingMonster.AttackStat;
 
 			DrawMoveText(PlayerMonster, OpponentMonster, playerTurn);
-			//Gives too low damage output ▼
 			MoveBase playerMove = InputToMonsterMove(PlayerMonster);
-			//MoveBase playerMove = new Punch(); //< --- THIS WORKS FOR SOME REASON?!?!
 
 			DrawBattleText($"{PlayerMonster.Name} used {playerMove.Name}", PlayerMonster, OpponentMonster, playerTurn);
 			PlayerMonster.CurrentEnergy -= playerMove.EnergyTaken;
-			OpponentMonster.CurrentHP -= playerMove.FinalDamage;
+			OpponentMonster.CurrentHP -= playerMove.CalculateDamage(PlayerMonster, OpponentMonster);
 		}
 		else
 		{
@@ -78,7 +66,7 @@ public class BattleSystem
 
 			DrawBattleText($"{OpponentMonster.Name} used {opponentMove.Name}", PlayerMonster, OpponentMonster, playerTurn);
 			OpponentMonster.CurrentEnergy -= opponentMove.EnergyTaken;
-			PlayerMonster.CurrentHP -= opponentMove.FinalDamage;
+			PlayerMonster.CurrentHP -= opponentMove.CalculateDamage(OpponentMonster, PlayerMonster);
 		}
 	}
 
