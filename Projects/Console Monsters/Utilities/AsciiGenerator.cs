@@ -28,7 +28,10 @@ public static class AsciiGenerator
 		return new[] { a.ToString(), b.ToString(), c.ToString() };
 	}
 
-	/// <summary>Generates medium sized uppercase ascii text art from a char.</summary>
+	/// <summary>
+	/// Generates medium sized uppercase ascii text art from a char.
+	/// </summary>
+	/// <remarks>All characters must be 5 in length and 3 in height, priotizing space on right, centering any single liners </remarks>
 	public static string[] ToAscii(char @char) => char.ToLower(@char) switch
 		{
 			' ' => new[]
