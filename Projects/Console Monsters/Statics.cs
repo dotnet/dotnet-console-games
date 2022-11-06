@@ -112,7 +112,7 @@ public static class Statics
 
 	public static string[] BattleText => new[]
 	{
-		$"Temporary Text",
+		$"Battles are still in development.",
 	};
 
 	public static string[]? PromptText { get; set; } = null;

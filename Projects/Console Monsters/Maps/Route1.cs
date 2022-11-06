@@ -143,7 +143,7 @@ class Route1 : MapBase
 				break;
 			case 'G':
 				//SpawnType = "Grass";
-				if (!DisableBattle && IsAnyAvailableMonster() && Random.Shared.Next(2) is 0) // BATTLE CHANCE
+				if (!DisableBattle && IsAnyAvailableMonster() && GetFirstAvailableMonster() != new _ErrorMonster() && Random.Shared.Next(2) is 0) // BATTLE CHANCE
 				{
 					Console.Clear();
 					if (!DisableBattleTransition)
