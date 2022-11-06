@@ -112,9 +112,7 @@ public static class Statics
 
 	public static string[] BattleText => new[]
 	{
-		$"Battles are still in development.",
-		$"Let's just pretend you won this battle. :D",
-		$"[{reverseKeyMappings[UserKeyPress.Confirm].ToDisplayString()}]: exit battle"
+		$"Temporary Text",
 	};
 
 	public static string[]? PromptText { get; set; } = null;
