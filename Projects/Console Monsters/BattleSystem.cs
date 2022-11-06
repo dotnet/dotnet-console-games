@@ -24,7 +24,8 @@ public class BattleSystem
 			playerTurn = !playerTurn;
 			BattleScreen.DrawStats(playerTurn, PlayerMonster, OpponentMonster);
 
-			if (CheckLostAllMonsters(OpponentMonster)) break;
+			if (CheckLostAllMonsters(PlayerMonster, OpponentMonster)) 
+				break;
 			WaitBetweenAction();
 
 			Turn(PlayerMonster, OpponentMonster, playerTurn);
@@ -32,10 +33,10 @@ public class BattleSystem
 			BattleScreen.DrawStats(playerTurn, PlayerMonster, OpponentMonster);
 
 			//Are all monsters dead on one side?
-			battleOver = CheckLostAllMonsters(OpponentMonster);
+			battleOver = CheckLostAllMonsters(PlayerMonster, OpponentMonster);
 		}
 		//Battle is over, remove the losing monster from screen
-		DrawBattleText($"", PlayerMonster, OpponentMonster, playerTurn);
+		DrawBattleText($"BATTLE OVER     Press [ENTER] to continue", PlayerMonster, OpponentMonster, playerTurn);
 	}
 
 	public static void Turn(MonsterBase PlayerMonster, MonsterBase OpponentMonster, bool playerTurn)
@@ -47,7 +48,8 @@ public class BattleSystem
 
 			DrawBattleText($"{PlayerMonster.Name} used {playerMove.Name}", PlayerMonster, OpponentMonster, playerTurn);
 			PlayerMonster.CurrentEnergy -= playerMove.EnergyTaken;
-			OpponentMonster.CurrentHP -= playerMove.CalculateDamage(PlayerMonster, OpponentMonster);
+			OpponentMonster.CurrentHP -= playerMove.CalculateDamage(PlayerMonster, OpponentMonster, playerMove);
+			if (OpponentMonster.CurrentHP < 0) OpponentMonster.CurrentHP = 0;
 		}
 		else
 		{
@@ -55,7 +57,8 @@ public class BattleSystem
 
 			DrawBattleText($"{OpponentMonster.Name} used {opponentMove.Name}", PlayerMonster, OpponentMonster, playerTurn);
 			OpponentMonster.CurrentEnergy -= opponentMove.EnergyTaken;
-			PlayerMonster.CurrentHP -= opponentMove.CalculateDamage(OpponentMonster, PlayerMonster);
+			PlayerMonster.CurrentHP -= opponentMove.CalculateDamage(OpponentMonster, PlayerMonster, opponentMove);
+			if (PlayerMonster.CurrentHP < 0) PlayerMonster.CurrentHP = 0; // So the hp will not display under 0
 		}
 	}
 
@@ -72,16 +75,26 @@ public class BattleSystem
 		}
 		return false;
 	}
-	public static bool CheckLostAllMonsters(MonsterBase OpponentMonster)
+	public static bool CheckLostAllMonsters(MonsterBase PlayerMonster, MonsterBase OpponentMonster)
 	{
-		return CheckLostAllPlayerMonsters() && CheckLostAllOpponentMonsters(OpponentMonster);
+		if (CheckLostAllPlayerMonsters(PlayerMonster))
+			return true;
+		else if (CheckLostAllOpponentMonsters(OpponentMonster))
+			return true;
+		else
+			return false;
 	}
 
-	public static bool CheckLostAllPlayerMonsters()
+	public static void CheckLostCurrentPlayerMonster(MonsterBase PlayerMonster)
+	{
+		//TO BE MADE
+	}
+	public static bool CheckLostAllPlayerMonsters(MonsterBase PlayerMonster)
 	{
 		// Credit: Ero#1111   -   Commented out due to trainerMonsters being empty for the time being
 		//return partyMonsters.All(m => m.CurrentHP <= 0) || trainerMonsters.All(m => m.CurrentHP <= 0);
-		return partyMonsters.All(m => m.CurrentHP <= 0);
+		//return partyMonsters.All(m => m.CurrentHP <= 0);
+		return PlayerMonster.CurrentHP <= 0; // TEMP USE ABOVE
 	}
 	public static bool CheckLostAllOpponentMonsters(MonsterBase OpponentMonster)
 	{
