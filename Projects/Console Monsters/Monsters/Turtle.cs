@@ -8,20 +8,26 @@ public class Turtle : MonsterBase
 	{
 		Name = "Turtle";
 		Level = 5;
-		MaximumHP = 20;
-		MaximumEnergy = 50;
+
+		BaseHP = 44;
+		MaximumHP = SetMaxHPFromBase(BaseHP, Level);
 		CurrentHP = MaximumHP;
+		MaximumEnergy = 50;
 		CurrentEnergy = MaximumEnergy;
-		Evolution = 1;
+
 		AttackStat = 10;
 		SpeedStat = 10;
 		DefenseStat = 10;
+
 		MoveSet = new List<MoveBase>
 		{
 			new Punch(),
 			new Tackle(),
-			new Scratch()
+			new Scratch(),
+			new Growl()
 		};
+
+		Evolution = 1;
 	}
 
 	public override string[] Sprite => (
