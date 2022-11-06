@@ -6,6 +6,8 @@ public class Tackle : MoveBase
 	{
 		Name = "Tackle";
 		BaseDamage = 40;
-		EnergyTaken = 10; // Temp
+		EnergyTaken = 10;
+		DamageType = Enums.DamageType.Physical;
+		Element = Enums.CMType.Normal;
 	}
 }
