@@ -10,17 +10,17 @@ public abstract class MoveBase
 
 	public int EnergyTaken { get; set; }
 
-	public DamageType? DamageType { get; }
+	public DamageType? DamageType { get; set; }
 
-	public Element? Element { get; }
+	public CMType? Element { get; set; }
 
 	public string? Description { get; set; }
 
 	public static MoveBase GetRandomMove()
 	{
 		Assembly assembly = Assembly.GetExecutingAssembly();
-		Type[] moveTypes = assembly.GetTypes().Where(t => t.BaseType == typeof(MoveBase)).ToArray();
-		Type moveType = moveTypes[Random.Shared.Next(moveTypes.Length)];
+		System.Type[] moveTypes = assembly.GetTypes().Where(t => t.BaseType == typeof(MoveBase)).ToArray();
+		System.Type moveType = moveTypes[Random.Shared.Next(moveTypes.Length)];
 		MoveBase move = (MoveBase)Activator.CreateInstance(moveType)!;
 		return move;
 	}
