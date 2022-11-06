@@ -25,11 +25,28 @@ public abstract class MoveBase
 		return move;
 	}
 
-	public double CalculateDamage(MonsterBase attackingMonster, MonsterBase defendingMonster)
+	public double CalculateDamage(MonsterBase attackingMonster, MonsterBase defendingMonster, MoveBase move)
 	{
-		double dmg = (((2 * attackingMonster.Level / 5 + 2)
+		//Critical Damage Chance
+		Random random = new();
+		int critical = 1;
+
+		//OG is 256 / 256, but for playablity sake it will be higher until further changes
+
+		int num = random.Next(0, 501);
+		if(num < random.Next(0, 501) && move.DamageType != Enums.DamageType.Special)
+		{ 
+			critical = (attackingMonster.Level * 2 + 5) / attackingMonster.Level + 5;
+		}
+
+		if (attackingMonster.AttackStat > 255)
+			attackingMonster.AttackStat /= 4;
+		if (defendingMonster.DefenseStat > 255)
+			defendingMonster.DefenseStat /= 4;
+
+		double dmg = (((2 * attackingMonster.Level * critical / 5 + 2)
 					* BaseDamage * attackingMonster.AttackStat / defendingMonster.DefenseStat) / 50 + 2)
-					* BattleRandom.Next(85, 101) / 100;
+					* BattleRandom.Next(217, 256) / 255;
 
 		return dmg;
 	}
