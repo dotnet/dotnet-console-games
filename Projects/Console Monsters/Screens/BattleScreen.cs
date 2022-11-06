@@ -226,7 +226,7 @@ public static class BattleScreen
 		Console.SetCursorPosition(77, 23);
 		Console.WriteLine($"LVL:{PlayerMonster.Level}");
 		Console.SetCursorPosition(66, 24);
-		Console.WriteLine($"HP:     {DrawBar(PlayerMonster.CurrentHP, PlayerMonster.MaximumHP)} {(int)PlayerMonster.CurrentHP}/{PlayerMonster.MaximumHP}");
+		Console.WriteLine($"HP:     {DrawBar(PlayerMonster.CurrentHP, PlayerMonster.MaximumHP)} {(int)PlayerMonster.CurrentHP}/{(int)PlayerMonster.MaximumHP}");
 		Console.SetCursorPosition(66, 25);
 		Console.WriteLine($"Energy: {DrawBar(PlayerMonster.CurrentEnergy, PlayerMonster.MaximumEnergy)} {PlayerMonster.CurrentEnergy}/{PlayerMonster.MaximumEnergy}");
 
