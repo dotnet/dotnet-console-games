@@ -8,16 +8,16 @@ public abstract class MonsterBase
 
 	public int Level { get; set; }
 
-	public string? MonsterType { get; set; }
+	public List<CMType>? MonsterType { get; set; }
 
 	public int ExperiencePoints { get; set; }
 
+	public double BaseHP { get; set; }
 	public double CurrentHP { get; set; }
-
 	public double MaximumHP { get; set; }
 
+	public int BaseEnergy { get; set; }
 	public int CurrentEnergy { get; set; }
-
 	public int MaximumEnergy { get; set; }
 
 	public int Evolution { get; set; }
@@ -33,14 +33,15 @@ public abstract class MonsterBase
 
 	public int DefenseStat { get; set; }
 
+	public int AccuracyStat { get; set; } = 100;
+
+	public int EvasionStat { get; set; } = 100;
+
 	public List<MoveBase>? MoveSet { get; set; }
 
 	public string? Description { get; set; }
 
-	//public string? StatusCondition { get; set; }
-
-
-	//public static MonsterBase GetRandom(){}
+	public string? StatusCondition { get; set; }
 
 	public static MonsterBase GetRandom()
 	{
@@ -49,5 +50,14 @@ public abstract class MonsterBase
 		Type monsterType = monsterTypes[Random.Shared.Next(monsterTypes.Length)];
 		MonsterBase monster = (MonsterBase)Activator.CreateInstance(monsterType)!;
 		return monster;
+	}
+
+	public double SetMaxHPFromBase(double baseHP, int level)
+	{
+		int HPStatExp = 1;
+
+		double maxHP = (((baseHP * 2 + (Math.Sqrt(HPStatExp) / 4)) * level) / 100) + level + 10;
+
+		return maxHP;
 	}
 }
