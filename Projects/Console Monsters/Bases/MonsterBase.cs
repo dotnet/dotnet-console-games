@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Linq;
+using System.Reflection;
 
 namespace Console_Monsters.Bases;
 
@@ -51,12 +52,29 @@ public abstract class MonsterBase
 		MonsterBase monster = (MonsterBase)Activator.CreateInstance(monsterType)!;
 		return monster;
 	}
-
-	public double SetMaxHPFromBase(double baseHP, int level)
+	public static int SetRandomLevelForWildMonster(List<MonsterBase> playerMonsters)
 	{
-		int HPStatExp = 1;
+		List<int> monsterLvls = new();
+		for (int i = 0; i < playerMonsters.Count; i++)
+			monsterLvls.Add(playerMonsters[i].Level);
 
-		double maxHP = (((baseHP * 2 + (Math.Sqrt(HPStatExp) / 4)) * level) / 100) + level + 10;
+		int level = Random.Shared.Next(monsterLvls.AsQueryable().Min()-4, monsterLvls.AsQueryable().Max()+5);
+
+		return level;
+	}
+
+	public static double SetMaxHPFromBase(double baseHP, int level)
+	{
+		//int HPStatExp   // IN CASE WE HAVE IV's ------ https://bulbapedia.bulbagarden.net/wiki/Stat
+		//double maxHP = (((baseHP * 2 + (Math.Sqrt(HPStatExp) / 4)) * level) / 100) + level + 10;
+		double maxHP = (((baseHP * 2 + (1 / 4)) * level) / 100) + level + 10;
+
+		return maxHP;
+	}
+
+	public static double SetMaxOtherStatFromBase(double baseHP, int level)
+	{
+		double maxHP = (((baseHP * 2) * level) / 100) + 5;
 
 		return maxHP;
 	}
