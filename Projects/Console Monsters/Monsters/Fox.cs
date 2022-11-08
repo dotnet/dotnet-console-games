@@ -2,14 +2,13 @@
 
 namespace Console_Monsters.Monsters;
 
-internal class Fox : MonsterBase
+public class Fox : MonsterBase
 {
 	public Fox()
 	{
 		Name = "Fox";
-		Level = 5;
 
-		BaseHP = 44;
+		BaseHP = 55;
 		MaximumHP = SetMaxHPFromBase(BaseHP, Level);
 		CurrentHP = MaximumHP;
 		MaximumEnergy = 50;
