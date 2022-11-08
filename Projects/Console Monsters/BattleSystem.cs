@@ -8,7 +8,6 @@ public class BattleSystem
 	public static void Battle(MonsterBase PlayerMonster, MonsterBase OpponentMonster)
 	{
 		bool playerTurn = SelectStartingMonster(PlayerMonster, OpponentMonster), battleOver = false;
-		OpponentMonster.Level = MonsterBase.SetRandomLevelForWildMonster(partyMonsters);
 
 		BattleScreen.DrawStats(playerTurn, PlayerMonster, OpponentMonster);
 		DrawBattleText($"You Encountered A Wild {OpponentMonster.Name}", PlayerMonster, OpponentMonster, playerTurn);
