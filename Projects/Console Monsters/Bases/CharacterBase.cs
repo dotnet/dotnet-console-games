@@ -6,6 +6,8 @@ public abstract class CharacterBase : InteractableBase
 
 	public string[]? Dialogue { get; set; }
 
+	public string[]? QuestDialogue { get; set; }
+
 	public string Sprite { get; set; } = Sprites.Error;
 
 	public string[]? SpriteAnimation { get; set; }
