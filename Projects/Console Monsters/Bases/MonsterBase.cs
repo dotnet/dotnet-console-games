@@ -52,6 +52,13 @@ public abstract class MonsterBase
 		MonsterBase monster = (MonsterBase)Activator.CreateInstance(monsterType)!;
 		return monster;
 	}
+	public static void WildMonster(MonsterBase OpponentMonster)
+	{
+		OpponentMonster.Level = SetRandomLevelForWildMonster(partyMonsters);
+		OpponentMonster.MaximumHP = SetMaxHPFromBase(OpponentMonster.BaseHP, OpponentMonster.Level);
+		OpponentMonster.CurrentHP = OpponentMonster.MaximumHP;
+	}
+
 	public static int SetRandomLevelForWildMonster(List<MonsterBase> playerMonsters)
 	{
 		List<int> monsterLvls = new();
@@ -66,8 +73,7 @@ public abstract class MonsterBase
 	public static double SetMaxHPFromBase(double baseHP, int level)
 	{
 		//int HPStatExp   // IN CASE WE HAVE IV's ------ https://bulbapedia.bulbagarden.net/wiki/Stat
-		//double maxHP = (((baseHP * 2 + (Math.Sqrt(HPStatExp) / 4)) * level) / 100) + level + 10;
-		double maxHP = (((baseHP * 2 + (1 / 4)) * level) / 100) + level + 10;
+		double maxHP = (((baseHP * 2 + (Math.Sqrt(1) / 4)) * level) / 100) + level + 10;
 
 		return maxHP;
 	}
