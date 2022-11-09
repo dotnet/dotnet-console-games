@@ -70,7 +70,7 @@ internal class InventoryScreen
 
 					if (i == minWidth && j == minHeight + leftMonster.Height + monsterSpacing.Height && j < maxHeight - 1)
 					{
-						monsterDetails = $"{partyMonsters[leftMonster.Index].Name}  HP:{partyMonsters[leftMonster.Index].CurrentHP}  Level:{partyMonsters[leftMonster.Index].Level}";
+						monsterDetails = $"{partyMonsters[leftMonster.Index].Name}  HP:{(int)partyMonsters[leftMonster.Index].CurrentHP}  Level:{partyMonsters[leftMonster.Index].Level}";
 
 						sb.Append(monsterDetails);
 						i += monsterDetails.Length - 1;
