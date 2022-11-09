@@ -260,6 +260,7 @@ public static class BattleScreen
 
 		int barLength = 20;
 		//double tenpercent = (int)max / 10;
+		current += 0.0001; // Float point issue fix, was missing 1 block
 		double fivepercent = max / 10 / 2;
 
 		final += "[";
