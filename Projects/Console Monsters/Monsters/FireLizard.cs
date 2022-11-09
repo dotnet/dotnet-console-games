@@ -6,7 +6,7 @@ public class FireLizard : MonsterBase
 {
 	public FireLizard()
 	{
-		Name = "Fire Lizard Small";
+		Name = "Fire Lizard";
 		Level = 5;
 		MaximumHP = 20;
 		MaximumEnergy = 50;

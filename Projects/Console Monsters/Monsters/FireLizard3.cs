@@ -4,7 +4,7 @@ public class FireLizard3 : MonsterBase
 {
 	public FireLizard3()
 	{
-		Name = "Fire Lizard Large";
+		Name = "Fire Dragon";
 	}
 
 	public override string[] Sprite => (
