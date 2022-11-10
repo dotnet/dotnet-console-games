@@ -71,6 +71,8 @@ public class House1SecondFloor : MapBase
 		}
 		return SpriteSheet[j][i] switch
 		{
+			'p' => true,
+			'q' => true,
 			'r' => true,
 			'w' => true,
 			'!' => true,
@@ -84,6 +86,9 @@ public class House1SecondFloor : MapBase
 		{
 			switch (SpriteSheet[j][i])
 			{
+				case 'p' or 'q':
+					PCGamesScreen.Render();
+					break;
 				case 'r':
 					PromptText = new string[]
 					{
