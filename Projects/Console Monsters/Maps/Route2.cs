@@ -11,23 +11,23 @@ class Route2 : MapBase
 
 	private static readonly char[][] spriteSheet = new char[][]
 		{
-			"TTTTTTTTTTTTT                                            ".ToCharArray(),
-			"TTTTTTTTTTTTT                                            ".ToCharArray(),
-			"TTTTaaaaaaaaa                                            ".ToCharArray(),
-			"TTTTaaaaaaaaa                                            ".ToCharArray(),
-			"TTTTaaaaaaaaa                                            ".ToCharArray(),
-			"TTTTaaaaaaaaaffffffffffffffffffffffffffffffffffffffffffff".ToCharArray(),
-			"TTTTaaaaaaaaagggggggggggggggg    ggggggggg       GGGGGGGf".ToCharArray(),
-			"TTTTaaaaaabaagggggggggggggggg    ggggggggg       GGGGGGGf".ToCharArray(),
-			"     !ggggggggggggggggggggggg    gggggggggTTTTTTTGGGGGGGf".ToCharArray(),
-			"     fggggggggggggggggggggggg    gggggggggggggggT       f".ToCharArray(),
-			"     fggggggggggggggggggggggg    gggggggggggggggT       f".ToCharArray(),
-			"     fggggggggggggggTTTTTTTTTTTTTTggggggggggggggT       f".ToCharArray(),
-			"     fgggggggggggggg             TTTTTTTTgggggggT       1".ToCharArray(),
-			"     fgggggggggggggg             GGGGGGGGgggggggT       1".ToCharArray(),
-			"     fggggggggggggggTTTTTTTTTs   GGGGGGGGgggggggTTTTTTTTf".ToCharArray(),
-			"     fggggggggggggggggggggggT    TTTTTTTTgggggggggggggggf".ToCharArray(),
-			"     fffffffffffffffffffffffff00fffffffffffffffffffffffff".ToCharArray(),
+			"TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT".ToCharArray(),
+			"TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT".ToCharArray(),
+			"TTTTaaaaaaaaaTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT".ToCharArray(),
+			"TTTTaaaaaaaaaTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT".ToCharArray(),
+			"TTTTaaaaaaaaaTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT".ToCharArray(),
+			"TTTTaaaaaaaaaffffffffffffffffffffffffffffffffffffffffffffTTTTT".ToCharArray(),
+			"TTTTaaaaaaaaagggggggggggTTTTf    ggggggggg       GGGGGGGfTTTTT".ToCharArray(),
+			"TTTTaaaaaabaagggggggggggTTTTf    ggggggggg       GGGGGGGfTTTTT".ToCharArray(),
+			"TTTTTfggggggggggggggggggTTTTf    TTTTTTTTTTTTTTTTGGGGGGGfTTTTT".ToCharArray(),
+			"TTTTTfggggggggggggggggggTTTTf    GGGGGGGGgggggggT       fTTTTT".ToCharArray(),
+			"TTTTTfgggggggggggggggggTTTTTf    GGGGGGGGgggggggT       fTTTTT".ToCharArray(),
+			"TTTTTfgggggggggggTTTTTTTTTTTTTTTTTGGGGGGGgggggggT       ffffff".ToCharArray(),
+			"TTTTTfgggggggggggTgg             TTTTTTTT       T       1     ".ToCharArray(),
+			"TTTTTfgggggggggggTgg             GGGGGGGG       T       1     ".ToCharArray(),
+			"TTTTTfgggggggggggTgg    TTTTTs   GGGGGGGG      eTTTTTTTTffffff".ToCharArray(),
+			"TTTTTfggggggggggggggggggggggT X  TTTTTTTTTTTTTTTTgggggggfTTTTT".ToCharArray(),
+			"TTTTTfffffffffffffffffffffffff00fffffffffffffffffffffffffTTTTT".ToCharArray(),
 		};
 
 	public override char[][] SpriteSheet => spriteSheet;
@@ -40,6 +40,12 @@ class Route2 : MapBase
 		}
 		return SpriteSheet[j][i] switch
 		{
+			// spawn
+			'X' => Sprites.Open,
+
+			// Items
+			'e' => Sprites.MonsterBoxPickableOnGround,
+			'h' => Sprites.MonsterBox,
 			// actions
 			'0' => Sprites.ArrowHeavyDown,
 			'1' => Sprites.ArrowHeavyRight,
@@ -48,6 +54,7 @@ class Route2 : MapBase
 			'f' => Sprites.Fence,
 			'g' => Sprites.GrassDec,
 			'G' => Sprites.Grass,
+			't' => Sprites.Tree,
 			'T' => Sprites.Tree2,
 			'a' => Sprites.Camping6x9.Get(Subtract((i, j), FindTileInMap('a')!.Value).Reverse()),
 			'b' => camper.Sprite,
@@ -103,6 +110,7 @@ class Route2 : MapBase
 			'0' => true,
 			'1' => true,
 			'g' => true,
+			'X' => true,
 			'G' => true,
 			_ => false,
 		};
