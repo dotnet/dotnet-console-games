@@ -12,22 +12,22 @@ class Route2 : MapBase
 	private static readonly char[][] spriteSheet = new char[][]
 		{
 			"TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT".ToCharArray(),
-			"TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT".ToCharArray(),
-			"TTTTaaaaaaaaaTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT".ToCharArray(),
-			"TTTTaaaaaaaaaTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT".ToCharArray(),
-			"TTTTaaaaaaaaaTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT".ToCharArray(),
-			"TTTTaaaaaaaaaffffffffffffffffffffffffffffffffffffffffffffTTTTT".ToCharArray(),
-			"TTTTaaaaaaaaagggggggggggTTTTf    ggggggggg       GGGGGGGfTTTTT".ToCharArray(),
-			"TTTTaaaaaabaagggggggggggTTTTf    ggggggggg       GGGGGGGfTTTTT".ToCharArray(),
-			"TTTTTfggggggggggggggggggTTTTf    TTTTTTTTTTTTTTTTGGGGGGGfTTTTT".ToCharArray(),
-			"TTTTTfggggggggggggggggggTTTTf    GGGGGGGGgggggggT       fTTTTT".ToCharArray(),
-			"TTTTTfgggggggggggggggggTTTTTf    GGGGGGGGgggggggT       fTTTTT".ToCharArray(),
-			"TTTTTfgggggggggggTTTTTTTTTTTTTTTTTGGGGGGGgggggggT       ffffff".ToCharArray(),
-			"TTTTTfgggggggggggTgg             TTTTTTTT       T       1     ".ToCharArray(),
-			"TTTTTfgggggggggggTgg             GGGGGGGG       T       1     ".ToCharArray(),
-			"TTTTTfgggggggggggTgg    TTTTTs   GGGGGGGG      eTTTTTTTTffffff".ToCharArray(),
-			"TTTTTfggggggggggggggggggggggT X  TTTTTTTTTTTTTTTTgggggggfTTTTT".ToCharArray(),
-			"TTTTTfffffffffffffffffffffffff00fffffffffffffffffffffffffTTTTT".ToCharArray(),
+			"TaaaaaaaaaTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT".ToCharArray(),
+			"TaaaaaaaaaTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT".ToCharArray(),
+			"TaaaaaaaaaTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT".ToCharArray(),
+			"TaaaaaaaaaTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT".ToCharArray(),
+			"TaaaaaaaaafffffffffffffffffffffffffffffffffffffffffffffffTTTTT".ToCharArray(),
+			"TaaaaaabaagggggggfggGGGGTTTTf    ggggggggg       GGGGGGGfTTTTT".ToCharArray(),
+			"TTTTTfgggggggggggfgggGGGTTTTf    ggggggggg       GGGGGGGfTTTTT".ToCharArray(),
+			"     2gggggGGGGGGggggtGGTTTTf    TTTTTTTTTTTTTTTTGGGGGGGfTTTTT".ToCharArray(),
+			"     2gggggGGGGGGfggggGGTTTTf    GGGGGGGGgggggggT       fTTTTT".ToCharArray(),
+			"TTTTTffffffffGGGGfggggggTTTTf    GGGGGGGGgggggggT       fTTTTT".ToCharArray(),
+			"TTTTTfGGGGG      TŕŕŕŕŕŕTTTTTTTTTTGGGGGGGgggggggT       ffffff".ToCharArray(),
+			"TTTTTfGGGGG      TGGG            TTTTTTTT       T       1     ".ToCharArray(),
+			"TTTTTf    TTTTTTTTGGG            GGGGGGGG       T       1     ".ToCharArray(),
+			"TTTTTf    ggggGGGGGGGgggTTTTTs   GGGGGGGG      eTTTTTTTTffffff".ToCharArray(),
+			"TTTTTf    ggggGGGGGGGgggTTTTT    TTTTTTTTTTTTTTTTgggggggfTTTTT".ToCharArray(),
+			"TTTTTfffffffffffffffffffTTTTTf00fTTTTTTTTTTTTTTTTffffffffTTTTT".ToCharArray(),
 		};
 
 	public override char[][] SpriteSheet => spriteSheet;
@@ -46,18 +46,26 @@ class Route2 : MapBase
 			// Items
 			'e' => Sprites.MonsterBoxPickableOnGround,
 			'h' => Sprites.MonsterBox,
+
 			// actions
 			'0' => Sprites.ArrowHeavyDown,
 			'1' => Sprites.ArrowHeavyRight,
-			// no actions
-			's' => Sprites.SignARight,
+			'2' => Sprites.ArrowHeavyLeft,
+			'b' => camper.Sprite,
+
+			// No actions
+			's' => Sprites.SignALeft,
 			'f' => Sprites.Fence,
+			'a' => Sprites.Camping6x9.Get(Subtract((i, j), FindTileInMap('a')!.Value).Reverse()),
+
+			// Nature
 			'g' => Sprites.GrassDec,
 			'G' => Sprites.Grass,
 			't' => Sprites.Tree,
 			'T' => Sprites.Tree2,
-			'a' => Sprites.Camping6x9.Get(Subtract((i, j), FindTileInMap('a')!.Value).Reverse()),
-			'b' => camper.Sprite,
+			'ŕ' => Sprites.HalfRockGrass,
+
+			// Other
 			' ' => Sprites.Open,
 			_ => Sprites.Error,
 		};
@@ -109,6 +117,7 @@ class Route2 : MapBase
 			' ' => true,
 			'0' => true,
 			'1' => true,
+			'2' => true,
 			'g' => true,
 			'X' => true,
 			'G' => true,
@@ -131,6 +140,9 @@ class Route2 : MapBase
 			case '1':
 				Map = new Western();
 				Map.SpawnPlayerOn('0');
+				break;
+			case '2':
+				
 				break;
 			case 'G':
 				if (!DisableBattle && Random.Shared.Next(2) is 0) // BATTLE CHANCE

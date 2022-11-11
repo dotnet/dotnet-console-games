@@ -15,6 +15,8 @@ class PaletTown : MapBase
 
 	private readonly static char[][] spriteSheet = new char[][]
 		{
+			"tttttgggggggTgggggfGGfgggggTgggggttttt".ToCharArray(),
+			"tttttgggggggTgggggfGGfgggggTgggggttttt".ToCharArray(),
 			"tttttgggggggfgggggf11fgggggfgggggttttt".ToCharArray(),
 			"tttttggggffffffffffX ffffffffggggttttt".ToCharArray(),
 			"tttttggggfg                gfggggttttt".ToCharArray(),

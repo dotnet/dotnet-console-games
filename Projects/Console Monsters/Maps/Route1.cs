@@ -4,10 +4,12 @@ class Route1 : MapBase
 {
 	private static readonly char[][] spriteSheet = new char[][]
 		{
-			"ggggggggggggfgggggf11fgggggfgggggggggg".ToCharArray(),
-			"ggggggggggggfgggggf  fgggggfgggggggggg".ToCharArray(),
-			"ggggggggggggfgggggf  fgggggfgggggggggg".ToCharArray(),
-			"ggggggggggggfgggggf  fgggggfgggggggggg".ToCharArray(),
+			"gggGGGGGGGgggTTTTTs   GGGGGGGG      eT".ToCharArray(),
+			"gggGGGGGGGgggTTTTT ~~ TTTTTTTTTTTTTTTT".ToCharArray(),
+			"fffffffffffffTTTTTf11fTTTTTTTTTTgggggg".ToCharArray(),
+			"ggggggggggggfTTTTTf  fTTTTTTTTTTgggggg".ToCharArray(),
+			"ggggggggggggfTTTTTf  fTTTTTTTTTTgggggg".ToCharArray(),
+			"ggggggggggggfgggggf  fgggggfTTTTgggggg".ToCharArray(),
 			"ggggggggggggfgggggf  fgggggfgggggggggg".ToCharArray(),
 			"ggggggggggggfffffff  fffffffgggggggggg".ToCharArray(),
 			"ggggggggggggfgggggg  ggggggfgggggggggg".ToCharArray(),
@@ -72,6 +74,7 @@ class Route1 : MapBase
 			'ş' => Sprites.HalfRockStairsGrass,
 			// Extra
 			' ' => Sprites.Open,
+			'~' => Sprites.Open,
 			_ => Sprites.Error,
 		};
 	}
