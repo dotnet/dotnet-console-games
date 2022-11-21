@@ -14,6 +14,8 @@ public class Scientist : CharacterBase
 	}
 	public override string? Name => "Scientist";
 
+	public static readonly Scientist Instance = new();
+
 	public static readonly string IdleFront =
 		@" ╭───╮ " + '\n' +
 		@" ├■_■┤ " + '\n' +

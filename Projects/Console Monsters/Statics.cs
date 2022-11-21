@@ -130,6 +130,7 @@ public static class Statics
 		player = new()
 		{
 			Animation = Player.IdleDown,
+			Money = 100,
 		};
 		PlayerInventory.TryAdd(ExperienceBerries.Instance);
 		PlayerInventory.TryAdd(HealthPotionLarge.Instance);
