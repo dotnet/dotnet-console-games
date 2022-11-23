@@ -176,8 +176,11 @@ class PaletTown : MapBase
 				Map.SpawnPlayerOn('0');
 				break;
 			case '2':
-				Map = new House1();
-				Map.SpawnPlayerOn('0');
+				if (!House1.IsLocked)
+				{
+					Map = new House1();
+					Map.SpawnPlayerOn('0');
+				}
 				break;
 		}
 	}

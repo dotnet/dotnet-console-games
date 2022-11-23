@@ -2,6 +2,8 @@
 
 public class House1 : MapBase
 {
+	public static bool IsLocked = true;
+
 	public override string? AudioFile => AudioController.CoDA_Lullaby;
 
 	private static readonly char[][] spriteSheet = new char[][]
