@@ -230,13 +230,13 @@ public static class BattleScreen
 		Console.SetCursorPosition(66, 25);
 		Console.WriteLine($"Energy: {DrawBar(PlayerMonster.CurrentEnergy, PlayerMonster.MaximumEnergy)} {PlayerMonster.CurrentEnergy}/{PlayerMonster.MaximumEnergy}");
 
-		Console.SetCursorPosition(104, 10);
+		Console.SetCursorPosition(49, 10);
 		Console.WriteLine($"{OpponentMonster.Name}");
-		Console.SetCursorPosition(114, 10);
+		Console.SetCursorPosition(59, 10);
 		Console.WriteLine($"LVL:{OpponentMonster.Level}");
-		Console.SetCursorPosition(104, 11);
+		Console.SetCursorPosition(49, 11);
 		Console.WriteLine($"HP:    {DrawBar(OpponentMonster.CurrentHP, OpponentMonster.MaximumHP)}");
-		Console.SetCursorPosition(104, 12);
+		Console.SetCursorPosition(49, 12);
 		Console.WriteLine($"Energy:{DrawBar(OpponentMonster.CurrentEnergy, OpponentMonster.MaximumEnergy)}");
 
 		string turn;
