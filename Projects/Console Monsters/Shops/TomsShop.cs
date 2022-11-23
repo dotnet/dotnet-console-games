@@ -6,10 +6,9 @@ internal class TomsShop : ShopBase
 
 	private List<Row> InstanceInventory = new()
 	{
-		new(HealthPotionSmall.Instance, 10, 5),
-		new(HealthPotionMedium.Instance, 25, 3),
-		new(HealthPotionLarge.Instance, 50, 1),
-		new(MonsterBox.Instance, 20, 20),
+		new(Mushroom.Instance, 25, 3),
+		new(Leaf.Instance, 50, 1),
+		new(Candle.Instance, 20, 20),
 	};
 
 	public override List<Row> Inventory => InstanceInventory;

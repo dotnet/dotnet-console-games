@@ -5,12 +5,12 @@ public class Center1 : MapBase
 	public override string? AudioFile => AudioController.CoDA_Lullaby;
 
 	public Nurse nurse;
-	public LittleGirl littleGirl;
+	public Scientist scientist;
 
 	public Center1()
 	{
 		nurse = new();
-		littleGirl = new();
+		scientist = new();
 	}
 
 	private static readonly char[][] spriteSheet = new char[][]
@@ -57,7 +57,7 @@ public class Center1 : MapBase
 			'r' => Sprites.DeskRight,
 			// NPC's
 			'k' => nurse.Sprite,
-			'q' => littleGirl.Sprite,
+			'q' => scientist.Sprite,
 			// Items
 			's' => Sprites.MonsterBox,
 			// Extra
@@ -108,10 +108,8 @@ public class Center1 : MapBase
 					spriteSheet[j][i] = ' ';
 					break;
 				case 'q':
-					PromptText = new string[]
-					{
-						"...",
-					};
+					Shop = MonsterCenterShop.Instance;
+					ShopScreen.Render();
 					break;
 			}	}
 	}
