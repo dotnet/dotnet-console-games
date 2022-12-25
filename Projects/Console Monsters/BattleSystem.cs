@@ -55,9 +55,19 @@ public class BattleSystem
 					DrawSingleBattleText($"{PlayerMonster.Name} used {playerMove.Name}", PlayerMonster, OpponentMonster, playerTurn);
 
 					PlayerMonster.CurrentEnergy -= playerMove.EnergyTaken;
-					OpponentMonster.CurrentHP -= playerMove.CalculateDamage(PlayerMonster, OpponentMonster, playerMove);
-					if (OpponentMonster.CurrentHP < 0) OpponentMonster.CurrentHP = 0;
+					if (playerMove.DamageType != Enums.DamageType.Special && playerMove.BaseDamage != 0)
+					{
+						OpponentMonster.CurrentHP -=
+							playerMove.CalculateDamage(PlayerMonster, OpponentMonster, playerMove);
+					}
+					else
+					{
+						playerMove.CalculateStatChange(PlayerMonster, OpponentMonster, playerMove);
+					}
+						
 
+					if (OpponentMonster.CurrentHP < 0) OpponentMonster.CurrentHP = 0; // So the hp will not display under 0
+					if (OpponentMonster.CurrentHP is < 1 or > 0) PlayerMonster.CurrentHP = 1; //So it doesn't display 0 when decimals.
 					break;
 				case "D2": // Monsters
 
@@ -70,9 +80,11 @@ public class BattleSystem
 
 					break;
 				case "D4": // Run
-
-
-
+					double escapeOdds = PlayerMonster.SpeedStat * 32 / (OpponentMonster.SpeedStat / 4) % 256;
+					if (escapeOdds > 255 || Random.Shared.Next(0, 256) < escapeOdds)
+					{
+						//Esacpe
+					}
 					break;
 				default:
 					Turn(PlayerMonster, OpponentMonster, true);
@@ -81,12 +93,22 @@ public class BattleSystem
 		}
 		else
 		{
+			#warning Fix to individual Monster
 			MoveBase opponentMove = MoveBase.GetRandomMove();
 
 			DrawSingleBattleText($"{OpponentMonster.Name} used {opponentMove.Name}", PlayerMonster, OpponentMonster, playerTurn);
 			OpponentMonster.CurrentEnergy -= opponentMove.EnergyTaken;
-			PlayerMonster.CurrentHP -= opponentMove.CalculateDamage(OpponentMonster, PlayerMonster, opponentMove);
+			if (opponentMove.DamageType != Enums.DamageType.Special && opponentMove.BaseDamage != 0)
+			{
+				PlayerMonster.CurrentHP -=
+					opponentMove.CalculateDamage(OpponentMonster, PlayerMonster, opponentMove);
+			}
+			else
+			{
+				opponentMove.CalculateStatChange(OpponentMonster, PlayerMonster, opponentMove);
+			}
 			if (PlayerMonster.CurrentHP < 0) PlayerMonster.CurrentHP = 0; // So the hp will not display under 0
+			if (PlayerMonster.CurrentHP < 1 || PlayerMonster.CurrentHP > 0) PlayerMonster.CurrentHP = 1; //So it doesn't display 0 when decimals.
 		}
 	}
 

@@ -6,7 +6,7 @@ public class Growl : MoveBase
 	{
 		Name = "Growl";
 		BaseDamage = 0;
-		EnergyTaken = 5;
+		EnergyTaken = 10;
 		DamageType = Enums.DamageType.Special;
 		Element = Enums.CMType.Normal;
 	}
