@@ -5,128 +5,182 @@ namespace Console_Monsters;
 
 public class BattleSystem
 {
-	public static void Battle(MonsterBase PlayerMonster, MonsterBase OpponentMonster)
+	public struct BattleMonsters
 	{
-		bool playerTurn = SelectStartingMonster(PlayerMonster, OpponentMonster), battleOver = false;
+		public MonsterBase Player;
+		public MonsterBase Opponent;
+	}
 
-		BattleScreen.DrawStats(playerTurn, PlayerMonster, OpponentMonster);
-		DrawSingleBattleText($"You Encountered A Wild {OpponentMonster.Name}", PlayerMonster, OpponentMonster, playerTurn);
+	public static void Battle(BattleMonsters monsters)
+	{
+		bool battleOver = false;
+		MonsterBase losingMonster = new _EmptyMonster();
 
-
+		BattleScreen.DrawStats(monsters.Player, monsters.Opponent);
+		DrawSingleBattleText($"You Encountered A Wild {monsters.Opponent.Name}", monsters);
 
 		while (!battleOver)
 		{
-			// Who starts based on speed
-			playerTurn = SelectStartingMonster(PlayerMonster, OpponentMonster);
-			BattleScreen.DrawStats(playerTurn, PlayerMonster, OpponentMonster);
+			BattleScreen.DrawStats(monsters.Player, monsters.Opponent);
 
-			Turn(PlayerMonster, OpponentMonster, playerTurn);
-			playerTurn = !playerTurn;
-			BattleScreen.DrawStats(playerTurn, PlayerMonster, OpponentMonster);
+			Turn(monsters);
+			BattleScreen.DrawStats(monsters.Player, monsters.Opponent);
 
-			if (CheckLostAllMonsters(PlayerMonster, OpponentMonster))
-				break;
-			WaitBetweenAction();
+			(battleOver, losingMonster) = CheckLostAllMonsters(monsters);
+			if (battleOver) break;
 
-			Turn(PlayerMonster, OpponentMonster, playerTurn);
-			playerTurn = !playerTurn;
-			BattleScreen.DrawStats(playerTurn, PlayerMonster, OpponentMonster);
+			WaitTimeBetweenChange();
+
+			Turn(monsters);
+			BattleScreen.DrawStats(monsters.Player, monsters.Opponent);
 
 			//Are all monsters dead on one side?
-			battleOver = CheckLostAllMonsters(PlayerMonster, OpponentMonster);
+			(battleOver, losingMonster) = CheckLostAllMonsters(monsters);
 		}
+		//BATLE IS OVER
+		WaitTimeBetweenChange();
+
+		PromptBattleText = new string[]
+		{
+			$"{losingMonster.Name} Fainted",
+			$"BATTLE OVER     Press [ENTER] to continue",
+		};
+
 		//Battle is over, remove the losing monster from screen
-		DrawSingleBattleText($"BATTLE OVER     Press [ENTER] to continue", PlayerMonster, OpponentMonster, playerTurn);
+		if (losingMonster == monsters.Opponent)
+			BattleScreen.Render(monsters.Player, new _EmptyMonster());
+		else
+			BattleScreen.Render(new _EmptyMonster(), monsters.Opponent);
+
+		ConsoleHelper.PressToContinue();
 	}
 
-	public static void Turn(MonsterBase PlayerMonster, MonsterBase OpponentMonster, bool playerTurn)
+	public static void Turn(BattleMonsters monsters)
 	{
+		MoveBase playerMove = new _EmptyMove();
+		BattleSelectionMenu(monsters);
+		ConsoleKey key = Console.ReadKey(true).Key;
+		switch (key.ToString())
+		{
+			case "D1": // Battle
+
+				PromptBattleText = new string[]
+				{
+					$"1. {monsters.Player.MoveSet[0].Name}  3. {monsters.Player.MoveSet[2].Name}",
+					$"2. {monsters.Player.MoveSet[1].Name}  4. {monsters.Player.MoveSet[3].Name}"
+				};
+
+				BattleScreen.Render(monsters.Player, monsters.Opponent);
+				BattleScreen.DrawStats(monsters.Player, monsters.Opponent);
+
+				playerMove = InputToMonsterMove(monsters);
+
+				break;
+			case "D2": // Monsters
+				//FIX
+				monsters.Player = MonsterSelectionMenu(monsters);
+
+				break;
+			case "D3": // Inventory
+				//FIX
+
+				break;
+			case "D4": // Run
+				double escapeOdds = monsters.Player.SpeedStat * 32 / (monsters.Player.SpeedStat / 4) % 256;
+				if (escapeOdds > 255 || Random.Shared.Next(0, 256) < escapeOdds)
+				{
+					//Esacpe FIX
+				}
+				break;
+			default:
+				Turn(monsters);
+				break;
+		}
+		//OPPONENT MONSTER
+		MoveBase opponentMove = MoveBase.GetRandomMove();
+
+		bool playerTurn = SelectStartingMonster(monsters);
+
+		PromptBattleText = new string[]
+		{
+			$" ",
+		};
+		BattleScreen.Render(monsters.Player, monsters.Opponent);
+		BattleScreen.DrawStats(monsters.Player, monsters.Opponent);
+
+		WaitTimeBetweenChange();
+
 		if (playerTurn)
 		{
-			BattleSelectionMenu(PlayerMonster, OpponentMonster, playerTurn);
-			ConsoleKey key = Console.ReadKey(true).Key;
-			switch (key.ToString())
-			{
-				case "D1": // Battle
-
-					DrawMoveText(PlayerMonster, OpponentMonster, playerTurn);
-					MoveBase playerMove = InputToMonsterMove(PlayerMonster);
-
-					DrawSingleBattleText($"{PlayerMonster.Name} used {playerMove.Name}", PlayerMonster, OpponentMonster, playerTurn);
-
-					PlayerMonster.CurrentEnergy -= playerMove.EnergyTaken;
-					if (playerMove.DamageType != Enums.DamageType.Special && playerMove.BaseDamage != 0)
-					{
-						OpponentMonster.CurrentHP -=
-							playerMove.CalculateDamage(PlayerMonster, OpponentMonster, playerMove);
-					}
-					else
-					{
-						playerMove.CalculateStatChange(PlayerMonster, OpponentMonster, playerMove);
-					}
-						
-
-					if (OpponentMonster.CurrentHP < 0) OpponentMonster.CurrentHP = 0; // So the hp will not display under 0
-					if (OpponentMonster.CurrentHP is < 1 or > 0) PlayerMonster.CurrentHP = 1; //So it doesn't display 0 when decimals.
-					break;
-				case "D2": // Monsters
-
-					PlayerMonster = MonsterSelectionMenu(PlayerMonster, OpponentMonster, playerTurn);
-
-					break;
-				case "D3": // Inventory
-
-
-
-					break;
-				case "D4": // Run
-					double escapeOdds = PlayerMonster.SpeedStat * 32 / (OpponentMonster.SpeedStat / 4) % 256;
-					if (escapeOdds > 255 || Random.Shared.Next(0, 256) < escapeOdds)
-					{
-						//Esacpe
-					}
-					break;
-				default:
-					Turn(PlayerMonster, OpponentMonster, true);
-					break;
-			}
-		}
-		else
+			PlayerAttack(monsters, playerMove);
+			CheckLostAllMonsters(monsters);
+			OpponentAttack(monsters, opponentMove);
+		} else
 		{
-			#warning Fix to individual Monster
-			MoveBase opponentMove = MoveBase.GetRandomMove();
+			OpponentAttack(monsters, opponentMove);
+			CheckLostAllMonsters(monsters);
+			PlayerAttack(monsters, playerMove);
+		}
+		
+	}
 
-			DrawSingleBattleText($"{OpponentMonster.Name} used {opponentMove.Name}", PlayerMonster, OpponentMonster, playerTurn);
-			OpponentMonster.CurrentEnergy -= opponentMove.EnergyTaken;
-			if (opponentMove.DamageType != Enums.DamageType.Special && opponentMove.BaseDamage != 0)
+	public static void PlayerAttack(BattleMonsters monsters, MoveBase playerMove)
+	{
+		if (playerMove != new _EmptyMove())
+		{
+			DrawSingleBattleText($"{monsters.Player.Name} used {playerMove.Name}", monsters);
+
+			monsters.Player.CurrentEnergy -= playerMove.EnergyTaken;
+			if (playerMove.DamageType != Enums.DamageType.Special && playerMove.BaseDamage != 0)
 			{
-				PlayerMonster.CurrentHP -=
-					opponentMove.CalculateDamage(OpponentMonster, PlayerMonster, opponentMove);
+				monsters.Opponent.CurrentHP -=
+					playerMove.CalculateDamage(monsters.Player, monsters.Opponent, playerMove);
 			}
 			else
 			{
-				opponentMove.CalculateStatChange(OpponentMonster, PlayerMonster, opponentMove);
+				playerMove.CalculateStatChange(monsters.Player, monsters.Opponent, playerMove);
 			}
-			if (PlayerMonster.CurrentHP < 0) PlayerMonster.CurrentHP = 0; // So the hp will not display under 0
-			if (PlayerMonster.CurrentHP < 1 || PlayerMonster.CurrentHP > 0) PlayerMonster.CurrentHP = 1; //So it doesn't display 0 when decimals.
+
+			if (monsters.Opponent.CurrentHP < 0) monsters.Opponent.CurrentHP = 0; // So the hp will not display under 0
+			if (monsters.Opponent.CurrentHP is < 1 and > 0) monsters.Opponent.CurrentHP = 1; //So it doesn't display 0 when decimals.
 		}
 	}
-
-	public static bool SelectStartingMonster(MonsterBase PlayerMonster, MonsterBase OpponentMonster)
+	public static void OpponentAttack(BattleMonsters monsters, MoveBase opponentMove)
 	{
-		if (PlayerMonster.SpeedStat > OpponentMonster.SpeedStat)
+		DrawSingleBattleText($"{monsters.Opponent.Name} used {opponentMove.Name}", monsters);
+
+		monsters.Opponent.CurrentEnergy -= opponentMove.EnergyTaken;
+		if (opponentMove.DamageType != Enums.DamageType.Special && opponentMove.BaseDamage != 0)
+		{
+			monsters.Player.CurrentHP -=
+				opponentMove.CalculateDamage(monsters.Opponent, monsters.Player, opponentMove);
+		}
+		else
+		{
+			opponentMove.CalculateStatChange(monsters.Opponent, monsters.Player, opponentMove);
+		}
+
+		if (monsters.Player.CurrentHP < 0) monsters.Player.CurrentHP = 0; // So the hp will not display under 0
+		if (monsters.Player.CurrentHP is < 1 and > 0) monsters.Player.CurrentHP = 1; //So it doesn't display 0 when decimals.
+	}
+
+	public static bool SelectStartingMonster(BattleMonsters monsters)
+	{
+#warning ADD Move priority
+
+		if (monsters.Player.SpeedStat > monsters.Opponent.SpeedStat)
 		{
 			return true;
 		}
 		//In case they have the same Speed Stat
-		else if (PlayerMonster.SpeedStat == OpponentMonster.SpeedStat)
+		else if (monsters.Player.SpeedStat == monsters.Opponent.SpeedStat)
 		{
 			return Random.Shared.Next(2) == 0;
 		}
 		return false;
 	}
 
-	public static void BattleSelectionMenu(MonsterBase PlayerMonster, MonsterBase OpponentMonster, bool playerTurn)
+	public static void BattleSelectionMenu(BattleMonsters monsters)
 	{
 		PromptBattleText = new string[]
 		{
@@ -134,25 +188,26 @@ public class BattleSystem
 			$"2. Monsters 4. Run"
 		};
 
-		BattleScreen.Render(PlayerMonster, OpponentMonster);
-		BattleScreen.DrawStats(playerTurn, PlayerMonster, OpponentMonster);
+		BattleScreen.Render(monsters.Player, monsters.Opponent);
+		BattleScreen.DrawStats(monsters.Player, monsters.Opponent);
 	}
 
-	public static MonsterBase MonsterSelectionMenu(MonsterBase PlayerMonster, MonsterBase OpponentMonster, bool playerTurn)
+	public static MonsterBase MonsterSelectionMenu(BattleMonsters monsters)
 	{
 		string empty = string.Empty;
 
+#warning FIX LOOK
 		PromptBattleText = new string[]
 		{
 			$"1. {partyMonsters[0].Name} 2. {(partyMonsters.Count >= 2 ? partyMonsters[1].Name : empty)} 3. {(partyMonsters.Count >= 3 ? partyMonsters[2].Name : empty)}",
 			$"4. {(partyMonsters.Count >= 4 ? partyMonsters[3].Name : empty)} 5. {(partyMonsters.Count >= 5 ? partyMonsters[4].Name : empty)} 6. {(partyMonsters.Count >= 6 ? partyMonsters[5].Name : empty)}"
 		};
 
-		BattleScreen.Render(PlayerMonster, OpponentMonster);
-		BattleScreen.DrawStats(playerTurn, PlayerMonster, OpponentMonster);
+		BattleScreen.Render(monsters.Player, monsters.Opponent);
+		BattleScreen.DrawStats(monsters.Player, monsters.Opponent);
 
 		ConsoleKey key = Console.ReadKey(true).Key;
-		PlayerMonster = key.ToString() switch
+		monsters.Player = key.ToString() switch
 		{
 			"D1" => partyMonsters[0],
 			"D2" => partyMonsters[1],
@@ -160,57 +215,45 @@ public class BattleSystem
 			"D4" => partyMonsters[3],
 			"D5" => partyMonsters[4],
 			"D6" => partyMonsters[5],
-			_ => MonsterSelectionMenu(PlayerMonster, OpponentMonster, playerTurn),
+			_ => MonsterSelectionMenu(monsters),
 		};
-		return PlayerMonster;
+		return monsters.Player;
 	}
 
-	public static void DrawMoveText(MonsterBase PlayerMonster, MonsterBase OpponentMonster, bool playerTurn)
+	public static void DrawSingleBattleText(string prompt, BattleMonsters monsters)
 	{
 		PromptBattleText = new string[]
 		{
-			$"1. {PlayerMonster.MoveSet[0].Name}  3. {PlayerMonster.MoveSet[2].Name}",
-			$"2. {PlayerMonster.MoveSet[1].Name}  4. {PlayerMonster.MoveSet[3].Name}"
-		};
-
-		BattleScreen.Render(PlayerMonster, OpponentMonster);
-		BattleScreen.DrawStats(playerTurn, PlayerMonster, OpponentMonster);
-	}
-
-	public static void DrawSingleBattleText(string prompt, MonsterBase PlayerMonster, MonsterBase OpponentMonster, bool playerTurn)
-	{
-		PromptBattleText = new string[]
-		{
-			//$"{AsciiGenerator.ToAscii($"You Encountered A Wild {OpponentMonster.Name}")}",
+			//$"{AsciiGenerator.ToAscii($"{prompt}")}",
 			prompt,
 		};
-		BattleScreen.Render(PlayerMonster, OpponentMonster);
-		BattleScreen.DrawStats(playerTurn, PlayerMonster, OpponentMonster);
+		BattleScreen.Render(monsters.Player, monsters.Opponent);
+		BattleScreen.DrawStats(monsters.Player, monsters.Opponent);
 
-		WaitBetweenAction();
+		WaitTimeBetweenChange();
 
 		PromptBattleText = new string[]
 		{
 			" ",
 		};
-		BattleScreen.Render(PlayerMonster, OpponentMonster);
+		BattleScreen.Render(monsters.Player, monsters.Opponent);
 	}
 
-	public static MoveBase InputToMonsterMove(MonsterBase PlayerMonster)
+	public static MoveBase InputToMonsterMove(BattleMonsters monsters)
 	{
 		ConsoleKey key = Console.ReadKey(true).Key;
 		MoveBase move = key.ToString() switch
 		{
-			"D1" => PlayerMonster.MoveSet[0],
-			"D2" => PlayerMonster.MoveSet[1],
-			"D3" => PlayerMonster.MoveSet[2],
-			"D4" => PlayerMonster.MoveSet[3],
-			_ => InputToMonsterMove(PlayerMonster),
+			"D1" => monsters.Player.MoveSet[0],
+			"D2" => monsters.Player.MoveSet[1],
+			"D3" => monsters.Player.MoveSet[2],
+			"D4" => monsters.Player.MoveSet[3],
+			_ => InputToMonsterMove(monsters),
 		};
 		return move;
 	}
 
-	public static void WaitBetweenAction()
+	public static void WaitTimeBetweenChange()
 	{
 		Stopwatch stopwatch = Stopwatch.StartNew();
 		TimeSpan timeTaken = stopwatch.Elapsed;
@@ -223,30 +266,15 @@ public class BattleSystem
 	}
 
 	#region Check Lost Monster
-	public static bool CheckLostAllMonsters(MonsterBase PlayerMonster, MonsterBase OpponentMonster) // Temp
+	public static (bool, MonsterBase) CheckLostAllMonsters(BattleMonsters monsters) // Temp
 	{
-		if (CheckLostCurrentPlayerMonster(PlayerMonster))
-			return true;
-		else if (CheckLostCurrentOpponentMonsters(OpponentMonster))
-			return true;
+		if (monsters.Player.CurrentHP <= 0)
+			return (true, monsters.Player);
+
+		else if (monsters.Opponent.CurrentHP <= 0)
+			return (true, monsters.Opponent);
 		else
-			return false;
+			return (false, new _EmptyMonster());
 	}
-	public static bool CheckLostCurrentPlayerMonster(MonsterBase PlayerMonster) //Temp
-	{
-		return PlayerMonster.CurrentHP <= 0;
-	}
-	public static bool CheckLostCurrentOpponentMonsters(MonsterBase OpponentMonster)
-	{
-		return OpponentMonster.CurrentHP <= 0;
-	}
-	/*public static bool CheckLostAllPlayerMonsters(MonsterBase PlayerMonster)
-	{
-		//return partyMonsters.All(m => m.CurrentHP <= 0);
-	}
-	public static bool CheckLostAllOpponentMonsters(MonsterBase OpponentMonster)
-	{
-		trainerMonsters.All(m => m.CurrentHP <= 0
-	} */
 	#endregion
 }

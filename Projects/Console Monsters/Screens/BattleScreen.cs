@@ -219,7 +219,7 @@ public static class BattleScreen
 		return oldBattleText;
 	}
 
-	public static void DrawStats(bool playerTurn, MonsterBase PlayerMonster, MonsterBase OpponentMonster)
+	public static void DrawStats(MonsterBase PlayerMonster, MonsterBase OpponentMonster)
 	{
 		Console.SetCursorPosition(66, 23);
 		Console.WriteLine($"{PlayerMonster.Name}");
@@ -238,18 +238,6 @@ public static class BattleScreen
 		Console.WriteLine($"HP:    {DrawBar(OpponentMonster.CurrentHP, OpponentMonster.MaximumHP)}");
 		Console.SetCursorPosition(49, 12);
 		Console.WriteLine($"Energy:{DrawBar(OpponentMonster.CurrentEnergy, OpponentMonster.MaximumEnergy)}");
-
-		string turn;
-		if (playerTurn)
-		{
-			turn = "Player Turn";
-		}
-		else
-		{
-			turn = "CPU Turn   ";
-		}
-		Console.SetCursorPosition(35, 5);
-		Console.WriteLine(turn);
 	}
 
 	public static string DrawBar(double current, double max)

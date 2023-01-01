@@ -164,12 +164,15 @@ class Route1 : MapBase
 						//typeof(Ladybug),
 					};
 					Type typeOfMonsterToSpawn = Random.Shared.Choose(typesThatCanSpawn);
-					MonsterBase OpponentMonster = (MonsterBase)Activator.CreateInstance(typeOfMonsterToSpawn)!;
-					MonsterBase.WildMonster(OpponentMonster);
-					MonsterBase PlayerMonster = GetFirstAvailableMonster();
-					BattleScreen.Render(PlayerMonster, OpponentMonster);
-					Battle(PlayerMonster, OpponentMonster);
-					ConsoleHelper.PressToContinue();
+
+					BattleMonsters monsters = new();
+					monsters.Opponent = (MonsterBase)Activator.CreateInstance(typeOfMonsterToSpawn)!;
+					monsters.Player = GetFirstAvailableMonster();
+
+					MonsterBase.WildMonster(monsters.Opponent);
+					BattleScreen.Render(monsters.Player, monsters.Opponent);
+					Battle(monsters);
+					
 				}
 				break;
 		}
