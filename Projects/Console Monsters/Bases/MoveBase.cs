@@ -6,6 +6,8 @@ public abstract class MoveBase
 {
 	public string? Name { get; set; }
 
+	public int Priority { get; set; }
+
 	public double BaseDamage { get; set; }
 
 	public int EnergyTaken { get; set; }
