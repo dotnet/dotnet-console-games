@@ -17,9 +17,9 @@ public abstract class MonsterBase
 	public double CurrentHP { get; set; }
 	public double MaximumHP { get; set; }
 
-	public int BaseEnergy { get; set; }
-	public int CurrentEnergy { get; set; }
-	public int MaximumEnergy { get; set; }
+	public double BaseEnergy { get; set; }
+	public double CurrentEnergy { get; set; }
+	public double MaximumEnergy { get; set; }
 
 	public int Evolution { get; set; }
 
@@ -76,6 +76,13 @@ public abstract class MonsterBase
 		double maxHP = (((baseHP * 2 + (Math.Sqrt(1) / 4)) * level) / 100) + level + 10;
 
 		return maxHP;
+	}
+
+	public static double SetMaxEnergyFromBase(double baseEN, int level)
+	{
+		double maxEN = (((baseEN * 2 + (Math.Sqrt(1) / 4)) * level) / 20) + level + 10;
+
+		return maxEN;
 	}
 
 	public static double SetMaxOtherStatFromBase(double baseHP, int level)
