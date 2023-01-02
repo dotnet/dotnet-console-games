@@ -7,11 +7,12 @@ public class Turtle : MonsterBase
 	public Turtle()
 	{
 		Name = "Turtle";
-		Level = 5;
 
 		BaseHP = 44;
 		MaximumHP = SetMaxHPFromBase(BaseHP, Level);
 		CurrentHP = MaximumHP;
+
+		BaseEnergy = 50;
 		MaximumEnergy = 50;
 		CurrentEnergy = MaximumEnergy;
 
