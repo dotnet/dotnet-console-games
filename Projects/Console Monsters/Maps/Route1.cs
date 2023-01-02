@@ -170,7 +170,7 @@ class Route1 : MapBase
 					monsters.Player = GetFirstAvailableMonster();
 
 					MonsterBase.WildMonster(monsters.Opponent);
-					BattleScreen.Render(monsters.Player, monsters.Opponent);
+					
 					Battle(monsters);
 					
 				}
