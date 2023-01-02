@@ -143,9 +143,9 @@ public static class Statics
 		PlayerInventory.TryAdd(Candle.Instance);
 		DefaultKeyMappings();
 		partyMonsters.Clear();
-		partyMonsters.Add(new Turtle());
-		partyMonsters.Add(new FireLizard());
-		partyMonsters.Add(new ToadBud());
+		partyMonsters.Add(new Turtle() { Level = 5 }); 
+		partyMonsters.Add(new FireLizard() { Level = 5 });
+		partyMonsters.Add(new ToadBud() { Level = 5 });
 	}
 
 	[System.Diagnostics.DebuggerHidden]
