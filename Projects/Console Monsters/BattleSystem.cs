@@ -29,7 +29,16 @@ public class BattleSystem
 			WaitTimeBetweenChange();
 
 			//Are all monsters dead on one side?
-			(battleOver, losingMonster) = CheckLostAllMonsters(monsters);
+			if (monsters.Player.CurrentHP <= 0)
+			{
+				battleOver = true;
+				losingMonster = monsters.Player;
+			}
+			else if (monsters.Opponent.CurrentHP <= 0)
+			{
+				battleOver = true;
+				losingMonster = monsters.Opponent;
+			}
 		}
 
 		//BATLE IS OVER
@@ -78,31 +87,41 @@ public class BattleSystem
 					break;
 			}
 
-			CheckLostAllMonsters(monsters);
+			WaitTimeBetweenChange();
+			ClearBattleText(monsters);
 
-			//OPPONENT MOVE
-			OpponentAttack(monsters, opponentMove);
+			if (!CheckLostCurrentMonsters(monsters)) 
+				//OPPONENT MOVE
+				OpponentAttack(monsters, opponentMove);
+
+			WaitTimeBetweenChange();
+			ClearBattleText(monsters);
 		}
 		else
 		{
 			//OPPONENT MOVE
 			OpponentAttack(monsters, opponentMove);
 
-			CheckLostAllMonsters(monsters);
+			WaitTimeBetweenChange();
+			ClearBattleText(monsters);
 
-			//PLAYER MOVE
-			switch (playerChoice)
-			{
-				case "Attack":
-					PlayerAttack(monsters, playerMove);
-					break;
-				case "Monsters":
-					monsters.Player = monsterToSwitchTo;
-					break;
-				case "Inventory":
+			if (!CheckLostCurrentMonsters(monsters))
+				//PLAYER MOVE
+				switch (playerChoice)
+				{
+					case "Attack":
+						PlayerAttack(monsters, playerMove);
+						break;
+					case "Monsters":
+						monsters.Player = monsterToSwitchTo;
+						break;
+					case "Inventory":
 
-					break;
-			}
+						break;
+				}
+
+			WaitTimeBetweenChange();
+			ClearBattleText(monsters);
 		}
 
 	}
@@ -124,6 +143,9 @@ public class BattleSystem
 
 		if (monsters.Opponent.CurrentHP < 0) monsters.Opponent.CurrentHP = 0; // So the hp will not display under 0
 		if (monsters.Opponent.CurrentHP is < 1 and > 0) monsters.Opponent.CurrentHP = 1; //So it doesn't display 0 when decimals.
+
+		BattleScreen.Render(monsters.Player, monsters.Opponent);
+		BattleScreen.DrawStats(monsters.Player, monsters.Opponent);
 	}
 
 	public static void OpponentAttack(BattleMonsters monsters, MoveBase opponentMove)
@@ -143,16 +165,14 @@ public class BattleSystem
 
 		if (monsters.Player.CurrentHP < 0) monsters.Player.CurrentHP = 0; // So the hp will not display under 0
 		if (monsters.Player.CurrentHP is < 1 and > 0) monsters.Player.CurrentHP = 1; //So it doesn't display 0 when decimals.
+
+		BattleScreen.Render(monsters.Player, monsters.Opponent);
+		BattleScreen.DrawStats(monsters.Player, monsters.Opponent);
 	}
 
 	public static bool TurnPlayerStartingMonster(BattleMonsters monsters, MoveBase playerMove, MoveBase opponentMove)
 	{
-		PromptBattleText = new string[]
-		{
-			$" ",
-		};
-		BattleScreen.Render(monsters.Player, monsters.Opponent);
-		BattleScreen.DrawStats(monsters.Player, monsters.Opponent);
+		ClearBattleText(monsters);
 
 		if (playerMove.Priority > opponentMove.Priority)
 			return true;
@@ -186,6 +206,8 @@ public class BattleSystem
 		BattleScreen.Render(monsters.Player, monsters.Opponent);
 		BattleScreen.DrawStats(monsters.Player, monsters.Opponent);
 
+		//GET PLAYER INPUT
+		ReEnter:
 		ConsoleKey key = Console.ReadKey(true).Key;
 		switch (key.ToString())
 		{
@@ -230,7 +252,7 @@ public class BattleSystem
 
 				break;
 			default:
-				Turn(monsters);
+				goto ReEnter;
 				break;
 		}
 
@@ -274,14 +296,15 @@ public class BattleSystem
 		};
 		BattleScreen.Render(monsters.Player, monsters.Opponent);
 		BattleScreen.DrawStats(monsters.Player, monsters.Opponent);
-
-		WaitTimeBetweenChange();
-
+	}
+	public static void ClearBattleText(BattleMonsters monsters)
+	{
 		PromptBattleText = new string[]
 		{
 			" ",
 		};
 		BattleScreen.Render(monsters.Player, monsters.Opponent);
+		BattleScreen.DrawStats(monsters.Player, monsters.Opponent);
 	}
 
 	public static MoveBase InputToMonsterMove(BattleMonsters monsters)
@@ -311,15 +334,14 @@ public class BattleSystem
 	}
 
 	#region Check Lost Monster
-	public static (bool, MonsterBase) CheckLostAllMonsters(BattleMonsters monsters) // Temp
+	public static bool CheckLostCurrentMonsters(BattleMonsters monsters) // Temp
 	{
 		if (monsters.Player.CurrentHP <= 0)
-			return (true, monsters.Player);
-
+			return true;
 		else if (monsters.Opponent.CurrentHP <= 0)
-			return (true, monsters.Opponent);
+			return true;
 		else
-			return (false, new _EmptyMonster());
+			return false;
 	}
 	#endregion
 
