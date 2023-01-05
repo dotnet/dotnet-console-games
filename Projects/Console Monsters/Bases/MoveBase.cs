@@ -34,12 +34,12 @@ public abstract class MoveBase
 		int critical = 1;
 
 		//OG is 256 / 256, but for playablity sake it will be higher until further changes
-
-		int num = random.Next(0, 1001);
-		if(num < random.Next(0, 1001) && move.DamageType != Enums.DamageType.Special)
-		{ 
-			critical = (attackingMonster.Level * 2 + 5) / attackingMonster.Level + 5;
-		}
+#warning FIX critical
+		//int num = random.Next(0, 1001);
+		//if(num < random.Next(0, 1001) && move.DamageType != Enums.DamageType.Special)
+		//{ 
+		//	critical = (attackingMonster.Level * 2 + 5) / attackingMonster.Level + 5;
+		//}
 
 		if (attackingMonster.AttackStat > 255)
 			attackingMonster.AttackStat /= 4;
