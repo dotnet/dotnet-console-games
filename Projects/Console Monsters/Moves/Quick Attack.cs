@@ -1,14 +1,14 @@
 ﻿namespace Console_Monsters.Moves;
 
-public class Scratch : MoveBase
+public class QuickAttack : MoveBase
 {
-	public Scratch()
+	public QuickAttack()
 	{
-		Name = "Scratch";
+		Name = "Quick Attack";
 		BaseDamage = 40;
 		EnergyTaken = 10;
 		DamageType = Enums.DamageType.Physical;
 		Element = Enums.CMType.Normal;
-		Priority = 0;
+		Priority = 1;
 	}
 }

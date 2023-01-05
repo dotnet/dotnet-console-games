@@ -5,5 +5,6 @@ public class _EmptyMove : MoveBase
 	public _EmptyMove()
 	{
 		Name = "Empty Move";
+		Priority = -1;
 	}
 }

@@ -9,5 +9,6 @@ public class Growl : MoveBase
 		EnergyTaken = 10;
 		DamageType = Enums.DamageType.Special;
 		Element = Enums.CMType.Normal;
+		Priority = 0;
 	}
 }

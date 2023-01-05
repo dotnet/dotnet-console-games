@@ -9,5 +9,6 @@ public class Punch : MoveBase
 		EnergyTaken = 10;
 		DamageType = Enums.DamageType.Physical;
 		Element = Enums.CMType.Normal;
+		Priority = 0;
 	}
 }
