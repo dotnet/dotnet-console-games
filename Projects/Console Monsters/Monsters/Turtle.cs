@@ -7,18 +7,24 @@ public class Turtle : MonsterBase
 	public Turtle()
 	{
 		Name = "Turtle";
+		Level = 5; //TEMP
+#warning Fix level not being set here
 
-		BaseHP = 44;
-		MaximumHP = SetMaxHPFromBase(BaseHP, Level);
+		HPStat = 44;
+		MaximumHP = SetMaxHPFromBase(HPStat, Level, Statexp);
 		CurrentHP = MaximumHP;
 
 		BaseEnergy = 50;
 		MaximumEnergy = 50;
 		CurrentEnergy = MaximumEnergy;
 
-		AttackStat = 10;
-		SpeedStat = 10;
-		DefenseStat = 10;
+		AttackStat = 48;
+		SpecialAttackStat = 50;
+		DefenseStat = 65;
+		SpecialDefenseStat = 64;
+		SpeedStat = 43;
+
+		Statexp = 0;
 
 		MoveSet = new List<MoveBase>
 		{

@@ -7,17 +7,18 @@ public class ToadBud : MonsterBase
 	public ToadBud()
 	{
 		Name = "Toad Bud";
-		Level = 5;
 
-		BaseHP = 45;
-		MaximumHP = SetMaxHPFromBase(BaseHP, Level);
+		MaximumHP = SetMaxHPFromBase(HPStat, Level, Statexp);
 		CurrentHP = MaximumHP;
 		MaximumEnergy = 50;
 		CurrentEnergy = MaximumEnergy;
 
+		HPStat = 45;
 		AttackStat = 10;
 		SpeedStat = 10;
 		DefenseStat = 10;
+
+		Statexp = AttackStat + SpecialAttackStat + DefenseStat + SpecialDefenseStat + SpeedStat;
 
 		MoveSet = new List<MoveBase>
 		{

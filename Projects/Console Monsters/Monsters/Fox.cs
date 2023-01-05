@@ -7,16 +7,21 @@ public class Fox : MonsterBase
 	public Fox()
 	{
 		Name = "Fox";
-
-		BaseHP = 55;
-		MaximumHP = SetMaxHPFromBase(BaseHP, Level);
+		Level = 5;
+		
+		MaximumHP = SetMaxHPFromBase(HPStat, Level, Statexp);
 		CurrentHP = MaximumHP;
 		MaximumEnergy = 50;
 		CurrentEnergy = MaximumEnergy;
 
-		AttackStat = 10;
-		SpeedStat = 10;
-		DefenseStat = 10;
+		HPStat = 55;
+		AttackStat = 55;
+		SpecialAttackStat = 45;
+		DefenseStat = 50;
+		SpecialDefenseStat = 65;
+		SpeedStat = 55;
+
+		Statexp = (int)HPStat + AttackStat + SpecialAttackStat + DefenseStat + SpecialDefenseStat + SpeedStat;
 
 		MoveSet = new List<MoveBase>
 		{

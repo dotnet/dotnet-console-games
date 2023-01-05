@@ -8,16 +8,17 @@ public class FireLizard : MonsterBase
 	{
 		Name = "Fire Lizard";
 
-		BaseHP = 44;
-		MaximumHP = SetMaxHPFromBase(BaseHP, Level);
+		MaximumHP = SetMaxHPFromBase(HPStat, Level, Statexp);
 		CurrentHP = MaximumHP;
 		MaximumEnergy = 50;
-
 		CurrentEnergy = MaximumEnergy;
 
+		HPStat = 44;
 		AttackStat = 10;
 		SpeedStat = 10;
 		DefenseStat = 10;
+
+		Statexp = AttackStat + SpecialAttackStat + DefenseStat + SpecialDefenseStat + SpeedStat;
 
 		MoveSet = new List<MoveBase>
 		{
