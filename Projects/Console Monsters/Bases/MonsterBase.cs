@@ -13,7 +13,7 @@ public abstract class MonsterBase
 
 	public int ExperiencePoints { get; set; }
 
-	public double BaseHP { get; set; }
+	public double HPStat { get; set; }
 	public double CurrentHP { get; set; }
 	public double MaximumHP { get; set; }
 
@@ -29,14 +29,18 @@ public abstract class MonsterBase
 	//public abstract string[] SmallSprite { get; }
 
 	public int AttackStat { get; set; }
-
-	public int SpeedStat { get; set; }
+	public int SpecialAttackStat { get; set; }
 
 	public int DefenseStat { get; set; }
+	public int SpecialDefenseStat { get; set; }
+
+	public int SpeedStat { get; set; }
 
 	public int AccuracyStat { get; set; } = 100;
 
 	public int EvasionStat { get; set; } = 100;
+
+	public int Statexp { get; set; }
 
 	public List<MoveBase>? MoveSet { get; set; }
 
@@ -55,7 +59,7 @@ public abstract class MonsterBase
 	public static void WildMonster(MonsterBase OpponentMonster)
 	{
 		OpponentMonster.Level = SetRandomLevelForWildMonster(partyMonsters);
-		OpponentMonster.MaximumHP = SetMaxHPFromBase(OpponentMonster.BaseHP, OpponentMonster.Level);
+		OpponentMonster.MaximumHP = SetMaxHPFromBase(OpponentMonster.HPStat, OpponentMonster.Level, OpponentMonster.Statexp);
 		OpponentMonster.CurrentHP = OpponentMonster.MaximumHP;
 	}
 
@@ -70,10 +74,10 @@ public abstract class MonsterBase
 		return level;
 	}
 
-	public static double SetMaxHPFromBase(double baseHP, int level)
+	public static double SetMaxHPFromBase(double baseHP, int level, int statexp)
 	{
 		//int HPStatExp   // IN CASE WE HAVE IV's ------ https://bulbapedia.bulbagarden.net/wiki/Stat
-		double maxHP = (((baseHP * 2 + (Math.Sqrt(1) / 4)) * level) / 100) + level + 10;
+		double maxHP = ((((baseHP + 6) * 2 + (Math.Sqrt(statexp) / 4)) * level) / 100) + level + 10;
 
 		return maxHP;
 	}
