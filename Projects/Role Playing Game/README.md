@@ -14,7 +14,7 @@
 <p align="center">
 	You can play this game in your browser:
 	<br />
-	<a href="https://zacharypatten.github.io/dotnet-console-games/Role%20Playing%20Game" alt="Play Now">
+	<a href="https://dotnet.github.io/dotnet-console-games/Role%20Playing%20Game" alt="Play Now">
 		<sub><img height="40"src="../../.github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
 	</a>
 	<br />
