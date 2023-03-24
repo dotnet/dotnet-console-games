@@ -8,6 +8,7 @@ on:
     - '.github/**'
     - 'LICENSE'
     - 'README.md'
+    - 'CODE_OF_CONDUCT.md'
     - '**.md'
   workflow_dispatch:
 jobs:
