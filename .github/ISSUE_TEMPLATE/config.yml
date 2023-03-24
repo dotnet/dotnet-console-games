@@ -1,10 +1,10 @@
 blank_issues_enabled: true
 contact_links:
   - name: New Game Suggestion
-    url: https://github.com/ZacharyPatten/dotnet-console-games/issues/17
+    url: https://github.com/dotnet/dotnet-console-games/issues/17
     about: Suggest an idea for a new game.
   - name: Question
-    url: https://github.com/ZacharyPatten/dotnet-console-games/discussions/new?category=q-a
+    url: https://github.com/dotnet/dotnet-console-games/discussions/new?category=q-a
     about: Ask a question.
   - name: Chat
     url: https://discord.gg/4XbQbwF
