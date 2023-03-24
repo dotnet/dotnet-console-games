@@ -3,10 +3,10 @@
 </h1>
 
 <p align="center">
-	<a href="https://github.com/ZacharyPatten/dotnet-console-games" alt="GitHub repo"><img alt="flat" src="../../.github/resources/github-repo-black.svg"></a>
+	<a href="https://github.com/dotnet/dotnet-console-games" alt="GitHub repo"><img alt="flat" src="../../.github/resources/github-repo-black.svg"></a>
 	<a href="https://docs.microsoft.com/en-us/dotnet/csharp/" alt="GitHub repo"><img alt="Language C#" src="../../.github/resources/language-csharp.svg"></a>
 	<a href="https://dotnet.microsoft.com/download"><img src="../../.github/resources/dotnet-badge.svg" title="Target Framework" alt="Target Framework"></a>
-	<a href="https://github.com/ZacharyPatten/dotnet-console-games/actions"><img src="https://github.com/ZacharyPatten/dotnet-console-games/workflows/Checkers%20Build/badge.svg" title="Goto Build" alt="Build"></a>
+	<a href="https://github.com/dotnet/dotnet-console-games/actions"><img src="https://github.com/dotnet/dotnet-console-games/workflows/Checkers%20Build/badge.svg" title="Goto Build" alt="Build"></a>
 	<a href="https://discord.gg/4XbQbwF" alt="Discord"><img src="../../.github/resources/discord-badge.svg" title="Go To Discord Server" alt="Discord"/></a>
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
@@ -21,7 +21,7 @@
 	<sup>Hosted On GitHub Pages</sup>
 </p>
 
-> **Note** This game was a *[Community Contribution](https://github.com/ZacharyPatten/dotnet-console-games/pull/40)!
+> **Note** This game was a *[Community Contribution](https://github.com/dotnet/dotnet-console-games/pull/40)!
 
 Checkers is played on an 8x8 board between two sides commonly known as black
 and white. The objective is simple - capture all your opponent's pieces. An
@@ -63,8 +63,8 @@ from and to squares. Invalid moves are ignored.
 
 ## Downloads
 
-[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Checkers.exe)
+[win-x64](https://github.com/dotnet/dotnet-console-games/raw/binaries/win-x64/Checkers.exe)
 
-[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Checkers)
+[linux-x64](https://github.com/dotnet/dotnet-console-games/raw/binaries/linux-x64/Checkers)
 
-[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Checkers)
+[osx-x64](https://github.com/dotnet/dotnet-console-games/raw/binaries/osx-x64/Checkers)

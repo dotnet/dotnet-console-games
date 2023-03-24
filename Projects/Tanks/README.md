@@ -3,10 +3,10 @@
 </h1>
 
 <p align="center">
-	<a href="https://github.com/ZacharyPatten/dotnet-console-games" alt="GitHub repo"><img alt="flat" src="../../.github/resources/github-repo-black.svg"></a>
+	<a href="https://github.com/dotnet/dotnet-console-games" alt="GitHub repo"><img alt="flat" src="../../.github/resources/github-repo-black.svg"></a>
 	<a href="https://docs.microsoft.com/en-us/dotnet/csharp/" alt="GitHub repo"><img alt="Language C#" src="../../.github/resources/language-csharp.svg"></a>
 	<a href="https://dotnet.microsoft.com/download"><img src="../../.github/resources/dotnet-badge.svg" title="Target Framework" alt="Target Framework"></a>
-	<a href="https://github.com/ZacharyPatten/dotnet-console-games/actions"><img src="https://github.com/ZacharyPatten/dotnet-console-games/workflows/Tanks%20Build/badge.svg" title="Goto Build" alt="Build"></a>
+	<a href="https://github.com/dotnet/dotnet-console-games/actions"><img src="https://github.com/dotnet/dotnet-console-games/workflows/Tanks%20Build/badge.svg" title="Goto Build" alt="Build"></a>
 	<a href="https://discord.gg/4XbQbwF" alt="Discord"><img src="../../.github/resources/discord-badge.svg" title="Go To Discord Server" alt="Discord"/></a>
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
@@ -64,8 +64,8 @@ Tanks is a game where you play as a tank and try to shoot and destroy other tank
 
 ## Downloads
 
-[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Tanks.exe)
+[win-x64](https://github.com/dotnet/dotnet-console-games/raw/binaries/win-x64/Tanks.exe)
 
-[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Tanks)
+[linux-x64](https://github.com/dotnet/dotnet-console-games/raw/binaries/linux-x64/Tanks)
 
-[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Tanks)
+[osx-x64](https://github.com/dotnet/dotnet-console-games/raw/binaries/osx-x64/Tanks)

@@ -3,10 +3,10 @@
 </h1>
 
 <p align="center">
-	<a href="https://github.com/ZacharyPatten/dotnet-console-games" alt="GitHub repo"><img alt="flat" src="../../.github/resources/github-repo-black.svg"></a>
+	<a href="https://github.com/dotnet/dotnet-console-games" alt="GitHub repo"><img alt="flat" src="../../.github/resources/github-repo-black.svg"></a>
 	<a href="https://docs.microsoft.com/en-us/dotnet/csharp/" alt="GitHub repo"><img alt="Language C#" src="../../.github/resources/language-csharp.svg"></a>
 	<a href="https://dotnet.microsoft.com/download" title="Target Framework" alt="Target Framework"><img src="../../.github/resources/dotnet-badge.svg" /></a>
-	<a href="https://github.com/ZacharyPatten/dotnet-console-games/actions"><img src="https://github.com/ZacharyPatten/dotnet-console-games/workflows/Roll%20And%20Move%20Build/badge.svg" title="Goto Build" alt="Build"></a>
+	<a href="https://github.com/dotnet/dotnet-console-games/actions"><img src="https://github.com/dotnet/dotnet-console-games/workflows/Roll%20And%20Move%20Build/badge.svg" title="Goto Build" alt="Build"></a>
 	<a href="https://discord.gg/4XbQbwF" alt="Discord"><img src="../../.github/resources/discord-badge.svg" title="Go To Discord Server" alt="Discord"/></a>
 	<a href="../../LICENSE" alt="license"><img src="../../.github/resources/license-MIT-green.svg" /></a>
 </p>
@@ -55,8 +55,8 @@ player to complete an entire lap of the board and you win.
 
 ## Downloads
 
-[win-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/win-x64/Roll%20And%20Move.exe)
+[win-x64](https://github.com/dotnet/dotnet-console-games/raw/binaries/win-x64/Roll%20And%20Move.exe)
 
-[linux-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/linux-x64/Roll%20And%20Move)
+[linux-x64](https://github.com/dotnet/dotnet-console-games/raw/binaries/linux-x64/Roll%20And%20Move)
 
-[osx-x64](https://github.com/ZacharyPatten/dotnet-console-games/raw/binaries/osx-x64/Roll%20And%20Move)
+[osx-x64](https://github.com/dotnet/dotnet-console-games/raw/binaries/osx-x64/Roll%20And%20Move)
