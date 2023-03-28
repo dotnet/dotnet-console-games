@@ -161,3 +161,10 @@ Find a bug or have a suggestion? [Open an issue](https://github.com/dotnet/dotne
 Want to chat with the developer(s)? [Join the discord server](https://discord.gg/4XbQbwF).
 
 Want to contribute? [Look for open issues you can help with](https://github.com/dotnet/dotnet-console-games/issues).
+
+<br />
+<p align="center">
+	<sub>Supported by the</sub>
+	<br />
+	<a href="https://dotnetfoundation.org"><img width="300" src="https://raw.githubusercontent.com/dotnet-foundation/swag/main/logo/dotnetfoundation_v4_horizontal.svg" ></a>
+</p>
