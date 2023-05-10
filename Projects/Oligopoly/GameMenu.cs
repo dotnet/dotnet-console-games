@@ -15,7 +15,6 @@ public class GameMenu : Menu
 	/// <param name="options">The options to display in the menu.</param>
 	/// <param name="outputDelay">The text output delay. Have to be a positive integer or zero.</param>
 	/// <param name="currentEvent">The integer that represents current event.</param>
-	/// <param name="data">The Data class object, which contains all companies and events.</param>
 	public GameMenu(string prompt, string[] options, int outputDelay, int currentEvent, double money)
 		: base(prompt, options, outputDelay)
 	{
@@ -28,57 +27,37 @@ public class GameMenu : Menu
 	/// </summary>
 	protected override void DisplayMenu()
 	{
-		// Display amount of money.
-		Console.WriteLine(string.Format($"You have: {Math.Round(Money, 2)}$\n", -50));
+		// column widths
+		const int c0 = 30;
+		const int c1 = 8;
+		const int c2 = 10;
+		const int c3 = 19;
+		const int c4 = 17;
 
-		// Display current event.
-		Console.WriteLine($"{Program.Events[CurrentEvent].Title}");
-		Console.WriteLine($"\n{Program.Events[CurrentEvent].Content}\n");
-
-		// Display companies.
-		Console.Write("╔");
-		for (int i = 0; i < 120 - 2; i++)
-		{
-			Console.Write("═");
-		}
-		Console.WriteLine("╗");
-
-		Console.WriteLine(string.Format($"{"║ Company",-52} ║ {"Ticker",8} ║ {"Industry",10} ║ {"Share Price",19} ║ {"You Have",17} ║"));
-
-		Console.Write("╚");
-		for (int i = 0; i < 120 - 2; i++)
-		{
-			Console.Write("═");
-		}
-		Console.WriteLine("╝");
-
-		Console.Write("╔");
-		for (int i = 0; i < 120 - 2; i++)
-		{
-			Console.Write("═");
-		}
-		Console.WriteLine("╗");
-
+		Console.WriteLine($"╔═{new('═', c0)}═╤═{new('═', c1)}═╤═{new('═', c2)}═╤═{new('═', c3)}═╤═{new('═', c4)}═╗");
+		Console.WriteLine($"║ {"Company", -c0} │ {"Ticker", c1} │ {"Industry", c2} │ {"Share Price", c3} │ {"You Have", c4} ║");
+		Console.WriteLine($"╟─{new('─', c0)}─┼─{new('─', c1)}─┼─{new('─', c2)}─┼─{new('─', c3)}─┼─{new('─', c4)}─╢");
 		foreach (Company company in Program.Companies)
 		{
-			Console.WriteLine(string.Format($"║ {company.Name,-50} ║ {company.Ticker,8} ║ {company.Industry,10} ║ {company.SharePrice,19} ║ {company.ShareAmount,17} ║"));
+			Console.WriteLine($"║ {company.Name, -c0} │ {company.Ticker, c1} │ {company.Industry, c2} │ {company.SharePrice, c3} │ {company.ShareAmount, c4} ║");
 		}
+		Console.WriteLine($"╚═{new('═', c0)}═╧═{new('═', c1)}═╧═{new('═', c2)}═╧═{new('═', c3)}═╧═{new('═', c4)}═╝");
+		Console.WriteLine();
 
-		Console.Write("╚");
-		for (int i = 0; i < 120 - 2; i++)
-		{
-			Console.Write("═");
-		}
-		Console.WriteLine("╝");
+		Console.WriteLine($"{Program.Events[CurrentEvent].Title}");
+		Console.WriteLine();
+		Console.WriteLine($"{Program.Events[CurrentEvent].Content}");
+		Console.WriteLine();
 
-		// Display the prompt above the menu.
+		Console.WriteLine($"You have: {Math.Round(Money, 2)}$");
+		//Console.WriteLine();
+
 		foreach (char symbol in Prompt)
 		{
 			Thread.Sleep(OutputDelay);
 			Console.Write(symbol);
 		}
 
-		// Display all options inside the menu and redraw it when user select other option.
 		for (int i = 0; i < Options.Length; i++)
 		{
 			string currentOption = Options[i];
@@ -113,45 +92,22 @@ public class GameMenu : Menu
 		// This is necessary so that the menu does not draw with a delay when updating the console.
 		OutputDelay = 0;
 
-		// Create variable, that contains key that was pressed.
-		ConsoleKey keyPressed;
-
-		do
+		ConsoleKey keyPressed = default;
+		while (keyPressed is not ConsoleKey.Enter)
 		{
-			// Redraw the menu.
 			Console.Clear();
 			DisplayMenu();
-
-			//Read the user's input.
-			ConsoleKeyInfo keyInfo = Console.ReadKey();
-
-			// Get the key that was pressed.
-			keyPressed = keyInfo.Key;
-
-			// Move the selection up or down, based on the pressed key.
-			if (keyPressed == ConsoleKey.UpArrow)
+			keyPressed = Console.ReadKey().Key;
+			if (keyPressed is ConsoleKey.UpArrow)
 			{
-				SelectedIndex--;
-
-				// Wrap around if user is out of range.
-				if (SelectedIndex == -1)
-				{
-					SelectedIndex = Options.Length - 1;
-				}
+				SelectedIndex = SelectedIndex is 0 ? Options.Length - 1 : SelectedIndex - 1;
 			}
-			else if (keyPressed == ConsoleKey.DownArrow)
+			else if (keyPressed is ConsoleKey.DownArrow)
 			{
-				SelectedIndex++;
-
-				// Wrap around if user is out of range.
-				if (SelectedIndex == Options.Length)
-				{
-					SelectedIndex = 0;
-				}
+				SelectedIndex = SelectedIndex == Options.Length - 1 ? 0 : SelectedIndex + 1;
 			}
-		} while (keyPressed != ConsoleKey.Enter);
+		}
 
-		// Return the selected option.
 		return SelectedIndex;
 	}
 
@@ -165,62 +121,35 @@ public class GameMenu : Menu
 		// This is necessary so that the menu does not draw with a delay when updating the console.
 		OutputDelay = 0;
 
-		// Create variable, that contains key that was pressed.
-		ConsoleKey keyPressed;
-
+		ConsoleKey keyPressed = default;
 		int amount = 0;
-
-		do
+		while (keyPressed is not ConsoleKey.Enter || SelectedIndex is not 2)
 		{
-			// Redraw the menu.
 			Console.Clear();
 			DisplayMenu();
-
-			// Display current amount of shares.
 			Console.WriteLine($"Current amount: {amount}");
-
-			//Read the user's input.
-			ConsoleKeyInfo keyInfo = Console.ReadKey();
-
-			// Get the key that was pressed.
-			keyPressed = keyInfo.Key;
-
-			// Move the selection up or down, based on the pressed key.
-			if (keyPressed == ConsoleKey.UpArrow)
+			keyPressed = Console.ReadKey().Key;
+			switch (keyPressed)
 			{
-				SelectedIndex--;
-
-				// Wrap around if user is out of range.
-				if (SelectedIndex == -1)
-				{
-					SelectedIndex = Options.Length - 1;
-				}
+				case ConsoleKey.UpArrow:
+					SelectedIndex = SelectedIndex is 0 ? Options.Length - 1 : SelectedIndex - 1;
+					break;
+				case ConsoleKey.DownArrow:
+					SelectedIndex = SelectedIndex == Options.Length - 1 ? 0 : SelectedIndex + 1;
+					break;
+				case ConsoleKey.Enter:
+					if (SelectedIndex is 0)
+					{
+						amount++;
+					}
+					else if (SelectedIndex is 1 && amount > 0)
+					{
+						amount--;
+					}
+					break;
 			}
-			else if (keyPressed == ConsoleKey.DownArrow)
-			{
-				SelectedIndex++;
+		}
 
-				// Wrap around if user is out of range.
-				if (SelectedIndex == Options.Length)
-				{
-					SelectedIndex = 0;
-				}
-			}
-
-			if (keyPressed == ConsoleKey.Enter && SelectedIndex == 0)
-			{
-				amount++;
-			}
-			else if (keyPressed == ConsoleKey.Enter && SelectedIndex == 1)
-			{
-				if (amount > 0)
-				{
-					amount--;
-				}
-			}
-		} while (!(keyPressed == ConsoleKey.Enter && SelectedIndex == 2));
-
-		// Return the amount of shares.
 		return amount;
 	}
 }

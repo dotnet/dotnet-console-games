@@ -5,7 +5,6 @@ namespace Oligopoly;
 
 public class Menu
 {
-	// Create a class fields.
 	protected int SelectedIndex;
 	protected int OutputDelay;
 	protected string Prompt;
@@ -30,14 +29,12 @@ public class Menu
 	/// </summary>
 	protected virtual void DisplayMenu()
 	{
-		// Display the prompt above the menu.
 		foreach (char symbol in Prompt)
 		{
 			Thread.Sleep(OutputDelay);
 			Console.Write(symbol);
 		}
 
-		// Display all options inside the menu and redraw it when user select other option.
 		for (int i = 0; i < Options.Length; i++)
 		{
 			string currentOption = Options[i];
@@ -58,8 +55,6 @@ public class Menu
 
 			Console.WriteLine($"[{prefix}] {currentOption}");
 		}
-
-		// Reset console colors.
 		Console.ResetColor();
 	}
 
@@ -73,45 +68,23 @@ public class Menu
 		// This is necessary so that the menu does not draw with a delay when updating the console.
 		OutputDelay = 0;
 
-		// Create variable, that contains key that was pressed.
-		ConsoleKey keyPressed;
+		ConsoleKey keyPressed = default;
 
-		do
+		while (keyPressed is not ConsoleKey.Enter)
 		{
-			// Redraw the menu.
 			Console.Clear();
 			DisplayMenu();
-
-			//Read the user's input.
-			ConsoleKeyInfo keyInfo = Console.ReadKey();
-
-			// Get the key that was pressed.
-			keyPressed = keyInfo.Key;
-
-			// Move the selection up or down, based on the pressed key.
-			if (keyPressed == ConsoleKey.UpArrow)
+			keyPressed = Console.ReadKey().Key;
+			if (keyPressed is ConsoleKey.UpArrow)
 			{
-				SelectedIndex--;
-
-				// Wrap around if user is out of range.
-				if (SelectedIndex == -1)
-				{
-					SelectedIndex = Options.Length - 1;
-				}
+				SelectedIndex = SelectedIndex is 0 ? Options.Length - 1 : SelectedIndex - 1;
 			}
-			else if (keyPressed == ConsoleKey.DownArrow)
+			else if (keyPressed is ConsoleKey.DownArrow)
 			{
-				SelectedIndex++;
-
-				// Wrap around if user is out of range.
-				if (SelectedIndex == Options.Length)
-				{
-					SelectedIndex = 0;
-				}
+				SelectedIndex = SelectedIndex == Options.Length - 1 ? 0 : SelectedIndex + 1;
 			}
-		} while (keyPressed != ConsoleKey.Enter);
+		}
 
-		// Return the selected option.
 		return SelectedIndex;
 	}
 }

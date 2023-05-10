@@ -12,18 +12,11 @@ public class Program
 	public static List<Company> Companies;
 	public static List<Event> Events;
 
-	/// <summary>
-	///  Program entry point.
-	/// </summary>
-	/// <param name="args">The array of strings to process.</param>
 	public static void Main()
 	{
 		RunMainMenu();
 	}
 
-	/// <summary>
-	/// Runs the main menu of the game.
-	/// </summary>
 	private static void RunMainMenu()
 	{
 		string prompt = @"
@@ -56,9 +49,6 @@ public class Program
 		}
 	}
 
-	/// <summary>
-	/// Runs skip menu.
-	/// </summary>
 	private static void RunSkipMenu()
 	{
 		string prompt = @"Welcome to Oligopoly!
@@ -82,9 +72,6 @@ Do you want to read the introductory letter or do you want to jump right into th
 		}
 	}
 
-	/// <summary>
-	/// Runs the start menu of the game.
-	/// </summary>
 	private static void RunStartMenu()
 	{
 		string prompt = @"Dear, new CEO
@@ -102,18 +89,13 @@ The board of directors of Oligopoly Investments
 
 		int selectedOption = startMenu.RunMenu();
 
-		switch (selectedOption)
+		if (selectedOption is 0)
 		{
-			case 0:
-				Console.Clear();
-				RunGameMenu();
-				break;
+			Console.Clear();
+			RunGameMenu();
 		}
 	}
 
-	/// <summary>
-	/// Runs the game menu.
-	/// </summary>
 	private static void RunGameMenu()
 	{
 		{
@@ -128,22 +110,16 @@ The board of directors of Oligopoly Investments
 			}
 		}
 
-		// Create variables.
-		int currentEvent;
 		double money = 10000;
 		bool isGameEnded = false;
-
-		// Create a Random class object to generate event.
 		Random random = new();
 
 		// Start of the game cycle.
 		while (!isGameEnded)
 		{
-			// Generate event for current turn.
-			currentEvent = random.Next(0, Events.Count);
+			int currentEvent = random.Next(0, Events.Count);
 
-			// Determine current event's type.
-			if (Events[currentEvent].Type == "Positive")  // If current event is positive.
+			if (Events[currentEvent].Type is "Positive")
 			{
 				foreach (Company currentCompany in Companies)
 				{
@@ -153,7 +129,7 @@ The board of directors of Oligopoly Investments
 					}
 				}
 			}
-			else if (Events[currentEvent].Type == "Negative")  // If current event is negative.
+			else if (Events[currentEvent].Type is "Negative")
 			{
 				foreach (Company currentCompany in Companies)
 				{
@@ -197,10 +173,6 @@ The board of directors of Oligopoly Investments
 				isGameEnded = true;
 				RunEndMenu(true);
 			}
-			else
-			{
-				continue;
-			}
 		}
 	}
 
@@ -209,7 +181,6 @@ The board of directors of Oligopoly Investments
 	/// </summary>
 	/// <param name="money">The amount of money that user currently has.</param>
 	/// <param name="currentEvent">The index of current generated event.</param>
-	/// <param name="data">An Data class object, that contain information about companies and events.</param>
 	/// <param name="isBuying">Flag that determines the mode of the method. True - buying, false - selling.</param>
 	private static void RunActionMenu(ref double money, int currentEvent, bool isBuying)
 	{
@@ -255,10 +226,6 @@ The board of directors of Oligopoly Investments
 		}
 	}
 
-	/// <summary>
-	/// Displays companies descriptions to the console.
-	/// </summary>
-	/// <param name="data">An Data class object, that contain information about companies and events.</param>
 	private static void DisplayMoreAboutCompaniesMenu()
 	{
 		Console.Clear();
@@ -336,9 +303,6 @@ The board of directors of Oligopoly Investments
 		}
 	}
 
-	/// <summary>
-	/// Displays information about the game.
-	/// </summary>
 	private static void DisplayAboutInfo()
 	{
 		Console.Clear();
@@ -352,9 +316,6 @@ Press any key to exit the menu...");
 		Console.ReadKey(true);
 	}
 
-	/// <summary>
-	/// Exits the game.
-	/// </summary>
 	private static void ExitGame()
 	{
 		Console.Clear();
