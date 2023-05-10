@@ -61,25 +61,17 @@ public class GameMenu : Menu
 		for (int i = 0; i < Options.Length; i++)
 		{
 			string currentOption = Options[i];
-			string prefix;
-
 			if (i == SelectedIndex)
 			{
-				prefix = "*";
-				Console.ForegroundColor = ConsoleColor.Black;
-				Console.BackgroundColor = ConsoleColor.White;
+				(Console.BackgroundColor, Console.ForegroundColor) = (Console.ForegroundColor, Console.BackgroundColor);
+				Console.WriteLine($"[*] {currentOption}");
+				Console.ResetColor();
 			}
 			else
 			{
-				prefix = " ";
-				Console.ForegroundColor = ConsoleColor.White;
-				Console.BackgroundColor = ConsoleColor.Black;
+				Console.WriteLine($"[ ] {currentOption}");
 			}
-
-			Console.WriteLine($"[{prefix}] {currentOption}");
 		}
-
-		Console.ResetColor();
 	}
 
 	/// <summary>
