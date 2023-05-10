@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Data>
+	<Companies>
+		<Company id="BNG">
+			<Name>Bingoo</Name>
+			<Ticker>BNG</Ticker>
+			<Industry>Web</Industry>
+			<SharePrice>1500</SharePrice>
+			<Description>Promising search company. Leader in the development of various web services and web applications. Bingoo is known for its innovative and user-friendly products that aim to make the web more accessible and enjoyable. Bingoo also invests in artificial intelligence and machine learning to enhance its search engine and other services.</Description>
+		</Company>
+		<Company id="QST">
+			<Name>Quantum Software</Name>
+			<Ticker>QST</Ticker>
+			<Industry>Software</Industry>
+			<SharePrice>2000</SharePrice>
+			<Description>Software development company. The company is best known for its own operating system and various software packages. Quantum Software is a pioneer in the field of software engineering and has a reputation for creating reliable and fast products. Quantum Software also collaborates with other companies and organizations to provide customized solutions for their needs.</Description>
+		</Company>
+		<Company id="EDSN">
+			<Name>Edison Incorporated</Name>
+			<Ticker>EDSN</Ticker>
+			<Industry>Energy</Industry>
+			<SharePrice>1000</SharePrice>
+			<Description>An innovative company engaged in the development and production of electric vehicles, batteries, solar panels. Edison Incorporated is a leader in the green energy sector and strives to reduce the environmental impact of transportation and energy consumption. Edison Incorporated also offers a range of services and products for consumers and businesses who want to switch to renewable energy sources.</Description>
+		</Company>
+		<Company id="NTF">
+			<Name>Netfilm</Name>
+			<Ticker>NTF</Ticker>
+			<Industry>Movies</Industry>
+			<SharePrice>800</SharePrice>
+			<Description>A leading company in the field of online movies and series, also engaged in the development of video hosting. Netfilm is a popular platform for streaming and watching movies and series of various genres and languages. Netfilm also produces its own original content that attracts millions of viewers. Netfilm also provides a video hosting service that allows users to upload and share their own videos.</Description>
+		</Company>
+		<Company id="CSC">
+			<Name>COBRA Security Consulting</Name>
+			<Ticker>CSC</Ticker>
+			<Industry>Army</Industry>
+			<SharePrice>1200</SharePrice>
+			<Description>COBRA (stands for Counter-Offensive Brigades for Rapid Action) are private special forces units equipped with the latest technology. The company fulfills orders all over the world and cooperates with various governments. COBRA Security Consulting is a professional and discreet company that offers security services for high-risk situations and locations. COBRA Security Consulting also trains and equips its operatives with advanced weapons and gadgets to ensure their success.</Description>
+		</Company>
+	</Companies>
+	<Events>
+		<Event id="BNG_new_search_engine">
+			<Effect>15</Effect>
+			<Target>BNG</Target>
+			<Type>Positive</Type>
+			<Title>Bingoo announcing their new search engine</Title>
+			<Content>The company has announced its new search engine that will be more productive and user-friendly than the previous one. The search engine also uses artificial intelligence technology to improve search results and provide personalized recommendations to users. Experts predict that this will increase the value of the company’s shares and attract more customers to its products and services.</Content>
+		</Event>
+		<Event id="BNG_artificial_intelligence">
+			<Effect>10</Effect>
+			<Target>BNG</Target>
+			<Type>Positive</Type>
+			<Title>Bingoo announcing their new AI assistant</Title>
+			<Content>Bingoo has unveiled its latest innovation: Bingy. An AI assistant that can chat, search, and create content for users. Bingy is powered by advanced natural language processing and machine learning technologies that enable it to understand and communicate fluently in multiple languages. Bingy is available as an application that users can install on their computers or phones for easy and convenient access.</Content>
+		</Event>
+		<Event id="BNG_service_update">
+			<Effect>5</Effect>
+			<Target>BNG</Target>
+			<Type>Positive</Type>
+			<Title>Bingoo introduces new features and improvements for its web services</Title>
+			<Content>Bingoo has introduced a series of new features and improvements for its web services. The new features include voice search, image recognition, personalized recommendations, smart suggestions, faster loading times, better security and more. The updates apply to Bingoo's popular web services such as Bingoo Mail, Bingoo Cloud, Bingoo Maps, Bingoo News and others.</Content>
+		</Event>
+		<Event id="BNG_special_event">
+			<Effect>5</Effect>
+			<Target>BNG</Target>
+			<Type>Positive</Type>
+			<Title>Bingoo creates a special event to attract more web developers</Title>
+			<Content>The event, called Bingoo Webathon, is a 24-hour online marathon of web development challenges, tutorials, demos and prizes. Bingoo said that the event is designed to showcase its web services and web applications and to inspire and motivate web developers of all levels and backgrounds to join its community and platform. </Content>
+		</Event>
+		<Event id="BNG_award">
+			<Effect>5</Effect>
+			<Target>BNG</Target>
+			<Type>Positive</Type>
+			<Title>Bingoo wins industry award for innovative web services</Title>
+			<Content>Bingoo has won an industry award for its innovative and user-friendly web services, including its search engine and web applications. The award recognizes Bingoo's commitment to providing the best possible user experiences and staying at the forefront of technology trends.</Content>
+		</Event>
+		<Event id="BNG_user_privacy">
+			<Effect>15</Effect>
+			<Target>BNG</Target>
+			<Type>Negative</Type>
+			<Title>Bingoo was accused of violating user privacy</Title>
+			<Content>The company was accused of stealing the personal data of its users and selling it to third parties without their consent. The case is currently under investigation by the authorities, but experts believe that this scandal will harm the company and its reputation. The company may face legal consequences and lose the trust of its users.</Content>
+		</Event>
+		<Event id="BNG_technical_issue">
+			<Effect>10</Effect>
+			<Target>BNG</Target>
+			<Type>Negative</Type>
+			<Title>Bingoo's servers experience a service outage</Title>
+			<Content>Bingoo's services have been down for several hours due to a technical issue. Users have been unable to access their accounts, send emails, or use other Bingoo services during this time. The company has released a statement apologizing for the inconvenience and stating that it is working to resolve the issue as soon as possible.</Content>
+		</Event>
+		<Event id="BNG_missed_acquisition">
+			<Effect>5</Effect>
+			<Target>BNG</Target>
+			<Type>Negative</Type>
+			<Title>Bingoo missed out on a lucrative acquisition deal</Title>
+			<Content>Bingoo was in talks to acquire a promising startup that could have helped the company expand its services and increase its market share. However, the company's management decided to abandon the deal at the last minute, citing concerns about the startup's financial health and market potential. This decision was criticized by shareholders and industry experts, who believe that Bingoo missed a valuable opportunity to grow its business and compete with its rivals.</Content>
+		</Event>
+		<Event id="BNG_too_much_ads">
+			<Effect>5</Effect>
+			<Target>BNG</Target>
+			<Type>Negative</Type>
+			<Title>Bingoo criticized for excessive advertising in its products</Title>
+			<Content>Bingoo has been heavily criticized by its users for the excessive amount of ads present in its search engine. Many users have complained that the ads are intrusive and negatively affect their experience with the product. This has led to a decrease in user satisfaction and may ultimately lead to a decrease in sales.</Content>
+		</Event>
+		<Event id="BNG_terminates_partnerships">
+			<Effect>5</Effect>
+			<Target>BNG</Target>
+			<Type>Negative</Type>
+			<Title>Bingoo terminates partnerships with phone manufacturers</Title>
+			<Content>Bingoo has announced that it will no longer be partnering with phone manufacturers to pre-install its search engine on their devices. This decision has been met with disappointment from phone manufacturers, as Bingoo's search engine is a popular choice among users. The move may lead to a decrease in Bingoo's market share and revenue, as users may choose other search engines instead.</Content>
+		</Event>
+		<Event id="QST_new_operating_system">
+			<Effect>15</Effect>
+			<Target>QST</Target>
+			<Type>Positive</Type>
+			<Title>Quantum Software announces new operating system</Title>
+			<Content>The company has introduced its new operating system from the Qore OS family at a presentation event. The company claims that the new operating system is more reliable and faster than the competitors’ ones. The new operating system also has new features and functions that enhance the user experience. Experts expect the company’s share price to rise and the new operating system to become popular among users.</Content>
+		</Event>
+		<Event id="QST_new_software_package">
+			<Effect>10</Effect>
+			<Target>QST</Target>
+			<Type>Positive</Type>
+			<Title>Quantum Software announces update for Quantum Workflow</Title>
+			<Content>Quantum Software has just announced an exciting new update for its popular software package - Quantum Workflow. This new version is packed with innovative features and improvements that are sure to streamline your workflow and boost productivity. With its user-friendly interface and powerful capabilities, Quantum Workflow has already become a favorite among professionals in a variety of industries.</Content>
+		</Event>
+		<Event id="QST_development_kit">
+			<Effect>5</Effect>
+			<Target>QST</Target>
+			<Type>Positive</Type>
+			<Title>Quantum Software presents its new development kit</Title>
+			<Content>The company has inoduced its new update for software development kit (QSDK). The new QSDK includes a powerful quantum simulator, a comprehensive set of libraries and frameworks, and a user-friendly development environment that makes it easy to get started with quantum programming. With QSDK developers also have access to new documnetation (QSDN), which will help them build robust and scalable applications.</Content>
+		</Event>
+		<Event id="QST_profitable_acquisition">
+			<Effect>5</Effect>
+			<Target>QST</Target>
+			<Type>Positive</Type>
+			<Title>Quantum Software acquires a promising company</Title>
+			<Content>Quantum Software management has confirmed the purchase of a small software company. According to the company's management, the deal turned out to be very beneficial for both parties. The new software will soon be available on Quore OS operating systems and the company expects sales to increase in the near future.</Content>
+		</Event>
+		<Event id="QST_cloud_platform">
+			<Effect>5</Effect>
+			<Target>QST</Target>
+			<Type>Positive</Type>
+			<Title>Quantum Software invests in Quantum Sky development</Title>
+			<Content>Quantum Software announced a major investment in the development of Quantum Sky, its cloud platform and infrastructure for creating innovative solutions in artificial intelligence, big data and internet of things. Quantum Sky aims to provide customers with access to the most advanced quantum computing resources and services, as well as to foster collaboration and innovation among researchers, developers and entrepreneurs. Quantum Software expects that Quantum Sky will boost its revenue and market share</Content>
+		</Event>
+		<Event id="QST_antimonopoly_commission">
+			<Effect>15</Effect>
+			<Target>QST</Target>
+			<Type>Negative</Type>
+			<Title>The Antimonopoly Commission accused Quantum Software of illegally maintaining its monopoly position</Title>
+			<Content>The Antimonopoly Commission announced that it has launched an investigation into Quantum Software. The commission claims that Quantum Software has abused its dominant position by engaging in unfair practices such as predatory pricing, exclusive contracts, and bundling products. The commission said that these practices have harmed consumers and competitors, and stifled innovation in the software market. The company said that it operates in a highly competitive and dynamic environment, and that its success is based on its superior products and services.</Content>
+		</Event>
+		<Event id="QST_cyber_attack">
+			<Effect>10</Effect>
+			<Target>QST</Target>
+			<Type>Negative</Type>
+			<Title>Quantum Software reported a data breach</Title>
+			<Content>Some of the company’s servers were hacked by unknown attackers. The company is working with the police on this matter, but it is already known that their development of an unreleased operating system was stolen. The stolen data may contain sensitive information and secrets that could damage the company’s business. The company may also face legal action from its partners and customers who were affected by the breach.</Content>
+		</Event>
+		<Event id="QST_failed_update">
+			<Effect>5</Effect>
+			<Target>QST</Target>
+			<Type>Negative</Type>
+			<Title>Users are unhappy with the latest Quore OS update</Title>
+			<Content>The latest update of Quore OS leads to numerous system breakdowns, and in some cases, loss of user data. Quantum Software has already apologized for the inconvenience and is working to remedy the situation. However, this event has caused many to consider alternative products, which could lead to a decrease in sales of Quantum Software.</Content>
+		</Event>
+		<Event id="QST_end_of_partnership">
+			<Effect>5</Effect>
+			<Target>QST</Target>
+			<Type>Negative</Type>
+			<Title>Quantum Software breaks partnership with driver manufacturer</Title>
+			<Content>Quantum Software management announced the termination of cooperation with one of the largest manufacturers of drivers for their systems. The reasons for this abrupt decision are not clear. The company said it is looking into alternative solutions to this problem. However, this may cause their operating systems to fall behind technically and reduce profits.</Content>
+		</Event>
+		<Event id="QST_massive_layoffs">
+			<Effect>5</Effect>
+			<Target>QST</Target>
+			<Type>Negative</Type>
+			<Title>Quantum Software faced mass layoffs</Title>
+			<Content>The company is facing massive layoffs. Employees say that before the release of the next major update, management began to set impossible tasks for them and give them the shortest possible time. The company's management has not yet commented on this, but this news will definitely not benefit the company's share prices.</Content>
+		</Event>
+		<Event id="EDSN_new_vehicle">
+			<Effect>15</Effect>
+			<Target>EDSN</Target>
+			<Type>Positive</Type>
+			<Title>Edison Incorporated presents its new electric car</Title>
+			<Content>The company’s new electric cars with autopilot function went on sale in several countries. Edison Incorporated has managed to reduce the charging time of the car and increase its battery life by using innovative technology and materials. The first owners of electric cars are already leaving positive reviews and praising the performance and design of the car. The company expects to increase its sales and market share in the electric vehicle industry.</Content>
+		</Event>
+		<Event id="EDSN_new_market">
+			<Effect>10</Effect>
+			<Target>EDSN</Target>
+			<Type>Positive</Type>
+			<Title>Edison Incorporated enters the Asian market</Title>
+			<Content>The company has announced that it will start selling its electric vehicles in several Asian countries, including China, Japan, and India. The company said that it sees a huge potential for growth in these markets, as the demand for green and smart transportation is increasing. Edison Incorporated expects that this move will boost its sales and revenue, as well as its brand recognition and reputation.</Content>
+		</Event>
+		<Event id="EDSN_successful_ads">
+			<Effect>5</Effect>
+			<Target>EDSN</Target>
+			<Type>Positive</Type>
+			<Title>Edison Incorporated launches a successful advertising campaign</Title>
+			<Content>The company has launched a new advertising campaign to promote its electric vehicles and solar panels. The campaign features celebrities, influencers, and ordinary people who share their positive experiences with the company’s products and services. The campaign also highlights the environmental and economic benefits of switching to renewable energy sources. The campaign has received a lot of positive feedback and attention from the public and the media, and has increased the company’s popularity and customer loyalty.</Content>
+		</Event>
+		<Event id="EDSN_efficient_engine">
+			<Effect>5</Effect>
+			<Target>EDSN</Target>
+			<Type>Positive</Type>
+			<Title>Edison Incorporated develops a more efficient electric engine</Title>
+			<Content>Edison Incorporated has developed a new electric engine that is more efficient and powerful than its previous models. The new engine uses less energy and produces less noise and emissions. The company said that the new engine will improve the performance and range of its electric vehicles, as well as reduce the maintenance costs and carbon footprint. The company plans to implement the new engine in its upcoming models and offer it as an upgrade option for existing customers. </Content>
+		</Event>
+		<Event id="EDSN_price_reduction">
+			<Effect>5</Effect>
+			<Target>EDSN</Target>
+			<Type>Positive</Type>
+			<Title>Edison Incorporated reduces the prices of its products</Title>
+			<Content>The company has announced that it will reduce the prices of its electric vehicles and solar panels by 10%. Edison Incorporated said that this decision is motivated by its desire to make its products more affordable and accessible to a wider range of customers. The company also said that it has achieved significant cost reductions thanks to its technological innovations and economies of scale. The price reduction is expected to increase the demand and sales of the company’s products, as well as its market share and competitiveness.</Content>
+		</Event>
+		<Event id="EDSN_production_difficulties">
+			<Effect>15</Effect>
+			<Target>EDSN</Target>
+			<Type>Negative</Type>
+			<Title>Edison Incorporated is facing production difficulties</Title>
+			<Content>The company said it was having difficulty mining lithium, which is a key material for producing batteries for electric vehicles. The company blamed the shortage of lithium on environmental issues and political instability in some regions. Edison Incorporated assures that the difficulties are temporary and that it is looking for alternative sources of lithium. But we can already say that they harmed the company’s production and profits.</Content>
+		</Event>
+		<Event id="EDSN_production_recall">
+			<Effect>10</Effect>
+			<Target>EDSN</Target>
+			<Type>Negative</Type>
+			<Title>Edison Incorporated recalls some of its electric vehicles </Title>
+			<Content>Edison Incorporated has announced that it will recall some of its electric vehicles due to a defect in the battery system that could cause overheating and fire. The company said that the recall affects a small percentage of its vehicles and that it will provide free repairs and replacements to the affected customers. The company apologized for the inconvenience and said that it is taking all the necessary measures to ensure the safety and quality of its products. However, this incident has damaged the company’s reputation and customer confidence.</Content>
+		</Event>
+		<Event id="EDSN_competition">
+			<Effect>5</Effect>
+			<Target>EDSN</Target>
+			<Type>Negative</Type>
+			<Title>Edison Incorporated faces increased competition in the electric vehicle market</Title>
+			<Content>The company faces increased competition from other companies that are also producing and selling electric vehicles. Some of these competitors offer similar or better products at lower prices or with more features and options. The company said that it is confident in its products and services and that it will continue to innovate and improve its offerings. However, this may affect the company’s sales and market share, as customers may choose other alternatives. </Content>
+		</Event>
+		<Event id="EDSN_criticism">
+			<Effect>5</Effect>
+			<Target>EDSN</Target>
+			<Type>Negative</Type>
+			<Title>Customers criticize Edison Incorporated</Title>
+			<Content>The company has received some criticism from its customers who are unhappy with some aspects of its products and services. The customers have complained about the high prices, long delivery times, and poor customer service of the company. The company has responded to the criticism by acknowledging the issues and promising to improve its performance and quality. Edison Incorporated said that it values its customers’ feedback and that it will use it to enhance its products and services. The company hopes that this will restore its customer trust and satisfaction.</Content>
+		</Event>
+		<Event id="EDSN_autopilot_problems">
+			<Effect>5</Effect>
+			<Target>EDSN</Target>
+			<Type>Negative</Type>
+			<Title>Edison Incorporated reports problems with its autopilot system</Title>
+			<Content>The company has reported that some of its electric vehicles have experienced problems with their autopilot system. The system is supposed to assist the driver in steering, braking, and changing lanes, but some customers have reported that it has malfunctioned or failed to respond in some situations. Edison Incorporated said that it is investigating the cause of the problems and that it will issue a software update to fix them. The company also advised its customers to always pay attention and be ready to take over the control of the vehicle when using the autopilot system. The problems have raised some safety and reliability concerns among the customers and the regulators.</Content>
+		</Event>
+		<Event id="NTF_new_series">
+			<Effect>15</Effect>
+			<Target>NTF</Target>
+			<Type>Positive</Type>
+			<Title>Netfilm announces new series</Title>
+			<Content>The company has confirmed the creation of its new series, which will be exclusive to its platform. The title and plot are still unknown, but the public already looks interested and curious. The company said that the new series will be a high-quality production with a talented cast and crew. The company hopes that the new series will attract more subscribers and viewers to its platform.</Content>
+		</Event>
+		<Event id="NTF_award">
+			<Effect>10</Effect>
+			<Target>NTF</Target>
+			<Type>Positive</Type>
+			<Title>Netfilm wins awards for its original content</Title>
+			<Content>The company has won several awards for its original content, including movies and series. The awards recognize Netfilm’s creativity and excellence in producing and streaming high-quality content that appeals to a wide audience. The awards also boost Netfilm’s reputation and popularity in the online streaming industry.</Content>
+		</Event>
+		<Event id="NTF_video_hosting update">
+			<Effect>5</Effect>
+			<Target>NTF</Target>
+			<Type>Positive</Type>
+			<Title>Netfilm improves its video hosting service</Title>
+			<Content>Netfilm has announced that it has improved its video hosting service, which allows users to upload and stream their own videos on its platform. The company said that the improvement will enhance the quality, speed, and security of the video hosting service, as well as provide more options and features for users. The company said that the improvement will attract more users and creators to its platform, and increase its revenue and profit.</Content>
+		</Event>
+		<Event id="NTF_subscription_discount">
+			<Effect>5</Effect>
+			<Target>NTF</Target>
+			<Type>Positive</Type>
+			<Title>Netfilm offers a subscription discount</Title>
+			<Content>Netfilm has announced that it will offer a subscription discount for its customers who sign up for a year or more. The company said that the discount will make its service more affordable and accessible for its customers, as well as increase its customer loyalty and retention. The company said that the discount is part of its customer appreciation and promotion campaign.</Content>
+		</Event>
+		<Event id="NTF_customers_loyalty">
+			<Effect>5</Effect>
+			<Target>NTF</Target>
+			<Type>Positive</Type>
+			<Title>Netfilm rewards its loyal customers</Title>
+			<Content>Netfilm has announced that it has rewarded its loyal customers with special offers and benefits. The company said that it has launched a loyalty program that allows its customers to earn points and redeem them for discounts, free trials, or exclusive content. The company also said that it has sent personalized recommendations and gifts to its customers, based on their preferences and interests.</Content>
+		</Event>
+		<Event id="NTF_lawsuit">
+			<Effect>15</Effect>
+			<Target>NTF</Target>
+			<Type>Negative</Type>
+			<Title>Netfilm faced lawsuit</Title>
+			<Content>Netfilm sued by movie studios for streaming their content without permission. Netfilm denies the charges and says it has a fair use policy that allows it to stream content for educational and entertainment purposes. The lawsuit could affect the online streaming industry and set a precedent for future cases. The company may have to pay a large amount of money in damages or remove some content from its platform.</Content>
+		</Event>
+		<Event id="NTF_delay">
+			<Effect>10</Effect>
+			<Target>NTF</Target>
+			<Type>Negative</Type>
+			<Title>Netfilm delays new releases</Title>
+			<Content>Netfilm has announced that it will delay some of its new releases, due to production difficulties or quality issues. The company said that it wants to ensure that its new releases meet its high standards and expectations, and that it apologizes for any inconvenience caused to its customers. However, this decision has disappointed some of its customers who were eagerly waiting for the new releases, and has given an advantage to its competitors who have released their content on time.</Content>
+		</Event>
+		<Event id="NTF_content_controversy">
+			<Effect>5</Effect>
+			<Target>NTF</Target>
+			<Type>Negative</Type>
+			<Title>Netfilm faces controversy over its content</Title>
+			<Content>Netfilm has faced controversy over some of its content, which has been accused of being offensive, inappropriate, or inaccurate. Some of its content has sparked backlash and criticism from various groups and individuals, who have demanded that Netfilm remove or apologize for the content. Some of its content has also been banned or censored in some countries or regions, due to legal or cultural reasons. This controversy has harmed Netfilm’s image and reputation, as well as caused some of its customers and partners to boycott or cancel its service.</Content>
+		</Event>
+		<Event id="NTF_piracy_threat">
+			<Effect>5</Effect>
+			<Target>NTF</Target>
+			<Type>Negative</Type>
+			<Title>Netfilm faces piracy threat</Title>
+			<Content>Netfilm has faced piracy threat, which has affected its revenue and profit. The company has discovered that some of its content has been illegally copied or distributed by unauthorized parties or platforms. The company has also found that some of its customers have shared their accounts or passwords with others, who have accessed its service without paying. The company said that it is taking measures to protect its intellectual property rights and to prevent piracy. However, this situation has reduced Netfilm’s income and market share, as well as damaged its exclusivity and value.</Content>
+		</Event>
+		<Event id="NTF_employee_strike">
+			<Effect>5</Effect>
+			<Target>NTF</Target>
+			<Type>Negative</Type>
+			<Title>Netfilm faces employee strike</Title>
+			<Content>Netfilm has faced employee strike, which has disrupted its operations and productivity. The company’s employees have gone on strike to demand better working conditions, wages, and benefits. The company said that it is negotiating with the employees and their representatives, and that it hopes to reach a fair and reasonable agreement. However, this situation has affected Netfilm’s performance and output, as well as its relationship and trust with its employees.</Content>
+		</Event>
+		<Event id="CSC_government_contract">
+			<Effect>15</Effect>
+			<Target>CSC</Target>
+			<Type>Positive</Type>
+			<Title>COBRA Security Consulting signs a contract with the government</Title>
+			<Content>The company signed a contract with the government to ensure the security of state facilities such as military bases, power plants, airports, etc. COBRA operatives are already arriving at the facilities and setting up security measures. The exact amount of the contract was not disclosed, but it is already clear that the contract is beneficial to both parties. The contract will provide a stable income for the company and enhance the security of the state facilities.</Content>
+		</Event>
+		<Event id="CSC_UN_permission">
+			<Effect>10</Effect>
+			<Target>CSC</Target>
+			<Type>Positive</Type>
+			<Title>The United Nations gives permission for COBRA Security Consulting to operate in new territories</Title>
+			<Content>The United Nations has granted permission for COBRA Security Consulting to operate in new territories that are under its supervision and protection. The permission allows the company to provide security services and solutions to various clients and sectors in these territories, such as humanitarian organizations, businesses, and governments. The company said that the permission is a sign of its credibility and reputation, as well as an opportunity to expand its scope and impact.</Content>
+		</Event>
+		<Event id="CSC_rescue_operation">
+			<Effect>5</Effect>
+			<Target>CSC</Target>
+			<Type>Positive</Type>
+			<Title>COBRA Security Consulting successfully completes the rescue operation</Title>
+			<Content>COBRA Security Consulting announced that it has successfully completed the rescue operation of a group of hostages held by a terrorist organization in a remote location. The operation involved a team of highly trained and experienced operatives who infiltrated the enemy camp and freed the hostages without any casualties. The hostages were then transported to a safe place and reunited with their families. The company said that the operation was a testament to its skills and dedication to saving lives.</Content>
+		</Event>
+		<Event id="CSC_new_equipment">
+			<Effect>5</Effect>
+			<Target>CSC</Target>
+			<Type>Positive</Type>
+			<Title>COBRA Security Consulting unveils its new technology and equipment</Title>
+			<Content>COBRA Security Consulting unveils its new technology and equipment for its operatives. The new technology and equipment include advanced drones, sensors, weapons, and communication devices that enhance the capabilities and safety of its operatives. The company said that the new technology and equipment will give it an edge over its competitors and adversaries</Content>
+		</Event>
+		<Event id="CSC_supply_contract">
+			<Effect>5</Effect>
+			<Target>CSC</Target>
+			<Type>Positive</Type>
+			<Title>COBRA Security Consulting secures a supply contract with government</Title>
+			<Content>COBRA Security Consulting revealed that it has provided security supplies to the government as part of a contract to equip its forces and agencies with the latest security equipment and technology. The contract will enhance the company’s revenue and reputation, as well as show its competence and dependability of its products and services. The company said that the contract is an acknowledgment of its innovation and excellence, and that it is pleased and honored to collaborate with the government.</Content>
+		</Event>
+		<Event id="CSC_violent_actions">
+			<Effect>15</Effect>
+			<Target>CSC</Target>
+			<Type>Negative</Type>
+			<Title>COBRA Security Consulting is being criticized for their violent actions</Title>
+			<Content>COBRA Security Consulting has been criticized for its harsh actions in the Middle East on the territory of the facilities under its protection. The company’s management states that this is necessary to ensure security in the region and prevent terrorist attacks. However, some human rights organizations and media outlets accuse the company of using excessive force and violating international law. Government has already become interested in this case, and most likely the company will face punishment such as sanctions, fines, or termination of contracts.</Content>
+		</Event>
+		<Event id="CSC_captured_brigades">
+			<Effect>10</Effect>
+			<Target>CSC</Target>
+			<Type>Negative</Type>
+			<Title>COBRA Security Consulting brigades were captured</Title>
+			<Content>COBRA Security Consulting confirmed that some of its brigades were captured by a rebel group during a security operation. The brigades were part of a team that was providing security and escort to a convoy of humanitarian aid workers who were delivering supplies to a war-torn area. The rebel group ambushed the convoy and took the brigades as hostages. The company said that it is in contact with the rebel group and is negotiating for the release of the brigades. The company also said that it is doing everything in its power to ensure the safety and well-being of its brigades.</Content>
+		</Event>
+		<Event id="CSC_fighter_shot_down">
+			<Effect>5</Effect>
+			<Target>CSC</Target>
+			<Type>Negative</Type>
+			<Title>Fighter of COBRA Security Consulting was shot down</Title>
+			<Content>COBRA Security Consulting confirmed that one of its fighters was shot down by an unknown enemy during a security mission. The fighter was part of a team that was providing air support to a client who was under attack by a hostile force. The fighter was hit by a missile and crashed in a remote area. The company said that it is trying to locate and rescue the pilot, who is presumed to be alive. The company also said that it is investigating the identity and motive of the enemy who shot down the fighter.</Content>
+		</Event>
+		<Event id="CSC_vehicle_accident">
+			<Effect>5</Effect>
+			<Target>CSC</Target>
+			<Type>Negative</Type>
+			<Title>COBRA Security Consulting vehicle involved in a deadly accident</Title>
+			<Content>A COBRA Security Consulting vehicle has been involved in a serious accident that resulted in several casualties, including civilians and company personnel. The accident happened during a convoy operation, and the cause of the accident is still under investigation. The company is offering support and compensation to the victims and their families, but it may face legal action and reputational damage from the incident.</Content>
+		</Event>
+		<Event id="CSC_staff_arested">
+			<Effect>5</Effect>
+			<Target>CSC</Target>
+			<Type>Negative</Type>
+			<Title>COBRA Security Consulting staff arrested for illegal activity</Title>
+			<Content>Several COBRA Security Consulting employees have been arrested for engaging in illegal activity, such as smuggling weapons or drugs, while on duty. The company denies any knowledge or involvement in the illegal activity and is cooperating with the authorities to investigate the matter. However, the incident may damage the company's reputation and credibility, and it may face legal consequences if found guilty of any wrongdoing.</Content>
+		</Event>
+	</Events>
+</Data>
