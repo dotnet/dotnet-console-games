@@ -263,6 +263,16 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Oligopoly",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Oligopoly",
+			"program": "${workspaceFolder}/Projects/Oligopoly/bin/Debug/Oligopoly.dll",
+			"cwd": "${workspaceFolder}/Projects/Oligopoly/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Yahtzee",
 			"type": "coreclr",
 			"request": "launch",
