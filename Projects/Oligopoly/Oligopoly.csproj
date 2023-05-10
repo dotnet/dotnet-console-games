@@ -3,11 +3,14 @@
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>disable</Nullable>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-		<None Update="Data.xml">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
+	  <None Remove="Company.json" />
+	  <None Remove="Event.json" />
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Include="Company.json" />
+	  <EmbeddedResource Include="Event.json" />
 	</ItemGroup>
 </Project>

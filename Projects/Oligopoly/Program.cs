@@ -1,15 +1,18 @@
-﻿using System.Xml;
-using System.Xml.Serialization;
+﻿using System.Reflection;
+using System.Text.Json;
 
-namespace Oligopoly.Source
+namespace Oligopoly
 {
     public class Program
     {
-        /// <summary>
-        ///  Program entry point.
-        /// </summary>
-        /// <param name="args">The array of strings to process.</param>
-        public static void Main(string[] args)
+		public static List<Company> Companies;
+		public static List<Event> Events;
+
+		/// <summary>
+		///  Program entry point.
+		/// </summary>
+		/// <param name="args">The array of strings to process.</param>
+		public static void Main(string[] args)
         {
             RunMainMenu();
         }
@@ -30,7 +33,7 @@ namespace Oligopoly.Source
 ";
             string[] options = { "Play", "About", "Exit" };
 
-            Menu mainMenu = new Menu(prompt, options, 0);
+            Menu mainMenu = new(prompt, options, 0);
 
             int selectedOption = mainMenu.RunMenu();
 
@@ -60,7 +63,7 @@ Do you want to read the introductory letter or do you want to jump right into th
 ";
             string[] options = { "Read introductory letter", "Skip introductory letter" };
 
-            Menu skipMenu = new Menu(prompt, options, 0);
+            Menu skipMenu = new(prompt, options, 0);
 
             int selectedOption = skipMenu.RunMenu();
 
@@ -91,7 +94,7 @@ The board of directors of Oligopoly Investments
 ";
             string[] options = { "Get Access" };
 
-            Menu startMenu = new Menu(prompt, options, 15);
+            Menu startMenu = new(prompt, options, 15);
 
             int selectedOption = startMenu.RunMenu();
 
@@ -109,75 +112,57 @@ The board of directors of Oligopoly Investments
         /// </summary>
         private static void RunGameMenu()
         {
-            // Create a Data class object, that contains game companies and events.
-            Data data = new Data();
+			{
+				Assembly assembly = Assembly.GetExecutingAssembly();
+				{
+					using Stream? stream = assembly.GetManifestResourceStream("Oligopoly.Company.json");
+					Companies = JsonSerializer.Deserialize<List<Company>>(stream!)!;
+				}
+				{
+					using Stream? stream = assembly.GetManifestResourceStream("Oligopoly.Event.json");
+					Events = JsonSerializer.Deserialize<List<Event>>(stream!)!;
+				}
+			}
 
-            // Read the .xml file.
-            try
-            {
-                XmlSerializer serializer = new XmlSerializer(typeof(Data));
-
-                using (Stream stream = File.Open("Data\\Data.xml", FileMode.Open))
-                {
-                    using (StreamReader reader = new StreamReader(stream))
-                    {
-                        data = (Data)serializer.Deserialize(reader);
-                    }
-                }
-            }
-            catch (InvalidOperationException ex)
-            {
-                Console.WriteLine($"Error! In file Data.xml specified invalid value.");
-
-                if (ex.InnerException != null)
-                {
-                    Console.WriteLine(ex.InnerException.Message);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error! \nDetails: {ex.Message}");
-            }
-
-            // Create variables.
-            int currentEvent;
+			// Create variables.
+			int currentEvent;
             double money = 10000;
             bool isGameEnded = false;
 
             // Create a Random class object to generate event.
-            Random random = new Random();
+            Random random = new();
 
             // Start of the game cycle.
             while (!isGameEnded)
             {
                 // Generate event for current turn.
-                currentEvent = random.Next(0, data.gameEvents.Count);
+                currentEvent = random.Next(0, Events.Count);
 
                 // Determine current event's type.
-                if (data.gameEvents[currentEvent].Type == "Positive")  // If current event is positive.
+                if (Events[currentEvent].Type == "Positive")  // If current event is positive.
                 {
-                    foreach (var currentCompany in data.gameCompanies)
+                    foreach (Company currentCompany in Companies)
                     {
-                        if (currentCompany.Ticker == data.gameEvents[currentEvent].Target)
+                        if (currentCompany.Ticker == Events[currentEvent].Target)
                         {
-                            currentCompany.SharePrice = Math.Round(currentCompany.SharePrice + currentCompany.SharePrice * data.gameEvents[currentEvent].Effect / 100, 2);
+                            currentCompany.SharePrice = Math.Round(currentCompany.SharePrice + currentCompany.SharePrice * Events[currentEvent].Effect / 100, 2);
                         }
                     }
                 }
-                else if (data.gameEvents[currentEvent].Type == "Negative")  // If current event is negative.
+                else if (Events[currentEvent].Type == "Negative")  // If current event is negative.
                 {
-                    foreach (var currentCompany in data.gameCompanies)
+                    foreach (Company currentCompany in Companies)
                     {
-                        if (currentCompany.Ticker == data.gameEvents[currentEvent].Target)
+                        if (currentCompany.Ticker == Events[currentEvent].Target)
                         {
-                            currentCompany.SharePrice = Math.Round(currentCompany.SharePrice - currentCompany.SharePrice * data.gameEvents[currentEvent].Effect / 100, 2);
+                            currentCompany.SharePrice = Math.Round(currentCompany.SharePrice - currentCompany.SharePrice * Events[currentEvent].Effect / 100, 2);
                         }
                     }
                 }
 
                 string prompt = "\nUse up and down arrow keys to select an option: \n";
                 string[] options = { "Skip", "Buy", "Sell", "More About Companies" };
-                GameMenu gameMenu = new GameMenu(prompt, options, 0, currentEvent, money, data);
+                GameMenu gameMenu = new(prompt, options, 0, currentEvent, money);
 
                 int selectedOption = gameMenu.RunMenu();
 
@@ -186,13 +171,13 @@ The board of directors of Oligopoly Investments
                     case 0:
                         break;
                     case 1:
-                        RunActionMenu(ref money, currentEvent, data, true);
+                        RunActionMenu(ref money, currentEvent, true);
                         break;
                     case 2:
-                        RunActionMenu(ref money, currentEvent, data, false);
+                        RunActionMenu(ref money, currentEvent, false);
                         break;
                     case 3:
-                        DisplayMoreAboutCompaniesMenu(data);
+                        DisplayMoreAboutCompaniesMenu();
                         gameMenu.RunMenu();
                         break;
                 }
@@ -222,40 +207,40 @@ The board of directors of Oligopoly Investments
         /// <param name="currentEvent">The index of current generated event.</param>
         /// <param name="data">An Data class object, that contain information about companies and events.</param>
         /// <param name="isBuying">Flag that determines the mode of the method. True - buying, false - selling.</param>
-        private static void RunActionMenu(ref double money, int currentEvent, Data data, bool isBuying)
+        private static void RunActionMenu(ref double money, int currentEvent, bool isBuying)
         {
             string actionPrompt = "Select a company: \n";
             string amountPrompt = "Select an amount: \n";
-            string[] actionOptions = new string[data.gameCompanies.Count];
+            string[] actionOptions = new string[Companies.Count];
             string[] amountOptions = { "Increase (+)", "Decrease (-)", "Enter" };
 
             for (int i = 0; i < actionOptions.Length; i++)
             {
-                actionOptions[i] = data.gameCompanies[i].Name;
+                actionOptions[i] = Companies[i].Name;
             }
 
-            GameMenu actionMenu = new GameMenu(actionPrompt, actionOptions, 0, currentEvent, money, data);
-            GameMenu amountMenu = new GameMenu(amountPrompt, amountOptions, 0, currentEvent, money, data);
+            GameMenu actionMenu = new(actionPrompt, actionOptions, 0, currentEvent, money);
+            GameMenu amountMenu = new(amountPrompt, amountOptions, 0, currentEvent, money);
 
             int selectedCompany = actionMenu.RunMenu();
             int amountOfShares = amountMenu.RunAmountMenu();
 
             if (isBuying)
             {
-                data.gameCompanies[selectedCompany].ShareAmount += amountOfShares;
-                money -= amountOfShares * data.gameCompanies[selectedCompany].SharePrice;
+				Companies[selectedCompany].ShareAmount += amountOfShares;
+                money -= amountOfShares * Companies[selectedCompany].SharePrice;
 
-                Console.WriteLine($"You have bought {amountOfShares} shares of {data.gameCompanies[selectedCompany].Name} company.");
+                Console.WriteLine($"You have bought {amountOfShares} shares of {Companies[selectedCompany].Name} company.");
                 Thread.Sleep(2500);
             }
             else
             {
-                if (amountOfShares <= data.gameCompanies[selectedCompany].ShareAmount)
+                if (amountOfShares <= Companies[selectedCompany].ShareAmount)
                 {
-                    data.gameCompanies[selectedCompany].ShareAmount -= amountOfShares;
-                    money += amountOfShares * data.gameCompanies[selectedCompany].SharePrice;
+					Companies[selectedCompany].ShareAmount -= amountOfShares;
+                    money += amountOfShares * Companies[selectedCompany].SharePrice;
 
-                    Console.WriteLine($"You have sold {amountOfShares} shares of {data.gameCompanies[selectedCompany].Name} company.");
+                    Console.WriteLine($"You have sold {amountOfShares} shares of {Companies[selectedCompany].Name} company.");
                     Thread.Sleep(2500);
                 }
                 else
@@ -270,11 +255,11 @@ The board of directors of Oligopoly Investments
         /// Displays companies descriptions to the console.
         /// </summary>
         /// <param name="data">An Data class object, that contain information about companies and events.</param>
-        private static void DisplayMoreAboutCompaniesMenu(Data data)
+        private static void DisplayMoreAboutCompaniesMenu()
         {
             Console.Clear();
 
-            foreach (var company in data.gameCompanies)
+            foreach (Company company in Companies)
             {
                 Console.WriteLine($"{company.Name} - {company.Description}\n");
             }
@@ -304,7 +289,7 @@ The board of directors of Oligopoly Investments
 ";
                 string[] options = { "Play Again", "Return to Main Menu" };
 
-                Menu EndMenu = new Menu(prompt, options, 15);
+                Menu EndMenu = new(prompt, options, 15);
 
                 int selectedOption = EndMenu.RunMenu();
 
@@ -331,7 +316,7 @@ The board of directors of Oligopoly Investments
 ";
                 string[] options = { "Play Again", "Return to Main Menu" };
 
-                Menu EndMenu = new Menu(prompt, options, 15);
+                Menu EndMenu = new(prompt, options, 15);
 
                 int selectedOption = EndMenu.RunMenu();
 

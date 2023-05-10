@@ -1,0 +1,42 @@
+[
+  {
+    "Name": "Bingoo",
+    "Ticker": "BNG",
+    "Industry": "Web",
+    "SharePrice": 1500,
+    "ShareAmount": 0,
+    "Description": "Promising search company. Leader in the development of various web services and web applications. Bingoo is known for its innovative and user-friendly products that aim to make the web more accessible and enjoyable. Bingoo also invests in artificial intelligence and machine learning to enhance its search engine and other services."
+  },
+  {
+    "Name": "Quantum Software",
+    "Ticker": "QST",
+    "Industry": "Software",
+    "SharePrice": 2000,
+    "ShareAmount": 0,
+    "Description": "Software development company. The company is best known for its own operating system and various software packages. Quantum Software is a pioneer in the field of software engineering and has a reputation for creating reliable and fast products. Quantum Software also collaborates with other companies and organizations to provide customized solutions for their needs."
+  },
+  {
+    "Name": "Edison Incorporated",
+    "Ticker": "EDSN",
+    "Industry": "Energy",
+    "SharePrice": 1000,
+    "ShareAmount": 0,
+    "Description": "An innovative company engaged in the development and production of electric vehicles, batteries, solar panels. Edison Incorporated is a leader in the green energy sector and strives to reduce the environmental impact of transportation and energy consumption. Edison Incorporated also offers a range of services and products for consumers and businesses who want to switch to renewable energy sources."
+  },
+  {
+    "Name": "Netfilm",
+    "Ticker": "NTF",
+    "Industry": "Movies",
+    "SharePrice": 800,
+    "ShareAmount": 0,
+    "Description": "A leading company in the field of online movies and series, also engaged in the development of video hosting. Netfilm is a popular platform for streaming and watching movies and series of various genres and languages. Netfilm also produces its own original content that attracts millions of viewers. Netfilm also provides a video hosting service that allows users to upload and share their own videos."
+  },
+  {
+    "Name": "COBRA Security Consulting",
+    "Ticker": "CSC",
+    "Industry": "Army",
+    "SharePrice": 1200,
+    "ShareAmount": 0,
+    "Description": "COBRA (stands for Counter-Offensive Brigades for Rapid Action) are private special forces units equipped with the latest technology. The company fulfills orders all over the world and cooperates with various governments. COBRA Security Consulting is a professional and discreet company that offers security services for high-risk situations and locations. COBRA Security Consulting also trains and equips its operatives with advanced weapons and gadgets to ensure their success."
+  }
+]
