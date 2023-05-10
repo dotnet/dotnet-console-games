@@ -1,4 +1,7 @@
-﻿namespace Oligopoly;
+﻿using System;
+using System.Threading;
+
+namespace Oligopoly;
 
 public class GameMenu : Menu
 {
