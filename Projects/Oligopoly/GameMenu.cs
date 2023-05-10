@@ -29,19 +29,18 @@ public class GameMenu : Menu
 	{
 		// column widths
 		const int c0 = 30;
-		const int c1 = 8;
-		const int c2 = 10;
-		const int c3 = 19;
-		const int c4 = 17;
+		const int c1 = 10;
+		const int c2 = 19;
+		const int c3 = 17;
 
-		Console.WriteLine($"╔═{new('═', c0)}═╤═{new('═', c1)}═╤═{new('═', c2)}═╤═{new('═', c3)}═╤═{new('═', c4)}═╗");
-		Console.WriteLine($"║ {"Company", -c0} │ {"Ticker", c1} │ {"Industry", c2} │ {"Share Price", c3} │ {"You Have", c4} ║");
-		Console.WriteLine($"╟─{new('─', c0)}─┼─{new('─', c1)}─┼─{new('─', c2)}─┼─{new('─', c3)}─┼─{new('─', c4)}─╢");
+		Console.WriteLine($"╔═{new('═', c0)}═╤═{new('═', c1)}═╤═{new('═', c2)}═╤═{new('═', c3)}═╗");
+		Console.WriteLine($"║ {"Company", -c0} │ {"Industry", c1} │ {"Share Price", c2} │ {"You Have", c3} ║");
+		Console.WriteLine($"╟─{new('─', c0)}─┼─{new('─', c1)}─┼─{new('─', c2)}─┼─{new('─', c3)}─╢");
 		foreach (Company company in Program.Companies)
 		{
-			Console.WriteLine($"║ {company.Name, -c0} │ {company.Ticker, c1} │ {company.Industry, c2} │ {company.SharePrice, c3} │ {company.ShareAmount, c4} ║");
+			Console.WriteLine($"║ {company.Name, -c0} │ {company.Industry, c1} │ {company.SharePrice, c2} │ {company.ShareAmount, c3} ║");
 		}
-		Console.WriteLine($"╚═{new('═', c0)}═╧═{new('═', c1)}═╧═{new('═', c2)}═╧═{new('═', c3)}═╧═{new('═', c4)}═╝");
+		Console.WriteLine($"╚═{new('═', c0)}═╧═{new('═', c1)}═╧═{new('═', c2)}═╧═{new('═', c3)}═╝");
 		Console.WriteLine();
 
 		Console.WriteLine($"{Program.Events[CurrentEvent].Title}");
