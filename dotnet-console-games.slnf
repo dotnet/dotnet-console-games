@@ -24,6 +24,7 @@
       "Projects\\Maze\\Maze.csproj",
       "Projects\\Memory\\Memory.csproj",
       "Projects\\Minesweeper\\Minesweeper.csproj",
+      "Projects\\Oligopoly\\Oligopoly.csproj",
       "Projects\\PacMan\\PacMan.csproj",
       "Projects\\Pong\\Pong.csproj",
       "Projects\\Quick Draw\\Quick Draw.csproj",
