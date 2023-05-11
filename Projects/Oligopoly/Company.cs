@@ -6,7 +6,7 @@ public class Company
 {
 	public string Name { get; set; }
 	public string Industry { get; set; }
-	public double SharePrice { get; set; }
-	public double ShareAmount { get; set; }
+	public decimal SharePrice { get; set; }
+	public int NumberOfShares { get; set; }
 	public string Description { get; set; }
 }
