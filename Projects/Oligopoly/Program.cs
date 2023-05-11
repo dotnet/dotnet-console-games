@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using System.Text.Json;
 
 namespace Oligopoly;
@@ -41,18 +42,25 @@ public class Program
 
 	private static void RunMainMenu()
 	{
-		string prompt = @"
- ██████╗ ██╗     ██╗ ██████╗  ██████╗ ██████╗  ██████╗ ██╗  ██╗   ██╗
-██╔═══██╗██║     ██║██╔════╝ ██╔═══██╗██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝
-██║   ██║██║     ██║██║  ███╗██║   ██║██████╔╝██║   ██║██║   ╚████╔╝ 
-██║   ██║██║     ██║██║   ██║██║   ██║██╔═══╝ ██║   ██║██║    ╚██╔╝  
-╚██████╔╝███████╗██║╚██████╔╝╚██████╔╝██║     ╚██████╔╝███████╗██║   
- ╚═════╝ ╚══════╝╚═╝ ╚═════╝  ╚═════╝ ╚═╝      ╚═════╝ ╚══════╝╚═╝   
-        --Use up and down arrow keys to select an option--                                                                     
-";
-		string[] options = { "Play", "About", "Exit" };
-
-		Menu mainMenu = new(prompt, options);
+		StringBuilder prompt = new();
+		prompt.AppendLine();
+		prompt.AppendLine("     ██████╗ ██╗     ██╗ ██████╗  ██████╗ ██████╗  ██████╗ ██╗  ██╗   ██╗");
+		prompt.AppendLine("    ██╔═══██╗██║     ██║██╔════╝ ██╔═══██╗██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝");
+		prompt.AppendLine("    ██║   ██║██║     ██║██║  ███╗██║   ██║██████╔╝██║   ██║██║   ╚████╔╝ ");
+		prompt.AppendLine("    ██║   ██║██║     ██║██║   ██║██║   ██║██╔═══╝ ██║   ██║██║    ╚██╔╝  ");
+		prompt.AppendLine("    ╚██████╔╝███████╗██║╚██████╔╝╚██████╔╝██║     ╚██████╔╝███████╗██║   ");
+		prompt.AppendLine("     ╚═════╝ ╚══════╝╚═╝ ╚═════╝  ╚═════╝ ╚═╝      ╚═════╝ ╚══════╝╚═╝   ");
+		prompt.AppendLine();
+		prompt.Append("You can exit the game at any time by pressing ESCAPE.");
+		prompt.AppendLine();
+		prompt.Append("Use up and down arrow keys and enter to select an option:");
+		Menu mainMenu = new(prompt.ToString(),
+			new string[]
+			{
+				"Play",
+				"About",
+				"Exit"
+			});
 
 		while (!CloseRequested)
 		{
@@ -71,7 +79,7 @@ public class Program
 			}
 		}
 		Console.Clear();
-		Console.WriteLine("Press any key to exit the game...");
+		Console.WriteLine("Oligopoly was closed. Press any key to continue...");
 		Console.CursorVisible = false;
 		Console.ReadKey(true);
 	}
@@ -101,7 +109,7 @@ public class Program
 		Console.WriteLine();
 		Console.WriteLine("Press any key to continue...");
 		Console.CursorVisible = false;
-		Console.ReadKey(true);
+		CloseRequested = CloseRequested || Console.ReadKey(true).Key is ConsoleKey.Escape;
 		RunGameMenu();
 	}
 
@@ -112,7 +120,7 @@ public class Program
 		Random random = new();
 
 		// Start of the game cycle.
-		while (!isGameEnded)
+		while (!CloseRequested && !isGameEnded)
 		{
 			int currentEvent = random.Next(0, Events.Count);
 
@@ -137,12 +145,12 @@ public class Program
 				}
 			}
 
-			string prompt = "Use up and down arrow keys to select an option:";
+			string prompt = "Use up and down arrow keys and enter to select an option:";
 			string[] options = { "Skip", "Buy", "Sell", "More About Companies" };
 			GameMenu gameMenu = new(prompt, options, currentEvent, money);
 
 			int selectedOption = -1;
-			while (selectedOption is not 0)
+			while (!CloseRequested && selectedOption is not 0)
 			{
 				selectedOption = gameMenu.RunMenu();
 				switch (selectedOption)
@@ -205,7 +213,7 @@ public class Program
 			Console.WriteLine($"You have bought {amountOfShares} shares of {Companies[selectedCompany].Name} company.");
 			Console.WriteLine("Press any key to continue...");
 			Console.CursorVisible = false;
-			Console.ReadKey(true);
+			CloseRequested = CloseRequested || Console.ReadKey(true).Key is ConsoleKey.Escape;
 		}
 		else
 		{
@@ -217,14 +225,14 @@ public class Program
 				Console.WriteLine($"You have sold {amountOfShares} shares of {Companies[selectedCompany].Name} company.");
 				Console.WriteLine("Press any key to continue...");
 				Console.CursorVisible = false;
-				Console.ReadKey(true);
+				CloseRequested = CloseRequested || Console.ReadKey(true).Key is ConsoleKey.Escape;
 			}
 			else
 			{
 				Console.WriteLine("Entered not a valid value");
 				Console.WriteLine("Press any key to continue...");
 				Console.CursorVisible = false;
-				Console.ReadKey(true);
+				CloseRequested = CloseRequested || Console.ReadKey(true).Key is ConsoleKey.Escape;
 			}
 		}
 	}
@@ -238,7 +246,7 @@ public class Program
 		}
 		Console.WriteLine("Press any key to exit the menu...");
 		Console.CursorVisible = false;
-		Console.ReadKey(true);
+		CloseRequested = CloseRequested || Console.ReadKey(true).Key is ConsoleKey.Escape;
 	}
 
 	/// <summary>
@@ -271,7 +279,7 @@ public class Program
 			Console.WriteLine();
 			Console.WriteLine("Press any key to continue...");
 			Console.CursorVisible = false;
-			Console.ReadKey(true);
+			CloseRequested = CloseRequested || Console.ReadKey(true).Key is ConsoleKey.Escape;
 		}
 		else
 		{
@@ -292,7 +300,7 @@ public class Program
 			Console.WriteLine();
 			Console.WriteLine("Press any key to continue...");
 			Console.CursorVisible = false;
-			Console.ReadKey(true);
+			CloseRequested = CloseRequested || Console.ReadKey(true).Key is ConsoleKey.Escape;
 		}
 	}
 
@@ -307,6 +315,6 @@ public class Program
 		Console.WriteLine();
 		Console.WriteLine("Press any key to continue...");
 		Console.CursorVisible = false;
-		Console.ReadKey(true);
+		CloseRequested = CloseRequested || Console.ReadKey(true).Key is ConsoleKey.Escape;
 	}
 }
