@@ -19,15 +19,15 @@
 	<sup>Hosted On GitHub Pages</sup>
 </p>
 
+> **Note** This game was a *[Community Contribution](https://github.com/dotnet/dotnet-console-games/pull/72)!
+
 Oligopoly is a stock market betting game. Buy stocks in a company and then try to sell them at a higher price.
 
 ## Input
 
-- `↑`, `↓`, `←`, `→`: movement
-- `enter`: play again
+- `↑`, `↓`, `←`, `→`: menu selection
+- `enter`: confirm
 - `escape`: exit game
-
-> resizing the console window will cause the game to close
 
 ## Downloads
 
