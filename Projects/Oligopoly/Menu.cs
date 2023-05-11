@@ -50,19 +50,23 @@ public class Menu
 	public virtual int RunMenu()
 	{
 		ConsoleKey keyPressed = default;
-		while (keyPressed is not ConsoleKey.Enter)
+		while (!Program.CloseRequested && keyPressed is not ConsoleKey.Enter)
 		{
 			Console.Clear();
 			DisplayMenu();
 			Console.CursorVisible = false;
 			keyPressed = Console.ReadKey().Key;
-			if (keyPressed is ConsoleKey.UpArrow)
+			switch (keyPressed)
 			{
-				SelectedIndex = SelectedIndex is 0 ? Options.Length - 1 : SelectedIndex - 1;
-			}
-			else if (keyPressed is ConsoleKey.DownArrow)
-			{
-				SelectedIndex = SelectedIndex == Options.Length - 1 ? 0 : SelectedIndex + 1;
+				case ConsoleKey.UpArrow:
+					SelectedIndex = SelectedIndex is 0 ? Options.Length - 1 : SelectedIndex - 1;
+					break;
+				case ConsoleKey.DownArrow:
+					SelectedIndex = SelectedIndex == Options.Length - 1 ? 0 : SelectedIndex + 1;
+					break;
+				case ConsoleKey.Escape:
+					Program.CloseRequested = true;
+					break;
 			}
 		}
 		return SelectedIndex;
