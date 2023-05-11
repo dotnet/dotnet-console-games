@@ -25,7 +25,7 @@ Oligopoly is a stock market betting game. Buy stocks in a company and then try t
 
 ## Input
 
-- `↑`, `↓`, `←`, `→`: menu selection
+- `↑`, `↓`: menu selection
 - `enter`: confirm
 - `escape`: exit game
 
