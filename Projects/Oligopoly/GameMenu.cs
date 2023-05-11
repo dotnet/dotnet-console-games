@@ -136,7 +136,6 @@ public class GameMenu : Menu
 					break;
 			}
 		}
-
 		return amount;
 	}
 }
