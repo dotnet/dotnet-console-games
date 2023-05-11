@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 
 namespace Oligopoly;
 
@@ -15,8 +14,8 @@ public class GameMenu : Menu
 	/// <param name="options">The options to display in the menu.</param>
 	/// <param name="outputDelay">The text output delay. Have to be a positive integer or zero.</param>
 	/// <param name="currentEvent">The integer that represents current event.</param>
-	public GameMenu(string prompt, string[] options, int outputDelay, int currentEvent, double money)
-		: base(prompt, options, outputDelay)
+	public GameMenu(string prompt, string[] options, int currentEvent, double money)
+		: base(prompt, options)
 	{
 		CurrentEvent = currentEvent;
 		Money = money;
@@ -49,13 +48,9 @@ public class GameMenu : Menu
 		Console.WriteLine();
 
 		Console.WriteLine($"You have: {Math.Round(Money, 2)}$");
-		//Console.WriteLine();
+		Console.WriteLine();
 
-		foreach (char symbol in Prompt)
-		{
-			Thread.Sleep(OutputDelay);
-			Console.Write(symbol);
-		}
+		Console.WriteLine(Prompt);
 
 		for (int i = 0; i < Options.Length; i++)
 		{
@@ -79,15 +74,12 @@ public class GameMenu : Menu
 	/// <returns>An integer that represents the selected option.</returns>
 	public override int RunMenu()
 	{
-		// Set output delay to 0.
-		// This is necessary so that the menu does not draw with a delay when updating the console.
-		OutputDelay = 0;
-
 		ConsoleKey keyPressed = default;
 		while (keyPressed is not ConsoleKey.Enter)
 		{
 			Console.Clear();
 			DisplayMenu();
+			Console.CursorVisible = false;
 			keyPressed = Console.ReadKey().Key;
 			if (keyPressed is ConsoleKey.UpArrow)
 			{
@@ -108,10 +100,6 @@ public class GameMenu : Menu
 	/// <returns>An integer, that represents the amount of shares.</returns>
 	public int RunAmountMenu()
 	{
-		// Set output delay to 0.
-		// This is necessary so that the menu does not draw with a delay when updating the console.
-		OutputDelay = 0;
-
 		ConsoleKey keyPressed = default;
 		int amount = 0;
 		while (keyPressed is not ConsoleKey.Enter || SelectedIndex is not 2)
@@ -119,6 +107,7 @@ public class GameMenu : Menu
 			Console.Clear();
 			DisplayMenu();
 			Console.WriteLine($"Current amount: {amount}");
+			Console.CursorVisible = false;
 			keyPressed = Console.ReadKey().Key;
 			switch (keyPressed)
 			{

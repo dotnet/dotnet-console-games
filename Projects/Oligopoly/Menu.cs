@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Threading;
 
 namespace Oligopoly;
 
 public class Menu
 {
 	protected int SelectedIndex;
-	protected int OutputDelay;
 	protected string Prompt;
 	protected string[] Options;
 
@@ -16,11 +14,10 @@ public class Menu
 	/// <param name="prompt">The prompt to display above the menu.</param>
 	/// <param name="options">The options to display in the menu.</param>
 	/// <param name="outputDelay">The text output delay. Have to be a positive integer or zero!</param>
-	public Menu(string prompt, string[] options, int outputDelay)
+	public Menu(string prompt, string[] options)
 	{
 		Prompt = prompt;
 		Options = options;
-		OutputDelay = outputDelay;
 		SelectedIndex = 0;
 	}
 
@@ -29,12 +26,7 @@ public class Menu
 	/// </summary>
 	protected virtual void DisplayMenu()
 	{
-		foreach (char symbol in Prompt)
-		{
-			Thread.Sleep(OutputDelay);
-			Console.Write(symbol);
-		}
-
+		Console.WriteLine(Prompt);
 		for (int i = 0; i < Options.Length; i++)
 		{
 			string currentOption = Options[i];
@@ -57,15 +49,12 @@ public class Menu
 	/// <returns>An integer that represents the selected option.</returns>
 	public virtual int RunMenu()
 	{
-		// Set output delay to 0.
-		// This is necessary so that the menu does not draw with a delay when updating the console.
-		OutputDelay = 0;
-
 		ConsoleKey keyPressed = default;
 		while (keyPressed is not ConsoleKey.Enter)
 		{
 			Console.Clear();
 			DisplayMenu();
+			Console.CursorVisible = false;
 			keyPressed = Console.ReadKey().Key;
 			if (keyPressed is ConsoleKey.UpArrow)
 			{

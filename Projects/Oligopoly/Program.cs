@@ -3,18 +3,40 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text.Json;
-using System.Threading;
 
 namespace Oligopoly;
 
 public class Program
 {
-	public static List<Company> Companies;
-	public static List<Event> Events;
+	public static bool CloseRequested { get; set; } = false;
+	public static List<Company> Companies { get; private set; } = null!;
+	public static List<Event> Events { get; private set; } = null!;
 
 	public static void Main()
 	{
-		RunMainMenu();
+		try
+		{
+			Console.CursorVisible = false;
+			LoadEmbeddedResources();
+			RunMainMenu();
+		}
+		finally
+		{
+			Console.CursorVisible = true;
+		}
+	}
+
+	public static void LoadEmbeddedResources()
+	{
+		Assembly assembly = Assembly.GetExecutingAssembly();
+		{
+			using Stream? stream = assembly.GetManifestResourceStream("Oligopoly.Company.json");
+			Companies = JsonSerializer.Deserialize<List<Company>>(stream!)!;
+		}
+		{
+			using Stream? stream = assembly.GetManifestResourceStream("Oligopoly.Event.json");
+			Events = JsonSerializer.Deserialize<List<Event>>(stream!)!;
+		}
 	}
 
 	private static void RunMainMenu()
@@ -30,86 +52,61 @@ public class Program
 ";
 		string[] options = { "Play", "About", "Exit" };
 
-		Menu mainMenu = new(prompt, options, 0);
+		Menu mainMenu = new(prompt, options);
 
-		int selectedOption = mainMenu.RunMenu();
-
-		switch (selectedOption)
+		while (!CloseRequested)
 		{
-			case 0:
-				RunSkipMenu();
-				break;
-			case 1:
-				DisplayAboutInfo();
-				RunMainMenu();
-				break;
-			case 2:
-				ExitGame();
-				break;
+			int selectedOption = mainMenu.RunMenu();
+			switch (selectedOption)
+			{
+				case 0:
+					RunStartMenu();
+					break;
+				case 1:
+					DisplayAboutInfo();
+					break;
+				case 2:
+					CloseRequested = true;
+					break;
+			}
 		}
-	}
-
-	private static void RunSkipMenu()
-	{
-		string prompt = @"Welcome to Oligopoly!
-Do you want to read the introductory letter or do you want to jump right into the gameplay?
-
-";
-		string[] options = { "Read introductory letter", "Skip introductory letter" };
-
-		Menu skipMenu = new(prompt, options, 0);
-
-		int selectedOption = skipMenu.RunMenu();
-
-		switch (selectedOption)
-		{
-			case 0:
-				RunStartMenu();
-				break;
-			case 1:
-				RunGameMenu();
-				break;
-		}
+		Console.Clear();
+		Console.WriteLine("Press any key to exit the game...");
+		Console.CursorVisible = false;
+		Console.ReadKey(true);
 	}
 
 	private static void RunStartMenu()
 	{
-		string prompt = @"Dear, new CEO
-    On behalf of the board of directors of Oligopoly Investments, we would like to congratulate you on becoming our new CEO. We are confident that you will lead our company to new heights of success and innovation.
-    As CEO, you now have access to our exclusive internal software called Oligopoly, where you can track the latest news from leading companies and buy and sell their shares. This software will give you an edge over the competition and help you make important decisions for our company. To access the program, simply click the button at the bottom of this email.
-    We look forward to working with you and supporting you in your new role.
-
-Sincerely,
-The board of directors of Oligopoly Investments
-
-";
-		string[] options = { "Get Access" };
-
-		Menu startMenu = new(prompt, options, 15);
-
-		int selectedOption = startMenu.RunMenu();
-
-		if (selectedOption is 0)
-		{
-			Console.Clear();
-			RunGameMenu();
-		}
+		Console.Clear();
+		Console.WriteLine();
+		Console.WriteLine("    ┌────────────────────────────────────────────────────────────────────────────────┐");
+		Console.WriteLine("    │ Dear CEO,                                                                      │");
+		Console.WriteLine("    │                                                                                │");
+		Console.WriteLine("    │ Welcome to Oligopoly!                                                          │");
+		Console.WriteLine("    │                                                                                │");
+		Console.WriteLine("    │ On behalf of the board of directors of Oligopoly Investments, we would like to │");
+		Console.WriteLine("    │ congratulate you on becoming our new CEO. We are confident that you will lead  │");
+		Console.WriteLine("    │ our company to new heights of success and innovation. As CEO, you now have     │");
+		Console.WriteLine("    │ access to our exclusive internal software called Oligopoly, where you can      |");
+		Console.WriteLine("    │ track the latest news from leading companies and buy and sell their shares.    │");
+		Console.WriteLine("    │ This software will give you an edge over the competition and help you make     │");
+		Console.WriteLine("    │ important decisions for our company. To access the program, simply click the   │");
+		Console.WriteLine("    │ button at the bottom of this email. We look forward to working with you and    │");
+		Console.WriteLine("    │ supporting you in your new role.                                               │");
+		Console.WriteLine("    │                                                                                │");
+		Console.WriteLine("    │ Sincerely,                                                                     │");
+		Console.WriteLine("    │ The board of directors of Oligopoly Investments                                │");
+		Console.WriteLine("    └────────────────────────────────────────────────────────────────────────────────┘");
+		Console.WriteLine();
+		Console.WriteLine("Press any key to continue...");
+		Console.CursorVisible = false;
+		Console.ReadKey(true);
+		RunGameMenu();
 	}
 
 	private static void RunGameMenu()
 	{
-		{
-			Assembly assembly = Assembly.GetExecutingAssembly();
-			{
-				using Stream? stream = assembly.GetManifestResourceStream("Oligopoly.Company.json");
-				Companies = JsonSerializer.Deserialize<List<Company>>(stream!)!;
-			}
-			{
-				using Stream? stream = assembly.GetManifestResourceStream("Oligopoly.Event.json");
-				Events = JsonSerializer.Deserialize<List<Event>>(stream!)!;
-			}
-		}
-
 		double money = 10000;
 		bool isGameEnded = false;
 		Random random = new();
@@ -123,7 +120,7 @@ The board of directors of Oligopoly Investments
 			{
 				foreach (Company currentCompany in Companies)
 				{
-					if (currentCompany.Ticker == Events[currentEvent].Target)
+					if (currentCompany.Name == Events[currentEvent].CompanyName)
 					{
 						currentCompany.SharePrice = Math.Round(currentCompany.SharePrice + currentCompany.SharePrice * Events[currentEvent].Effect / 100, 2);
 					}
@@ -133,33 +130,33 @@ The board of directors of Oligopoly Investments
 			{
 				foreach (Company currentCompany in Companies)
 				{
-					if (currentCompany.Ticker == Events[currentEvent].Target)
+					if (currentCompany.Name == Events[currentEvent].CompanyName)
 					{
 						currentCompany.SharePrice = Math.Round(currentCompany.SharePrice - currentCompany.SharePrice * Events[currentEvent].Effect / 100, 2);
 					}
 				}
 			}
 
-			string prompt = "\nUse up and down arrow keys to select an option: \n";
+			string prompt = "Use up and down arrow keys to select an option:";
 			string[] options = { "Skip", "Buy", "Sell", "More About Companies" };
-			GameMenu gameMenu = new(prompt, options, 0, currentEvent, money);
+			GameMenu gameMenu = new(prompt, options, currentEvent, money);
 
-			int selectedOption = gameMenu.RunMenu();
-
-			switch (selectedOption)
+			int selectedOption = -1;
+			while (selectedOption is not 0)
 			{
-				case 0:
-					break;
-				case 1:
-					RunActionMenu(ref money, currentEvent, true);
-					break;
-				case 2:
-					RunActionMenu(ref money, currentEvent, false);
-					break;
-				case 3:
-					DisplayMoreAboutCompaniesMenu();
-					gameMenu.RunMenu();
-					break;
+				selectedOption = gameMenu.RunMenu();
+				switch (selectedOption)
+				{
+					case 1:
+						RunActionMenu(ref money, currentEvent, true);
+						break;
+					case 2:
+						RunActionMenu(ref money, currentEvent, false);
+						break;
+					case 3:
+						DisplayMoreAboutCompaniesMenu();
+						break;
+				}
 			}
 
 			// Check for win or loss.
@@ -194,8 +191,8 @@ The board of directors of Oligopoly Investments
 			actionOptions[i] = Companies[i].Name;
 		}
 
-		GameMenu actionMenu = new(actionPrompt, actionOptions, 0, currentEvent, money);
-		GameMenu amountMenu = new(amountPrompt, amountOptions, 0, currentEvent, money);
+		GameMenu actionMenu = new(actionPrompt, actionOptions, currentEvent, money);
+		GameMenu amountMenu = new(amountPrompt, amountOptions, currentEvent, money);
 
 		int selectedCompany = actionMenu.RunMenu();
 		int amountOfShares = amountMenu.RunAmountMenu();
@@ -206,7 +203,9 @@ The board of directors of Oligopoly Investments
 			money -= amountOfShares * Companies[selectedCompany].SharePrice;
 
 			Console.WriteLine($"You have bought {amountOfShares} shares of {Companies[selectedCompany].Name} company.");
-			Thread.Sleep(2500);
+			Console.WriteLine("Press any key to continue...");
+			Console.CursorVisible = false;
+			Console.ReadKey(true);
 		}
 		else
 		{
@@ -216,12 +215,16 @@ The board of directors of Oligopoly Investments
 				money += amountOfShares * Companies[selectedCompany].SharePrice;
 
 				Console.WriteLine($"You have sold {amountOfShares} shares of {Companies[selectedCompany].Name} company.");
-				Thread.Sleep(2500);
+				Console.WriteLine("Press any key to continue...");
+				Console.CursorVisible = false;
+				Console.ReadKey(true);
 			}
 			else
 			{
 				Console.WriteLine("Entered not a valid value");
-				Thread.Sleep(2500);
+				Console.WriteLine("Press any key to continue...");
+				Console.CursorVisible = false;
+				Console.ReadKey(true);
 			}
 		}
 	}
@@ -229,13 +232,12 @@ The board of directors of Oligopoly Investments
 	private static void DisplayMoreAboutCompaniesMenu()
 	{
 		Console.Clear();
-
 		foreach (Company company in Companies)
 		{
 			Console.WriteLine($"{company.Name} - {company.Description}\n");
 		}
-
 		Console.WriteLine("Press any key to exit the menu...");
+		Console.CursorVisible = false;
 		Console.ReadKey(true);
 	}
 
@@ -246,81 +248,65 @@ The board of directors of Oligopoly Investments
 	private static void RunEndMenu(bool isWinner)
 	{
 		Console.Clear();
-
 		if (isWinner)
 		{
-			string prompt = @"Dear CEO,
-    On behalf of the board of directors of Oligopoly Investments, we would like to express our gratitude and understanding for your decision to leave your post. You have been a remarkable leader and a visionary strategist, who played the stock market skillfully and increased our budget by five times. We are proud of your achievements and we wish you all the best in your future endeavors.
-    As a token of our appreciation, we are pleased to inform you that the company will pay you a bonus of $1 million. You deserve this reward for your hard work and dedication. We hope you will enjoy it and remember us fondly.
-    Thank you for your service and your contribution to Oligopoly Investments. You will be missed.
-
-Sincerely,
-The board of directors of Oligopoly Investments
-
-";
-			string[] options = { "Play Again", "Return to Main Menu" };
-
-			Menu EndMenu = new(prompt, options, 15);
-
-			int selectedOption = EndMenu.RunMenu();
-
-			switch (selectedOption)
-			{
-				case 0:
-					RunGameMenu();
-					break;
-				case 1:
-					RunMainMenu();
-					break;
-			}
+			Console.WriteLine();
+			Console.WriteLine("    ┌────────────────────────────────────────────────────────────────────────────────┐");
+			Console.WriteLine("    │ Dear CEO,                                                                      │");
+			Console.WriteLine("    │                                                                                │");
+			Console.WriteLine("    │ On behalf of the board of directors of Oligopoly Investments, we would like to │");
+			Console.WriteLine("    │ express our gratitude and understanding for your decision to leave your post.  │");
+			Console.WriteLine("    │ You have been a remarkable leader and a visionary strategist, who played the   │");
+			Console.WriteLine("    │ stock market skillfully and increased our budget by five times. We are proud   │");
+			Console.WriteLine("    │ of your achievements and we wish you all the best in your future endeavors. As │");
+			Console.WriteLine("    │ a token of our appreciation, we are pleased to inform you that the company     │");
+			Console.WriteLine("    │ will pay you a bonus of $1 million. You deserve this reward for your hard work │");
+			Console.WriteLine("    │ and dedication. We hope you will enjoy it and remember us fondly. Thank you    │");
+			Console.WriteLine("    │ for your service and your contribution to Oligopoly Investments.               │");
+			Console.WriteLine("    │ You will be missed.                                                            │");
+			Console.WriteLine("    │                                                                                │");
+			Console.WriteLine("    │ Sincerely,                                                                     │");
+			Console.WriteLine("    │ The board of directors of Oligopoly Investments                                │");
+			Console.WriteLine("    └────────────────────────────────────────────────────────────────────────────────┘");
+			Console.WriteLine();
+			Console.WriteLine("Press any key to continue...");
+			Console.CursorVisible = false;
+			Console.ReadKey(true);
 		}
 		else
 		{
-			string prompt = @"Dear, former CEO
-    We regret to inform you that you are being removed from the position of CEO and fired from the company, effective immediately.
-    The board of directors of Oligopoly Investments has decided to take this action because you have spent the budget allocated to you, and your investment turned out to be unprofitable for the company.
-    We appreciate your service and wish you all the best in your future endeavors.
-
-Sincerely,
-The board of directors of Oligopoly Investments
-
-";
-			string[] options = { "Play Again", "Return to Main Menu" };
-
-			Menu EndMenu = new(prompt, options, 15);
-
-			int selectedOption = EndMenu.RunMenu();
-
-			switch (selectedOption)
-			{
-				case 0:
-					RunGameMenu();
-					break;
-				case 1:
-					RunMainMenu();
-					break;
-			}
+			Console.WriteLine();
+			Console.WriteLine("    ┌────────────────────────────────────────────────────────────────────────────────┐");
+			Console.WriteLine("    │ Dear former CEO,                                                               │");
+			Console.WriteLine("    │                                                                                │");
+			Console.WriteLine("    │ We regret to inform you that you are being removed from the position of CEO    │");
+			Console.WriteLine("    │ and fired from the company, effective immediately. The board of directors of   │");
+			Console.WriteLine("    │ Oligopoly Investments has decided to take this action because you have spent   │");
+			Console.WriteLine("    │ the budget allocated to you, and your investment turned out to be unprofitable │");
+			Console.WriteLine("    │ for the company. We appreciate your service and wish you all the best in your  │");
+			Console.WriteLine("    │ future endeavors.                                                              │");
+			Console.WriteLine("    │                                                                                │");
+			Console.WriteLine("    │ Sincerely,                                                                     │");
+			Console.WriteLine("    │ The board of directors of Oligopoly Investments                                │");
+			Console.WriteLine("    └────────────────────────────────────────────────────────────────────────────────┘");
+			Console.WriteLine();
+			Console.WriteLine("Press any key to continue...");
+			Console.CursorVisible = false;
+			Console.ReadKey(true);
 		}
 	}
 
 	private static void DisplayAboutInfo()
 	{
 		Console.Clear();
-		Console.WriteLine(@"THANKS!
-No really, thank you for taking time to play this simple console game. It means a lot.
-
-This game was created by Semion Medvedev (Fuinny)
-My GitHub profile: https://github.com/Fuinny
-
-Press any key to exit the menu...");
+		Console.WriteLine("THANKS!");
+		Console.WriteLine();
+		Console.WriteLine("No really, thank you for taking time to play this simple console game. It means a lot.");
+		Console.WriteLine();
+		Console.WriteLine("This game was created by Semion Medvedev (Fuinny)");
+		Console.WriteLine();
+		Console.WriteLine("Press any key to continue...");
+		Console.CursorVisible = false;
 		Console.ReadKey(true);
-	}
-
-	private static void ExitGame()
-	{
-		Console.Clear();
-		Console.WriteLine("Press any key to exit the game...");
-		Console.ReadKey(true);
-		Environment.Exit(0);
 	}
 }
