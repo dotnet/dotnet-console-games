@@ -21,11 +21,30 @@
 
 > **Note** This game was a *[Community Contribution](https://github.com/dotnet/dotnet-console-games/pull/72)!
 
-Oligopoly is a stock market betting game. Buy stocks in a company and then try to sell them at a higher price.
+Oligopoly is a stock market betting game. Buy stocks in a company and then try to sell them at a higher price to increase your net worth.
+
+```
+╔════════════════════════════════╤════════════╤═════════════════════╤═══════════════════╗
+║ Company                        │   Industry │         Share Price │          You Have ║
+╟────────────────────────────────┼────────────┼─────────────────────┼───────────────────╢
+║ Bingoo                         │        Web │           $1,275.75 │                 1 ║
+║ Quantum Software               │   Software │           $2,310.00 │                 0 ║
+║ Edison Incorporated            │     Energy │             $997.50 │                 0 ║
+║ Netfilm                        │     Movies │             $882.00 │                 1 ║
+║ COBRA Security Consulting      │       Army │           $1,311.00 │                 1 ║
+╚════════════════════════════════╧════════════╧═════════════════════╧═══════════════════╝
+Your money: $6,500.00    Your Net Worth: $9,968.75
+
+Use up and down arrow keys and enter to select an option:
+[*] Wait For Market Change
+[ ] Buy
+[ ] Sell
+[ ] Information About Companies
+```
 
 ## Input
 
-- `↑`, `↓`: menu selection
+- `↑`, `↓`, `←`, `→`: menu selection
 - `enter`: confirm
 - `escape`: exit game
 
