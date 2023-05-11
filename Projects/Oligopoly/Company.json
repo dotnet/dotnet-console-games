@@ -1,7 +1,6 @@
 [
   {
     "Name": "Bingoo",
-    "Ticker": "BNG",
     "Industry": "Web",
     "SharePrice": 1500,
     "ShareAmount": 0,
@@ -9,7 +8,6 @@
   },
   {
     "Name": "Quantum Software",
-    "Ticker": "QST",
     "Industry": "Software",
     "SharePrice": 2000,
     "ShareAmount": 0,
@@ -17,7 +15,6 @@
   },
   {
     "Name": "Edison Incorporated",
-    "Ticker": "EDSN",
     "Industry": "Energy",
     "SharePrice": 1000,
     "ShareAmount": 0,
@@ -33,7 +30,6 @@
   },
   {
     "Name": "COBRA Security Consulting",
-    "Ticker": "CSC",
     "Industry": "Army",
     "SharePrice": 1200,
     "ShareAmount": 0,
