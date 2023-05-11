@@ -6,11 +6,11 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Remove="Company.json" />
-	  <None Remove="Event.json" />
+		<None Remove="Company.json" />
+		<None Remove="Event.json" />
 	</ItemGroup>
 	<ItemGroup>
-	  <EmbeddedResource Include="Company.json" />
-	  <EmbeddedResource Include="Event.json" />
+		<EmbeddedResource Include="Company.json" />
+		<EmbeddedResource Include="Event.json" />
 	</ItemGroup>
 </Project>
