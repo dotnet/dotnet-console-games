@@ -235,7 +235,8 @@ Console.WriteLine("    manipulate gravity. Watch out for spikes (X).");
 Console.WriteLine();
 Console.WriteLine("    Press escape to close the game at any time.");
 Console.WriteLine();
-Console.WriteLine("    Press enter to begin...");
+Console.Write("    Press enter to begin...");
+Console.CursorVisible = false;
 PressToContinue();
 Console.Clear();
 
