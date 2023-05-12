@@ -62,6 +62,32 @@ string[][] levels = new[]
 	},
 	new[]
 	{
+		"                  ███████████                   ",
+		"              ████           █████              ",
+		"          ████                    ████          ",
+		"       ███                            ███       ",
+		"     ██                                  ██     ",
+		"    █                                      █    ",
+		"   █                                        █   ",
+		"  █                                          █  ",
+		" █                          █                 █ ",
+		"█                           █                  █",
+		"█                           █                  █",
+		"█                         ██                   █",
+		"█                       ██                     █",
+		"█         ●           ██                       █",
+		" █                  ██                        █ ",
+		"  █               ██                         █  ",
+		"   █             █                          █   ",
+		"    █            █                         █    ",
+		"     ██          █                       ██     ",
+		"       ███       █   @@@@@            ███       ",
+		"          ████   █   @@@@@        ████          ",
+		"              ████   @@@@@   █████              ",
+		"                  ███████████                   ",
+	},
+	new[]
+	{
 		"█████████████████████████████████████████████████████████████████",
 		"█XXXXXXX                                                        █",
 		"█XXXXXXX                                                        █",
@@ -211,6 +237,7 @@ Console.WriteLine("    Press escape to close the game at any time.");
 Console.WriteLine();
 Console.WriteLine("    Press enter to begin...");
 PressToContinue();
+Console.Clear();
 
 while (!closeRequested)
 {
