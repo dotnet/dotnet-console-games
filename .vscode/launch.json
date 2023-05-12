@@ -423,6 +423,16 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Gravity",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Gravity",
+			"program": "${workspaceFolder}/Projects/Gravity/bin/Debug/Gravity.dll",
+			"cwd": "${workspaceFolder}/Projects/Gravity/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Role Playing Game",
 			"type": "coreclr",
 			"request": "launch",
