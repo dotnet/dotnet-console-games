@@ -15,6 +15,6 @@ jobs:
     - name: setup dotnet
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
     - name: dotnet build
       run: dotnet build "Projects\Memory\Memory.csproj" --configuration Release

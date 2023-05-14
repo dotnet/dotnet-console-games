@@ -19,7 +19,7 @@ jobs:
     - name: setup dotnet
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
     - name: publish win-x64
       run: dotnet publish dotnet-console-games.slnf --output bin/win-x64 --configuration Release /p:PublishSingleFile=true --runtime win-x64 --self-contained /p:PublishTrimmed=true /p:DebugType=embedded
     - name: publish osx-x64
