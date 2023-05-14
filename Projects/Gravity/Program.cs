@@ -10,7 +10,6 @@ string[][] levels = new[]
 	// '█': wall
 	// 'X': spikey death
 	// '●': goal
-	// '<', '>', '^', 'v': reserved for rendering
 
 	new[]
 	{
@@ -209,12 +208,12 @@ string[][] levels = new[]
 };
 
 Console.OutputEncoding = Encoding.UTF8;
-Stopwatch stopwatch = new();
+Stopwatch stopwatch = Stopwatch.StartNew();
 bool closeRequested = false;
 (int X, int Y) velocity = (0, 0);
 int level = 0;
 int updatesSinceSlideApplied = 0;
-const int slideUpdateFrequency = 1;
+const int slideUpdateFrequency = 2;
 int updatesSinceGravityApplied = 0;
 const int gravityUpdateFrequency = 1;
 Direction gravity = Direction.None;
@@ -340,7 +339,7 @@ void Update()
 
 	if (velocity.Y < 0 && (gravity is Direction.Left && WallLeft() || gravity is Direction.Right && WallRight()))
 	{
-		playerState |= PlayerState.Sliding | PlayerState.Up;
+		playerState |= PlayerState.Sliding | PlayerState.Up | (PlayerState)gravity;
 		if (updatesSinceSlideApplied >= slideUpdateFrequency)
 		{
 			velocity.Y++;
@@ -350,7 +349,7 @@ void Update()
 	}
 	else if (velocity.Y > 0 && (gravity is Direction.Left && WallLeft() || gravity is Direction.Right && WallRight()))
 	{
-		playerState |= PlayerState.Sliding | PlayerState.Down;
+		playerState |= PlayerState.Sliding | PlayerState.Down | (PlayerState)gravity;
 		if (updatesSinceSlideApplied >= slideUpdateFrequency)
 		{
 			velocity.Y--;
@@ -360,7 +359,7 @@ void Update()
 	}
 	else if (velocity.X < 0 && (gravity is Direction.Up && WallUp() || gravity is Direction.Down && WallDown()))
 	{
-		playerState |= PlayerState.Sliding | PlayerState.Left;
+		playerState |= PlayerState.Sliding | PlayerState.Left | (PlayerState)gravity;
 		if (updatesSinceSlideApplied >= slideUpdateFrequency)
 		{
 			velocity.X++;
@@ -370,7 +369,7 @@ void Update()
 	}
 	else if (velocity.X > 0 && (gravity is Direction.Up && WallUp() || gravity is Direction.Down && WallDown()))
 	{
-		playerState |= PlayerState.Sliding | PlayerState.Right;
+		playerState |= PlayerState.Sliding | PlayerState.Right | (PlayerState)gravity;
 		if (updatesSinceSlideApplied >= slideUpdateFrequency)
 		{
 			velocity.X--;
@@ -391,6 +390,10 @@ void Update()
 			{
 				if (u > 1)
 				{
+					if (playerState.HasFlag(PlayerState.Sliding))
+					{
+						playerState = PlayerState.Neutral;
+					}
 					playerState |= PlayerState.Squash | PlayerState.Up;
 				}
 				velocity.Y = 0;
@@ -409,6 +412,10 @@ void Update()
 			{
 				if (d > 1)
 				{
+					if (playerState.HasFlag(PlayerState.Sliding))
+					{
+						playerState = PlayerState.Neutral;
+					}
 					playerState |= PlayerState.Squash | PlayerState.Down;
 				}
 				velocity.Y = 0;
@@ -427,6 +434,10 @@ void Update()
 			{
 				if (l > 1)
 				{
+					if (playerState.HasFlag(PlayerState.Sliding))
+					{
+						playerState = PlayerState.Neutral;
+					}
 					playerState |= PlayerState.Squash | PlayerState.Left;
 				}
 				velocity.X = 0;
@@ -445,6 +456,10 @@ void Update()
 			{
 				if (r > 1)
 				{
+					if (playerState.HasFlag(PlayerState.Sliding))
+					{
+						playerState = PlayerState.Neutral;
+					}
 					playerState |= PlayerState.Squash | PlayerState.Right;
 				}
 				velocity.X = 0;
@@ -564,73 +579,69 @@ void Render()
 
 string[] RenderPlayerState()
 {
-	return (playerState, gravity) switch
+	return (playerState) switch
 	{
-		(PlayerState.Sliding | PlayerState.Left, Direction.Down) or
-		(PlayerState.Sliding | PlayerState.Up, Direction.Right) or
-		(PlayerState.Sliding | PlayerState.Right, Direction.Up) or
-		(PlayerState.Sliding | PlayerState.Down, Direction.Left) =>
+		(PlayerState.Sliding | PlayerState.Up | PlayerState.Right) or
+		(PlayerState.Sliding | PlayerState.Down | PlayerState.Left) =>
 			new[] {
 				@"╭──╮ ",
 				@"╰╮ ╰╮",
 				@" ╰──╯",
 			},
-		(PlayerState.Sliding | PlayerState.Down, Direction.Right) or
-		(PlayerState.Sliding | PlayerState.Right, Direction.Down) or
-		(PlayerState.Sliding | PlayerState.Left, Direction.Up) or
-		(PlayerState.Sliding | PlayerState.Up, Direction.Left) =>
+		(PlayerState.Sliding | PlayerState.Down | PlayerState.Right) or
+		(PlayerState.Sliding | PlayerState.Up | PlayerState.Left) =>
 			new[] {
 				@" ╭──╮",
 				@"╭╯ ╭╯",
 				@"╰──╯ ",
 			},
-		(PlayerState.Squash | PlayerState.Up, _) =>
-			new[] {
-				@"╭───╮",
-				@"╰───╯",
-				@"     ",
-			},
-		(PlayerState.Squash | PlayerState.Down, _) =>
-			new[] {
-				@"     ",
-				@"╭───╮",
-				@"╰───╯",
-			},
-		(PlayerState.Squash | PlayerState.Right, _) =>
-			new[] {
-				@"  ╭─╮",
-				@"  │ │",
-				@"  ╰─╯",
-			},
-		(PlayerState.Squash | PlayerState.Left, _) =>
-			new[] {
-				@"╭─╮  ",
-				@"│ │  ",
-				@"╰─╯  ",
-			},
-		(PlayerState.Squash | PlayerState.Up | PlayerState.Right, _) =>
+		(PlayerState.Squash | PlayerState.Up | PlayerState.Right) =>
 			new[] {
 				@"╭───╮",
 				@"╰─╮ │",
 				@"  ╰─╯",
 			},
-		(PlayerState.Squash | PlayerState.Down | PlayerState.Right, _) =>
+		(PlayerState.Squash | PlayerState.Down | PlayerState.Right) =>
 			new[] {
 				@"  ╭─╮",
 				@"╭─╯ │",
 				@"╰───╯",
 			},
-		(PlayerState.Squash | PlayerState.Up | PlayerState.Left, _) =>
+		(PlayerState.Squash | PlayerState.Up | PlayerState.Left) =>
 			new[] {
 				@"╭───╮",
 				@"│ ╭─╯",
 				@"╰─╯  ",
 			},
-		(PlayerState.Squash | PlayerState.Down | PlayerState.Left, _) =>
+		(PlayerState.Squash | PlayerState.Down | PlayerState.Left) =>
 			new[] {
 				@"╭─╮  ",
 				@"│ ╰─╮",
 				@"╰───╯",
+			},
+		(PlayerState.Squash | PlayerState.Up) =>
+			new[] {
+				@"╭───╮",
+				@"╰───╯",
+				@"     ",
+			},
+		(PlayerState.Squash | PlayerState.Down) =>
+			new[] {
+				@"     ",
+				@"╭───╮",
+				@"╰───╯",
+			},
+		(PlayerState.Squash | PlayerState.Right) =>
+			new[] {
+				@"  ╭─╮",
+				@"  │ │",
+				@"  ╰─╯",
+			},
+		(PlayerState.Squash | PlayerState.Left) =>
+			new[] {
+				@"╭─╮  ",
+				@"│ │  ",
+				@"╰─╯  ",
 			},
 		_ =>
 			new[] {
@@ -670,11 +681,11 @@ void PressToContinue(ConsoleKey key = ConsoleKey.Enter)
 
 internal enum Direction
 {
-	None  = 0,
-	Up    = 1,
-	Down  = 2,
-	Left  = 3,
-	Right = 4,
+	None  =      0,
+	Up    = 1 << 0,
+	Down  = 1 << 1,
+	Left  = 1 << 2,
+	Right = 1 << 3,
 }
 
 [Flags]
