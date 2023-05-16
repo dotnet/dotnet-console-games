@@ -1,7 +1,8 @@
 ﻿namespace Console_Monsters.Enums;
 
-public enum Element
+public enum CMType
 {
+	Normal,
 	Fire,
 	Water,
 	Earth,

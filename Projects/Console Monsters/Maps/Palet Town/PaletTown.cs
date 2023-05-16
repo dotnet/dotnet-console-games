@@ -15,8 +15,10 @@ class PaletTown : MapBase
 
 	private static readonly char[][] spriteSheet = new char[][]
 		{
+			"tttttgggggggTgggggfGGfgggggTgggggttttt".ToCharArray(),
+			"tttttgggggggTgggggfGGfgggggTgggggttttt".ToCharArray(),
 			"tttttgggggggfgggggf11fgggggfgggggttttt".ToCharArray(),
-			"tttttggggffffffffff  ffffffffggggttttt".ToCharArray(),
+			"tttttggggffffffffffX ffffffffggggttttt".ToCharArray(),
 			"tttttggggfg                gfggggttttt".ToCharArray(),
 			"tttttggggfg  bbbb    cccc  gfggggttttt".ToCharArray(),
 			"tttttggggfg  bbbb    cccc  gfggggttttt".ToCharArray(),
@@ -28,7 +30,7 @@ class PaletTown : MapBase
 			"tttttggggfg  gggg  dddddd  gfggggttttt".ToCharArray(),
 			"tttttggggfg  gggg  d0dddd  gfggggttttt".ToCharArray(),
 			"tttttggggfg           n    gfggggttttt".ToCharArray(),
-			"tttttggggfg      X         gfggggttttt".ToCharArray(),
+			"tttttggggfg                gfggggttttt".ToCharArray(),
 			"tttttggggfg  o     FFFsFF  gfggggttttt".ToCharArray(),
 			"tttttggggfgggWWWW  gggggg  gfggggttttt".ToCharArray(),
 			"tttttggggfgggWwwW  gggegg  gfggggttttt".ToCharArray(),
@@ -167,15 +169,18 @@ class PaletTown : MapBase
 		{
 			case '0':
 				Map = new Center1();
-				Map.SpawnCharacterOn('0');
+				Map.SpawnPlayerOn('0');
 				break;
 			case '1':
 				Map = new Route1();
-				Map.SpawnCharacterOn('0');
+				Map.SpawnPlayerOn('0');
 				break;
 			case '2':
-				Map = new House1();
-				Map.SpawnCharacterOn('0');
+				if (!House1.IsLocked)
+				{
+					Map = new House1();
+					Map.SpawnPlayerOn('0');
+				}
 				break;
 		}
 	}

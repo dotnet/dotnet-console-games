@@ -15,4 +15,6 @@ public class OldMan : CharacterBase
 		@"╭╰─▼─╯╮" + '\n' +
 		@"╰├───┤╯" + '\n' +
 		@" │_|_│ ";
+
+	public static readonly OldMan Instance = new();
 }

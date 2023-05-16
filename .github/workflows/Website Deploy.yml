@@ -8,11 +8,12 @@ on:
     - '.github/**'
     - 'LICENSE'
     - 'README.md'
+    - 'CODE_OF_CONDUCT.md'
     - '**.md'
   workflow_dispatch:
 jobs:
   deployment:
-    if: ${{ github.repository == 'ZacharyPatten/dotnet-console-games' }}
+    if: ${{ github.repository == 'dotnet/dotnet-console-games' }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:

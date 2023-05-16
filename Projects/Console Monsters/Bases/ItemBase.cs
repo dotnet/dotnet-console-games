@@ -6,6 +6,8 @@ public abstract class ItemBase
 
 	public abstract string? Description { get; }
 
+	public virtual ItemCategory Category { get; }
+
 	public abstract string Sprite { get; }
 
 	// we may want to change the following but doing this for now...
@@ -14,4 +16,11 @@ public abstract class ItemBase
 	public static bool operator !=(ItemBase a, ItemBase b) => !(a == b);
 	public override bool Equals(object? obj) => obj is ItemBase item && this == item;
 	public override int GetHashCode() => this.GetType().GetHashCode();
+
+	public enum ItemCategory
+	{
+		Potions = 1,
+		MonsterBoxes = 2,
+		Miscellaneous= 3,
+	}
 }

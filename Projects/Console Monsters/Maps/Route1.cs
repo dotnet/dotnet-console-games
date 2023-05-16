@@ -4,10 +4,12 @@ class Route1 : MapBase
 {
 	private static readonly char[][] spriteSheet = new char[][]
 		{
-			"ggggggggggggfgggggf11fgggggfgggggggggg".ToCharArray(),
-			"ggggggggggggfgggggf  fgggggfgggggggggg".ToCharArray(),
-			"ggggggggggggfgggggf  fgggggfgggggggggg".ToCharArray(),
-			"ggggggggggggfgggggf  fgggggfgggggggggg".ToCharArray(),
+			"gggGGGGGGGgggTTTTTs   GGGGGGGG      eT".ToCharArray(),
+			"gggGGGGGGGgggTTTTT ~~ TTTTTTTTTTTTTTTT".ToCharArray(),
+			"fffffffffffffTTTTTf11fTTTTTTTTTTgggggg".ToCharArray(),
+			"ggggggggggggfTTTTTf  fTTTTTTTTTTgggggg".ToCharArray(),
+			"ggggggggggggfTTTTTf  fTTTTTTTTTTgggggg".ToCharArray(),
+			"ggggggggggggfgggggf  fgggggfTTTTgggggg".ToCharArray(),
 			"ggggggggggggfgggggf  fgggggfgggggggggg".ToCharArray(),
 			"ggggggggggggfffffff  fffffffgggggggggg".ToCharArray(),
 			"ggggggggggggfgggggg  ggggggfgggggggggg".ToCharArray(),
@@ -72,6 +74,7 @@ class Route1 : MapBase
 			'ş' => Sprites.HalfRockStairsGrass,
 			// Extra
 			' ' => Sprites.Open,
+			'~' => Sprites.Open,
 			_ => Sprites.Error,
 		};
 	}
@@ -135,23 +138,41 @@ class Route1 : MapBase
 		{
 			case '0':
 				Map = new PaletTown();
-				Map.SpawnCharacterOn('1');
+				Map.SpawnPlayerOn('1');
 				break;
 			case '1':
 				Map = new Route2();
-				Map.SpawnCharacterOn('0');
+				Map.SpawnPlayerOn('0');
 				break;
 			case 'G':
-				if (!DisableBattle && Random.Shared.Next(2) is 0) // BATTLE CHANCE
+				//SpawnType = "Grass";
+				if (!DisableBattle && IsAnyAvailableMonster() && GetFirstAvailableMonster() != new _ErrorMonster() && Random.Shared.Next(2) is 0) // BATTLE CHANCE
 				{
 					Console.Clear();
 					if (!DisableBattleTransition)
 					{
 						BattleTransition.Random();
 					}
-					BattleScreen.Render(partyMonsters[0], MonsterBase.GetRandom());
-					//Battle();
-					ConsoleHelper.PressToContinue();
+					Type[] typesThatCanSpawn =
+					{
+						typeof(Fox),
+						//typeof(Ant),
+						//typeof(Goat),
+						//typeof(Owl),
+						//typeof(Pig),
+						//typeof(Pinecone),
+						//typeof(Ladybug),
+					};
+					Type typeOfMonsterToSpawn = Random.Shared.Choose(typesThatCanSpawn);
+
+					BattleMonsters monsters = new();
+					monsters.Opponent = (MonsterBase)Activator.CreateInstance(typeOfMonsterToSpawn)!;
+					monsters.Player = GetFirstAvailableMonster();
+
+					MonsterBase.WildMonster(monsters.Opponent);
+					
+					Battle(monsters);
+					
 				}
 				break;
 		}

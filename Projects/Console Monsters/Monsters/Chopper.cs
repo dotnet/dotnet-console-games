@@ -5,6 +5,7 @@ public class Chopper : MonsterBase
 	public Chopper()
 	{
 		Name = "Chopper";
+		//MonsterType = "Grass"; //Temp
 	}
 
 	public override string[] Sprite => (

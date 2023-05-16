@@ -8,16 +8,18 @@ public static class Statics
 	public static bool DisableBattle { get; set; } = false;
 	public static bool DisableBattleTransition { get; set; } = false;
 	public static bool FirstTimeLaunching { get; set; } = true;
-	public static bool AudioEnabled { get; set; } = true;
+	public static bool AudioEnabled { get; set; } = false;
+	public static bool FastText { get; set; } = false;
 
 	#endregion
 
 	public static readonly Random BattleTransitionRandom = new();
 	public static readonly Random GameRandom = new(7);
-	public static readonly Random BattleRandom = new(7);
-	public static readonly Player character = new();
+	public static readonly Random BattleRandom = new();
+	public static readonly Player player = new();
 	public static readonly List<MonsterBase> ownedMonsters = new();
 	public static readonly List<MonsterBase> partyMonsters = new();
+	public static readonly List<MonsterBase> trainerMonsters = new();
 	public static readonly Dictionary<ConsoleKey, UserKeyPress> keyMappings = new();
 	public static readonly Dictionary<UserKeyPress, (ConsoleKey Main, ConsoleKey? Alternate)> reverseKeyMappings = new();
 
@@ -44,6 +46,8 @@ public static class Statics
 	public static bool GameRunning { get; set; } = true;
 	public static bool StartMenu { get; set; } = true;
 	public static bool InInventory { get; set; } = false;
+
+	public static ShopBase? Shop { get; set; } = null;
 
 	public static string[] DefaultMaptext => new[]
 	{
@@ -73,6 +77,11 @@ public static class Statics
 		$" [{reverseKeyMappings[UserKeyPress.Escape].ToDisplayString()}]: Menu",
 	};
 
+	public static readonly string[] ShopTextPressEnter = new string[]
+	{
+		"[Escape]: Exit Shop, [Enter]: Buy Item",
+	};
+
 	public static string[] MapText
 	{
 		get
@@ -81,9 +90,17 @@ public static class Statics
 			{
 				return MapTextPressEnter;
 			}
-			if (character.IsIdle)
+			if (ShopText is not null)
 			{
-				var interactTile = character.InteractTile;
+				return ShopTextPressEnter;
+			}
+			if (PromptShopText is not null)
+			{
+				return ShopTextPressEnter;
+			}
+			if (player.IsIdle)
+			{
+				var interactTile = player.InteractTile;
 				if (Map.CanInteractWithMapTile(interactTile.I, interactTile.J))
 				{
 					return DefaultMaptextWithInteract;
@@ -96,20 +113,24 @@ public static class Statics
 	public static string[] BattleText => new[]
 	{
 		$"Battles are still in development.",
-		$"Let's just pretend you won this battle. :D",
-		$"[{reverseKeyMappings[UserKeyPress.Confirm].ToDisplayString()}]: exit battle"
 	};
 
 	public static string[]? PromptText { get; set; } = null;
+	public static string[]? PromptBattleText { get; set; } = null;
+	public static string[]? ShopText { get; set; } = null;
+	public static string[]? PromptShopText { get; set; } = null;
 
+
+	public static int ItemDescriptionScrollFrame { get; set; } = 0;
 	public static int SelectedPlayerInventoryItem { get; set; } = 0;
 	public static readonly Towel.DataStructures.IBag<ItemBase> PlayerInventory = Towel.DataStructures.BagMap.New<ItemBase>();
 
 	static Statics()
 	{
-		character = new()
+		player = new()
 		{
 			Animation = Player.IdleDown,
+			Money = 100,
 		};
 		PlayerInventory.TryAdd(ExperienceBerries.Instance);
 		PlayerInventory.TryAdd(HealthPotionLarge.Instance);
@@ -122,7 +143,9 @@ public static class Statics
 		PlayerInventory.TryAdd(Candle.Instance);
 		DefaultKeyMappings();
 		partyMonsters.Clear();
-		partyMonsters.Add(new Turtle());
+		partyMonsters.Add(new Turtle() { Level = 5 }); 
+		partyMonsters.Add(new FireLizard() { Level = 5 });
+		partyMonsters.Add(new ToadBud() { Level = 5 });
 	}
 
 	[System.Diagnostics.DebuggerHidden]
@@ -130,6 +153,31 @@ public static class Statics
 
 	[System.Diagnostics.DebuggerHidden]
 	public static (int, int) Modulus((int, int) a, (int?, int?) b) => (b.Item1 is null ? a.Item1 : a.Item1 % b.Item1.Value, b.Item2 is null ? a.Item2 : a.Item2 % b.Item2.Value);
+
+	public static MonsterBase GetFirstAvailableMonster()
+	{
+		for(int i = 0; i < partyMonsters.Count; i++)
+		{
+			if(partyMonsters[i].CurrentHP > 0)
+			{
+				return partyMonsters[i];
+			}
+		}
+		return new _ErrorMonster(); //TEMP: returns the error monster in case all party monsters are dead
+	}
+
+	public static bool IsAnyAvailableMonster()
+	{
+		for (int i = 0; i < partyMonsters.Count; i++)
+		{
+			if (partyMonsters[i].CurrentHP > 0)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
 
 	public static void DefaultKeyMappings()
 	{

@@ -233,6 +233,26 @@ public static class Sprites
 	#endregion
 
 	#region Objects
+
+	public const string BeachUbrella =
+		@"╭──┴──╮" + "\n" +
+		@"╯╯╯╷╰╰╰" + "\n" +
+		@"   │   " + "\n" +
+		@"   │   " + "\n" +
+		@"   │   ";
+	public const string BeachChair =
+		@"       " + "\n" +
+		@"_      " + "\n" +
+		@"╲╲     " + "\n" +
+		@" ╲╲____" + "\n" +
+		@" ╱‾\/‾╲";
+	public static readonly string[,] BeachChairAndUbrella1x2 = Split(
+		//------1------2
+		@"╭───┴───╮     ", //
+		@"╯╯╯╯╷╰╰╰╰     ", //
+		@"    │ ╲╲      ", //
+		@"    │ └╲╲_____", //
+		@"    │  /‾\‾/‾\");//1
 	public const string SignALeft =
 		@" ┬──┬─┐" + "\n" +
 		@"╭┴──┴╮│" + "\n" +
@@ -456,6 +476,12 @@ public static class Sprites
 		@"│      " + "\n" +
 		@"│      " + "\n" +
 		@"│      ";
+	public const string Gate =
+		@"▀▄▀▄▀▄▀" + "\n" +
+		@"▀▄▀▄▀▄▀" + "\n" +
+		@"▀▄▀▄▀▄▀" + "\n" +
+		@"▀▄▀▄▀▄▀" + "\n" +
+		@"▀▄▀▄▀▄▀";
 	public readonly static string[,] DiningSet1x4 = Split(
 		//------1------2------3------4
 		@"                            ", //
@@ -584,18 +610,7 @@ public static class Sprites
 	#endregion
 
 	#region Nature
-	public const string Water =
-		@"~~~~~~~" + "\n" +
-		@"~~~~~~~" + "\n" +
-		@"~~~~~~~" + "\n" +
-		@"~~~~~~~" + "\n" +
-		@"~~~~~~~";
-	public const string Gate =
-		@"▀▄▀▄▀▄▀" + "\n" +
-		@"▀▄▀▄▀▄▀" + "\n" +
-		@"▀▄▀▄▀▄▀" + "\n" +
-		@"▀▄▀▄▀▄▀" + "\n" +
-		@"▀▄▀▄▀▄▀";
+	#region Trees
 	public const string Tree =
 		@" /‾‾‾\ " + "\n" +
 		@"/‾\ /‾\" + "\n" +
@@ -608,6 +623,55 @@ public static class Sprites
 		@"   ||  " + "\n" +
 		@"   ||  " + "\n" +
 		@"   ||  ";
+	public const string PalmTreeA =
+		@" ^^ ^^ " + "\n" +
+		@"//∞║∞\\" + "\n" +
+		@"   ║   " + "\n" +
+		@"   ║   " + "\n" +
+		@"  ₀║ ₀ ";
+	public const string PalmTreeB =
+		@" MM MM " + "\n" +
+		@"││∞║∞││" + "\n" +
+		@"   ║   " + "\n" +
+		@"   ║   " + "\n" +
+		@"  ₀║ ₀ ";
+	public const string PalmTreeC =
+		@" ╮╮v╭╭ " + "\n" +
+		@"╯╯∞║∞╰╰" + "\n" +
+		@"   ║   " + "\n" +
+		@"   ║   " + "\n" +
+		@"  ₀║ ₀ ";
+	public const string PalmTreeD =
+		@" <<^>> " + "\n" +
+		@"<<∞║∞>>" + "\n" +
+		@"   ║   " + "\n" +
+		@"   ║   " + "\n" +
+		@"  ₀║ ₀ ";
+	public const string PalmTreeE =
+		@" ∆∆∆∆∆ " + "\n" +
+		@"<<∞║∞>>" + "\n" +
+		@"   ║   " + "\n" +
+		@"   ║   " + "\n" +
+		@"  ₀║ ₀ ";
+	public const string PalmTreeF =
+		@" ⱽⱽⱽⱽⱽ " + "\n" +
+		@"ⱽⱽ∞║∞ⱽⱽ" + "\n" +
+		@"   ║   " + "\n" +
+		@"   ║   " + "\n" +
+		@"  ₀║ ₀ ";
+	public const string PalmTreeG =
+		@" ˅˅˅˅˅ " + "\n" +
+		@"˅˅∞║∞˅˅" + "\n" +
+		@"   ║   " + "\n" +
+		@"   ║   " + "\n" +
+		@"  ₀║ ₀ ";
+	#endregion
+	public const string Water =
+		@"~~~~~~~" + "\n" +
+		@"~~~~~~~" + "\n" +
+		@"~~~~~~~" + "\n" +
+		@"~~~~~~~" + "\n" +
+		@"~~~~~~~";
 	public const string GrassDec =
 		@" .   . " + "\n" +
 		@".  . . " + "\n" +
@@ -774,8 +838,8 @@ public static class Sprites
 		@"├───┤  " + '\n' +
 		@"│_|_│  ";
 	public static readonly string NPC16 =
-		@" ╭───○ " + '\n' +
-		@"╰╯^_^╰╯" + '\n' +
+		@" ╭╭─╮╮ " + '\n' +
+		@"╯╯^_^╰╰" + '\n' +
 		@"╭┴───┴╮" + '\n' +
 		@"│├───┤│" + '\n' +
 		@" │_|_│ ";
@@ -785,6 +849,12 @@ public static class Sprites
 		@"│L_(L_ " + '\n' +
 		@"╭─╮┐╷╷╮" + '\n' +
 		@"╰─╯└┘┘╯";
+	public static readonly string NPC18 =
+		@" ╭───○ " + '\n' +
+		@"╰╯^_^╰╯" + '\n' +
+		@"╭┴───┴╮" + '\n' +
+		@"┘╰┬┴┬╯└" + '\n' +
+		@" ╱___╲ ";
 	public static readonly string TrainConductorLeft =
 		@"  ____ " + '\n' +
 		@" ═│══│ " + '\n' +

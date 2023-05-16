@@ -28,50 +28,54 @@ public static class AsciiGenerator
 		return new[] { a.ToString(), b.ToString(), c.ToString() };
 	}
 
-	/// <summary>Generates medium sized uppercase ascii text art from a char.</summary>
+	/// <summary>
+	/// Generates medium sized uppercase ascii text art from a char.
+	/// </summary>
+	/// <remarks>All characters must be 5 in length and 3 in height, priotizing space on right, centering any single liners </remarks>
+	/// <returns>An array of strings forming an ASCII character</returns>
 	public static string[] ToAscii(char @char) => char.ToLower(@char) switch
 		{
 			' ' => new[]
 				{
-					"    ",
-					"    ",
-					"    "
+					"     ",
+					"     ",
+					"     "
 				},
 			'a' => new[]
 				{
-					" ▄▄ ",
-					"█▄▄█",
-					"█  █"
+					" ▄▄  ",
+					"█▄▄█ ",
+					"█  █ "
 				},
 			'b' => new[]
 				{
-					"▄▄▄ ",
-					"█▄▄█",
-					"█▄▄█"
+					"▄▄▄  ",
+					"█▄▄█ ",
+					"█▄▄█ "
 				},
 			'c' => new[]
 				{
-					" ▄▄▄",
-					"█   ",
-					"▀▄▄▄"
+					" ▄▄▄ ",
+					"█    ",
+					"▀▄▄▄ "
 				},
 			'd' => new[]
 				{
-					"▄▄▄ ",
-					"█  █",
-					"█▄▄▀"
+					"▄▄▄  ",
+					"█  █ ",
+					"█▄▄▀ "
 				},
 			'e' => new[]
 				{
-					"▄▄▄▄",
-					"█▄▄ ",
-					"█▄▄▄"
+					"▄▄▄▄ ",
+					"█▄▄  ",
+					"█▄▄▄ "
 				},
 			'f' => new[]
 				{
-					"▄▄▄▄",
-					"█▄▄ ",
-					"█   "
+					"▄▄▄▄ ",
+					"█▄▄  ",
+					"█    "
 				},
 			'g' => new[]
 				{
@@ -81,33 +85,33 @@ public static class AsciiGenerator
 				},
 			'h' => new[]
 				{
-					"▄  ▄",
-					"█▄▄█",
-					"█  █"
+					"▄   ▄",
+					"█▄▄▄█",
+					"█   █"
 				},
 			'i' => new[]
 				{
-					"▄",
-					"█",
-					"█"
+					"  ▄  ",
+					"  █  ",
+					"  █  "
 				},
 			'j' => new[]
 				{
-					"   ▄",
-					"   █",
-					"▀▄▄▀"
+					"   ▄ ",
+					"   █ ",
+					"▀▄▄▀ "
 				},
 			'k' => new[]
 				{
-					"▄  ▄",
-					"█▄▀ ",
-					"█ ▀▄"
+					"▄  ▄ ",
+					"█▄▀  ",
+					"█ ▀▄ "
 				},
 			'l' => new[]
 				{
-					"▄  ",
-					"█  ",
-					"█▄▄"
+					" ▄   ",
+					" █   ",
+					" █▄▄ "
 				},
 			'm' => new[]
 				{
@@ -129,27 +133,27 @@ public static class AsciiGenerator
 				},
 			'p' => new[]
 				{
-					"▄▄▄ ",
-					"█▄▄▀",
-					"█   "
+					"▄▄▄  ",
+					"█▄▄▀ ",
+					"█    "
 				},
 			'q' => new[]
 				{
-					" ▄▄▄  ",
-					"█   █ ",
-					"▀▄▄▄▀▄"
+					" ▄▄  ",
+					"█  █ ",
+					"▀▄▄▀▄"
 				},
 			'r' => new[]
 				{
-					"▄▄▄ ",
-					"█▄▄▀",
-					"█  █"
+					"▄▄▄  ",
+					"█▄▄▀ ",
+					"█  █ "
 				},
 			's' => new[]
 				{
-					"▄▄▄▄",
-					"█▄▄▄",
-					"▄▄▄█"
+					"▄▄▄▄ ",
+					"█▄▄▄ ",
+					"▄▄▄█ "
 				},
 			't' => new[]
 				{
@@ -189,9 +193,81 @@ public static class AsciiGenerator
 				},
 			'z' => new[]
 				{
-					"▄▄▄▄",
-					" ▄▄▀",
-					"█▄▄▄"
+					"▄▄▄▄ ",
+					" ▄▄▀ ",
+					"█▄▄▄ "
+				},
+			'0' => new[]
+				{
+					" ▄▄▄ ",
+					"█▄▀ █",
+					"▀▄▄▄▀"
+				},
+			'1' => new[]
+				{
+					" ▄▄  ",
+					"  █  ",
+					" ▄█▄ "
+				},
+			'2' => new[]
+				{
+					"▄▄▄▄ ",
+					"▄▄▄▀ ",
+					"█▄▄▄ "
+				},
+			'3' => new[]
+				{
+					"▄▄▄  ",
+					" ▄▄█ ",
+					"▄▄▄▀ "
+				},
+			'4' => new[]
+				{
+					"▄  ▄ ",
+					"█▄▄█▄",
+					"   █ "
+				},
+			'5' => new[]
+				{
+					"▄▄▄▄ ",
+					"█▄▄▄ ",
+					"▄▄▄▀ "
+				},
+			'6' => new[]
+				{
+					"▄▄▄▄ ",
+					"█▄▄▄ ",
+					"█▄▄█ "
+				},
+			'7' => new[]
+				{
+					"▄▄▄▄ ",
+					"  ▄▀ ",
+					" █   "
+				},
+			'8' => new[]
+				{
+					"▄▄▄▄ ",
+					"█▄▄█ ",
+					"█▄▄█ "
+				},
+			'9' => new[]
+				{
+					"▄▄▄▄ ",
+					"█▄▄█ ",
+					"   █ "
+				},
+			':' => new[]
+				{
+					"  ▄  ",
+					"     ",
+					"  ▀  "
+				},
+			'\'' => new[]
+				{
+					" █   ",
+					"     ",
+					"     "
 				},
 
 			// ←   ↑   →   ↓ 
@@ -219,13 +295,6 @@ public static class AsciiGenerator
 					"■■■█■",
 					"  ▀  "
 				},
-			':' => new[]
-				{
-					"▄",
-					" ",
-					"▀"
-				},
-
 			// the '■' and '□' sprites must be the same size
 			'■' => new[]
 				{

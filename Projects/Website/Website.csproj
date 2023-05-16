@@ -1,14 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>disable</ImplicitUsings>
 	</PropertyGroup>
 	<ItemGroup>
+	  <Content Remove="Company.json" />
+	  <Content Remove="Event.json" />
+	</ItemGroup>
+	<ItemGroup>
 		<None Remove="FiveLetterWords.txt" />
 		<None Remove="Words.txt" />
 	</ItemGroup>
 	<ItemGroup>
+		<EmbeddedResource Include="Company.json" />
+		<EmbeddedResource Include="Event.json" />
 		<EmbeddedResource Include="FiveLetterWords.txt" />
 		<EmbeddedResource Include="Words.txt" />
 	</ItemGroup>
