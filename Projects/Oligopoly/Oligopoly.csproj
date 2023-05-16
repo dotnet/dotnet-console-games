@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Remove="Company.json" />
+		<None Remove="Event.json" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Company.json" />
+		<EmbeddedResource Include="Event.json" />
+	</ItemGroup>
+</Project>
