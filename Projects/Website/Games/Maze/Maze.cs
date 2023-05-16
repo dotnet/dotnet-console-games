@@ -254,7 +254,7 @@ public class Maze
 			{
 				var stack = new Stack<Node>();
 				var invalidPath = new HashSet<(int Row, int Column)>();
-				Tile previousMove;
+				var previousMoves = new Stack<Tile>();
 
 				int CountNulls()
 				{
@@ -300,25 +300,29 @@ public class Maze
 					{
 						node.DownExplored = true;
 						maze[node.Row, node.Column] |= Tile.Down;
-						maze[move.Row, move.Column] |= previousMove = Tile.Up;
+						maze[move.Row, move.Column] |= Tile.Up;
+						previousMoves.Push(Tile.Up);
 					}
 					if (move.Row == node.Row - 1)
 					{
 						node.UpExplored = true;
 						maze[node.Row, node.Column] |= Tile.Up;
-						maze[move.Row, move.Column] |= previousMove = Tile.Down;
+						maze[move.Row, move.Column] |= Tile.Down;
+						previousMoves.Push(Tile.Down);
 					}
 					if (move.Column == node.Column - 1)
 					{
 						node.LeftExplored = true;
 						maze[node.Row, node.Column] |= Tile.Left;
-						maze[move.Row, move.Column] |= previousMove = Tile.Right;
+						maze[move.Row, move.Column] |= Tile.Right;
+						previousMoves.Push(Tile.Right);
 					}
 					if (move.Column == node.Column + 1)
 					{
 						node.RightExplored = true;
 						maze[node.Row, node.Column] |= Tile.Right;
-						maze[move.Row, move.Column] |= previousMove = Tile.Left;
+						maze[move.Row, move.Column] |= Tile.Left;
+						previousMoves.Push(Tile.Left);
 					}
 					stack.Push(new Node()
 					{
@@ -340,13 +344,15 @@ public class Maze
 						Column = nullStart.Value.Column,
 					});
 					invalidPath.Add((nullStart.Value.Row, nullStart.Value.Column));
-					previousMove = Tile.Null;
-					while (maze[stack.Peek().Row, stack.Peek().Column] == previousMove)
+					previousMoves.Clear();
+					previousMoves.Push(Tile.Null);
+					while (maze[stack.Peek().Row, stack.Peek().Column] == previousMoves.Peek())
 					{
 						if (!MoveRandom())
 						{
 							Node move = stack.Pop();
 							Node parent = stack.Peek();
+							previousMoves.Pop();
 							if (move.Row == parent.Row - 1)
 							{
 								maze[move.Row, move.Column] &= ~Tile.Down;
