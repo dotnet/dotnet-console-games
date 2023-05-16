@@ -668,7 +668,7 @@ char RenderGravityIdentifier()
 void PressToContinue(ConsoleKey key = ConsoleKey.Enter)
 {
 	ConsoleKey input = default;
-	while (input is not ConsoleKey.Enter && !closeRequested)
+	while (input != key && !closeRequested)
 	{
 		input = Console.ReadKey(true).Key;
 		if (input is ConsoleKey.Escape)

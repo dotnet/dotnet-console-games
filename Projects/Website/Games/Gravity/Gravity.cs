@@ -676,7 +676,7 @@ public class Gravity
 		async Task PressToContinue(ConsoleKey key = ConsoleKey.Enter)
 		{
 			ConsoleKey input = default;
-			while (input is not ConsoleKey.Enter && !closeRequested)
+			while (input != key && !closeRequested)
 			{
 				input = (await Console.ReadKey(true)).Key;
 				if (input is ConsoleKey.Escape)
