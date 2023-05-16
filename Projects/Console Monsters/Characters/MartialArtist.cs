@@ -15,7 +15,7 @@ public class MartialArtist : CharacterBase
 
 	public override string? Name => "Martial Artist";
 
-	public static readonly string IdleFront =
+	private static readonly string IdleFront =
 		@" ╭───╮ " + '\n' +
 		@" │^_^│ " + '\n' +
 		@"╭╰─┬─╯╮" + '\n' +

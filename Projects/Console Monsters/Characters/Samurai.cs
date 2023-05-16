@@ -15,7 +15,7 @@ public class Samurai : CharacterBase
 
 	public override string? Name => "Samurai";
 
-	public static readonly string IdleFront =
+	private static readonly string IdleFront =
 		@" /███\ " + '\n' +
 		@"/│'_'│\" + '\n' +
 		@"╭╰───╯╮" + '\n' +

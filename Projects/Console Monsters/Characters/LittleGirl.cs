@@ -15,7 +15,7 @@ public class LittleGirl : CharacterBase
 
 	public override string? Name => "Little Girl";
 
-	public static readonly string IdleFront =
+	private static readonly string IdleFront =
 		@"╭╭───╮╮" + '\n' +
 		@" │^_^│ " + '\n' +
 		@"╭┴───┴╮" + '\n' +

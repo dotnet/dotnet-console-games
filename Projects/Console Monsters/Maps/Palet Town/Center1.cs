@@ -4,8 +4,8 @@ public class Center1 : MapBase
 {
 	public override string? AudioFile => AudioController.CoDA_Lullaby;
 
-	public Nurse nurse;
-	public Scientist scientist;
+	private Nurse nurse;
+	private Scientist scientist;
 
 	public Center1()
 	{

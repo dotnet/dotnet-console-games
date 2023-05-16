@@ -14,7 +14,7 @@ public class Nurse : CharacterBase
 	}
 	public override string? Name => "Nurse";
 
-	public static readonly string Idle1 =
+	private static readonly string Idle1 =
 		@"╭─────╮" + '\n' +
 		@"│╭───╮│" + '\n' +
 		@"╰│^_^│╯" + '\n' +

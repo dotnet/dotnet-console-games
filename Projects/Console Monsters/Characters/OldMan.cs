@@ -9,7 +9,7 @@ public class OldMan : CharacterBase
 
 	public override string? Name => "Old Man";
 
-	public static readonly string IdleFront =
+	private static readonly string IdleFront =
 		@" ╭───╮ " + '\n' +
 		@" │‾_‾│ " + '\n' +
 		@"╭╰─▼─╯╮" + '\n' +

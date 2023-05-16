@@ -2,8 +2,8 @@
 
 class PaletTown : MapBase
 {
-	public Scientist scientist;
-	public ChineseMan chineseMan;
+	private Scientist scientist;
+	private ChineseMan chineseMan;
 
 	public PaletTown()
 	{
@@ -13,7 +13,7 @@ class PaletTown : MapBase
 
 	public override string? AudioFile => AudioController.CoDA_Lullaby;
 
-	private readonly static char[][] spriteSheet = new char[][]
+	private static readonly char[][] spriteSheet = new char[][]
 		{
 			"tttttgggggggTgggggfGGfgggggTgggggttttt".ToCharArray(),
 			"tttttgggggggTgggggfGGfgggggTgggggttttt".ToCharArray(),

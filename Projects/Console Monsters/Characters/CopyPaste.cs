@@ -15,7 +15,7 @@ public class name : CharacterBase
 
 	public override string? Name => "name";
 
-	public static readonly string IdleFront =
+	private static readonly string IdleFront =
 		@"COPY" + '\n' +
 		@"COPY" + '\n' +
 		@"COPY" + '\n' +

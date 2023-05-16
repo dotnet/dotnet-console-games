@@ -147,9 +147,9 @@ public static class ControlsScreen
 		{
 			alternate = null;
 		}
-		bool valid_main = !keyMappings.ContainsKey(main) || keyMappings[main] == userInput;
-		bool valid_alternate = alternate is null || !keyMappings.ContainsKey(alternate.Value) || keyMappings[alternate.Value] == userInput;
-		if (valid_main && valid_alternate)
+		bool validMain = !keyMappings.ContainsKey(main) || keyMappings[main] == userInput;
+		bool validAlternate = alternate is null || !keyMappings.ContainsKey(alternate.Value) || keyMappings[alternate.Value] == userInput;
+		if (validMain && validAlternate)
 		{
 			reverseKeyMappings[userInput] = (main, alternate);
 			ApplyKeyMappings();

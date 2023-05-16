@@ -16,19 +16,19 @@ public class Scientist : CharacterBase
 
 	public static readonly Scientist Instance = new();
 
-	public static readonly string IdleFront =
+	private static readonly string IdleFront =
 		@" ╭───╮ " + '\n' +
 		@" ├■_■┤ " + '\n' +
 		@"╭╰───╯╮" + '\n' +
 		@"╰├───┤╯" + '\n' +
 		@" │_|_│ ";
-	public static readonly string IdleLeft =
+	private static readonly string IdleLeft =
 		@" ╭══╮  " + '\n' +
 		@" │■-│  " + '\n' +
 		@" ╰──╯  " + '\n' +
 		@" │||│  " + '\n' +
 		@" │__│  ";
-	public static readonly string IdleRight =
+	private static readonly string IdleRight =
 		@"  ╭══╮ " + '\n' +
 		@"  │ ■│ " + '\n' +
 		@"  ╰──╯ " + '\n' +

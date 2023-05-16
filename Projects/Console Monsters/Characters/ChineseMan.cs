@@ -15,7 +15,7 @@ public class ChineseMan : CharacterBase
 
 	public override string? Name => "Chinese Man";
 
-	public static readonly string IdleFront =
+	private static readonly string IdleFront =
 		@"/_____\" + '\n' +
 		@" │'_'│ " + '\n' +
 		@"╭╰───╯╮" + '\n' +

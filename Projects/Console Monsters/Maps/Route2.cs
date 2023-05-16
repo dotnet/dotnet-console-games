@@ -2,7 +2,7 @@
 
 class Route2 : MapBase
 {
-	public Camper camper;
+	private Camper camper;
 
 	public Route2()
 	{
