@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
@@ -12,6 +12,6 @@
 		<EmbeddedResource Include="Words.txt" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Towel" Version="1.0.30" />
+		<PackageReference Include="Towel" Version="1.0.40" />
 	</ItemGroup>
 </Project>
