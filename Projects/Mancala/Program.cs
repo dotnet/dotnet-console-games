@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 
 Exception? exception = null;
 
@@ -346,16 +345,15 @@ void Render()
 			Console.WriteLine("  You must select a non-empty pit.           ");
 			break;
 		case State.OutOfMovesConfimation:
-			bool playerIsEmpty = !pitsAndStores[0..6].Any(seeds => seeds > 0);
-			if (playerIsEmpty)
+			if (changes[13] > 0)
 			{
-				Console.WriteLine("  You are out of moves. Remaining seeds are  ");
+				Console.WriteLine("  You are out of seeds. Remaining seeds are  ");
 				Console.WriteLine("  added to opponent's store.                 ");
 			}
 			else
 			{
-				Console.WriteLine("  Your opponent is out of moves. Remaining   ");
-				Console.WriteLine("  seeds are  added to your store.            ");
+				Console.WriteLine("  Your opponent is out of seeds. Remaining   ");
+				Console.WriteLine("  seeds are added to your store.             ");
 			}
 			break;
 		case State.GameOverConfirmation:
