@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Website.Games.Mancala;
@@ -356,16 +355,15 @@ public class Mancala
 					await Console.WriteLine("  You must select a non-empty pit.           ");
 					break;
 				case State.OutOfMovesConfimation:
-					bool playerIsEmpty = !pitsAndStores[0..6].Any(seeds => seeds > 0);
-					if (playerIsEmpty)
+					if (changes[13] > 0)
 					{
-						await Console.WriteLine("  You are out of moves. Remaining seeds are  ");
+						await Console.WriteLine("  You are out of seeds. Remaining seeds are  ");
 						await Console.WriteLine("  added to opponent's store.                 ");
 					}
 					else
 					{
-						await Console.WriteLine("  Your opponent is out of moves. Remaining   ");
-						await Console.WriteLine("  seeds are  added to your store.            ");
+						await Console.WriteLine("  Your opponent is out of seeds. Remaining   ");
+						await Console.WriteLine("  seeds are added to your store.             ");
 					}
 					break;
 				case State.GameOverConfirmation:
