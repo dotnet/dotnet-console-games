@@ -21,11 +21,11 @@ jobs:
       with:
         dotnet-version: 7.0.x
     - name: publish win-x64
-      run: dotnet publish dotnet-console-games.slnf --output bin/win-x64 --configuration Release /p:PublishSingleFile=true --runtime win-x64 --self-contained /p:PublishTrimmed=true /p:DebugType=embedded
+      run: dotnet publish dotnet-console-games.slnf --output bin/win-x64 --configuration Release /p:PublishSingleFile=true --runtime win-x64 --self-contained /p:PublishTrimmed=true /p:DebugType=embedded /p:EnableTrimAnalyzer=false
     - name: publish osx-x64
-      run: dotnet publish dotnet-console-games.slnf --output bin/osx-x64 --configuration Release /p:PublishSingleFile=true --runtime osx-x64 --self-contained /p:PublishTrimmed=true /p:DebugType=embedded
+      run: dotnet publish dotnet-console-games.slnf --output bin/osx-x64 --configuration Release /p:PublishSingleFile=true --runtime osx-x64 --self-contained /p:PublishTrimmed=true /p:DebugType=embedded /p:EnableTrimAnalyzer=false
     - name: publish linux-x64
-      run: dotnet publish dotnet-console-games.slnf --output bin/linux-x64 --configuration Release /p:PublishSingleFile=true --runtime linux-x64 --self-contained /p:PublishTrimmed=true /p:DebugType=embedded
+      run: dotnet publish dotnet-console-games.slnf --output bin/linux-x64 --configuration Release /p:PublishSingleFile=true --runtime linux-x64 --self-contained /p:PublishTrimmed=true /p:DebugType=embedded /p:EnableTrimAnalyzer=false
     - name: deploy to binaries branch
       run: |
         cd bin
