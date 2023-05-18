@@ -3,13 +3,15 @@ on:
   push:
     branches:
     - main
-    paths-ignore:
-    - '.vscode/**'
-    - '.github/**'
-    - 'LICENSE'
-    - 'README.md'
-    - 'CODE_OF_CONDUCT.md'
-    - '**.md'
+    paths:
+    - 'Projects/Website/**'
+    #paths-ignore:
+    #- '.vscode/**'
+    #- '.github/**'
+    #- 'LICENSE'
+    #- 'README.md'
+    #- 'CODE_OF_CONDUCT.md'
+    #- '**.md'
   workflow_dispatch:
 jobs:
   deployment:
@@ -18,8 +20,7 @@ jobs:
     timeout-minutes: 60
     steps:
     - uses: actions/checkout@v3
-    - name: setup dotnet
-      uses: actions/setup-dotnet@v3
+    - uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
     - name: publish website
