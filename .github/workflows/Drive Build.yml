@@ -3,22 +3,18 @@ on:
   push:
     paths:
     - 'Projects/Drive/**'
-    branches:
-    - main
+    - '!**.md'
   pull_request:
     paths:
     - 'Projects/Drive/**'
-    branches:
-    - main
+    - '!**.md'
   workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: setup dotnet
-      uses: actions/setup-dotnet@v3
+    - uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
-    - name: dotnet build
-      run: dotnet build "Projects\Drive\Drive.csproj" --configuration Release
+    - run: dotnet build "Projects\Drive\Drive.csproj" --configuration Release
