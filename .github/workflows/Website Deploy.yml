@@ -31,10 +31,11 @@ jobs:
       run: sed -i 's/\/?p=\//\/dotnet-console-games\/?p=\//g' Projects/Website/bin/Release/publish/wwwroot/404.html
     - name: .nojekyll
       run: touch Projects/Website/bin/Release/publish/wwwroot/.nojekyll
-    - name: deploy to github-pages branch
+    - name: CODEOWNERS
+      run: echo "* @ZacharyPatten" > Projects/Website/bin/Release/publish/wwwroot/CODEOWNERS
+    - name: push to github-pages branch
       run: |
         cd Projects/Website/bin/Release/publish/wwwroot
-        echo "* @ZacharyPatten" > CODEOWNERS
         git init --initial-branch=github-pages
         git config user.name "${GITHUB_ACTOR}"
         git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
