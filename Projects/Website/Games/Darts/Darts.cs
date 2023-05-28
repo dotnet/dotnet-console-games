@@ -160,6 +160,8 @@ public class Darts
 					}
 					if (x <= 0 || x >= x_max)
 					{
+						if (x < 0) x = 0;
+						if (x > x_max) x = x_max;
 						direction = !direction;
 					}
 					await ControlFrameRate();
@@ -220,6 +222,8 @@ public class Darts
 					}
 					if (y <= 0 || y >= y_max)
 					{
+						if (y < 0) y = 0;
+						if (y > y_max) y = y_max;
 						direction = !direction;
 					}
 					await ControlFrameRate();
