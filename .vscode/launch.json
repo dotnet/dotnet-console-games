@@ -273,6 +273,16 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Darts",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Oligopoly",
+			"program": "${workspaceFolder}/Projects/Darts/bin/Debug/Darts.dll",
+			"cwd": "${workspaceFolder}/Projects/Darts/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Yahtzee",
 			"type": "coreclr",
 			"request": "launch",
