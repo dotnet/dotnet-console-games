@@ -7,12 +7,12 @@
 </h1>
 
 <p align="center">
-	<a href="https://github.com/dotnet/dotnet-console-games" alt="GitHub repo"><img alt="flat" src=".github/resources/github-repo-black.svg"></a>
-	<a href="https://docs.microsoft.com/en-us/dotnet/csharp/"><img src=".github/resources/language-csharp.svg" title="Language C#" alt="Language C#"></a>
-	<a href="https://dotnet.microsoft.com/download"><img src=".github/resources/dotnet-badge.svg" title="Target Framework" alt="Target Framework"></a>
-	<a href="https://discord.gg/4XbQbwF" alt="Discord"><img src=".github/resources/discord-badge.svg" title="Go To Discord Server" alt="Discord"/></a>
-	<a href="LICENSE" alt="License"><img src=".github/resources/license-MIT-green.svg" title="Go To License" alt="License"/></a>
-	<a href="https://github.com/ZacharyPatten/Towel"><img src="https://github.com/ZacharyPatten/Towel/blob/main/.github/Resources/UsingTowel.svg?raw=true" title="Go To Towel"  alt="Go To Towel"></a>
+	<a href="https://github.com/dotnet/dotnet-console-games"><img src=".github/resources/github-repo-black.svg" alt="GitHub repo"></a>
+	<a href="https://docs.microsoft.com/en-us/dotnet/csharp/"><img src=".github/resources/language-csharp.svg" alt="Language C#"></a>
+	<a href="https://dotnet.microsoft.com/download"><img src=".github/resources/dotnet-badge.svg" alt="Target Framework"></a>
+	<a href="https://discord.gg/4XbQbwF"><img src=".github/resources/discord-badge.svg" alt="Discord"/></a>
+	<a href="LICENSE"><img alt="License" src=".github/resources/license-MIT-green.svg" alt="License"></a>
+	<a href="https://github.com/ZacharyPatten/Towel"><img src="https://github.com/ZacharyPatten/Towel/blob/main/.github/Resources/UsingTowel.svg?raw=true" alt="Towel"></a>
 </p>
 
 <p align="center">
@@ -80,8 +80,8 @@
 <p align="center">
 	You can play the games in your browser:
 	<br />
-	<a href="https://dotnet.github.io/dotnet-console-games" alt="Play Now">
-		<sub><img height="40"src=".github/resources/play-badge.svg" title="Play Now" alt="Play Now"/></sub>
+	<a href="https://dotnet.github.io/dotnet-console-games">
+		<sub><img height="40"src=".github/resources/play-badge.svg" alt="Play Now"></sub>
 	</a>
 	<br />
 	<sup>Hosted On GitHub Pages</sup>
