@@ -20,6 +20,17 @@ public class Program
 
 	public static void Main()
 	{
+		#region Trim Prevention
+
+		// We need to call the default constructors so that they do not get
+		// trimmed when compiling with the -p:PublishTrimmed=true option.
+		// The default constructor is required for JSON deserialization.
+
+		_ = new Company();
+		_ = new Event();
+
+		#endregion
+
 		try
 		{
 			MainMenuScreen();
