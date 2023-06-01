@@ -26,8 +26,22 @@ public class Program
 		// trimmed when compiling with the -p:PublishTrimmed=true option.
 		// The default constructor is required for JSON deserialization.
 
-		_ = new Company();
-		_ = new Event();
+		_ = new Company()
+		{
+			Name = nameof(Company.Name),
+			Industry = nameof(Company.Industry),
+			SharePrice = 42.42m,
+			NumberOfShares = 42,
+			Description = nameof(Company.Description)
+		};
+
+		_ = new Event()
+		{
+			Title = nameof(Event.Title),
+			Description = nameof(Event.Description),
+			CompanyName = nameof(Event.CompanyName),
+			Effect = 42
+		};
 
 		#endregion
 
