@@ -8,21 +8,24 @@ bool closeRequested = false;
 bool screenLargeEnough = true;
 int screenWidth = 120;
 int screenHeight = 40;
-float playerX = 20f;
+float playerX = 4f;
 float playerY = 4f;
 float playerA = 0.0f;
 float fov = 3.14159f / 4.0f;
 float depth = 16.0f;
 float speed = 5.0f;
+float rotationSpeed = 0.40f;
 float fps = default;
 bool mapVisible = true;
 bool statsVisible = true;
 Weapon equippedWeapon = Weapon.Pistol;
-TimeSpan shootAnimationTime = TimeSpan.FromSeconds(0.5f);
+TimeSpan pistolShootAnimationTime = TimeSpan.FromSeconds(0.2f);
+TimeSpan shotgunShootAnimationTime = TimeSpan.FromSeconds(0.5f);
 char[,] screen = new char[screenWidth, screenHeight];
 
 string[] map = new string[]
 {
+// (0,0)                     (+,0)
 	"███████████████████████████",
 	"█                         █",
 	"█                         █",
@@ -38,6 +41,7 @@ string[] map = new string[]
 	"█   ███████████████████████",
 	"█                         █",
 	"███████████████████████████",
+// (0,+)                     (+,+)
 };
 
 string[] playerPistol = new string[]
@@ -89,7 +93,6 @@ string[] playerShotgunShoot = new string[]
 	@"!╱  ╱│ ├─╯ │",
 };
 
-
 int consoleWidth = Console.WindowWidth;
 int consoleHeight = Console.WindowHeight;
 Stopwatch stopwatch = Stopwatch.StartNew();
@@ -111,6 +114,7 @@ Console.WriteLine("Press any key to begin...");
 if (Console.ReadKey(true).Key is not ConsoleKey.Escape)
 {
 	Console.Clear();
+	stopwatch = Stopwatch.StartNew();
 	while (!closeRequested)
 	{
 		Update();
@@ -135,19 +139,19 @@ void Update()
 			case ConsoleKey.M: mapVisible = !mapVisible; break;
 			case ConsoleKey.Tab: statsVisible = !statsVisible; break;
 			case ConsoleKey.D1 or ConsoleKey.NumPad1:
-				if (stopwatchShoot is null || stopwatchShoot.Elapsed > shootAnimationTime)
+				if (PlayerIsNotBusy())
 				{
 					equippedWeapon = Weapon.Pistol;
 				}
 				break;
 			case ConsoleKey.D2 or ConsoleKey.NumPad2:
-				if (stopwatchShoot is null || stopwatchShoot.Elapsed > shootAnimationTime)
+				if (PlayerIsNotBusy())
 				{
 					equippedWeapon = Weapon.Shotgun;
 				}
 				break;
 			case ConsoleKey.Spacebar:
-				if (stopwatchShoot is null || stopwatchShoot.Elapsed > shootAnimationTime)
+				if (PlayerIsNotBusy())
 				{
 					stopwatchShoot = Stopwatch.StartNew();
 				}
@@ -186,40 +190,40 @@ void Update()
 
 	if (l && !r)
 	{
-		playerA -= (speed * 0.75f) * elapsedSeconds;
+		playerA -= (speed * rotationSpeed) * elapsedSeconds;
+		if (playerA < 0)
+		{
+			playerA %= (float)Math.PI * 2;
+			playerA += (float)Math.PI * 2;
+		}
 	}
 	if (r && !l)
 	{
-		playerA += (speed * 0.75f) * elapsedSeconds;
+		playerA += (speed * rotationSpeed) * elapsedSeconds;
+		if (playerA > (float)Math.PI * 2)
+		{
+			playerA %= (float)Math.PI * 2;
+		}
 	}
 	if (u && !d)
 	{
-		playerX += (float)Math.Sin(playerA) * speed * elapsedSeconds;
-		playerY += (float)Math.Cos(playerA) * speed * elapsedSeconds;
+		playerX += (float)Math.Cos(playerA) * speed * elapsedSeconds;
+		playerY += (float)Math.Sin(playerA) * speed * elapsedSeconds;
 		if (map[(int)playerY][(int)playerX] is '█')
 		{
-			playerX -= (float)Math.Sin(playerA) * speed * elapsedSeconds;
-			playerY -= (float)Math.Cos(playerA) * speed * elapsedSeconds;
+			playerX -= (float)Math.Cos(playerA) * speed * elapsedSeconds;
+			playerY -= (float)Math.Sin(playerA) * speed * elapsedSeconds;
 		}
 	}
 	if (d && !u)
 	{
-		playerX -= (float)(Math.Sin(playerA) * speed * elapsedSeconds);
-		playerY -= (float)(Math.Cos(playerA) * speed * elapsedSeconds);
+		playerX -= (float)(Math.Cos(playerA) * speed * elapsedSeconds);
+		playerY -= (float)(Math.Sin(playerA) * speed * elapsedSeconds);
 		if (map[(int)playerY][(int)playerX] is '█')
 		{
-			playerX += (float)Math.Sin(playerA) * speed * elapsedSeconds;
-			playerY += (float)Math.Cos(playerA) * speed * elapsedSeconds;
+			playerX += (float)Math.Cos(playerA) * speed * elapsedSeconds;
+			playerY += (float)Math.Sin(playerA) * speed * elapsedSeconds;
 		}
-	}
-
-	while (playerA < 0)
-	{
-		playerA += (float)Math.PI * 2;
-	}
-	while (playerA > (float)Math.PI * 2)
-	{
-		playerA -= (float)Math.PI * 2;
 	}
 }
 
@@ -245,8 +249,8 @@ void Render()
 		bool hitWall = false;
 		bool boundary = false;
 
-		float eyeX = (float)Math.Sin(rayAngle);
-		float eyeY = (float)Math.Cos(rayAngle);
+		float eyeX = (float)Math.Cos(rayAngle);
+		float eyeY = (float)Math.Sin(rayAngle);
 
 		while (!hitWall && distanceToWall < depth)
 		{
@@ -317,11 +321,19 @@ void Render()
 
 	if (statsVisible)
 	{
-		string Format(string s) => s.Length < 5 ? new string(' ', 5 - s.Length) + s : s;
-		string info = $"x={Format($"{playerX:0.##}")}, y={Format($"{playerY:0.##}")}, a={Format($"{playerA:0.##}")}, fps={Format($"{fps:0.}")}";
-		for (int x = 0; x < info.Length; x++)
+		string[] stats = new string[]
 		{
-			screen[x, screen.GetLength(1) - 1] = info[x];
+			$"x={playerX:0.00}",
+			$"y={playerY:0.00}",
+			$"a={playerA:0.00}",
+			$"fps={fps:0.}",
+		};
+		for (int i = 0; i < stats.Length; i++)
+		{
+			for (int j = 0; j < stats[i].Length; j++)
+			{
+				screen[screenWidth - stats[i].Length + j, i] = stats[i][j];
+			}
 		}
 	}
 
@@ -336,16 +348,16 @@ void Render()
 		}
 		screen[(int)playerX, (int)playerY] = playerA switch
 		{
-			>= 0.785f and < 2.356f => '>',
-			>= 2.356f and < 3.927f => '^',
-			>= 3.927f and < 5.498f => '<',
-			_ => 'v',
+			>= 0.785f and < 2.356f => 'v',
+			>= 2.356f and < 3.927f => '<',
+			>= 3.927f and < 5.498f => '^',
+			_ => '>',
 		};
 	}
 
 	string[] player =
-		equippedWeapon is Weapon.Pistol && stopwatchShoot is not null && stopwatchShoot.Elapsed < shootAnimationTime ? playerPistolShoot :
-		equippedWeapon is Weapon.Shotgun && stopwatchShoot is not null && stopwatchShoot.Elapsed < shootAnimationTime ? playerShotgunShoot :
+		equippedWeapon is Weapon.Pistol && stopwatchShoot is not null && stopwatchShoot.Elapsed < pistolShootAnimationTime ? playerPistolShoot :
+		equippedWeapon is Weapon.Shotgun && stopwatchShoot is not null && stopwatchShoot.Elapsed < shotgunShootAnimationTime ? playerShotgunShoot :
 		equippedWeapon is Weapon.Pistol ? playerPistol :
 		equippedWeapon is Weapon.Shotgun ? playerShotgun :
 		throw new NotImplementedException();
@@ -376,6 +388,14 @@ void Render()
 	Console.SetCursorPosition(0, 0);
 	Console.Write(render);
 }
+
+bool PlayerIsNotBusy() =>
+	stopwatchShoot is null || stopwatchShoot.Elapsed > equippedWeapon switch
+	{
+		Weapon.Pistol => pistolShootAnimationTime,
+		Weapon.Shotgun => shotgunShootAnimationTime,
+		_ => throw new NotImplementedException(),
+	};
 
 class User32_dll
 {
