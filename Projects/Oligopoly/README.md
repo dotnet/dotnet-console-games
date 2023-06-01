@@ -48,8 +48,6 @@ Use up and down arrow keys and enter to select an option:
 - `enter`: confirm
 - `escape`: exit game
 
-<!-- hiding downloads for "Oligopoly" because the application breaks when trimmed
-
 ## Downloads
 
 [win-x64](https://github.com/dotnet/dotnet-console-games/raw/binaries/win-x64/Oligopoly.exe)
@@ -57,5 +55,3 @@ Use up and down arrow keys and enter to select an option:
 [linux-x64](https://github.com/dotnet/dotnet-console-games/raw/binaries/linux-x64/Oligopoly)
 
 [osx-x64](https://github.com/dotnet/dotnet-console-games/raw/binaries/osx-x64/Oligopoly)
-
--->
