@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -22,6 +23,13 @@ Weapon equippedWeapon = Weapon.Pistol;
 TimeSpan pistolShootAnimationTime = TimeSpan.FromSeconds(0.2f);
 TimeSpan shotgunShootAnimationTime = TimeSpan.FromSeconds(0.5f);
 char[,] screen = new char[screenWidth, screenHeight];
+float[,] depthBuffer = new float[screenWidth, screenHeight];
+List<(float X, float Y)> enemies = new()
+{
+	(20.5f, 04.5f),
+	(20.5f, 11.5f),
+	(24.5f, 13.5f),
+};
 
 string[] map = new string[]
 {
@@ -44,6 +52,165 @@ string[] map = new string[]
 // (0,+)                     (+,+)
 };
 
+string[] enemySprite1 = new string[]
+{
+	"!!!!╭─────╮!!!!",
+	"!(O)│ ‾o‾ │(O)!",
+	"╭─╨─╯╔═══╗╰─╨─╮",
+	"│ ╭╮╔╝   ╚╗╭╮ │",
+	"╰─╯╔╝     ╚╗╰─╯",
+	"!!!╚╗     ╔╝!!!",
+	"!!╭╯╚╗   ╔╝╰╮!!",
+	"!!│ ╭╚═══╝╮ │!!",
+	"!!╰─╯!!!!!╰─╯!!",
+};
+
+string[] enemySprite2 = new string[]
+{
+	"!!!!╭───────╮!!!!",
+	"!(O)│  ‾o‾  │(O)!",
+	"╭─╨─╯ ╔═══╗ ╰─╨─╮",
+	"│ ╭─╮╔╝   ╚╗╭─╮ │",
+	"╰─╯!╔╝     ╚╗!╰─╯",
+	"!!!!║       ║!!!!",
+	"!!!!╚╗     ╔╝!!!!",
+	"!!!╭╯╚╗   ╔╝╰╮!!!",
+	"!!!│ ╭╚═══╝╮ │!!!",
+	"!!!╰─╯!!!!!╰─╯!!!",
+};
+
+string[] enemySprite3 = new string[]
+{
+	"!!╔═╗╭─────────╮╔═╗!!",
+	"!!║O║│   - -   │║O║!!",
+	"!!╚╦╝│    O    │╚╦╝!!",
+	"╭──╨─╯ ╔═════╗ ╰─╨──╮",
+	"│  ╭─╮╔╝     ╚╗╭─╮  │",
+	"│  │!╔╝       ╚╗!│  │",
+	"╰──╯!║         ║!╰──╯",
+	"!!!!!║         ║!!!!!",
+	"!!!!!╚╗       ╔╝!!!!!",
+	"!!!╭─╯╚╗     ╔╝╰─╮!!!",
+	"!!!│  ╭╚═════╝╮  │!!!",
+	"!!!│  │!!!!!!!│  │!!!",
+	"!!!╰──╯!!!!!!!╰──╯!!!",
+};
+
+string[] enemySprite4 = new string[]
+{
+	"!!╔═╗!╭──────────╮!╔═╗!!",
+	"!!║O║!│    - -   │!║O║!!",
+	"!!╚╦╝!│     O    │!╚╦╝!!",
+	"╭──╨──╯ ╔══════╗ ╰──╨──╮",
+	"│      ╔╝      ╚╗      │",
+	"│   ╭─╔╝        ╚╗─╮   │",
+	"╰───╯╔╝          ╚╗╰───╯",
+	"!!!!!║            ║!!!!!",
+	"!!!!!╚╗          ╔╝!!!!!",
+	"!!!╭──╚╗        ╔╝──╮!!!",
+	"!!!│   ╚╗      ╔╝   │!!!",
+	"!!!│   ╭╚══════╝╮   │!!!",
+	"!!!│   │!!!!!!!!│   │!!!",
+	"!!!╰───╯!!!!!!!!╰───╯!!!",
+};
+
+string[] enemySprite5 = new string[]
+{
+	"!╔═══╗╭────────────╮╔═══╗!",
+	"!║ O ║│    -- --   │║ O ║!",
+	"!╚═╦═╝│      O     │╚═╦═╝!",
+	"╭──╨──╯ ╔════════╗ ╰──╨──╮",
+	"│      ╔╝        ╚╗      │",
+	"│   ╭─╔╝          ╚╗─╮   │",
+	"│   │╔╝            ╚╗│   │",
+	"╰───╯║              ║╰───╯",
+	"!!!!!║              ║!!!!!",
+	"!!!!!║              ║!!!!!",
+	"!!!!!╚╗            ╔╝!!!!!!",
+	"!!╭───╚╗          ╔╝───╮!!",
+	"!!│    ╚╗        ╔╝    │!!",
+	"!!│    ╭╚════════╝╮    │!!",
+	"!!│    │!!!!!!!!!!│    │!!",
+	"!!│    │!!!!!!!!!!│    │!!",
+	"!!╰────╯!!!!!!!!!!╰────╯!!",
+};
+
+string[] enemySprite6 = new string[]
+{
+	"!╔═══╗ ╭─────────────╮ ╔═══╗!",
+	"!║ O ║ │    -- --    │ ║ O ║!",
+	"!╚═╦═╝ │      O      │ ╚═╦═╝!",
+	"╭──╨───╯ ╔═════════╗ ╰───╨──╮",
+	"│       ╔╝         ╚╗       │",
+	"│    ╭─╔╝           ╚╗─╮    │",
+	"│    │╔╝             ╚╗│    │",
+	"╰────╯║               ║╰────╯",
+	"!!!!!!║               ║!!!!!!",
+	"!!!!!!║               ║!!!!!!",
+	"!!!!!!║               ║!!!!!!",
+	"!!!!!!╚╗             ╔╝!!!!!!",
+	"!!╭────╚╗           ╔╝────╮!!",
+	"!!│     ╚╗         ╔╝     │!!",
+	"!!│     ╭╚═════════╝╮     │!!",
+	"!!│     │!!!!!!!!!!!│     │!!",
+	"!!│     │!!!!!!!!!!!│     │!!",
+	"!!╰─────╯!!!!!!!!!!!╰─────╯!!",
+};
+
+string[] enemySprite7 = new string[]
+{
+	"!!╔═══╗!╭───────────────╮!╔═══╗!!",
+	"!!║ O ║!│     -- --     │!║ O ║!!",
+	"!!╚═╦═╝!│       O       │!╚═╦═╝!!",
+	"╭───╨───╯ ╔═══════════╗ ╰───╨───╮",
+	"│        ╔╝           ╚╗        │",
+	"│     ╭─╔╝             ╚╗─╮     │",
+	"│     │╔╝               ╚╗│     │",
+	"│     │║                 ║│     │",
+	"╰─────╯║                 ║╰─────╯",
+	"!!!!!!!║                 ║!!!!!!!",
+	"!!!!!!!║                 ║!!!!!!!",
+	"!!!!!!!║                 ║!!!!!!!",
+	"!!!!!!!╚╗               ╔╝!!!!!!!",
+	"!!!╭────╚╗             ╔╝────╮!!!",
+	"!!!│     ╚╗           ╔╝     │!!!",
+	"!!!│     ╭╚═══════════╝╮     │!!!",
+	"!!!│     │!!!!!!!!!!!!!│     │!!!",
+	"!!!│     │!!!!!!!!!!!!!│     │!!!",
+	"!!!│     │!!!!!!!!!!!!!│     │!!!",
+	"!!!╰─────╯!!!!!!!!!!!!!╰─────╯!!!",
+};
+
+string[] enemySprite8 = new string[]
+{
+	"!!!!!!!!!!╭───────────────────╮!!!!!!!!!!",
+	"!!╔═══╗!!!│       -- --       │!!!╔═══╗!!",
+	"!!║ O ║!!!│         O         │!!!║ O ║!!",
+	"!!╚═╦═╝!!!│                   │!!!╚═╦═╝!!",
+	"╭───╨─────╯ ╔═══════════════╗ ╰─────╨───╮",
+	"│          ╔╝               ╚╗          │",
+	"│      ╭──╔╝                 ╚╗──╮      │",
+	"│      │!╔╝                   ╚╗!│      │",
+	"│      │╔╝                     ╚╗│      │",
+	"│      │║                       ║│      │",
+	"│      │║                       ║│      │",
+	"╰──────╯║                       ║╰──────╯",
+	"!!!!!!!!║                       ║!!!!!!!",
+	"!!!!!!!!║                       ║!!!!!!!",
+	"!!!!!!!!║                       ║!!!!!!!",
+	"!!!!!!!!║                       ║!!!!!!!",
+	"!!!!!!!!╚╗                     ╔╝!!!!!!!",
+	"!!!!╭────╚╗                   ╔╝────╮!!!",
+	"!!!!│     ╚╗                 ╔╝     │!!!",
+	"!!!!│      ╚╗               ╔╝      │!!!",
+	"!!!!│      ╭╚═══════════════╝╮      │!!!",
+	"!!!!│      │!!!!!!!!!!!!!!!!!│      │!!!",
+	"!!!!│      │!!!!!!!!!!!!!!!!!│      │!!!",
+	"!!!!│      │!!!!!!!!!!!!!!!!!│      │!!!",
+	"!!!!│      │!!!!!!!!!!!!!!!!!│      │!!!",
+	"!!!!╰──────╯!!!!!!!!!!!!!!!!!╰──────╯!!!",
+};
+
 string[] playerPistol = new string[]
 {
 	"!!!╔═╗!!!",
@@ -51,6 +218,7 @@ string[] playerPistol = new string[]
 	"╭─╮║ ║!!!",
 	"│ │╠═╣╭─╮",
 	"│ ╰───╯ │",
+	"│    ───╯",
 	"│    ───╯",
 	"╰╮  ╭──╯!",
 };
@@ -64,6 +232,7 @@ string[] playerPistolShoot = new string[]
 	@"│ │╠═╣╭─╮",
 	@"│ ╰───╯ │",
 	@"│    ───╯",
+	@"│    ───╯",
 };
 
 string[] playerShotgun = new string[]
@@ -72,6 +241,7 @@ string[] playerShotgun = new string[]
 	"!!!!!║ ║ ║!!",
 	"!!!!!║ ║ ║!!",
 	"!!!!╭║ ║ ║╮!",
+	"!!!!|║ ║ ║╮!",
 	"!!!!|║ ║ ║╮!",
 	"!!!╱ ║ ║ ║─╮",
 	"!!╱  ╭─╮ ║ │",
@@ -87,6 +257,7 @@ string[] playerShotgunShoot = new string[]
 	@"!!!!!║ ║ ║!!",
 	@"!!!!!║ ║ ║!!",
 	@"!!!!╭║ ║ ║╮!",
+	@"!!!!|║ ║ ║╮!",
 	@"!!!!|║ ║ ║╮!",
 	@"!!!╱ ║ ║ ║─╮",
 	@"!!╱  ╭─╮ ║ │",
@@ -239,6 +410,14 @@ void Render()
 		return;
 	}
 
+	for (int y = 0; y < screenHeight; y++)
+	{
+		for (int x = 0; x < screenWidth; x++)
+		{
+			depthBuffer[x, y] = float.MaxValue;
+		}
+	}
+
 	for (int x = 0; x < screenWidth; x++)
 	{
 		float rayAngle = (playerA - fov / 2.0f) + (x / (float)screenWidth) * fov;
@@ -279,7 +458,7 @@ void Render()
 							p.Add((d, dot));
 						}
 					}
-					p.Sort((a, b) => a.Item1 < b.Item1 ? -1 : 1);
+					p.Sort((a, b) => a.Item1.CompareTo(b.Item1));
 					float fBound = 0.005f;
 					if (Math.Acos(p[0].Item2) < fBound) boundary = true;
 					if (Math.Acos(p[1].Item2) < fBound) boundary = true;
@@ -287,11 +466,13 @@ void Render()
 				}
 			}
 		}
-		int ceiling = (int)((float)(screenHeight / 2.0) - screenHeight / ((float)distanceToWall));
+		int ceiling = (int)((float)(screenHeight / 2.0f) - screenHeight / ((float)distanceToWall));
 		int floor = screenHeight - ceiling;
 
 		for (int y = 0; y < screenHeight; y++)
 		{
+			depthBuffer[x, y] = distanceToWall;
+
 			if (y <= ceiling)
 			{
 				screen[x, y] = ' ';
@@ -315,6 +496,52 @@ void Render()
 					< 0.60f => '·',
 					_ => ' ',
 				};
+			}
+		}
+	}
+
+	float fovAngleA = playerA - fov / 2;
+	float fovAngleB = playerA + fov / 2;
+	foreach (var enemy in enemies)
+	{
+		float angle = (float)Math.Atan2(enemy.Y - playerY, enemy.X - playerX);
+		if (fovAngleA <= angle && angle <= fovAngleB)
+		{
+			float distance = Vector2.Distance(new(playerX, playerY), new(enemy.X, enemy.Y));
+
+			int ceiling = (int)((float)(screenHeight / 2.0f) - screenHeight / ((float)distance));
+			int floor = screenHeight - ceiling;
+
+			string[] enemySprite = distance switch
+			{
+				<= 04f => enemySprite8,
+				<= 05f => enemySprite7,
+				<= 06f => enemySprite6,
+				<= 07f => enemySprite5,
+				<= 08f => enemySprite4,
+				<= 10f => enemySprite3,
+				<= 12f => enemySprite2,
+				_ => enemySprite1
+			};
+
+			int enemyScreenX = (int)(screenWidth * ((angle - fovAngleA) / (fovAngleB - fovAngleA)));
+			int enemyScreenY = Math.Min(floor + enemySprite.Length / 2 - 1, screenHeight);
+
+			for (int y = 0; y < enemySprite.Length; y++)
+			{
+				for (int x = 0; x < enemySprite[y].Length; x++)
+				{
+					if (enemySprite[y][x] is not '!')
+					{
+						int screenX = x - enemySprite[y].Length / 2 + enemyScreenX;
+						int screenY = y - enemySprite.Length + enemyScreenY;
+						if (0 <= screenX && screenX <= screenWidth - 1 && 0 <= screenY && screenY <= screenHeight - 1 && depthBuffer[screenX, screenY] > distance)
+						{
+							screen[screenX, screenY] = enemySprite[y][x];
+							depthBuffer[screenX, screenY] = distance;
+						}
+					}
+				}
 			}
 		}
 	}
@@ -345,6 +572,10 @@ void Render()
 			{
 				screen[x, y] = map[y][x];
 			}
+		}
+		foreach (var enemy in enemies)
+		{
+			screen[(int)enemy.X, (int)enemy.Y] = 'X';
 		}
 		screen[(int)playerX, (int)playerY] = playerA switch
 		{
