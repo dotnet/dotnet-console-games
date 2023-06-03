@@ -13,6 +13,7 @@ public class Program
 	private static bool CloseRequested { get; set; } = false;
 	private static List<Company> Companies { get; set; } = null!;
 	private static List<Event> Events { get; set; } = null!;
+	private static List<Event> GlobalEvents { get; set; } = null!;
 	private static Event CurrentEvent { get; set; } = null!;
 	private static int TurnCounter { get; set; } = 1;
 	private static decimal Money { get; set; }
@@ -67,6 +68,10 @@ public class Program
 		{
 			using Stream? stream = assembly.GetManifestResourceStream("Oligopoly.Event.json");
 			Events = JsonSerializer.Deserialize<List<Event>>(stream!)!;
+		}
+		{
+			using Stream? stream = assembly.GetManifestResourceStream("Oligopoly.GlobalEvent.json");
+			GlobalEvents = JsonSerializer.Deserialize<List<Event>>(stream!)!;
 		}
 	}
 
@@ -152,19 +157,35 @@ public class Program
 
 	private static void EventScreen()
 	{
-		CurrentEvent = Events[Random.Shared.Next(0, Events.Count)];
+		StringBuilder prompt = RenderCompanyStocksTable();
+		prompt.AppendLine();
 
-		foreach (Company currentCompany in Companies)
+		if (TurnCounter % 50 == 0)
 		{
-			if (currentCompany.Name == CurrentEvent.CompanyName)
+			CurrentEvent = GlobalEvents[Random.Shared.Next(0, GlobalEvents.Count)];
+
+			foreach (Company currentCompany in Companies)
 			{
 				currentCompany.SharePrice += currentCompany.SharePrice * CurrentEvent.Effect / 100;
 			}
+
+			prompt.AppendLine($"{CurrentEvent.Title.ToUpper()}");
+		}
+		else
+		{
+			CurrentEvent = Events[Random.Shared.Next(0, Events.Count)];
+
+			foreach (Company currentCompany in Companies)
+			{
+				if (currentCompany.Name == CurrentEvent.CompanyName)
+				{
+					currentCompany.SharePrice += currentCompany.SharePrice * CurrentEvent.Effect / 100;
+				}
+			}
+
+			prompt.AppendLine($"{CurrentEvent.Title}");
 		}
 
-		StringBuilder prompt = RenderCompanyStocksTable();
-		prompt.AppendLine();
-		prompt.AppendLine($"{CurrentEvent.Title}");
 		prompt.AppendLine();
 		prompt.AppendLine($"{CurrentEvent.Description}");
 		prompt.AppendLine();
@@ -237,7 +258,7 @@ public class Program
 						numberOfShares[index]--;
 					}
 					break;
-				
+
 			}
 		}
 
