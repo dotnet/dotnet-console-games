@@ -14,6 +14,7 @@ public class Program
 	private static List<Company> Companies { get; set; } = null!;
 	private static List<Event> Events { get; set; } = null!;
 	private static Event CurrentEvent { get; set; } = null!;
+	private static int TurnCounter { get; set; } = 1;
 	private static decimal Money { get; set; }
 	private const decimal LosingNetWorth = 2000.00m;
 	private const decimal WinningNetWorth = 50000.00m;
@@ -143,6 +144,8 @@ public class Program
 				case >= WinningNetWorth: PlayerWinsScreen(); return;
 				case <= LosingNetWorth: PlayerLosesScreen(); return;
 			}
+
+			TurnCounter++;
 		}
 	}
 
@@ -411,7 +414,7 @@ public class Program
 			gameView.AppendLine($"║ {company.Name,-c0} ║ {company.Industry,c1} ║ {company.SharePrice,c2:C} ║ {company.NumberOfShares,c3} ║");
 		}
 		gameView.AppendLine($"╚═{new('═', c0)}═╩═{new('═', c1)}═╩═{new('═', c2)}═╩═{new('═', c3)}═╝");
-		gameView.AppendLine($"Your money: {Money:C}    Your Net Worth: {CalculateNetWorth():C}");
+		gameView.AppendLine($"Your money: {Money:C}    Your Net Worth: {CalculateNetWorth():C}    Current Turn: {TurnCounter}");
 		return gameView;
 	}
 
