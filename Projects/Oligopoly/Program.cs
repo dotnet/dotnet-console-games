@@ -122,7 +122,7 @@ public class Program
 				"This is the default game mode. Choose the difficulty, buy shares and try to sell them at a higher price to increase your net worth.",
 				"Want to go full random? In this mode, your money and company shares are randomly generated."
 			};
-		int selectedMode = HandleMenuWithDescriptions(prompt, options, descriptions);
+		int selectedMode = HandleMenuWithOptions(prompt, options, descriptions);
 		switch (selectedMode)
 		{
 			case 0:
@@ -143,7 +143,7 @@ public class Program
 				"You will have 10000$\nYou will lose if your net worth drop below 2000$\nYou will win if your net worth will be over 50000$",
 				"You will have 5000$\nYou will lose if your net worth drop below 3000$\nYou will win if your net worth will be over 100000$"
 		};
-		int selectedDifficulty = HandleMenuWithDescriptions(prompt, options, descriptions);
+		int selectedDifficulty = HandleMenuWithOptions(prompt, options, descriptions);
 		switch (selectedDifficulty) 
 		{
 			case 0:
@@ -530,7 +530,7 @@ public class Program
 		return gameView;
 	}
 
-	private static int HandleMenuWithOptions(string prompt, string[] options)
+	private static int HandleMenuWithOptions(string prompt, string[] options, string[] descriptions = null!)
 	{
 		int index = 0;
 		ConsoleKey key = default;
@@ -552,42 +552,11 @@ public class Program
 					Console.WriteLine($"[ ] {currentOption}");
 				}
 			}
-			Console.CursorVisible = false;
-			key = Console.ReadKey().Key;
-			switch (key)
+			if (descriptions != null) 
 			{
-				case ConsoleKey.UpArrow: index = index is 0 ? options.Length - 1 : index - 1; break;
-				case ConsoleKey.DownArrow: index = index == options.Length - 1 ? 0 : index + 1; break;
-				case ConsoleKey.Escape: CloseRequested = true; break;
+				Console.WriteLine("\nDescription:");
+				Console.WriteLine(descriptions[index]);
 			}
-		}
-		return index;
-	}
-
-	private static int HandleMenuWithDescriptions(string prompt, string[] options, string[] descriptions)
-	{
-		int index = 0;
-		ConsoleKey key = default;
-		while (!CloseRequested && key is not ConsoleKey.Enter)
-		{
-			Console.Clear();
-			Console.WriteLine(prompt);
-			for (int i = 0; i < options.Length; i++)
-			{
-				string currentOption = options[i];
-				if (i == index)
-				{
-					(Console.BackgroundColor, Console.ForegroundColor) = (Console.ForegroundColor, Console.BackgroundColor);
-					Console.WriteLine($"[*] {currentOption}");
-					Console.ResetColor();
-				}
-				else
-				{
-					Console.WriteLine($"[ ] {currentOption}");
-				}
-			}
-			Console.WriteLine("\nDescription:");
-			Console.WriteLine(descriptions[index]);
 			Console.CursorVisible = false;
 			key = Console.ReadKey().Key;
 			switch (key)
