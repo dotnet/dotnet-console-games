@@ -17,6 +17,7 @@ public class Program
 	private static Event CurrentEvent { get; set; } = null!;
 	private static int TurnCounter { get; set; } = 1;
 	private static string Difficulty { get; set; } = null!;
+	private static string GameMode { get; set; } = null!;
 	private static decimal Money { get; set; }
 	private static decimal NetWorth { get; set; }
 	private static decimal LosingNetWorth = 2000.00m;
@@ -113,6 +114,26 @@ public class Program
 		Console.ReadKey(true);
 	}
 
+	private static void DisplayGameModeScreen()
+	{
+		string prompt = "Select game mode: ";
+		string[] options = { "Default", "Random" };
+		string[] descriptions = {
+				"This is the default game mode. Choose the difficulty, buy shares and try to sell them at a higher price to increase your net worth.",
+				"Want to go full random? In this mode, your money and company shares are randomly generated."
+			};
+		int selectedMode = HandleMenuWithDescriptions(prompt, options, descriptions);
+		switch (selectedMode)
+		{
+			case 0:
+				GameMode = "default";
+				break;
+			case 1:
+				GameMode = "random";
+				break;
+		}
+	}
+
 	private static void DisplayDifficultiesScreen()
 	{
 		string prompt = "Select difficulty: ";
@@ -139,6 +160,7 @@ public class Program
 
 	private static void InitializeGame()
 	{
+		LoadEmbeddedResources();
 		switch (Difficulty)
 		{
 			case "easy":
@@ -157,7 +179,6 @@ public class Program
 				WinningNetWorth = 100000.00M;
 				break;
 		}
-		LoadEmbeddedResources();
 	}
 
 	private static void GameLoop()
@@ -382,8 +403,24 @@ public class Program
 		Console.Write("Press any key to continue...");
 		Console.CursorVisible = false;
 		CloseRequested = CloseRequested || Console.ReadKey(true).Key is ConsoleKey.Escape;
-		DisplayDifficultiesScreen();
-		InitializeGame();
+		DisplayGameModeScreen();
+		switch (GameMode)
+		{
+			case "default":
+				DisplayDifficultiesScreen();
+				InitializeGame();
+				break;
+			case "random":
+				LoadEmbeddedResources();
+				foreach (Company company in Companies)
+				{
+					company.SharePrice = Random.Shared.Next(100, 5001);
+				}
+				Money = Random.Shared.Next(1000, 30001);
+				LosingNetWorth = 2000.00M;
+				WinningNetWorth = 50000.00M;
+				break;
+		}
 		GameLoop();
 	}
 
