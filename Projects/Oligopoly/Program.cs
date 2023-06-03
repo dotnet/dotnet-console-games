@@ -16,9 +16,11 @@ public class Program
 	private static List<Event> GlobalEvents { get; set; } = null!;
 	private static Event CurrentEvent { get; set; } = null!;
 	private static int TurnCounter { get; set; } = 1;
+	private static string Difficulty { get; set; } = null!;
 	private static decimal Money { get; set; }
-	private const decimal LosingNetWorth = 2000.00m;
-	private const decimal WinningNetWorth = 50000.00m;
+	private static decimal NetWorth { get; set; }
+	private static decimal LosingNetWorth = 2000.00m;
+	private static decimal WinningNetWorth = 50000.00m;
 
 	public static void Main()
 	{
@@ -111,9 +113,50 @@ public class Program
 		Console.ReadKey(true);
 	}
 
+	private static void DisplayDifficultiesScreen()
+	{
+		string prompt = "Select difficulty: ";
+		string[] options = { "Easy", "Normal", "Hard" };
+		string[] descriptions = {
+				"You will have 20000$\nYou will lose if your net worth drop below 1000$\nYou will win if your net worth will be over 30000$",
+				"You will have 10000$\nYou will lose if your net worth drop below 2000$\nYou will win if your net worth will be over 50000$",
+				"You will have 5000$\nYou will lose if your net worth drop below 3000$\nYou will win if your net worth will be over 100000$"
+		};
+		int selectedDifficulty = HandleMenuWithDescriptions(prompt, options, descriptions);
+		switch (selectedDifficulty) 
+		{
+			case 0:
+				Difficulty = "easy";
+				break;
+			case 1:
+				Difficulty = "normal";
+				break;
+			case 2:
+				Difficulty = "hard";
+				break;
+		}
+	}
+
 	private static void InitializeGame()
 	{
-		Money = 10000.00m;
+		switch (Difficulty)
+		{
+			case "easy":
+				Money = 20000.00M;
+				LosingNetWorth = 1000.00M;
+				WinningNetWorth = 30000.00M;
+				break;
+			case "normal":
+				Money = 10000.00M;
+				LosingNetWorth = 2000.00M;
+				WinningNetWorth = 50000.00M;
+				break;
+			case "hard":
+				Money = 5000.00M;
+				LosingNetWorth = 3000.00M;
+				WinningNetWorth = 100000.00M;
+				break;
+		}
 		LoadEmbeddedResources();
 	}
 
@@ -121,6 +164,8 @@ public class Program
 	{
 		while (!CloseRequested)
 		{
+			CalculateNetWorth();
+
 			int selectedOption = -1;
 			while (!CloseRequested && selectedOption is not 0)
 			{
@@ -145,10 +190,15 @@ public class Program
 			UpdateSharePrices();
 			EventScreen();
 
-			switch (CalculateNetWorth())
+			if (NetWorth > WinningNetWorth)
 			{
-				case >= WinningNetWorth: PlayerWinsScreen(); return;
-				case <= LosingNetWorth: PlayerLosesScreen(); return;
+				PlayerWinsScreen();
+				return;
+			}
+			else if (NetWorth < LosingNetWorth)
+			{
+				PlayerLosesScreen();
+				return;
 			}
 
 			TurnCounter++;
@@ -332,6 +382,7 @@ public class Program
 		Console.Write("Press any key to continue...");
 		Console.CursorVisible = false;
 		CloseRequested = CloseRequested || Console.ReadKey(true).Key is ConsoleKey.Escape;
+		DisplayDifficultiesScreen();
 		InitializeGame();
 		GameLoop();
 	}
@@ -436,7 +487,7 @@ public class Program
 			gameView.AppendLine($"║ {company.Name,-c0} ║ {company.Industry,c1} ║ {company.SharePrice,c2:C} ║ {company.NumberOfShares,c3} ║");
 		}
 		gameView.AppendLine($"╚═{new('═', c0)}═╩═{new('═', c1)}═╩═{new('═', c2)}═╩═{new('═', c3)}═╝");
-		gameView.AppendLine($"Your money: {Money:C}    Your Net Worth: {CalculateNetWorth():C}    Current Turn: {TurnCounter}");
+		gameView.AppendLine($"Your money: {Money:C}    Your Net Worth: {NetWorth:C}    Current Turn: {TurnCounter}");
 		return gameView;
 	}
 
@@ -474,14 +525,49 @@ public class Program
 		return index;
 	}
 
-	private static decimal CalculateNetWorth()
+	private static int HandleMenuWithDescriptions(string prompt, string[] options, string[] descriptions)
 	{
-		decimal netWorth = Money;
+		int index = 0;
+		ConsoleKey key = default;
+		while (!CloseRequested && key is not ConsoleKey.Enter)
+		{
+			Console.Clear();
+			Console.WriteLine(prompt);
+			for (int i = 0; i < options.Length; i++)
+			{
+				string currentOption = options[i];
+				if (i == index)
+				{
+					(Console.BackgroundColor, Console.ForegroundColor) = (Console.ForegroundColor, Console.BackgroundColor);
+					Console.WriteLine($"[*] {currentOption}");
+					Console.ResetColor();
+				}
+				else
+				{
+					Console.WriteLine($"[ ] {currentOption}");
+				}
+			}
+			Console.WriteLine("\nDescription:");
+			Console.WriteLine(descriptions[index]);
+			Console.CursorVisible = false;
+			key = Console.ReadKey().Key;
+			switch (key)
+			{
+				case ConsoleKey.UpArrow: index = index is 0 ? options.Length - 1 : index - 1; break;
+				case ConsoleKey.DownArrow: index = index == options.Length - 1 ? 0 : index + 1; break;
+				case ConsoleKey.Escape: CloseRequested = true; break;
+			}
+		}
+		return index;
+	}
+
+	private static void CalculateNetWorth()
+	{
+		NetWorth = Money;
 		foreach (Company company in Companies)
 		{
-			netWorth += company.SharePrice * company.NumberOfShares;
+			NetWorth += company.SharePrice * company.NumberOfShares;
 		}
-		return netWorth;
 	}
 
 	private static void UpdateSharePrices()
