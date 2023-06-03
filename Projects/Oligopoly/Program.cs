@@ -137,6 +137,7 @@ public class Program
 				}
 			}
 
+			UpdateSharePrices();
 			EventScreen();
 
 			switch (CalculateNetWorth())
@@ -460,5 +461,24 @@ public class Program
 			netWorth += company.SharePrice * company.NumberOfShares;
 		}
 		return netWorth;
+	}
+
+	private static void UpdateSharePrices()
+	{
+		for (int i = 0; i < Companies.Count; i++)
+		{
+			Random random = new Random();
+			int effect = random.Next(0, 2);
+
+			switch (effect)
+			{
+				case 0:
+					Companies[i].SharePrice += Companies[i].SharePrice * Random.Shared.Next(1, 4) / 100;
+					break;
+				case 1:
+					Companies[i].SharePrice += Companies[i].SharePrice * Random.Shared.Next(-3, 0) / 100;
+					break;
+			}
+		}
 	}
 }
