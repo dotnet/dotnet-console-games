@@ -447,6 +447,7 @@ public class Program
 		Console.WriteLine("    ╚════════════════════════════════════════════════════════════════════════════════╝");
 		Console.WriteLine();
 		Console.WriteLine($"Your net worth is over {WinningNetWorth:C}.");
+		Console.WriteLine($"You have played {TurnCounter} turns");
 		Console.WriteLine();
 		Console.WriteLine("You win! Congratulations!");
 		Console.WriteLine();
@@ -479,6 +480,7 @@ public class Program
 		Console.WriteLine("    ╚════════════════════════════════════════════════════════════════════════════════╝");
 		Console.WriteLine();
 		Console.WriteLine($"Your net worth dropped below {LosingNetWorth:C}.");
+		Console.WriteLine($"You have played {TurnCounter} turns");
 		Console.WriteLine();
 		Console.WriteLine("You Lose! Better luck next time...");
 		Console.WriteLine();
