@@ -198,12 +198,12 @@ public class Program
 				if (i == index)
 				{
 					(Console.BackgroundColor, Console.ForegroundColor) = (Console.ForegroundColor, Console.BackgroundColor);
-					Console.WriteLine($" < {numberOfShares[i]}{(!isBuying ? $"/{Companies[index].NumberOfShares}" : "")} > {Companies[i].Name}");
+					Console.WriteLine($" < {numberOfShares[i]}{(!isBuying ? $"/{Companies[i].NumberOfShares}" : "")} > {Companies[i].Name}");
 					Console.ResetColor();
 				}
 				else
 				{
-					Console.WriteLine($"   {numberOfShares[i]}{(!isBuying ? $"/{Companies[index].NumberOfShares}" : "")}   {Companies[i].Name}");
+					Console.WriteLine($"   {numberOfShares[i]}{(!isBuying ? $"/{Companies[i].NumberOfShares}" : "")}   {Companies[i].Name}");
 				}
 			}
 			Console.WriteLine();
