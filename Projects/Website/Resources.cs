@@ -10,6 +10,7 @@ public static class Resources
 	public static readonly string[]? FiveLetterWords;
 	public static readonly string? Company_json;
 	public static readonly string? Event_json;
+	public static readonly string? GlobalEvent_json;
 
 	static Resources()
 	{

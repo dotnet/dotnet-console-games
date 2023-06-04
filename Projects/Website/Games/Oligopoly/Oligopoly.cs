@@ -19,14 +19,14 @@ public class Oligopoly
 		List<Event> Events = null!;
 		List<Event> GlobalEvents = null!;
 		Event CurrentEvent = null!;
-		int TurnCounter { get; set; }
-		string Difficulty { get; set; } = null!;
-		string GameMode { get; set; } = null!;
-		decimal Money = 10000.00m;
-		decimal NetWorth { get; set; }
+		int TurnCounter = 0;
+		string Difficulty = null!;
+		string GameMode = null!;
+		decimal Money = 0m;
+		decimal NetWorth = 0m;
 #pragma warning restore IDE0059 // Unnecessary assignment of a value
-		decimal LosingNetWorth = 2000.00m;
-		decimal WinningNetWorth = 50000.00m;
+		decimal LosingNetWorth = 0m;
+		decimal WinningNetWorth = 0m;
 
 		try
 		{
@@ -89,7 +89,7 @@ public class Oligopoly
 				"This is the default game mode. Choose the difficulty, buy shares and try to sell them at a higher price to increase your net worth.",
 				"Want to go full random? In this mode, your money and company shares are randomly generated."
 			};
-			int selectedMode = HandleMenuWithOptions(prompt, options, descriptions);
+			int selectedMode = await HandleMenuWithOptions(prompt, options, descriptions);
 			switch (selectedMode)
 			{
 				case 0:
@@ -109,8 +109,8 @@ public class Oligopoly
 				"You will have 20000$\nYou will lose if your net worth drop below 1000$\nYou will win if your net worth will be over 30000$",
 				"You will have 10000$\nYou will lose if your net worth drop below 2000$\nYou will win if your net worth will be over 50000$",
 				"You will have 5000$\nYou will lose if your net worth drop below 3000$\nYou will win if your net worth will be over 100000$"
-		};
-			int selectedDifficulty = HandleMenuWithOptions(prompt, options, descriptions);
+			};
+			int selectedDifficulty = await HandleMenuWithOptions(prompt, options, descriptions);
 			switch (selectedDifficulty)
 			{
 				case 0:
@@ -179,17 +179,17 @@ public class Oligopoly
 					}
 				}
 
-				await UpdateSharePrices();
+				UpdateSharePrices();
 				await EventScreen();
 
 				if (NetWorth > WinningNetWorth)
 				{
-					PlayerWinsScreen();
+					await PlayerWinsScreen();
 					return;
 				}
 				else if (NetWorth < LosingNetWorth)
 				{
-					PlayerLosesScreen();
+					await PlayerLosesScreen();
 					return;
 				}
 
@@ -374,7 +374,24 @@ public class Oligopoly
 			await Console.Write("Press any key to continue...");
 			Console.CursorVisible = false;
 			CloseRequested = CloseRequested || (await Console.ReadKey(true)).Key is ConsoleKey.Escape;
-			await InitializeGame();
+			await DisplayGameModeScreen();
+			switch (GameMode)
+			{
+				case "default":
+					await DisplayDifficultiesScreen();
+					await InitializeGame();
+					break;
+				case "random":
+					LoadEmbeddedResources();
+					foreach (Company company in Companies)
+					{
+						company.SharePrice = Random.Shared.Next(100, 5001);
+					}
+					Money = Random.Shared.Next(1000, 30001);
+					LosingNetWorth = 2000.00M;
+					WinningNetWorth = 50000.00M;
+					break;
+			}
 			await GameLoop();
 		}
 
