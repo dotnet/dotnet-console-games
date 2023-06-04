@@ -1,0 +1,32 @@
+[
+  {
+    "Title": "Government Investments",
+    "Description": "The government has announced a massive investment program aimed at stimulating economic growth and supporting key industries. Companies received significant amounts of money for further development. This had a positive impact on share prices and attracted many new investors.",
+    "Effect": 30
+  },
+  {
+    "Title": "Technological Breakthrough",
+    "Description": "A groundbreaking technological innovation has been announced, revolutionizing a particular industry or multiple sectors. This breakthrough has the potential to disrupt traditional business models, improve efficiency, and drive significant growth. Investors are optimistic about the future prospects of companies involved in the new technology, leading to a surge in their stock prices.",
+    "Effect": 30
+  },
+  {
+    "Title": "New Trade Agreements",
+    "Description": "A series of new trade agreements have been successfully negotiated between multiple countries, fostering increased international trade and cooperation. These agreements aim to reduce tariffs, eliminate trade barriers, and promote fair and balanced economic relationships. The market responds positively to the potential for expanded market access and improved trade conditions, leading to an increase in stock prices for companies involved in global trade and benefiting from the new trade agreements.",
+    "Effect": 30
+  },
+  {
+    "Title": "Government Regulation",
+    "Description": "A government has introduced new regulations or policies that impact various industries. These regulations could include stricter environmental standards, increased taxes, or limitations on certain business practices. The implementation of such regulations can lead to increased costs for companies and a decrease in their profitability, causing a decline in stock prices.",
+    "Effect": -30
+  },
+  {
+    "Title": "Major Earthquake",
+    "Description": "A catastrophic earthquake of significant magnitude has struck a region that is home to several major global companies. The earthquake has caused extensive damage to critical infrastructure, including manufacturing facilities, distribution centers, and transportation networks. This disruption severely impacts the operations and supply chains of these companies, leading to a decline in their stock prices. Additionally, the uncertainty surrounding the recovery and reconstruction efforts further contributes to investor concerns and market volatility.",
+    "Effect": -30
+  },
+  {
+    "Title": "Economic Crisis",
+    "Description": "A global economic crisis has emerged, marked by widespread financial instability, high unemployment rates, and decreased consumer confidence. The crisis is driven by a series of factors, including a sharp decline in business activity, reduced investment, and a contraction in international trade. Stock markets experience a significant downturn, leading to a decline in stock prices for companies across various sectors and a period of economic uncertainty and hardship.",
+    "Effect": 30
+  }
+]

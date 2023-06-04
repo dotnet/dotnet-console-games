@@ -7,6 +7,7 @@
 	<ItemGroup>
 	  <Content Remove="Company.json" />
 	  <Content Remove="Event.json" />
+	  <Content Remove="GlobalEvent.json" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Remove="FiveLetterWords.txt" />
@@ -15,6 +16,7 @@
 	<ItemGroup>
 		<EmbeddedResource Include="Company.json" />
 		<EmbeddedResource Include="Event.json" />
+		<EmbeddedRedource Include="GlobalEvent.json"/>
 		<EmbeddedResource Include="FiveLetterWords.txt" />
 		<EmbeddedResource Include="Words.txt" />
 	</ItemGroup>

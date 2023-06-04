@@ -65,5 +65,15 @@ public static class Resources
 				Event_json = streamReader.ReadToEnd();
 			}
 		}
+		{
+			const string name = "Website.GlobalEvent.json";
+			Assembly assembly = Assembly.GetExecutingAssembly();
+			using Stream stream = assembly.GetManifestResourceStream(name)!;
+			if (stream is not null)
+			{
+				using StreamReader streamReader = new(stream);
+				GlobalEvent_json = streamReader.ReadToEnd();
+			}
+		}
 	}
 }
