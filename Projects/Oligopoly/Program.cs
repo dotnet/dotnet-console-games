@@ -15,7 +15,7 @@ public class Program
 	private static List<Event> Events { get; set; } = null!;
 	private static List<Event> GlobalEvents { get; set; } = null!;
 	private static Event CurrentEvent { get; set; } = null!;
-	private static int TurnCounter { get; set; } = 1;
+	private static int TurnCounter { get; set; }
 	private static string Difficulty { get; set; } = null!;
 	private static string GameMode { get; set; } = null!;
 	private static decimal Money { get; set; }
@@ -116,10 +116,18 @@ public class Program
 
 	private static void DisplayGameModeScreen()
 	{
-		string prompt = "Select game mode: ";
+		string prompt = @"
+ ██████╗  █████╗ ███╗   ███╗███████╗    ███╗   ███╗ ██████╗ ██████╗ ███████╗
+██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ████╗ ████║██╔═══██╗██╔══██╗██╔════╝
+██║  ███╗███████║██╔████╔██║█████╗      ██╔████╔██║██║   ██║██║  ██║█████╗  
+██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║╚██╔╝██║██║   ██║██║  ██║██╔══╝  
+╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ██║ ╚═╝ ██║╚██████╔╝██████╔╝███████╗
+ ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝    ╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝
+            Use up and down arrow keys to select a game mode 
+";
 		string[] options = { "Default", "Random" };
 		string[] descriptions = {
-				"This is the default game mode. Choose the difficulty, buy shares and try to sell them at a higher price to increase your net worth.",
+				"This is the default game mode. \nChoose the difficulty, buy shares and try to sell them at a higher price to increase your net worth.",
 				"Want to go full random? In this mode, your money and company shares are randomly generated."
 			};
 		int selectedMode = HandleMenuWithOptions(prompt, options, descriptions);
@@ -136,7 +144,15 @@ public class Program
 
 	private static void DisplayDifficultiesScreen()
 	{
-		string prompt = "Select difficulty: ";
+		string prompt = @"
+██████╗ ██╗███████╗███████╗██╗ ██████╗██╗   ██╗██╗  ████████╗██╗   ██╗
+██╔══██╗██║██╔════╝██╔════╝██║██╔════╝██║   ██║██║  ╚══██╔══╝╚██╗ ██╔╝
+██║  ██║██║█████╗  █████╗  ██║██║     ██║   ██║██║     ██║    ╚████╔╝ 
+██║  ██║██║██╔══╝  ██╔══╝  ██║██║     ██║   ██║██║     ██║     ╚██╔╝  
+██████╔╝██║██║     ██║     ██║╚██████╗╚██████╔╝███████╗██║      ██║   
+╚═════╝ ╚═╝╚═╝     ╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝      ╚═╝   
+        Use up and down arrow keys to select a difficulty
+";
 		string[] options = { "Easy", "Normal", "Hard" };
 		string[] descriptions = {
 				"You will have 20000$\nYou will lose if your net worth drop below 1000$\nYou will win if your net worth will be over 30000$",
@@ -160,23 +176,40 @@ public class Program
 
 	private static void InitializeGame()
 	{
-		LoadEmbeddedResources();
-		switch (Difficulty)
+		TurnCounter = 1;
+		switch (GameMode)
 		{
-			case "easy":
-				Money = 20000.00M;
-				LosingNetWorth = 1000.00M;
-				WinningNetWorth = 30000.00M;
+			case "default":
+				LoadEmbeddedResources();
+				DisplayDifficultiesScreen();
+				switch (Difficulty)
+				{
+					case "easy":
+						Money = 20000.00M;
+						LosingNetWorth = 1000.00M;
+						WinningNetWorth = 30000.00M;
+						break;
+					case "normal":
+						Money = 10000.00M;
+						LosingNetWorth = 2000.00M;
+						WinningNetWorth = 50000.00M;
+						break;
+					case "hard":
+						Money = 5000.00M;
+						LosingNetWorth = 3000.00M;
+						WinningNetWorth = 100000.00M;
+						break;
+				}
 				break;
-			case "normal":
-				Money = 10000.00M;
+			case "random":
+				LoadEmbeddedResources();
+				foreach (Company company in Companies)
+				{
+					company.SharePrice = Random.Shared.Next(100, 5001);
+				}
+				Money = Random.Shared.Next(1000, 30001);
 				LosingNetWorth = 2000.00M;
 				WinningNetWorth = 50000.00M;
-				break;
-			case "hard":
-				Money = 5000.00M;
-				LosingNetWorth = 3000.00M;
-				WinningNetWorth = 100000.00M;
 				break;
 		}
 	}
@@ -380,77 +413,72 @@ public class Program
 	private static void IntroductionScreen()
 	{
 		Console.Clear();
-		Console.WriteLine();
-		Console.WriteLine("    ╔════════════════════════════════════════════════════════════════════════════════╗");
-		Console.WriteLine("    ║ Dear CEO,                                                                      ║");
-		Console.WriteLine("    ║                                                                                ║");
-		Console.WriteLine("    ║ Welcome to Oligopoly!                                                          ║");
-		Console.WriteLine("    ║                                                                                ║");
-		Console.WriteLine("    ║ On behalf of the board of directors of Oligopoly Investments, we would like to ║");
-		Console.WriteLine("    ║ congratulate you on becoming our new CEO. We are confident that you will lead  ║");
-		Console.WriteLine("    ║ our company to new heights of success and innovation. As CEO, you now have     ║");
-		Console.WriteLine("    ║ access to our exclusive internal software called Oligopoly, where you can      ║");
-		Console.WriteLine("    ║ track the latest news from leading companies and buy and sell their shares.    ║");
-		Console.WriteLine("    ║ This software will give you an edge over the competition and help you make     ║");
-		Console.WriteLine("    ║ important decisions for our company. To access the program, simply click the   ║");
-		Console.WriteLine("    ║ button at the bottom of this email. We look forward to working with you and    ║");
-		Console.WriteLine("    ║ supporting you in your new role.                                               ║");
-		Console.WriteLine("    ║                                                                                ║");
-		Console.WriteLine("    ║ Sincerely,                                                                     ║");
-		Console.WriteLine("    ║ The board of directors of Oligopoly Investments                                ║");
-		Console.WriteLine("    ╚════════════════════════════════════════════════════════════════════════════════╝");
-		Console.WriteLine();
+		Console.WriteLine(@"
+          ██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗
+          ██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝
+          ██║ █╗ ██║█████╗  ██║     ██║     ██║   ██║██╔████╔██║█████╗  
+          ██║███╗██║██╔══╝  ██║     ██║     ██║   ██║██║╚██╔╝██║██╔══╝  
+          ╚███╔███╔╝███████╗███████╗╚██████╗╚██████╔╝██║ ╚═╝ ██║███████╗
+           ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝
+╔════════════════════════════════════════════════════════════════════════════════╗
+║ Dear new CEO,                                                                  ║
+║                                                                                ║
+║ Welcome to Oligopoly!                                                          ║
+║                                                                                ║
+║ On behalf of the board of directors of Oligopoly Investments, we would like to ║
+║ congratulate you on becoming our new CEO. We are confident that you will lead  ║
+║ our company to new heights of success and innovation. As CEO, you now have     ║
+║ access to our exclusive internal software called Oligopoly, where you can      ║
+║ track the latest news from leading companies and buy and sell their shares.    ║
+║ This software will give you an edge over the competition and help you make     ║
+║ important decisions for our company. To access the program, simply click the   ║
+║ button at the bottom of this email. We look forward to working with you and    ║
+║ supporting you in your new role.                                               ║
+║                                                                                ║
+║ Sincerely,                                                                     ║
+║ The board of directors of Oligopoly Investments                                ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+");
 		Console.Write("Press any key to continue...");
 		Console.CursorVisible = false;
 		CloseRequested = CloseRequested || Console.ReadKey(true).Key is ConsoleKey.Escape;
 		DisplayGameModeScreen();
-		switch (GameMode)
-		{
-			case "default":
-				DisplayDifficultiesScreen();
-				InitializeGame();
-				break;
-			case "random":
-				LoadEmbeddedResources();
-				foreach (Company company in Companies)
-				{
-					company.SharePrice = Random.Shared.Next(100, 5001);
-				}
-				Money = Random.Shared.Next(1000, 30001);
-				LosingNetWorth = 2000.00M;
-				WinningNetWorth = 50000.00M;
-				break;
-		}
+		InitializeGame();
 		GameLoop();
 	}
 
 	private static void PlayerWinsScreen()
 	{
 		Console.Clear();
-		Console.WriteLine();
-		Console.WriteLine("    ╔════════════════════════════════════════════════════════════════════════════════╗");
-		Console.WriteLine("    ║ Dear CEO,                                                                      ║");
-		Console.WriteLine("    ║                                                                                ║");
-		Console.WriteLine("    ║ On behalf of the board of directors of Oligopoly Investments, we would like to ║");
-		Console.WriteLine("    ║ express our gratitude and understanding for your decision to leave your post.  ║");
-		Console.WriteLine("    ║ You have been a remarkable leader and a visionary strategist, who played the   ║");
-		Console.WriteLine("    ║ stock market skillfully and increased our budget by five times. We are proud   ║");
-		Console.WriteLine("    ║ of your achievements and we wish you all the best in your future endeavors. As ║");
-		Console.WriteLine("    ║ a token of our appreciation, we are pleased to inform you that the company     ║");
-		Console.WriteLine("    ║ will pay you a bonus of $1 million. You deserve this reward for your hard work ║");
-		Console.WriteLine("    ║ and dedication. We hope you will enjoy it and remember us fondly. Thank you    ║");
-		Console.WriteLine("    ║ for your service and your contribution to Oligopoly Investments.               ║");
-		Console.WriteLine("    ║ You will be missed.                                                            ║");
-		Console.WriteLine("    ║                                                                                ║");
-		Console.WriteLine("    ║ Sincerely,                                                                     ║");
-		Console.WriteLine("    ║ The board of directors of Oligopoly Investments                                ║");
-		Console.WriteLine("    ╚════════════════════════════════════════════════════════════════════════════════╝");
-		Console.WriteLine();
-		Console.WriteLine($"Your net worth is over {WinningNetWorth:C}.");
-		Console.WriteLine($"You have played {TurnCounter} turns");
-		Console.WriteLine();
-		Console.WriteLine("You win! Congratulations!");
-		Console.WriteLine();
+		Console.WriteLine(@$"
+          ██╗   ██╗ ██████╗ ██╗   ██╗    ██╗    ██╗██╗███╗   ██╗
+          ╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║    ██║██║████╗  ██║
+           ╚████╔╝ ██║   ██║██║   ██║    ██║ █╗ ██║██║██╔██╗ ██║
+            ╚██╔╝  ██║   ██║██║   ██║    ██║███╗██║██║██║╚██╗██║
+             ██║   ╚██████╔╝╚██████╔╝    ╚███╔███╔╝██║██║ ╚████║
+             ╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝
+╔════════════════════════════════════════════════════════════════════════════════╗
+║ Dear CEO,                                                                      ║
+║                                                                                ║
+║ On behalf of the board of directors of Oligopoly Investments, we would like to ║
+║ express our gratitude and understanding for your decision to leave your post.  ║
+║ You have been a remarkable leader and a visionary strategist, who played the   ║
+║ stock market skillfully and increased our budget by five times. We are proud   ║
+║ of your achievements and we wish you all the best in your future endeavors. As ║
+║ a token of our appreciation, we are pleased to inform you that the company     ║
+║ will pay you a bonus of $1 million. You deserve this reward for your hard work ║
+║ and dedication. We hope you will enjoy it and remember us fondly. Thank you    ║
+║ for your service and your contribution to Oligopoly Investments.               ║
+║ You will be missed.                                                            ║
+║                                                                                ║
+║ Sincerely,                                                                     ║
+║ The board of directors of Oligopoly Investments                                ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+Your Net Worth is over {WinningNetWorth}$
+You have played {TurnCounter} turns
+Congratulations!
+");
 		Console.Write("Press any key (except ENTER) to continue...");
 		ConsoleKey key = ConsoleKey.Enter;
 		while (!CloseRequested && key is ConsoleKey.Enter)
@@ -464,26 +492,31 @@ public class Program
 	private static void PlayerLosesScreen()
 	{
 		Console.Clear();
-		Console.WriteLine();
-		Console.WriteLine("    ╔════════════════════════════════════════════════════════════════════════════════╗");
-		Console.WriteLine("    ║ Dear former CEO,                                                               ║");
-		Console.WriteLine("    ║                                                                                ║");
-		Console.WriteLine("    ║ We regret to inform you that you are being removed from the position of CEO    ║");
-		Console.WriteLine("    ║ and fired from the company, effective immediately. The board of directors of   ║");
-		Console.WriteLine("    ║ Oligopoly Investments has decided to take this action because you have spent   ║");
-		Console.WriteLine("    ║ the budget allocated to you, and your investment turned out to be unprofitable ║");
-		Console.WriteLine("    ║ for the company. We appreciate your service and wish you all the best in your  ║");
-		Console.WriteLine("    ║ future endeavors.                                                              ║");
-		Console.WriteLine("    ║                                                                                ║");
-		Console.WriteLine("    ║ Sincerely,                                                                     ║");
-		Console.WriteLine("    ║ The board of directors of Oligopoly Investments                                ║");
-		Console.WriteLine("    ╚════════════════════════════════════════════════════════════════════════════════╝");
-		Console.WriteLine();
-		Console.WriteLine($"Your net worth dropped below {LosingNetWorth:C}.");
-		Console.WriteLine($"You have played {TurnCounter} turns");
-		Console.WriteLine();
-		Console.WriteLine("You Lose! Better luck next time...");
-		Console.WriteLine();
+		Console.WriteLine($@"
+          ██╗   ██╗ ██████╗ ██╗   ██╗    ██╗      ██████╗ ███████╗███████╗
+          ╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║     ██╔═══██╗██╔════╝██╔════╝
+           ╚████╔╝ ██║   ██║██║   ██║    ██║     ██║   ██║███████╗█████╗  
+            ╚██╔╝  ██║   ██║██║   ██║    ██║     ██║   ██║╚════██║██╔══╝  
+             ██║   ╚██████╔╝╚██████╔╝    ███████╗╚██████╔╝███████║███████╗
+             ╚═╝    ╚═════╝  ╚═════╝     ╚══════╝ ╚═════╝ ╚══════╝╚══════╝
+╔════════════════════════════════════════════════════════════════════════════════╗
+║ Dear former CEO,                                                               ║
+║                                                                                ║
+║ We regret to inform you that you are being removed from the position of CEO    ║
+║ and fired from the company, effective immediately. The board of directors of   ║
+║ Oligopoly Investments has decided to take this action because you have spent   ║
+║ the budget allocated to you, and your investment turned out to be unprofitable ║
+║ for the company. We appreciate your service and wish you all the best in your  ║
+║ future endeavors.                                                              ║
+║                                                                                ║
+║ Sincerely,                                                                     ║
+║ The board of directors of Oligopoly Investments                                ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+Your Net Worth dropped below {LosingNetWorth}$
+You have played {TurnCounter} turns
+Better luck next time...
+");
 		Console.Write("Press any key (except ENTER) to continue...");
 		ConsoleKey key = ConsoleKey.Enter;
 		while (!CloseRequested && key is ConsoleKey.Enter)
@@ -497,16 +530,20 @@ public class Program
 	private static void AboutInfoScreen()
 	{
 		Console.Clear();
-		Console.WriteLine();
-		Console.WriteLine("    ╔════════════════════════════════════════════════════════════════════════════════╗");
-		Console.WriteLine("    ║ THANKS!                                                                        ║");
-		Console.WriteLine("    ║                                                                                ║");
-		Console.WriteLine("    ║ No really, thank you for taking time to play this simple console game.         ║");
-		Console.WriteLine("    ║ It means a lot :D                                                              ║");
-		Console.WriteLine("    ║                                                                                ║");
-		Console.WriteLine("    ║ This game was created by Semion Medvedev (Fuinny)                              ║");
-		Console.WriteLine("    ╚════════════════════════════════════════════════════════════════════════════════╝");
-		Console.WriteLine();
+		Console.WriteLine($@"
+          ████████╗██╗  ██╗ █████╗ ███╗   ██╗██╗  ██╗███████╗██╗
+          ╚══██╔══╝██║  ██║██╔══██╗████╗  ██║██║ ██╔╝██╔════╝██║
+             ██║   ███████║███████║██╔██╗ ██║█████╔╝ ███████╗██║
+             ██║   ██╔══██║██╔══██║██║╚██╗██║██╔═██╗ ╚════██║╚═╝
+             ██║   ██║  ██║██║  ██║██║ ╚████║██║  ██╗███████║██╗
+             ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝╚═╝
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║No really, thank you for taking time to play this simple CLI game. It means a lot.║
+║If you find any bug or have an idea how to improve the game, please let me know :D║
+║                                                                                  ║
+║This game was created by Semion Medvedev (Fuinny)                                 ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+");
 		Console.WriteLine("Press any key to continue...");
 		Console.CursorVisible = false;
 		CloseRequested = CloseRequested || Console.ReadKey(true).Key is ConsoleKey.Escape;
