@@ -505,41 +505,38 @@ void Render()
 	foreach (var enemy in enemies)
 	{
 		float angle = (float)Math.Atan2(enemy.Y - playerY, enemy.X - playerX);
-		if (fovAngleA <= angle && angle <= fovAngleB)
+		float distance = Vector2.Distance(new(playerX, playerY), new(enemy.X, enemy.Y));
+
+		int ceiling = (int)((float)(screenHeight / 2.0f) - screenHeight / ((float)distance));
+		int floor = screenHeight - ceiling;
+
+		string[] enemySprite = distance switch
 		{
-			float distance = Vector2.Distance(new(playerX, playerY), new(enemy.X, enemy.Y));
+			<= 05f => enemySprite8,
+			<= 06f => enemySprite7,
+			<= 07f => enemySprite6,
+			<= 08f => enemySprite5,
+			<= 09f => enemySprite4,
+			<= 10f => enemySprite3,
+			<= 11f => enemySprite2,
+			_ => enemySprite1
+		};
 
-			int ceiling = (int)((float)(screenHeight / 2.0f) - screenHeight / ((float)distance));
-			int floor = screenHeight - ceiling;
+		int enemyScreenX = (int)(screenWidth * ((angle - fovAngleA) / (fovAngleB - fovAngleA)));
+		int enemyScreenY = Math.Min(floor + enemySprite.Length / 2 - 1, screenHeight);
 
-			string[] enemySprite = distance switch
+		for (int y = 0; y < enemySprite.Length; y++)
+		{
+			for (int x = 0; x < enemySprite[y].Length; x++)
 			{
-				<= 04f => enemySprite8,
-				<= 05f => enemySprite7,
-				<= 06f => enemySprite6,
-				<= 07f => enemySprite5,
-				<= 08f => enemySprite4,
-				<= 10f => enemySprite3,
-				<= 12f => enemySprite2,
-				_ => enemySprite1
-			};
-
-			int enemyScreenX = (int)(screenWidth * ((angle - fovAngleA) / (fovAngleB - fovAngleA)));
-			int enemyScreenY = Math.Min(floor + enemySprite.Length / 2 - 1, screenHeight);
-
-			for (int y = 0; y < enemySprite.Length; y++)
-			{
-				for (int x = 0; x < enemySprite[y].Length; x++)
+				if (enemySprite[y][x] is not '!')
 				{
-					if (enemySprite[y][x] is not '!')
+					int screenX = x - enemySprite[y].Length / 2 + enemyScreenX;
+					int screenY = y - enemySprite.Length + enemyScreenY;
+					if (0 <= screenX && screenX <= screenWidth - 1 && 0 <= screenY && screenY <= screenHeight - 1 && depthBuffer[screenX, screenY] > distance)
 					{
-						int screenX = x - enemySprite[y].Length / 2 + enemyScreenX;
-						int screenY = y - enemySprite.Length + enemyScreenY;
-						if (0 <= screenX && screenX <= screenWidth - 1 && 0 <= screenY && screenY <= screenHeight - 1 && depthBuffer[screenX, screenY] > distance)
-						{
-							screen[screenX, screenY] = enemySprite[y][x];
-							depthBuffer[screenX, screenY] = distance;
-						}
+						screen[screenX, screenY] = enemySprite[y][x];
+						depthBuffer[screenX, screenY] = distance;
 					}
 				}
 			}
