@@ -1,0 +1,56 @@
+﻿@using System
+
+@page "/Flash Cards"
+
+<PageTitle>Flash Cards</PageTitle>
+
+<h1>Flash&nbsp;Cards</h1>
+
+<a href="https://github.com/dotnet/dotnet-console-games/tree/main/Projects/Flash%20Cards" alt="Go To Readme">
+	<img title="Go To Readme" alt="Go To Readme" src="https://raw.githubusercontent.com/dotnet/dotnet-console-games/main/.github/resources/readme-black.svg">
+</a>
+
+<div class="console-window text-center my-3" @onkeydown="@Console.OnKeyDown" tabindex="0">
+	<div class="d-inline-block bg-dark text-light border p-2 text-start shadow padding-0">
+		<pre class="console">
+			<code>@Console.State</code>
+		</pre>
+	</div>
+	<div>
+		@for (char i = 'a'; i <= 'z'; i++)
+		{
+			char c = i;
+			<span></span>
+			<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.A + (c - 'a'))">@c</button>
+			<span></span>
+		}
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.OemMinus)">-</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Enter)   ">enter</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Escape)  ">escape</button>
+	</div>
+</div>
+
+<div class="alert alert-secondary" role="alert">
+	&#9000; Keyboard input is supported if you <strong>click</strong> on the game.
+</div>
+
+<div class="alert alert-secondary" role="alert">
+	&#8635; You can restart the game by <strong>refreshing</strong> the page.
+</div>
+
+@code
+{
+	Games.Flash_Cards.Flash_Cards Game;
+	BlazorConsole Console;
+
+	public Flash_Cards()
+	{
+		Game = new();
+		Console = Game.Console;
+		Console.WindowWidth = 70;
+		Console.WindowHeight = 24;
+		Console.TriggerRefresh = StateHasChanged;
+	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
+}

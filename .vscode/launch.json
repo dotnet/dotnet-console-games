@@ -33,6 +33,16 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Flash Cards",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Flash Cards",
+			"program": "${workspaceFolder}/Projects/Flash Cards/bin/Debug/Flash Cards.dll",
+			"cwd": "${workspaceFolder}/Projects/Flash Cards/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Quick Draw",
 			"type": "coreclr",
 			"request": "launch",
