@@ -21,7 +21,7 @@ while (true)
 	Console.WriteLine("  to help you memorize the NATO phonetic alphabet. The");
 	Console.WriteLine("  NATO phonetic alphabet is commonly used during radio");
 	Console.WriteLine("  communication in aviation. Each flash card will have");
-	Console.WriteLine("  a letter from the english alphabet and you need to");
+	Console.WriteLine("  a letter from the English alphabet and you need to");
 	Console.WriteLine("  provide the corresponding code word for that letter.");
 	Console.WriteLine();
 	Console.WriteLine("  |  NATO phonetic alphabet code words");

@@ -30,7 +30,7 @@ public class Flash_Cards
 			await Console.WriteLine("  to help you memorize the NATO phonetic alphabet. The");
 			await Console.WriteLine("  NATO phonetic alphabet is commonly used during radio");
 			await Console.WriteLine("  communication in aviation. Each flash card will have");
-			await Console.WriteLine("  a letter from the english alphabet and you need to");
+			await Console.WriteLine("  a letter from the English alphabet and you need to");
 			await Console.WriteLine("  provide the corresponding code word for that letter.");
 			await Console.WriteLine();
 			await Console.WriteLine("  |  NATO phonetic alphabet code words");
@@ -55,6 +55,7 @@ public class Flash_Cards
 				{
 					await Console.Clear();
 					await Console.WriteLine("Flash Cards was closed.");
+					await Console.Refresh();
 					return;
 				}
 			}

@@ -23,7 +23,7 @@
 
 In this game you will be doing flash card exercises to help you memorize the NATO phonetic alphabet. 
 The NATO phonetic alphabet is commonly used during radio communication in aviation. Each flash card 
-will have a letter from the english alphabet and you need to provide the corresponding code word for 
+will have a letter from the English alphabet and you need to provide the corresponding code word for 
 that letter.
 
 ```
@@ -47,7 +47,9 @@ that letter.
 
 ## Input
 
-- `enter`: confirm
+- `a`, `b`, `c`... `z`, `-`: input code name
+- `enter`: confirm/continue
+- `escape`: exit game or return to main menu
 
 ## Downloads
 
