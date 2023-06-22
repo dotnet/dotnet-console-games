@@ -95,7 +95,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oligopoly", "Projects\Oligo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gravity", "Projects\Gravity\Gravity.csproj", "{0173448B-A63D-490C-955D-1B245375AF14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Darts", "Projects\Darts\Darts.csproj", "{8221AD1A-84C2-4027-85A1-EC6C319B2921}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Darts", "Projects\Darts\Darts.csproj", "{8221AD1A-84C2-4027-85A1-EC6C319B2921}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flash Cards", "Projects\Flash Cards\Flash Cards.csproj", "{62BD025E-693C-4524-AE89-07D74EB2931B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -291,6 +293,10 @@ Global
 		{8221AD1A-84C2-4027-85A1-EC6C319B2921}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8221AD1A-84C2-4027-85A1-EC6C319B2921}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8221AD1A-84C2-4027-85A1-EC6C319B2921}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62BD025E-693C-4524-AE89-07D74EB2931B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62BD025E-693C-4524-AE89-07D74EB2931B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62BD025E-693C-4524-AE89-07D74EB2931B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62BD025E-693C-4524-AE89-07D74EB2931B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

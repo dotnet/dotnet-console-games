@@ -115,6 +115,7 @@ public class BlazorConsole
 			ConsoleKey.Enter => '\n',
 			ConsoleKey.Backspace => '\b',
 			ConsoleKey.OemPeriod => '.',
+			ConsoleKey.OemMinus => '-',
 			_ => '\0',
 		};
 		InputBuffer.Enqueue(new(shift ? char.ToUpper(c) : c, key, shift, alt, control));
@@ -136,6 +137,7 @@ public class BlazorConsole
 			case "ArrowUp":    EnqueueInput(ConsoleKey.UpArrow); break;
 			case "ArrowDown":  EnqueueInput(ConsoleKey.DownArrow); break;
 			case ".":          EnqueueInput(ConsoleKey.OemPeriod); break;
+			case "-":          EnqueueInput(ConsoleKey.OemMinus); break;
 			default:
 				if (e.Key.Length is 1)
 				{
