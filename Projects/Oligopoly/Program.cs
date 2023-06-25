@@ -15,10 +15,9 @@ public class Program
 	private static List<Event> Events { get; set; } = null!;
 	private static List<Event> GlobalEvents { get; set; } = null!;
 	private static Event CurrentEvent { get; set; } = null!;
+	private static int PositiveEventChance { get; set; }
 	private static int TurnCounter { get; set; }
-	private static string Difficulty { get; set; } = null!;
-	private static string GameMode { get; set; } = null!;
-	private static decimal Money { get; set; }
+	private static decimal Money = 10000m;
 	private static decimal NetWorth { get; set; }
 	private static decimal LosingNetWorth = 2000.00m;
 	private static decimal WinningNetWorth = 50000.00m;
@@ -114,102 +113,55 @@ public class Program
 		Console.ReadKey(true);
 	}
 
-	private static void DisplayGameModeScreen()
+	private static void GameSetupScreen()
 	{
 		string prompt = @"
- ██████╗  █████╗ ███╗   ███╗███████╗    ███╗   ███╗ ██████╗ ██████╗ ███████╗
-██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ████╗ ████║██╔═══██╗██╔══██╗██╔════╝
-██║  ███╗███████║██╔████╔██║█████╗      ██╔████╔██║██║   ██║██║  ██║█████╗  
-██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║╚██╔╝██║██║   ██║██║  ██║██╔══╝  
-╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ██║ ╚═╝ ██║╚██████╔╝██████╔╝███████╗
- ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝    ╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝
-            Use up and down arrow keys to select a game mode 
+ ██████╗  █████╗ ███╗   ███╗███████╗    ███████╗███████╗████████╗██╗   ██╗██████╗
+██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔════╝██╔════╝╚══██╔══╝██║   ██║██╔══██╗
+██║  ███╗███████║██╔████╔██║█████╗      ███████╗█████╗     ██║   ██║   ██║██████╔╝
+██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ╚════██║██╔══╝     ██║   ██║   ██║██╔═══╝
+╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ███████║███████╗   ██║   ╚██████╔╝██║
+ ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝    ╚══════╝╚══════╝   ╚═╝    ╚═════╝ ╚═╝
+         Customize the game to make it interesting for you to play ;)
 ";
-		string[] options = { "Default", "Random" };
-		string[] descriptions = {
-				"This is the default game mode. \nChoose the difficulty, buy shares and try to sell them at a higher price to increase your net worth.",
-				"Want to go full random? In this mode, your money and company shares are randomly generated."
-			};
-		int selectedMode = HandleMenuWithOptions(prompt, options, descriptions);
+		string[] difficultiesOptions = { "Easy", "Normal", "Hard" };
+		string[] gameModesOptions = { "Standard", "Random", "Custom" };
+		string[] difficultiesDescriptions =
+		{
+			"60% chance that the next market event will be positive",
+			"50% chance that the next market event will be positive/negative",
+			"60% change that the next market event will be negative"
+		};
+		string[] gameModesDescriptions =
+		{
+			"Just standard mode, nothing out of the ordinary",
+			"Your money and company shares prices will be randomly generated",
+			"You can set the starting amount of your money"
+		};
+
+		TurnCounter = 1;
+		LoadEmbeddedResources();
+		int selectedMode = HandleMenuWithOptions(prompt, gameModesOptions, gameModesDescriptions);
+		int selectedDifficulty = HandleMenuWithOptions(prompt, difficultiesOptions, difficultiesDescriptions);
+
+		switch (selectedDifficulty)
+		{
+			case 0: PositiveEventChance = 60; break;
+			case 1: PositiveEventChance = 50; break;
+			case 2: PositiveEventChance = 40; break;
+		}
+
 		switch (selectedMode)
 		{
-			case 0:
-				GameMode = "default";
-				break;
 			case 1:
-				GameMode = "random";
-				break;
-		}
-	}
-
-	private static void DisplayDifficultiesScreen()
-	{
-		string prompt = @"
-██████╗ ██╗███████╗███████╗██╗ ██████╗██╗   ██╗██╗  ████████╗██╗   ██╗
-██╔══██╗██║██╔════╝██╔════╝██║██╔════╝██║   ██║██║  ╚══██╔══╝╚██╗ ██╔╝
-██║  ██║██║█████╗  █████╗  ██║██║     ██║   ██║██║     ██║    ╚████╔╝ 
-██║  ██║██║██╔══╝  ██╔══╝  ██║██║     ██║   ██║██║     ██║     ╚██╔╝  
-██████╔╝██║██║     ██║     ██║╚██████╗╚██████╔╝███████╗██║      ██║   
-╚═════╝ ╚═╝╚═╝     ╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝      ╚═╝   
-        Use up and down arrow keys to select a difficulty
-";
-		string[] options = { "Easy", "Normal", "Hard" };
-		string[] descriptions = {
-				"You will have 20000$\nYou will lose if your net worth drop below 1000$\nYou will win if your net worth will be over 30000$",
-				"You will have 10000$\nYou will lose if your net worth drop below 2000$\nYou will win if your net worth will be over 50000$",
-				"You will have 5000$\nYou will lose if your net worth drop below 3000$\nYou will win if your net worth will be over 100000$"
-		};
-		int selectedDifficulty = HandleMenuWithOptions(prompt, options, descriptions);
-		switch (selectedDifficulty) 
-		{
-			case 0:
-				Difficulty = "easy";
-				break;
-			case 1:
-				Difficulty = "normal";
-				break;
-			case 2:
-				Difficulty = "hard";
-				break;
-		}
-	}
-
-	private static void InitializeGame()
-	{
-		TurnCounter = 1;
-		switch (GameMode)
-		{
-			case "default":
-				LoadEmbeddedResources();
-				DisplayDifficultiesScreen();
-				switch (Difficulty)
-				{
-					case "easy":
-						Money = 20000.00M;
-						LosingNetWorth = 1000.00M;
-						WinningNetWorth = 30000.00M;
-						break;
-					case "normal":
-						Money = 10000.00M;
-						LosingNetWorth = 2000.00M;
-						WinningNetWorth = 50000.00M;
-						break;
-					case "hard":
-						Money = 5000.00M;
-						LosingNetWorth = 3000.00M;
-						WinningNetWorth = 100000.00M;
-						break;
-				}
-				break;
-			case "random":
-				LoadEmbeddedResources();
 				foreach (Company company in Companies)
 				{
 					company.SharePrice = Random.Shared.Next(100, 5001);
 				}
 				Money = Random.Shared.Next(1000, 30001);
-				LosingNetWorth = 2000.00M;
-				WinningNetWorth = 50000.00M;
+				break;
+			case 2:
+				Money = MoneySetupScreen();
 				break;
 		}
 	}
@@ -264,32 +216,37 @@ public class Program
 		StringBuilder prompt = RenderCompanyStocksTable();
 		prompt.AppendLine();
 
+		bool isPositive = Random.Shared.Next(0, 101) <= PositiveEventChance;
+
 		if (TurnCounter % 50 == 0)
 		{
-			CurrentEvent = GlobalEvents[Random.Shared.Next(0, GlobalEvents.Count)];
-
-			foreach (Company currentCompany in Companies)
+			if (isPositive)
 			{
-				currentCompany.SharePrice += currentCompany.SharePrice * CurrentEvent.Effect / 100;
+				List<Event> positiveGlobalEvents = GlobalEvents.Where(e => e.Effect > 0).ToList();
+				CurrentEvent = positiveGlobalEvents[Random.Shared.Next(0, positiveGlobalEvents.Count)];
 			}
-
-			prompt.AppendLine($"{CurrentEvent.Title.ToUpper()}");
+			else
+			{
+				List<Event> negativeGlobalEvents = GlobalEvents.Where(e => e.Effect < 0).ToList();
+				CurrentEvent = negativeGlobalEvents[Random.Shared.Next(0, negativeGlobalEvents.Count)];
+			}
 		}
 		else
 		{
-			CurrentEvent = Events[Random.Shared.Next(0, Events.Count)];
-
-			foreach (Company currentCompany in Companies)
+			if (isPositive)
 			{
-				if (currentCompany.Name == CurrentEvent.CompanyName)
-				{
-					currentCompany.SharePrice += currentCompany.SharePrice * CurrentEvent.Effect / 100;
-				}
+				List<Event> positiveEvents = Events.Where(e => e.Effect > 0).ToList();
+				CurrentEvent = positiveEvents[Random.Shared.Next(0, positiveEvents.Count)];
 			}
-
-			prompt.AppendLine($"{CurrentEvent.Title}");
+			else
+			{
+				List<Event> negativeEvents = Events.Where(e => e.Effect < 0).ToList();
+				CurrentEvent = negativeEvents[Random.Shared.Next(0, negativeEvents.Count)];
+			}
 		}
 
+		prompt.AppendLine();
+		prompt.AppendLine($"{CurrentEvent.Title}");
 		prompt.AppendLine();
 		prompt.AppendLine($"{CurrentEvent.Description}");
 		prompt.AppendLine();
@@ -397,6 +354,61 @@ public class Program
 		CloseRequested = CloseRequested || Console.ReadKey(true).Key is ConsoleKey.Escape;
 	}
 
+	private static int MoneySetupScreen()
+	{
+		bool isEnd = false;
+		int index = 0, customMoney = 1000;
+		string[] options = { "(+) Increase", "(-) Decrease", "Done"};
+		ConsoleKey key = default;
+		while (!CloseRequested && !isEnd)
+		{
+			Console.Clear();
+			Console.WriteLine($"Your starting amount of money will be set to {customMoney:C}");
+			Console.WriteLine("Use up and down arrow keys and enter to select an option:\n");
+			for (int i = 0; i < options.Length; i++)
+			{
+				string currentOption = options[i];
+				if (i == index)
+				{
+					(Console.BackgroundColor, Console.ForegroundColor) = (Console.ForegroundColor, Console.BackgroundColor);
+					Console.WriteLine($"[*] {currentOption}");
+					Console.ResetColor();
+				}
+				else
+				{
+					Console.WriteLine($"[ ] {currentOption}");
+				}
+			}
+
+			Console.CursorVisible = false;
+			key = Console.ReadKey().Key;
+			switch (key)
+			{
+				case ConsoleKey.UpArrow: index = index is 0 ? options.Length - 1 : index - 1; break;
+				case ConsoleKey.DownArrow: index = index == options.Length - 1 ? 0 : index + 1; break;
+				case ConsoleKey.Enter:
+					if (index == 0)
+					{
+						customMoney += 100;
+					}
+					else if (index == 1)
+					{
+						if (customMoney - 100 >= 1000)
+						{
+							customMoney -= 100;
+						}	
+					}
+					else
+					{
+						isEnd = true;
+					}
+				break;
+				case ConsoleKey.Escape: CloseRequested = true; break;
+			}
+		}
+		return customMoney;
+	}
+
 	private static void CompanyDetailsScreen()
 	{
 		Console.Clear();
@@ -442,8 +454,7 @@ public class Program
 		Console.Write("Press any key to continue...");
 		Console.CursorVisible = false;
 		CloseRequested = CloseRequested || Console.ReadKey(true).Key is ConsoleKey.Escape;
-		DisplayGameModeScreen();
-		InitializeGame();
+		GameSetupScreen();
 		GameLoop();
 	}
 
@@ -589,7 +600,7 @@ Better luck next time...
 					Console.WriteLine($"[ ] {currentOption}");
 				}
 			}
-			if (descriptions != null) 
+			if (descriptions != null)
 			{
 				Console.WriteLine("\nDescription:");
 				Console.WriteLine(descriptions[index]);
