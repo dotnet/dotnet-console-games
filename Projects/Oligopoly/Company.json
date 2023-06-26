@@ -34,5 +34,19 @@
     "SharePrice": 1200,
     "NumberOfShares": 0,
     "Description": "COBRA (stands for Counter-Offensive Brigades for Rapid Action) are private special forces units equipped with the latest technology. The company fulfills orders all over the world and cooperates with various governments. COBRA Security Consulting is a professional and discreet company that offers security services for high-risk situations and locations. COBRA Security Consulting also trains and equips its operatives with advanced weapons and gadgets to ensure their success."
+  },
+  {
+    "Name": "Rockland Games",
+    "Industry": "Games",
+    "SharePrice": 750,
+    "NumberOfShares": 0,
+    "Description": "Well-known gaming company. Rockland Games are famous for their large and elaborate games across a wide range of genres. The company is also investing in the development of virtual reality and augmented reality to provide its users with a unique gaming experience."
+  },
+  {
+    "Name": "Astro Technologies",
+    "Industry": "Space",
+    "SharePrice": 2500,
+    "NumberOfShares": 0,
+    "Description": "Astro Technologies is a leading space technology and research company. The company invests in the development of satellite systems, space and aerospace technologies. In addition, Astro Technologies is actively collaborating with other space agencies and research institution to foster innovation and promote global cooperation in space exploration."
   }
 ]
