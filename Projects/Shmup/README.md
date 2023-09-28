@@ -66,8 +66,6 @@ _todo_
 - `escape`: exit game
 -->
 
-> resizing the console window will cause the game to close
-
 ## Downloads
 
 _todo_
