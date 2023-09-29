@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+using Shmup.Enemies;
 
 namespace Shmup;
 
@@ -26,6 +27,8 @@ internal static class Program
 	internal static int consoleWidth = Console.WindowWidth;
 	internal static int consoleHeight = Console.WindowHeight;
 
+	internal static bool isDead = false;
+
 	internal static Player player = new()
 	{
 		X = gameWidth / 2,
@@ -33,6 +36,8 @@ internal static class Program
 	};
 
 	internal static List<PlayerBullet> playerBullets = new();
+
+	internal static List<PlayerBullet> explodingBullets = new();
 
 	internal static List<IEnemy> enemies = new();
 
@@ -71,43 +76,6 @@ internal static class Program
 
 	internal static void Update()
 	{
-		if (pauseUpdates)
-		{
-			return;
-		}
-
-		update++;
-
-		if (update % 60 is 0)
-		{
-			enemies.Add(new Helicopter()
-			{
-				X = -Helicopter.XMax,
-				XVelocity = 1f / 3f,
-				Y = Random.Shared.Next(gameHeight - 10) + 5,
-			});
-		}
-
-		if (update % 100 is 0)
-		{
-			enemies.Add(new Tank()
-			{
-				X = Random.Shared.Next(gameWidth - 10) + 5,
-				Y = gameHeight + Tank.YMax,
-				YVelocity = -1f / 10f,
-			});
-		}
-
-		for (int i = 0; i < playerBullets.Count; i++)
-		{
-			playerBullets[i].Y++;
-		}
-
-		foreach (IEnemy enemy in enemies)
-		{
-			enemy.Update();
-		}
-
 		bool u = false;
 		bool d = false;
 		bool l = false;
@@ -127,6 +95,12 @@ internal static class Program
 		}
 		if (OperatingSystem.IsWindows())
 		{
+			if (User32_dll.GetAsyncKeyState((int)ConsoleKey.Escape) is not 0)
+			{
+				closeRequested = true;
+				return;
+			}
+
 			u = u || User32_dll.GetAsyncKeyState((int)ConsoleKey.W) is not 0;
 			l = l || User32_dll.GetAsyncKeyState((int)ConsoleKey.A) is not 0;
 			d = d || User32_dll.GetAsyncKeyState((int)ConsoleKey.S) is not 0;
@@ -139,6 +113,34 @@ internal static class Program
 
 			shoot = shoot || User32_dll.GetAsyncKeyState((int)ConsoleKey.Spacebar) is not 0;
 		}
+
+		if (pauseUpdates)
+		{
+			return;
+		}
+
+		if (isDead)
+		{
+			return;
+		}
+
+		update++;
+
+		if (update % 50 is 0)
+		{
+			SpawnARandomEnemy();
+		}
+
+		for (int i = 0; i < playerBullets.Count; i++)
+		{
+			playerBullets[i].Y++;
+		}
+
+		foreach (IEnemy enemy in enemies)
+		{
+			enemy.Update();
+		}
+
 		if (l && !r)
 		{
 			player.X = Math.Max(0, player.X - 1);
@@ -161,13 +163,40 @@ internal static class Program
 			playerBullets.Add(new() { X = (int)player.X + 2, Y = (int)player.Y });
 		}
 
+		explodingBullets.Clear();
+
 		for (int i = 0; i < playerBullets.Count; i++)
 		{
 			PlayerBullet bullet = playerBullets[i];
-			if (bullet.X < 0 || bullet.Y < 0 || bullet.X >= gameWidth || bullet.Y >= gameHeight)
+			bool exploded = false;
+			for (int j = 0; j < enemies.Count; j++)
+			{
+				if (enemies[j].CollidingWith(bullet.X, bullet.Y))
+				{
+					if (!exploded)
+					{
+						playerBullets.RemoveAt(i);
+						explodingBullets.Add(bullet);
+						i--;
+						exploded = true;
+					}
+					enemies.RemoveAt(j);
+					j--;
+				}
+			}
+			if (!exploded && (bullet.X < 0 || bullet.Y < 0 || bullet.X >= gameWidth || bullet.Y >= gameHeight))
 			{
 				playerBullets.RemoveAt(i);
 				i--;
+			}
+		}
+
+		foreach (IEnemy enemy in enemies)
+		{
+			if (enemy.CollidingWith((int)player.X, (int)player.Y))
+			{
+				isDead = true;
+				return;
 			}
 		}
 
@@ -178,6 +207,40 @@ internal static class Program
 				enemies.RemoveAt(i);
 				i--;
 			}
+		}
+	}
+
+	internal static void SpawnARandomEnemy()
+	{
+		if (Random.Shared.Next(2) is 0)
+		{
+			enemies.Add(new Tank()
+			{
+				X = Random.Shared.Next(gameWidth - 10) + 5,
+				Y = gameHeight + Tank.YMax,
+				YVelocity = -1f / 10f,
+			});
+		}
+		else if (Random.Shared.Next(2) is 0)
+		{
+			enemies.Add(new Helicopter()
+			{
+				X = -Helicopter.XMax,
+				XVelocity = 1f / 3f,
+				Y = Random.Shared.Next(gameHeight - 10) + 5,
+			});
+		}
+		else if (Random.Shared.Next(3) is 0 or 1)
+		{
+			enemies.Add(new UFO1()
+			{
+				X = Random.Shared.Next(gameWidth - 10) + 5,
+				Y = gameHeight + UFO1.YMax,
+			});
+		}
+		else
+		{
+			enemies.Add(new UFO2());
 		}
 	}
 
@@ -210,9 +273,19 @@ internal static class Program
 		{
 			enemy.Render();
 		}
-		foreach (var bullet in playerBullets)
+		foreach (PlayerBullet bullet in playerBullets)
 		{
-			frameBuffer[bullet.X, bullet.Y] = '^';
+			if (bullet.X >= 0 && bullet.X < gameWidth && bullet.Y >= 0 && bullet.Y < gameHeight)
+			{
+				frameBuffer[bullet.X, bullet.Y] = '^';
+			}
+		}
+		foreach (PlayerBullet explode in explodingBullets)
+		{
+			if (explode.X >= 0 && explode.X < gameWidth && explode.Y >= 0 && explode.Y < gameHeight)
+			{
+				frameBuffer[explode.X, explode.Y] = '#';
+			}
 		}
 		StringBuilder render = new();
 		render.AppendLine(topBorder);
@@ -226,6 +299,10 @@ internal static class Program
 			render.AppendLine("┃");
 		}
 		render.AppendLine(bottomBorder);
+		if (isDead)
+		{
+			render.AppendLine("YOU DIED!");
+		}
 		try
 		{
 			Console.CursorVisible = false;

@@ -1,4 +1,4 @@
-﻿namespace Shmup;
+﻿namespace Shmup.Enemies;
 
 internal interface IEnemy
 {

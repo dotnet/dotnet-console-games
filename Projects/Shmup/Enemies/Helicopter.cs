@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Shmup;
+namespace Shmup.Enemies;
 
 internal class Helicopter : IEnemy
 {
@@ -29,20 +29,17 @@ internal class Helicopter : IEnemy
 	internal static int XMax = Math.Max(spriteA.Max(s => s.Length), spriteB.Max(s => s.Length));
 	internal static int YMax = Math.Max(spriteA.Length, spriteB.Length);
 
-	const int neutralOffsetX = -4;
-	const int neutralOffsetY = -2;
-
 	public void Render()
 	{
 		for (int y = 0; y < Sprite.Length; y++)
 		{
-			int yo = (int)Y + y + neutralOffsetY;
+			int yo = (int)Y + y;
 			int yi = Sprite.Length - y - 1;
 			if (yo >= 0 && yo < Program.frameBuffer.GetLength(1))
 			{
 				for (int x = 0; x < Sprite[y].Length; x++)
 				{
-					int xo = (int)X + x + neutralOffsetX;
+					int xo = (int)X + x;
 					if (xo >= 0 && xo < Program.frameBuffer.GetLength(0))
 					{
 						if (Sprite[yi][x] is not ' ')
@@ -80,9 +77,9 @@ internal class Helicopter : IEnemy
 	public bool IsOutOfBounds()
 	{
 		return
-			(XVelocity <= 0 && X < -XMax) ||
-			(YVelocity <= 0 && Y < -YMax) ||
-			(XVelocity >= 0 && X > Program.gameWidth + XMax) ||
-			(YVelocity >= 0 && Y > Program.gameHeight + YMax);
+			XVelocity <= 0 && X < -XMax ||
+			YVelocity <= 0 && Y < -YMax ||
+			XVelocity >= 0 && X > Program.gameWidth + XMax ||
+			YVelocity >= 0 && Y > Program.gameHeight + YMax;
 	}
 }

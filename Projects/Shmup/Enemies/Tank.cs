@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Shmup;
+namespace Shmup.Enemies;
+
 internal class Tank : IEnemy
 {
 	public float X;
@@ -44,20 +42,17 @@ internal class Tank : IEnemy
 	internal static int XMax = new[] { spriteDown.Max(s => s.Length), spriteUp.Max(s => s.Length), spriteLeft.Max(s => s.Length), spriteRight.Max(s => s.Length), }.Max();
 	internal static int YMax = new[] { spriteDown.Length, spriteUp.Length, spriteLeft.Length, spriteRight.Length, }.Max();
 
-	const int neutralOffsetX = -4;
-	const int neutralOffsetY = -2;
-
 	public void Render()
 	{
 		for (int y = 0; y < Sprite.Length; y++)
 		{
-			int yo = (int)Y + y + neutralOffsetY;
+			int yo = (int)Y + y;
 			int yi = Sprite.Length - y - 1;
 			if (yo >= 0 && yo < Program.frameBuffer.GetLength(1))
 			{
 				for (int x = 0; x < Sprite[y].Length; x++)
 				{
-					int xo = (int)X + x + neutralOffsetX;
+					int xo = (int)X + x;
 					if (xo >= 0 && xo < Program.frameBuffer.GetLength(0))
 					{
 						if (Sprite[yi][x] is not ' ')
@@ -75,9 +70,9 @@ internal class Tank : IEnemy
 		int xDifToPlayer = (int)Program.player.X - (int)X;
 		int yDifToPlayer = (int)Program.player.Y - (int)Y;
 
-		Sprite = Math.Abs(xDifToPlayer) * 1.5f > Math.Abs(yDifToPlayer)
-			? (xDifToPlayer > 0 ? spriteRight : spriteLeft)
-			: (yDifToPlayer > 0 ? spriteUp : spriteDown);
+		Sprite = Math.Abs(xDifToPlayer) > Math.Abs(yDifToPlayer)
+			? xDifToPlayer > 0 ? spriteRight : spriteLeft
+			: yDifToPlayer > 0 ? spriteUp : spriteDown;
 
 		X += XVelocity;
 		Y += YVelocity;
@@ -96,9 +91,9 @@ internal class Tank : IEnemy
 	public bool IsOutOfBounds()
 	{
 		return
-			(XVelocity <= 0 && X < -XMax) ||
-			(YVelocity <= 0 && Y < -YMax) ||
-			(XVelocity >= 0 && X > Program.gameWidth + XMax) ||
-			(YVelocity >= 0 && Y > Program.gameHeight + YMax);
+			XVelocity <= 0 && X < -XMax ||
+			YVelocity <= 0 && Y < -YMax ||
+			XVelocity >= 0 && X > Program.gameWidth + XMax ||
+			YVelocity >= 0 && Y > Program.gameHeight + YMax;
 	}
 }
