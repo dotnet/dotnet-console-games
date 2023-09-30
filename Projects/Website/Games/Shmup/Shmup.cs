@@ -53,6 +53,13 @@ public class Shmup
 
 	internal static bool spacebar_down = false;
 
+	internal static bool ui_u_down = false;
+	internal static bool ui_d_down = false;
+	internal static bool ui_l_down = false;
+	internal static bool ui_r_down = false;
+
+	internal static bool ui_shoot_down = false;
+
 	public async Task Run()
 	{
 		if (OperatingSystem.IsWindows() && (consoleWidth < intendedMinConsoleWidth || consoleHeight < intendedMinConsoleHeight))
@@ -149,7 +156,14 @@ public class Shmup
 				d = d || downarrow_down;
 				r = r || rightarrow_down;
 
+				u = u || ui_u_down;
+				l = l || ui_l_down;
+				d = d || ui_d_down;
+				r = r || ui_r_down;
+
 				shoot = shoot || spacebar_down;
+
+				shoot = shoot || ui_shoot_down;
 
 				if (waitingForInput)
 				{

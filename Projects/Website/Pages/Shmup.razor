@@ -21,16 +21,12 @@
 		</pre>
 	</div>
 	<div>
-		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.W)         ">w</button>
-		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.A)         ">a</button>
-		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.S)         ">s</button>
-		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.D)         ">d</button>
-		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.UpArrow)   ">↑</button>
-		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.DownArrow) ">↓</button>
-		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.LeftArrow) ">←</button>
-		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.RightArrow)">→</button>
-		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Enter)     ">enter</button>
-		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Escape)    ">escape</button>
+		<button class="btn btn-primary" @onmousedown="() => Games.Shmup.Shmup.ui_u_down = true" @onmouseup="() => Games.Shmup.Shmup.ui_u_down = false">↑</button>
+		<button class="btn btn-primary" @onmousedown="() => Games.Shmup.Shmup.ui_d_down = true" @onmouseup="() => Games.Shmup.Shmup.ui_d_down = false">↓</button>
+		<button class="btn btn-primary" @onmousedown="() => Games.Shmup.Shmup.ui_l_down = true" @onmouseup="() => Games.Shmup.Shmup.ui_l_down = false">←</button>
+		<button class="btn btn-primary" @onmousedown="() => Games.Shmup.Shmup.ui_r_down = true" @onmouseup="() => Games.Shmup.Shmup.ui_r_down = false">→</button>
+		<button class="btn btn-primary" @onmousedown="() => Games.Shmup.Shmup.ui_shoot_down = true" @onmouseup="() => Games.Shmup.Shmup.ui_shoot_down = false">shoot</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Enter)">enter</button>
 	</div>
 </div>
 
