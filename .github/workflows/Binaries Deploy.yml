@@ -9,6 +9,7 @@ on:
     - '**.csproj'
     - '**.cs'
     - '!**.md'
+    - '!Projects/Website/**'
   workflow_dispatch:
 jobs:
   deployment:

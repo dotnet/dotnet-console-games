@@ -37,23 +37,23 @@ Shmup (aka "Shoot Em Up") is a vertically scrolling shooter.
 ┃                               -'-`-           -----+-----  ┃
 ┃       -----+-----                           *\===<[_]L)    ┃
 ┃     *\===<[_]L)                                  -'-`-     ┃
-┃       |__-'-`-                                             ┃
-┃       [ooo]                                                ┃
+┃          -'-`-                                             ┃
+┃                                                            ┃
+┃                                _!_                         ┃
+┃                               /_O_\                        ┃
+┃                           -==<_‗_‗_>==-                    ┃
 ┃                                                            ┃
 ┃                                                            ┃
-┃                                                            ┃
-┃                                                            ┃
-┃                                                            ┃
-┃                                                            ┃
-┃                                                            ┃
-┃                                                __          ┃
+┃          _!_                                               ┃
+┃         (_o_)                                              ┃
+┃          '''                                   __          ┃
 ┃                                              =|__|         ┃
 ┃                                              [ooo]         ┃
 ┃                                                            ┃
-┃                                                            ┃
-┃                                                            ┃
-┃                                                            ┃
-┃                                                            ┃
+┃                                   ^   ^                    ┃
+┃                                   ^   ^                    ┃
+┃                                   ^   ^                    ┃
+┃                                   ^   ^                    ┃
 ┃                                                            ┃
 ┃                                    ╱‾╲                     ┃
 ┃     __                            ╱╱‾╲╲                    ┃
@@ -79,6 +79,6 @@ Shmup (aka "Shoot Em Up") is a vertically scrolling shooter.
 
 [win-x64](https://github.com/dotnet/dotnet-console-games/raw/binaries/win-x64/Shmup.exe)
 
-[linux-x64](https://github.com/dotnet/dotnet-console-games/raw/binaries/linux-x64/Shmup)
+~linux-x64~ (not supported)
 
-[osx-x64](https://github.com/dotnet/dotnet-console-games/raw/binaries/osx-x64/Shmup)
+~osx-x64~ (not supported)
