@@ -1,0 +1,93 @@
+﻿@using System
+
+@page "/Shmup"
+
+<PageTitle>Shmup</PageTitle>
+
+<h1>Shmup</h1>
+
+<a href="https://github.com/dotnet/dotnet-console-games/tree/main/Projects/Shmup" alt="Go To Readme">
+	<img title="Go To Readme" alt="Go To Readme" src="https://raw.githubusercontent.com/dotnet/dotnet-console-games/main/.github/resources/readme-black.svg">
+</a>
+
+<div class="alert alert-warning" role="alert" style="margin-top: 0.5rem;">
+	&#9888; WARNING! This game is still a work in progress. It is unfinished and still being developed. Also, this web version of the game may not be up to date with the console version due to the currently manual porting process.
+</div>
+
+<div class="console-window text-center my-3" @onkeydown="@OnKeyDown" @onkeyup="@OnKeyUp" tabindex="0">
+	<div class="d-inline-block bg-dark text-light border p-2 text-start shadow padding-0">
+		<pre class="console">
+			<code>@Console.State</code>
+		</pre>
+	</div>
+	<div>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.W)         ">w</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.A)         ">a</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.S)         ">s</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.D)         ">d</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.UpArrow)   ">↑</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.DownArrow) ">↓</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.LeftArrow) ">←</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.RightArrow)">→</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Enter)     ">enter</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Escape)    ">escape</button>
+	</div>
+</div>
+
+<div class="alert alert-secondary" role="alert">
+	&#9000; Keyboard input is supported if you <strong>click</strong> on the game.
+</div>
+
+<div class="alert alert-secondary" role="alert">
+	&#8635; You can restart the game by <strong>refreshing</strong> the page.
+</div>
+
+@code
+{
+	Games.Shmup.Shmup Game;
+	BlazorConsole Console;
+
+	public Shmup()
+	{
+		Game = new();
+		Console = Game.Console;
+		Console.WindowWidth = Games.Shmup.Shmup.intendedMinConsoleWidth + 3;
+		Console.WindowHeight = Games.Shmup.Shmup.intendedMinConsoleHeight + 3;
+		Console.TriggerRefresh = StateHasChanged;
+	}
+
+	public void OnKeyDown(KeyboardEventArgs e)
+	{
+		Console.OnKeyDown(e);
+		switch (e.Key)
+		{
+			case " ": Games.Shmup.Shmup.spacebar_down = true; break;
+			case "ArrowLeft": Games.Shmup.Shmup.leftarrow_down = true; break;
+			case "ArrowRight": Games.Shmup.Shmup.rightarrow_down = true; break;
+			case "ArrowUp": Games.Shmup.Shmup.uparrow_down = true; break;
+			case "ArrowDown": Games.Shmup.Shmup.downarrow_down = true; break;
+			case "w": Games.Shmup.Shmup.w_down = true; break;
+			case "a": Games.Shmup.Shmup.a_down = true; break;
+			case "s": Games.Shmup.Shmup.s_down = true; break;
+			case "d": Games.Shmup.Shmup.d_down = true; break;
+		}
+	}
+
+	public void OnKeyUp(KeyboardEventArgs e)
+	{
+		switch (e.Key)
+		{
+			case " ": Games.Shmup.Shmup.spacebar_down = false; break;
+			case "ArrowLeft": Games.Shmup.Shmup.leftarrow_down = false; break;
+			case "ArrowRight": Games.Shmup.Shmup.rightarrow_down = false; break;
+			case "ArrowUp": Games.Shmup.Shmup.uparrow_down = false; break;
+			case "ArrowDown": Games.Shmup.Shmup.downarrow_down = false; break;
+			case "w": Games.Shmup.Shmup.w_down = false; break;
+			case "a": Games.Shmup.Shmup.a_down = false; break;
+			case "s": Games.Shmup.Shmup.s_down = false; break;
+			case "d": Games.Shmup.Shmup.d_down = false; break;
+		}
+	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
+}
