@@ -5,11 +5,13 @@ namespace Shmup.Enemies;
 
 internal class UFO1 : IEnemy
 {
+	public static int scorePerKill = 10;
+	public int Health = 10;
 	public float X;
 	public float Y;
 	public float XVelocity = 1f / 8f;
 	public float YVelocity = 1f / 8f;
-	private static string[] Sprite =
+	private static readonly string[] Sprite =
 	{
 		@" _!_ ",
 		@"(_o_)",
@@ -79,5 +81,15 @@ internal class UFO1 : IEnemy
 			YVelocity <= 0 && Y < -YMax ||
 			XVelocity >= 0 && X > Program.gameWidth + XMax ||
 			YVelocity >= 0 && Y > Program.gameHeight + YMax;
+	}
+
+	public void Shot()
+	{
+		Health--;
+		if (Health <= 0)
+		{
+			Program.enemies.Remove(this);
+			Program.score += scorePerKill;
+		}
 	}
 }

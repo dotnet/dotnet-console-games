@@ -11,7 +11,6 @@
 	<a href="../../LICENSE"><img src="../../.github/resources/license-MIT-green.svg" alt="License"></a>
 </p>
 
-<!--
 <p align="center">
 	You can play this game in your browser:
 	<br />
@@ -21,7 +20,6 @@
 	<br />
 	<sup>Hosted On GitHub Pages</sup>
 </p>
--->
 
 Shmup (aka "Shoot Em Up") is a vertically scrolling shooter.
 
@@ -72,24 +70,15 @@ Shmup (aka "Shoot Em Up") is a vertically scrolling shooter.
 
 ## Input
 
-_todo_
-
-<!--
-- `W`, `A`, `S`, `D`: movement
-- `↑`, `↓`, `←`, `→`: shoot
+- `W`, `A`, `S`, `D`, `↑`, `↓`, `←`, `→`: movement
+- `spacebar`: shoot
+- `enter`: start new game
 - `escape`: exit game
--->
 
 ## Downloads
 
-_todo_
+[win-x64](https://github.com/dotnet/dotnet-console-games/raw/binaries/win-x64/Shmup.exe)
 
-<!--
+[linux-x64](https://github.com/dotnet/dotnet-console-games/raw/binaries/linux-x64/Shmup)
 
-[win-x64](https://github.com/dotnet/dotnet-console-games/raw/binaries/win-x64/Tanks.exe)
-
-[linux-x64](https://github.com/dotnet/dotnet-console-games/raw/binaries/linux-x64/Tanks)
-
-[osx-x64](https://github.com/dotnet/dotnet-console-games/raw/binaries/osx-x64/Tanks)
-
--->
+[osx-x64](https://github.com/dotnet/dotnet-console-games/raw/binaries/osx-x64/Shmup)

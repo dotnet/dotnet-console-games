@@ -14,7 +14,7 @@ internal static class Program
 	internal static Stopwatch stopwatch = new();
 	internal static bool pauseUpdates = false;
 
-	internal static int gameWidth = 60;
+	internal static int gameWidth = 80;
 	internal static int gameHeight = 40;
 	internal static int intendedMinConsoleWidth = gameWidth + 3;
 	internal static int intendedMinConsoleHeight = gameHeight + 3;
@@ -22,24 +22,23 @@ internal static class Program
 	internal static string topBorder = '┏' + new string('━', gameWidth) + '┓';
 	internal static string bottomBorder = '┗' + new string('━', gameWidth) + '┛';
 
-	internal static int update = 0;
-
 	internal static int consoleWidth = Console.WindowWidth;
 	internal static int consoleHeight = Console.WindowHeight;
+	internal static StringBuilder render = new(gameWidth * gameHeight);
 
+	internal static long score = 0;
+	internal static int update = 0;
 	internal static bool isDead = false;
-
 	internal static Player player = new()
 	{
 		X = gameWidth / 2,
 		Y = gameHeight / 4,
 	};
-
 	internal static List<PlayerBullet> playerBullets = new();
-
 	internal static List<PlayerBullet> explodingBullets = new();
-
 	internal static List<IEnemy> enemies = new();
+	internal static bool playing = false;
+	internal static bool waitingForInput = true;
 
 	internal static void Main()
 	{
@@ -64,14 +63,35 @@ internal static class Program
 		}
 		while (!closeRequested)
 		{
-			Update();
-			if (closeRequested)
+			Initialize();
+			while (!closeRequested && playing)
 			{
-				return;
+				Update();
+				if (closeRequested)
+				{
+					return;
+				}
+				Render();
+				SleepAfterRender();
 			}
-			Render();
-			SleepAfterRender();
 		}
+	}
+
+	internal static void Initialize()
+	{
+		score = 0;
+		update = 0;
+		isDead = false;
+		player = new()
+		{
+			X = gameWidth / 2,
+			Y = gameHeight / 4,
+		};
+		playerBullets = new();
+		explodingBullets = new();
+		enemies = new();
+		playing = true;
+		waitingForInput = true;
 	}
 
 	internal static void Update()
@@ -86,6 +106,7 @@ internal static class Program
 			switch (Console.ReadKey(true).Key)
 			{
 				case ConsoleKey.Escape: closeRequested = true; return;
+				case ConsoleKey.Enter: playing = !isDead; return;
 				case ConsoleKey.W or ConsoleKey.UpArrow: u = true; break;
 				case ConsoleKey.A or ConsoleKey.LeftArrow: l = true; break;
 				case ConsoleKey.S or ConsoleKey.DownArrow: d = true; break;
@@ -101,6 +122,11 @@ internal static class Program
 				return;
 			}
 
+			if (isDead)
+			{
+				playing = !(User32_dll.GetAsyncKeyState((int)ConsoleKey.Enter) is not 0);
+			}
+
 			u = u || User32_dll.GetAsyncKeyState((int)ConsoleKey.W) is not 0;
 			l = l || User32_dll.GetAsyncKeyState((int)ConsoleKey.A) is not 0;
 			d = d || User32_dll.GetAsyncKeyState((int)ConsoleKey.S) is not 0;
@@ -112,6 +138,11 @@ internal static class Program
 			r = r || User32_dll.GetAsyncKeyState((int)ConsoleKey.RightArrow) is not 0;
 
 			shoot = shoot || User32_dll.GetAsyncKeyState((int)ConsoleKey.Spacebar) is not 0;
+
+			if (waitingForInput)
+			{
+				waitingForInput =  !(u || d || l || r || shoot);
+			}
 		}
 
 		if (pauseUpdates)
@@ -120,6 +151,11 @@ internal static class Program
 		}
 
 		if (isDead)
+		{
+			return;
+		}
+
+		if (waitingForInput)
 		{
 			return;
 		}
@@ -141,21 +177,26 @@ internal static class Program
 			enemy.Update();
 		}
 
+		player.State = Player.States.None;
 		if (l && !r)
 		{
 			player.X = Math.Max(0, player.X - 1);
+			player.State |= Player.States.Left;
 		}
 		if (r && !l)
 		{
 			player.X = Math.Min(gameWidth - 1, player.X + 1);
+			player.State |= Player.States.Right;
 		}
 		if (u && !d)
 		{
 			player.Y = Math.Min(gameHeight - 1, player.Y + 1);
+			player.State |= Player.States.Up;
 		}
 		if (d && !u)
 		{
 			player.Y = Math.Max(0, player.Y - 1);
+			player.State |= Player.States.Down;
 		}
 		if (shoot)
 		{
@@ -169,9 +210,10 @@ internal static class Program
 		{
 			PlayerBullet bullet = playerBullets[i];
 			bool exploded = false;
-			for (int j = 0; j < enemies.Count; j++)
+			IEnemy[] enemiesClone = enemies.ToArray();
+			for (int j = 0; j < enemiesClone.Length; j++)
 			{
-				if (enemies[j].CollidingWith(bullet.X, bullet.Y))
+				if (enemiesClone[j].CollidingWith(bullet.X, bullet.Y))
 				{
 					if (!exploded)
 					{
@@ -180,8 +222,7 @@ internal static class Program
 						i--;
 						exploded = true;
 					}
-					enemies.RemoveAt(j);
-					j--;
+					enemiesClone[j].Shot();
 				}
 			}
 			if (!exploded && (bullet.X < 0 || bullet.Y < 0 || bullet.X >= gameWidth || bullet.Y >= gameHeight))
@@ -287,7 +328,7 @@ internal static class Program
 				frameBuffer[explode.X, explode.Y] = '#';
 			}
 		}
-		StringBuilder render = new();
+		render.Clear();
 		render.AppendLine(topBorder);
 		for (int y = gameHeight - 1; y >= 0; y--)
 		{
@@ -299,9 +340,18 @@ internal static class Program
 			render.AppendLine("┃");
 		}
 		render.AppendLine(bottomBorder);
+		render.AppendLine($"Score: {score}                             ");
+		if (waitingForInput)
+		{
+			render.AppendLine("Press [WASD] or [SPACEBAR] to start...  ");
+		}
 		if (isDead)
 		{
-			render.AppendLine("YOU DIED!");
+			render.AppendLine("YOU DIED! Press [ENTER] to play again...");
+		}
+		else
+		{
+			render.AppendLine("                                        ");
 		}
 		try
 		{

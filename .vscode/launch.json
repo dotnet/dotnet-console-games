@@ -472,5 +472,15 @@
 			"console": "externalTerminal",
 			"stopAtEntry": false,
 		},
+		{
+			"name": "Shmup",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Shmup",
+			"program": "${workspaceFolder}/Projects/Shmup/bin/Debug/Shmup.dll",
+			"cwd": "${workspaceFolder}/Projects/Shmup/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
 	],
 }

@@ -5,34 +5,36 @@ namespace Shmup.Enemies;
 
 internal class Tank : IEnemy
 {
+	public static int scorePerKill = 20;
+	public int Health = 20;
 	public float X;
 	public float Y;
 	public float XVelocity;
 	public float YVelocity;
 	private string[] Sprite;
 
-	static string[] spriteDown =
+	static readonly string[] spriteDown =
 	{
 		@" ___ ",
 		@"|_O_|",
 		@"[ooo]",
 	};
 
-	static string[] spriteUp =
+	static readonly string[] spriteUp =
 	{
 		@" _^_ ",
 		@"|___|",
 		@"[ooo]",
 	};
 
-	static string[] spriteLeft =
+	static readonly string[] spriteLeft =
 	{
 		@"  __ ",
 		@"=|__|",
 		@"[ooo]",
 	};
 
-	static string[] spriteRight =
+	static readonly string[] spriteRight =
 	{
 		@" __  ",
 		@"|__|=",
@@ -95,5 +97,15 @@ internal class Tank : IEnemy
 			YVelocity <= 0 && Y < -YMax ||
 			XVelocity >= 0 && X > Program.gameWidth + XMax ||
 			YVelocity >= 0 && Y > Program.gameHeight + YMax;
+	}
+
+	public void Shot()
+	{
+		Health--;
+		if (Health <= 0)
+		{
+			Program.enemies.Remove(this);
+			Program.score += scorePerKill;
+		}
 	}
 }

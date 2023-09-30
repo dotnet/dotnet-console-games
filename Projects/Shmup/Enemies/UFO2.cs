@@ -5,12 +5,14 @@ namespace Shmup.Enemies;
 
 internal class UFO2 : IEnemy
 {
+	public static int scorePerKill = 80;
+	public int Health = 50;
 	public float X;
 	public float Y;
 	public int UpdatesSinceTeleport;
 	public int TeleportFrequency = 360;
 
-	private static string[] Sprite =
+	private static readonly string[] Sprite =
 	{
 		@"     _!_     ",
 		@"    /_O_\    ",
@@ -77,5 +79,15 @@ internal class UFO2 : IEnemy
 			X < Program.gameWidth &&
 			Y > 0 &&
 			Y < Program.gameHeight);
+	}
+
+	public void Shot()
+	{
+		Health--;
+		if (Health <= 0)
+		{
+			Program.enemies.Remove(this);
+			Program.score += scorePerKill;
+		}
 	}
 }

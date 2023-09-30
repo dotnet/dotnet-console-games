@@ -5,6 +5,8 @@ namespace Shmup.Enemies;
 
 internal class Helicopter : IEnemy
 {
+	public static int scorePerKill = 100;
+	public int Health = 70;
 	public float X;
 	public float Y;
 	public float XVelocity;
@@ -12,14 +14,14 @@ internal class Helicopter : IEnemy
 	private int Frame;
 	private string[] Sprite = Random.Shared.Next(2) is 0 ? spriteA : spriteB;
 
-	static string[] spriteA =
+	static readonly string[] spriteA =
 	{
 		@"  ~~~~~+~~~~~",
 		@"'\===<[_]L)  ",
 		@"     -'-`-   ",
 	};
 
-	static string[] spriteB =
+	static readonly string[] spriteB =
 	{
 		@"  -----+-----",
 		@"*\===<[_]L)  ",
@@ -81,5 +83,15 @@ internal class Helicopter : IEnemy
 			YVelocity <= 0 && Y < -YMax ||
 			XVelocity >= 0 && X > Program.gameWidth + XMax ||
 			YVelocity >= 0 && Y > Program.gameHeight + YMax;
+	}
+
+	public void Shot()
+	{
+		Health--;
+		if (Health <= 0)
+		{
+			Program.enemies.Remove(this);
+			Program.score += scorePerKill;
+		}
 	}
 }

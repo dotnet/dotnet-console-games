@@ -2,6 +2,8 @@
 
 internal interface IEnemy
 {
+	public void Shot();
+
 	public void Render();
 
 	public void Update();
