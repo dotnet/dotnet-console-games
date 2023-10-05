@@ -2,9 +2,17 @@
 using System.Collections.Generic;
 
 Exception? exception = null;
+int level=default;
+do{
+	// level selector
+	Console.Write("Select Level (1,2,3): ");
+	level=Convert.ToInt32(Console.ReadLine());
+}while(level!=1 && level!=2 && level!=3 );
 
+int[] velocities = { 100, 70, 50 };
+int velocity=velocities[level-1];
 char[] DirectionChars = { '^', 'v', '<', '>', };
-TimeSpan sleep = TimeSpan.FromMilliseconds(70);
+TimeSpan sleep = TimeSpan.FromMilliseconds(velocity); //snake's velocity
 int width = Console.WindowWidth;
 int height = Console.WindowHeight;
 Random random = new();
@@ -16,7 +24,7 @@ bool closeRequested = false;
 
 try
 {
-	Console.CursorVisible = false;
+	Console.CursorVisible = false; //clean cursor direction
 	Console.Clear();
 	snake.Enqueue((X, Y));
 	map[X, Y] = Tile.Snake;
@@ -69,7 +77,7 @@ try
 		{
 			GetDirection();
 		}
-		System.Threading.Thread.Sleep(sleep);
+		System.Threading.Thread.Sleep(velocity);
 	}
 }
 catch (Exception e)
@@ -85,6 +93,7 @@ finally
 }
 
 void GetDirection()
+// takes direction from arrow keys
 {
 	switch (Console.ReadKey(true).Key)
 	{
