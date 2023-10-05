@@ -2,15 +2,31 @@
 using System.Collections.Generic;
 
 Exception? exception = null;
-int level=default;
-do{
+int level = default;
+do
+{
 	// level selector
 	Console.Write("Select Level (1,2,3): ");
-	level=Convert.ToInt32(Console.ReadLine());
-}while(level!=1 && level!=2 && level!=3 );
+	try
+	{
+		level = Convert.ToInt32(Console.ReadLine());
+		if (level != 1 && level != 2 && level != 3)
+		{
+			Console.WriteLine("Número no válido");
+		}
+	}
+	catch (FormatException)
+	{
+		Console.WriteLine("Error: La entrada no es un número válido.");
+	}
+	catch (Exception ex)
+	{
+		Console.WriteLine("Ocurrió un error inesperado: " + ex.Message);
+	}
+} while (level != 1 && level != 2 && level != 3);
 
 int[] velocities = { 100, 70, 50 };
-int velocity=velocities[level-1];
+int velocity = velocities[level - 1];
 char[] DirectionChars = { '^', 'v', '<', '>', };
 TimeSpan sleep = TimeSpan.FromMilliseconds(velocity); //snake's velocity
 int width = Console.WindowWidth;
@@ -97,11 +113,11 @@ void GetDirection()
 {
 	switch (Console.ReadKey(true).Key)
 	{
-		case ConsoleKey.UpArrow:    direction = Direction.Up; break;
-		case ConsoleKey.DownArrow:  direction = Direction.Down; break;
-		case ConsoleKey.LeftArrow:  direction = Direction.Left; break;
+		case ConsoleKey.UpArrow: direction = Direction.Up; break;
+		case ConsoleKey.DownArrow: direction = Direction.Down; break;
+		case ConsoleKey.LeftArrow: direction = Direction.Left; break;
 		case ConsoleKey.RightArrow: direction = Direction.Right; break;
-		case ConsoleKey.Escape:     closeRequested = true; break;
+		case ConsoleKey.Escape: closeRequested = true; break;
 	}
 }
 
