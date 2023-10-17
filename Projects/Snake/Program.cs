@@ -9,7 +9,7 @@ do
 	Console.Write("Select Level (1,2,3): ");
 	try
 	{
-		level = Convert.ToInt32(Console.ReadLine());
+		int.TryParse(Console.ReadLine(), out level);
 		if (level != 1 && level != 2 && level != 3)
 		{
 			Console.WriteLine("Not valid number");
