@@ -2,33 +2,27 @@
 using System.Collections.Generic;
 
 Exception? exception = null;
-int level = default;
-do
+int speedInput;
+string prompt = $"Select speed [1], [2] (default), or [3]: ";
+string? input;
+Console.Write(prompt);
+while (!int.TryParse(input = Console.ReadLine(), out speedInput) || speedInput < 1 || 3 < speedInput)
 {
-	// level selector
-	Console.Write("Select Level (1,2,3): ");
-	try
+	if (string.IsNullOrWhiteSpace(input))
 	{
-		int.TryParse(Console.ReadLine(), out level);
-		if (level != 1 && level != 2 && level != 3)
-		{
-			Console.WriteLine("Not valid number");
-		}
+		speedInput = 2;
+		break;
 	}
-	catch (FormatException)
+	else
 	{
-		Console.WriteLine("Error: imput is not a valid number.");
+		Console.WriteLine("Invalid Input. Try Again...");
+		Console.Write(prompt);
 	}
-	catch (Exception ex)
-	{
-		Console.WriteLine("An unexpected error occurred: " + ex.Message);
-	}
-} while (level != 1 && level != 2 && level != 3);
-
+}
 int[] velocities = { 100, 70, 50 };
-int velocity = velocities[level - 1];
+int velocity = velocities[speedInput - 1];
 char[] DirectionChars = { '^', 'v', '<', '>', };
-TimeSpan sleep = TimeSpan.FromMilliseconds(velocity); //snake's velocity
+TimeSpan sleep = TimeSpan.FromMilliseconds(velocity);
 int width = Console.WindowWidth;
 int height = Console.WindowHeight;
 Random random = new();
@@ -40,7 +34,7 @@ bool closeRequested = false;
 
 try
 {
-	Console.CursorVisible = false; //clean cursor direction
+	Console.CursorVisible = false;
 	Console.Clear();
 	snake.Enqueue((X, Y));
 	map[X, Y] = Tile.Snake;
@@ -77,7 +71,7 @@ try
 		Console.SetCursorPosition(X, Y);
 		Console.Write(DirectionChars[(int)direction!]);
 		snake.Enqueue((X, Y));
-		if (map[X, Y] == Tile.Food)
+		if (map[X, Y] is Tile.Food)
 		{
 			PositionFood();
 		}
@@ -93,7 +87,7 @@ try
 		{
 			GetDirection();
 		}
-		System.Threading.Thread.Sleep(velocity);
+		System.Threading.Thread.Sleep(sleep);
 	}
 }
 catch (Exception e)

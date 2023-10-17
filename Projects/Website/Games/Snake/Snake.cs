@@ -11,33 +11,27 @@ public class Snake
 	public async Task Run()
 	{
 		Exception? exception = null;
-		int level = default;
-		do
+		int speedInput;
+		string prompt = $"Select speed [1], [2] (default), or [3]: ";
+		string? input;
+		await Console.Write(prompt);
+		while (!int.TryParse(input = await Console.ReadLine(), out speedInput) || speedInput < 1 || 3 < speedInput)
 		{
-			// level selector
-			await Console.Write("Select Level (1,2,3): ");
-			try
+			if (string.IsNullOrWhiteSpace(input))
 			{
-				int.TryParse(await Console.ReadLine(), out level);
-				if (level != 1 && level != 2 && level != 3)
-				{
-					await Console.WriteLine("Not valid number");
-				}
+				speedInput = 2;
+				break;
 			}
-			catch (FormatException)
+			else
 			{
-				await Console.WriteLine("Error: imput is not a valid number.");
+				await Console.WriteLine("Invalid Input. Try Again...");
+				await Console.Write(prompt);
 			}
-			catch (Exception ex)
-			{
-				await Console.WriteLine("An unexpected error occurred: " + ex.Message);
-			}
-		} while (level != 1 && level != 2 && level != 3);
-
-		int[] velocities = { 100, 70, 50 };
-		int velocity = velocities[level - 1];
+		}
+		int[] velocities = { 50, 35, 20 };
+		int velocity = velocities[speedInput - 1];
 		char[] DirectionChars = { '^', 'v', '<', '>', };
-		TimeSpan sleep = TimeSpan.FromMilliseconds(velocity); //snake's velocity
+		TimeSpan sleep = TimeSpan.FromMilliseconds(velocity);
 		int width = Console.WindowWidth;
 		int height = Console.WindowHeight;
 		Random random = new();
@@ -49,7 +43,7 @@ public class Snake
 
 		try
 		{
-			Console.CursorVisible = false; //clean cursor direction
+			Console.CursorVisible = false;
 			await Console.Clear();
 			snake.Enqueue((X, Y));
 			map[X, Y] = Tile.Snake;
@@ -88,7 +82,7 @@ public class Snake
 				await Console.SetCursorPosition(X, Y);
 				await Console.Write(DirectionChars[(int)direction!]);
 				snake.Enqueue((X, Y));
-				if (map[X, Y] == Tile.Food)
+				if (map[X, Y] is Tile.Food)
 				{
 					await PositionFood();
 				}
