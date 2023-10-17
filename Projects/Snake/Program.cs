@@ -12,16 +12,16 @@ do
 		level = Convert.ToInt32(Console.ReadLine());
 		if (level != 1 && level != 2 && level != 3)
 		{
-			Console.WriteLine("Número no válido");
+			Console.WriteLine("Not valid number");
 		}
 	}
 	catch (FormatException)
 	{
-		Console.WriteLine("Error: La entrada no es un número válido.");
+		Console.WriteLine("Error: imput is not a valid number.");
 	}
 	catch (Exception ex)
 	{
-		Console.WriteLine("Ocurrió un error inesperado: " + ex.Message);
+		Console.WriteLine("An unexpected error occurred: " + ex.Message);
 	}
 } while (level != 1 && level != 2 && level != 3);
 
