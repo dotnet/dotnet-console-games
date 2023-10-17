@@ -11,9 +11,33 @@ public class Snake
 	public async Task Run()
 	{
 		Exception? exception = null;
+		int level = default;
+		do
+		{
+			// level selector
+			await Console.Write("Select Level (1,2,3): ");
+			try
+			{
+				int.TryParse(await Console.ReadLine(), out level);
+				if (level != 1 && level != 2 && level != 3)
+				{
+					await Console.WriteLine("Not valid number");
+				}
+			}
+			catch (FormatException)
+			{
+				await Console.WriteLine("Error: imput is not a valid number.");
+			}
+			catch (Exception ex)
+			{
+				await Console.WriteLine("An unexpected error occurred: " + ex.Message);
+			}
+		} while (level != 1 && level != 2 && level != 3);
 
+		int[] velocities = { 100, 70, 50 };
+		int velocity = velocities[level - 1];
 		char[] DirectionChars = { '^', 'v', '<', '>', };
-		TimeSpan sleep = TimeSpan.FromMilliseconds(35);
+		TimeSpan sleep = TimeSpan.FromMilliseconds(velocity); //snake's velocity
 		int width = Console.WindowWidth;
 		int height = Console.WindowHeight;
 		Random random = new();
@@ -25,7 +49,7 @@ public class Snake
 
 		try
 		{
-			Console.CursorVisible = false;
+			Console.CursorVisible = false; //clean cursor direction
 			await Console.Clear();
 			snake.Enqueue((X, Y));
 			map[X, Y] = Tile.Snake;
@@ -100,11 +124,11 @@ public class Snake
 		{
 			switch ((await Console.ReadKey(true)).Key)
 			{
-				case ConsoleKey.UpArrow:    direction = Direction.Up; break;
-				case ConsoleKey.DownArrow:  direction = Direction.Down; break;
-				case ConsoleKey.LeftArrow:  direction = Direction.Left; break;
+				case ConsoleKey.UpArrow: direction = Direction.Up; break;
+				case ConsoleKey.DownArrow: direction = Direction.Down; break;
+				case ConsoleKey.LeftArrow: direction = Direction.Left; break;
 				case ConsoleKey.RightArrow: direction = Direction.Right; break;
-				case ConsoleKey.Escape:     closeRequested = true; break;
+				case ConsoleKey.Escape: closeRequested = true; break;
 			}
 		}
 
@@ -143,4 +167,5 @@ public class Snake
 		Snake,
 		Food,
 	}
+
 }
