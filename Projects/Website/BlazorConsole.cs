@@ -47,17 +47,37 @@ public class BlazorConsole
 	public bool CursorVisible = true;
 	public int LargestWindowWidth = 120;
 	public int LargestWindowHeight = 51;
-	public int CursorLeft = 0;
-	public int CursorTop = 0;
 
 	public int _windowHeight = 35;
 	public int _windowWidth = 80;
+	public int _cursorLeft = 0;
+	public int _cursorTop = 0;
 
 	public Encoding? OutputEncoding;
 
+	public int CursorLeft
+	{
+		get => _cursorLeft;
+		set
+		{
+			_cursorLeft = value;
+			StateHasChanged = true;
+		}
+	}
+
+	public int CursorTop
+	{
+		get => _cursorTop;
+		set
+		{
+			_cursorTop = value;
+			StateHasChanged = true;
+		}
+	}
+
 	public int WindowHeight
 	{
-		get =>  _windowHeight;
+		get => _windowHeight;
 		set
 		{
 			_windowHeight = value;
@@ -339,7 +359,7 @@ public class BlazorConsole
 			for (int row = 0; row < View.GetLength(0) - 1; row++)
 			{
 				for (int column = 0; column < View.GetLength(1); column++)
-{
+				{
 					StateHasChanged = StateHasChanged || View[row, column] != View[row + 1, column];
 					View[row, column] = View[row + 1, column];
 				}
@@ -458,7 +478,7 @@ public class BlazorConsole
 		{
 			while (!KeyAvailableNoRefresh())
 			{
-					await Refresh();
+				await Refresh();
 			}
 			var keyInfo = InputBuffer.Dequeue();
 			switch (keyInfo.Key)
