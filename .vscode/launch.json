@@ -133,6 +133,16 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Clicker",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Clicker",
+			"program": "${workspaceFolder}/Projects/Clicker/bin/Debug/Clicker.dll",
+			"cwd": "${workspaceFolder}/Projects/Clicker/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Hangman",
 			"type": "coreclr",
 			"request": "launch",
