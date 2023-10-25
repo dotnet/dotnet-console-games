@@ -92,7 +92,7 @@ while (true)
 			if (index < keyCount && key != previous)
 			{
 				previous = key;
-				clicks += index > 1 ? BigInteger.Pow(10, index > 1 ? index - 1 : 0) / (index - 1) : 1;
+				clicks += index > 1 ? BigInteger.Pow(10, index - 1) / (index - 1) : 1;
 			}
 			break;
 		case ConsoleKey.Escape: goto MainMenu;
