@@ -1,0 +1,74 @@
+﻿@using System
+
+@page "/Clicker"
+
+<PageTitle>Clicker</PageTitle>
+
+<h1>Clicker</h1>
+
+<a href="https://github.com/dotnet/dotnet-console-games/tree/main/Projects/Clicker" alt="Go To Readme">
+	<img title="Go To Readme" alt="Go To Readme" src="https://raw.githubusercontent.com/dotnet/dotnet-console-games/main/.github/resources/readme-black.svg">
+</a>
+
+<div class="console-window text-center my-3" @onkeydown="@Console.OnKeyDown" tabindex="0">
+	<div class="d-inline-block bg-dark text-light border p-2 text-start shadow padding-0">
+		<pre class="console">
+			<code>@Console.State</code>
+		</pre>
+	</div>
+	<div>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Q)">Q</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.W)">W</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.E)">E</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.R)">R</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.T)">T</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Y)">Y</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.U)">U</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.I)">I</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.O)">O</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.P)">P</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.A)">A</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.S)">S</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.D)">D</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.F)">F</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.G)">G</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.H)">H</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.J)">J</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.K)">K</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.L)">L</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Z)">Z</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.X)">X</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.C)">C</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.V)">V</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.B)">B</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.N)">N</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.M)">M</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Enter)">enter</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Escape)">escape</button>
+	</div>
+</div>
+
+<div class="alert alert-secondary" role="alert">
+	&#9000; Keyboard input is supported if you <strong>click</strong> on the game.
+</div>
+
+<div class="alert alert-secondary" role="alert">
+	&#8635; You can restart the game by <strong>refreshing</strong> the page.
+</div>
+
+@code
+{
+	Games.Clicker.Clicker Game;
+	BlazorConsole Console;
+
+	public Clicker()
+	{
+		Game = new();
+		Console = Game.Console;
+		Console.WindowWidth = 82;
+		Console.WindowHeight = 25;
+		Console.TriggerRefresh = StateHasChanged;
+	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
+}
