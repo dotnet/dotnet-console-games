@@ -665,5 +665,18 @@
             ],
             "problemMatcher": "$msCompile",
         },
+        {
+            "label": "Build Tetris",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/Tetris/Tetris.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
     ],
 }
