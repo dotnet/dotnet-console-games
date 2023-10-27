@@ -153,8 +153,6 @@ Tetromino TETROMINO = new()
     Y = INITIALTETROMINOY
 };
 
-char[][]? LastFrame = null;
-
 AutoResetEvent AutoEvent = new AutoResetEvent(false);
 Timer? FallTimer = null;
 GameStatus = GameStatus.Playing;
@@ -182,7 +180,7 @@ Console.CursorVisible = false;
 StartGame();
 Console.Clear();
 
-FallTimer = new Timer(TetrominoFall, AutoEvent, 1000, FallSpeedMilliSeconds);
+FallTimer = new Timer(TetrominoFall, AutoEvent, FallSpeedMilliSeconds, FallSpeedMilliSeconds);
 
 while (!CloseGame)
 {
@@ -276,7 +274,8 @@ void DrawFrame()
 {
     bool collision = false;
     int yScope = TETROMINO.Y;
-    string[] shapeScope = TETROMINO.Shape;
+    string[] shapeScope = (string[])TETROMINO.Shape.Clone();
+    string[] nextShapeScope = (string[])TETROMINO.Next.Clone();
     char[][] frame = new char[PLAYFIELD.Length][];
 
     //Field
@@ -305,14 +304,6 @@ void DrawFrame()
 
             frame[tY][tX] = charTetromino;
         }
-    }
-
-    //Save Frame 
-    if (collision && LastFrame != null) frame = LastFrame;
-    LastFrame = (char[][])frame.Clone();
-    for (int y = 0; y < LastFrame.Length; y++)
-    {
-        LastFrame[y] = (char[])frame[y].Clone();
     }
 
     //Draw Preview
@@ -361,13 +352,13 @@ void DrawFrame()
     }
 
     //Draw Next
-    for (int y = 0; y < TETROMINO.Next.Length; y++)
+    for (int y = 0; y < nextShapeScope.Length; y++)
     {
-        for (int x = 0; x < TETROMINO.Next[y].Length; x++)
+        for (int x = 0; x < nextShapeScope[y].Length; x++)
         {
             int tY = y + BORDER;
             int tX = PLAYFIELD[y].Length + x + BORDER;
-            char charTetromino = TETROMINO.Next[y][x];
+            char charTetromino = nextShapeScope[y][x];
             frame[tY][tX] = charTetromino;
         }
     }
@@ -410,16 +401,58 @@ void DrawFrame()
     Console.CursorVisible = false;
 }
 
+char[][] DrawLastFrame(int yS)
+{
+    bool collision = false;
+    int yScope = yS - 2;
+    int xScope = TETROMINO.X;
+    string[] shapeScope = (string[])TETROMINO.Shape.Clone();
+    string[] nextShapeScope = (string[])TETROMINO.Next.Clone();
+    char[][] frame = new char[PLAYFIELD.Length][];
+
+    //Field
+    for (int y = 0; y < PLAYFIELD.Length; y++)
+    {
+        frame[y] = PLAYFIELD[y].ToCharArray();
+    }
+
+    //Draw Tetromino
+    for (int y = 0; y < shapeScope.Length && !collision; y++)
+    {
+        for (int x = 0; x < shapeScope[y].Length; x++)
+        {
+            int tY = yScope + y;
+            int tX = xScope + x;
+            char charToReplace = PLAYFIELD[tY][tX];
+            char charTetromino = shapeScope[y][x];
+
+            if (charTetromino == ' ') continue;
+
+            if (charToReplace != ' ')
+            {
+                collision = true;
+                break;
+            }
+
+            frame[tY][tX] = charTetromino;
+        }
+    }
+
+    return frame;
+}
+
 bool Collision(Direction direction)
 {
     int xNew = TETROMINO.X;
+    int yScope = TETROMINO.Y;
+    string[] shapeScope = (string[])TETROMINO.Shape.Clone();
     bool collision = false;
 
     switch (direction)
     {
         case Direction.Right:
             xNew += 3;
-            if (xNew + TETROMINO.Shape[0].Length > PLAYFIELD[0].Length - BORDER) collision = true;
+            if (xNew + shapeScope[0].Length > PLAYFIELD[0].Length - BORDER) collision = true;
             break;
         case Direction.Left:
             xNew -= 3;
@@ -431,14 +464,14 @@ bool Collision(Direction direction)
 
     if (collision) return collision;
 
-    for (int y = 0; y < TETROMINO.Shape.Length && !collision; y++)
+    for (int y = 0; y < shapeScope.Length && !collision; y++)
     {
-        for (int x = 0; x < TETROMINO.Shape[y].Length; x++)
+        for (int x = 0; x < shapeScope[y].Length; x++)
         {
-            int tY = TETROMINO.Y + y;
+            int tY = yScope + y;
             int tX = xNew + x;
             char charToReplace = PLAYFIELD[tY][tX];
-            char charTetromino = TETROMINO.Shape[y][x];
+            char charTetromino = shapeScope[y][x];
 
             if (charTetromino == ' ') continue;
 
@@ -511,7 +544,6 @@ void Gameover()
     Console.WriteLine("     Press enter to play again");
     Console.WriteLine("     Press escape to close the game");
     Console.CursorVisible = false;
-    Console.ReadKey();
     StartGame();
     RestartGame();
 }
@@ -543,9 +575,8 @@ void RestartGame()
         Y = INITIALTETROMINOY
     };
 
-    LastFrame = null;
     AutoEvent = new AutoResetEvent(false);
-    FallTimer = new Timer(TetrominoFall, AutoEvent, 1000, FallSpeedMilliSeconds);
+    FallTimer = new Timer(TetrominoFall, AutoEvent, FallSpeedMilliSeconds, FallSpeedMilliSeconds);
     GameStatus = GameStatus.Playing;
 }
 
@@ -574,10 +605,48 @@ void ResumeGame(ConsoleKey key = ConsoleKey.Enter)
     }
 }
 
+void AddScoreChangeSpeed(int value)
+{
+    Score += value;
+
+    if (Score > 100) return;
+
+    switch (Score)
+    {
+        case 10:
+            FallSpeedMilliSeconds = 900;
+            break;
+        case 20:
+            FallSpeedMilliSeconds = 800;
+            break;
+        case 30:
+            FallSpeedMilliSeconds = 700;
+            break;
+        case 40:
+            FallSpeedMilliSeconds = 500;
+            break;
+        case 50:
+            FallSpeedMilliSeconds = 300;
+            break;
+        case 60:
+            FallSpeedMilliSeconds = 200;
+            break;
+        case 70:
+            FallSpeedMilliSeconds = 100;
+            break;
+        case 100:
+            FallSpeedMilliSeconds = 50;
+            break;
+    }
+}
+
 void TetrominoFall(object? e)
 {
-    if (TETROMINO.Y + TETROMINO.Shape.Length + 2 > PLAYFIELD.Length) TETROMINO.Y = PLAYFIELD.Length - TETROMINO.Shape.Length + 1;
-    else TETROMINO.Y += 2;
+    int yAfterFall = TETROMINO.Y;
+    bool collision = false;
+
+    if (TETROMINO.Y + TETROMINO.Shape.Length + 2 > PLAYFIELD.Length) yAfterFall = PLAYFIELD.Length - TETROMINO.Shape.Length + 1;
+    else yAfterFall += 2;
 
     //Y Collision
     for (int xCollision = 0; xCollision < TETROMINO.Shape[0].Length;)
@@ -588,20 +657,20 @@ void TetrominoFall(object? e)
 
             if (exist == ' ') continue;
 
-            char[] lineYC = PLAYFIELD[TETROMINO.Y + yCollision - 1].ToCharArray();
+            char[] lineYC = PLAYFIELD[yAfterFall + yCollision - 1].ToCharArray();
 
             if (TETROMINO.X + xCollision < 0 || TETROMINO.X + xCollision > lineYC.Length) continue;
 
             if
             (
                 lineYC[TETROMINO.X + xCollision] != ' ' &&
-                lineYC[TETROMINO.X + xCollision] != '│' &&
-                LastFrame != null
+                lineYC[TETROMINO.X + xCollision] != '│'
             )
             {
-                for (int y = 0; y < LastFrame.Length; y++)
+                char[][] lastFrame = DrawLastFrame(yAfterFall);
+                for (int y = 0; y < lastFrame.Length; y++)
                 {
-                    PLAYFIELD[y] = new string(LastFrame[y]);
+                    PLAYFIELD[y] = new string(lastFrame[y]);
                 }
 
                 TETROMINO.X = INITIALTETROMINOX;
@@ -610,12 +679,15 @@ void TetrominoFall(object? e)
                 TETROMINO.Next = TETROMINOS[RamdomGenerator.Next(0, TETROMINOS.Length)];
 
                 xCollision = TETROMINO.Shape[0].Length;
+                collision = true;
                 break;
             }
         }
 
         xCollision += 3;
     }
+
+    if (!collision) TETROMINO.Y = yAfterFall;
 
     //Clean Lines
     for (var lineIndex = PLAYFIELD.Length - 1; lineIndex >= 0; lineIndex--)
@@ -628,7 +700,7 @@ void TetrominoFall(object? e)
         if (!notCompleted)
         {
             PLAYFIELD[lineIndex] = "│                              │";
-            Score++;
+            AddScoreChangeSpeed(1);
 
             for (int lineM = lineIndex; lineM >= 1; lineM--)
             {
@@ -647,36 +719,27 @@ void TetrominoFall(object? e)
 
     //VerifiedCollision 
     if (Collision(Direction.None) && FallTimer != null) Gameover();
-
-    //Change Speed
-    if (Score > 100) return;
-    if (Score < 10) FallSpeedMilliSeconds = 1000;
-    else if (Score < 20) FallSpeedMilliSeconds = 800;
-    else if (Score < 30) FallSpeedMilliSeconds = 800;
-    else if (Score < 40) FallSpeedMilliSeconds = 600;
-    else if (Score < 50) FallSpeedMilliSeconds = 400;
-    else if (Score < 60) FallSpeedMilliSeconds = 200;
-    else if (Score < 70) FallSpeedMilliSeconds = 100;
-    else if (Score < 99) FallSpeedMilliSeconds = 50;
 }
 
 void TetrominoSpin(Direction spinDirection)
 {
-    string[] newShape = new string[TETROMINO.Shape[0].Length / 3 * 2];
+    string[] shapeScope = (string[])TETROMINO.Shape.Clone();
+    int yScope = TETROMINO.Y;
+    string[] newShape = new string[shapeScope[0].Length / 3 * 2];
     int newY = 0;
     int rowEven = 0;
     int rowOdd = 1;
 
     //Turn
-    for (int y = 0; y < TETROMINO.Shape.Length;)
+    for (int y = 0; y < shapeScope.Length;)
     {
         switch (spinDirection)
         {
             case Direction.Right:
-                SpinRight(newShape, ref newY, rowEven, rowOdd, y);
+                SpinRight(newShape, shapeScope, ref newY, rowEven, rowOdd, y);
                 break;
             case Direction.Left:
-                SpinLeft(newShape, ref newY, rowEven, rowOdd, y);
+                SpinLeft(newShape, shapeScope, ref newY, rowEven, rowOdd, y);
                 break;
         }
 
@@ -693,7 +756,7 @@ void TetrominoSpin(Direction spinDirection)
         {
             if (newShape[y][x] == ' ') continue;
 
-            char c = PLAYFIELD[TETROMINO.Y + y][TETROMINO.X + x];
+            char c = PLAYFIELD[yScope + y][TETROMINO.X + x];
             if (c != ' ') return;
         }
     }
@@ -701,23 +764,23 @@ void TetrominoSpin(Direction spinDirection)
     TETROMINO.Shape = newShape;
 }
 
-void SpinLeft(string[] newShape, ref int newY, int rowEven, int rowOdd, int y)
+void SpinLeft(string[] newShape, string[] shape, ref int newY, int rowEven, int rowOdd, int y)
 {
-    for (int x = TETROMINO.Shape[y].Length - 1; x >= 0; x -= 3)
+    for (int x = shape[y].Length - 1; x >= 0; x -= 3)
     {
         for (int xS = 2; xS >= 0; xS--)
         {
-            newShape[newY] += TETROMINO.Shape[rowEven][x - xS];
-            newShape[newY + 1] += TETROMINO.Shape[rowOdd][x - xS];
+            newShape[newY] += shape[rowEven][x - xS];
+            newShape[newY + 1] += shape[rowOdd][x - xS];
         }
 
         newY += 2;
     }
 }
 
-void SpinRight(string[] newShape, ref int newY, int rowEven, int rowOdd, int y)
+void SpinRight(string[] newShape, string[] shape, ref int newY, int rowEven, int rowOdd, int y)
 {
-    for (int x = 2; x < TETROMINO.Shape[y].Length; x += 3)
+    for (int x = 2; x < shape[y].Length; x += 3)
     {
         if (newShape[newY] == null)
         {
@@ -727,8 +790,8 @@ void SpinRight(string[] newShape, ref int newY, int rowEven, int rowOdd, int y)
 
         for (int xS = 0; xS <= 2; xS++)
         {
-            newShape[newY] = newShape[newY].Insert(0, TETROMINO.Shape[rowEven][x - xS].ToString());
-            newShape[newY + 1] = newShape[newY + 1].Insert(0, TETROMINO.Shape[rowOdd][x - xS].ToString());
+            newShape[newY] = newShape[newY].Insert(0, shape[rowEven][x - xS].ToString());
+            newShape[newY + 1] = newShape[newY + 1].Insert(0, shape[rowOdd][x - xS].ToString());
         }
 
         newY += 2;
@@ -737,7 +800,7 @@ void SpinRight(string[] newShape, ref int newY, int rowEven, int rowOdd, int y)
 
 void SleepAfterRender()
 {
-    TimeSpan sleep = TimeSpan.FromSeconds(1d / 120d) - Stopwatch.Elapsed;
+    TimeSpan sleep = TimeSpan.FromSeconds(1d / 60d) - Stopwatch.Elapsed;
     if (sleep > TimeSpan.Zero)
     {
         Thread.Sleep(sleep);
