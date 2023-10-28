@@ -143,7 +143,7 @@ GameStatus GameStatus = GameStatus.Gameover;
 
 Random RamdomGenerator = new();
 
-int INITIALTETROMINOX = Convert.ToInt16(PLAYFIELD[0].Length / 2) - 3;
+int INITIALTETROMINOX = (PLAYFIELD[0].Length / 2) - 3;
 int INITIALTETROMINOY = 1;
 Tetromino TETROMINO = new()
 {
