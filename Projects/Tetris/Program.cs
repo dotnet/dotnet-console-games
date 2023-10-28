@@ -141,14 +141,12 @@ int PauseCount = 0;
 int TextColor = 0;
 GameStatus GameStatus = GameStatus.Gameover;
 
-Random RamdomGenerator = new();
-
 int INITIALTETROMINOX = (PLAYFIELD[0].Length / 2) - 3;
 int INITIALTETROMINOY = 1;
 Tetromino TETROMINO = new()
 {
-	Shape = TETROMINOS[RamdomGenerator.Next(0, TETROMINOS.Length)],
-	Next = TETROMINOS[RamdomGenerator.Next(0, TETROMINOS.Length)],
+	Shape = TETROMINOS[Random.Shared.Next(0, TETROMINOS.Length)],
+	Next = TETROMINOS[Random.Shared.Next(0, TETROMINOS.Length)],
 	X = INITIALTETROMINOX,
 	Y = INITIALTETROMINOY
 };
@@ -569,8 +567,8 @@ void RestartGame()
 	Score = 0;
 	TETROMINO = new()
 	{
-		Shape = TETROMINOS[RamdomGenerator.Next(0, TETROMINOS.Length)],
-		Next = TETROMINOS[RamdomGenerator.Next(0, TETROMINOS.Length)],
+		Shape = TETROMINOS[Random.Shared.Next(0, TETROMINOS.Length)],
+		Next = TETROMINOS[Random.Shared.Next(0, TETROMINOS.Length)],
 		X = INITIALTETROMINOX,
 		Y = INITIALTETROMINOY
 	};
@@ -655,7 +653,7 @@ void TetrominoFall(object? e)
 				TETROMINO.X = INITIALTETROMINOX;
 				TETROMINO.Y = INITIALTETROMINOY;
 				TETROMINO.Shape = TETROMINO.Next;
-				TETROMINO.Next = TETROMINOS[RamdomGenerator.Next(0, TETROMINOS.Length)];
+				TETROMINO.Next = TETROMINOS[Random.Shared.Next(0, TETROMINOS.Length)];
 
 				xCollision = TETROMINO.Shape[0].Length;
 				collision = true;
