@@ -273,8 +273,8 @@ void DrawFrame()
 {
 	bool collision = false;
 	int yScope = TETROMINO.Y;
-	string[] shapeScope = (string[])TETROMINO.Shape.Clone();
-	string[] nextShapeScope = (string[])TETROMINO.Next.Clone();
+	string[] shapeScope = TETROMINO.Shape;
+	string[] nextShapeScope = TETROMINO.Next;
 	char[][] frame = new char[PLAYFIELD.Length][];
 
 	//Field
