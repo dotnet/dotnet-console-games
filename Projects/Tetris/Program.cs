@@ -153,7 +153,7 @@ Tetromino TETROMINO = new()
 	Y = INITIALTETROMINOY
 };
 
-AutoResetEvent AutoEvent = new AutoResetEvent(false);
+AutoResetEvent AutoEvent = new(false);
 Timer? FallTimer = null;
 GameStatus = GameStatus.Playing;
 
