@@ -190,7 +190,7 @@ while (!CloseGame)
 	}
 
 	PlayerControl();
-	if (GameStatus == GameStatus.Playing)
+	if (GameStatus is GameStatus.Playing)
 	{
 		DrawFrame();
 		SleepAfterRender();
@@ -199,7 +199,7 @@ while (!CloseGame)
 
 void PlayerControl()
 {
-	while (Console.KeyAvailable && GameStatus == GameStatus.Playing)
+	while (Console.KeyAvailable && GameStatus is GameStatus.Playing)
 	{
 		switch (Console.ReadKey(true).Key)
 		{
@@ -225,7 +225,7 @@ void PlayerControl()
 				break;
 			case ConsoleKey.R:
 				TextColor++;
-				if (TextColor == 16) TextColor = 1;
+				if (TextColor is 16) TextColor = 1;
 				Console.ForegroundColor = (ConsoleColor)TextColor;
 				break;
 
@@ -294,9 +294,9 @@ void DrawFrame()
 			char charToReplace = PLAYFIELD[tY][tX];
 			char charTetromino = shapeScope[y][x];
 
-			if (charTetromino == ' ') continue;
+			if (charTetromino is ' ') continue;
 
-			if (charToReplace != ' ')
+			if (charToReplace is not ' ')
 			{
 				collision = true;
 				break;
@@ -323,9 +323,9 @@ void DrawFrame()
 				char charToReplace = PLAYFIELD[tY][tX];
 				char charTetromino = shapeScope[y][x];
 
-				if (charTetromino == ' ') continue;
+				if (charTetromino is ' ') continue;
 
-				if (charToReplace != ' ')
+				if (charToReplace is not ' ')
 				{
 					collision = true;
 					break;
@@ -373,7 +373,7 @@ void DrawFrame()
 	}
 
 	//Draw Pause
-	if (GameStatus == GameStatus.Paused)
+	if (GameStatus is GameStatus.Paused)
 	{
 		for (int y = 0; y < PAUSE.Length; y++)
 		{
@@ -426,9 +426,9 @@ char[][] DrawLastFrame(int yS)
 			char charToReplace = PLAYFIELD[tY][tX];
 			char charTetromino = shapeScope[y][x];
 
-			if (charTetromino == ' ') continue;
+			if (charTetromino is ' ') continue;
 
-			if (charToReplace != ' ')
+			if (charToReplace is not ' ')
 			{
 				collision = true;
 				break;
@@ -473,9 +473,9 @@ bool Collision(Direction direction)
 			char charToReplace = PLAYFIELD[tY][tX];
 			char charTetromino = shapeScope[y][x];
 
-			if (charTetromino == ' ') continue;
+			if (charTetromino is ' ') continue;
 
-			if (charToReplace != ' ')
+			if (charToReplace is not ' ')
 			{
 				collision = true;
 				break;
@@ -501,9 +501,9 @@ bool CollisionPreview(int initY, int yScope, string[] shape)
 				char charToReplace = PLAYFIELD[tY][tX];
 				char charTetromino = shape[y][x];
 
-				if (charTetromino == ' ') continue;
+				if (charTetromino is ' ') continue;
 
-				if (charToReplace != ' ')
+				if (charToReplace is not ' ')
 				{
 					return true;
 				}
@@ -596,7 +596,7 @@ void ResumeGame(ConsoleKey key = ConsoleKey.Enter)
 	while (input != key && !CloseGame)
 	{
 		input = Console.ReadKey(true).Key;
-		if (input is ConsoleKey.Enter && GameStatus == GameStatus.Paused && FallTimer != null)
+		if (input is ConsoleKey.Enter && GameStatus is GameStatus.Paused && FallTimer != null)
 		{
 			FallTimer.Change(0, FallSpeedMilliSeconds);
 			GameStatus = GameStatus.Playing;
@@ -655,17 +655,13 @@ void TetrominoFall(object? e)
 		{
 			char exist = TETROMINO.Shape[yCollision][xCollision];
 
-			if (exist == ' ') continue;
+			if (exist is ' ') continue;
 
 			char[] lineYC = PLAYFIELD[yAfterFall + yCollision - 1].ToCharArray();
 
 			if (TETROMINO.X + xCollision < 0 || TETROMINO.X + xCollision > lineYC.Length) continue;
 
-			if
-			(
-				lineYC[TETROMINO.X + xCollision] != ' ' &&
-				lineYC[TETROMINO.X + xCollision] != '│'
-			)
+			if (lineYC[TETROMINO.X + xCollision] is not ' ' or '│')
 			{
 				char[][] lastFrame = DrawLastFrame(yAfterFall);
 				for (int y = 0; y < lastFrame.Length; y++)
@@ -693,9 +689,9 @@ void TetrominoFall(object? e)
 	for (var lineIndex = PLAYFIELD.Length - 1; lineIndex >= 0; lineIndex--)
 	{
 		string line = PLAYFIELD[lineIndex];
-		bool notCompleted = line.Any(e => e == ' ');
+		bool notCompleted = line.Any(e => e is ' ');
 
-		if (lineIndex == 0 || lineIndex == PLAYFIELD.Length - 1) continue;
+		if (lineIndex is 0 || lineIndex == PLAYFIELD.Length - 1) continue;
 
 		if (!notCompleted)
 		{
@@ -704,7 +700,7 @@ void TetrominoFall(object? e)
 
 			for (int lineM = lineIndex; lineM >= 1; lineM--)
 			{
-				if (PLAYFIELD[lineM - 1] == "╭──────────────────────────────╮")
+				if (PLAYFIELD[lineM - 1] is "╭──────────────────────────────╮")
 				{
 					PLAYFIELD[lineM] = "│                              │";
 					continue;
@@ -717,8 +713,8 @@ void TetrominoFall(object? e)
 		}
 	}
 
-	//VerifiedCollision 
-	if (Collision(Direction.None) && FallTimer != null) Gameover();
+	//VerifiedCollision
+	if (Collision(Direction.None) && FallTimer is not null) Gameover();
 }
 
 void TetrominoSpin(Direction spinDirection)
@@ -754,10 +750,10 @@ void TetrominoSpin(Direction spinDirection)
 	{
 		for (int x = 0; x < newShape[y].Length; x++)
 		{
-			if (newShape[y][x] == ' ') continue;
+			if (newShape[y][x] is ' ') continue;
 
 			char c = PLAYFIELD[yScope + y][TETROMINO.X + x];
-			if (c != ' ') return;
+			if (c is not ' ') return;
 		}
 	}
 
@@ -782,7 +778,7 @@ void SpinRight(string[] newShape, string[] shape, ref int newY, int rowEven, int
 {
 	for (int x = 2; x < shape[y].Length; x += 3)
 	{
-		if (newShape[newY] == null)
+		if (newShape[newY] is null)
 		{
 			newShape[newY] = "";
 			newShape[newY + 1] = "";
