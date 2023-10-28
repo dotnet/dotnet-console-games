@@ -609,35 +609,18 @@ void AddScoreChangeSpeed(int value)
 {
 	Score += value;
 
-	if (Score > 100) return;
-
-	switch (Score)
+	FallSpeedMilliSeconds = Score switch
 	{
-		case 10:
-			FallSpeedMilliSeconds = 900;
-			break;
-		case 20:
-			FallSpeedMilliSeconds = 800;
-			break;
-		case 30:
-			FallSpeedMilliSeconds = 700;
-			break;
-		case 40:
-			FallSpeedMilliSeconds = 500;
-			break;
-		case 50:
-			FallSpeedMilliSeconds = 300;
-			break;
-		case 60:
-			FallSpeedMilliSeconds = 200;
-			break;
-		case 70:
-			FallSpeedMilliSeconds = 100;
-			break;
-		case 100:
-			FallSpeedMilliSeconds = 50;
-			break;
-	}
+		> 100 => FallSpeedMilliSeconds = 050,
+		> 070 => FallSpeedMilliSeconds = 100,
+		> 060 => FallSpeedMilliSeconds = 200,
+		> 050 => FallSpeedMilliSeconds = 300,
+		> 040 => FallSpeedMilliSeconds = 500,
+		> 030 => FallSpeedMilliSeconds = 700,
+		> 020 => FallSpeedMilliSeconds = 800,
+		> 010 => FallSpeedMilliSeconds = 900,
+		_ => 1000,
+	};
 }
 
 void TetrominoFall(object? e)
