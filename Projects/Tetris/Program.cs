@@ -156,24 +156,25 @@ Timer? FallTimer = null;
 GameStatus = GameStatus.Playing;
 
 Console.WriteLine();
-Console.WriteLine("     ██████╗█████╗██████╗█████╗ ██╗█████╗");
-Console.WriteLine("     ╚═██╔═╝██╔══╝╚═██╔═╝██╔═██╗██║██╔══╝");
-Console.WriteLine("       ██║  █████╗  ██║  █████╔╝██║ ███╗ ");
-Console.WriteLine("       ██║  ██╔══╝  ██║  ██╔═██╗██║   ██╗");
-Console.WriteLine("       ██║  █████╗  ██║  ██║ ██║██║█████║");
-Console.WriteLine("       ╚═╝  ╚════╝  ╚═╝  ╚═╝ ╚═╝╚═╝╚════╝");
+Console.WriteLine("""
+	     ██████╗█████╗██████╗█████╗ ██╗█████╗
+	     ╚═██╔═╝██╔══╝╚═██╔═╝██╔═██╗██║██╔══╝
+	       ██║  █████╗  ██║  █████╔╝██║ ███╗
+	       ██║  ██╔══╝  ██║  ██╔═██╗██║   ██╗
+	       ██║  █████╗  ██║  ██║ ██║██║█████║
+	       ╚═╝  ╚════╝  ╚═╝  ╚═╝ ╚═╝╚═╝╚════╝
 
-Console.WriteLine();
-Console.WriteLine("    Controls:");
-Console.WriteLine("    WASD or ARROW to move");
-Console.WriteLine("    Q or E to spin left or right");
-Console.WriteLine("    P to paused the game, press enter");
-Console.WriteLine("    key to resume");
-Console.WriteLine("    R to change Text color");
-Console.WriteLine();
-Console.WriteLine("    Press escape to close the game at any time.");
-Console.WriteLine();
-Console.Write("    Press enter to start tetris...");
+	    Controls:
+	    WASD or ARROW to move
+	    Q or E to spin left or right
+	    P to paused the game, press enter
+	    key to resume
+	    R to change Text color
+	
+	    Press escape to close the game at any time.
+	
+	    Press enter to start tetris...
+	""");
 Console.CursorVisible = false;
 StartGame();
 Console.Clear();
@@ -521,26 +522,27 @@ void Gameover()
 	SleepAfterRender();
 
 	Console.Clear();
-	Console.WriteLine();
-	Console.WriteLine("      ██████╗  █████╗ ██    ██╗█████╗");
-	Console.WriteLine("     ██╔════╝ ██╔══██╗███  ███║██╔══╝");
-	Console.WriteLine("     ██║  ███╗███████║██╔██═██║█████╗");
-	Console.WriteLine("     ██║   ██║██╔══██║██║   ██║██╔══╝");
-	Console.WriteLine("     ╚██████╔╝██║  ██║██║   ██║█████╗");
-	Console.WriteLine("      ╚═════╝ ╚═╝  ╚═╝╚═╝   ╚═╝╚════╝");
-	Console.WriteLine("       ██████╗██╗  ██╗█████╗█████╗   ");
-	Console.WriteLine("       ██  ██║██║  ██║██╔══╝██╔═██╗  ");
-	Console.WriteLine("       ██  ██║██║  ██║█████╗█████╔╝  ");
-	Console.WriteLine("       ██  ██║╚██╗██╔╝██╔══╝██╔═██╗  ");
-	Console.WriteLine("       ██████║ ╚███╔╝ █████╗██║ ██║  ");
-	Console.WriteLine("       ╚═════╝  ╚══╝  ╚════╝╚═╝ ╚═╝  ");
+	Console.Write($"""
 
-	Console.WriteLine();
-	Console.WriteLine($"     Final Score: {Score}");
-	Console.WriteLine($"     Pause Count: {PauseCount}");
-	Console.WriteLine();
-	Console.WriteLine("     Press enter to play again");
-	Console.WriteLine("     Press escape to close the game");
+	      ██████╗  █████╗ ██    ██╗█████╗
+	     ██╔════╝ ██╔══██╗███  ███║██╔══╝
+	     ██║  ███╗███████║██╔██═██║█████╗
+	     ██║   ██║██╔══██║██║   ██║██╔══╝
+	     ╚██████╔╝██║  ██║██║   ██║█████╗
+	      ╚═════╝ ╚═╝  ╚═╝╚═╝   ╚═╝╚════╝
+	       ██████╗██╗  ██╗█████╗█████╗
+	       ██  ██║██║  ██║██╔══╝██╔═██╗
+	       ██  ██║██║  ██║█████╗█████╔╝
+	       ██  ██║╚██╗██╔╝██╔══╝██╔═██╗
+	       ██████║ ╚███╔╝ █████╗██║ ██║
+	       ╚═════╝  ╚══╝  ╚════╝╚═╝ ╚═╝
+	
+	     Final Score: {Score}
+	     Pause Count: {PauseCount}
+	
+	     Press enter to play again
+	     Press escape to close the game
+	""");
 	Console.CursorVisible = false;
 	StartGame();
 	RestartGame();
