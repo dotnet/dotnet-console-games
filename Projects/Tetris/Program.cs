@@ -90,7 +90,7 @@ string[][] TETROMINOS = new[]
 	new[]{
 		"╭─╮",
 		"╰─╯",
-		"╭─╮",
+		"x─╮",
 		"╰─╯",
 		"╭─╮",
 		"╰─╯",
@@ -100,37 +100,37 @@ string[][] TETROMINOS = new[]
 	new[]{
 		"╭─╮      ",
 		"╰─╯      ",
-		"╭─╮╭─╮╭─╮",
+		"╭─╮x─╮╭─╮",
 		"╰─╯╰─╯╰─╯"
 	},
 	new[]{
 		"      ╭─╮",
 		"      ╰─╯",
-		"╭─╮╭─╮╭─╮",
+		"╭─╮x─╮╭─╮",
 		"╰─╯╰─╯╰─╯"
 	},
 	new[]{
 		"╭─╮╭─╮",
 		"╰─╯╰─╯",
-		"╭─╮╭─╮",
+		"x─╮╭─╮",
 		"╰─╯╰─╯"
 	},
 	new[]{
 		"   ╭─╮╭─╮",
 		"   ╰─╯╰─╯",
-		"╭─╮╭─╮   ",
+		"╭─╮x─╮   ",
 		"╰─╯╰─╯   "
 	},
 	new[]{
 		"   ╭─╮   ",
 		"   ╰─╯   ",
-		"╭─╮╭─╮╭─╮",
+		"╭─╮x─╮╭─╮",
 		"╰─╯╰─╯╰─╯"
 	},
 	new[]{
 		"╭─╮╭─╮   ",
 		"╰─╯╰─╯   ",
-		"   ╭─╮╭─╮",
+		"   x─╮╭─╮",
 		"   ╰─╯╰─╯"
 	},
 };
@@ -304,6 +304,7 @@ void DrawFrame()
 				break;
 			}
 
+			if (charTetromino is 'x') charTetromino = '╭';
 			frame[tY][tX] = charTetromino;
 		}
 	}
@@ -361,6 +362,7 @@ void DrawFrame()
 			int tY = y + BORDER;
 			int tX = PLAYFIELD[y].Length + x + BORDER;
 			char charTetromino = nextShapeScope[y][x];
+			if (charTetromino is 'x') charTetromino = '╭';
 			frame[tY][tX] = charTetromino;
 		}
 	}
@@ -435,7 +437,8 @@ char[][] DrawLastFrame(int yS)
 				collision = true;
 				break;
 			}
-
+			
+			if (charTetromino is 'x') charTetromino = '╭';
 			frame[tY][tX] = charTetromino;
 		}
 	}
@@ -707,6 +710,7 @@ void TetrominoSpin(Direction spinDirection)
 {
 	string[] shapeScope = (string[])TETROMINO.Shape.Clone();
 	int yScope = TETROMINO.Y;
+	int xScope = TETROMINO.X;
 	string[] newShape = new string[shapeScope[0].Length / 3 * 2];
 	int newY = 0;
 	int rowEven = 0;
@@ -731,6 +735,55 @@ void TetrominoSpin(Direction spinDirection)
 		y += 2;
 	}
 
+	//Old Pivot
+	(int y, int x) offsetOP = (0, 0);
+	for (int y = 0; y < shapeScope.Length; y += 2)
+	{
+		for (int x = 0; x < shapeScope[y].Length; x += 3)
+		{
+			if (shapeScope[y][x] is 'x')
+			{
+				offsetOP = (y / 2, x / 3);
+				y = shapeScope.Length;
+				break;
+			}
+		}
+	}
+
+	//New Pivot
+	(int y, int x) offsetNP = (0, 0);
+	for (int y = 0; y < newShape.Length; y += 2)
+	{
+		for (int x = 0; x < newShape[y].Length; x += 3)
+		{
+			if (newShape[y][x] is 'x')
+			{
+				offsetNP = (y / 2, x / 3);
+				y = newShape.Length;
+				break;
+			}
+		}
+	}
+
+	yScope += (offsetOP.y - offsetNP.y) * 2;
+	xScope += (offsetOP.x - offsetNP.x) * 3;
+
+	//Tetromino Square(O) special case
+	if (newShape.Length / 2 == newShape[0].Length / 3)
+	{
+		yScope = TETROMINO.Y;
+		xScope = TETROMINO.X;
+	}
+	//Tetromino I special case
+	else if (newShape.Length is 8 && newShape[0].Length is 3 && offsetNP.y is 2)
+	{
+		newShape[2] = "x─╮";
+		newShape[4] = "╭─╮";
+		yScope += 2;
+	}
+
+	if (xScope < 1 || yScope < 1) return;
+
 	//Verified Collision
 	for (int y = 0; y < newShape.Length - 1; y++)
 	{
@@ -738,11 +791,13 @@ void TetrominoSpin(Direction spinDirection)
 		{
 			if (newShape[y][x] is ' ') continue;
 
-			char c = PLAYFIELD[yScope + y][TETROMINO.X + x];
+			char c = PLAYFIELD[yScope + y][xScope + x];
 			if (c is not ' ') return;
 		}
 	}
 
+	TETROMINO.Y = yScope;
+	TETROMINO.X = xScope;
 	TETROMINO.Shape = newShape;
 }
 
