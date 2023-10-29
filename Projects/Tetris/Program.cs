@@ -170,6 +170,7 @@ Console.WriteLine("""
 	    Controls:
 	    WASD or ARROW to move
 	    Q or E to spin left or right
+	    Spacebar to HardDrop
 	    P to paused the game, press enter
 	    key to resume
 	    R to change Text color
@@ -230,9 +231,12 @@ void PlayerControl()
 				if (TextColor is 16) TextColor = 1;
 				Console.ForegroundColor = (ConsoleColor)TextColor;
 				break;
+			case ConsoleKey.Spacebar:
+				HardDrop();
+				break;
 
 			//DEBUG
-			case ConsoleKey.Spacebar:
+			case ConsoleKey.Tab:
 				if (!DEBUGCONTROLS) return;
 				PLAYFIELD = (string[])FIELD.Clone();
 				break;
@@ -312,7 +316,7 @@ void DrawFrame()
 	//Draw Preview
 	for (int yField = PLAYFIELD.Length - shapeScope.Length - BORDER; yField >= 0; yField -= 2)
 	{
-		if (CollisionPreview(yField, yScope, shapeScope)) continue;
+		if (CollisionBottom(yField, yScope, shapeScope)) continue;
 
 		for (int y = 0; y < shapeScope.Length && !collision; y++)
 		{
@@ -437,7 +441,7 @@ char[][] DrawLastFrame(int yS)
 				collision = true;
 				break;
 			}
-			
+
 			if (charTetromino is 'x') charTetromino = '╭';
 			frame[tY][tX] = charTetromino;
 		}
@@ -491,7 +495,7 @@ bool Collision(Direction direction)
 	return collision;
 }
 
-bool CollisionPreview(int initY, int yScope, string[] shape)
+bool CollisionBottom(int initY, int yScope, string[] shape)
 {
 	int xNew = TETROMINO.X;
 
@@ -704,6 +708,19 @@ void TetrominoFall(object? e)
 
 	//VerifiedCollision
 	if (Collision(Direction.None) && FallTimer is not null) Gameover();
+}
+
+void HardDrop()
+{
+	int y = TETROMINO.Y;
+	int x = TETROMINO.X;
+	var shapeScope = TETROMINO.Shape;
+	for (int yField = PLAYFIELD.Length - shapeScope.Length - BORDER; yField >= 0; yField -= 2)
+	{
+		if (CollisionBottom(yField, y, shapeScope)) continue;
+		TETROMINO.Y = yField;
+		break;
+	}
 }
 
 void TetrominoSpin(Direction spinDirection)
