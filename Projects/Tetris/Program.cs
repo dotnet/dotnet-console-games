@@ -617,6 +617,7 @@ void ResumeGame(ConsoleKey key = ConsoleKey.Enter)
 
 void AddScoreChangeSpeed(int value)
 {
+	if (value >= 4) value++;
 	Score += value;
 
 	FallSpeedMilliSeconds = Score switch
@@ -679,6 +680,7 @@ void TetrominoFall(object? e)
 	if (!collision) TETROMINO.Y = yAfterFall;
 
 	//Clean Lines
+	int clearedLines = 0;
 	for (var lineIndex = PLAYFIELD.Length - 1; lineIndex >= 0; lineIndex--)
 	{
 		string line = PLAYFIELD[lineIndex];
@@ -689,7 +691,7 @@ void TetrominoFall(object? e)
 		if (!notCompleted)
 		{
 			PLAYFIELD[lineIndex] = "│                              │";
-			AddScoreChangeSpeed(1);
+			clearedLines++;
 
 			for (int lineM = lineIndex; lineM >= 1; lineM--)
 			{
@@ -705,6 +707,8 @@ void TetrominoFall(object? e)
 			lineIndex++;
 		}
 	}
+
+	AddScoreChangeSpeed(clearedLines / 2);
 
 	//VerifiedCollision
 	if (Collision(Direction.None) && FallTimer is not null) Gameover();
