@@ -35,7 +35,10 @@ Console.CursorVisible = false;
 switch (Console.ReadKey(true).Key)
 {
 	case ConsoleKey.Enter: break;
-	case ConsoleKey.Escape: Console.Clear(); return;
+	case ConsoleKey.Escape:
+		Console.Clear();
+		Console.CursorVisible = true;
+		return;
 	default: goto MainMenuInput;
 }
 
