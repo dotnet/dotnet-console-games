@@ -17,7 +17,6 @@
 		</pre>
 	</div>
 	<div>
-		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.UpArrow)   ">↑</button>
 		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.DownArrow) ">↓</button>
 		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.LeftArrow) ">←</button>
 		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.RightArrow)">→</button>
@@ -25,6 +24,7 @@
 		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.E)         ">E</button>
 		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Enter)     ">enter</button>
 		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.P)         ">pause</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Escape)    ">escape</button>
 	</div>
 </div>
 
@@ -45,8 +45,8 @@
 	{
 		Game = new();
 		Console = Game.Console;
-		Console.WindowWidth = 43;
-		Console.WindowHeight = 42;
+		Console.WindowWidth = 45;
+		Console.WindowHeight = 44;
 		Console.TriggerRefresh = StateHasChanged;
 	}
 

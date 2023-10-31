@@ -227,8 +227,8 @@ while (!closeRequested)
 
 		    Final Score: {score}
 
-		    Press enter to play again
-		    Press escape to close the game
+		    [Enter] return to menu
+		    [Escape] close game
 		""");
 		Console.CursorVisible = false;
 	bool gameOverScreen = true;
@@ -672,7 +672,7 @@ void TetrominoFall()
 	clearedLines /= 2;
 	if (clearedLines > 0)
 	{
-		int value = clearedLines /= 2 switch
+		int value = clearedLines switch
 		{
 			1 => 1,
 			2 => 3,

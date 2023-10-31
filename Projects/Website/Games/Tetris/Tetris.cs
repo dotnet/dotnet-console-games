@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Text;
 using System.Linq;
+using System.Globalization;
 
 namespace Website.Games.Tetris;
 
@@ -13,57 +14,17 @@ public class Tetris
 
 	public async Task Run()
 	{
-		Console.OutputEncoding = Encoding.UTF8;
-		Console.CursorVisible = false;
-		Stopwatch Stopwatch = Stopwatch.StartNew();
+		#region Constants
 
-		string[] FIELD = new[]
+		string[] emptyField = new string[42];
+		emptyField[0] = "╭──────────────────────────────╮";
+		for (int i = 1; i < 41; i++)
 		{
-			"╭──────────────────────────────╮",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"│                              │",
-			"╰──────────────────────────────╯"
-		};
+			emptyField[i] = "│                              │";
+		}
+		emptyField[^1] = "╰──────────────────────────────╯";
 
-		string[] NEXTTETROMINO = new[]
+		string[] nextTetrominoBorder = new[]
 		{
 			"╭─────────╮",
 			"│         │",
@@ -77,13 +38,15 @@ public class Tetris
 			"╰─────────╯"
 		};
 
-		string[] SCORE = new[]{
+		string[] scoreBorder = new[]
+		{
 			"╭─────────╮",
 			"│         │",
 			"╰─────────╯"
 		};
 
-		string[] PAUSE = new[]{
+		string[] pauseRender = new[]
+		{
 			"█████╗ ███╗ ██╗██╗█████╗█████╗",
 			"██╔██║██╔██╗██║██║██╔══╝██╔══╝",
 			"█████║█████║██║██║ ███╗ █████╗",
@@ -92,12 +55,12 @@ public class Tetris
 			"╚═╝   ╚═╝╚═╝╚════╝╚════╝╚════╝",
 		};
 
-		string[][] TETROMINOS = new[]
+		string[][] tetrominos = new[]
 		{
 			new[]{
 				"╭─╮",
 				"╰─╯",
-				"╭─╮",
+				"x─╮",
 				"╰─╯",
 				"╭─╮",
 				"╰─╯",
@@ -107,128 +70,272 @@ public class Tetris
 			new[]{
 				"╭─╮      ",
 				"╰─╯      ",
-				"╭─╮╭─╮╭─╮",
+				"╭─╮x─╮╭─╮",
 				"╰─╯╰─╯╰─╯"
 			},
 			new[]{
 				"      ╭─╮",
 				"      ╰─╯",
-				"╭─╮╭─╮╭─╮",
+				"╭─╮x─╮╭─╮",
 				"╰─╯╰─╯╰─╯"
 			},
 			new[]{
 				"╭─╮╭─╮",
 				"╰─╯╰─╯",
-				"╭─╮╭─╮",
+				"x─╮╭─╮",
 				"╰─╯╰─╯"
 			},
 			new[]{
 				"   ╭─╮╭─╮",
 				"   ╰─╯╰─╯",
-				"╭─╮╭─╮   ",
+				"╭─╮x─╮   ",
 				"╰─╯╰─╯   "
 			},
 			new[]{
 				"   ╭─╮   ",
 				"   ╰─╯   ",
-				"╭─╮╭─╮╭─╮",
+				"╭─╮x─╮╭─╮",
 				"╰─╯╰─╯╰─╯"
 			},
 			new[]{
 				"╭─╮╭─╮   ",
 				"╰─╯╰─╯   ",
-				"   ╭─╮╭─╮",
+				"   x─╮╭─╮",
 				"   ╰─╯╰─╯"
 			},
 		};
 
-		string[] PLAYFIELD = (string[])FIELD.Clone();
-		const int BORDER = 1;
-		int FallSpeedMilliSeconds = 1000;
-		bool CloseGame = false;
-		int Score = 0;
-		int PauseCount = 0;
-		GameStatus GameStatus = GameStatus.Gameover;
+		const int borderSize = 1;
 
-		Random RamdomGenerator = new();
+		int initialX = (emptyField[0].Length / 2) - 3;
+		int initialY = 1;
 
-		int INITIALTETROMINOX = Convert.ToInt16(PLAYFIELD[0].Length / 2) - 3;
-		int INITIALTETROMINOY = 1;
-		Tetromino TETROMINO = new()
+		int consoleWidthMin = 44;
+		int consoleHeightMin = 43;
+
+		#endregion
+
+		Stopwatch timer = new();
+		bool closeRequested = false;
+		bool gameOver;
+		int score = 0;
+		TimeSpan fallSpeed;
+		string[] field;
+		Tetromino tetromino;
+		int consoleWidth = Console.WindowWidth;
+		int consoleHeight = Console.WindowHeight;
+		bool consoleTooSmallScreen = false;
+
+		Console.OutputEncoding = Encoding.UTF8;
+		while (!closeRequested)
 		{
-			Shape = TETROMINOS[RamdomGenerator.Next(0, TETROMINOS.Length)],
-			Next = TETROMINOS[RamdomGenerator.Next(0, TETROMINOS.Length)],
-			X = INITIALTETROMINOX,
-			Y = INITIALTETROMINOY
-		};
+			await Console.Clear();
+			await Console.Write("""
 
-		AutoResetEvent AutoEvent = new AutoResetEvent(false);
-		Timer? FallTimer = null;
-		GameStatus = GameStatus.Playing;
+				     ██████╗█████╗██████╗█████╗ ██╗█████╗
+				     ╚═██╔═╝██╔══╝╚═██╔═╝██╔═██╗██║██╔══╝
+				       ██║  █████╗  ██║  █████╔╝██║ ███╗
+				       ██║  ██╔══╝  ██║  ██╔═██╗██║   ██╗
+				       ██║  █████╗  ██║  ██║ ██║██║█████║
+				       ╚═╝  ╚════╝  ╚═╝  ╚═╝ ╚═╝╚═╝╚════╝
 
-		await Console.WriteLine();
-		await Console.WriteLine("  ██████╗█████╗██████╗█████╗ ██╗█████╗");
-		await Console.WriteLine("  ╚═██╔═╝██╔══╝╚═██╔═╝██╔═██╗██║██╔══╝");
-		await Console.WriteLine("    ██║  █████╗  ██║  █████╔╝██║ ███╗ ");
-		await Console.WriteLine("    ██║  ██╔══╝  ██║  ██╔═██╗██║   ██╗");
-		await Console.WriteLine("    ██║  █████╗  ██║  ██║ ██║██║█████║");
-		await Console.WriteLine("    ╚═╝  ╚════╝  ╚═╝  ╚═╝ ╚═╝╚═╝╚════╝");
+				    Controls:
 
-		await Console.WriteLine();
-		await Console.WriteLine("  Controls:");
-		await Console.WriteLine("  WASD or ARROW to move");
-		await Console.WriteLine("  Q or E to spin left or right");
-		await Console.WriteLine("  P to paused the game, press enter");
-		await Console.WriteLine("  key to resume");
-		await Console.WriteLine();
-		await Console.Write("  Press enter to start tetris...");
-		Console.CursorVisible = false;
-		await StartGame();
-		await Console.Clear();
+				    [A] or [←] move left
+				    [D] or [→] move right
+				    [S] or [↓] fall faster
+				    [Q] spin left
+				    [E] spin right
+				    [Spacebar] drop
+				    [P] pause and unpause
+				    [Escape] close game
+				    [Enter] start game
+				""");
+			bool mainMenuScreen = true;
+			while (!closeRequested && mainMenuScreen)
+			{
+				Console.CursorVisible = false;
+				switch ((await Console.ReadKey(true)).Key)
+				{
+					case ConsoleKey.Enter: mainMenuScreen = false; break;
+					case ConsoleKey.Escape: closeRequested = true; break;
+				}
+			}
+			Initialize();
+			await Console.Clear();
+			await DrawFrame();
+			while (!closeRequested && !gameOver)
+			{
+				// if user changed the size of the console, we need to clear the console
+				if (consoleWidth != Console.WindowWidth || consoleHeight != Console.WindowHeight)
+				{
+					consoleWidth = Console.WindowWidth;
+					consoleHeight = Console.WindowHeight;
+					if (!consoleTooSmallScreen)
+					{
+						await Console.Clear();
+						await DrawFrame();
+					}
+					else
+					{
+						consoleTooSmallScreen = false;
+					}
+				}
 
-		FallTimer = new Timer(TetrominoFall, AutoEvent, FallSpeedMilliSeconds, FallSpeedMilliSeconds);
+				// if the console isn't big enough to render the game, pause the game and tell the user
+				if (consoleWidth < consoleWidthMin || consoleHeight < consoleHeightMin)
+				{
+					if (!consoleTooSmallScreen)
+					{
+						await Console.Clear();
+						await Console.Write($"Please increase size of console to at least {consoleWidthMin}x{consoleHeightMin}. Current size is {consoleWidth}x{consoleHeight}.");
+						timer.Stop();
+						consoleTooSmallScreen = true;
+					}
+				}
+				else if (consoleTooSmallScreen)
+				{
+					consoleTooSmallScreen = false;
+					await Console.Clear();
+					await DrawFrame();
+				}
 
-		while (!CloseGame)
-		{
-			if (CloseGame)
+				await HandlePlayerInput();
+				if (closeRequested || gameOver)
+				{
+					break;
+				}
+				if (timer.IsRunning && timer.Elapsed > fallSpeed)
+				{
+					await TetrominoFall();
+					if (closeRequested || gameOver)
+					{
+						break;
+					}
+					await DrawFrame();
+				}
+			}
+			if (closeRequested)
 			{
 				break;
 			}
+			await Console.Clear();
+			await Console.Write($"""
 
-			await PlayerControl();
-			if (GameStatus == GameStatus.Playing)
+				      ██████╗  █████╗ ██    ██╗█████╗
+				     ██╔════╝ ██╔══██╗███  ███║██╔══╝
+				     ██║  ███╗███████║██╔██═██║█████╗
+				     ██║   ██║██╔══██║██║   ██║██╔══╝
+				     ╚██████╔╝██║  ██║██║   ██║█████╗
+				      ╚═════╝ ╚═╝  ╚═╝╚═╝   ╚═╝╚════╝
+				       ██████╗██╗  ██╗█████╗█████╗
+				       ██  ██║██║  ██║██╔══╝██╔═██╗
+				       ██  ██║██║  ██║█████╗█████╔╝
+				       ██  ██║╚██╗██╔╝██╔══╝██╔═██╗
+				       ██████║ ╚███╔╝ █████╗██║ ██║
+				       ╚═════╝  ╚══╝  ╚════╝╚═╝ ╚═╝
+
+				     Final Score: {score}
+
+				    [Enter] return to menu
+				    [Escape] close game
+				""");
+				Console.CursorVisible = false;
+			bool gameOverScreen = true;
+			while (!closeRequested && gameOverScreen)
 			{
-				await DrawFrame();
-				await SleepAfterRender();
+				Console.CursorVisible = false;
+				switch ((await Console.ReadKey(true)).Key)
+				{
+					case ConsoleKey.Enter: gameOverScreen = false; break;
+					case ConsoleKey.Escape: closeRequested = true; break;
+				}
 			}
 		}
+		await Console.Clear();
+		await Console.WriteLine("Tetris was closed.");
+		Console.CursorVisible = true;
+		await Console.Refresh();
 
-		async Task PlayerControl()
+		void Initialize()
 		{
-			while (await Console.KeyAvailable() && GameStatus == GameStatus.Playing)
+			gameOver = false;
+			score = 0;
+			field = emptyField[..];
+			initialX = (field[0].Length / 2) - 3;
+			initialY = 1;
+			tetromino = new()
+			{
+				Shape = tetrominos[Random.Shared.Next(0, tetrominos.Length)],
+				Next = tetrominos[Random.Shared.Next(0, tetrominos.Length)],
+				X = initialX,
+				Y = initialY
+			};
+			fallSpeed = GetFallSpeed();
+			timer.Restart();
+		}
+
+		async Task HandlePlayerInput()
+		{
+			while ((await Console.KeyAvailable()) && !closeRequested)
 			{
 				switch ((await Console.ReadKey(true)).Key)
 				{
 					case ConsoleKey.A or ConsoleKey.LeftArrow:
-						if (Collision(Direction.Left)) break;
-						TETROMINO.X -= 3;
+						if (timer.IsRunning && !Collision(Direction.Left))
+						{
+							tetromino.X -= 3;
+						}
+						await DrawFrame();
 						break;
 					case ConsoleKey.D or ConsoleKey.RightArrow:
-						if (Collision(Direction.Right)) break;
-						TETROMINO.X += 3;
+						if (timer.IsRunning && !Collision(Direction.Right))
+						{
+							tetromino.X += 3;
+						}
+						await DrawFrame();
 						break;
 					case ConsoleKey.S or ConsoleKey.DownArrow:
-						FallTimer.Change(0, FallSpeedMilliSeconds);
+						if (timer.IsRunning)
+						{
+							await TetrominoFall();
+						}
 						break;
 					case ConsoleKey.E:
-						TetrominoSpin(Direction.Right);
+						if (timer.IsRunning)
+						{
+							TetrominoSpin(Direction.Right);
+							await DrawFrame();
+						}
 						break;
 					case ConsoleKey.Q:
-						TetrominoSpin(Direction.Left);
+						if (timer.IsRunning)
+						{
+							TetrominoSpin(Direction.Left);
+							await DrawFrame();
+						}
 						break;
 					case ConsoleKey.P:
-						PauseGame();
+						if (timer.IsRunning)
+						{
+							timer.Stop();
+							await DrawFrame();
+						}
+						else if (!consoleTooSmallScreen)
+						{
+							timer.Start();
+							await DrawFrame();
+						}
 						break;
+					case ConsoleKey.Spacebar:
+						if (timer.IsRunning)
+						{
+							await HardDrop();
+						}
+						break;
+					case ConsoleKey.Escape:
+						closeRequested = true;
+						return;
 				}
 			}
 		}
@@ -236,130 +343,131 @@ public class Tetris
 		async Task DrawFrame()
 		{
 			bool collision = false;
-			int yScope = TETROMINO.Y;
-			string[] shapeScope = (string[])TETROMINO.Shape.Clone();
-			string[] nextShapeScope = (string[])TETROMINO.Next.Clone();
-			char[][] frame = new char[PLAYFIELD.Length][];
+			char[][] frame = new char[field.Length][];
 
-			//Field
-			for (int y = 0; y < PLAYFIELD.Length; y++)
+			// Field
+			for (int y = 0; y < field.Length; y++)
 			{
-				frame[y] = PLAYFIELD[y].ToCharArray();
+				frame[y] = field[y].ToCharArray();
 			}
 
-			//Draw Tetromino
-			for (int y = 0; y < shapeScope.Length && !collision; y++)
+			// Tetromino
+			for (int y = 0; y < tetromino.Shape.Length && !collision; y++)
 			{
-				for (int x = 0; x < shapeScope[y].Length; x++)
+				for (int x = 0; x < tetromino.Shape[y].Length; x++)
 				{
-					int tY = yScope + y;
-					int tX = TETROMINO.X + x;
-					char charToReplace = PLAYFIELD[tY][tX];
-					char charTetromino = shapeScope[y][x];
-
-					if (charTetromino == ' ') continue;
-
-					if (charToReplace != ' ')
+					int tY = tetromino.Y + y;
+					int tX = tetromino.X + x;
+					char charToReplace = field[tY][tX];
+					char charTetromino = tetromino.Shape[y][x];
+					if (charTetromino is ' ')
+					{
+						continue;
+					}
+					if (charToReplace is not ' ')
 					{
 						collision = true;
 						break;
 					}
-
+					if (charTetromino is 'x')
+					{
+						charTetromino = '╭';
+					}
 					frame[tY][tX] = charTetromino;
 				}
 			}
 
-			//Draw Preview
-			for (int yField = PLAYFIELD.Length - shapeScope.Length - BORDER; yField >= 0; yField -= 2)
+			// Draw Preview
+			for (int yField = field.Length - tetromino.Shape.Length - borderSize; yField >= 0; yField -= 2)
 			{
-				if (CollisionPreview(yField, yScope, shapeScope)) continue;
-
-				for (int y = 0; y < shapeScope.Length && !collision; y++)
+				if (CollisionBottom(yField, tetromino.Y, tetromino.Shape))
 				{
-					for (int x = 0; x < shapeScope[y].Length; x++)
+					continue;
+				}
+				for (int y = 0; y < tetromino.Shape.Length && !collision; y++)
+				{
+					for (int x = 0; x < tetromino.Shape[y].Length; x++)
 					{
 						int tY = yField + y;
-
-						if (yScope + shapeScope.Length > tY) continue;
-
-						int tX = TETROMINO.X + x;
-						char charToReplace = PLAYFIELD[tY][tX];
-						char charTetromino = shapeScope[y][x];
-
-						if (charTetromino == ' ') continue;
-
-						if (charToReplace != ' ')
+						if (tetromino.Y + tetromino.Shape.Length > tY)
+						{
+							continue;
+						}
+						int tX = tetromino.X + x;
+						char charToReplace = field[tY][tX];
+						char charTetromino = tetromino.Shape[y][x];
+						if (charTetromino is ' ')
+						{
+							continue;
+						}
+						if (charToReplace is not ' ')
 						{
 							collision = true;
 							break;
 						}
-
 						frame[tY][tX] = '•';
 					}
 				}
-
 				break;
 			}
 
-			//Next Square
-			for (int y = 0; y < NEXTTETROMINO.Length; y++)
+			// Next
+			for (int y = 0; y < nextTetrominoBorder.Length; y++)
 			{
-				frame[y] = frame[y].Concat(NEXTTETROMINO[y]).ToArray();
+				frame[y] = frame[y].Concat(nextTetrominoBorder[y]).ToArray();
 			}
-
-			//Score Square
-			for (int y = 0; y < SCORE.Length; y++)
+			for (int y = 0; y < tetromino.Next.Length; y++)
 			{
-				int sY = NEXTTETROMINO.Length + y;
-				frame[sY] = frame[sY].Concat(SCORE[y]).ToArray();
-			}
-
-			//Draw Next
-			for (int y = 0; y < nextShapeScope.Length; y++)
-			{
-				for (int x = 0; x < nextShapeScope[y].Length; x++)
+				for (int x = 0; x < tetromino.Next[y].Length; x++)
 				{
-					int tY = y + BORDER;
-					int tX = PLAYFIELD[y].Length + x + BORDER;
-					char charTetromino = nextShapeScope[y][x];
+					int tY = y + borderSize;
+					int tX = field[y].Length + x + borderSize;
+					char charTetromino = tetromino.Next[y][x];
+					if (charTetromino is 'x')
+					{
+						charTetromino = '╭';
+					}
 					frame[tY][tX] = charTetromino;
 				}
 			}
 
-			//Draw Score
-			char[] score = Score.ToString().ToCharArray();
-			for (int scoreX = score.Length - 1; scoreX >= 0; scoreX--)
+			// Score
+			for (int y = 0; y < scoreBorder.Length; y++)
 			{
-				int sY = NEXTTETROMINO.Length + BORDER;
-				int sX = frame[sY].Length - (score.Length - scoreX) - BORDER;
-				frame[sY][sX] = score[scoreX];
+				int sY = nextTetrominoBorder.Length + y;
+				frame[sY] = frame[sY].Concat(scoreBorder[y]).ToArray();
+			}
+			char[] scoreRender = score.ToString(CultureInfo.InvariantCulture).ToCharArray();
+			for (int scoreX = scoreRender.Length - 1; scoreX >= 0; scoreX--)
+			{
+				int sY = nextTetrominoBorder.Length + borderSize;
+				int sX = frame[sY].Length - (scoreRender.Length - scoreX) - borderSize;
+				frame[sY][sX] = scoreRender[scoreX];
 			}
 
-			//Draw Pause
-			if (GameStatus == GameStatus.Paused)
+			// Pause
+			if (!timer.IsRunning)
 			{
-				for (int y = 0; y < PAUSE.Length; y++)
+				for (int y = 0; y < pauseRender.Length; y++)
 				{
-					int fY = (PLAYFIELD.Length / 2) + y - PAUSE.Length;
-					for (int x = 0; x < PAUSE[y].Length; x++)
+					int fY = (field.Length / 2) + y - pauseRender.Length;
+					for (int x = 0; x < pauseRender[y].Length; x++)
 					{
-						int fX = x + BORDER;
+						int fX = x + borderSize;
 
-						if (x >= PLAYFIELD[fY].Length) break;
+						if (x >= field[fY].Length) break;
 
-						frame[fY][fX] = PAUSE[y][x];
+						frame[fY][fX] = pauseRender[y][x];
 					}
 				}
 			}
 
-			//Create Render
 			StringBuilder render = new();
 			for (int y = 0; y < frame.Length; y++)
 			{
 				render.AppendLine(new string(frame[y]));
 			}
-
-			await Console.Clear();
+			await Console.SetCursorPosition(0, 0);
 			await Console.Write(render);
 			Console.CursorVisible = false;
 		}
@@ -368,91 +476,91 @@ public class Tetris
 		{
 			bool collision = false;
 			int yScope = yS - 2;
-			int xScope = TETROMINO.X;
-			string[] shapeScope = (string[])TETROMINO.Shape.Clone();
-			string[] nextShapeScope = (string[])TETROMINO.Next.Clone();
-			char[][] frame = new char[PLAYFIELD.Length][];
-
-			//Field
-			for (int y = 0; y < PLAYFIELD.Length; y++)
+			int xScope = tetromino.X;
+			char[][] frame = new char[field.Length][];
+			for (int y = 0; y < field.Length; y++)
 			{
-				frame[y] = PLAYFIELD[y].ToCharArray();
+				frame[y] = field[y].ToCharArray();
 			}
-
-			//Draw Tetromino
-			for (int y = 0; y < shapeScope.Length && !collision; y++)
+			for (int y = 0; y < tetromino.Shape.Length && !collision; y++)
 			{
-				for (int x = 0; x < shapeScope[y].Length; x++)
+				for (int x = 0; x < tetromino.Shape[y].Length; x++)
 				{
 					int tY = yScope + y;
 					int tX = xScope + x;
-					char charToReplace = PLAYFIELD[tY][tX];
-					char charTetromino = shapeScope[y][x];
-
-					if (charTetromino == ' ') continue;
-
-					if (charToReplace != ' ')
+					char charToReplace = field[tY][tX];
+					char charTetromino = tetromino.Shape[y][x];
+					if (charTetromino is ' ')
+					{
+						continue;
+					}
+					if (charToReplace is not ' ')
 					{
 						collision = true;
 						break;
 					}
-
+					if (charTetromino is 'x')
+					{
+						charTetromino = '╭';
+					}
 					frame[tY][tX] = charTetromino;
 				}
 			}
-
 			return frame;
 		}
 
 		bool Collision(Direction direction)
 		{
-			int xNew = TETROMINO.X;
-			int yScope = TETROMINO.Y;
-			string[] shapeScope = (string[])TETROMINO.Shape.Clone();
+			int xNew = tetromino.X;
 			bool collision = false;
-
 			switch (direction)
 			{
 				case Direction.Right:
 					xNew += 3;
-					if (xNew + shapeScope[0].Length > PLAYFIELD[0].Length - BORDER) collision = true;
+					if (xNew + tetromino.Shape[0].Length > field[0].Length - borderSize)
+					{
+						collision = true;
+					}
 					break;
 				case Direction.Left:
 					xNew -= 3;
-					if (xNew < BORDER) collision = true;
+					if (xNew < borderSize)
+					{
+						collision = true;
+					}
 					break;
 				case Direction.None:
 					break;
 			}
-
-			if (collision) return collision;
-
-			for (int y = 0; y < shapeScope.Length && !collision; y++)
+			if (collision)
 			{
-				for (int x = 0; x < shapeScope[y].Length; x++)
+				return collision;
+			}
+			for (int y = 0; y < tetromino.Shape.Length && !collision; y++)
+			{
+				for (int x = 0; x < tetromino.Shape[y].Length; x++)
 				{
-					int tY = yScope + y;
+					int tY = tetromino.Y + y;
 					int tX = xNew + x;
-					char charToReplace = PLAYFIELD[tY][tX];
-					char charTetromino = shapeScope[y][x];
-
-					if (charTetromino == ' ') continue;
-
-					if (charToReplace != ' ')
+					char charToReplace = field[tY][tX];
+					char charTetromino = tetromino.Shape[y][x];
+					if (charTetromino is ' ')
+					{
+						continue;
+					}
+					if (charToReplace is not ' ')
 					{
 						collision = true;
 						break;
 					}
 				}
 			}
-
 			return collision;
 		}
 
-		bool CollisionPreview(int initY, int yScope, string[] shape)
+		bool CollisionBottom(int initY, int yScope, string[] shape)
 		{
-			int xNew = TETROMINO.X;
-
+			int xNew = tetromino.X;
 			for (int yUpper = initY; yUpper >= yScope; yUpper -= 2)
 			{
 				for (int y = shape.Length - 1; y >= 0; y -= 2)
@@ -461,270 +569,257 @@ public class Tetris
 					{
 						int tY = yUpper + y;
 						int tX = xNew + x;
-						char charToReplace = PLAYFIELD[tY][tX];
+						char charToReplace = field[tY][tX];
 						char charTetromino = shape[y][x];
-
-						if (charTetromino == ' ') continue;
-
-						if (charToReplace != ' ')
+						if (charTetromino is ' ')
+						{
+							continue;
+						}
+						if (charToReplace is not ' ')
 						{
 							return true;
 						}
 					}
 				}
 			}
-
 			return false;
 		}
 
-		async void Gameover()
-		{
-			GameStatus = GameStatus.Gameover;
-			AutoEvent.Dispose();
-			FallTimer.Dispose();
-
-			await SleepAfterRender();
-
-			await Console.Clear();
-			await Console.WriteLine();
-			await Console.WriteLine("      ██████╗  █████╗ ██    ██╗█████╗");
-			await Console.WriteLine("     ██╔════╝ ██╔══██╗███  ███║██╔══╝");
-			await Console.WriteLine("     ██║  ███╗███████║██╔██═██║█████╗");
-			await Console.WriteLine("     ██║   ██║██╔══██║██║   ██║██╔══╝");
-			await Console.WriteLine("     ╚██████╔╝██║  ██║██║   ██║█████╗");
-			await Console.WriteLine("      ╚═════╝ ╚═╝  ╚═╝╚═╝   ╚═╝╚════╝");
-			await Console.WriteLine("       ██████╗██╗  ██╗█████╗█████╗   ");
-			await Console.WriteLine("       ██  ██║██║  ██║██╔══╝██╔═██╗  ");
-			await Console.WriteLine("       ██  ██║██║  ██║█████╗█████╔╝  ");
-			await Console.WriteLine("       ██  ██║╚██╗██╔╝██╔══╝██╔═██╗  ");
-			await Console.WriteLine("       ██████║ ╚███╔╝ █████╗██║ ██║  ");
-			await Console.WriteLine("       ╚═════╝  ╚══╝  ╚════╝╚═╝ ╚═╝  ");
-
-			await Console.WriteLine();
-			await Console.WriteLine($"     Final Score: {Score}");
-			await Console.WriteLine($"     Pause Count: {PauseCount}");
-			await Console.WriteLine();
-			await Console.WriteLine("     Press enter to play again");
-			await Console.WriteLine("     Press escape to close the game");
-			Console.CursorVisible = false;
-			await StartGame();
-			RestartGame();
-		}
-
-		async Task StartGame(ConsoleKey key = ConsoleKey.Enter)
-		{
-			ConsoleKey input = default;
-			while (input != key && !CloseGame)
-			{
-				input = (await Console.ReadKey(true)).Key;
-				if (input is ConsoleKey.Escape)
+		TimeSpan GetFallSpeed() =>
+			TimeSpan.FromMilliseconds(
+				score switch
 				{
-					CloseGame = true;
-					return;
-				}
-			}
-		}
+					> 162 => 100,
+					> 144 => 200,
+					> 126 => 300,
+					> 108 => 400,
+					> 090 => 500,
+					> 072 => 600,
+					> 054 => 700,
+					> 036 => 800,
+					> 018 => 900,
+					_ => 1000,
+				});
 
-		void RestartGame()
+		async Task TetrominoFall()
 		{
-			PLAYFIELD = (string[])FIELD.Clone();
-			FallSpeedMilliSeconds = 1000;
-			Score = 0;
-			TETROMINO = new()
-			{
-				Shape = TETROMINOS[RamdomGenerator.Next(0, TETROMINOS.Length)],
-				Next = TETROMINOS[RamdomGenerator.Next(0, TETROMINOS.Length)],
-				X = INITIALTETROMINOX,
-				Y = INITIALTETROMINOY
-			};
-
-			AutoEvent = new AutoResetEvent(false);
-			FallTimer = new Timer(TetrominoFall, AutoEvent, FallSpeedMilliSeconds, FallSpeedMilliSeconds);
-			GameStatus = GameStatus.Playing;
-		}
-
-		async void PauseGame()
-		{
-			PauseCount++;
-			FallTimer.Change(Timeout.Infinite, Timeout.Infinite);
-			GameStatus = GameStatus.Paused;
-			await DrawFrame();
-
-			await ResumeGame();
-		}
-
-		async Task ResumeGame(ConsoleKey key = ConsoleKey.Enter)
-		{
-			ConsoleKey input = default;
-			while (input != key && !CloseGame)
-			{
-				input = (await Console.ReadKey(true)).Key;
-				if (input is ConsoleKey.Enter && GameStatus == GameStatus.Paused && FallTimer != null)
-				{
-					FallTimer.Change(0, FallSpeedMilliSeconds);
-					GameStatus = GameStatus.Playing;
-					return;
-				}
-			}
-		}
-
-		void AddScoreChangeSpeed(int value)
-		{
-			Score += value;
-
-			if (Score > 100) return;
-
-			switch (Score)
-			{
-				case 10:
-					FallSpeedMilliSeconds = 900;
-					break;
-				case 20:
-					FallSpeedMilliSeconds = 800;
-					break;
-				case 30:
-					FallSpeedMilliSeconds = 700;
-					break;
-				case 40:
-					FallSpeedMilliSeconds = 500;
-					break;
-				case 50:
-					FallSpeedMilliSeconds = 300;
-					break;
-				case 60:
-					FallSpeedMilliSeconds = 200;
-					break;
-				case 70:
-					FallSpeedMilliSeconds = 100;
-					break;
-				case 100:
-					FallSpeedMilliSeconds = 50;
-					break;
-			}
-		}
-
-		void TetrominoFall(object? e)
-		{
-			int yAfterFall = TETROMINO.Y;
+			int yAfterFall = tetromino.Y;
 			bool collision = false;
 
-			if (TETROMINO.Y + TETROMINO.Shape.Length + 2 > PLAYFIELD.Length) yAfterFall = PLAYFIELD.Length - TETROMINO.Shape.Length + 1;
-			else yAfterFall += 2;
-
-			//Y Collision
-			for (int xCollision = 0; xCollision < TETROMINO.Shape[0].Length;)
+			if (tetromino.Y + tetromino.Shape.Length + 2 > field.Length)
 			{
-				for (int yCollision = TETROMINO.Shape.Length - 1; yCollision >= 0; yCollision -= 2)
+				yAfterFall = field.Length - tetromino.Shape.Length + 1;
+			}
+			else
+			{
+				yAfterFall += 2;
+			}
+
+			// Y Collision
+			for (int xCollision = 0; xCollision < tetromino.Shape[0].Length;)
+			{
+				for (int yCollision = tetromino.Shape.Length - 1; yCollision >= 0; yCollision -= 2)
 				{
-					char exist = TETROMINO.Shape[yCollision][xCollision];
-
-					if (exist == ' ') continue;
-
-					char[] lineYC = PLAYFIELD[yAfterFall + yCollision - 1].ToCharArray();
-
-					if (TETROMINO.X + xCollision < 0 || TETROMINO.X + xCollision > lineYC.Length) continue;
-
-					if
-					(
-						lineYC[TETROMINO.X + xCollision] != ' ' &&
-						lineYC[TETROMINO.X + xCollision] != '│'
-					)
+					char exist = tetromino.Shape[yCollision][xCollision];
+					if (exist is ' ')
+					{
+						continue;
+					}
+					char[] lineYC = field[yAfterFall + yCollision - 1].ToCharArray();
+					if (tetromino.X + xCollision < 0 || tetromino.X + xCollision > lineYC.Length)
+					{
+						continue;
+					}
+					if (lineYC[tetromino.X + xCollision] is not ' ' or '│')
 					{
 						char[][] lastFrame = DrawLastFrame(yAfterFall);
 						for (int y = 0; y < lastFrame.Length; y++)
 						{
-							PLAYFIELD[y] = new string(lastFrame[y]);
+							field[y] = new string(lastFrame[y]);
 						}
-
-						TETROMINO.X = INITIALTETROMINOX;
-						TETROMINO.Y = INITIALTETROMINOY;
-						TETROMINO.Shape = TETROMINO.Next;
-						TETROMINO.Next = TETROMINOS[RamdomGenerator.Next(0, TETROMINOS.Length)];
-
-						xCollision = TETROMINO.Shape[0].Length;
+						tetromino.X = initialX;
+						tetromino.Y = initialY;
+						tetromino.Shape = tetromino.Next;
+						tetromino.Next = tetrominos[Random.Shared.Next(0, tetrominos.Length)];
+						xCollision = tetromino.Shape[0].Length;
 						collision = true;
 						break;
 					}
 				}
-
 				xCollision += 3;
 			}
 
-			if (!collision) TETROMINO.Y = yAfterFall;
-
-			//Clean Lines
-			for (var lineIndex = PLAYFIELD.Length - 1; lineIndex >= 0; lineIndex--)
+			if (!collision)
 			{
-				string line = PLAYFIELD[lineIndex];
-				bool notCompleted = line.Any(e => e == ' ');
+				tetromino.Y = yAfterFall;
+			}
 
-				if (lineIndex == 0 || lineIndex == PLAYFIELD.Length - 1) continue;
-
+			// Clean Lines
+			int clearedLines = 0;
+			for (int lineIndex = field.Length - 1; lineIndex >= 0; lineIndex--)
+			{
+				string line = field[lineIndex];
+				bool notCompleted = line.Any(e => e is ' ');
+				if (lineIndex is 0 || lineIndex == field.Length - 1)
+				{
+					continue;
+				}
 				if (!notCompleted)
 				{
-					PLAYFIELD[lineIndex] = "│                              │";
-					AddScoreChangeSpeed(1);
-
+					field[lineIndex] = "│                              │";
+					clearedLines++;
 					for (int lineM = lineIndex; lineM >= 1; lineM--)
 					{
-						if (PLAYFIELD[lineM - 1] == "╭──────────────────────────────╮")
+						if (field[lineM - 1] is "╭──────────────────────────────╮")
 						{
-							PLAYFIELD[lineM] = "│                              │";
+							field[lineM] = "│                              │";
 							continue;
 						}
-
-						PLAYFIELD[lineM] = PLAYFIELD[lineM - 1];
+						field[lineM] = field[lineM - 1];
 					}
-
 					lineIndex++;
 				}
 			}
+			clearedLines /= 2;
+			if (clearedLines > 0)
+			{
+				int value = clearedLines switch
+				{
+					1 => 1,
+					2 => 3,
+					3 => 6,
+					4 => 9,
+					_ => throw new NotImplementedException(),
+				};
+				score += value;
+				fallSpeed = GetFallSpeed();
+			}
+			if (Collision(Direction.None))
+			{
+				gameOver = true;
+			}
+			else
+			{
+				await DrawFrame();
+				timer.Restart();
+			}
+		}
 
-			//VerifiedCollision 
-			if (Collision(Direction.None) && FallTimer != null) Gameover();
+		async Task HardDrop()
+		{
+			int y = tetromino.Y;
+			int x = tetromino.X;
+			for (int yField = field.Length - tetromino.Shape.Length - borderSize; yField >= 0; yField -= 2)
+			{
+				if (CollisionBottom(yField, y, tetromino.Shape))
+				{
+					continue;
+				}
+				tetromino.Y = yField;
+				break;
+			}
+			await DrawFrame();
+			timer.Restart();
 		}
 
 		void TetrominoSpin(Direction spinDirection)
 		{
-			string[] shapeScope = (string[])TETROMINO.Shape.Clone();
-			int yScope = TETROMINO.Y;
-			string[] newShape = new string[shapeScope[0].Length / 3 * 2];
+			int yScope = tetromino.Y;
+			int xScope = tetromino.X;
+			string[] newShape = new string[tetromino.Shape[0].Length / 3 * 2];
 			int newY = 0;
 			int rowEven = 0;
 			int rowOdd = 1;
 
-			//Turn
-			for (int y = 0; y < shapeScope.Length;)
+			// Turn
+			for (int y = 0; y < tetromino.Shape.Length;)
 			{
 				switch (spinDirection)
 				{
 					case Direction.Right:
-						SpinRight(newShape, shapeScope, ref newY, rowEven, rowOdd, y);
+						SpinRight(newShape, tetromino.Shape, ref newY, rowEven, rowOdd, y);
 						break;
 					case Direction.Left:
-						SpinLeft(newShape, shapeScope, ref newY, rowEven, rowOdd, y);
+						SpinLeft(newShape, tetromino.Shape, ref newY, rowEven, rowOdd, y);
 						break;
 				}
-
 				newY = 0;
 				rowEven += 2;
 				rowOdd += 2;
 				y += 2;
 			}
 
-			//Verified Collision
+			// Old Pivot
+			(int y, int x) offsetOP = (0, 0);
+			for (int y = 0; y < tetromino.Shape.Length; y += 2)
+			{
+				for (int x = 0; x < tetromino.Shape[y].Length; x += 3)
+				{
+					if (tetromino.Shape[y][x] is 'x')
+					{
+						offsetOP = (y / 2, x / 3);
+						y = tetromino.Shape.Length;
+						break;
+					}
+				}
+			}
+
+			// New Pivot
+			(int y, int x) offsetNP = (0, 0);
+			for (int y = 0; y < newShape.Length; y += 2)
+			{
+				for (int x = 0; x < newShape[y].Length; x += 3)
+				{
+					if (newShape[y][x] is 'x')
+					{
+						offsetNP = (y / 2, x / 3);
+						y = newShape.Length;
+						break;
+					}
+				}
+			}
+
+			yScope += (offsetOP.y - offsetNP.y) * 2;
+			xScope += (offsetOP.x - offsetNP.x) * 3;
+
+			// Tetromino Square(O) special case
+			if (newShape.Length / 2 == newShape[0].Length / 3)
+			{
+				yScope = tetromino.Y;
+				xScope = tetromino.X;
+			}
+			// Tetromino I special case
+			else if (newShape.Length is 8 && newShape[0].Length is 3 && offsetNP.y is 2)
+			{
+				newShape[2] = "x─╮";
+				newShape[4] = "╭─╮";
+				yScope += 2;
+			}
+
+			if (xScope < 1 || yScope < 1)
+			{
+				return;
+			}
+
+			// Verified Collision
 			for (int y = 0; y < newShape.Length - 1; y++)
 			{
 				for (int x = 0; x < newShape[y].Length; x++)
 				{
-					if (newShape[y][x] == ' ') continue;
-
-					char c = PLAYFIELD[yScope + y][TETROMINO.X + x];
-					if (c != ' ') return;
+					if (newShape[y][x] is ' ')
+					{
+						continue;
+					}
+					char c = field[yScope + y][xScope + x];
+					if (c is not ' ')
+					{
+						return;
+					}
 				}
 			}
-
-			TETROMINO.Shape = newShape;
+			tetromino.Y = yScope;
+			tetromino.X = xScope;
+			tetromino.Shape = newShape;
 		}
 
 		void SpinLeft(string[] newShape, string[] shape, ref int newY, int rowEven, int rowOdd, int y)
@@ -736,7 +831,6 @@ public class Tetris
 					newShape[newY] += shape[rowEven][x - xS];
 					newShape[newY + 1] += shape[rowOdd][x - xS];
 				}
-
 				newY += 2;
 			}
 		}
@@ -745,32 +839,19 @@ public class Tetris
 		{
 			for (int x = 2; x < shape[y].Length; x += 3)
 			{
-				if (newShape[newY] == null)
+				if (newShape[newY] is null)
 				{
 					newShape[newY] = "";
 					newShape[newY + 1] = "";
 				}
-
 				for (int xS = 0; xS <= 2; xS++)
 				{
-					newShape[newY] = newShape[newY].Insert(0, shape[rowEven][x - xS].ToString());
-					newShape[newY + 1] = newShape[newY + 1].Insert(0, shape[rowOdd][x - xS].ToString());
+					newShape[newY] = newShape[newY].Insert(0, shape[rowEven][x - xS].ToString(CultureInfo.InvariantCulture));
+					newShape[newY + 1] = newShape[newY + 1].Insert(0, shape[rowOdd][x - xS].ToString(CultureInfo.InvariantCulture));
 				}
-
 				newY += 2;
 			}
 		}
-
-		async Task SleepAfterRender()
-		{
-			TimeSpan sleep = TimeSpan.FromSeconds(1d / 60d) - Stopwatch.Elapsed;
-			if (sleep > TimeSpan.Zero)
-			{
-				await Console.RefreshAndDelay(sleep);
-			}
-			Stopwatch.Restart();
-		}
-
 	}
 
 	class Tetromino
@@ -783,16 +864,8 @@ public class Tetris
 
 	enum Direction
 	{
+		None,
 		Right,
 		Left,
-		None
 	}
-
-	enum GameStatus
-	{
-		Gameover,
-		Playing,
-		Paused
-	}
-
 }
