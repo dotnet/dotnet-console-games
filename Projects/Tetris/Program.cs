@@ -308,12 +308,13 @@ void HandlePlayerInput()
 				if (timer.IsRunning)
 				{
 					timer.Stop();
+					DrawFrame();
 				}
 				else if (!consoleTooSmallScreen)
 				{
 					timer.Start();
+					DrawFrame();
 				}
-				DrawFrame();
 				break;
 			case ConsoleKey.Spacebar:
 				if (timer.IsRunning)
