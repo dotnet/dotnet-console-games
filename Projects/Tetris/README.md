@@ -25,28 +25,63 @@
 
 Well, just tetris!
 
+```
+╭──────────────────────────────╮╭─────────╮
+│                              ││   ╭─╮   │
+│                              ││   ╰─╯   │
+│                              ││╭─╮╭─╮╭─╮│
+│                              ││╰─╯╰─╯╰─╯│
+│                              ││         │
+│                              ││         │
+│                              ││         │
+│                              ││         │
+│                              │╰─────────╯
+│                              │╭─────────╮
+│                              ││       12│
+│                              │╰─────────╯
+│                  ╭─╮         │
+│                  ╰─╯         │
+│                  ╭─╮         │
+│                  ╰─╯         │
+│                  ╭─╮         │
+│                  ╰─╯         │
+│                  ╭─╮         │
+│                  ╰─╯         │
+│                              │
+│                              │
+│                              │
+│                              │
+│                              │
+│                              │
+│                              │
+│                              │
+│                              │
+│                              │
+│                              │
+│                              │
+│                  •••         │
+│                  •••         │
+│         ╭─╮╭─╮╭─╮•••         │
+│         ╰─╯╰─╯╰─╯•••         │
+│      ╭─╮╭─╮╭─╮╭─╮•••         │
+│      ╰─╯╰─╯╰─╯╰─╯•••         │
+│   ╭─╮╭─╮╭─╮╭─╮╭─╮•••╭─╮   ╭─╮│
+│   ╰─╯╰─╯╰─╯╰─╯╰─╯•••╰─╯   ╰─╯│
+╰──────────────────────────────╯
+```
+
 ## Input
 
 |Key|Action|
 |---|---|
-|`↓`, `S`, `←`, `A`, `→`, `D` |Move                   |
-|`Q`                          |Spin Left              |
-|`E`                          |Spin Right             |
-|`P`                          |Pause, enter to resume |
-|`R`                          |Change Text Color      |
-
-Debug controls (only if debug mode its active, it may break the game):
-|Key|Action|
-|---|---|
-|`Spacebar`  |Clean Field                 |
-|`X`         |Add 10 score points         |
-|`I`         |change active tetromino to I|
-|`J`         |change active tetromino to J|
-|`L`         |change active tetromino to L|
-|`O`         |change active tetromino to O|
-|`C`         |change active tetromino to S|
-|`T`         |change active tetromino to T|
-|`Z`         |change active tetromino to Z|
+| `←` or `A` | Move Left       |
+| `→` or `D` | Move Right      |
+| `↓` or `S` | Fall Faster     |
+| `Q`        | Spin Left       |
+| `E`        | Spin Right      |
+| `P`        | Pause or Resume |
+| `Enter`    | Confirm         |
+| `Escape`   | Close Game      |
 
 ## Downloads
 
