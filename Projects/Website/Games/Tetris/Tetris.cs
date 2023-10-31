@@ -147,7 +147,7 @@ public class Tetris
 				    [Q] spin left
 				    [E] spin right
 				    [Spacebar] drop
-				    [P] pause and unpause
+				    [P] pause and resume
 				    [Escape] close game
 				    [Enter] start game
 				""");
