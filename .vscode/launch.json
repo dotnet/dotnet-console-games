@@ -463,6 +463,16 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Tetris",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Tetris",
+			"program": "${workspaceFolder}/Projects/Tetris/bin/Debug/Tetris.dll",
+			"cwd": "${workspaceFolder}/Projects/Tetris/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Role Playing Game",
 			"type": "coreclr",
 			"request": "launch",
