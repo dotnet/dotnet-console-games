@@ -10,8 +10,6 @@ public class Hangman
 
 	public async Task Run()
 	{
-		Random Random = new();
-
 		string[] Renders =
 		{
 			#region Frames
@@ -448,7 +446,7 @@ public class Hangman
 		}
 		await Console.Clear();
 
-		string GetRandomWord() => Choose(Random, Resources.Words!);
+		string GetRandomWord() => Choose(Random.Shared, Resources.Words!);
 
 		T Choose<T>(Random random, params T[] values) => values[random.Next(values.Length)];
 

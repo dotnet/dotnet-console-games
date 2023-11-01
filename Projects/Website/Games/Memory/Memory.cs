@@ -234,10 +234,10 @@ public class Memory
 						selection = (selection.Row, selection.Column == board.GetLength(1) - 1 ? 0 : selection.Column + 1);
 						break;
 					case ConsoleKey.LeftArrow:
-						selection = (selection.Row, selection.Column == 0 ? board.GetLength(1) - 1 : selection.Column - 1);
+						selection = (selection.Row, selection.Column is 0 ? board.GetLength(1) - 1 : selection.Column - 1);
 						break;
 					case ConsoleKey.UpArrow:
-						selection = (selection.Row == 0 ? board.GetLength(0) - 1 : selection.Row - 1, selection.Column);
+						selection = (selection.Row is 0 ? board.GetLength(0) - 1 : selection.Row - 1, selection.Column);
 						break;
 					case ConsoleKey.DownArrow:
 						selection = (selection.Row == board.GetLength(0) - 1 ? 0 : selection.Row + 1, selection.Column);

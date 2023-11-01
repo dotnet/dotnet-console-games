@@ -12,8 +12,6 @@ public class Dice_Game
 		int playerPoints = 0;
 		int rivalPoints = 0;
 
-		Random random = new();
-
 		await Console.WriteLine("Dice Game");
 		await Console.WriteLine();
 		await Console.WriteLine("In this game you and a computer Rival will play 10 rounds");
@@ -28,12 +26,12 @@ public class Dice_Game
 		for (int i = 0; i < 10; i++)
 		{
 			await Console.WriteLine($"Round {i + 1}");
-			int rivalRandomNum = random.Next(1, 7);
+			int rivalRandomNum = Random.Shared.Next(1, 7);
 			await Console.WriteLine("Rival rolled a " + rivalRandomNum);
 			await Console.Write("Press any key to roll the dice...");
 			await Console.ReadKey(true);
 			await Console.WriteLine();
-			int playerRandomNum = random.Next(1, 7);
+			int playerRandomNum = Random.Shared.Next(1, 7);
 			await Console.WriteLine("You rolled a " + playerRandomNum);
 			if (playerRandomNum > rivalRandomNum)
 			{

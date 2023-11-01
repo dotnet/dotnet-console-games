@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Website.Games.Guess_A_Number;
@@ -14,7 +13,7 @@ public class Guess_A_Number
 		while (true)
 		{
 			await Console.Write("Guess a number (1-100): ");
-			bool valid = int.TryParse((await Console.ReadLine()).Trim(), out int input);
+			bool valid = int.TryParse((await Console.ReadLine() ?? "").Trim(), out int input);
 			if (!valid) await Console.WriteLine("Invalid.");
 			else if (input == value) break;
 			else await Console.WriteLine($"Incorrect. Too {(input < value ? "Low" : "High")}.");

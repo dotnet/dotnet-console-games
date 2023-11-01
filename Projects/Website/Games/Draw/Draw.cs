@@ -18,7 +18,6 @@ public class Draw
 			const int drawingHeight = 11;
 			Point origin = (drawingHeight / 2, drawingWidth / 2);
 			(int Height, int Width)? previousConsoleSize = null;
-			Random random = new();
 
 			await Console.Clear();
 		Reset:
@@ -123,13 +122,13 @@ public class Draw
 			bool[,] GenerateRandomDrawing()
 			{
 				bool[,] drawing = new bool[drawingHeight, drawingWidth];
-				int points = random.Next(3, 12);
+				int points = Random.Shared.Next(3, 12);
 				Point a = origin;
 				for (int i = 0; i < points; i++)
 				{
 					Point b = new(
-						random.Next(drawingHeight),
-						random.Next(drawingWidth));
+						Random.Shared.Next(drawingHeight),
+						Random.Shared.Next(drawingWidth));
 					DrawLine(a, b);
 					drawing[b.Item1, b.Item2] = false;
 					a = b;

@@ -204,8 +204,7 @@ public class Wumpus_World
 			const int height = 4;
 			Map = new Tile[width, height];
 			// Get Random Locations
-			Random random = new();
-			(int X, int Y)[] randomCoordinates = random.NextUnique(5, 1, (width * height)).Select(i => (i / width, i % width)).ToArray();
+			(int X, int Y)[] randomCoordinates = Random.Shared.NextUnique(5, 1, (width * height)).Select(i => (i / width, i % width)).ToArray();
 			var wumpusLocation = randomCoordinates[0];
 			var goldLocation = randomCoordinates[1];
 			var pitLocations = randomCoordinates[2..^0];

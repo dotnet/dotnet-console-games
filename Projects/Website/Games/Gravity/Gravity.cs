@@ -229,20 +229,22 @@ public class Gravity
 		GameState gameState = GameState.Default;
 		(int X, int Y) PlayerPosition = GetStartingPlayerPositionFromLevel();
 
-		await Console.WriteLine();
-		await Console.WriteLine("     ██████╗ ██████╗  █████╗ ██╗   ██╗██╗████████╗██╗   ██╗");
-		await Console.WriteLine("    ██╔════╝ ██╔══██╗██╔══██╗██║   ██║██║╚══██╔══╝╚██╗ ██╔╝");
-		await Console.WriteLine("    ██║  ███╗██████╔╝███████║██║   ██║██║   ██║    ╚████╔╝ ");
-		await Console.WriteLine("    ██║   ██║██╔══██╗██╔══██║╚██╗ ██╔╝██║   ██║     ╚██╔╝  ");
-		await Console.WriteLine("    ╚██████╔╝██║  ██║██║  ██║ ╚████╔╝ ██║   ██║      ██║   ");
-		await Console.WriteLine("     ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝   ╚═╝      ╚═╝   ");
-		await Console.WriteLine();
-		await Console.WriteLine("    Reach the goal (●) by using the arrow keys or WASD to");
-		await Console.WriteLine("    manipulate gravity. Watch out for spikes (X).");
-		await Console.WriteLine();
-		await Console.WriteLine("    Press escape to close the game at any time.");
-		await Console.WriteLine();
-		await Console.Write("    Press enter to begin...");
+		await Console.WriteLine("""
+
+			     ██████╗ ██████╗  █████╗ ██╗   ██╗██╗████████╗██╗   ██╗
+			    ██╔════╝ ██╔══██╗██╔══██╗██║   ██║██║╚══██╔══╝╚██╗ ██╔╝
+			    ██║  ███╗██████╔╝███████║██║   ██║██║   ██║    ╚████╔╝ 
+			    ██║   ██║██╔══██╗██╔══██║╚██╗ ██╔╝██║   ██║     ╚██╔╝  
+			    ╚██████╔╝██║  ██║██║  ██║ ╚████╔╝ ██║   ██║      ██║   
+			     ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝   ╚═╝      ╚═╝   
+
+			    Reach the goal (●) by using the arrow keys or WASD to
+			    manipulate gravity. Watch out for spikes (X).
+
+			    Press escape to close the game at any time.
+
+			    Press enter to begin...
+			""");
 		Console.CursorVisible = false;
 		await PressToContinue();
 		await Console.Clear();

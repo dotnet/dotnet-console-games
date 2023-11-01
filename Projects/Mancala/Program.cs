@@ -9,18 +9,16 @@ int[] changes;
 bool closeRequested;
 State state;
 int selection;
-Random random;
 
 try
 {
 	closeRequested = false;
-	random = new Random();
 	Console.BackgroundColor = ConsoleColor.Black;
 	Console.ForegroundColor = ConsoleColor.White;
 	Console.Clear();
 	Initialize();
 GetInput:
-	if (state is State.OutOfMovesConfimation)
+	if (state is State.OutOfMovesConfirmation)
 	{
 		MoveAllSeedsToStores();
 	}
@@ -68,7 +66,7 @@ GetInput:
 						changes[i] = 0;
 					}
 					state = IsGameOver()
-						? State.OutOfMovesConfimation
+						? State.OutOfMovesConfirmation
 						: State.MoveSelection;
 					goto GetInput;
 				case State.MoveConfirmation or State.OpponentMoveConfirmationMoveAgain:
@@ -77,7 +75,7 @@ GetInput:
 						changes[i] = 0;
 					}
 					state =
-						IsGameOver() ? State.OutOfMovesConfimation :
+						IsGameOver() ? State.OutOfMovesConfirmation :
 						OpponentMove() 
 							? State.OpponentMoveConfirmationMoveAgain
 							: State.OpponentMoveConfirmation;
@@ -88,10 +86,10 @@ GetInput:
 						changes[i] = 0;
 					}
 					state = IsGameOver()
-						? State.OutOfMovesConfimation
+						? State.OutOfMovesConfirmation
 						: State.MoveSelection;
 					goto GetInput;
-				case State.OutOfMovesConfimation:
+				case State.OutOfMovesConfirmation:
 					for (int i = 0; i < changes.Length; i++)
 					{
 						changes[i] = 0;
@@ -214,7 +212,7 @@ bool OpponentMove()
 			possibleMoves.Add(i);
 		}
 	}
-	int move = possibleMoves[random.Next(possibleMoves.Count)];
+	int move = possibleMoves[Random.Shared.Next(possibleMoves.Count)];
 	return Move(move);
 }
 
@@ -344,7 +342,7 @@ void Render()
 			Console.WriteLine("  Invalid move.                              ");
 			Console.WriteLine("  You must select a non-empty pit.           ");
 			break;
-		case State.OutOfMovesConfimation:
+		case State.OutOfMovesConfirmation:
 			if (changes[13] > 0)
 			{
 				Console.WriteLine("  You are out of seeds. Remaining seeds are  ");
@@ -437,6 +435,6 @@ enum State
 	MoveConfirmationAndMoveAgain,
 	OpponentMoveConfirmation,
 	OpponentMoveConfirmationMoveAgain,
-	OutOfMovesConfimation,
+	OutOfMovesConfirmation,
 	GameOverConfirmation,
 }

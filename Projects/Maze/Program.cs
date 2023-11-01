@@ -129,7 +129,6 @@ public static class Maze
 		#endregion
 
 		Tile[,] maze = new Tile[rows, columns];
-		Random random = new();
 		var directionBuffer = new (int Row, int Column)[4];
 
 		maze[start_row.Value, start_column.Value] = Tile.Start;
@@ -153,10 +152,10 @@ public static class Maze
 			// purpose algorithm...
 
 			bool DefaultLocations() =>
-				start_row == 0 && start_column == 0 &&
+				start_row is 0 && start_column is 0 &&
 				end_row == rows - 1 && end_column == columns - 1;
-			bool UpOptimization(int column) => !(DefaultLocations() && column == columns - 1 || column == 0);
-			bool LeftOptimization(int row) => !(DefaultLocations() && row == rows - 1 || row == 0);
+			bool UpOptimization(int column) => !(DefaultLocations() && column == columns - 1 || column is 0);
+			bool LeftOptimization(int row) => !(DefaultLocations() && row == rows - 1 || row is 0);
 
 			#endregion
 
@@ -181,7 +180,7 @@ public static class Maze
 					return false;
 				}
 				// get a random move from the possibilities
-				var move = directionBuffer[random.Next(0, i)];
+				var move = directionBuffer[Random.Shared.Next(0, i)];
 				// mark the move as explored
 				if (move.Row == node.Row + 1)
 				{
@@ -260,11 +259,11 @@ public static class Maze
 				// if no Tile.Null's, return null
 				if (nullCountInt <= 0) return null;
 				// nulls exist, get a random one
-				int index = random.Next(0, nullCountInt + 1);
+				int index = Random.Shared.Next(0, nullCountInt + 1);
 				(int, int) @null = default;
 				for (int row = 0; row < rows && index > 0; row++)
 					for (int column = 0; column < columns && index > 0; column++)
-						if (maze[row, column] is Tile.Null && --index == 0)
+						if (maze[row, column] is Tile.Null && --index is 0)
 							@null = (row, column);
 				return @null;
 			}
@@ -283,7 +282,7 @@ public static class Maze
 					directionBuffer[i++] = (node.Row, node.Column + 1);
 				if (i is 0)
 					return false;
-				var move = directionBuffer[random.Next(0, i)];
+				var move = directionBuffer[Random.Shared.Next(0, i)];
 				if (move.Row == node.Row + 1)
 				{
 					node.DownExplored = true;
@@ -472,8 +471,6 @@ public static class Maze
 
 		int Index(int row, int col) => row + rows * col;
 
-		var random = new Random();
-
 		for (int row = 0; row < rows; row++)
 		{
 			for (int col = 0; col < columns; col++)
@@ -481,19 +478,19 @@ public static class Maze
 				var n = new Graph.Node(Index(row, col));
 				if (row + 1 < rows)
 				{
-					n.Add(Index(row + 1, col), random.NextDouble());
+					n.Add(Index(row + 1, col), Random.Shared.NextDouble());
 				}
 				if (row - 1 >= 0)
 				{
-					n.Add(Index(row - 1, col), random.NextDouble());
+					n.Add(Index(row - 1, col), Random.Shared.NextDouble());
 				}
 				if (col + 1 < columns)
 				{
-					n.Add(Index(row, col + 1), random.NextDouble());
+					n.Add(Index(row, col + 1), Random.Shared.NextDouble());
 				}
 				if (col - 1 >= 0)
 				{
-					n.Add(Index(row, col - 1), random.NextDouble());
+					n.Add(Index(row, col - 1), Random.Shared.NextDouble());
 				}
 				grid[Index(row, col)] = n;
 			}
@@ -553,7 +550,7 @@ public static class Maze
 			TwoWayConnection c;
 			do
 			{
-				if (heap.Count == 0)
+				if (heap.Count is 0)
 				{
 					return newGraph;
 				}

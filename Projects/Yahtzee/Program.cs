@@ -4,101 +4,112 @@ using System.Linq;
 
 Exception? exception = null;
 
-const string welcome =
-@"                                                 
-  See the README for instructions if needed.     
-  Press [enter] to begin...                      
-                                                 
-                                                 
-                                                 ";
+const string welcome = """
+	                                                 
+	  See the README for instructions if needed.     
+	  Press [enter] to begin...                      
+	                                                 
+	                                                 
+	                                                 
+	""";
 
-const string rollDice =
-@"                                                 
-  Press [space] to roll the dice...              
-                                                 
-                                                 
-                                                 
-                                                 ";
+const string rollDice = """
+	                                                 
+	  Press [space] to roll the dice...              
+	                                                 
+	                                                 
+	                                                 
+	                                                 
+	""";
 
-const string rollDiceSmall =
-@"                                                 
-  Press [space] to roll the dice...              
-                                                 
-                                                 
-                                                 ";
+const string rollDiceSmall = """
+	                                                 
+	  Press [space] to roll the dice...              
+	                                                 
+	                                                 
+	                                                 
+	""";
 
-const string blank =
-@"                                                 
-                                                 
-                                                 
-                                                 
-                                                 
-                                                 ";
+const string blank = """
+	                                                 
+	                                                 
+	                                                 
+	                                                 
+	                                                 
+	                                                 
+	""";
 
-const string chooseDice2 =
-@"                                                 
-  Choose dice to re-roll. You have 2 re-rolls    
-  remaining. Use [left & right & up arrow keys]  
-  to select dice, and [enter] to confirm.        ";
+const string chooseDice2 = """
+	                                                 
+	  Choose dice to re-roll. You have 2 re-rolls    
+	  remaining. Use [left & right & up arrow keys]  
+	  to select dice, and [enter] to confirm.        
+	""";
 
-const string chooseDice1 =
-@"                                                 
-  Choose dice to re-roll. You have 1 re-rolls    
-  remaining. Use [left & right & up arrow keys]  
-  to select dice, and [enter] to confirm.        ";
+const string chooseDice1 = """
+	                                                 
+	  Choose dice to re-roll. You have 1 re-rolls    
+	  remaining. Use [left & right & up arrow keys]  
+	  to select dice, and [enter] to confirm.        
+	""";
 
-const string selectScore =
-@"                                                 
-  Select the item on the score card to use these 
-  dice rolls for. Use [up & down arrow keys] to  
-  select, and [enter] to confirm.                
-                                                 
-                                                 ";
+const string selectScore = """
+	                                                 
+	  Select the item on the score card to use these 
+	  dice rolls for. Use [up & down arrow keys] to  
+	  select, and [enter] to confirm.                
+	                                                 
+	                                                 
+	""";
 
-const string selectScoreInvalid =
-@"                                                 
-  Invalid selection. Each score item may only be 
-  used once. Press [enter] to continue...        
-                                                 
-                                                 
-                                                 ";
+const string selectScoreInvalid = """
+	                                                 
+	  Invalid selection. Each score item may only be 
+	  used once. Press [enter] to continue...        
+	                                                 
+	                                                 
+	                                                 
+	""";
 
-const string yahtzeeBonus =
-@"                                                 
-  You got a Yahtzee Bonus! It has                
-  been marked on your scorecard.                 
-  Press [enter] to continue...                   
-                                                 
-                                                 ";
+const string yahtzeeBonus = """
+	                                                 
+	  You got a Yahtzee Bonus! It has                
+	  been marked on your scorecard.                 
+	  Press [enter] to continue...                   
+	                                                 
+	                                                 
+	""";
 
-const string upperBonusSuccess =
-@"                                                 
-  You scored at least 63 in the upper section of 
-  the score sheet. You get the Aces-Sices Bonus. 
-  Press [enter] to continue...                   
-                                                 
-                                                 ";
+const string upperBonusSuccess = """
+	                                                 
+	  You scored at least 63 in the upper section of 
+	  the score sheet. You get the Aces-Sices Bonus. 
+	  Press [enter] to continue...                   
+	                                                 
+	                                                 
+	""";
 
-const string upperBonusFail =
-@"                                                 
-  You did not score at least 63 in the upper     
-  section of the score sheet. You do not get the 
-  Aces-Sices Bonus. Press [enter] to continue... 
-                                                 
-                                                 ";
+const string upperBonusFail = """
+	                                                 
+	  You did not score at least 63 in the upper     
+	  section of the score sheet. You do not get the 
+	  Aces-Sices Bonus. Press [enter] to continue... 
+	                                                 
+	                                                 
+	""";
 
-const string gameComplete =
-@"                                                 
-  Game complete. Your total score has been       
-  calculated on your scorecard.                  
-  Play again [enter] or quit [escape]?           
-                                                 
-                                                 ";
+const string gameComplete = """
+	                                                 
+	  Game complete. Your total score has been       
+	  calculated on your scorecard.                  
+	  Play again [enter] or quit [escape]?           
+	                                                 
+	                                                 
+	""";
 
 const int minWidth = 50;
 const int minHeight = 32;
 
-Random random = new();
 int[] dice = { 1, 2, 3, 4, 5 };
 bool[] locked = new bool[dice.Length];
 int diceSelection = 0;
@@ -212,7 +223,7 @@ void Render(bool selectingDice, bool selectingScore, bool successiveRoll)
 		Console.Write("        ");
 		for (int i = 0; i < dice.Length; i++)
 		{
-			Console.Write(!locked[i] ? @"^roll" : "     ");
+			Console.Write(!locked[i] ? "^roll" : "     ");
 		}
 		Console.WriteLine();
 		if (!successiveRoll)
@@ -221,7 +232,7 @@ void Render(bool selectingDice, bool selectingScore, bool successiveRoll)
 			Console.ForegroundColor = ConsoleColor.Yellow;
 			for (int i = 0; i < dice.Length; i++)
 			{
-				Console.Write(i == diceSelection ? @"^^^^^" : "     ");
+				Console.Write(i == diceSelection ? "^^^^^" : "     ");
 			}
 			Console.ForegroundColor = ConsoleColor.White;
 		}
@@ -273,7 +284,7 @@ void RollDice(bool selectingDice)
 		{
 			if (!locked[i])
 			{
-				dice[i] = random.Next(1, 7);
+				dice[i] = Random.Shared.Next(1, 7);
 			}
 		}
 		Render(selectingDice, false, false);

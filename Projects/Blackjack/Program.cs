@@ -5,7 +5,6 @@ using System.Globalization;
 
 Exception? exception = null;
 
-Random random = new();
 List<Card> deck;
 List<Card> discardPile;
 List<PlayerHand> playerHands;
@@ -521,7 +520,7 @@ void Shuffle(List<Card> cards)
 {
 	for (int i = 0; i < cards.Count; i++)
 	{
-		int swap = random.Next(cards.Count);
+		int swap = Random.Shared.Next(cards.Count);
 		(cards[i], cards[swap]) = (cards[swap], cards[i]);
 	}
 }

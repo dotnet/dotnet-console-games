@@ -9,7 +9,6 @@ try
 	const int drawingHeight = 11;
 	Point origin = (drawingHeight / 2, drawingWidth / 2);
 	(int Height, int Width)? previousConsoleSize = null;
-	Random random = new();
 
 	Console.Clear();
 Reset:
@@ -29,10 +28,11 @@ Reset:
 			previousConsoleSize = currentConsoleSize;
 		}
 		Render();
-		Console.WriteLine(@"
-  Make the left drawing match the right drawing.
-  Use the arrow keys or WASD to draw.           
-  Use [end] or [home] to generate a new drawing.");
+		Console.WriteLine("""
+			  Make the left drawing match the right drawing.
+			  Use the arrow keys or WASD to draw.           
+			  Use [end] or [home] to generate a new drawing.
+			""");
 		Console.SetCursorPosition(cursor.Item2 + 3, cursor.Item1 + 4);
 	GetInput:
 		Console.CursorVisible = true;
@@ -58,10 +58,11 @@ Reset:
 		}
 	}
 	Render();
-	Console.WriteLine(@"
-  **********************************************
-           You matched the drawings!!!          
-       Play again [enter] or quit [escape]?     ");
+	Console.WriteLine("""
+		  **********************************************
+		           You matched the drawings!!!          
+		       Play again [enter] or quit [escape]?     
+		""");
 GetEnterOrEscape:
 	Console.CursorVisible = false;
 	switch (Console.ReadKey(true).Key)
@@ -114,13 +115,13 @@ GetEnterOrEscape:
 	bool[,] GenerateRandomDrawing()
 	{
 		bool[,] drawing = new bool[drawingHeight, drawingWidth];
-		int points = random.Next(3, 12);
+		int points = Random.Shared.Next(3, 12);
 		Point a = origin;
 		for (int i = 0; i < points; i++)
 		{
 			Point b = new(
-				random.Next(drawingHeight),
-				random.Next(drawingWidth));
+				Random.Shared.Next(drawingHeight),
+				Random.Shared.Next(drawingWidth));
 			DrawLine(a, b);
 			drawing[b.Item1, b.Item2] = false;
 			a = b;

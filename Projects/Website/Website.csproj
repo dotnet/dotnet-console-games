@@ -5,18 +5,10 @@
 		<ImplicitUsings>disable</ImplicitUsings>
 	</PropertyGroup>
 	<ItemGroup>
-	  <Content Remove="Company.json" />
-	  <Content Remove="Event.json" />
-	</ItemGroup>
-	<ItemGroup>
-		<None Remove="FiveLetterWords.txt" />
-		<None Remove="Words.txt" />
-	</ItemGroup>
-	<ItemGroup>
-		<EmbeddedResource Include="Company.json" />
-		<EmbeddedResource Include="Event.json" />
-		<EmbeddedResource Include="FiveLetterWords.txt" />
-		<EmbeddedResource Include="Words.txt" />
+		<EmbeddedResource Include="..\Oligopoly\Company.json" />
+		<EmbeddedResource Include="..\Oligopoly\Event.json" />
+		<EmbeddedResource Include="..\Shared\FiveLetterWords.txt" />
+		<EmbeddedResource Include="..\Shared\Words.txt" />
 	</ItemGroup>
 	<ItemGroup>
 		<AdditionalFiles Include="BannedSymbols.txt" />

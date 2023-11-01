@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading;
 
-Random random = new();
 TimeSpan buttonPress = TimeSpan.FromMilliseconds(500);
 TimeSpan animationDelay = TimeSpan.FromMilliseconds(200);
 int score = 0;
@@ -83,7 +82,7 @@ try
 	while (true)
 	{
 		Thread.Sleep(buttonPress);
-		pattern.Add((Direction)random.Next(1, 5));
+		pattern.Add((Direction)Random.Shared.Next(1, 5));
 		AnimateCurrentPattern();
 		for (int i = 0; i < pattern.Count; i++)
 		{

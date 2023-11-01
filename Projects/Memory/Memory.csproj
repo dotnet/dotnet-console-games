@@ -6,6 +6,6 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-	  <PackageReference Include="Towel" Version="1.0.40" />
+		<PackageReference Include="Towel" Version="1.0.40" />
 	</ItemGroup>
 </Project>

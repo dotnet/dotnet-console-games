@@ -23,27 +23,29 @@ public class Flash_Cards
 		while (true)
 		{
 			await Console.Clear();
-			await Console.WriteLine();
-			await Console.WriteLine("  Flash Cards");
-			await Console.WriteLine();
-			await Console.WriteLine("  In this game you will be doing flash card exercises");
-			await Console.WriteLine("  to help you memorize the NATO phonetic alphabet. The");
-			await Console.WriteLine("  NATO phonetic alphabet is commonly used during radio");
-			await Console.WriteLine("  communication in aviation. Each flash card will have");
-			await Console.WriteLine("  a letter from the English alphabet and you need to");
-			await Console.WriteLine("  provide the corresponding code word for that letter.");
-			await Console.WriteLine();
-			await Console.WriteLine("  |  NATO phonetic alphabet code words");
-			await Console.WriteLine("  |");
-			await Console.WriteLine("  |  A -> Alpha      B -> Bravo       C -> Charlie    D -> Delta");
-			await Console.WriteLine("  |  E -> Echo       F -> Foxtrot     G -> Golf       H -> Hotel");
-			await Console.WriteLine("  |  I -> India      J -> Juliett     K -> Kilo       L -> Lima");
-			await Console.WriteLine("  |  M -> Mike       N -> November    O -> Oscar      P -> Papa");
-			await Console.WriteLine("  |  Q -> Quebec     R -> Romeo       S -> Sierra     T -> Tango");
-			await Console.WriteLine("  |  U -> Uniform    V -> Victor      W -> Whiskey    X -> X-ray");
-			await Console.WriteLine("  |  Y -> Yankee     Z -> Zulu");
-			await Console.WriteLine();
-			await Console.Write("  Press [enter] to continue or [escape] to quit...");
+			await Console.WriteLine("""
+
+				  Flash Cards
+
+				  In this game you will be doing flash card exercises
+				  to help you memorize the NATO phonetic alphabet. The
+				  NATO phonetic alphabet is commonly used during radio
+				  communication in aviation. Each flash card will have
+				  a letter from the English alphabet and you need to
+				  provide the corresponding code word for that letter.
+
+				  |  NATO phonetic alphabet code words
+				  |
+				  |  A -> Alpha      B -> Bravo       C -> Charlie    D -> Delta
+				  |  E -> Echo       F -> Foxtrot     G -> Golf       H -> Hotel
+				  |  I -> India      J -> Juliett     K -> Kilo       L -> Lima
+				  |  M -> Mike       N -> November    O -> Oscar      P -> Papa
+				  |  Q -> Quebec     R -> Romeo       S -> Sierra     T -> Tango
+				  |  U -> Uniform    V -> Victor      W -> Whiskey    X -> X-ray
+				  |  Y -> Yankee     Z -> Zulu");
+
+				  Press [enter] to continue or [escape] to quit...
+				""");
 			while (true)
 			{
 				ConsoleKey key = (await Console.ReadKey(true)).Key;

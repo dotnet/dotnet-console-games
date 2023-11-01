@@ -14,7 +14,6 @@ public class Minesweeper
 		OperatingSystem = Console;
 
 		const int mine = -1;
-		Random random = new();
 		(int Value, bool Visible)[,] board;
 
 		await Console.WriteLine("Minesweeper");
@@ -50,7 +49,7 @@ public class Minesweeper
 				case ConsoleKey.Enter:
 					if (!board[Column, Row].Visible)
 					{
-						if (board[Column, Row].Value == mine)
+						if (board[Column, Row].Value is mine)
 						{
 							for (int column = 0; column < selectedWidth; column++)
 							{
@@ -68,7 +67,7 @@ public class Minesweeper
 							await Console.Refresh();
 							return;
 						}
-						else if (board[Column, Row].Value == 0)
+						else if (board[Column, Row].Value is 0)
 						{
 							Reveal(Column, Row);
 							await RenderBoard();
@@ -162,7 +161,7 @@ public class Minesweeper
 			}
 			for (int i = 0; i < mineCount; i++)
 			{
-				int randomIndex = random.Next(0, coordinates.Count);
+				int randomIndex = Random.Shared.Next(0, coordinates.Count);
 				(int column, int row) = coordinates[randomIndex];
 				coordinates.RemoveAt(randomIndex);
 				board[column, row] = (mine, false);
@@ -208,7 +207,7 @@ public class Minesweeper
 		void Reveal(int column, int row)
 		{
 			board[column, row].Visible = true;
-			if (board[column, row].Value == 0)
+			if (board[column, row].Value is 0)
 			{
 				foreach (var (r, c) in AdjacentTiles(column, row))
 				{

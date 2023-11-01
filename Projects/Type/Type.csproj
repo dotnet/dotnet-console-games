@@ -6,10 +6,7 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-		<None Remove="Words.txt" />
-	</ItemGroup>
-	<ItemGroup>
-		<EmbeddedResource Include="Words.txt" />
+		<EmbeddedResource Include="..\Shared\Words.txt" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Towel" Version="1.0.40" />

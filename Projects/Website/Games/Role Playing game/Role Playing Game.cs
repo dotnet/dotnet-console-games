@@ -12,7 +12,6 @@ public class Role_Playing_Game
 	{
 		Exception? exception = null;
 
-		Random random = new();
 		Character character;
 		char[][] map;
 		DateTime previoiusRender = DateTime.Now;
@@ -275,7 +274,7 @@ public class Role_Playing_Game
 			{
 				return;
 			}
-			if (movesSinceLastBattle > movesBeforeRandomBattle && random.NextDouble() < randomBattleChance)
+			if (movesSinceLastBattle > movesBeforeRandomBattle && Random.Shared.NextDouble() < randomBattleChance)
 			{
 				bool ranAway = await Battle(map == Maps.Castle ? EnemyType.Guard : EnemyType.Boar);//, out _);
 				if (!gameRunning)
@@ -509,7 +508,7 @@ public class Role_Playing_Game
 						case ConsoleKey.D1 or ConsoleKey.NumPad1:
 							if (!pendingConfirmation)
 							{
-								switch (random.Next(2))
+								switch (Random.Shared.Next(2))
 								{
 									case 0:
 										frameLeft = 0;
@@ -543,8 +542,8 @@ public class Role_Playing_Game
 							{
 								bool success = enemyType switch
 								{
-									EnemyType.Boar => random.Next(10) < 9,
-									EnemyType.Guard => random.Next(10) < 7,
+									EnemyType.Boar => Random.Shared.Next(10) < 9,
+									EnemyType.Guard => Random.Shared.Next(10) < 7,
 									_ => true,
 								};
 								if (success)

@@ -33,7 +33,7 @@ public class BlazorConsole
 	public static BlazorConsole? ActiveConsole;
 #pragma warning restore CA2211 // Non-constant fields should not be visible
 
-	public const int Delay = 1; // miliseconds
+	public const int Delay = 1; // milliseconds
 	public const int InactiveDelay = 1000; // milliseconds
 	public readonly Queue<ConsoleKeyInfo> InputBuffer = new();
 	public Action? TriggerRefresh;
@@ -44,7 +44,7 @@ public class BlazorConsole
 	public string? Title;
 	public ConsoleColor BackgroundColor = ConsoleColor.Black;
 	public ConsoleColor ForegroundColor = ConsoleColor.White;
-	public bool CursorVisible = true;
+	public bool _cursorVisible = true;
 	public int LargestWindowWidth = 120;
 	public int LargestWindowHeight = 51;
 
@@ -54,6 +54,16 @@ public class BlazorConsole
 	public int _cursorTop = 0;
 
 	public Encoding? OutputEncoding;
+
+	public bool CursorVisible
+	{
+		get => _cursorVisible;
+		set
+		{
+			_cursorVisible = value;
+			StateHasChanged = true;
+		}
+	}
 
 	public int CursorLeft
 	{

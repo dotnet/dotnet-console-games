@@ -25,7 +25,6 @@ char[] DirectionChars = { '^', 'v', '<', '>', };
 TimeSpan sleep = TimeSpan.FromMilliseconds(velocity);
 int width = Console.WindowWidth;
 int height = Console.WindowHeight;
-Random random = new();
 Tile[,] map = new Tile[width, height];
 Direction? direction = null;
 Queue<(int X, int Y)> snake = new();
@@ -128,7 +127,7 @@ void PositionFood()
 			}
 		}
 	}
-	int index = random.Next(possibleCoordinates.Count);
+	int index = Random.Shared.Next(possibleCoordinates.Count);
 	(int X, int Y) = possibleCoordinates[index];
 	map[X, Y] = Tile.Food;
 	Console.SetCursorPosition(X, Y);

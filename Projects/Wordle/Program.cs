@@ -8,7 +8,6 @@ Exception? exception = null;
 
 try
 {
-	Random random = new();
 	const string wordsResource = "Wordle.FiveLetterWords.txt";
 	Assembly assembly = Assembly.GetExecutingAssembly();
 	List<string> words = new();
@@ -54,7 +53,7 @@ PlayAgain:
  - escape: exit");
 	int guess = 0;
 	int cursor = 0;
-	string word = words[random.Next(words.Count)].ToUpperInvariant();
+	string word = words[Random.Shared.Next(words.Count)].ToUpperInvariant();
 	char[] letters = { ' ', ' ', ' ', ' ', ' ' };
 GetInput:
 	Console.SetCursorPosition(3 + cursor * 4, 2 + guess * 2);

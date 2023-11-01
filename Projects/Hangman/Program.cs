@@ -5,8 +5,6 @@ using System.Reflection;
 using System.Threading;
 using System.Linq;
 
-Random Random = new();
-
 string[] Renders =
 {
 	#region Frames
@@ -456,7 +454,7 @@ switch (Console.ReadKey(true).Key)
 }
 Console.Clear();
 
-string GetRandomWord() => Choose(Random, Words);
+string GetRandomWord() => Choose(Random.Shared, Words);
 
 T Choose<T>(Random random, params T[] values) => values[random.Next(values.Length)];
 
