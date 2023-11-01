@@ -8,9 +8,11 @@
 	<ItemGroup>
 		<None Remove="Company.json" />
 		<None Remove="Event.json" />
+		<None Remove="GlobalEvent.json" />
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="Company.json" />
 		<EmbeddedResource Include="Event.json" />
+		<EmbeddedResource Include="GlobalEvent.json" />
 	</ItemGroup>
 </Project>

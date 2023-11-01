@@ -10,6 +10,7 @@ public static class Resources
 	public static readonly string[]? FiveLetterWords;
 	public static readonly string? Company_json;
 	public static readonly string? Event_json;
+	public static readonly string? GlobalEvent_json;
 
 	static Resources()
 	{
@@ -63,6 +64,16 @@ public static class Resources
 			{
 				using StreamReader streamReader = new(stream);
 				Event_json = streamReader.ReadToEnd();
+			}
+		}
+		{
+			const string name = "Website.GlobalEvent.json";
+			Assembly assembly = Assembly.GetExecutingAssembly();
+			using Stream stream = assembly.GetManifestResourceStream(name)!;
+			if (stream is not null)
+			{
+				using StreamReader streamReader = new(stream);
+				GlobalEvent_json = streamReader.ReadToEnd();
 			}
 		}
 	}
