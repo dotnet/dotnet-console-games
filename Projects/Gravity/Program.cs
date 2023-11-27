@@ -7,7 +7,9 @@ string[][] levels = new[]
 {
 	// '@': starting player position
 	// ' ': open space
+	// '~': switchable open space
 	// '█': wall
+	// '#': switchable wall
 	// 'X': spikey death
 	// '●': goal
 
@@ -310,6 +312,24 @@ void Update()
 					gravity = Direction.Right;
 				}
 				break;
+			case ConsoleKey.E:
+				for (int i = 0; i < levels.Length; i++)
+				{
+					for (int j = 0; j < levels[i].Length; j++)
+					{
+						string currentLine = levels[i][j];
+						char[] chars = currentLine.ToCharArray();
+
+						for (int k = 0; k < chars.Length; k++)
+						{
+							if (chars[k] == '#') chars[k] = '~';
+							else if (chars[k] == '~') chars[k] = '#';
+						}
+
+						levels[i][j] = new string(chars);
+					}
+				}
+				break;
 			case ConsoleKey.Escape: closeRequested = true; return;
 		}
 	}
@@ -519,28 +539,28 @@ void Update()
 }
 
 bool WallUp() =>
-	levels[level][PlayerPosition.Y - 2][PlayerPosition.X - 2] is '█' ||
-	levels[level][PlayerPosition.Y - 2][PlayerPosition.X - 1] is '█' ||
-	levels[level][PlayerPosition.Y - 2][PlayerPosition.X] is '█' ||
-	levels[level][PlayerPosition.Y - 2][PlayerPosition.X + 1] is '█' ||
-	levels[level][PlayerPosition.Y - 2][PlayerPosition.X + 2] is '█';
+	levels[level][PlayerPosition.Y - 2][PlayerPosition.X - 2] is '█' or '#' ||
+	levels[level][PlayerPosition.Y - 2][PlayerPosition.X - 1] is '█' or '#'||
+	levels[level][PlayerPosition.Y - 2][PlayerPosition.X] is '█' or '#' ||
+	levels[level][PlayerPosition.Y - 2][PlayerPosition.X + 1] is '█' or '#' ||
+	levels[level][PlayerPosition.Y - 2][PlayerPosition.X + 2] is '█' or '#';
 
 bool WallDown() =>
-	levels[level][PlayerPosition.Y + 2][PlayerPosition.X - 2] is '█' ||
-	levels[level][PlayerPosition.Y + 2][PlayerPosition.X - 1] is '█' ||
-	levels[level][PlayerPosition.Y + 2][PlayerPosition.X] is '█' ||
-	levels[level][PlayerPosition.Y + 2][PlayerPosition.X + 1] is '█' ||
-	levels[level][PlayerPosition.Y + 2][PlayerPosition.X + 2] is '█';
+	levels[level][PlayerPosition.Y + 2][PlayerPosition.X - 2] is '█' or '#' ||
+	levels[level][PlayerPosition.Y + 2][PlayerPosition.X - 1] is '█' or '#' ||
+	levels[level][PlayerPosition.Y + 2][PlayerPosition.X] is '█' or '#' ||
+	levels[level][PlayerPosition.Y + 2][PlayerPosition.X + 1] is '█' or '#' ||
+	levels[level][PlayerPosition.Y + 2][PlayerPosition.X + 2] is '█' or '#';
 
 bool WallLeft() =>
-	levels[level][PlayerPosition.Y - 1][PlayerPosition.X - 3] is '█' ||
-	levels[level][PlayerPosition.Y][PlayerPosition.X - 3] is '█' ||
-	levels[level][PlayerPosition.Y + 1][PlayerPosition.X - 3] is '█';
+	levels[level][PlayerPosition.Y - 1][PlayerPosition.X - 3] is '█' or '#' ||
+	levels[level][PlayerPosition.Y][PlayerPosition.X - 3] is '█' or '#' ||
+	levels[level][PlayerPosition.Y + 1][PlayerPosition.X - 3] is '█' or '#';
 
 bool WallRight() =>
-	levels[level][PlayerPosition.Y - 1][PlayerPosition.X + 3] is '█' ||
-	levels[level][PlayerPosition.Y][PlayerPosition.X + 3] is '█' ||
-	levels[level][PlayerPosition.Y + 1][PlayerPosition.X + 3] is '█';
+	levels[level][PlayerPosition.Y - 1][PlayerPosition.X + 3] is '█' or '#' ||
+	levels[level][PlayerPosition.Y][PlayerPosition.X + 3] is '█' or '#' ||
+	levels[level][PlayerPosition.Y + 1][PlayerPosition.X + 3] is '█' or '#';
 
 void Render()
 {
