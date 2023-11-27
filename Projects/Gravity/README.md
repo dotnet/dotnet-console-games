@@ -50,6 +50,7 @@ Gravity is a phsysics based game. Control gravity to guide yourself to the goal!
 ## Input
 
 - `↑`, `↓`, `←`, `→`: change gravity
+- `e`: switch wall/open space
 - `enter`: confirm
 - `escape`: close
 
