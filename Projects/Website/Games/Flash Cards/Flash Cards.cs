@@ -23,7 +23,7 @@ public class Flash_Cards
 		while (true)
 		{
 			await Console.Clear();
-			await Console.WriteLine("""
+			await Console.Write("""
 
 				  Flash Cards
 

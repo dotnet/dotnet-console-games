@@ -14,7 +14,7 @@
 while (true)
 {
 	Console.Clear();
-	Console.WriteLine("""
+	Console.Write("""
 
 		  Flash Cards
 
