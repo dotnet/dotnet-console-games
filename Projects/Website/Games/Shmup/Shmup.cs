@@ -673,7 +673,7 @@ public class Shmup
 		public float Y;
 		public float XVelocity;
 		public float YVelocity;
-		private string[] Sprite;
+		private string[] Sprite = spriteDown;
 
 		static readonly string[] spriteDown =
 		{

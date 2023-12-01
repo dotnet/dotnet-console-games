@@ -37,15 +37,11 @@ public class Rock_Paper_Scissors
 			await Console.WriteLine($"The computer chose {computerMove}.");
 			switch (playerMove, computerMove)
 			{
-				case (Rock, Paper):
-				case (Paper, Scissors):
-				case (Scissors, Rock):
+				case (Rock, Paper) or (Paper, Scissors) or (Scissors, Rock):
 					await Console.WriteLine("You lose.");
 					losses++;
 					break;
-				case (Rock, Scissors):
-				case (Paper, Rock):
-				case (Scissors, Paper):
+				case (Rock, Scissors) or (Paper, Rock) or (Scissors, Paper):
 					await Console.WriteLine("You win.");
 					wins++;
 					break;
