@@ -229,7 +229,7 @@ public class Gravity
 		GameState gameState = GameState.Default;
 		(int X, int Y) PlayerPosition = GetStartingPlayerPositionFromLevel();
 
-		await Console.WriteLine("""
+		await Console.Write("""
 
 			     ██████╗ ██████╗  █████╗ ██╗   ██╗██╗████████╗██╗   ██╗
 			    ██╔════╝ ██╔══██╗██╔══██╗██║   ██║██║╚══██╔══╝╚██╗ ██╔╝

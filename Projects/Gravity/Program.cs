@@ -221,7 +221,7 @@ PlayerState playerState = PlayerState.Neutral;
 GameState gameState = GameState.Default;
 (int X, int Y) PlayerPosition = GetStartingPlayerPositionFromLevel();
 
-Console.WriteLine("""
+Console.Write("""
 
 	     ██████╗ ██████╗  █████╗ ██╗   ██╗██╗████████╗██╗   ██╗
 	    ██╔════╝ ██╔══██╗██╔══██╗██║   ██║██║╚══██╔══╝╚██╗ ██╔╝
