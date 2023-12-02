@@ -3,8 +3,8 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading;
 
-string[][] levels = new[]
-{
+char[][][] levels =
+[
 	// '@': starting player position
 	// ' ': open space
 	// '~': switchable open space
@@ -13,273 +13,262 @@ string[][] levels = new[]
 	// 'X': spikey death
 	// '●': goal
 
-	new[]
-	{
-		"█████████████████████████████████████████████████████████████████",
-		"█                                                               █",
-		"█                                                               █",
-		"█                                                               █",
-		"█                                                               █",
-		"█                                                    ●          █",
-		"█                                                               █",
-		"█                                                               █",
-		"█                                                               █",
-		"█                                                               █",
-		"█                                                               █",
-		"█                                                               █",
-		"█                                                               █",
-		"█                                                               █",
-		"█      @@@@@                                                    █",
-		"█      @@@@@                                                    █",
-		"█      @@@@@                                                    █",
-		"█                                                               █",
-		"█                                                               █",
-		"█                                                               █",
-		"█████████████████████████████████████████████████████████████████",
-	},
-	new[]
-	{
-		"█████████████████████████████████████████████████████████████████",
-		"█                                             █                 █",
-		"█                                             █                 █",
-		"█                                             █                 █",
-		"█                                             █                 █",
-		"█                                             █        ●        █",
-		"█                                             █                 █",
-		"█                                             █                 █",
-		"█                 █                           █                 █",
-		"█                 █                           █                 █",
-		"█                 █                           █                 █",
-		"█                 █                           █                 █",
-		"█                 █                           █                 █",
-		"█                 █                                             █",
-		"█      @@@@@      █                                             █",
-		"█      @@@@@      █                                             █",
-		"█      @@@@@      █                                             █",
-		"█                 █                                             █",
-		"█                 █                                             █",
-		"█                 █                                             █",
-		"█████████████████████████████████████████████████████████████████",
-	},
-	new[]
-	{
-		"                  ███████████                   ",
-		"              ████           █████              ",
-		"          ████                    ████          ",
-		"       ███                            ███       ",
-		"     ██                                  ██     ",
-		"    █                                      █    ",
-		"   █                                        █   ",
-		"  █                                          █  ",
-		" █                          █                 █ ",
-		"█                           █                  █",
-		"█                           █                  █",
-		"█                         ██                   █",
-		"█                       ██                     █",
-		"█         ●           ██                       █",
-		" █                  ██                        █ ",
-		"  █               ██                         █  ",
-		"   █             █                          █   ",
-		"    █            █                         █    ",
-		"     ██          █                       ██     ",
-		"       ███       █   @@@@@            ███       ",
-		"          ████   █   @@@@@        ████          ",
-		"              ████   @@@@@   █████              ",
-		"                  ███████████                   ",
-	},
-	new[]
-	{
-		"█████████████████████████████████████████████████████████████████",
-		"█XXXXXXX                                                        █",
-		"█XXXXXXX                                                        █",
-		"█XXXXXXX                                                        █",
-		"█XXXXXXX          █XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX          █",
-		"█XXXXXXX          █         ●                                   █",
-		"█XXXXXXX          █                                             █",
-		"█XXXXXXX          █                                             █",
-		"█XXXXXXX          █                                             █",
-		"█XXXXXX█          █                                             █",
-		"████████          ███████████████████████████████████████████████",
-		"█                                                               █",
-		"█                                                               █",
-		"█                                                               █",
-		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█          █XXXXXXXXXXX█",
-		"██████████████████████████████████████████          █████████████",
-		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█          █XXXXXXXXXXX█",
-		"█    @@@@@                                                      █",
-		"█    @@@@@                                                      █",
-		"█    @@@@@                                                      █",
-		"█████████████████████████████████████████████████████████████████",
-	},
-	new[]
-	{
-		"█████████████████████████████████████████████████████████████████",
-		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█",
-		"█                                                              X█",
-		"█                                                              X█",
-		"█                                                              X█",
-		"█                                                     ●        X█",
-		"█                                                              X█",
-		"█                                                              X█",
-		"█                                                              X█",
-		"█                                                              X█",
-		"█                                                              X█",
-		"█                                                              X█",
-		"█                                                              X█",
-		"█                                                              X█",
-		"█      @@@@@                                                   X█",
-		"█      @@@@@                                                   X█",
-		"█      @@@@@                                                   X█",
-		"█                                                              X█",
-		"█                                                              X█",
-		"█                                                              X█",
-		"█████████████████████████████████████████████████████████████████",
-	},
-	new[]
-	{
-		"█████████████████████████████████████████████████████████████████",
-		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█",
-		"█X                                                             X█",
-		"█X                                                             X█",
-		"█X                                                             X█",
-		"█X                                                    ●        X█",
-		"█X                                                             X█",
-		"█X                                                             X█",
-		"█X                                                             X█",
-		"█X                                                             X█",
-		"█X                                                             X█",
-		"█X                                                             X█",
-		"█X                                                             X█",
-		"█X                                                             X█",
-		"█X     @@@@@                                                   X█",
-		"█X     @@@@@                                                   X█",
-		"█X     @@@@@                                                   X█",
-		"█X                                                             X█",
-		"█X                                                             X█",
-		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█",
-		"█████████████████████████████████████████████████████████████████",
-	},
-	new[]
-	{
-		"█████████████████████████████████████████████████████████████████",
-		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█",
-		"█X                                                             X█",
-		"█X                                                             X█",
-		"█X                                                             X█",
-		"█X                                                    ●        X█",
-		"█X                                                             X█",
-		"█X                             X                               X█",
-		"█X                            XXX                              X█",
-		"█X                           XXXXX                             X█",
-		"█X                           XXXXX                             X█",
-		"█X                            XXX                              X█",
-		"█X                             X                               X█",
-		"█X                                                             X█",
-		"█X     @@@@@                                                   X█",
-		"█X     @@@@@                                                   X█",
-		"█X     @@@@@                                                   X█",
-		"█X                                                             X█",
-		"█X                                                             X█",
-		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█",
-		"█████████████████████████████████████████████████████████████████",
-	},
-	new[]
-	{
-		"█████████████████████████████████████████████████████████████████",
-		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█",
-		"█X                                         X                   X█",
-		"█X                                         X                   X█",
-		"█X                                         X                   X█",
-		"█X                                         X         ●         X█",
-		"█X                                         X                   X█",
-		"█X                                         X                   X█",
-		"█X                                         X                   X█",
-		"█X                                                             X█",
-		"█X                                                             X█",
-		"█X                                                             X█",
-		"█X                   X                                         X█",
-		"█X                   X                                         X█",
-		"█X       @@@@@       X                                         X█",
-		"█X       @@@@@       X                                         X█",
-		"█X       @@@@@       X                                         X█",
-		"█X                   X                                         X█",
-		"█X                   X                                         X█",
-		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█",
-		"█████████████████████████████████████████████████████████████████",
-	},
-		new[]
-	{
-		"█████████████████████████████████████████████████████████████████",
-		"█                                             #                 █",
-		"█                                             #                 █",
-		"█                                             #                 █",
-		"█                                             #                 █",
-		"█                                             #                 █",
-		"█                                             #                 █",
-		"█                                             #                 █",
-		"█                                             █~~~~~~~~~~~~~~~~~█",
-		"█                                             █                 █",
-		"█                                             █                 █",
-		"█                                             █                 █",
-		"█                                             █                 █",
-		"█                                             █                 █",
-		"█      @@@@@                                  █                 █",
-		"█      @@@@@                                  █                 █",
-		"█      @@@@@                                  █                 █",
-		"█                                             █                 █",
-		"█                                             █        ●        █",
-		"█                                             █                 █",
-		"█████████████████████████████████████████████████████████████████",
-	},
-	new[]
-	{
-		"█████████████████████████████████████████████████████████████████",
-		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█",
-		"█X##############################################################█",
-		"█X~                                                             █",
-		"█X~                                                             █",
-		"█X~                                                             █",
-		"█X~         █                                                   █",
-		"█X~         █                                                   █",
-		"█X~         █                                                   █",
-		"█X~         █                                                   █",
-		"█X~         █                                                   █",
-		"█X~         █                                                   █",
-		"█X~    ●    █                                                   █",
-		"█X~         █                                                   █",
-		"█X~         █                                                   █",
-		"█████████████████████████████████████████████████             ███",
-		"█                                               #             ~X█",
-		"█      @@@@@                                    #             ~X█",
-		"█      @@@@@                                    #             ~X█",
-		"█      @@@@@                                    #             ~X█",
-		"█████████████████████████████████████████████████████████████████",
-	},
-	new[]
-	{
-		"█████████████████████████████████████████████████████████████████",
-		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█",
-		"█X                                                             X█",
-		"█X                                            #########        X█",
-		"█X     #####                                          ~        X█",
-		"█X     # ● #                                          ~        X█",
-		"█X     #####                                          ~        X█",
-		"█X                                                    ~        X█",
-		"█X                                                    ~        X█",
-		"█X                                                    ~        X█",
-		"█XXXXXXXXXXXXXXXXXXXXXXXX                             ~        X█",
-		"█X                                                    ~        X█",
-		"█X                                                    ~        X█",
-		"█X                                                    ~        X█",
-		"█X     @@@@@                                          ~        X█",
-		"█X     @@@@@                                          ~        X█",
-		"█X     @@@@@                                                   X█",
-		"█X                                                             X█",
-		"█X                                                             X█",
-		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█",
-		"█████████████████████████████████████████████████████████████████",
-	},
-};
+	[
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+		"█                                                               █".ToCharArray(),
+		"█                                                               █".ToCharArray(),
+		"█                                                               █".ToCharArray(),
+		"█                                                               █".ToCharArray(),
+		"█                                                    ●          █".ToCharArray(),
+		"█                                                               █".ToCharArray(),
+		"█                                                               █".ToCharArray(),
+		"█                                                               █".ToCharArray(),
+		"█                                                               █".ToCharArray(),
+		"█                                                               █".ToCharArray(),
+		"█                                                               █".ToCharArray(),
+		"█                                                               █".ToCharArray(),
+		"█                                                               █".ToCharArray(),
+		"█      @@@@@                                                    █".ToCharArray(),
+		"█      @@@@@                                                    █".ToCharArray(),
+		"█      @@@@@                                                    █".ToCharArray(),
+		"█                                                               █".ToCharArray(),
+		"█                                                               █".ToCharArray(),
+		"█                                                               █".ToCharArray(),
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+	],
+	[
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+		"█                                             █                 █".ToCharArray(),
+		"█                                             █                 █".ToCharArray(),
+		"█                                             █                 █".ToCharArray(),
+		"█                                             █                 █".ToCharArray(),
+		"█                                             █        ●        █".ToCharArray(),
+		"█                                             █                 █".ToCharArray(),
+		"█                                             █                 █".ToCharArray(),
+		"█                 █                           █                 █".ToCharArray(),
+		"█                 █                           █                 █".ToCharArray(),
+		"█                 █                           █                 █".ToCharArray(),
+		"█                 █                           █                 █".ToCharArray(),
+		"█                 █                           █                 █".ToCharArray(),
+		"█                 █                                             █".ToCharArray(),
+		"█      @@@@@      █                                             █".ToCharArray(),
+		"█      @@@@@      █                                             █".ToCharArray(),
+		"█      @@@@@      █                                             █".ToCharArray(),
+		"█                 █                                             █".ToCharArray(),
+		"█                 █                                             █".ToCharArray(),
+		"█                 █                                             █".ToCharArray(),
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+	],
+	[
+		"                  ███████████                   ".ToCharArray(),
+		"              ████           █████              ".ToCharArray(),
+		"          ████                    ████          ".ToCharArray(),
+		"       ███                            ███       ".ToCharArray(),
+		"     ██                                  ██     ".ToCharArray(),
+		"    █                                      █    ".ToCharArray(),
+		"   █                                        █   ".ToCharArray(),
+		"  █                                          █  ".ToCharArray(),
+		" █                          █                 █ ".ToCharArray(),
+		"█                           █                  █".ToCharArray(),
+		"█                           █                  █".ToCharArray(),
+		"█                         ██                   █".ToCharArray(),
+		"█                       ██                     █".ToCharArray(),
+		"█         ●           ██                       █".ToCharArray(),
+		" █                  ██                        █ ".ToCharArray(),
+		"  █               ██                         █  ".ToCharArray(),
+		"   █             █                          █   ".ToCharArray(),
+		"    █            █                         █    ".ToCharArray(),
+		"     ██          █                       ██     ".ToCharArray(),
+		"       ███       █   @@@@@            ███       ".ToCharArray(),
+		"          ████   █   @@@@@        ████          ".ToCharArray(),
+		"              ████   @@@@@   █████              ".ToCharArray(),
+		"                  ███████████                   ".ToCharArray(),
+	],
+	[
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+		"█XXXXXXX                                                        █".ToCharArray(),
+		"█XXXXXXX                                                        █".ToCharArray(),
+		"█XXXXXXX                                                        █".ToCharArray(),
+		"█XXXXXXX          █XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX          █".ToCharArray(),
+		"█XXXXXXX          █         ●                                   █".ToCharArray(),
+		"█XXXXXXX          █                                             █".ToCharArray(),
+		"█XXXXXXX          █                                             █".ToCharArray(),
+		"█XXXXXXX          █                                             █".ToCharArray(),
+		"█XXXXXX█          █                                             █".ToCharArray(),
+		"████████          ███████████████████████████████████████████████".ToCharArray(),
+		"█                                                               █".ToCharArray(),
+		"█                                                               █".ToCharArray(),
+		"█                                                               █".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█          █XXXXXXXXXXX█".ToCharArray(),
+		"██████████████████████████████████████████          █████████████".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█          █XXXXXXXXXXX█".ToCharArray(),
+		"█    @@@@@                                                      █".ToCharArray(),
+		"█    @@@@@                                                      █".ToCharArray(),
+		"█    @@@@@                                                      █".ToCharArray(),
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+	],
+	[
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█                                                              X█".ToCharArray(),
+		"█                                                              X█".ToCharArray(),
+		"█                                                              X█".ToCharArray(),
+		"█                                                     ●        X█".ToCharArray(),
+		"█                                                              X█".ToCharArray(),
+		"█                                                              X█".ToCharArray(),
+		"█                                                              X█".ToCharArray(),
+		"█                                                              X█".ToCharArray(),
+		"█                                                              X█".ToCharArray(),
+		"█                                                              X█".ToCharArray(),
+		"█                                                              X█".ToCharArray(),
+		"█                                                              X█".ToCharArray(),
+		"█      @@@@@                                                   X█".ToCharArray(),
+		"█      @@@@@                                                   X█".ToCharArray(),
+		"█      @@@@@                                                   X█".ToCharArray(),
+		"█                                                              X█".ToCharArray(),
+		"█                                                              X█".ToCharArray(),
+		"█                                                              X█".ToCharArray(),
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+	],
+	[
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                    ●        X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X     @@@@@                                                   X█".ToCharArray(),
+		"█X     @@@@@                                                   X█".ToCharArray(),
+		"█X     @@@@@                                                   X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+	],
+	[
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                    ●        X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                             X                               X█".ToCharArray(),
+		"█X                            XXX                              X█".ToCharArray(),
+		"█X                           XXXXX                             X█".ToCharArray(),
+		"█X                           XXXXX                             X█".ToCharArray(),
+		"█X                            XXX                              X█".ToCharArray(),
+		"█X                             X                               X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X     @@@@@                                                   X█".ToCharArray(),
+		"█X     @@@@@                                                   X█".ToCharArray(),
+		"█X     @@@@@                                                   X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+	],
+	[
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X                                         X                   X█".ToCharArray(),
+		"█X                                         X                   X█".ToCharArray(),
+		"█X                                         X                   X█".ToCharArray(),
+		"█X                                         X         ●         X█".ToCharArray(),
+		"█X                                         X                   X█".ToCharArray(),
+		"█X                                         X                   X█".ToCharArray(),
+		"█X                                         X                   X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                   X                                         X█".ToCharArray(),
+		"█X                   X                                         X█".ToCharArray(),
+		"█X       @@@@@       X                                         X█".ToCharArray(),
+		"█X       @@@@@       X                                         X█".ToCharArray(),
+		"█X       @@@@@       X                                         X█".ToCharArray(),
+		"█X                   X                                         X█".ToCharArray(),
+		"█X                   X                                         X█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+	],
+	[
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+		"█                                             #                 █".ToCharArray(),
+		"█                                             #                 █".ToCharArray(),
+		"█                                             #                 █".ToCharArray(),
+		"█                                             #                 █".ToCharArray(),
+		"█                                             #                 █".ToCharArray(),
+		"█                                             #                 █".ToCharArray(),
+		"█                                             #                 █".ToCharArray(),
+		"█                                             █~~~~~~~~~~~~~~~~~█".ToCharArray(),
+		"█                                             █                 █".ToCharArray(),
+		"█                                             █                 █".ToCharArray(),
+		"█                                             █                 █".ToCharArray(),
+		"█                                             █                 █".ToCharArray(),
+		"█                                             █                 █".ToCharArray(),
+		"█      @@@@@                                  █                 █".ToCharArray(),
+		"█      @@@@@                                  █                 █".ToCharArray(),
+		"█      @@@@@                                  █                 █".ToCharArray(),
+		"█                                             █                 █".ToCharArray(),
+		"█                                             █        ●        █".ToCharArray(),
+		"█                                             █                 █".ToCharArray(),
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+	],
+	[
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X##############################################################█".ToCharArray(),
+		"█X~                                                             █".ToCharArray(),
+		"█X~                                                             █".ToCharArray(),
+		"█X~                                                             █".ToCharArray(),
+		"█X~         █                                                   █".ToCharArray(),
+		"█X~         █                                                   █".ToCharArray(),
+		"█X~         █                                                   █".ToCharArray(),
+		"█X~         █                                                   █".ToCharArray(),
+		"█X~         █                                                   █".ToCharArray(),
+		"█X~         █                                                   █".ToCharArray(),
+		"█X~    ●    █                                                   █".ToCharArray(),
+		"█X~         █                                                   █".ToCharArray(),
+		"█X~         █                                                   █".ToCharArray(),
+		"█████████████████████████████████████████████████             ███".ToCharArray(),
+		"█                                               #             ~X█".ToCharArray(),
+		"█      @@@@@                                    #             ~X█".ToCharArray(),
+		"█      @@@@@                                    #             ~X█".ToCharArray(),
+		"█      @@@@@                                    #             ~X█".ToCharArray(),
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+	],
+	[
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                            #########        X█".ToCharArray(),
+		"█X     #####                                          ~        X█".ToCharArray(),
+		"█X     # ● #                                          ~        X█".ToCharArray(),
+		"█X     #####                                          ~        X█".ToCharArray(),
+		"█X                                                    ~        X█".ToCharArray(),
+		"█X                                                    ~        X█".ToCharArray(),
+		"█X                                                    ~        X█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXX                             ~        X█".ToCharArray(),
+		"█X                                                    ~        X█".ToCharArray(),
+		"█X                                                    ~        X█".ToCharArray(),
+		"█X                                                    ~        X█".ToCharArray(),
+		"█X     @@@@@                                          ~        X█".ToCharArray(),
+		"█X     @@@@@                                          ~        X█".ToCharArray(),
+		"█X     @@@@@                                                   X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+	],
+];
 
 Console.OutputEncoding = Encoding.UTF8;
 Stopwatch stopwatch = Stopwatch.StartNew();
@@ -304,12 +293,13 @@ Console.Write("""
 	    ╚██████╔╝██║  ██║██║  ██║ ╚████╔╝ ██║   ██║      ██║   
 	     ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝   ╚═╝      ╚═╝   
 
-	    Reach the goal (●) by using the arrow keys or WASD to
-	    manipulate gravity. Watch out for spikes (X).
+	    Reach the goal (●) by using the [arrow keys] or [WASD] to
+	    manipulate gravity. Watch out for spikes (X). Use the
+	    [spacebar] to toggle (#) walls and (~) spaces.
 
-	    Press escape to close the game at any time.
+	    Press [escape] to close the game at any time.
 
-	    Press enter to begin...
+	    Press [enter] to begin...
 	""");
 Console.CursorVisible = false;
 PressToContinue();
@@ -386,21 +376,16 @@ void Update()
 					gravity = Direction.Right;
 				}
 				break;
-			case ConsoleKey.E:
-				for (int i = 0; i < levels.Length; i++)
+			case ConsoleKey.Spacebar:
+				for (int j = 0; j < levels[level].Length; j++)
 				{
-					for (int j = 0; j < levels[i].Length; j++)
+					for (int k = 0; k < levels[level][j].Length; k++)
 					{
-						string currentLine = levels[i][j];
-						char[] chars = currentLine.ToCharArray();
-
-						for (int k = 0; k < chars.Length; k++)
+						switch (levels[level][j][k])
 						{
-							if (chars[k] == '#') chars[k] = '~';
-							else if (chars[k] == '~') chars[k] = '#';
+							case '#': levels[level][j][k] = '~'; break;
+							case '~': levels[level][j][k] = '#'; break;
 						}
-
-						levels[i][j] = new string(chars);
 					}
 				}
 				break;
@@ -677,72 +662,72 @@ string[] RenderPlayerState()
 	{
 		(PlayerState.Sliding | PlayerState.Up | PlayerState.Right) or
 		(PlayerState.Sliding | PlayerState.Down | PlayerState.Left) =>
-			new[] {
+			[
 				@"╭──╮ ",
 				@"╰╮ ╰╮",
 				@" ╰──╯",
-			},
+			],
 		(PlayerState.Sliding | PlayerState.Down | PlayerState.Right) or
 		(PlayerState.Sliding | PlayerState.Up | PlayerState.Left) =>
-			new[] {
+			[
 				@" ╭──╮",
 				@"╭╯ ╭╯",
 				@"╰──╯ ",
-			},
+			],
 		(PlayerState.Squash | PlayerState.Up | PlayerState.Right) =>
-			new[] {
+			[
 				@"╭───╮",
 				@"╰─╮ │",
 				@"  ╰─╯",
-			},
+			],
 		(PlayerState.Squash | PlayerState.Down | PlayerState.Right) =>
-			new[] {
+			[
 				@"  ╭─╮",
 				@"╭─╯ │",
 				@"╰───╯",
-			},
+			],
 		(PlayerState.Squash | PlayerState.Up | PlayerState.Left) =>
-			new[] {
+			[
 				@"╭───╮",
 				@"│ ╭─╯",
 				@"╰─╯  ",
-			},
+			],
 		(PlayerState.Squash | PlayerState.Down | PlayerState.Left) =>
-			new[] {
+			[
 				@"╭─╮  ",
 				@"│ ╰─╮",
 				@"╰───╯",
-			},
+			],
 		(PlayerState.Squash | PlayerState.Up) =>
-			new[] {
+			[
 				@"╭───╮",
 				@"╰───╯",
 				@"     ",
-			},
+			],
 		(PlayerState.Squash | PlayerState.Down) =>
-			new[] {
+			[
 				@"     ",
 				@"╭───╮",
 				@"╰───╯",
-			},
+			],
 		(PlayerState.Squash | PlayerState.Right) =>
-			new[] {
+			[
 				@"  ╭─╮",
 				@"  │ │",
 				@"  ╰─╯",
-			},
+			],
 		(PlayerState.Squash | PlayerState.Left) =>
-			new[] {
+			[
 				@"╭─╮  ",
 				@"│ │  ",
 				@"╰─╯  ",
-			},
+			],
 		_ =>
-			new[] {
+			[
 				@"╭───╮",
 				@"│   │",
 				@"╰───╯",
-			},
+			],
 	};
 }
 
