@@ -29,7 +29,6 @@ public class Rythm
 
 		try
 		{
-			Random random = new();
 			int bufferwidth = Console.BufferWidth;
 			Console.CursorVisible = false;
 			DateTime lastSpawn;
@@ -41,12 +40,12 @@ public class Rythm
 			{
 				notes.Add(new Note()
 				{
-					Top = tracks[random.Next(tracks.Length)].Top,
+					Top = tracks[Random.Shared.Next(tracks.Length)].Top,
 					Frame = 0,
 					Left = Console.BufferWidth - 1,
 				});
 				lastSpawn = DateTime.Now;
-				spawnTime = TimeSpan.FromMilliseconds(random.Next((int)spawnTimeMin.TotalMilliseconds, (int)spawnTimeMax.TotalMilliseconds));
+				spawnTime = TimeSpan.FromMilliseconds(Random.Shared.Next((int)spawnTimeMin.TotalMilliseconds, (int)spawnTimeMax.TotalMilliseconds));
 			}
 
 			async Task RenderMisses()

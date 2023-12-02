@@ -162,7 +162,7 @@ while (position < int.MaxValue)
 		}
 	}
 	if (position >= 100 &&
-		position % 50 == 0 &&
+		position % 50 is 0 &&
 		(!jumpingFrame.HasValue ||
 		!(2 <= jumpingFrame && jumpingFrame <= 7)))
 	{
@@ -176,7 +176,7 @@ while (position < int.MaxValue)
 	Console.SetCursorPosition(4, 10);
 	Render(playerFrame, true);
 	RenderHurdles(true);
-	if (position % 50 == 5)
+	if (position % 50 is 5)
 	{
 		Console.SetCursorPosition(0, 13);
 		Render(
@@ -227,7 +227,7 @@ void RenderHurdles(bool renderSpace)
 {
 	for (int i = 5; i < Console.WindowWidth - 5; i++)
 	{
-		if (position + i >= 100 && (position + i - 7) % 50 == 0)
+		if (position + i >= 100 && (position + i - 7) % 50 is 0)
 		{
 			Console.SetCursorPosition(i - 3, 13);
 			Render(hurdleFrame, renderSpace);

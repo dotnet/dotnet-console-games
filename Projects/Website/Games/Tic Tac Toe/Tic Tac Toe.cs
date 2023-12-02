@@ -12,7 +12,6 @@ public class Tic_Tac_Toe
 	{
 		bool closeRequested = false;
 		bool playerTurn = true;
-		Random random = new();
 		char[,] board;
 
 		while (!closeRequested)
@@ -30,7 +29,7 @@ public class Tic_Tac_Toe
 					await PlayerTurn();
 					if (CheckForThree('X'))
 					{
-						await EndGame("You Win.");
+						await EndGame("  You Win.");
 						break;
 					}
 				}
@@ -39,22 +38,23 @@ public class Tic_Tac_Toe
 					ComputerTurn();
 					if (CheckForThree('O'))
 					{
-						await EndGame("You Lose.");
+						await EndGame("  You Lose.");
 						break;
 					}
 				}
 				playerTurn = !playerTurn;
 				if (CheckForFullBoard())
 				{
-					await EndGame("Draw.");
+					await EndGame("  Draw.");
 					break;
 				}
 			}
 			if (!closeRequested)
 			{
 				await Console.WriteLine();
-				await Console.WriteLine("Play Again [enter], or quit [escape]?");
+				await Console.Write("  Play Again [enter], or quit [escape]?");
 			GetInput:
+				Console.CursorVisible = false;
 				switch ((await Console.ReadKey(true)).Key)
 				{
 					case ConsoleKey.Enter: break;
@@ -68,6 +68,7 @@ public class Tic_Tac_Toe
 				}
 			}
 		}
+		Console.CursorVisible = true;
 
 		async Task PlayerTurn()
 		{
@@ -78,8 +79,9 @@ public class Tic_Tac_Toe
 				await Console.Clear();
 				await RenderBoard();
 				await Console.WriteLine();
-				await Console.WriteLine("Choose a valid position and press enter.");
-				await Console.SetCursorPosition(column * 6 + 1, row * 4 + 1);
+				await Console.Write("  Use the arrow and enter keys to select a move.");
+				await Console.SetCursorPosition(column * 4 + 4, row * 2 + 4);
+				Console.CursorVisible = true;
 				switch ((await Console.ReadKey(true)).Key)
 				{
 					case ConsoleKey.UpArrow:    row = row <= 0 ? 2 : row - 1; break;
@@ -105,7 +107,7 @@ public class Tic_Tac_Toe
 
 		void ComputerTurn()
 		{
-			var possibleMoves = new List<(int X, int Y)>();
+			List<(int X, int Y)> possibleMoves = new();
 			for (int i = 0; i < 3; i++)
 			{
 				for (int j = 0; j < 3; j++)
@@ -116,7 +118,7 @@ public class Tic_Tac_Toe
 					}
 				}
 			}
-			int index = random.Next(0, possibleMoves.Count);
+			int index = Random.Shared.Next(0, possibleMoves.Count);
 			var (X, Y) = possibleMoves[index];
 			board[X, Y] = 'O';
 		}
@@ -138,16 +140,18 @@ public class Tic_Tac_Toe
 
 		async Task RenderBoard()
 		{
-			await Console.WriteLine();
-			await Console.WriteLine($" {board[0, 0]}  ║  {board[0, 1]}  ║  {board[0, 2]}");
-			await Console.WriteLine("    ║     ║");
-			await Console.WriteLine(" ═══╬═════╬═══");
-			await Console.WriteLine("    ║     ║");
-			await Console.WriteLine($" {board[1, 0]}  ║  {board[1, 1]}  ║  {board[1, 2]}");
-			await Console.WriteLine("    ║     ║");
-			await Console.WriteLine(" ═══╬═════╬═══");
-			await Console.WriteLine("    ║     ║");
-			await Console.WriteLine($" {board[2, 0]}  ║  {board[2, 1]}  ║  {board[2, 2]}");
+			await Console.WriteLine($"""
+
+				  Tic Tac Toe
+
+				  ╔═══╦═══╦═══╗
+				  ║ {board[0, 0]} ║ {board[0, 1]} ║ {board[0, 2]} ║
+				  ╠═══╬═══╬═══╣
+				  ║ {board[1, 0]} ║ {board[1, 1]} ║ {board[1, 2]} ║
+				  ╠═══╬═══╬═══╣
+				  ║ {board[2, 0]} ║ {board[2, 1]} ║ {board[2, 2]} ║
+				  ╚═══╩═══╩═══╝
+				""");
 		}
 
 		async Task EndGame(string message)

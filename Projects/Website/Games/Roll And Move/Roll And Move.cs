@@ -91,7 +91,6 @@ public class Roll_And_Move
 			/* left   */ (19, 06), (17, 06), (15, 06), (13, 06), (11, 06), (09, 06), (07, 06), (05, 06), (03, 06),
 		};
 
-		Random random = new();
 		bool escape = false;
 		while (!escape)
 		{
@@ -110,7 +109,7 @@ public class Roll_And_Move
 				if (escape) break;
 				{
 					await RenderPixel(' ', spots_a[player_a], ConsoleColor.White);
-					int roll = random.Next(6) + 1;
+					int roll = Random.Shared.Next(6) + 1;
 					player_a = Math.Min(spots_a.Length - 1, player_a + roll);
 					await RenderPixel('■', spots_a[player_a], color_a);
 					string move_a = roll.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -121,7 +120,7 @@ public class Roll_And_Move
 				if (escape) break;
 				{
 					await RenderPixel(' ', spots_b[player_b], ConsoleColor.White);
-					int roll = random.Next(6) + 1;
+					int roll = Random.Shared.Next(6) + 1;
 					player_b = Math.Min(spots_b.Length - 1, player_b + roll);
 					await RenderPixel('■', spots_b[player_b], color_b);
 					string move_b = roll.ToString(System.Globalization.CultureInfo.InvariantCulture);

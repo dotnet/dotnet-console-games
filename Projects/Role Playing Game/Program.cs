@@ -10,7 +10,6 @@ namespace Role_Playing_Game;
 
 public partial class Program
 {
-	static readonly Random random = new();
 	static Character? _character;
 	static char[][]? _map;
 	static DateTime previoiusRender = DateTime.Now;
@@ -294,7 +293,7 @@ public partial class Program
 		{
 			return;
 		}
-		if (movesSinceLastBattle > movesBeforeRandomBattle && random.NextDouble() < randomBattleChance)
+		if (movesSinceLastBattle > movesBeforeRandomBattle && Random.Shared.NextDouble() < randomBattleChance)
 		{
 			Battle(Map == Maps.Castle ? EnemyType.Guard : EnemyType.Boar, out _);
 			if (!gameRunning)
@@ -528,7 +527,7 @@ public partial class Program
 					case ConsoleKey.D1 or ConsoleKey.NumPad1:
 						if (!pendingConfirmation)
 						{
-							switch (random.Next(2))
+							switch (Random.Shared.Next(2))
 							{
 								case 0:
 									frameLeft = 0;
@@ -562,8 +561,8 @@ public partial class Program
 						{
 							bool success = enemyType switch
 							{
-								EnemyType.Boar => random.Next(10) < 9,
-								EnemyType.Guard => random.Next(10) < 7,
+								EnemyType.Boar => Random.Shared.Next(10) < 9,
+								EnemyType.Guard => Random.Shared.Next(10) < 7,
 								_ => true,
 							};
 							if (success)

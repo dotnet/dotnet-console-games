@@ -6,7 +6,6 @@ ConsoleColor BackgroundColor = Console.BackgroundColor;
 
 int ButtonTimeSpan = 500; // milliseconds
 int CodeLength = 5;
-Random random = new();
 (int X, int Y) Position = default;
 
 // C major scale, starting with middle C
@@ -56,10 +55,10 @@ try
 		Console.CursorVisible = true;
 		switch (Console.ReadKey(true).Key)
 		{
-			case ConsoleKey.UpArrow:    Position.Y = Position.Y == 0 ? 2 : Position.Y - 1; break;
-			case ConsoleKey.DownArrow:  Position.Y = Position.Y == 2 ? 0 : Position.Y + 1; break;
-			case ConsoleKey.LeftArrow:  Position.X = Position.X == 0 ? 2 : Position.X - 1; break;
-			case ConsoleKey.RightArrow: Position.X = Position.X == 2 ? 0 : Position.X + 1; break;
+			case ConsoleKey.UpArrow:    Position.Y = Position.Y is 0 ? 2 : Position.Y - 1; break;
+			case ConsoleKey.DownArrow:  Position.Y = Position.Y is 2 ? 0 : Position.Y + 1; break;
+			case ConsoleKey.LeftArrow:  Position.X = Position.X is 0 ? 2 : Position.X - 1; break;
+			case ConsoleKey.RightArrow: Position.X = Position.X is 2 ? 0 : Position.X + 1; break;
 			case ConsoleKey.Spacebar: PlayAnswerAudio(answerCode); break;
 			case ConsoleKey.Enter:
 				int button = GetButton(Position);
@@ -159,7 +158,7 @@ void ShuffleFrequencies()
 {
 	for (int i = 0; i < frequencies.Length; i++)
 	{
-		int randomIndex = random.Next(frequencies.Length);
+		int randomIndex = Random.Shared.Next(frequencies.Length);
 		(frequencies[randomIndex], frequencies[i]) = (frequencies[i], frequencies[randomIndex]);
 	}
 }
@@ -169,7 +168,7 @@ int[] GetRandomCode()
 	int[] possibilities = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 	for (int i = 0; i < CodeLength; i++)
 	{
-		int randomIndex = random.Next(possibilities.Length - i);
+		int randomIndex = Random.Shared.Next(possibilities.Length - i);
 		(possibilities[possibilities.Length - i - 1], possibilities[randomIndex]) = (possibilities[randomIndex], possibilities[possibilities.Length - i - 1]);
 	}
 	return possibilities[0..CodeLength];

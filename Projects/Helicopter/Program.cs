@@ -15,7 +15,6 @@ Stopwatch stopwatchGame = new();
 Stopwatch stopwatchUFOSpawn = new();
 Stopwatch stopwatchHelicopter = new();
 Stopwatch stopwatchUFO = new();
-Random random = new();
 
 int score = 0;
 bool bulletFrame = default;
@@ -160,8 +159,8 @@ while (true)
 		ufos.Add(new UFO
 		{
 			Health = 4,
-			Frame = random.Next(5),
-			Top = random.Next(height - 3),
+			Frame = Random.Shared.Next(5),
+			Top = Random.Shared.Next(height - 3),
 			Left = width,
 		});
 		stopwatchUFOSpawn.Restart();

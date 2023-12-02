@@ -21,7 +21,6 @@ public class Drive
 
 		int windowWidth;
 		int windowHeight;
-		Random random = new();
 		char[,] scene;
 		int score = 0;
 		int carPosition;
@@ -140,7 +139,7 @@ public class Drive
 			{
 				for (int j = 0; j < width; j++)
 				{
-					if (i == 1 && j == carPosition)
+					if (i is 1 && j == carPosition)
 					{
 						stringBuilder.Append(
 							!gameRunning ? 'X' :
@@ -219,9 +218,9 @@ public class Drive
 					scene[i, j] = scene[i + 1, j];
 				}
 			}
-			int roadUpdate = 
-				random.Next(5) < 4 ? previousRoadUpdate :
-				random.Next(3) - 1;
+			int roadUpdate =
+				Random.Shared.Next(5) < 4 ? previousRoadUpdate :
+				Random.Shared.Next(3) - 1;
 			if (roadUpdate is -1 && scene[height - 1, 0] is ' ') roadUpdate = 1;
 			if (roadUpdate is 1 && scene[height - 1, width - 1] is ' ') roadUpdate = -1;
 			switch (roadUpdate)

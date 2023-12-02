@@ -3,8 +3,6 @@
 int playerPoints = 0;
 int rivalPoints = 0;
 
-Random random = new();
-
 Console.WriteLine("Dice Game");
 Console.WriteLine();
 Console.WriteLine("In this game you and a computer Rival will play 10 rounds");
@@ -19,12 +17,12 @@ Console.WriteLine();
 for (int i = 0; i < 10; i++)
 {
 	Console.WriteLine($"Round {i + 1}");
-	int rivalRandomNum = random.Next(1, 7);
+	int rivalRandomNum = Random.Shared.Next(1, 7);
 	Console.WriteLine("Rival rolled a " + rivalRandomNum);
 	Console.Write("Press any key to roll the dice...");
 	Console.ReadKey(true);
 	Console.WriteLine();
-	int playerRandomNum = random.Next(1, 7);
+	int playerRandomNum = Random.Shared.Next(1, 7);
 	Console.WriteLine("You rolled a " + playerRandomNum);
 	if (playerRandomNum > rivalRandomNum)
 	{

@@ -232,7 +232,7 @@ internal class InventoryScreen
 				{
 					if (i == width - 2)
 					{
-						if (j == 1)
+						if (j is 1)
 						{
 							sb.Append('▲');
 							continue;
@@ -269,7 +269,7 @@ internal class InventoryScreen
 						sb.Append('│'); // ║
 						continue;
 					}
-					if (j == 0)
+					if (j is 0)
 					{
 						sb.Append('╤'); // ╦
 						continue;

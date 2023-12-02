@@ -34,7 +34,6 @@ public class Snake
 		TimeSpan sleep = TimeSpan.FromMilliseconds(velocity);
 		int width = Console.WindowWidth;
 		int height = Console.WindowHeight;
-		Random random = new();
 		Tile[,] map = new Tile[width, height];
 		Direction? direction = null;
 		Queue<(int X, int Y)> snake = new();
@@ -139,7 +138,7 @@ public class Snake
 					}
 				}
 			}
-			int index = random.Next(possibleCoordinates.Count);
+			int index = Random.Shared.Next(possibleCoordinates.Count);
 			(int X, int Y) = possibleCoordinates[index];
 			map[X, Y] = Tile.Food;
 			await Console.SetCursorPosition(X, Y);

@@ -82,7 +82,6 @@ ConsoleColor color_b = ConsoleColor.Red;
 	/* left   */ (19, 06), (17, 06), (15, 06), (13, 06), (11, 06), (09, 06), (07, 06), (05, 06), (03, 06),
 };
 
-Random random = new();
 bool escape = false;
 while (!escape)
 {
@@ -130,7 +129,7 @@ void Prompt(string message)
 string MovePlayer(ref int player, (int Top, int Left)[] spots, ConsoleColor color)
 {
 	RenderPixel(' ', spots[player], ConsoleColor.White);
-	int roll = random.Next(6) + 1;
+	int roll = Random.Shared.Next(6) + 1;
 	player = Math.Min(spots.Length - 1, player + roll);
 	RenderPixel('■', spots[player], color);
 	return roll.ToString(System.Globalization.CultureInfo.InvariantCulture);

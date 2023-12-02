@@ -7,7 +7,6 @@ using Towel.DataStructures;
 Exception? exception = null;
 
 int Score = 0;
-Random Random = new();
 string[] WordPool;
 QueueArray<(string String, int Left, int Top)> Words = new();
 int position = 0;
@@ -121,7 +120,7 @@ finally
 
 void GetWord()
 {
-	string w = Random.Choose(WordPool);
+	string w = Random.Shared.Choose(WordPool);
 	int width = Math.Min(Console.BufferWidth, Console.WindowWidth) - w.Length;
 	int height = Math.Min(Console.BufferHeight, Console.WindowHeight);
 	var set = SetHashLinked.New<(int Left, int Top)>();
@@ -151,7 +150,7 @@ void GetWord()
 			continue;
 		}
 	}
-	var (Left, Top) = list[Random.Next(list.Count)];
+	var (Left, Top) = list[Random.Shared.Next(list.Count)];
 	Words.Enqueue((w, Left, Top));
 }
 

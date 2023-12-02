@@ -1,21 +1,7 @@
 ﻿using System;
-using System.Linq;
 using System.Text;
-using System.Threading;
-using static Website.Games.Console_Monsters.Statics;
 //using Website.Games.Console_Monsters.Screens;
-using Website.Games.Console_Monsters.Items;
-using Website.Games.Console_Monsters.Maps;
-using Website.Games.Console_Monsters.Monsters;
-using Website.Games.Console_Monsters.Bases;
-using Website.Games.Console_Monsters.Characters;
-using Website.Games.Console_Monsters.Screens;
 using Website.Games.Console_Monsters.Screens.Menus;
-using Website.Games.Console_Monsters.Enums;
-using Website.Games.Console_Monsters.Utilities;
-using System.Collections.Generic;
-using Towel;
-using static Towel.Statics;
 using System.Threading.Tasks;
 
 namespace Website.Games.Console_Monsters.Screens;
@@ -69,7 +55,7 @@ public static class ControlsScreen
 		sb.AppendLine(@$"{headerIndent}█▀▄▀█ █▄▄█ █ █▀▄ █   █   █▄▄█ █     █  ");
 		sb.AppendLine(@$"{headerIndent}█   █ █  █ █ █  ▀█   █   █  █ █▄▄   █  ");
 		sb.AppendLine();
-		sb.AppendLine($@"{new(' ', 89)}{(upOption == 1 ? boxTop : boxEmpty)}{new(' ', 18)}{boxTop}");
+		sb.AppendLine($@"{new(' ', 89)}{(upOption is 1 ? boxTop : boxEmpty)}{new(' ', 18)}{boxTop}");
 		sb.AppendLine(@$"{optionIndent}▄   ▄ ▄▄▄   {new(' ', 27)}{boxSide} {currentUp[0]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentUpAlt[0]}   {(arrowOption is 1 ? "╭───╮" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}█   █ █▄▄▀ ▀{new(' ', 27)}{boxSide} {currentUp[1]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentUpAlt[1]}   {(arrowOption is 1 ? "╞═●═╡" : "     ")}");
 		sb.AppendLine(@$"{optionIndent}▀▄▄▄▀ █    ▄{new(' ', 27)}{boxSide} {currentUp[2]} {boxSide}{new(' ', 8)}█{new(' ', 11)}{currentUpAlt[2]}   {(arrowOption is 1 ? "╰───╯" : "     ")}");

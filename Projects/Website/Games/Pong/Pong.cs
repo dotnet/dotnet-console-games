@@ -13,7 +13,6 @@ public class Pong
 		int width = Console.WindowWidth;
 		int height = Console.WindowHeight;
 		float multiplier = 1.1f;
-		Random random = new();
 		TimeSpan delay = TimeSpan.FromMilliseconds(10);
 		TimeSpan enemyInputDelay = TimeSpan.FromMilliseconds(100);
 		int paddleSize = height / 4;
@@ -169,16 +168,16 @@ public class Pong
 
 		Ball CreateNewBall()
 		{
-			float randomFloat = (float)random.NextDouble() * 2f;
+			float randomFloat = (float)Random.Shared.NextDouble() * 2f;
 			float dx = Math.Max(randomFloat, 1f - randomFloat);
 			float dy = 1f - dx;
 			float x = width / 2;
 			float y = height / 2;
-			if (random.Next(2) == 0)
+			if (Random.Shared.Next(2) is 0)
 			{
 				dx = -dx;
 			}
-			if (random.Next(2) == 0)
+			if (Random.Shared.Next(2) is 0)
 			{
 				dy = -dy;
 			}
