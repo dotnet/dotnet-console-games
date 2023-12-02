@@ -21,7 +21,7 @@
 	<sup>Hosted On GitHub Pages</sup>
 </p>
 
-Gravity is a phsysics based game. Control gravity to guide yourself to the goal!
+Gravity is a "physics" based game. Control gravity to guide yourself to the goal!
 
 ```
 █████████████████████████████████████████████████████████████████
@@ -50,6 +50,7 @@ Gravity is a phsysics based game. Control gravity to guide yourself to the goal!
 ## Input
 
 - `↑`, `↓`, `←`, `→`: change gravity
+- `spacebar`: toggle `#` walls and `~` spaces
 - `enter`: confirm
 - `escape`: close
 
