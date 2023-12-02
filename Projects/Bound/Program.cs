@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 Exception? exception = null;
 
 ((int Left, int Top) StartPosition, (string Map, TimeSpan Delay)[])[] levels =
-{
+[
 	#region level 00
 	((15, 16),
 	new (string Map, TimeSpan Delay)[]
@@ -1816,7 +1816,7 @@ Exception? exception = null;
 		""", TimeSpan.FromSeconds(.5)),
 	}),
 	#endregion
-};
+];
 
 try
 {

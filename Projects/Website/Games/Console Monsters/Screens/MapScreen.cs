@@ -149,7 +149,7 @@ internal static class MapScreen
 				int pixelJ = mapJ < 0 ? (Sprites.Height - 1) + ((mapJ + 1) % Sprites.Height) : (mapJ % Sprites.Height);
 
 				// render pixel from map tile
-				string tileRender = map.GetMapTileRender(tileI, tileJ);
+				string tileRender = Map.GetMapTileRender(tileI, tileJ);
 				char c = tileRender[pixelJ * (Sprites.Width + 1) + pixelI];
 				sb.Append(char.IsWhiteSpace(c) ? ' ' : c);
 			}

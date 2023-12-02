@@ -23,8 +23,8 @@ public class Tetris
 		}
 		emptyField[^1] = "╰──────────────────────────────╯";
 
-		string[] nextTetrominoBorder = new[]
-		{
+		string[] nextTetrominoBorder =
+		[
 			"╭─────────╮",
 			"│         │",
 			"│         │",
@@ -35,28 +35,28 @@ public class Tetris
 			"│         │",
 			"│         │",
 			"╰─────────╯"
-		};
+		];
 
-		string[] scoreBorder = new[]
-		{
+		string[] scoreBorder =
+		[
 			"╭─────────╮",
 			"│         │",
 			"╰─────────╯"
-		};
+		];
 
-		string[] pauseRender = new[]
-		{
+		string[] pauseRender =
+		[
 			"█████╗ ███╗ ██╗██╗█████╗█████╗",
 			"██╔██║██╔██╗██║██║██╔══╝██╔══╝",
 			"█████║█████║██║██║ ███╗ █████╗",
 			"██╔══╝██╔██║██║██║   ██╗██╔══╝",
 			"██║   ██║██║█████║█████║█████╗",
 			"╚═╝   ╚═╝╚═╝╚════╝╚════╝╚════╝",
-		};
+		];
 
-		string[][] tetrominos = new[]
-		{
-			new[]{
+		string[][] tetrominos =
+		[
+			[
 				"╭─╮",
 				"╰─╯",
 				"x─╮",
@@ -65,44 +65,44 @@ public class Tetris
 				"╰─╯",
 				"╭─╮",
 				"╰─╯"
-			},
-			new[]{
+			],
+			[
 				"╭─╮      ",
 				"╰─╯      ",
 				"╭─╮x─╮╭─╮",
 				"╰─╯╰─╯╰─╯"
-			},
-			new[]{
+			],
+			[
 				"      ╭─╮",
 				"      ╰─╯",
 				"╭─╮x─╮╭─╮",
 				"╰─╯╰─╯╰─╯"
-			},
-			new[]{
+			],
+			[
 				"╭─╮╭─╮",
 				"╰─╯╰─╯",
 				"x─╮╭─╮",
 				"╰─╯╰─╯"
-			},
-			new[]{
+			],
+			[
 				"   ╭─╮╭─╮",
 				"   ╰─╯╰─╯",
 				"╭─╮x─╮   ",
 				"╰─╯╰─╯   "
-			},
-			new[]{
+			],
+			[
 				"   ╭─╮   ",
 				"   ╰─╯   ",
 				"╭─╮x─╮╭─╮",
 				"╰─╯╰─╯╰─╯"
-			},
-			new[]{
+			],
+			[
 				"╭─╮╭─╮   ",
 				"╰─╯╰─╯   ",
 				"   x─╮╭─╮",
 				"   ╰─╯╰─╯"
-			},
-		};
+			],
+		];
 
 		const int borderSize = 1;
 
@@ -413,7 +413,7 @@ public class Tetris
 			// Next
 			for (int y = 0; y < nextTetrominoBorder.Length; y++)
 			{
-				frame[y] = frame[y].Concat(nextTetrominoBorder[y]).ToArray();
+				frame[y] = [.. frame[y], .. nextTetrominoBorder[y]];
 			}
 			for (int y = 0; y < tetromino.Next.Length; y++)
 			{
@@ -434,7 +434,7 @@ public class Tetris
 			for (int y = 0; y < scoreBorder.Length; y++)
 			{
 				int sY = nextTetrominoBorder.Length + y;
-				frame[sY] = frame[sY].Concat(scoreBorder[y]).ToArray();
+				frame[sY] = [.. frame[sY], .. scoreBorder[y]];
 			}
 			char[] scoreRender = score.ToString(CultureInfo.InvariantCulture).ToCharArray();
 			for (int scoreX = scoreRender.Length - 1; scoreX >= 0; scoreX--)

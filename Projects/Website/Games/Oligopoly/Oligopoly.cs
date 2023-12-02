@@ -13,12 +13,10 @@ public class Oligopoly
 	public async Task Run()
 	{
 		bool CloseRequested = false;
-#pragma warning disable IDE0059 // Unnecessary assignment of a value
 		List<Company> Companies = null!;
 		List<Event> Events = null!;
 		Event CurrentEvent = null!;
 		decimal Money = 10000.00m;
-#pragma warning restore IDE0059 // Unnecessary assignment of a value
 		const decimal LosingNetWorth = 2000.00m;
 		const decimal WinningNetWorth = 50000.00m;
 
@@ -55,12 +53,11 @@ public class Oligopoly
 				prompt.AppendLine();
 				prompt.Append("Use up and down arrow keys and enter to select an option:");
 				int selectedIndex = await HandleMenuWithOptions(prompt.ToString(),
-					new string[]
-					{
+					[
 					"Play",
 					"About",
 					"Exit",
-					});
+					]);
 				switch (selectedIndex)
 				{
 					case 0: await IntroductionScreen(); break;
@@ -94,13 +91,13 @@ public class Oligopoly
 					StringBuilder prompt = RenderCompanyStocksTable();
 					prompt.AppendLine();
 					prompt.Append("Use up and down arrow keys and enter to select an option:");
-					selectedOption = await HandleMenuWithOptions(prompt.ToString(), new string[]
-						{
+					selectedOption = await HandleMenuWithOptions(prompt.ToString(),
+						[
 						"Wait For Market Change",
 						"Buy",
 						"Sell",
 						"Information About Companies",
-						});
+						]);
 					switch (selectedOption)
 					{
 						case 1: await BuyOrSellStockScreen(true); break;

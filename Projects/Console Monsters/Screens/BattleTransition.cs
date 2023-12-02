@@ -4,14 +4,14 @@ public static class BattleTransition
 {
 	private static readonly TimeSpan Delay = TimeSpan.FromTicks(7500);
 
-	private static readonly Action[] Transitions = new[]
-		{
+	private static readonly Action[] Transitions =
+		[
 			LeftToRight,
 			RightToLeft,
 			LeftToRightBlocks,
 			RightToLeftBlocks,
 			Swirl,
-		};
+		];
 
 	public static void Random()
 	{

@@ -62,7 +62,7 @@ while (true)
 		Console.Write($"  {array[index].Letter}? ");
 		string input = Console.ReadLine()!;
 		Console.WriteLine();
-		if (input.Trim().ToUpper() == array[index].CodeWord.ToUpper())
+		if (input.Trim().Equals(array[index].CodeWord, StringComparison.CurrentCultureIgnoreCase))
 		{
 			Console.WriteLine("  Correct! :)");
 		}

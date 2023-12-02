@@ -575,8 +575,8 @@ public class Fighter
 
 		public static class Player
 		{
-			public static readonly string[] IdleAnimation = new string[]
-			{
+			public static readonly string[] IdleAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -591,10 +591,10 @@ public class Fighter
 				@"   ((L   " + '\n' +
 				@"    |    " + '\n' +
 				@"   / )   ",
-			};
+			];
 
-			public static readonly string[] BlockAnimation = new string[]
-			{
+			public static readonly string[] BlockAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -602,10 +602,10 @@ public class Fighter
 				@"    |-'  " + '\n' +
 				@"    |    " + '\n' +
 				@"   / /   ",
-			};
+			];
 
-			public static readonly string[] PunchAnimation = new string[]
-			{
+			public static readonly string[] PunchAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -648,10 +648,10 @@ public class Fighter
 				@"   (|)   " + '\n' +
 				@"    |    " + '\n' +
 				@"   / \   ",
-			};
+			];
 
-			public static readonly string[] JumpKickAnimation = new string[]
-			{
+			public static readonly string[] JumpKickAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -708,10 +708,10 @@ public class Fighter
 				@"     o   " + '\n' +
 				@"   </<   " + '\n' +
 				@"    >>   ",
-			};
+			];
 
-			public static readonly string[] OwnedAnimation = new string[]
-			{
+			public static readonly string[] OwnedAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -740,10 +740,10 @@ public class Fighter
 				@"         " + '\n' +
 				@"         " + '\n' +
 				@"  o___/\ ",
-			};
+			];
 
-			public static readonly string[] GroundAnimation = new string[]
-			{
+			public static readonly string[] GroundAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -751,10 +751,10 @@ public class Fighter
 				@"         " + '\n' +
 				@"         " + '\n' +
 				@"  o___/\ ",
-			};
+			];
 
-			public static readonly string[] GetUpAnimation = new string[]
-			{
+			public static readonly string[] GetUpAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -811,13 +811,13 @@ public class Fighter
 				@"     o   " + '\n' +
 				@"   </<   " + '\n' +
 				@"    >>   ",
-			};
+			];
 		}
 
 		public static class Enemy
 		{
-			public static readonly string[] IdleAnimation = new string[]
-			{
+			public static readonly string[] IdleAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -832,10 +832,10 @@ public class Fighter
 				@"   J))   " + '\n' +
 				@"    |    " + '\n' +
 				@"   ( \   ",
-			};
+			];
 
-			public static readonly string[] BlockAnimation = new string[]
-			{
+			public static readonly string[] BlockAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -843,10 +843,10 @@ public class Fighter
 				@"  '-|    " + '\n' +
 				@"    |    " + '\n' +
 				@"   \ \   ",
-			};
+			];
 
-			public static readonly string[] PunchAnimation = new string[]
-			{
+			public static readonly string[] PunchAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -889,10 +889,10 @@ public class Fighter
 				@"   (|)   " + '\n' +
 				@"    |    " + '\n' +
 				@"   / \   ",
-			};
+			];
 
-			public static readonly string[] JumpKickAnimation = new string[]
-			{
+			public static readonly string[] JumpKickAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -949,10 +949,10 @@ public class Fighter
 				@"    o    " + '\n' +
 				@"    >\>   " + '\n' +
 				@"    <<   ",
-			};
+			];
 
-			public static readonly string[] OwnedAnimation = new string[]
-			{
+			public static readonly string[] OwnedAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -981,10 +981,10 @@ public class Fighter
 				@"         " + '\n' +
 				@"         " + '\n' +
 				@" /\___o ",
-			};
+			];
 
-			public static readonly string[] GroundAnimation = new string[]
-			{
+			public static readonly string[] GroundAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -992,10 +992,10 @@ public class Fighter
 				@"         " + '\n' +
 				@"         " + '\n' +
 				@" /\___o  ",
-			};
+			];
 
-			public static readonly string[] GetUpAnimation = new string[]
-			{
+			public static readonly string[] GetUpAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -1052,7 +1052,7 @@ public class Fighter
 				@"   o     " + '\n' +
 				@"   >\>   " + '\n' +
 				@"   <<    ",
-			};
+			];
 		}
 
 		#endregion

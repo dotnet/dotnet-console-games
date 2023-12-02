@@ -567,8 +567,8 @@ public class Blackjack
 		{
 			if (!FaceUp)
 			{
-				return new string[]
-				{
+				return
+				[
 					$"┌───────┐",
 					$"│███████│",
 					$"│███████│",
@@ -576,7 +576,7 @@ public class Blackjack
 					$"│███████│",
 					$"│███████│",
 					$"└───────┘",
-				};
+				];
 			}
 
 			char suit = Suit.ToString()[0];
@@ -592,8 +592,8 @@ public class Blackjack
 			string card = $"{value}{suit}";
 			string a = card.Length < 3 ? $"{card} " : card;
 			string b = card.Length < 3 ? $" {card}" : card;
-			return new[]
-			{
+			return
+			[
 				$"┌───────┐",
 				$"│{a}    │",
 				$"│       │",
@@ -601,7 +601,7 @@ public class Blackjack
 				$"│       │",
 				$"│    {b}│",
 				$"└───────┘",
-			};
+			];
 		}
 	}
 

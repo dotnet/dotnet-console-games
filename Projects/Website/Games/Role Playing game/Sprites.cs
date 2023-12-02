@@ -210,8 +210,8 @@ public static class Sprites
 		@"║error║" + "\n" +
 		@"╚═════╝";
 
-	public static readonly string[] RunRight = new[]
-	{
+	public static readonly string[] RunRight =
+	[
 		// 0
 		@"   O   " + '\n' +
 		@"   |_  " + '\n' +
@@ -247,10 +247,10 @@ public static class Sprites
 		@"  </L  " + '\n' +
 		@"   \   " + '\n' +
 		@"   /|  ",
-	};
+	];
 
-	public static readonly string[] RunLeft = new[]
-	{
+	public static readonly string[] RunLeft =
+	[
 		// 0
 		@"   O   " + '\n' +
 		@"  _|   " + '\n' +
@@ -286,7 +286,7 @@ public static class Sprites
 		@"  >\>  " + '\n' +
 		@"   /   " + '\n' +
 		@"  |\   ",
-	};
+	];
 
 	// would be nice to give up/down their own animations, but
 	// for now they are just copies of left/right
@@ -328,8 +328,8 @@ public static class Sprites
 	public static readonly string[] IdleDown = (string[])IdleRight.Clone();
 	public static readonly string[] IdleUp   = (string[])IdleLeft.Clone();
 
-	public static readonly string[] FallLeft = new string[]
-	{
+	public static readonly string[] FallLeft =
+	[
 		// 0
 		@"  O___ " + '\n' +
 		@"   \`- " + '\n' +
@@ -370,10 +370,10 @@ public static class Sprites
 		@"       " + '\n' +
 		@"       " + '\n' +
 		@" o___/\",
-	};
+	];
 
-	public static readonly string[] PunchRight = new string[]
-	{
+	public static readonly string[] PunchRight =
+	[
 		// 0
 		@" _o_.  " + '\n' +
 		@" (|    " + '\n' +
@@ -429,10 +429,10 @@ public static class Sprites
 		@"  (|)  " + '\n' +
 		@"   |   " + '\n' +
 		@"  / \  ",
-	};
+	];
 
-	public static readonly string[] IdleBoar = new[]
-	{
+	public static readonly string[] IdleBoar =
+	[
 		// 0
 		@"       " + '\n' +
 		@"^..^   " + '\n' +
@@ -573,10 +573,10 @@ public static class Sprites
 		@"^..^   " + '\n' +
 		@"(oo) )~" + '\n' +
 		@" ,, ,, ",
-	};
+	];
 
-	public static readonly string[] GetUpAnimationRight = new string[]
-	{
+	public static readonly string[] GetUpAnimationRight =
+	[
 		// 0
 		@"       " + '\n' +
 		@"       " + '\n' +
@@ -657,5 +657,5 @@ public static class Sprites
 		@"    o  " + '\n' +
 		@"  </<  " + '\n' +
 		@"   >>  ",
-	};
+	];
 }

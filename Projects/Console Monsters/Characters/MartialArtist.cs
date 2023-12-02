@@ -6,11 +6,11 @@ public class MartialArtist : CharacterBase
 	{
 		Sprite = IdleFront;
 
-		Dialogue = new string[]
-		{
+		Dialogue =
+		[
 			"Martial Artist says:" +
 			"Wanna learn some martial arts?"
-		};
+		];
 	}
 
 	public override string? Name => "Martial Artist";

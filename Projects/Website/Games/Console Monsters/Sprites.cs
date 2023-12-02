@@ -829,77 +829,77 @@ public static class Sprites
 
 	//WASD
 	public static readonly string[] W =
-	{
+	[
 		"▄   ▄",
 		"█ ▄ █",
 		"█▀ ▀█"
-	};
+	];
 	public static readonly string[] A = 
-	{
+	[
 		" ▄▄▄ ",
 		"█▄▄▄█",
 		"█   █"
-	};
+	];
 	public static readonly string[] S =
-	{
+	[
 		"▄▄▄▄▄",
 		"█▄▄▄▄",
 		"▄▄▄▄█"
-	};
+	];
 	public static readonly string[] D =
-	{
+	[
 		"▄▄▄▄ ",
 		"█   █",
 		"█▄▄▄▀"
-	};
+	];
 	//ARROWS
 	public static readonly string[] UpArrow =
-	{
+	[
 		" ▄█▄ ",
 		"▀ █ ▀",
 		"  █  "
-	};
+	];
 	public static readonly string[] LeftArrow =
-	{
+	[
 		"  ▄  ",
 		"■█■■■",
 		"  ▀  "
-	};
+	];
 	public static readonly string[] DownArrow =
-	{
+	[
 		"  █  ",
 		"▄ █ ▄",
 		" ▀█▀ "
-	};
+	];
 	public static readonly string[] RightArrow =
-	{
+	[
 		"  ▄  ",
 		"■■■█■",
 		"  ▀  "
-	};
+	];
 	//INTERACT
 	public static readonly string[] E =
-	{
+	[
 		"▄▄▄▄▄",
 		"█▄▄▄ ",
 		"█▄▄▄▄"
-	};
+	];
 	public static readonly string[] Enter =
-	{
+	[
 		"  ▄ ▄",
 		"▄█▄▄█",
 		" ▀▄  "
 		//"    ",
 		//"◄──┘",
 		//"    "
-	};
+	];
 	//Status
 	public static readonly string[] B =
-	{
+	[
 		"▄▄▄▄ ",
 		"█▄▄▄▀",
 		"█▄▄▄▀"
-	};
+	];
 	#endregion
 
 	public const string FullBlock =

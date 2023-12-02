@@ -9,8 +9,8 @@ int CodeLength = 5;
 (int X, int Y) Position = default;
 
 // C major scale, starting with middle C
-int[] frequencies = new int[]
-{
+int[] frequencies =
+[
 	262,
 	294,
 	330,
@@ -20,7 +20,7 @@ int[] frequencies = new int[]
 	494,
 	523,
 	587,
-};
+];
 
 if (!OperatingSystem.IsWindows())
 {
@@ -165,7 +165,7 @@ void ShuffleFrequencies()
 
 int[] GetRandomCode()
 {
-	int[] possibilities = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+	int[] possibilities = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 	for (int i = 0; i < CodeLength; i++)
 	{
 		int randomIndex = Random.Shared.Next(possibilities.Length - i);

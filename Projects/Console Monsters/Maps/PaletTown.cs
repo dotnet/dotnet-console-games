@@ -13,8 +13,8 @@ class PaletTown : MapBase
 
 	public override string? AudioFile => AudioController.CoDA_Lullaby;
 
-	private readonly static char[][] spriteSheet = new char[][]
-		{
+	private readonly static char[][] spriteSheet =
+		[
 			"tttttgggggggfgggggf11fgggggfgggggttttt".ToCharArray(),
 			"tttttggggffffffffff  ffffffffggggttttt".ToCharArray(),
 			"tttttggggfg                gfggggttttt".ToCharArray(),
@@ -37,7 +37,7 @@ class PaletTown : MapBase
 			"tttttggggffffWwwWffffffffffffggggttttt".ToCharArray(),
 			"tttttggggggggWwwWggggggfgggggggggttttt".ToCharArray(),
 			"tttttggggggggWwwWggggggfgggggggggttttt".ToCharArray(),
-		};
+		];
 
 	public override char[][] SpriteSheet => spriteSheet;
 
@@ -111,26 +111,26 @@ class PaletTown : MapBase
 			switch (SpriteSheet[j][i])
 			{
 				case 's' or 'a':
-					PromptText = new string[]
-					{
+					PromptText =
+					[
 						"Sign Says:",
 						"Hello! I am sign. :P",
-					};
+					];
 					break;
 				case 'o':
 					PromptText = scientist.Dialogue;
 					break;
 				case 'p' or 'n':
-					PromptText = new string[]
-					{
+					PromptText =
+					[
 						"...",
-					};
+					];
 					break;
 				case 'e':
-					PromptText = new string[]
-					{
+					PromptText =
+					[
 						"You picked up a MonsterBox",
-					};
+					];
 					PlayerInventory.TryAdd(MonsterBox.Instance);
 					spriteSheet[j][i] = 'g';
 					break;

@@ -14,8 +14,8 @@ for (int i = 1; i < 41; i++)
 }
 emptyField[^1] = "╰──────────────────────────────╯";
 
-string[] nextTetrominoBorder = new[]
-{
+string[] nextTetrominoBorder =
+[
 	"╭─────────╮",
 	"│         │",
 	"│         │",
@@ -26,28 +26,28 @@ string[] nextTetrominoBorder = new[]
 	"│         │",
 	"│         │",
 	"╰─────────╯"
-};
+];
 
-string[] scoreBorder = new[]
-{
+string[] scoreBorder =
+[
 	"╭─────────╮",
 	"│         │",
 	"╰─────────╯"
-};
+];
 
-string[] pauseRender = new[]
-{
+string[] pauseRender =
+[
 	"█████╗ ███╗ ██╗██╗█████╗█████╗",
 	"██╔██║██╔██╗██║██║██╔══╝██╔══╝",
 	"█████║█████║██║██║ ███╗ █████╗",
 	"██╔══╝██╔██║██║██║   ██╗██╔══╝",
 	"██║   ██║██║█████║█████║█████╗",
 	"╚═╝   ╚═╝╚═╝╚════╝╚════╝╚════╝",
-};
+];
 
-string[][] tetrominos = new[]
-{
-	new[]{
+string[][] tetrominos =
+[
+	[
 		"╭─╮",
 		"╰─╯",
 		"x─╮",
@@ -56,44 +56,44 @@ string[][] tetrominos = new[]
 		"╰─╯",
 		"╭─╮",
 		"╰─╯"
-	},
-	new[]{
+	],
+	[
 		"╭─╮      ",
 		"╰─╯      ",
 		"╭─╮x─╮╭─╮",
 		"╰─╯╰─╯╰─╯"
-	},
-	new[]{
+	],
+	[
 		"      ╭─╮",
 		"      ╰─╯",
 		"╭─╮x─╮╭─╮",
 		"╰─╯╰─╯╰─╯"
-	},
-	new[]{
+	],
+	[
 		"╭─╮╭─╮",
 		"╰─╯╰─╯",
 		"x─╮╭─╮",
 		"╰─╯╰─╯"
-	},
-	new[]{
+	],
+	[
 		"   ╭─╮╭─╮",
 		"   ╰─╯╰─╯",
 		"╭─╮x─╮   ",
 		"╰─╯╰─╯   "
-	},
-	new[]{
+	],
+	[
 		"   ╭─╮   ",
 		"   ╰─╯   ",
 		"╭─╮x─╮╭─╮",
 		"╰─╯╰─╯╰─╯"
-	},
-	new[]{
+	],
+	[
 		"╭─╮╭─╮   ",
 		"╰─╯╰─╯   ",
 		"   x─╮╭─╮",
 		"   ╰─╯╰─╯"
-	},
-};
+	],
+];
 
 const int borderSize = 1;
 
@@ -403,7 +403,7 @@ void DrawFrame()
 	// Next
 	for (int y = 0; y < nextTetrominoBorder.Length; y++)
 	{
-		frame[y] = frame[y].Concat(nextTetrominoBorder[y]).ToArray();
+		frame[y] = [.. frame[y], .. nextTetrominoBorder[y]];
 	}
 	for (int y = 0; y < tetromino.Next.Length; y++)
 	{
@@ -424,7 +424,7 @@ void DrawFrame()
 	for (int y = 0; y < scoreBorder.Length; y++)
 	{
 		int sY = nextTetrominoBorder.Length + y;
-		frame[sY] = frame[sY].Concat(scoreBorder[y]).ToArray();
+		frame[sY] = [.. frame[sY], .. scoreBorder[y]];
 	}
 	char[] scoreRender = score.ToString(CultureInfo.InvariantCulture).ToCharArray();
 	for (int scoreX = scoreRender.Length - 1; scoreX >= 0; scoreX--)

@@ -19,9 +19,9 @@ while (!int.TryParse(input = Console.ReadLine(), out speedInput) || speedInput <
 		Console.Write(prompt);
 	}
 }
-int[] velocities = { 100, 70, 50 };
+int[] velocities = [100, 70, 50];
 int velocity = velocities[speedInput - 1];
-char[] DirectionChars = { '^', 'v', '<', '>', };
+char[] DirectionChars = ['^', 'v', '<', '>',];
 TimeSpan sleep = TimeSpan.FromMilliseconds(velocity);
 int width = Console.WindowWidth;
 int height = Console.WindowHeight;

@@ -24,9 +24,9 @@ public class BlazorConsole
 
 		public static bool operator !=(Pixel a, Pixel b) => !(a == b);
 
-		public override bool Equals(object? obj) => obj is Pixel pixel && this == pixel;
+		public override readonly bool Equals(object? obj) => obj is Pixel pixel && this == pixel;
 
-		public override int GetHashCode() => HashCode.Combine(Char, ForegroundColor, BackgroundColor);
+		public override readonly int GetHashCode() => HashCode.Combine(Char, ForegroundColor, BackgroundColor);
 	}
 
 #pragma warning disable CA2211 // Non-constant fields should not be visible

@@ -556,8 +556,8 @@ class Card
 	{
 		if (!FaceUp)
 		{
-			return new string[]
-			{
+			return
+			[
 				$"┌───────┐",
 				$"│███████│",
 				$"│███████│",
@@ -565,7 +565,7 @@ class Card
 				$"│███████│",
 				$"│███████│",
 				$"└───────┘",
-			};
+			];
 		}
 
 		char suit = Suit.ToString()[0];
@@ -581,8 +581,8 @@ class Card
 		string card = $"{value}{suit}";
 		string a = card.Length < 3 ? $"{card} " : card;
 		string b = card.Length < 3 ? $" {card}" : card;
-		return new[]
-		{
+		return
+		[
 			$"┌───────┐",
 			$"│{a}    │",
 			$"│       │",
@@ -590,7 +590,7 @@ class Card
 			$"│       │",
 			$"│    {b}│",
 			$"└───────┘",
-		};
+		];
 	}
 }
 

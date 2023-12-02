@@ -15,18 +15,18 @@ internal class Helicopter : IEnemy
 	private string[] Sprite = Random.Shared.Next(2) is 0 ? spriteA : spriteB;
 
 	static readonly string[] spriteA =
-	{
+	[
 		@"  ~~~~~+~~~~~",
 		@"'\===<[_]L)  ",
 		@"     -'-`-   ",
-	};
+	];
 
 	static readonly string[] spriteB =
-	{
+	[
 		@"  -----+-----",
 		@"*\===<[_]L)  ",
 		@"     -'-`-   ",
-	};
+	];
 
 	internal static int XMax = Math.Max(spriteA.Max(s => s.Length), spriteB.Max(s => s.Length));
 	internal static int YMax = Math.Max(spriteA.Length, spriteB.Length);

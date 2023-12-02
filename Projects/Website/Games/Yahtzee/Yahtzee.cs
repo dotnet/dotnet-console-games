@@ -119,7 +119,7 @@ public class Yahtzee
 		const int minWidth = 50;
 		const int minHeight = 32;
 
-		int[] dice = { 1, 2, 3, 4, 5 };
+		int[] dice = [1, 2, 3, 4, 5];
 		bool[] locked = new bool[dice.Length];
 		int diceSelection = 0;
 		int scoreSelection = 0;

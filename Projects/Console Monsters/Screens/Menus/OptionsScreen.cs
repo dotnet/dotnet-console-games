@@ -4,15 +4,15 @@ public static class OptionsScreen
 {
 	public static void Show()
 	{
-		string[] bigHeader = new[]
-		{
+		string[] bigHeader =
+		[
 			" ██████╗ ██████╗ ████████╗██╗ ██████╗ ███╗   ██╗███████╗",
 			"██╔═══██╗██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝",
 			"██║   ██║██████╔╝   ██║   ██║██║   ██║██╔██╗ ██║███████╗",
 			"██║   ██║██╔═══╝    ██║   ██║██║   ██║██║╚██╗██║╚════██║",
 			"╚██████╔╝██║        ██║   ██║╚██████╔╝██║ ╚████║███████║",
 			" ╚═════╝ ╚═╝        ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝",
-		};
+		];
 		int bigHeaderWidth = bigHeader.Max(line => line.Length);
 		const int bigHeaderPadding = 2;
 		const int optionPadding = 1;
@@ -22,33 +22,33 @@ public static class OptionsScreen
 		bool needToRender = true;
 		Console.CursorVisible = false;
 
-		string[] movementAnimation = new[]
-		{
+		string[] movementAnimation =
+		[
 			"                        ",
 			"   Movement Animation   ",
 			"                        ",
-		};
+		];
 
-		string[] battleTransition = new[]
-		{
+		string[] battleTransition =
+		[
 			"                        ",
 			"   Battle Transition    ",
 			"                        ",
-		};
+		];
 
-		string[] battles = new[]
-		{
+		string[] battles =
+		[
 			"                        ",
 			"   Battles              ",
 			"                        ",
-		};
+		];
 
-		string[] audioEnabled = new[]
-		{
+		string[] audioEnabled =
+		[
 			"                        ",
 			"   Audio Enabled        ",
 			"                        ",
-		};
+		];
 
 		while (true)
 		{
@@ -62,8 +62,8 @@ public static class OptionsScreen
 				StringBuilder? buffer = null;
 				if (consoleWidth - 1 >= bigHeaderWidth)
 				{
-					string[][] options = new[]
-					{
+					string[][] options =
+					[
 						AsciiGenerator.Concat(AsciiGenerator.ToAscii(selectedOption is 0 ? "■ " : "□ "), movementAnimation, AsciiGenerator.ToAscii(DisableMovementAnimation ? "○" : "●")),
 						AsciiGenerator.Concat(AsciiGenerator.ToAscii(selectedOption is 1 ? "■ " : "□ "), battleTransition, AsciiGenerator.ToAscii(DisableBattleTransition ? "○" : "●")),
 						AsciiGenerator.Concat(AsciiGenerator.ToAscii(selectedOption is 2 ? "■ " : "□ "), battles, AsciiGenerator.ToAscii(DisableBattle ? "○" : "●")),
@@ -71,7 +71,7 @@ public static class OptionsScreen
 						AsciiGenerator.Concat(AsciiGenerator.ToAscii((selectedOption is 4 ? "■" : "□") + " colors")),
 						AsciiGenerator.Concat(AsciiGenerator.ToAscii((selectedOption is 5 ? "■" : "□") + " controls")),
 						AsciiGenerator.Concat(AsciiGenerator.ToAscii((selectedOption is 6 ? "■" : "□") + " back")),
-					};
+					];
 					int optionsWidth = options.Max(o => o.Max(l => l.Length));
 					int bigRenderHeight = bigHeader.Length + options.Sum(o => o.Length) + bigHeaderPadding + optionPadding * options.Length;
 					if (consoleHeight - 1 >= bigRenderHeight && consoleWidth - 1 >= optionsWidth)
@@ -98,8 +98,8 @@ public static class OptionsScreen
 				}
 				if (buffer is null)
 				{
-					string[] render = new[]
-					{
+					string[] render =
+					[
 						$@"Options",
 						$@"{(selectedOption is 0 ? ">" : " ")} Movement Animation {(DisableMovementAnimation ? "□" : "■")}",
 						$@"{(selectedOption is 1 ? ">" : " ")} Battle Transition  {(DisableBattleTransition ? "□" : "■")}",
@@ -108,7 +108,7 @@ public static class OptionsScreen
 						$@"{(selectedOption is 4 ? ">" : " ")} Colors",
 						$@"{(selectedOption is 5 ? ">" : " ")} Controls",
 						$@"{(selectedOption is 6 ? ">" : " ")} Exit",
-					};
+					];
 					buffer = ScreenHelpers.Center(render, (consoleHeight - 1, consoleWidth - 1));
 				}
 				Console.SetCursorPosition(0, 0);

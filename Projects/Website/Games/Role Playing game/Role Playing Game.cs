@@ -20,19 +20,19 @@ public class Role_Playing_Game
 		const double randomBattleChance = 1d / 10d;
 		const int movesBeforeRandomBattle = 4;
 
-		string[] maptext = new[]
-		{
+		string[] maptext =
+		[
 			"Move: arrow keys or (w, a, s, d)",
 			"Check Status: [enter]",
 			"Quit: [escape]",
-		};
+		];
 
-		string[] defaultCombatText = new string[]
-		{
+		string[] defaultCombatText =
+		[
 			"1) attack",
 			"2) run",
 			"3) check status",
-		};
+		];
 
 		string[] combatText = defaultCombatText;
 
@@ -402,19 +402,19 @@ public class Role_Playing_Game
 			switch (enemyType)
 			{
 				case EnemyType.Boar:
-					combatText = new string[]
-					{
+					combatText =
+					[
 						"You were attacked by a wild boar!",
 						"1) attack",
 						"2) run",
 						"3) check status",
-					};
+					];
 					break;
 				case EnemyType.GuardBoss:
 					if (character.Level < 2)
 					{
-						combatText = new string[]
-						{
+						combatText =
+						[
 							"You approached the castle guard.",
 							"He looks tough. You should probably",
 							"run away and come back when you are",
@@ -422,33 +422,33 @@ public class Role_Playing_Game
 							"1) attack",
 							"2) run",
 							"3) check status",
-						};
+						];
 					}
 					else
 					{
-						combatText = new string[]
-						{
+						combatText =
+						[
 							"You approached the castle guard.",
 							"1) attack",
 							"2) run",
 							"3) check status",
-						};
+						];
 					}
 					break;
 				case EnemyType.Guard:
-					combatText = new string[]
-					{
+					combatText =
+					[
 						"You were attacked by a castle guard!",
 						"1) attack",
 						"2) run",
 						"3) check status",
-					};
+					];
 					break;
 				case EnemyType.FinalBoss:
 					if (character.Level < 3)
 					{
-						combatText = new string[]
-						{
+						combatText =
+						[
 							"You approached the evil king.",
 							"He looks tough. You should probably",
 							"run away and come back when you are",
@@ -456,17 +456,17 @@ public class Role_Playing_Game
 							"1) attack",
 							"2) run",
 							"3) check status",
-						};
+						];
 					}
 					else
 					{
-						combatText = new string[]
-						{
+						combatText =
+						[
 							"You approached the evil king.",
 							"1) attack",
 							"2) run",
 							"3) check status",
-						};
+						];
 					}
 					break;
 			}
@@ -481,7 +481,7 @@ public class Role_Playing_Game
 				EnemyType.Guard => Sprites.IdleLeft,
 				EnemyType.GuardBoss => Sprites.IdleLeft,
 				EnemyType.FinalBoss => Sprites.IdleLeft,
-				_ => new[] { Sprites.Error },
+				_ => [Sprites.Error],
 			};
 
 			bool pendingConfirmation = false;
@@ -513,24 +513,24 @@ public class Role_Playing_Game
 									case 0:
 										frameLeft = 0;
 										animationLeft = Sprites.PunchRight;
-										combatText = new string[]
-										{
+										combatText =
+										[
 											"You attacked and did damage!",
 											"",
 											"Press [enter] to continue...",
-										};
+										];
 										enemyHealth -= character.Damage;
 										break;
 									case 1:
 										frameLeft = 0;
 										animationLeft = Sprites.FallLeft;
-										combatText = new string[]
-										{
+										combatText =
+										[
 											"You were attacked, but the enemy was",
 											"faster and you took damage!",
 											"",
 											"Press [enter] to continue...",
-										};
+										];
 										character.Health--;
 										break;
 								}
@@ -561,14 +561,14 @@ public class Role_Playing_Game
 								{
 									frameLeft = 0;
 									animationLeft = Sprites.FallLeft;
-									combatText = new string[]
-									{
+									combatText =
+									[
 										"You tried to run away but the enemy",
 										"attacked you from behind and you took",
 										"damage.",
 										"",
 										"Press [enter] to continue...",
-									};
+									];
 									character.Health--;
 									pendingConfirmation = true;
 								}

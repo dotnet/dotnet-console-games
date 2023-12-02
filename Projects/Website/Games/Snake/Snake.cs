@@ -28,9 +28,9 @@ public class Snake
 				await Console.Write(prompt);
 			}
 		}
-		int[] velocities = { 50, 35, 20 };
+		int[] velocities = [50, 35, 20];
 		int velocity = velocities[speedInput - 1];
-		char[] DirectionChars = { '^', 'v', '<', '>', };
+		char[] DirectionChars = ['^', 'v', '<', '>',];
 		TimeSpan sleep = TimeSpan.FromMilliseconds(velocity);
 		int width = Console.WindowWidth;
 		int height = Console.WindowHeight;

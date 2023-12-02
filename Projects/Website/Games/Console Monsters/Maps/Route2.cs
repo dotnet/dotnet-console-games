@@ -10,8 +10,8 @@ namespace Website.Games.Console_Monsters.Maps;
 
 class Route2 : MapBase
 {
-	private readonly char[][] spriteSheet = new char[][]
-		{
+	private readonly char[][] spriteSheet =
+		[
 			"ffffffffffffffffffffffffffffffffffffffffffffffffffff".ToCharArray(),
 			"fggggggggggggggggggggggg    ggggggggg       GGGGGGGf".ToCharArray(),
 			"!ggggggggggggggggggggggg    ggggggggg       GGGGGGGf".ToCharArray(),
@@ -24,7 +24,7 @@ class Route2 : MapBase
 			"fggggggggggggggTTTTTTTTTs   GGGGGGGGgggggggTTTTTTTTf".ToCharArray(),
 			"fggggggggggggggggggggggT    TTTTTTTTgggggggggggggggf".ToCharArray(),
 			"fffffffffffffffffffffffff00fffffffffffffffffffffffff".ToCharArray(),
-		};
+		];
 
 	public override char[][] SpriteSheet => spriteSheet;
 
@@ -69,11 +69,11 @@ class Route2 : MapBase
 			switch (SpriteSheet[j][i])
 			{
 				case 's':
-					promptText = new string[]
-					{
+					promptText =
+					[
 						"Sign Says:",
 						"Vejle Town <----- -----> Aalborg City",
-					};
+					];
 					break;
 			}
 		}
@@ -105,8 +105,8 @@ class Route2 : MapBase
 		switch (SpriteSheet[j][i])
 		{
 			case '0':
-				map = new Route1();
-				map.SpawnCharacterOn('1');
+				Map = new Route1();
+				Map.SpawnCharacterOn('1');
 				break;
 			case 'G':
 				if (!DisableBattle && Random.Shared.Next(2) is 0) // BATTLE CHANCE

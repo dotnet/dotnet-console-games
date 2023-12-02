@@ -14,10 +14,7 @@ public abstract class MapBase
 	public void SpawnCharacterOn(char c)
 	{
 		(int I, int J)? tile = FindTileInMap(c);
-		if (tile is null)
-		{
-			throw new InvalidOperationException("Attempting to spawn the player on a non-existing tile.");
-		}
+		if (tile is null) throw new InvalidOperationException("Attempting to spawn the player on a non-existing tile.");
 		character.I = tile.Value.I * Sprites.Width;
 		character.J = tile.Value.J * Sprites.Height;
 	}

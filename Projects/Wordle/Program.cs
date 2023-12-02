@@ -54,7 +54,7 @@ PlayAgain:
 	int guess = 0;
 	int cursor = 0;
 	string word = words[Random.Shared.Next(words.Count)].ToUpperInvariant();
-	char[] letters = { ' ', ' ', ' ', ' ', ' ' };
+	char[] letters = [' ', ' ', ' ', ' ', ' '];
 GetInput:
 	Console.SetCursorPosition(3 + cursor * 4, 2 + guess * 2);
 	ConsoleKey key = Console.ReadKey(true).Key;
@@ -119,7 +119,7 @@ GetInput:
 			}
 			else
 			{
-				letters = new char[] { ' ', ' ', ' ', ' ', ' ' };
+				letters = [' ', ' ', ' ', ' ', ' '];
 				guess++;
 				cursor = 0;
 			}

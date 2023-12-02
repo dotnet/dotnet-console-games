@@ -7,8 +7,8 @@ TimeSpan animationDelay = TimeSpan.FromMilliseconds(200);
 int score = 0;
 List<Direction> pattern = new();
 
-string[] Renders = new string[]
-{
+string[] Renders =
+[
 	#region Frames
 	// 0
 	@"           ╔══════╗        " + '\n' +
@@ -71,7 +71,7 @@ string[] Renders = new string[]
 	@"           ║      ║        " + '\n' +
 	@"           ╚══════╝        ",
 	#endregion
-};
+];
 
 try
 {

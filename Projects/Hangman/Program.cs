@@ -6,7 +6,7 @@ using System.Threading;
 using System.Linq;
 
 string[] Renders =
-{
+[
 	#region Frames
 	// 0
 	@"      ╔═══╗   " + '\n' +
@@ -65,10 +65,10 @@ string[] Renders =
 	@"     ███  ║   " + '\n' +
 	@"    ══════╩═══",
 	#endregion
-};
+];
 
 string[] DeathAnimation =
-{
+[
 	#region Frames
 	//
 	@"      ╔═══╗   " + '\n' +
@@ -359,7 +359,7 @@ string[] DeathAnimation =
 	@"      _   ║   " + '\n' +
 	@" __/══════╩═══",
 	#endregion
-};
+];
 
 const string wordsResource = "Hangman.Words.txt";
 Assembly assembly = Assembly.GetExecutingAssembly();
@@ -381,7 +381,7 @@ while (!streamReader.EndOfStream)
 		words.Add(word);
 	}
 }
-string[] wordarray = words.ToArray();
+string[] wordarray = [.. words];
 PlayAgain:
 Console.CursorVisible = false;
 Console.Clear();

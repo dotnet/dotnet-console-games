@@ -107,12 +107,12 @@ string DotsString =
 	"                                         ";
 
 string[] PacManAnimations =
-{
+[
 	"\"' '\"",
 	"n. .n",
 	")>- ->",
 	"(<- -<",
-};
+];
 
 #endregion
 
@@ -175,7 +175,7 @@ NextRound:
 	d.FramesToUpdate = 12;
 	d.Update = () => UpdateGhost(d);
 
-	Ghosts = new Ghost[] { a, b, c, d, };
+	Ghosts = [a, b, c, d,];
 
 	RenderWalls();
 	RenderGate();
@@ -576,7 +576,7 @@ finally
 				x++;
 			}
 		}
-		return list.ToArray();
+		return [.. list];
 	}
 
 	(int X, int Y) GetRandomLocation() => Random.Shared.Choose(Locations);

@@ -9,11 +9,11 @@ public class Monk : CharacterBase
 	{
 		Sprite = IdleFront;
 
-		Dialogue = new string[]
-		{
+		Dialogue =
+		[
 			"Monk Says:",
 			"Hello! I am a Danish Monk. :P",
-		};
+		];
 	}
 	public override string? Name => "Scientist";
 

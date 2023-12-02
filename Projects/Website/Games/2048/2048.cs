@@ -13,7 +13,7 @@ public class _2048
 	public async Task Run()
 	{
 		ConsoleColor[] Colors =
-		{
+		[
 			ConsoleColor.DarkBlue,
 			ConsoleColor.DarkGreen,
 			ConsoleColor.DarkCyan,
@@ -23,7 +23,7 @@ public class _2048
 			ConsoleColor.Blue,
 			ConsoleColor.Red,
 			ConsoleColor.Magenta,
-		};
+		];
 
 		try
 		{

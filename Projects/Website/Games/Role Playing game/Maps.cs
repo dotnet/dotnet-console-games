@@ -59,8 +59,8 @@ public static class Maps
 		};
 	}
 
-	public static readonly char[][] Town = new char[][]
-	{
+	public static readonly char[][] Town =
+	[
 		"   WWWWWWWWWWWWWWWWW111WWWWWWWWWWWWWWWWW   ".ToCharArray(),
 		"wwwWbbbfbbbB             Bbffbffbffb  cWwww".ToCharArray(),
 		"wwwW                                   Wwww".ToCharArray(),
@@ -72,10 +72,10 @@ public static class Maps
 		"wwwW                                  cWwww".ToCharArray(),
 		"wwwWbffbfbffbfbfbbfb   bbfbfbffbfbbfbfbWwww".ToCharArray(),
 		"   WWWWWWWWWWWWWWWWW111WWWWWWWWWWWWWWWWW   ".ToCharArray(),
-	};
+	];
 
-	public static readonly char[][] Field = new char[][]
-	{
+	public static readonly char[][] Field =
+	[
 		"mmmpmmmmpmmmmmpmmmmmpmmmmmpmmmpmmmpmmmpmm".ToCharArray(),
 		"mmpppppppmmmpppmmmpppppmmppmmmpmmmmpppmmm".ToCharArray(),
 		"mmpmmpmmpmppmmpmpmmpmmpmmmmmmpppmmpmpmmmp".ToCharArray(),
@@ -91,10 +91,10 @@ public static class Maps
 		"wwwwwwwwwwwwwwwwwwwwwTTTTTTTTTTTTmmmmmmmm".ToCharArray(),
 		"wwwwwwwwwwwwwwwwwwwwTTTTTTTTTTTTTTmmmmmmm".ToCharArray(),
 		"wwwwwwwwwwwwwwwwwwwTTTTTTTTTTTTTTTTmmmmmm".ToCharArray(),
-	};
+	];
 
-	public static readonly char[][] Castle = new char[][]
-	{
+	public static readonly char[][] Castle =
+	[
 		"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW".ToCharArray(),
 		"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW".ToCharArray(),
 		"WWc                WkW                cWW".ToCharArray(),
@@ -111,5 +111,5 @@ public static class Maps
 		"WWc                                   cWW".ToCharArray(),
 		"WWWWWWWWWWWWWWWWWWW   WWWWWWWWWWWWWWWWWWW".ToCharArray(),
 		"WWWWWWWWWWWWWWWWWWW111WWWWWWWWWWWWWWWWWWW".ToCharArray(),
-	};
+	];
 }

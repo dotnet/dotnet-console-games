@@ -64,7 +64,7 @@ public static class StartScreen
 						await Statics.Console.Clear();
 						goto ReDraw; // To not run "arrowOption" so it stays on "Options" after going back
 					case 3:
-						gameRunning = false;
+						GameRunning = false;
 						break;
 				}
 				break;

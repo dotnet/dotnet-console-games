@@ -4,7 +4,7 @@ using System.Linq;
 using static Direction;
 
 ConsoleColor[] Colors =
-{
+[
 	ConsoleColor.DarkBlue,
 	ConsoleColor.DarkGreen,
 	ConsoleColor.DarkCyan,
@@ -14,7 +14,7 @@ ConsoleColor[] Colors =
 	ConsoleColor.Blue,
 	ConsoleColor.Red,
 	ConsoleColor.Magenta,
-};
+];
 
 try
 {

@@ -17,3 +17,15 @@ dotnet_diagnostic.IDE0028.severity = none
 
 # RS0030: Do not used banned APIs
 dotnet_diagnostic.RS0030.severity = error
+
+# CA1510: Use ArgumentNullException throw helper
+dotnet_diagnostic.CA1510.severity = none
+
+# CA1512: Use ArgumentOutOfRangeException throw helper
+dotnet_diagnostic.CA1512.severity = none
+
+# IDE0290: Use primary constructor
+dotnet_diagnostic.IDE0290.severity = none
+
+# IDE0270: Use coalesce expression
+dotnet_diagnostic.IDE0270.severity = none

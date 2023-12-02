@@ -9,11 +9,11 @@ public class Nurse : CharacterBase
 	{
 		Sprite = Idle1;
 
-		Dialogue = new string[]
-		{
+		Dialogue =
+		[
 			"Nurse Says:",
 			"Hello! I have healed your monsters:P",
-		};
+		];
 	}
 	public override string? Name => "Nurse";
 

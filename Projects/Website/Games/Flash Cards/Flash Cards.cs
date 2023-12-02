@@ -72,7 +72,7 @@ public class Flash_Cards
 				await Console.Write($"  {array[index].Letter}? ");
 				string input = await Console.ReadLine()!;
 				await Console.WriteLine();
-				if (input.Trim().ToUpper() == array[index].CodeWord.ToUpper())
+				if (input.Trim().Equals(array[index].CodeWord, StringComparison.CurrentCultureIgnoreCase))
 				{
 					await Console.WriteLine("  Correct! :)");
 				}

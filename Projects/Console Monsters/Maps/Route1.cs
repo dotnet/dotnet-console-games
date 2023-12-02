@@ -2,8 +2,8 @@
 
 class Route1 : MapBase
 {
-	private static readonly char[][] spriteSheet = new char[][]
-		{
+	private static readonly char[][] spriteSheet =
+		[
 			"ggggggggggggfgggggf11fgggggfgggggggggg".ToCharArray(),
 			"ggggggggggggfgggggf  fgggggfgggggggggg".ToCharArray(),
 			"ggggggggggggfgggggf  fgggggfgggggggggg".ToCharArray(),
@@ -45,7 +45,7 @@ class Route1 : MapBase
 			"ggggggggggggTgggggfGGfgggggTgggggggggg".ToCharArray(),
 			"ggggggggggggfgggggf00fgggggfgggggggggg".ToCharArray(),
 
-		};
+		];
 
 	public override char[][] SpriteSheet => spriteSheet;
 
@@ -96,11 +96,11 @@ class Route1 : MapBase
 			switch (SpriteSheet[j][i])
 			{
 				case 's':
-					PromptText = new string[]
-					{
+					PromptText =
+					[
 						"Sign Says:",
 						"Hello! I am a sign. :P",
-					};
+					];
 					break;
 			}
 		}

@@ -9,8 +9,8 @@ class Route2 : MapBase
 		camper = new();
 	}
 
-	private static readonly char[][] spriteSheet = new char[][]
-		{
+	private static readonly char[][] spriteSheet =
+		[
 			"TTTTTTTTTTTTT                                            ".ToCharArray(),
 			"TTTTTTTTTTTTT                                            ".ToCharArray(),
 			"TTTTaaaaaaaaa                                            ".ToCharArray(),
@@ -28,7 +28,7 @@ class Route2 : MapBase
 			"     fggggggggggggggTTTTTTTTTs   GGGGGGGGgggggggTTTTTTTTf".ToCharArray(),
 			"     fggggggggggggggggggggggT    TTTTTTTTgggggggggggggggf".ToCharArray(),
 			"     fffffffffffffffffffffffff00fffffffffffffffffffffffff".ToCharArray(),
-		};
+		];
 
 	public override char[][] SpriteSheet => spriteSheet;
 
@@ -80,11 +80,11 @@ class Route2 : MapBase
 					PromptText = camper.Dialogue;
 					break;
 				case 's':
-					PromptText = new string[]
-					{
+					PromptText =
+					[
 						"Sign Says:",
 						"Vejle Town <----- -----> Aalborg City",
-					};
+					];
 					break;
 			}
 		}

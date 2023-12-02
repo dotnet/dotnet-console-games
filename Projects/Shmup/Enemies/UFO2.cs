@@ -13,11 +13,11 @@ internal class UFO2 : IEnemy
 	public int TeleportFrequency = 360;
 
 	private static readonly string[] Sprite =
-	{
+	[
 		@"     _!_     ",
 		@"    /_O_\    ",
 		@"-==<_‗_‗_>==-",
-	};
+	];
 
 	internal static int XMax = Sprite.Max(s => s.Length);
 	internal static int YMax = Sprite.Length;

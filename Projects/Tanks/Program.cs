@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Threading;
 
-string[] Tank = new string[]
-{
+string[] Tank =
+[
 	#region Frames
 	null,
 	// Up
@@ -23,10 +23,10 @@ string[] Tank = new string[]
 	@"|__|=" + "\n" +
 	@"[ooo]" + "\n",
 	#endregion
-};
+];
 
-string[] TankShooting = new string[]
-{
+string[] TankShooting =
+[
 	#region Frames
 	null,
 	// Up
@@ -46,10 +46,10 @@ string[] TankShooting = new string[]
 	@"|__|█" + "\n" +
 	@"[ooo]" + "\n",
 	#endregion
-};
+];
 
-string[] TankExploding = new string[]
-{
+string[] TankExploding =
+[
 	#region Frames
 	// Ka...
 	@" ___ " + "\n" +
@@ -64,10 +64,10 @@ string[] TankExploding = new string[]
 	@"     " + "\n" +
 	@"     " + "\n",
 	#endregion
-};
+];
 
-char[] Bullet = new char[]
-{
+char[] Bullet =
+[
 	#region Frames
 	default,
 	'^', // Up
@@ -75,7 +75,7 @@ char[] Bullet = new char[]
 	'<', // Left
 	'>', // Right
 	#endregion
-};
+];
 
 string Map =
 	#region Frames

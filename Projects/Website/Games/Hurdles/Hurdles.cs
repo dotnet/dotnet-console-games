@@ -9,8 +9,8 @@ public class Hurdles
 
 	public async Task Run()
 	{
-		string[] runningAnimation = new string[]
-		{
+		string[] runningAnimation =
+		[
 			#region Frames
 			// 0
 			@"       " + '\n' +
@@ -62,10 +62,10 @@ public class Hurdles
 			@"   /-- " + '\n' +
 			@"  /   |",
 			#endregion
-		};
+		];
 
-		string[] jumpingAnimation = new string[]
-		{
+		string[] jumpingAnimation =
+		[
 			#region Frames
 			// 0
 			@"       " + '\n' +
@@ -130,7 +130,7 @@ public class Hurdles
 			@"   |_  " + '\n' +
 			@"  /  | ",
 			#endregion
-		};
+		];
 
 		string hurdleFrame =
 			#region Frame

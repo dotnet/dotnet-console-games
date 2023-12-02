@@ -12,11 +12,11 @@ internal class UFO1 : IEnemy
 	public float XVelocity = 1f / 8f;
 	public float YVelocity = 1f / 8f;
 	private static readonly string[] Sprite =
-	{
+	[
 		@" _!_ ",
 		@"(_o_)",
 		@" ''' ",
-	};
+	];
 
 	internal static int XMax = Sprite.Max(s => s.Length);
 	internal static int YMax = Sprite.Length;

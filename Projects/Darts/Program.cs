@@ -302,8 +302,8 @@ void Render()
 		return;
 	}
 
-	string[] board = new string[]
-	{
+	string[] board =
+	[
 		"╔═══════╤═══════╤═══════╤═══════╤═══════╗",
 		"║       │       │       │       │       ║",
 		"║   1   │   2   │   3   │   2   │   1   ║",
@@ -321,7 +321,7 @@ void Render()
 		"║   1   │   2   │   3   │   2   │   1   ║",
 		"║       │       │       │       │       ║",
 		"╚═══════╧═══════╧═══════╧═══════╧═══════╝",
-	};
+	];
 	for (int i = 0; i < board.Length; i++)
 	{
 		for (int j = 0; j < board[i].Length; j++)
@@ -440,8 +440,8 @@ void Render()
 
 (int PlayerScore, int ComputerScore) CalculateScores()
 {
-	string[] scoreBoard = new string[]
-	{
+	string[] scoreBoard =
+	[
 		"111111112222222233333332222222211111111",
 		"111111112222222233333332222222211111111",
 		"111111112222222233333332222222211111111",
@@ -457,7 +457,7 @@ void Render()
 		"111111112222222233333332222222211111111",
 		"111111112222222233333332222222211111111",
 		"111111112222222233333332222222211111111",
-	};
+	];
 
 	int playerScore = 0;
 	int computerScore = 0;

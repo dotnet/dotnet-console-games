@@ -7,8 +7,11 @@ using System.Collections.Generic;
 
 namespace Website.Games.Console_Monsters;
 
+#pragma warning disable CA2211 // Non-constant fields should not be visible
+
 public static class Statics
 {
+
 	public static BlazorConsole Console = null!;
 	public static BlazorConsole OperatingSystem = null!;
 
@@ -25,30 +28,30 @@ public static class Statics
 	public readonly static Random GameRandom = new(7);
 	public readonly static Random BattleRandom = new(7);
 	public readonly static Player character = new();
-    public readonly static List<MonsterBase> ownedMonsters = new();
-    public readonly static List<MonsterBase> partyMonsters = new();
+	public readonly static List<MonsterBase> ownedMonsters = new();
+	public readonly static List<MonsterBase> partyMonsters = new();
 
-    public static MapBase map = new PaletTown();
-	public static DateTime previoiusRender = DateTime.Now;
-	public static int maxPartySize = 6;
-	public static bool gameRunning { get; set; } = true;
-	public static bool startMenu { get; set; } = true;
-	public static bool inInventory { get; set; } = false;
+	public static MapBase Map = new PaletTown();
+	public static DateTime PrevioiusRender = DateTime.Now;
+	public static int MaxPartySize = 6;
+	public static bool GameRunning { get; set; } = true;
+	public static bool StartMenu { get; set; } = true;
+	public static bool InInventory { get; set; } = false;
 
-	public static readonly string[] defaultMaptext = new[]
-	{
+	public static readonly string[] defaultMaptext =
+	[
 		"[↑, W, ←, A, ↓, S, →, D]: Move, [B]: Status, [Escape]: Menu",
-	};
+	];
 
-	public static readonly string[] defaultMaptextWithInteract = new[]
-	{
+	public static readonly string[] defaultMaptextWithInteract =
+	[
 		"[↑, W, ←, A, ↓, S, →, D]: Move, [B]: Status, [Escape]: Menu, [E]: Interact",
-	};
+	];
 
-	public static readonly string[] mapTextPressEnter = new string[]
-	{
+	public static readonly string[] mapTextPressEnter =
+	[
 		"[E, Enter]: Continue, [Escape]: Menu",
-	};
+	];
 
 	public static string[] MapText
 	{
@@ -61,7 +64,7 @@ public static class Statics
 			if (character.IsIdle)
 			{
 				var interactTile = character.InteractTile;
-				if (map.CanInteractWithMapTile(interactTile.I, interactTile.J))
+				if (Map.CanInteractWithMapTile(interactTile.I, interactTile.J))
 				{
 					return defaultMaptextWithInteract;
 				}
@@ -70,13 +73,13 @@ public static class Statics
 		}
 	}
 
-	public static readonly string[] battletext = new[]
-	{
+	public static readonly string[] battletext =
+	[
 		//"[↑, W, ←, A, ↓, S, →, D]: Move Selection, [E]: Select, [Escape]: Back",
 		"Battles are still in development.",
 		"We are just showing two random monsters at the moment.",
 		"[Enter]: exit battle"
-	};
+	];
 
 	public static string[]? promptText = null;
 
@@ -89,8 +92,8 @@ public static class Statics
 		{
 			Animation = Player.IdleDown,
 		};
-		map = new PaletTown();
-		map.SpawnCharacterOn('X');
+		Map = new PaletTown();
+		Map.SpawnCharacterOn('X');
 		PlayerInventory.TryAdd(ExperienceBerries.Instance);
 		PlayerInventory.TryAdd(HealthPotionLarge.Instance);
 		PlayerInventory.TryAdd(HealthPotionMedium.Instance);
@@ -105,3 +108,5 @@ public static class Statics
 	[System.Diagnostics.DebuggerHidden]
 	public static (int, int) Subtract((int, int) a, (int, int) b) => (a.Item1 - b.Item1, a.Item2 - b.Item2);
 }
+
+#pragma warning restore CA2211 // Non-constant fields should not be visible

@@ -30,16 +30,16 @@ public class Helicopter
 
 		#region Ascii Renders
 
-		string[] bulletRenders = new string[]
-		{
+		string[] bulletRenders =
+		[
 			" ", // 0
 			"-", // 1
 			"~", // 2
 			"█", // 3
-		};
+		];
 
-		string[] helicopterRenders = new string[]
-		{
+		string[] helicopterRenders =
+		[
 			// 0
 			@"             " + '\n' +
 			@"             " + '\n' +
@@ -52,10 +52,10 @@ public class Helicopter
 			@"  -----+-----" + '\n' +
 			@"*\===<[_]L)  " + '\n' +
 			@"     -'-`-   ",
-		};
+		];
 
-		string[] ufoRenders = new string[]
-		{
+		string[] ufoRenders =
+		[
 			// 0
 			@"   __O__   " + '\n' +
 			@"-=<_‗_‗_>=-",
@@ -75,10 +75,10 @@ public class Helicopter
 			@" _!_ " + '\n' +
 			@"(_o_)" + '\n' +
 			@" ^^^ ",
-		};
+		];
 
-		string[] explosionRenders = new string[]
-		{
+		string[] explosionRenders =
+		[
 			// 0
 			@"           " + '\n' +
 			@"   █████   " + '\n' +
@@ -127,7 +127,7 @@ public class Helicopter
 			@"*         *" + '\n' +
 			@" *       * " + '\n' +
 			@"   *   *   ",
-		};
+		];
 
 		#endregion
 

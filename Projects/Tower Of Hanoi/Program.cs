@@ -68,7 +68,7 @@ GetDiskCount:
 Restart:
 	state = State.ChooseSource;
 	minimumNumberOfMoves = (int)Math.Pow(2, disks) - 1;
-	stacks = new List<int>[] { new(), new(), new() };
+	stacks = [new(), new(), new()];
 	for (int i = disks; i > 0; i--)
 	{
 		stacks[0].Add(i);

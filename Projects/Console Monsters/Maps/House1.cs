@@ -4,15 +4,15 @@ public class House1 : MapBase
 {
 	public override string? AudioFile => AudioController.CoDA_Lullaby;
 
-	private static readonly char[][] spriteSheet = new char[][]
-		{
+	private static readonly char[][] spriteSheet =
+		[
 			"afffffffffffffffb".ToCharArray(),
 			"hpmn      wvwkijg".ToCharArray(),
 			"hmq          kijg".ToCharArray(),
 			"h            k12g".ToCharArray(),
 			"hssss  uuu      g".ToCharArray(),
 			"cllllll000lllllld".ToCharArray(),
-		};
+		];
 
 	public override char[][] SpriteSheet => spriteSheet;
 
@@ -80,19 +80,19 @@ public class House1 : MapBase
 			switch (SpriteSheet[j][i])
 			{
 				case 'q':
-					PromptText = new string[]
-					{
+					PromptText =
+					[
 						"Mozin0's Mum:",
 						"Welcome to my house, My son always gifts guests.",
 						"He's Upstairs, go talk to him to recieve your gift.",
-					};
+					];
 					break;
 				case 'v':
-					PromptText = new string[]
-					{
+					PromptText =
+					[
 						"Funky:",
 						"Slurp Slurp",
-					};
+					];
 					break;
 			}
 		}

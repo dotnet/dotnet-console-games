@@ -15,8 +15,8 @@ public class Simon
 		int score = 0;
 		List<Direction> pattern = new();
 
-		string[] Renders = new string[]
-		{
+		string[] Renders =
+		[
 			#region Frames
 			// 0
 			@"           ╔══════╗        " + '\n' +
@@ -79,7 +79,7 @@ public class Simon
 			@"           ║      ║        " + '\n' +
 			@"           ╚══════╝        ",
 			#endregion
-		};
+		];
 
 		try
 		{

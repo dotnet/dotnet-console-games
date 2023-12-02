@@ -54,8 +54,8 @@ public class Player
 
 	#region Player Sprites
 
-	public static readonly string[] RunRight = new[]
-	{
+	public static readonly string[] RunRight =
+	[
 		// 0
 		@"  ╭══╮ " + '\n' +
 		@"  │ '│ " + '\n' +
@@ -92,10 +92,10 @@ public class Player
 		@"  ╰──╯ " + '\n' +
 		@"  │||│ " + '\n' +
 		@"  └─_│ ",
-	};
+	];
 
-	public static readonly string[] RunLeft = new[]
-	{
+	public static readonly string[] RunLeft =
+	[
 		// 0
 		@" ╭══╮  " + '\n' +
 		@" │' │  " + '\n' +
@@ -132,10 +132,10 @@ public class Player
 		@" ╰──╯  " + '\n' +
 		@" │||│  " + '\n' +
 		@" └─_│  ",
-	};
+	];
 
-	public static readonly string[] RunDown = new[]
-	{
+	public static readonly string[] RunDown =
+	[
 		// 0
 		@" ╭═══╮ " + '\n' +
 		@" │'_'│ " + '\n' +
@@ -172,10 +172,10 @@ public class Player
 		@"╭╰───╯╮" + '\n' +
 		@"│├───┤│" + '\n' +
 		@" │_├─┘ ",
-	};
+	];
 
-	public static readonly string[] RunUp = new[]
-	{
+	public static readonly string[] RunUp =
+	[
 		// 0
 		@" ╭═══╮ " + '\n' +
 		@" │   │ " + '\n' +
@@ -212,7 +212,7 @@ public class Player
 		@"╭╰───╯╮" + '\n' +
 		@"│├───┤│" + '\n' +
 		@" │_├─┘ ",
-	};
+	];
 
 	#region IdleLeft
 	public static readonly string IdleLeft1 =

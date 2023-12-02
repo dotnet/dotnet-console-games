@@ -17,11 +17,11 @@ TimeSpan TimePerWord;
 DateTime WordStart;
 
 ConsoleColor[] Colors =
-{
+[
 	ConsoleColor.White,
 	ConsoleColor.Gray,
 	ConsoleColor.DarkGray,
-};
+];
 
 #region Loading
 
@@ -44,7 +44,7 @@ while (!streamReader.EndOfStream)
 		words.Add(word);
 	}
 }
-WordPool = words.ToArray();
+WordPool = [.. words];
 
 #endregion
 

@@ -25,7 +25,7 @@ public static class AsciiGenerator
 			first = false;
 		}
 
-		return new[] { a.ToString(), b.ToString(), c.ToString() };
+		return [a.ToString(), b.ToString(), c.ToString()];
 	}
 
 	/// <summary>Generates medium sized uppercase ascii text art from a char.</summary>
@@ -274,6 +274,6 @@ public static class AsciiGenerator
 			}
 		}
 
-		return new[] { a.ToString(), b.ToString(), c.ToString() };
+		return [a.ToString(), b.ToString(), c.ToString()];
 	}
 }

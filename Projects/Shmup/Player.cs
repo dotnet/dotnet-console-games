@@ -19,88 +19,88 @@ internal class Player
 	public States State;
 
 	static readonly string[] Sprite =
-	{
+	[
 		@"   ╱‾╲   ",
 		@"  ╱╱‾╲╲  ",
 		@" ╱'╲O╱'╲ ",
 		@"╱ / ‾ \ ╲",
 		@"╲_╱───╲_╱",
-	};
+	];
 
 	static readonly string[] SpriteUp =
-	{
+	[
 		@"   ╱‾╲   ",
 		@"  ╱╱‾╲╲  ",
 		@" ╱'╲O╱'╲ ",
 		@"╱ / ‾ \ ╲",
 		@"╲_╱───╲_╱",
 		@"/V\   /V\",
-	};
+	];
 
 	static readonly string[] SpriteDown =
-	{
+	[
 		@"   ╱‾╲   ",
 		@"  ╱╱‾╲╲  ",
 		@"-╱'╲O╱'╲-",
 		@"╱-/ ‾ \-╲",
 		@"╲_╱───╲_╱",
-	};
+	];
 
 	static readonly string[] SpriteLeft =
-	{
+	[
 		@"   ╱╲   ",
 		@"  ╱‾╲╲  ",
 		@" ╱╲O╱'╲ ",
 		@"╱/ ‾ \ ╲",
 		@"╲╱───╲_╱",
-	};
+	];
 
 	static readonly string[] SpriteRight =
-	{
+	[
 		@"   ╱╲   ",
 		@"  ╱╱‾╲  ",
 		@" ╱'╲O╱╲ ",
 		@"╱ / ‾ \╲",
 		@"╲_╱───╲╱",
-	};
+	];
 
 	static readonly string[] SpriteUpLeft =
-	{
+	[
 		@"   ╱╲   ",
 		@"  ╱‾╲╲  ",
 		@" ╱╲O╱'╲ ",
 		@"╱/ ‾ \ ╲",
 		@"╲╱───╲_╱",
 		@"/\   /V\",
-	};
+	];
 
 	static readonly string[] SpriteUpRight =
-	{
+	[
 		@"   ╱╲   ",
 		@"  ╱╱‾╲  ",
 		@" ╱'╲O╱╲ ",
 		@"╱ / ‾ \╲",
 		@"╲_╱───╲╱",
 		@"/V\   /\",
-	};
+	];
 
 	static readonly string[] SpriteDownLeft =
-	{
+	[
 		@"   ╱╲   ",
 		@"  ╱‾╲╲  ",
 		@"-╱╲O╱'╲-",
 		@"-/ ‾ \-╲",
 		@"╲╱───╲_╱",
-	};
+	];
 
 	static readonly string[] SpriteDownRight =
-	{
+	[
 		@"   ╱╲   ",
 		@"  ╱╱‾╲  ",
 		@"-╱'╲O╱╲-",
 		@"╱-/ ‾ \-",
 		@"╲_╱───╲╱",
-	};
+	];
 
 	public void Render()
 	{

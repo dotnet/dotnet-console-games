@@ -115,12 +115,12 @@ public class PacMan
 			"                                         ";
 
 		string[] PacManAnimations =
-		{
+		[
 			"\"' '\"",
 			"n. .n",
 			")>- ->",
 			"(<- -<",
-		};
+		];
 
 		#endregion
 
@@ -183,7 +183,7 @@ public class PacMan
 			d.FramesToUpdate = 12;
 			d.Update = () => UpdateGhost(d);
 
-			Ghosts = new Ghost[] { a, b, c, d, };
+			Ghosts = [a, b, c, d,];
 
 			await RenderWalls();
 			await RenderGate();
@@ -569,7 +569,7 @@ public class PacMan
 					x++;
 				}
 			}
-			return list.ToArray();
+			return [.. list];
 		}
 
 		(int X, int Y) GetRandomLocation() => Random.Shared.Choose(Locations);

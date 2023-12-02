@@ -8,7 +8,7 @@ using Shmup.Enemies;
 
 namespace Shmup;
 
-internal static class Program
+internal static partial class Program
 {
 	internal static bool closeRequested = false;
 	internal static Stopwatch stopwatch = new();
@@ -210,7 +210,7 @@ internal static class Program
 		{
 			PlayerBullet bullet = playerBullets[i];
 			bool exploded = false;
-			IEnemy[] enemiesClone = enemies.ToArray();
+			IEnemy[] enemiesClone = [.. enemies];
 			for (int j = 0; j < enemiesClone.Length; j++)
 			{
 				if (enemiesClone[j].CollidingWith(bullet.X, bullet.Y))
@@ -387,9 +387,9 @@ internal static class Program
 		stopwatch.Restart();
 	}
 
-	internal static class User32_dll
+	internal static partial class User32_dll
 	{
-		[DllImport("user32.dll")]
-		internal static extern short GetAsyncKeyState(int vKey);
+		[LibraryImport("user32.dll")]
+		internal static partial short GetAsyncKeyState(int vKey);
 	}
 }

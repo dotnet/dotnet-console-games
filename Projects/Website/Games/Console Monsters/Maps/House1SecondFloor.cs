@@ -12,15 +12,15 @@ namespace Website.Games.Console_Monsters.Maps;
 
 public class House1SecondFloor : MapBase
 {
-	private readonly char[][] spriteSheet = new char[][]
-		{
+	private readonly char[][] spriteSheet =
+		[
 			"afffffffffffffffb".ToCharArray(),
 			"hpq  uv   -     g".ToCharArray(),
 			"hno          kemg".ToCharArray(),
 			"h      yy   xkemg".ToCharArray(),
 			"hrrr       wzkijg".ToCharArray(),
 			"cllllllllllllllld".ToCharArray(),
-		};
+		];
 
 	public override char[][] SpriteSheet => spriteSheet;
 
@@ -86,20 +86,20 @@ public class House1SecondFloor : MapBase
 			switch (SpriteSheet[j][i])
 			{
 				case 'r':
-					promptText = new string[]
-					{
+					promptText =
+					[
 						"Mozin0:",
 						"ZzzZzzZzz...",
 						"MonsterBoz...",
 						"ZzzZzzZzz...",
-					};
+					];
 					break;
 				case 'w':
-					promptText = new string[]
-					{
+					promptText =
+					[
 						"Penguin:",
 						"BrrrRRRrrr!",
-					};
+					];
 					break;
 			}
 		}
@@ -134,12 +134,12 @@ public class House1SecondFloor : MapBase
 		switch (SpriteSheet[j][i])
 		{
 			case 'i':
-				map = new House1();
-				map.SpawnCharacterOn('1');
+				Map = new House1();
+				Map.SpawnCharacterOn('1');
 				break;
 			case 'j':
-				map = new House1();
-				map.SpawnCharacterOn('2');
+				Map = new House1();
+				Map.SpawnCharacterOn('2');
 				break;
 		}
 	}

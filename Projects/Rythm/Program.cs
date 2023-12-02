@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Threading;
 
-string[] frames = { "▌", "▐", };
-string[] deathFrames = { "X", "X", "X", "X", "X", };
+string[] frames = ["▌", "▐",];
+string[] deathFrames = ["X", "X", "X", "X", "X",];
 List<Note> notes;
 List<Note> deadNotes;
 TimeSpan delayTime = TimeSpan.FromMilliseconds(34);
@@ -12,12 +12,12 @@ TimeSpan spawnTimeMax = TimeSpan.FromMilliseconds(2000);
 int targetLeft = 5;
 int remainingMisses = 5;
 (int Top, ConsoleKey Key)[] tracks =
-{
+[
 	(4, ConsoleKey.UpArrow),
 	(7, ConsoleKey.LeftArrow),
 	(10, ConsoleKey.DownArrow),
 	(13, ConsoleKey.RightArrow),
-};
+];
 
 try
 {

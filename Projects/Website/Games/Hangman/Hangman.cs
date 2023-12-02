@@ -11,7 +11,7 @@ public class Hangman
 	public async Task Run()
 	{
 		string[] Renders =
-		{
+		[
 			#region Frames
 			// 0
 			@"      ╔═══╗   " + '\n' +
@@ -70,10 +70,10 @@ public class Hangman
 			@"     ███  ║   " + '\n' +
 			@"    ══════╩═══",
 			#endregion
-		};
+		];
 
 		string[] DeathAnimation =
-		{
+		[
 			#region Frames
 			//
 			@"      ╔═══╗   " + '\n' +
@@ -364,7 +364,7 @@ public class Hangman
 			@"      _   ║   " + '\n' +
 			@" __/══════╩═══",
 			#endregion
-		};
+		];
 
 		if (Resources.Words is null || Resources.Words.Length is 0)
 		{

@@ -48,7 +48,7 @@ public class Wordle
 			int guess = 0;
 			int cursor = 0;
 			string word = Resources.FiveLetterWords[Random.Shared.Next(Resources.FiveLetterWords.Length)].ToUpperInvariant();
-			char[] letters = { ' ', ' ', ' ', ' ', ' ' };
+			char[] letters = [' ', ' ', ' ', ' ', ' '];
 		GetInput:
 			await Console.SetCursorPosition(3 + cursor * 4, 2 + guess * 2);
 			ConsoleKey key = (await Console.ReadKey(true)).Key;
@@ -113,7 +113,7 @@ public class Wordle
 					}
 					else
 					{
-						letters = new char[] { ' ', ' ', ' ', ' ', ' ' };
+						letters = [' ', ' ', ' ', ' ', ' '];
 						guess++;
 						cursor = 0;
 					}

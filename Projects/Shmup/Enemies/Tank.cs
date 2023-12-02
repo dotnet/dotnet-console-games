@@ -14,32 +14,32 @@ internal class Tank : IEnemy
 	private string[] Sprite = spriteDown;
 
 	static readonly string[] spriteDown =
-	{
+	[
 		@" ___ ",
 		@"|_O_|",
 		@"[ooo]",
-	};
+	];
 
 	static readonly string[] spriteUp =
-	{
+	[
 		@" _^_ ",
 		@"|___|",
 		@"[ooo]",
-	};
+	];
 
 	static readonly string[] spriteLeft =
-	{
+	[
 		@"  __ ",
 		@"=|__|",
 		@"[ooo]",
-	};
+	];
 
 	static readonly string[] spriteRight =
-	{
+	[
 		@" __  ",
 		@"|__|=",
 		@"[ooo]",
-	};
+	];
 
 	internal static int XMax = new[] { spriteDown.Max(s => s.Length), spriteUp.Max(s => s.Length), spriteLeft.Max(s => s.Length), spriteRight.Max(s => s.Length), }.Max();
 	internal static int YMax = new[] { spriteDown.Length, spriteUp.Length, spriteLeft.Length, spriteRight.Length, }.Max();

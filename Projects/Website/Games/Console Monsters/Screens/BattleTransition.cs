@@ -10,14 +10,14 @@ public static class BattleTransition
 {
 	private static readonly TimeSpan Delay = TimeSpan.FromMilliseconds(1);
 
-	private static readonly Func<Task>[] Transitions = new Func<Task>[]
-		{
+	private static readonly Func<Task>[] Transitions =
+		[
 			LeftToRight,
 			RightToLeft,
 			LeftToRightBlocks,
 			RightToLeftBlocks,
 			Swirl,
-		};
+		];
 
 	public static async Task Random()
 	{

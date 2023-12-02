@@ -13,15 +13,15 @@ public class Center1 : MapBase
 		littleGirl = new();
 	}
 
-	private static readonly char[][] spriteSheet = new char[][]
-		{
+	private static readonly char[][] spriteSheet =
+		[
 			"affffifffffjffffb".ToCharArray(),
 			"go   gttktths  oh".ToCharArray(),
 			"g    mplllrnq   h".ToCharArray(),
 			"g               h".ToCharArray(),
 			"go             oh".ToCharArray(),
 			"ceeeeee000eeeeeed".ToCharArray(),
-		};
+		];
 
 	public override char[][] SpriteSheet => spriteSheet;
 
@@ -89,29 +89,29 @@ public class Center1 : MapBase
 			switch (SpriteSheet[j][i])
 			{
 				case 'k':
-					PromptText = new string[]
-					{
+					PromptText =
+					[
 					" Hello and welcome to the monster center.",
 					" I will heal all your monsters.",
-					};
+					];
 					for (int p = 0; p < partyMonsters.Count; p++)
 					{
 						partyMonsters[p].CurrentHP = partyMonsters[p].MaximumHP;
 					}
 					break;
 				case 's':
-					PromptText = new string[]
-					{
+					PromptText =
+					[
 						"You picked up a MonsterBox",
-					};
+					];
 					PlayerInventory.TryAdd(MonsterBox.Instance);
 					spriteSheet[j][i] = ' ';
 					break;
 				case 'q':
-					PromptText = new string[]
-					{
+					PromptText =
+					[
 						"...",
-					};
+					];
 					break;
 			}	}
 	}

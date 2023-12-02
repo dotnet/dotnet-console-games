@@ -49,11 +49,11 @@ public class Console_Monsters
 			}
 
 			await StartScreen.StartMenu();
-			while (gameRunning)
+			while (GameRunning)
 			{
 				await UpdateCharacter();
 				await HandleMapUserInput();
-				if (gameRunning)
+				if (GameRunning)
 				{
 					await MapScreen.Render();
 					await SleepAfterRender();
@@ -91,7 +91,7 @@ public class Console_Monsters
 			(character.Animation == Player.RunRight && character.AnimationFrame >= Sprites.Width))
 		{
 			var (i, j) = MapBase.WorldToTile(character.I, character.J);
-			await map.PerformTileAction(i, j);
+			await Map.PerformTileAction(i, j);
 			character.Animation =
 				character.Animation == Player.RunUp ? Player.IdleUp :
 				character.Animation == Player.RunDown ? Player.IdleDown :
@@ -133,7 +133,7 @@ public class Console_Monsters
 							ConsoleKey.RightArrow or ConsoleKey.D => (i + 1, j),
 							_ => throw new Exception("bug"),
 						};
-						if (map.IsValidCharacterMapTile(i, j))
+						if (Map.IsValidCharacterMapTile(i, j))
 						{
 							if (DisableMovementAnimation)
 							{
@@ -145,7 +145,7 @@ public class Console_Monsters
 									case ConsoleKey.RightArrow or ConsoleKey.D: character.I += Sprites.Width; character.Animation = Player.IdleRight; break;
 								}
 								var (i2, j2) = MapBase.WorldToTile(character.I, character.J);
-								await map.PerformTileAction(i2, j2);
+								await Map.PerformTileAction(i2, j2);
 							}
 							else
 							{
@@ -180,13 +180,13 @@ public class Console_Monsters
 //#warning TODO: this is temporary population of monsters during developemnt
 					partyMonsters.Clear();
 					Turtle turtle = new();
-					for (int i = 0; i < (maxPartySize - GameRandom.Next(0, 3)); i++)
+					for (int i = 0; i < (MaxPartySize - GameRandom.Next(0, 3)); i++)
 					{
 						partyMonsters.Add(turtle);
 					}
 
-					inInventory = true;
-					while (inInventory)
+					InInventory = true;
+					while (InInventory)
 					{
 						await InventoryScreen.Render();
 
@@ -212,7 +212,7 @@ public class Console_Monsters
 									SelectedPlayerInventoryItem = 0;
 								}
 								break;
-							case ConsoleKey.Escape: inInventory = false; break;
+							case ConsoleKey.Escape: InInventory = false; break;
 						}
 					}
 					break;
@@ -228,7 +228,7 @@ public class Console_Monsters
 					if (character.IsIdle)
 					{
 						var (i, j) = character.InteractTile;
-						map.InteractWithMapTile(i, j);
+						Map.InteractWithMapTile(i, j);
 					}
 					break;
 				case ConsoleKey.Escape:
@@ -242,7 +242,7 @@ public class Console_Monsters
 	{
 		// frame rate control targeting 30 frames per second
 		DateTime now = DateTime.Now;
-		TimeSpan sleep = TimeSpan.FromMilliseconds(33) - (now - previoiusRender);
+		TimeSpan sleep = TimeSpan.FromMilliseconds(33) - (now - PrevioiusRender);
 		if (sleep > TimeSpan.Zero)
 		{
 			await Console.RefreshAndDelay(sleep);
@@ -251,6 +251,6 @@ public class Console_Monsters
 		{
 			await Console.Refresh();
 		}
-		previoiusRender = DateTime.Now;
+		PrevioiusRender = DateTime.Now;
 	}
 }

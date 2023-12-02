@@ -10,8 +10,8 @@ public class Tanks
 
 	public async Task Run()
 	{
-		string[] Tank = new string[]
-		{
+		string[] Tank =
+		[
 			#region Frames
 			null!,
 			// Up
@@ -31,10 +31,10 @@ public class Tanks
 			@"|__|=" + "\n" +
 			@"[ooo]" + "\n",
 			#endregion
-		};
+		];
 
-		string[] TankShooting = new string[]
-		{
+		string[] TankShooting =
+		[
 			#region Frames
 			null!,
 			// Up
@@ -54,10 +54,10 @@ public class Tanks
 			@"|__|█" + "\n" +
 			@"[ooo]" + "\n",
 			#endregion
-		};
+		];
 
-		string[] TankExploding = new string[]
-		{
+		string[] TankExploding =
+		[
 			#region Frames
 			// Ka...
 			@" ___ " + "\n" +
@@ -72,10 +72,10 @@ public class Tanks
 			@"     " + "\n" +
 			@"     " + "\n",
 			#endregion
-		};
+		];
 
-		char[] Bullet = new char[]
-		{
+		char[] Bullet =
+		[
 			#region Frames
 			default,
 			'^', // Up
@@ -83,7 +83,7 @@ public class Tanks
 			'<', // Left
 			'>', // Right
 			#endregion
-		};
+		];
 
 		string Map =
 			#region Frames

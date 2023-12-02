@@ -85,12 +85,11 @@ public class Program
 			prompt.AppendLine();
 			prompt.Append("Use up and down arrow keys and enter to select an option:");
 			int selectedIndex = HandleMenuWithOptions(prompt.ToString(),
-				new string[]
-				{
+				[
 					"Play",
 					"About",
 					"Exit",
-				});
+				]);
 			switch (selectedIndex)
 			{
 				case 0: IntroductionScreen(); break;
@@ -120,13 +119,13 @@ public class Program
 				StringBuilder prompt = RenderCompanyStocksTable();
 				prompt.AppendLine();
 				prompt.Append("Use up and down arrow keys and enter to select an option:");
-				selectedOption = HandleMenuWithOptions(prompt.ToString(), new string[]
-					{
+				selectedOption = HandleMenuWithOptions(prompt.ToString(),
+					[
 						"Wait For Market Change",
 						"Buy",
 						"Sell",
 						"Information About Companies",
-					});
+					]);
 				switch (selectedOption)
 				{
 					case 1: BuyOrSellStockScreen(true); break;

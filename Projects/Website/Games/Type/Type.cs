@@ -38,11 +38,11 @@ public class Type
 		DateTime WordStart;
 
 		ConsoleColor[] Colors =
-		{
+		[
 			ConsoleColor.White,
 			ConsoleColor.Gray,
 			ConsoleColor.DarkGray,
-		};
+		];
 
 		try
 		{

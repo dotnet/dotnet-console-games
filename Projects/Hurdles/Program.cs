@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading;
 
-string[] runningAnimation = new string[]
-{
+string[] runningAnimation =
+[
 	#region Frames
 	// 0
 	@"       " + '\n' +
@@ -54,10 +54,10 @@ string[] runningAnimation = new string[]
 	@"   /-- " + '\n' +
 	@"  /   |",
 	#endregion
-};
+];
 
-string[] jumpingAnimation = new string[]
-{
+string[] jumpingAnimation =
+[
 	#region Frames
 	// 0
 	@"       " + '\n' +
@@ -122,7 +122,7 @@ string[] jumpingAnimation = new string[]
 	@"   |_  " + '\n' +
 	@"  /  | ",
 	#endregion
-};
+];
 
 string hurdleFrame =
 	#region Frame

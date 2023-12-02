@@ -236,7 +236,7 @@ public class Shmup
 			{
 				PlayerBullet bullet = playerBullets[i];
 				bool exploded = false;
-				IEnemy[] enemiesClone = enemies.ToArray();
+				IEnemy[] enemiesClone = [.. enemies];
 				for (int j = 0; j < enemiesClone.Length; j++)
 				{
 					if (enemiesClone[j].CollidingWith(bullet.X, bullet.Y))
@@ -431,88 +431,88 @@ public class Shmup
 		public States State;
 
 		static readonly string[] Sprite =
-		{
+		[
 			@"   ╱‾╲   ",
 			@"  ╱╱‾╲╲  ",
 			@" ╱'╲O╱'╲ ",
 			@"╱ / ‾ \ ╲",
 			@"╲_╱───╲_╱",
-		};
+		];
 
 		static readonly string[] SpriteUp =
-		{
+		[
 			@"   ╱‾╲   ",
 			@"  ╱╱‾╲╲  ",
 			@" ╱'╲O╱'╲ ",
 			@"╱ / ‾ \ ╲",
 			@"╲_╱───╲_╱",
 			@"/V\   /V\",
-		};
+		];
 
 		static readonly string[] SpriteDown =
-		{
+		[
 			@"   ╱‾╲   ",
 			@"  ╱╱‾╲╲  ",
 			@"-╱'╲O╱'╲-",
 			@"╱-/ ‾ \-╲",
 			@"╲_╱───╲_╱",
-		};
+		];
 
 		static readonly string[] SpriteLeft =
-		{
+		[
 			@"   ╱╲   ",
 			@"  ╱‾╲╲  ",
 			@" ╱╲O╱'╲ ",
 			@"╱/ ‾ \ ╲",
 			@"╲╱───╲_╱",
-		};
+		];
 
 		static readonly string[] SpriteRight =
-		{
+		[
 			@"   ╱╲   ",
 			@"  ╱╱‾╲  ",
 			@" ╱'╲O╱╲ ",
 			@"╱ / ‾ \╲",
 			@"╲_╱───╲╱",
-		};
+		];
 
 		static readonly string[] SpriteUpLeft =
-		{
+		[
 			@"   ╱╲   ",
 			@"  ╱‾╲╲  ",
 			@" ╱╲O╱'╲ ",
 			@"╱/ ‾ \ ╲",
 			@"╲╱───╲_╱",
 			@"/\   /V\",
-		};
+		];
 
 		static readonly string[] SpriteUpRight =
-		{
+		[
 			@"   ╱╲   ",
 			@"  ╱╱‾╲  ",
 			@" ╱'╲O╱╲ ",
 			@"╱ / ‾ \╲",
 			@"╲_╱───╲╱",
 			@"/V\   /\",
-		};
+		];
 
 		static readonly string[] SpriteDownLeft =
-		{
+		[
 			@"   ╱╲   ",
 			@"  ╱‾╲╲  ",
 			@"-╱╲O╱'╲-",
 			@"-/ ‾ \-╲",
 			@"╲╱───╲_╱",
-		};
+		];
 
 		static readonly string[] SpriteDownRight =
-		{
+		[
 			@"   ╱╲   ",
 			@"  ╱╱‾╲  ",
 			@"-╱'╲O╱╲-",
 			@"╱-/ ‾ \-",
 			@"╲_╱───╲╱",
-		};
+		];
 
 		public void Render()
 		{
@@ -584,18 +584,18 @@ public class Shmup
 		private string[] Sprite = Random.Shared.Next(2) is 0 ? spriteA : spriteB;
 
 		static readonly string[] spriteA =
-		{
+		[
 			@"  ~~~~~+~~~~~",
 			@"'\===<[_]L)  ",
 			@"     -'-`-   ",
-		};
+		];
 
 		static readonly string[] spriteB =
-		{
+		[
 			@"  -----+-----",
 			@"*\===<[_]L)  ",
 			@"     -'-`-   ",
-		};
+		];
 
 		internal static int XMax = Math.Max(spriteA.Max(s => s.Length), spriteB.Max(s => s.Length));
 		internal static int YMax = Math.Max(spriteA.Length, spriteB.Length);
@@ -676,32 +676,32 @@ public class Shmup
 		private string[] Sprite = spriteDown;
 
 		static readonly string[] spriteDown =
-		{
+		[
 			@" ___ ",
 			@"|_O_|",
 			@"[ooo]",
-		};
+		];
 
 		static readonly string[] spriteUp =
-		{
+		[
 			@" _^_ ",
 			@"|___|",
 			@"[ooo]",
-		};
+		];
 
 		static readonly string[] spriteLeft =
-		{
+		[
 			@"  __ ",
 			@"=|__|",
 			@"[ooo]",
-		};
+		];
 
 		static readonly string[] spriteRight =
-		{
+		[
 			@" __  ",
 			@"|__|=",
 			@"[ooo]",
-		};
+		];
 
 		internal static int XMax = new[] { spriteDown.Max(s => s.Length), spriteUp.Max(s => s.Length), spriteLeft.Max(s => s.Length), spriteRight.Max(s => s.Length), }.Max();
 		internal static int YMax = new[] { spriteDown.Length, spriteUp.Length, spriteLeft.Length, spriteRight.Length, }.Max();
@@ -781,11 +781,11 @@ public class Shmup
 		public float XVelocity = 1f / 8f;
 		public float YVelocity = 1f / 8f;
 		private static readonly string[] Sprite =
-		{
+		[
 			@" _!_ ",
 			@"(_o_)",
 			@" ''' ",
-		};
+		];
 
 		internal static int XMax = Sprite.Max(s => s.Length);
 		internal static int YMax = Sprite.Length;
@@ -873,11 +873,11 @@ public class Shmup
 		public int TeleportFrequency = 360;
 
 		private static readonly string[] Sprite =
-		{
+		[
 			@"     _!_     ",
 			@"    /_O_\    ",
 			@"-==<_‗_‗_>==-",
-		};
+		];
 
 		internal static int XMax = Sprite.Max(s => s.Length);
 		internal static int YMax = Sprite.Length;
