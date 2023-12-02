@@ -15,7 +15,6 @@ public class Connect_4
 		bool?[,] board = new bool?[7, 6];
 		bool player1Turn;
 		bool player1MovesFirst = true;
-		Random random = new();
 
 		const int moveMinI = 5;
 		const int moveJ = 2;
@@ -84,7 +83,7 @@ public class Connect_4
 				else
 				{
 					int[] moves = Enumerable.Range(0, board.GetLength(0)).Where(i => !board[i, board.GetLength(1) - 1].HasValue).ToArray();
-					int randomMove = moves[random.Next(moves.Length)];
+					int randomMove = moves[Random.Shared.Next(moves.Length)];
 					for (int j = board.GetLength(1) - 1; ; j--)
 					{
 						if (j is 0 || board[randomMove, j - 1].HasValue)

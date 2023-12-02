@@ -1,21 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
-using System.Threading;
 using static Website.Games.Console_Monsters.Statics;
 //using Website.Games.Console_Monsters.Screens;
-using Website.Games.Console_Monsters.Items;
-using Website.Games.Console_Monsters.Maps;
-using Website.Games.Console_Monsters.Monsters;
 using Website.Games.Console_Monsters.Bases;
-using Website.Games.Console_Monsters.Characters;
-using Website.Games.Console_Monsters.Screens;
-using Website.Games.Console_Monsters.Screens.Menus;
-using Website.Games.Console_Monsters.Enums;
 using Website.Games.Console_Monsters.Utilities;
 using System.Collections.Generic;
-using Towel;
-using static Towel.Statics;
 using System.Threading.Tasks;
 
 namespace Website.Games.Console_Monsters.Screens;
@@ -252,7 +241,7 @@ internal class InventoryScreen
 				{
 					if (i == width - 2)
 					{
-						if (j == 1)
+						if (j is 1)
 						{
 							sb.Append('▲');
 							continue;
@@ -289,7 +278,7 @@ internal class InventoryScreen
 						sb.Append('│'); // ║
 						continue;
 					}
-					if (j == 0)
+					if (j is 0)
 					{
 						sb.Append('╤'); // ╦
 						continue;

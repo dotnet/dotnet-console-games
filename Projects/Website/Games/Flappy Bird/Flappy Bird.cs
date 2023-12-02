@@ -21,7 +21,6 @@ public class Flappy_Bird
 		int OriginalHeight = Console.WindowHeight;
 
 		TimeSpan Sleep = TimeSpan.FromMilliseconds(90);
-		Random Random = new();
 		List<(int X, int GapY)> Pipes = new();
 
 		int Width;
@@ -136,7 +135,7 @@ public class Flappy_Bird
 						}
 						if (PipeFrame >= SpaceBetweenPipes)
 						{
-							int gapY = Random.Next(0, Height - PipeGapHeight - 1 - 6) + 3;
+							int gapY = Random.Shared.Next(0, Height - PipeGapHeight - 1 - 6) + 3;
 							Pipes.Add((Width + PipeWidth / 2, gapY));
 							PipeFrame = 0;
 						}

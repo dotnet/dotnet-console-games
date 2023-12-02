@@ -112,7 +112,6 @@ string Map =
 var Tanks = new List<Tank>();
 var AllTanks = new List<Tank>();
 var Player = new Tank() { X = 08, Y = 05, IsPlayer = true };
-var random = new Random();
 
 Tanks.Add(Player);
 Tanks.Add(new Tank() { X = 08, Y = 21, });
@@ -349,7 +348,7 @@ while (Tanks.Contains(Player) && Tanks.Count > 1)
 		{
 			#region Computer Controled
 
-			int randomIndex = random.Next(0, 6);
+			int randomIndex = Random.Shared.Next(0, 6);
 			if (randomIndex < 4)
 				TryMove((Direction)randomIndex + 1);
 
@@ -397,19 +396,19 @@ while (Tanks.Contains(Player) && Tanks.Count > 1)
 		{
 			return true;
 		}
-		if (5 < bullet.X && bullet.X < 11 && bullet.Y == 13)
+		if (5 < bullet.X && bullet.X < 11 && bullet.Y is 13)
 		{
 			return true; // collision with left blockade
 		}
-		if (bullet.X == 37 && 3 < bullet.Y && bullet.Y < 7)
+		if (bullet.X is 37 && 3 < bullet.Y && bullet.Y < 7)
 		{
 			return true; // collision with top blockade
 		}
-		if (bullet.X == 37 && 20 < bullet.Y && bullet.Y < 24)
+		if (bullet.X is 37 && 20 < bullet.Y && bullet.Y < 24)
 		{
 			return true; // collision with bottom blockade
 		}
-		if (63 < bullet.X && bullet.X < 69 && bullet.Y == 13)
+		if (63 < bullet.X && bullet.X < 69 && bullet.Y is 13)
 		{
 			return true; // collision with right blockade
 		}

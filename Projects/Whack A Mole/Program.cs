@@ -73,8 +73,7 @@ void Play()
 	Console.WriteLine(Board);
 	DateTime start = DateTime.Now;
 	int score = 0;
-	Random random = new();
-	int moleLocation = random.Next(1, 10);
+	int moleLocation = Random.Shared.Next(1, 10);
 	Console.CursorVisible = false;
 	while (DateTime.Now - start < playTime)
 	{
@@ -85,15 +84,15 @@ void Play()
 	GetInput:
 		switch (Console.ReadKey(true).Key)
 		{
-			case ConsoleKey.D1: case ConsoleKey.NumPad1: selection = 1; break;
-			case ConsoleKey.D2: case ConsoleKey.NumPad2: selection = 2; break;
-			case ConsoleKey.D3: case ConsoleKey.NumPad3: selection = 3; break;
-			case ConsoleKey.D4: case ConsoleKey.NumPad4: selection = 4; break;
-			case ConsoleKey.D5: case ConsoleKey.NumPad5: selection = 5; break;
-			case ConsoleKey.D6: case ConsoleKey.NumPad6: selection = 6; break;
-			case ConsoleKey.D7: case ConsoleKey.NumPad7: selection = 7; break;
-			case ConsoleKey.D8: case ConsoleKey.NumPad8: selection = 8; break;
-			case ConsoleKey.D9: case ConsoleKey.NumPad9: selection = 9; break;
+			case ConsoleKey.D1 or ConsoleKey.NumPad1: selection = 1; break;
+			case ConsoleKey.D2 or ConsoleKey.NumPad2: selection = 2; break;
+			case ConsoleKey.D3 or ConsoleKey.NumPad3: selection = 3; break;
+			case ConsoleKey.D4 or ConsoleKey.NumPad4: selection = 4; break;
+			case ConsoleKey.D5 or ConsoleKey.NumPad5: selection = 5; break;
+			case ConsoleKey.D6 or ConsoleKey.NumPad6: selection = 6; break;
+			case ConsoleKey.D7 or ConsoleKey.NumPad7: selection = 7; break;
+			case ConsoleKey.D8 or ConsoleKey.NumPad8: selection = 8; break;
+			case ConsoleKey.D9 or ConsoleKey.NumPad9: selection = 9; break;
 			case ConsoleKey.Escape:
 				Console.Clear();
 				Console.WriteLine("Whack A Mole was closed...");
@@ -106,7 +105,7 @@ void Play()
 			score++;
 			Console.SetCursorPosition(left, top);
 			Render(Empty);
-			int newMoleLocation = random.Next(1, 9);
+			int newMoleLocation = Random.Shared.Next(1, 9);
 			moleLocation = newMoleLocation >= moleLocation ? newMoleLocation + 1 : newMoleLocation;
 		}
 	}

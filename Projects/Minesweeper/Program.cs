@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 const int mine = -1;
-Random random = new();
 (int Value, bool Visible)[,] board;
 
 Console.WriteLine("Minesweeper");
@@ -55,7 +54,7 @@ while (true)
 					Console.Write("Minesweeper was closed.");
 					return;
 				}
-				else if (board[Column, Row].Value == 0)
+				else if (board[Column, Row].Value is 0)
 				{
 					Reveal(Column, Row);
 					RenderBoard();
@@ -147,7 +146,7 @@ void GenerateBoard()
 	}
 	for (int i = 0; i < mineCount; i++)
 	{
-		int randomIndex = random.Next(0, coordinates.Count);
+		int randomIndex = Random.Shared.Next(0, coordinates.Count);
 		(int column, int row) = coordinates[randomIndex];
 		coordinates.RemoveAt(randomIndex);
 		board[column, row] = (mine, false);
@@ -193,7 +192,7 @@ void RenderBoard()
 void Reveal(int column, int row)
 {
 	board[column, row].Visible = true;
-	if (board[column, row].Value == 0)
+	if (board[column, row].Value is 0)
 	{
 		foreach (var (r, c) in AdjacentTiles(column, row))
 		{

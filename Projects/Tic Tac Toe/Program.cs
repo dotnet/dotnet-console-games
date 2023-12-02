@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 bool closeRequested = false;
 bool playerTurn = true;
-Random random = new();
 char[,] board;
 
 while (!closeRequested)
@@ -21,7 +20,7 @@ while (!closeRequested)
 			PlayerTurn();
 			if (CheckForThree('X'))
 			{
-				EndGame("You Win.");
+				EndGame("  You Win.");
 				break;
 			}
 		}
@@ -30,22 +29,23 @@ while (!closeRequested)
 			ComputerTurn();
 			if (CheckForThree('O'))
 			{
-				EndGame("You Lose.");
+				EndGame("  You Lose.");
 				break;
 			}
 		}
 		playerTurn = !playerTurn;
 		if (CheckForFullBoard())
 		{
-			EndGame("Draw.");
+			EndGame("  Draw.");
 			break;
 		}
 	}
 	if (!closeRequested)
 	{
 		Console.WriteLine();
-		Console.WriteLine("Play Again [enter], or quit [escape]?");
+		Console.WriteLine("  Play Again [enter], or quit [escape]?");
 	GetInput:
+		Console.CursorVisible = false;
 		switch (Console.ReadKey(true).Key)
 		{
 			case ConsoleKey.Enter: break;
@@ -57,6 +57,7 @@ while (!closeRequested)
 		}
 	}
 }
+Console.CursorVisible = true;
 
 void PlayerTurn()
 {
@@ -67,8 +68,9 @@ void PlayerTurn()
 		Console.Clear();
 		RenderBoard();
 		Console.WriteLine();
-		Console.WriteLine("Choose a valid position and press enter.");
-		Console.SetCursorPosition(column * 6 + 1, row * 4 + 1);
+		Console.WriteLine("  Use the arrow and enter keys to select a move.");
+		Console.SetCursorPosition(column * 4 + 4, row * 2 + 4);
+		Console.CursorVisible = true;
 		switch (Console.ReadKey(true).Key)
 		{
 			case ConsoleKey.UpArrow:    row = row <= 0 ? 2 : row - 1; break;
@@ -103,7 +105,7 @@ void ComputerTurn()
 			}
 		}
 	}
-	int index = random.Next(0, possibleMoves.Count);
+	int index = Random.Shared.Next(0, possibleMoves.Count);
 	var (X, Y) = possibleMoves[index];
 	board[X, Y] = 'O';
 }
@@ -125,16 +127,18 @@ bool CheckForFullBoard() =>
 
 void RenderBoard()
 {
-	Console.WriteLine();
-	Console.WriteLine($" {board[0, 0]}  ║  {board[0, 1]}  ║  {board[0, 2]}");
-	Console.WriteLine("    ║     ║");
-	Console.WriteLine(" ═══╬═════╬═══");
-	Console.WriteLine("    ║     ║");
-	Console.WriteLine($" {board[1, 0]}  ║  {board[1, 1]}  ║  {board[1, 2]}");
-	Console.WriteLine("    ║     ║");
-	Console.WriteLine(" ═══╬═════╬═══");
-	Console.WriteLine("    ║     ║");
-	Console.WriteLine($" {board[2, 0]}  ║  {board[2, 1]}  ║  {board[2, 2]}");
+	Console.WriteLine($"""
+
+		  Tic Tac Toe
+
+		  ╔═══╦═══╦═══╗
+		  ║ {board[0, 0]} ║ {board[0, 1]} ║ {board[0, 2]} ║
+		  ╠═══╬═══╬═══╣
+		  ║ {board[1, 0]} ║ {board[1, 1]} ║ {board[1, 2]} ║
+		  ╠═══╬═══╬═══╣
+		  ║ {board[2, 0]} ║ {board[2, 1]} ║ {board[2, 2]} ║
+		  ╚═══╩═══╩═══╝
+		""");
 }
 
 void EndGame(string message)

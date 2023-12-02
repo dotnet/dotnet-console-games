@@ -138,7 +138,6 @@ public class PacMan
 		const int FramesToMoveVertical = 6;
 		Ghost[] Ghosts;
 		const int GhostWeakTime = 200;
-		Random Random = new();
 		(int X, int Y)[] Locations = GetLocations();
 
 		await Console.Clear();
@@ -573,7 +572,7 @@ public class PacMan
 			return list.ToArray();
 		}
 
-		(int X, int Y) GetRandomLocation() => Random.Choose(Locations);
+		(int X, int Y) GetRandomLocation() => Random.Shared.Choose(Locations);
 
 		(int X, int Y) GetGhostNextMove((int X, int Y) position, (int X, int Y) destination)
 		{
