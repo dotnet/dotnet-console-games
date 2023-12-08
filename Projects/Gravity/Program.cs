@@ -156,17 +156,17 @@ char[][][] levels =
 	[
 		"█████████████████████████████████████████████████████████████████".ToCharArray(),
 		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                        X█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                        X█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                        X█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX               ●        X█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                        X█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                        X█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                        X█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                        X█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                        X█".ToCharArray(),
 		"█X                                                             X█".ToCharArray(),
 		"█X                                                             X█".ToCharArray(),
-		"█X                                                             X█".ToCharArray(),
-		"█X                                                    ●        X█".ToCharArray(),
-		"█X                                                             X█".ToCharArray(),
-		"█X                             X                               X█".ToCharArray(),
-		"█X                            XXX                              X█".ToCharArray(),
-		"█X                           XXXXX                             X█".ToCharArray(),
-		"█X                           XXXXX                             X█".ToCharArray(),
-		"█X                            XXX                              X█".ToCharArray(),
-		"█X                             X                               X█".ToCharArray(),
 		"█X                                                             X█".ToCharArray(),
 		"█X     @@@@@                                                   X█".ToCharArray(),
 		"█X     @@@@@                                                   X█".ToCharArray(),
@@ -175,6 +175,53 @@ char[][][] levels =
 		"█X                                                             X█".ToCharArray(),
 		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
 		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+	],
+	[
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                    ●        X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                                                             X█".ToCharArray(),
+		"█X                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X     @@@@@              XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X     @@@@@              XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X     @@@@@              XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+	],
+	[
+		"██████████████████████████████████████████████".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXX                  X█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXX                    X█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXX                      X█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXX             ●          X█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXX                          X█".ToCharArray(),
+		"█XXXXXXXXXXXXXXX                          XXX█".ToCharArray(),
+		"█XXXXXXXXXXXXX                          XXXXX█".ToCharArray(),
+		"█XXXXXXXXXXX                          XXXXXXX█".ToCharArray(),
+		"█XXXXXXXXX                          XXXXXXXXX█".ToCharArray(),
+		"█XXXXXXX                          XXXXXXXXXXX█".ToCharArray(),
+		"█XXXXX                          XXXXXXXXXXXXX█".ToCharArray(),
+		"█XXX                          XXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X                          XXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X                        XXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X                      XXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X@@@@@               XXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X@@@@@             XXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X@@@@@           XXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"██████████████████████████████████████████████".ToCharArray(),
 	],
 	[
 		"█████████████████████████████████████████████████████████████████".ToCharArray(),
@@ -250,11 +297,11 @@ char[][][] levels =
 		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
 		"█X                                                             X█".ToCharArray(),
 		"█X                                            #########        X█".ToCharArray(),
+		"█X                                                    ~        X█".ToCharArray(),
+		"█X                                                    ~        X█".ToCharArray(),
 		"█X     #####                                          ~        X█".ToCharArray(),
 		"█X     # ● #                                          ~        X█".ToCharArray(),
 		"█X     #####                                          ~        X█".ToCharArray(),
-		"█X                                                    ~        X█".ToCharArray(),
-		"█X                                                    ~        X█".ToCharArray(),
 		"█X                                                    ~        X█".ToCharArray(),
 		"█XXXXXXXXXXXXXXXXXXXXXXXX                             ~        X█".ToCharArray(),
 		"█X                                                    ~        X█".ToCharArray(),
@@ -267,6 +314,36 @@ char[][][] levels =
 		"█X                                                             X█".ToCharArray(),
 		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
 		"█████████████████████████████████████████████████████████████████".ToCharArray(),
+	],
+	[
+		"█████████████████████████████████████████████████████████".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█XXXXXXXXXX#####XXXXXXXXX#####XXXXXXXXX#####XXXXXXXXXXXX█".ToCharArray(),
+		"█XXXXXXXXXX            ~X            #X               XX█".ToCharArray(),
+		"█XXXXXXXXXX            ~X            #X             ● XX█".ToCharArray(),
+		"█XXXXXXXXXX                                           XX█".ToCharArray(),
+		"█X@@@@@         ~X            ~X            ~XXXXXXXXXXX█".ToCharArray(),
+		"█X@@@@@         ~X            ~X            ~XXXXXXXXXXX█".ToCharArray(),
+		"█X@@@@@         ~X#####XXXXXXXXX~~~~~XXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█████████████████████████████████████████████████████████".ToCharArray(),
+	],
+	[
+		"██████████████████████████████████████████████████████████████████████".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X@@@@@              XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X@@@@@                         XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X@@@@@                                   XXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X                                                 XXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"█X        ~~~~~~~~~                                        XXXXXXXXXX█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXX##########                                   XXXX█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX~~~~~~~~~                          XXX█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX########                  XX█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX~~~~~~~~          X█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX      ●  X█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX        X█".ToCharArray(),
+		"█XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX█".ToCharArray(),
+		"██████████████████████████████████████████████████████████████████████".ToCharArray(),
 	],
 ];
 
@@ -335,7 +412,7 @@ void SleepAfterRender()
 		{
 			if (levels[level][i][j] is '@')
 			{
-				return (j + 1, i + 1);
+				return (j + 2, i + 1);
 			}
 		}
 	}
@@ -397,9 +474,9 @@ void Update()
 	{
 		switch (gravity)
 		{
-			case Direction.Up: velocity.Y--; break;
-			case Direction.Left: velocity.X--; break;
-			case Direction.Down: velocity.Y++; break;
+			case Direction.Up:    velocity.Y--; break;
+			case Direction.Left:  velocity.X--; break;
+			case Direction.Down:  velocity.Y++; break;
 			case Direction.Right: velocity.X++; break;
 		}
 		updatesSinceGravityApplied = 0;
@@ -413,8 +490,8 @@ void Update()
 
 	int u = velocity.Y < 0 ? -velocity.Y : 0;
 	int l = velocity.X < 0 ? -velocity.X : 0;
-	int d = velocity.Y > 0 ? velocity.Y : 0;
-	int r = velocity.X > 0 ? velocity.X : 0;
+	int d = velocity.Y > 0 ?  velocity.Y : 0;
+	int r = velocity.X > 0 ?  velocity.X : 0;
 
 	if (velocity.Y < 0 && (gravity is Direction.Left && WallLeft() || gravity is Direction.Right && WallRight()))
 	{
@@ -599,26 +676,26 @@ void Update()
 
 bool WallUp() =>
 	levels[level][PlayerPosition.Y - 2][PlayerPosition.X - 2] is '█' or '#' ||
-	levels[level][PlayerPosition.Y - 2][PlayerPosition.X - 1] is '█' or '#'||
-	levels[level][PlayerPosition.Y - 2][PlayerPosition.X] is '█' or '#' ||
+	levels[level][PlayerPosition.Y - 2][PlayerPosition.X - 1] is '█' or '#' ||
+	levels[level][PlayerPosition.Y - 2][PlayerPosition.X]     is '█' or '#' ||
 	levels[level][PlayerPosition.Y - 2][PlayerPosition.X + 1] is '█' or '#' ||
 	levels[level][PlayerPosition.Y - 2][PlayerPosition.X + 2] is '█' or '#';
 
 bool WallDown() =>
 	levels[level][PlayerPosition.Y + 2][PlayerPosition.X - 2] is '█' or '#' ||
 	levels[level][PlayerPosition.Y + 2][PlayerPosition.X - 1] is '█' or '#' ||
-	levels[level][PlayerPosition.Y + 2][PlayerPosition.X] is '█' or '#' ||
+	levels[level][PlayerPosition.Y + 2][PlayerPosition.X]     is '█' or '#' ||
 	levels[level][PlayerPosition.Y + 2][PlayerPosition.X + 1] is '█' or '#' ||
 	levels[level][PlayerPosition.Y + 2][PlayerPosition.X + 2] is '█' or '#';
 
 bool WallLeft() =>
 	levels[level][PlayerPosition.Y - 1][PlayerPosition.X - 3] is '█' or '#' ||
-	levels[level][PlayerPosition.Y][PlayerPosition.X - 3] is '█' or '#' ||
+	levels[level][PlayerPosition.Y][PlayerPosition.X - 3]     is '█' or '#' ||
 	levels[level][PlayerPosition.Y + 1][PlayerPosition.X - 3] is '█' or '#';
 
 bool WallRight() =>
 	levels[level][PlayerPosition.Y - 1][PlayerPosition.X + 3] is '█' or '#' ||
-	levels[level][PlayerPosition.Y][PlayerPosition.X + 3] is '█' or '#' ||
+	levels[level][PlayerPosition.Y][PlayerPosition.X + 3]     is '█' or '#' ||
 	levels[level][PlayerPosition.Y + 1][PlayerPosition.X + 3] is '█' or '#';
 
 void Render()
@@ -663,70 +740,70 @@ string[] RenderPlayerState()
 		(PlayerState.Sliding | PlayerState.Up | PlayerState.Right) or
 		(PlayerState.Sliding | PlayerState.Down | PlayerState.Left) =>
 			[
-				@"╭──╮ ",
-				@"╰╮ ╰╮",
-				@" ╰──╯",
+				"╭──╮ ",
+				"╰╮ ╰╮",
+				" ╰──╯",
 			],
 		(PlayerState.Sliding | PlayerState.Down | PlayerState.Right) or
 		(PlayerState.Sliding | PlayerState.Up | PlayerState.Left) =>
 			[
-				@" ╭──╮",
-				@"╭╯ ╭╯",
-				@"╰──╯ ",
+				" ╭──╮",
+				"╭╯ ╭╯",
+				"╰──╯ ",
 			],
 		(PlayerState.Squash | PlayerState.Up | PlayerState.Right) =>
 			[
-				@"╭───╮",
-				@"╰─╮ │",
-				@"  ╰─╯",
+				"╭───╮",
+				"╰─╮ │",
+				"  ╰─╯",
 			],
 		(PlayerState.Squash | PlayerState.Down | PlayerState.Right) =>
 			[
-				@"  ╭─╮",
-				@"╭─╯ │",
-				@"╰───╯",
+				"  ╭─╮",
+				"╭─╯ │",
+				"╰───╯",
 			],
 		(PlayerState.Squash | PlayerState.Up | PlayerState.Left) =>
 			[
-				@"╭───╮",
-				@"│ ╭─╯",
-				@"╰─╯  ",
+				"╭───╮",
+				"│ ╭─╯",
+				"╰─╯  ",
 			],
 		(PlayerState.Squash | PlayerState.Down | PlayerState.Left) =>
 			[
-				@"╭─╮  ",
-				@"│ ╰─╮",
-				@"╰───╯",
+				"╭─╮  ",
+				"│ ╰─╮",
+				"╰───╯",
 			],
 		(PlayerState.Squash | PlayerState.Up) =>
 			[
-				@"╭───╮",
-				@"╰───╯",
-				@"     ",
+				"╭───╮",
+				"╰───╯",
+				"     ",
 			],
 		(PlayerState.Squash | PlayerState.Down) =>
 			[
-				@"     ",
-				@"╭───╮",
-				@"╰───╯",
+				"     ",
+				"╭───╮",
+				"╰───╯",
 			],
 		(PlayerState.Squash | PlayerState.Right) =>
 			[
-				@"  ╭─╮",
-				@"  │ │",
-				@"  ╰─╯",
+				"  ╭─╮",
+				"  │ │",
+				"  ╰─╯",
 			],
 		(PlayerState.Squash | PlayerState.Left) =>
 			[
-				@"╭─╮  ",
-				@"│ │  ",
-				@"╰─╯  ",
+				"╭─╮  ",
+				"│ │  ",
+				"╰─╯  ",
 			],
 		_ =>
 			[
-				@"╭───╮",
-				@"│   │",
-				@"╰───╯",
+				"╭───╮",
+				"│   │",
+				"╰───╯",
 			],
 	};
 }
@@ -767,7 +844,6 @@ internal enum Direction
 	Right = 1 << 3,
 }
 
-[Flags]
 internal enum GameState
 {
 	Default =      0,
@@ -775,7 +851,6 @@ internal enum GameState
 	Won     = 1 << 1,
 }
 
-[Flags]
 internal enum PlayerState
 {
 	Neutral   =      0,
