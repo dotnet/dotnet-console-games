@@ -27,21 +27,22 @@ public class Tug_Of_War
 					new string(' ', 2);
 				bool frame_a = false;
 				await Console.Clear();
-				await Console.WriteLine(@"
-  Tug Of War
-
-  Out pull your opponent in a rope pulling
-  competition. Mash the [left]+[right] arrow
-  keys and/or the [A]+[D] keys to pull on the
-  rope. First player to pull the center of the
-  rope into their boundary wins.
-
-  Choose Your Opponent:
-  [1] Easy.......2 mashes per second
-  [2] Medium.....4 mashes per second
-  [3] Hard.......8 mashes per second
-  [4] Harder....16 mashes per second
-  [escape] give up");
+				await Console.Write("""
+					  Tug Of War
+					
+					  Out pull your opponent in a rope pulling
+					  competition. Mash the [left]+[right] arrow
+					  keys and/or the [A]+[D] keys to pull on the
+					  rope. First player to pull the center of the
+					  rope into their boundary wins.
+					
+					  Choose Your Opponent:
+					  [1] Easy.......2 mashes per second
+					  [2] Medium.....4 mashes per second
+					  [3] Hard.......8 mashes per second
+					  [4] Harder....16 mashes per second
+					  [escape] give up
+					""");
 				int? requiredMash = null;
 				while (requiredMash is null)
 				{
