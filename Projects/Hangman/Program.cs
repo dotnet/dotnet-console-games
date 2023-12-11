@@ -5,10 +5,8 @@ using System.Reflection;
 using System.Threading;
 using System.Linq;
 
-Random Random = new();
-
 string[] Renders =
-{
+[
 	#region Frames
 	// 0
 	@"      ╔═══╗   " + '\n' +
@@ -67,10 +65,10 @@ string[] Renders =
 	@"     ███  ║   " + '\n' +
 	@"    ══════╩═══",
 	#endregion
-};
+];
 
 string[] DeathAnimation =
-{
+[
 	#region Frames
 	//
 	@"      ╔═══╗   " + '\n' +
@@ -361,7 +359,7 @@ string[] DeathAnimation =
 	@"      _   ║   " + '\n' +
 	@" __/══════╩═══",
 	#endregion
-};
+];
 
 const string wordsResource = "Hangman.Words.txt";
 Assembly assembly = Assembly.GetExecutingAssembly();
@@ -383,7 +381,7 @@ while (!streamReader.EndOfStream)
 		words.Add(word);
 	}
 }
-string[] Words = words.ToArray();
+string[] wordarray = [.. words];
 PlayAgain:
 Console.CursorVisible = false;
 Console.Clear();
@@ -391,7 +389,7 @@ Console.WriteLine();
 Console.WriteLine("    Hangman");
 Console.WriteLine();
 int incorrectGuesses = 0;
-string randomWord = GetRandomWord().ToLower();
+string randomWord = wordarray[Random.Shared.Next(wordarray.Length)].ToLower();
 char[] revealedChars = new string('_', randomWord.Length).ToCharArray();
 while (incorrectGuesses < Renders.Length && revealedChars.Contains('_'))
 {
@@ -455,10 +453,6 @@ switch (Console.ReadKey(true).Key)
 	default: goto GetPlayAgainInput;
 }
 Console.Clear();
-
-string GetRandomWord() => Choose(Random, Words);
-
-T Choose<T>(Random random, params T[] values) => values[random.Next(values.Length)];
 
 void RenderGameState()
 {

@@ -4,15 +4,15 @@ public static class ControlsScreen
 {
 	public static void ControlsMenu()
 	{
-		string[] bigHeader = new[]
-		{
+		string[] bigHeader =
+		[
 			"██╗  ██╗███████╗██╗   ██╗    ███╗   ███╗ █████╗ ██████╗ ██████╗ ██╗███╗   ██╗ ██████╗ ",
 			"██║ ██╔╝██╔════╝╚██╗ ██╔╝    ████╗ ████║██╔══██╗██╔══██╗██╔══██╗██║████╗  ██║██╔════╝ ",
 			"█████╔╝ █████╗   ╚████╔╝     ██╔████╔██║███████║██████╔╝██████╔╝██║██╔██╗ ██║██║  ███╗",
 			"██╔═██╗ ██╔══╝    ╚██╔╝      ██║╚██╔╝██║██╔══██║██╔═══╝ ██╔═══╝ ██║██║╚██╗██║██║   ██║",
 			"██║  ██╗███████╗   ██║       ██║ ╚═╝ ██║██║  ██║██║     ██║     ██║██║ ╚████║╚██████╔╝",
 			"╚═╝  ╚═╝╚══════╝   ╚═╝       ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝     ╚═╝╚═╝  ╚═══╝ ╚═════╝ ",
-		};
+		];
 		int bigHeaderWidth = bigHeader.Max(line => line.Length);
 		const int bigHeaderPadding = 2;
 		const int optionPadding = 1;
@@ -20,8 +20,8 @@ public static class ControlsScreen
 		Console.Clear();
 		int selectedOption = 0;
 		bool needToRender = true;
-		string[] spacingSmall = {"\n"};
-		string[] spacingLarge = {"\n","\n"};
+		string[] spacingSmall = ["\n"];
+		string[] spacingLarge = ["\n","\n"];
 		Console.CursorVisible = false;
 		while (true) 
 		{
@@ -35,8 +35,8 @@ public static class ControlsScreen
 				StringBuilder? buffer = null;
 				if (consoleWidth - 1 >= bigHeaderWidth)
 				{
-					string[][] options = new[]
-					{
+					string[][] options =
+					[
 						AsciiGenerator.ToAscii((selectedOption is 0 ? "■" : "□") + " up:       "+ reverseKeyMappings[UserKeyPress.Up].ToDisplayString()     ), spacingSmall,
 						AsciiGenerator.ToAscii((selectedOption is 1 ? "■" : "□") + " down:     "+ reverseKeyMappings[UserKeyPress.Down].ToDisplayString()   ), spacingSmall,
 						AsciiGenerator.ToAscii((selectedOption is 2 ? "■" : "□") + " left:     "+ reverseKeyMappings[UserKeyPress.Left].ToDisplayString()   ), spacingSmall,
@@ -48,7 +48,7 @@ public static class ControlsScreen
 						spacingLarge, //NEEDS FULL SCREEN TO SHOW ALL
 						AsciiGenerator.ToAscii((selectedOption is 8 ? "■" : "□") + " restore defaults"),
 						AsciiGenerator.ToAscii((selectedOption is 9 ? "■" : "□") + " back"),
-					};
+					];
 					int optionsWidth = options.Max(o => o.Max(l => l.Length));
 					int bigRenderHeight = bigHeader.Length + options.Sum(o => o.Length) + bigHeaderPadding + optionPadding * options.Length;
 					if (consoleHeight - 1 >= bigRenderHeight && consoleWidth - 1 >= optionsWidth)
@@ -75,8 +75,8 @@ public static class ControlsScreen
 				}
 				if (buffer is null)
 				{
-					string[] render = new[]
-					{
+					string[] render =
+					[
 						$@"Key Mapping",
 						$@"{(selectedOption is 0 ? ">" : " ")} Up:       {reverseKeyMappings[UserKeyPress.Up].ToDisplayString()     }           ",
 						$@"{(selectedOption is 1 ? ">" : " ")} Down:     {reverseKeyMappings[UserKeyPress.Down].ToDisplayString()   }           ",
@@ -88,7 +88,7 @@ public static class ControlsScreen
 						$@"{(selectedOption is 7 ? ">" : " ")} Pause:    {reverseKeyMappings[UserKeyPress.Escape].ToDisplayString() }           ",
 						$@"{(selectedOption is 8 ? ">" : " ")} Restore Defaults",
 						$@"{(selectedOption is 9 ? ">" : " ")} Back",
-					};
+					];
 					buffer = ScreenHelpers.Center(render, (consoleHeight - 1, consoleWidth - 1));
 				}
 				Console.SetCursorPosition(0, 0);
@@ -136,14 +136,14 @@ public static class ControlsScreen
 		Console.Clear();
 		Console.Write($"Press a key to use for the Main {userInput} input...");
 		ConsoleKey main = Console.ReadKey(true).Key;
-		if (keyMappings.ContainsKey(main) && keyMappings[main] is UserKeyPress.Escape)
+		if (keyMappings.TryGetValue(main, out UserKeyPress possibleEscapeKey1) && possibleEscapeKey1 is UserKeyPress.Escape)
 		{
 			return;
 		}
 		Console.Clear();
 		Console.Write($"Press a key to use for the Alternate {userInput} input or [{reverseKeyMappings[UserKeyPress.Escape].ToDisplayString()}] to leave empty...");
 		ConsoleKey? alternate = Console.ReadKey(true).Key;
-		if (keyMappings.ContainsKey(alternate.Value) && keyMappings[alternate.Value] is UserKeyPress.Escape)
+		if (keyMappings.TryGetValue(alternate.Value, out UserKeyPress possibleEscapeKey2) && possibleEscapeKey2 is UserKeyPress.Escape)
 		{
 			alternate = null;
 		}
@@ -161,7 +161,7 @@ public static class ControlsScreen
 			while (true)
 			{
 				ConsoleKey key = Console.ReadKey(true).Key;
-				if (keyMappings.ContainsKey(key) && keyMappings[key] is UserKeyPress.Confirm)
+				if (keyMappings.TryGetValue(key, out UserKeyPress possibleConfirmKey) && possibleConfirmKey is UserKeyPress.Confirm)
 				{
 					break;
 				}

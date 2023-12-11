@@ -2,12 +2,29 @@
 using System.Collections.Generic;
 
 Exception? exception = null;
-
-char[] DirectionChars = { '^', 'v', '<', '>', };
-TimeSpan sleep = TimeSpan.FromMilliseconds(70);
+int speedInput;
+string prompt = $"Select speed [1], [2] (default), or [3]: ";
+string? input;
+Console.Write(prompt);
+while (!int.TryParse(input = Console.ReadLine(), out speedInput) || speedInput < 1 || 3 < speedInput)
+{
+	if (string.IsNullOrWhiteSpace(input))
+	{
+		speedInput = 2;
+		break;
+	}
+	else
+	{
+		Console.WriteLine("Invalid Input. Try Again...");
+		Console.Write(prompt);
+	}
+}
+int[] velocities = [100, 70, 50];
+int velocity = velocities[speedInput - 1];
+char[] DirectionChars = ['^', 'v', '<', '>',];
+TimeSpan sleep = TimeSpan.FromMilliseconds(velocity);
 int width = Console.WindowWidth;
 int height = Console.WindowHeight;
-Random random = new();
 Tile[,] map = new Tile[width, height];
 Direction? direction = null;
 Queue<(int X, int Y)> snake = new();
@@ -53,7 +70,7 @@ try
 		Console.SetCursorPosition(X, Y);
 		Console.Write(DirectionChars[(int)direction!]);
 		snake.Enqueue((X, Y));
-		if (map[X, Y] == Tile.Food)
+		if (map[X, Y] is Tile.Food)
 		{
 			PositionFood();
 		}
@@ -85,14 +102,15 @@ finally
 }
 
 void GetDirection()
+// takes direction from arrow keys
 {
 	switch (Console.ReadKey(true).Key)
 	{
-		case ConsoleKey.UpArrow:    direction = Direction.Up; break;
-		case ConsoleKey.DownArrow:  direction = Direction.Down; break;
-		case ConsoleKey.LeftArrow:  direction = Direction.Left; break;
+		case ConsoleKey.UpArrow: direction = Direction.Up; break;
+		case ConsoleKey.DownArrow: direction = Direction.Down; break;
+		case ConsoleKey.LeftArrow: direction = Direction.Left; break;
 		case ConsoleKey.RightArrow: direction = Direction.Right; break;
-		case ConsoleKey.Escape:     closeRequested = true; break;
+		case ConsoleKey.Escape: closeRequested = true; break;
 	}
 }
 
@@ -109,7 +127,7 @@ void PositionFood()
 			}
 		}
 	}
-	int index = random.Next(possibleCoordinates.Count);
+	int index = Random.Shared.Next(possibleCoordinates.Count);
 	(int X, int Y) = possibleCoordinates[index];
 	map[X, Y] = Tile.Food;
 	Console.SetCursorPosition(X, Y);

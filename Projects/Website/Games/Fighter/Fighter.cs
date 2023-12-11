@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using static Website.Games.Fighter.Fighter.Action;
 
 namespace Website.Games.Fighter;
 
@@ -24,8 +25,6 @@ public class Fighter
 		TimeSpan timeSpanOwned = TimeSpan.FromMilliseconds(30);
 		TimeSpan timeSpanGround = TimeSpan.FromMilliseconds(600);
 		TimeSpan timeSpanGetUp = TimeSpan.FromMilliseconds(80);
-
-		Random random = new();
 
 		await Console.Clear();
 		Console.CursorVisible = false;
@@ -90,9 +89,9 @@ public class Fighter
 			{
 				if (!(fighter.Energy >= action switch
 				{
-					Action.Punch => 10,
-					Action.JumpKick => 20,
-					Action.Block => 0,
+					Punch => 10,
+					JumpKick => 20,
+					Block => 0,
 					_ => throw new NotImplementedException(),
 				})) return;
 
@@ -102,21 +101,21 @@ public class Fighter
 				fighter.Frame = 0;
 				fighter.Energy = Math.Max(action switch
 				{
-					Action.Punch => fighter.Energy - 10,
-					Action.JumpKick => fighter.Energy - 20,
-					Action.Block => fighter.Energy,
+					Punch => fighter.Energy - 10,
+					JumpKick => fighter.Energy - 20,
+					Block => fighter.Energy,
 					_ => throw new NotImplementedException(),
 				}, 0);
 
 				await Console.SetCursorPosition(fighter.Position, Y);
 				await Render(action switch
 				{
-					Action.Idle => fighter.IdleAnimation[fighter.Frame],
-					Action.Punch => fighter.PunchAnimation[fighter.Frame],
-					Action.Block => fighter.BlockAnimation[fighter.Frame],
-					Action.JumpKick => fighter.JumpKickAnimation[fighter.Frame],
-					Action.Owned => fighter.OwnedAnimation[fighter.Frame],
-					Action.GetUp => fighter.GetUpAnimation[fighter.Frame],
+					Idle => fighter.IdleAnimation[fighter.Frame],
+					Punch => fighter.PunchAnimation[fighter.Frame],
+					Block => fighter.BlockAnimation[fighter.Frame],
+					JumpKick => fighter.JumpKickAnimation[fighter.Frame],
+					Owned => fighter.OwnedAnimation[fighter.Frame],
+					GetUp => fighter.GetUpAnimation[fighter.Frame],
 					_ => throw new NotImplementedException(),
 				});
 				fighter.Stopwatch.Restart();
@@ -140,35 +139,35 @@ public class Fighter
 				switch ((await Console.ReadKey(true)).Key)
 				{
 					case ConsoleKey.F:
-						if (player.Action == Action.Idle)
+						if (player.Action is Idle)
 						{
-							await Trigger(player, Action.Punch);
+							await Trigger(player, Punch);
 							skipPlayerUpdate = true;
 						}
 						break;
 					case ConsoleKey.D:
-						if (player.Action == Action.Idle)
+						if (player.Action is Idle)
 						{
-							await Trigger(player, Action.Block);
+							await Trigger(player, Block);
 							skipPlayerUpdate = true;
 						}
 						break;
 					case ConsoleKey.S:
-						if (player.Action == Action.Idle)
+						if (player.Action is Idle)
 						{
-							await Trigger(player, Action.JumpKick);
+							await Trigger(player, JumpKick);
 							skipPlayerUpdate = true;
 						}
 						break;
 					//case ConsoleKey.Q:
-					//	if (player.Action == Action.Idle)
+					//	if (player.Action is Idle)
 					//	{
-					//		Trigger(player, Action.Owned);
+					//		Trigger(player, Owned);
 					//		skipPlayerUpdate = true;
 					//	}
 					//	break;
 					case ConsoleKey.LeftArrow:
-						if (player.Action == Action.Idle)
+						if (player.Action is Idle)
 						{
 							int newPosition = Math.Min(Math.Max(player.Position - 1, 0), enemy.Position - 4);
 							if (newPosition != player.Position && player.Energy >= 2)
@@ -180,7 +179,7 @@ public class Fighter
 						}
 						break;
 					case ConsoleKey.RightArrow:
-						if (player.Action == Action.Idle)
+						if (player.Action is Idle)
 						{
 							int newPosition = Math.Min(Math.Max(player.Position + 1, 0), enemy.Position - 4);
 							if (newPosition != player.Position && player.Energy >= 2)
@@ -207,24 +206,24 @@ public class Fighter
 
 			#region Enemy AI
 
-			if (enemy.Action == Action.Idle)
+			if (enemy.Action is Idle)
 			{
-				if (enemy.Position - player.Position <= 5 && random.Next(10) == 0)
+				if (enemy.Position - player.Position <= 5 && Random.Shared.Next(10) is 0)
 				{
-					await Trigger(enemy, Action.Punch);
+					await Trigger(enemy, Punch);
 					skipEnemyUpdate = true;
 				}
-				else if (enemy.Position - player.Position <= 5 && random.Next(10) == 0)
+				else if (enemy.Position - player.Position <= 5 && Random.Shared.Next(10) is 0)
 				{
-					await Trigger(enemy, Action.JumpKick);
+					await Trigger(enemy, JumpKick);
 					skipEnemyUpdate = true;
 				}
-				else if (enemy.Position - player.Position <= 5 && random.Next(7) == 0 && player.Energy >= 9)
+				else if (enemy.Position - player.Position <= 5 && Random.Shared.Next(7) is 0 && player.Energy >= 9)
 				{
-					await Trigger(enemy, Action.Block);
+					await Trigger(enemy, Block);
 					skipEnemyUpdate = true;
 				}
-				else if (random.Next(10) == 0 && enemy.Energy >= 2 && (enemy.Energy == enemy.MaxEnergy || random.Next(enemy.MaxEnergy - enemy.Energy + 3) == 0))
+				else if (Random.Shared.Next(10) is 0 && enemy.Energy >= 2 && (enemy.Energy == enemy.MaxEnergy || Random.Shared.Next(enemy.MaxEnergy - enemy.Energy + 3) is 0))
 				{
 					int newPosition = Math.Min(Math.Max(enemy.Position - 1, player.Position + 4), width - 9);
 					if (enemy.Position != newPosition)
@@ -234,7 +233,7 @@ public class Fighter
 						enemy.Energy = Math.Max(enemy.Energy - 1, 0);
 					}
 				}
-				else if (random.Next(13) == 0 && enemy.Energy >= 2 && (enemy.Energy == enemy.MaxEnergy || random.Next(enemy.MaxEnergy - enemy.Energy + 3) == 0))
+				else if (Random.Shared.Next(13) is 0 && enemy.Energy >= 2 && (enemy.Energy == enemy.MaxEnergy || Random.Shared.Next(enemy.MaxEnergy - enemy.Energy + 3) is 0))
 				{
 					int newPosition = Math.Min(Math.Max(enemy.Position + 1, player.Position + 4), width - 9);
 					if (enemy.Position != newPosition)
@@ -262,7 +261,7 @@ public class Fighter
 
 			async Task Update(FighterClass fighter)
 			{
-				if (fighter.Action == Action.Idle && fighter.Stopwatch.Elapsed > timeSpanIdle)
+				if (fighter.Action is Idle && fighter.Stopwatch.Elapsed > timeSpanIdle)
 				{
 					await Console.SetCursorPosition(fighter.Position, Y);
 					await Erase(fighter.IdleAnimation[fighter.Frame]);
@@ -272,7 +271,7 @@ public class Fighter
 					fighter.Stopwatch.Restart();
 					fighter.Energy = Math.Min(fighter.Energy + 1, fighter.MaxEnergy);
 				}
-				else if (fighter.Action == Action.Punch && fighter.Stopwatch.Elapsed > timeSpanPunch)
+				else if (fighter.Action is Punch && fighter.Stopwatch.Elapsed > timeSpanPunch)
 				{
 					await Console.SetCursorPosition(fighter.Position, Y);
 					await Erase(fighter.PunchAnimation[fighter.Frame]);
@@ -281,21 +280,21 @@ public class Fighter
 					FighterClass opponent = fighter == player ? enemy : player;
 					if (Math.Abs(opponent.Position - fighter.Position) <= 5 &&
 						2 >= fighter.Frame  && fighter.Frame <= 3 &&
-						opponent.Action != Action.Block &&
-						opponent.Action != Action.GetUp &&
-						opponent.Action != Action.Ground &&
-						opponent.Action != Action.Owned)
+						opponent.Action is not Block &&
+						opponent.Action is not GetUp &&
+						opponent.Action is not Ground &&
+						opponent.Action is not Owned)
 					{
 						opponent.Health -= 4;
 						await Console.SetCursorPosition(opponent.Position, Y);
 						await Erase(opponent.Action switch
 						{
-							Action.Punch => opponent.PunchAnimation[opponent.Frame],
-							Action.Idle => opponent.IdleAnimation[opponent.Frame],
-							Action.JumpKick => opponent.JumpKickAnimation[opponent.Frame],
+							Punch => opponent.PunchAnimation[opponent.Frame],
+							Idle => opponent.IdleAnimation[opponent.Frame],
+							JumpKick => opponent.JumpKickAnimation[opponent.Frame],
 							_ => throw new NotImplementedException(),
 						});
-						opponent.Action = Action.Owned;
+						opponent.Action = Owned;
 						opponent.Frame = 0;
 						await Console.SetCursorPosition(opponent.Position, Y);
 						await Render(opponent.OwnedAnimation[opponent.Frame]);
@@ -304,7 +303,7 @@ public class Fighter
 
 					if (fighter.Frame >= fighter.PunchAnimation.Length)
 					{
-						fighter.Action = Action.Idle;
+						fighter.Action = Idle;
 						fighter.Frame = 0;
 						await Console.SetCursorPosition(fighter.Position, Y);
 						await Render(fighter.IdleAnimation[fighter.Frame]);
@@ -316,17 +315,17 @@ public class Fighter
 					}
 					fighter.Stopwatch.Restart();
 				}
-				else if (fighter.Action == Action.Block && fighter.Stopwatch.Elapsed > timeSpanBlock)
+				else if (fighter.Action is Block && fighter.Stopwatch.Elapsed > timeSpanBlock)
 				{
 					await Console.SetCursorPosition(fighter.Position, Y);
 					await Erase(fighter.BlockAnimation[fighter.Frame]);
-					fighter.Action = Action.Idle;
+					fighter.Action = Idle;
 					fighter.Frame = 0;
 					await Console.SetCursorPosition(fighter.Position, Y);
 					await Render(fighter.IdleAnimation[fighter.Frame]);
 					fighter.Stopwatch.Restart();
 				}
-				else if (fighter.Action == Action.JumpKick && fighter.Stopwatch.Elapsed > timeSpanJumpKick)
+				else if (fighter.Action is JumpKick && fighter.Stopwatch.Elapsed > timeSpanJumpKick)
 				{
 					await Console.SetCursorPosition(fighter.Position, Y);
 					await Erase(fighter.JumpKickAnimation[fighter.Frame]);
@@ -334,22 +333,22 @@ public class Fighter
 
 					FighterClass opponent = fighter == player ? enemy : player;
 					if (Math.Abs(opponent.Position - fighter.Position) <= 5 &&
-						fighter.Frame == 5 &&
-						opponent.Action != Action.GetUp &&
-						opponent.Action != Action.Ground &&
-						opponent.Action != Action.Owned)
+						fighter.Frame is 5 &&
+						opponent.Action is not GetUp &&
+						opponent.Action is not Ground &&
+						opponent.Action is not Owned)
 					{
-						opponent.Health -= opponent.Action == Action.Block ? 4 : 8;
+						opponent.Health -= opponent.Action is Block ? 4 : 8;
 						await Console.SetCursorPosition(opponent.Position, Y);
 						await Erase(opponent.Action switch
 						{
-							Action.Punch => opponent.PunchAnimation[opponent.Frame],
-							Action.Idle => opponent.IdleAnimation[opponent.Frame],
-							Action.JumpKick => opponent.JumpKickAnimation[opponent.Frame],
-							Action.Block => opponent.BlockAnimation[opponent.Frame],
+							Punch => opponent.PunchAnimation[opponent.Frame],
+							Idle => opponent.IdleAnimation[opponent.Frame],
+							JumpKick => opponent.JumpKickAnimation[opponent.Frame],
+							Block => opponent.BlockAnimation[opponent.Frame],
 							_ => throw new NotImplementedException(),
 						});
-						opponent.Action = Action.Owned;
+						opponent.Action = Owned;
 						opponent.Frame = 0;
 						await Console.SetCursorPosition(opponent.Position, Y);
 						await Render(opponent.OwnedAnimation[opponent.Frame]);
@@ -358,7 +357,7 @@ public class Fighter
 
 					if (fighter.Frame >= fighter.JumpKickAnimation.Length)
 					{
-						fighter.Action = Action.Idle;
+						fighter.Action = Idle;
 						fighter.Frame = 0;
 						await Console.SetCursorPosition(fighter.Position, Y);
 						await Render(fighter.IdleAnimation[fighter.Frame]);
@@ -370,14 +369,14 @@ public class Fighter
 					}
 					fighter.Stopwatch.Restart();
 				}
-				else if (fighter.Action == Action.Owned && fighter.Stopwatch.Elapsed > timeSpanOwned)
+				else if (fighter.Action is Owned && fighter.Stopwatch.Elapsed > timeSpanOwned)
 				{
 					await Console.SetCursorPosition(fighter.Position, Y);
 					await Erase(fighter.OwnedAnimation[fighter.Frame]);
 					fighter.Frame++;
 					if (fighter.Frame >= fighter.OwnedAnimation.Length)
 					{
-						fighter.Action = Action.Ground;
+						fighter.Action = Ground;
 						fighter.Frame = 0;
 						await Console.SetCursorPosition(fighter.Position, Y);
 						await Render(fighter.GroundAnimation[fighter.Frame]);
@@ -389,14 +388,14 @@ public class Fighter
 					}
 					fighter.Stopwatch.Restart();
 				}
-				else if (fighter.Action == Action.Ground && fighter.Stopwatch.Elapsed > timeSpanGround)
+				else if (fighter.Action is Ground && fighter.Stopwatch.Elapsed > timeSpanGround)
 				{
 					await Console.SetCursorPosition(fighter.Position, Y);
 					await Erase(fighter.GroundAnimation[fighter.Frame]);
 					fighter.Frame++;
 					if (fighter.Frame >= fighter.GroundAnimation.Length)
 					{
-						fighter.Action = Action.GetUp;
+						fighter.Action = GetUp;
 						fighter.Frame = 0;
 						await Console.SetCursorPosition(fighter.Position, Y);
 						await Render(fighter.GetUpAnimation[fighter.Frame]);
@@ -408,14 +407,14 @@ public class Fighter
 					}
 					fighter.Stopwatch.Restart();
 				}
-				else if (fighter.Action == Action.GetUp && fighter.Stopwatch.Elapsed > timeSpanGetUp)
+				else if (fighter.Action is GetUp && fighter.Stopwatch.Elapsed > timeSpanGetUp)
 				{
 					await Console.SetCursorPosition(fighter.Position, Y);
 					await Erase(fighter.GetUpAnimation[fighter.Frame]);
 					fighter.Frame++;
 					if (fighter.Frame >= fighter.GetUpAnimation.Length)
 					{
-						fighter.Action = Action.Idle;
+						fighter.Action = Idle;
 						fighter.Frame = 0;
 						await Console.SetCursorPosition(fighter.Position, Y);
 						await Render(fighter.IdleAnimation[fighter.Frame]);
@@ -436,13 +435,13 @@ public class Fighter
 			await Console.SetCursorPosition(player.Position, Y);
 			await Render(player.Action switch
 			{
-				Action.Idle => player.IdleAnimation[player.Frame],
-				Action.Punch => player.PunchAnimation[player.Frame],
-				Action.Block => player.BlockAnimation[player.Frame],
-				Action.JumpKick => player.JumpKickAnimation[player.Frame],
-				Action.Owned => player.OwnedAnimation[player.Frame],
-				Action.Ground => player.GroundAnimation[player.Frame],
-				Action.GetUp => player.GetUpAnimation[player.Frame],
+				Idle => player.IdleAnimation[player.Frame],
+				Punch => player.PunchAnimation[player.Frame],
+				Block => player.BlockAnimation[player.Frame],
+				JumpKick => player.JumpKickAnimation[player.Frame],
+				Owned => player.OwnedAnimation[player.Frame],
+				Ground => player.GroundAnimation[player.Frame],
+				GetUp => player.GetUpAnimation[player.Frame],
 				_ => throw new NotImplementedException(),
 			});
 
@@ -491,13 +490,13 @@ public class Fighter
 			}
 			#endregion
 
-			if (player.Health <= 0 && player.Action == Action.Ground)
+			if (player.Health <= 0 && player.Action is Ground)
 			{
 				await Console.SetCursorPosition(0, Y + 8);
 				await Console.Write("You Lose.");
 				break;
 			}
-			if (enemy.Health <= 0 && enemy.Action == Action.Ground)
+			if (enemy.Health <= 0 && enemy.Action is Ground)
 			{
 				await Console.SetCursorPosition(0, Y + 8);
 				await Console.Write("You Win.");
@@ -539,7 +538,7 @@ public class Fighter
 		#endregion
 	}
 
-	enum Action
+	internal enum Action
 	{
 		Idle = 0,
 		Punch = 1,
@@ -552,7 +551,7 @@ public class Fighter
 
 	class FighterClass
 	{
-		public Action Action = Action.Idle;
+		public Action Action = Idle;
 		public int Frame = 0;
 		public int Position;
 		public Stopwatch Stopwatch = new();
@@ -576,8 +575,8 @@ public class Fighter
 
 		public static class Player
 		{
-			public static readonly string[] IdleAnimation = new string[]
-			{
+			public static readonly string[] IdleAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -592,10 +591,10 @@ public class Fighter
 				@"   ((L   " + '\n' +
 				@"    |    " + '\n' +
 				@"   / )   ",
-			};
+			];
 
-			public static readonly string[] BlockAnimation = new string[]
-			{
+			public static readonly string[] BlockAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -603,10 +602,10 @@ public class Fighter
 				@"    |-'  " + '\n' +
 				@"    |    " + '\n' +
 				@"   / /   ",
-			};
+			];
 
-			public static readonly string[] PunchAnimation = new string[]
-			{
+			public static readonly string[] PunchAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -649,10 +648,10 @@ public class Fighter
 				@"   (|)   " + '\n' +
 				@"    |    " + '\n' +
 				@"   / \   ",
-			};
+			];
 
-			public static readonly string[] JumpKickAnimation = new string[]
-			{
+			public static readonly string[] JumpKickAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -709,10 +708,10 @@ public class Fighter
 				@"     o   " + '\n' +
 				@"   </<   " + '\n' +
 				@"    >>   ",
-			};
+			];
 
-			public static readonly string[] OwnedAnimation = new string[]
-			{
+			public static readonly string[] OwnedAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -741,10 +740,10 @@ public class Fighter
 				@"         " + '\n' +
 				@"         " + '\n' +
 				@"  o___/\ ",
-			};
+			];
 
-			public static readonly string[] GroundAnimation = new string[]
-			{
+			public static readonly string[] GroundAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -752,10 +751,10 @@ public class Fighter
 				@"         " + '\n' +
 				@"         " + '\n' +
 				@"  o___/\ ",
-			};
+			];
 
-			public static readonly string[] GetUpAnimation = new string[]
-			{
+			public static readonly string[] GetUpAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -812,13 +811,13 @@ public class Fighter
 				@"     o   " + '\n' +
 				@"   </<   " + '\n' +
 				@"    >>   ",
-			};
+			];
 		}
 
 		public static class Enemy
 		{
-			public static readonly string[] IdleAnimation = new string[]
-			{
+			public static readonly string[] IdleAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -833,10 +832,10 @@ public class Fighter
 				@"   J))   " + '\n' +
 				@"    |    " + '\n' +
 				@"   ( \   ",
-			};
+			];
 
-			public static readonly string[] BlockAnimation = new string[]
-			{
+			public static readonly string[] BlockAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -844,10 +843,10 @@ public class Fighter
 				@"  '-|    " + '\n' +
 				@"    |    " + '\n' +
 				@"   \ \   ",
-			};
+			];
 
-			public static readonly string[] PunchAnimation = new string[]
-			{
+			public static readonly string[] PunchAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -890,10 +889,10 @@ public class Fighter
 				@"   (|)   " + '\n' +
 				@"    |    " + '\n' +
 				@"   / \   ",
-			};
+			];
 
-			public static readonly string[] JumpKickAnimation = new string[]
-			{
+			public static readonly string[] JumpKickAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -950,10 +949,10 @@ public class Fighter
 				@"    o    " + '\n' +
 				@"    >\>   " + '\n' +
 				@"    <<   ",
-			};
+			];
 
-			public static readonly string[] OwnedAnimation = new string[]
-			{
+			public static readonly string[] OwnedAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -982,10 +981,10 @@ public class Fighter
 				@"         " + '\n' +
 				@"         " + '\n' +
 				@" /\___o ",
-			};
+			];
 
-			public static readonly string[] GroundAnimation = new string[]
-			{
+			public static readonly string[] GroundAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -993,10 +992,10 @@ public class Fighter
 				@"         " + '\n' +
 				@"         " + '\n' +
 				@" /\___o  ",
-			};
+			];
 
-			public static readonly string[] GetUpAnimation = new string[]
-			{
+			public static readonly string[] GetUpAnimation =
+			[
 				// 0
 				@"         " + '\n' +
 				@"         " + '\n' +
@@ -1053,7 +1052,7 @@ public class Fighter
 				@"   o     " + '\n' +
 				@"   >\>   " + '\n' +
 				@"   <<    ",
-			};
+			];
 		}
 
 		#endregion

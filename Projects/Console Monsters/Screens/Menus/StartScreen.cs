@@ -4,15 +4,15 @@ public static class StartScreen
 {
 	public static void Show()
 	{
-		string[] bigHeader = new[]
-		{
+		string[] bigHeader =
+		[
 			" ██████╗ ██████╗ ███╗   ██╗███████╗ ██████╗ ██╗     ███████╗    ███╗   ███╗ ██████╗ ███╗   ██╗███████╗████████╗███████╗██████╗ ███████╗",
 			"██╔════╝██╔═══██╗████╗  ██║██╔════╝██╔═══██╗██║     ██╔════╝    ████╗ ████║██╔═══██╗████╗  ██║██╔════╝╚══██╔══╝██╔════╝██╔══██╗██╔════╝",
 			"██║     ██║   ██║██╔██╗ ██║███████╗██║   ██║██║     █████╗      ██╔████╔██║██║   ██║██╔██╗ ██║███████╗   ██║   █████╗  ██████╔╝███████╗",
 			"██║     ██║   ██║██║╚██╗██║╚════██║██║   ██║██║     ██╔══╝      ██║╚██╔╝██║██║   ██║██║╚██╗██║╚════██║   ██║   ██╔══╝  ██╔══██╗╚════██║",
 			"╚██████╗╚██████╔╝██║ ╚████║███████║╚██████╔╝███████╗███████╗    ██║ ╚═╝ ██║╚██████╔╝██║ ╚████║███████║   ██║   ███████╗██║  ██║███████║",
 			" ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚══════╝╚══════╝    ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚══════╝",
-		};
+		];
 		int bigHeaderWidth = bigHeader.Max(line => line.Length);
 		const int bigHeaderPadding = 2;
 		const int optionPadding = 1;
@@ -33,12 +33,12 @@ public static class StartScreen
 				StringBuilder? buffer = null;
 				if (consoleWidth - 1 >= bigHeaderWidth)
 				{
-					string[][] options = new[]
-					{
+					string[][] options =
+					[
 						AsciiGenerator.ToAscii((selectedOption is 0 ? "■" : "□") + (FirstTimeLaunching ? " start" : " resume")),
 						AsciiGenerator.ToAscii((selectedOption is 1 ? "■" : "□") + " options"),
 						AsciiGenerator.ToAscii((selectedOption is 2 ? "■" : "□") + " exit"),
-					};
+					];
 					int optionsWidth = options.Max(o => o.Max(l => l.Length));
 					int bigRenderHeight = bigHeader.Length + options.Sum(o => o.Length) + bigHeaderPadding + optionPadding * options.Length;
 					if (consoleHeight - 1 >= bigRenderHeight && consoleWidth - 1 >= optionsWidth)
@@ -65,13 +65,13 @@ public static class StartScreen
 				}
 				if (buffer is null)
 				{
-					string[] render = new[]
-					{
+					string[] render =
+					[
 						$@"Console Monsters",
 						$@"{(selectedOption is 0 ? ">" : " ")} {(FirstTimeLaunching ? "Start" : "Resume")}",
 						$@"{(selectedOption is 1 ? ">" : " ")} Options",
 						$@"{(selectedOption is 2 ? ">" : " ")} Exit",
-					};
+					];
 					buffer = ScreenHelpers.Center(render, (consoleHeight - 1, consoleWidth - 1));
 				}
 				Console.SetCursorPosition(0, 0);

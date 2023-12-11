@@ -11,12 +11,29 @@ public class Snake
 	public async Task Run()
 	{
 		Exception? exception = null;
-
-		char[] DirectionChars = { '^', 'v', '<', '>', };
-		TimeSpan sleep = TimeSpan.FromMilliseconds(35);
+		int speedInput;
+		string prompt = $"Select speed [1], [2] (default), or [3]: ";
+		string? input;
+		await Console.Write(prompt);
+		while (!int.TryParse(input = await Console.ReadLine(), out speedInput) || speedInput < 1 || 3 < speedInput)
+		{
+			if (string.IsNullOrWhiteSpace(input))
+			{
+				speedInput = 2;
+				break;
+			}
+			else
+			{
+				await Console.WriteLine("Invalid Input. Try Again...");
+				await Console.Write(prompt);
+			}
+		}
+		int[] velocities = [50, 35, 20];
+		int velocity = velocities[speedInput - 1];
+		char[] DirectionChars = ['^', 'v', '<', '>',];
+		TimeSpan sleep = TimeSpan.FromMilliseconds(velocity);
 		int width = Console.WindowWidth;
 		int height = Console.WindowHeight;
-		Random random = new();
 		Tile[,] map = new Tile[width, height];
 		Direction? direction = null;
 		Queue<(int X, int Y)> snake = new();
@@ -64,7 +81,7 @@ public class Snake
 				await Console.SetCursorPosition(X, Y);
 				await Console.Write(DirectionChars[(int)direction!]);
 				snake.Enqueue((X, Y));
-				if (map[X, Y] == Tile.Food)
+				if (map[X, Y] is Tile.Food)
 				{
 					await PositionFood();
 				}
@@ -100,11 +117,11 @@ public class Snake
 		{
 			switch ((await Console.ReadKey(true)).Key)
 			{
-				case ConsoleKey.UpArrow:    direction = Direction.Up; break;
-				case ConsoleKey.DownArrow:  direction = Direction.Down; break;
-				case ConsoleKey.LeftArrow:  direction = Direction.Left; break;
+				case ConsoleKey.UpArrow: direction = Direction.Up; break;
+				case ConsoleKey.DownArrow: direction = Direction.Down; break;
+				case ConsoleKey.LeftArrow: direction = Direction.Left; break;
 				case ConsoleKey.RightArrow: direction = Direction.Right; break;
-				case ConsoleKey.Escape:     closeRequested = true; break;
+				case ConsoleKey.Escape: closeRequested = true; break;
 			}
 		}
 
@@ -121,7 +138,7 @@ public class Snake
 					}
 				}
 			}
-			int index = random.Next(possibleCoordinates.Count);
+			int index = Random.Shared.Next(possibleCoordinates.Count);
 			(int X, int Y) = possibleCoordinates[index];
 			map[X, Y] = Tile.Food;
 			await Console.SetCursorPosition(X, Y);
@@ -143,4 +160,5 @@ public class Snake
 		Snake,
 		Food,
 	}
+
 }

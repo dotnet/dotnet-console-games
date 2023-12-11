@@ -10,7 +10,6 @@ namespace Role_Playing_Game;
 
 public partial class Program
 {
-	static readonly Random random = new();
 	static Character? _character;
 	static char[][]? _map;
 	static DateTime previoiusRender = DateTime.Now;
@@ -31,19 +30,19 @@ public partial class Program
 		set => _map = value;
 	}
 
-	private static readonly string[] maptext = new[]
-	{
+	private static readonly string[] maptext =
+	[
 		"Move: arrow keys or (w, a, s, d)",
 		"Check Status: [enter]",
 		"Quit: [escape]",
-	};
+	];
 
-	private static readonly string[] defaultCombatText = new string[]
-	{
+	private static readonly string[] defaultCombatText =
+	[
 		"1) attack",
 		"2) run",
 		"3) check status",
-	};
+	];
 
 	private static string[]? _combatText;
 
@@ -294,7 +293,7 @@ public partial class Program
 		{
 			return;
 		}
-		if (movesSinceLastBattle > movesBeforeRandomBattle && random.NextDouble() < randomBattleChance)
+		if (movesSinceLastBattle > movesBeforeRandomBattle && Random.Shared.NextDouble() < randomBattleChance)
 		{
 			Battle(Map == Maps.Castle ? EnemyType.Guard : EnemyType.Boar, out _);
 			if (!gameRunning)
@@ -422,19 +421,19 @@ public partial class Program
 		switch (enemyType)
 		{
 			case EnemyType.Boar:
-				CombatText = new string[]
-				{
+				CombatText =
+				[
 					"You were attacked by a wild boar!",
 					"1) attack",
 					"2) run",
 					"3) check status",
-				};
+				];
 				break;
 			case EnemyType.GuardBoss:
 				if (Character.Level < 2)
 				{
-					CombatText = new string[]
-					{
+					CombatText =
+					[
 						"You approached the castle guard.",
 						"He looks tough. You should probably",
 						"run away and come back when you are",
@@ -442,33 +441,33 @@ public partial class Program
 						"1) attack",
 						"2) run",
 						"3) check status",
-					};
+					];
 				}
 				else
 				{
-					CombatText = new string[]
-					{
+					CombatText =
+					[
 						"You approached the castle guard.",
 						"1) attack",
 						"2) run",
 						"3) check status",
-					};
+					];
 				}
 				break;
 			case EnemyType.Guard:
-				CombatText = new string[]
-				{
+				CombatText =
+				[
 					"You were attacked by a castle guard!",
 					"1) attack",
 					"2) run",
 					"3) check status",
-				};
+				];
 				break;
 			case EnemyType.FinalBoss:
 				if (Character.Level < 3)
 				{
-					CombatText = new string[]
-					{
+					CombatText =
+					[
 						"You approached the evil king.",
 						"He looks tough. You should probably",
 						"run away and come back when you are",
@@ -476,17 +475,17 @@ public partial class Program
 						"1) attack",
 						"2) run",
 						"3) check status",
-					};
+					];
 				}
 				else
 				{
-					CombatText = new string[]
-					{
+					CombatText =
+					[
 						"You approached the evil king.",
 						"1) attack",
 						"2) run",
 						"3) check status",
-					};
+					];
 				}
 				break;
 		}
@@ -501,7 +500,7 @@ public partial class Program
 				EnemyType.Guard => Sprites.IdleLeft,
 				EnemyType.GuardBoss => Sprites.IdleLeft,
 				EnemyType.FinalBoss => Sprites.IdleLeft,
-				_ => new[] { Sprites.Error },
+				_ => [Sprites.Error],
 			};
 
 		bool pendingConfirmation = false;
@@ -528,29 +527,29 @@ public partial class Program
 					case ConsoleKey.D1 or ConsoleKey.NumPad1:
 						if (!pendingConfirmation)
 						{
-							switch (random.Next(2))
+							switch (Random.Shared.Next(2))
 							{
 								case 0:
 									frameLeft = 0;
 									animationLeft = Sprites.PunchRight;
-									CombatText = new string[]
-									{
+									CombatText =
+									[
 										"You attacked and did damage!",
 										"",
 										"Press [enter] to continue...",
-									};
+									];
 									enemyHealth -= Character.Damage;
 									break;
 								case 1:
 									frameLeft = 0;
 									animationLeft = Sprites.FallLeft;
-									CombatText = new string[]
-									{
+									CombatText =
+									[
 										"You attacked, but the enemy was",
 										"faster and you took damage!",
 										"",
 										"Press [enter] to continue...",
-									};
+									];
 									Character.Health--;
 									break;
 							}
@@ -562,8 +561,8 @@ public partial class Program
 						{
 							bool success = enemyType switch
 							{
-								EnemyType.Boar => random.Next(10) < 9,
-								EnemyType.Guard => random.Next(10) < 7,
+								EnemyType.Boar => Random.Shared.Next(10) < 9,
+								EnemyType.Guard => Random.Shared.Next(10) < 7,
 								_ => true,
 							};
 							if (success)
@@ -581,14 +580,14 @@ public partial class Program
 							{
 								frameLeft = 0;
 								animationLeft = Sprites.FallLeft;
-								CombatText = new string[]
-								{
+								CombatText =
+								[
 									"You tried to run away but the enemy",
 									"attacked you from behind and you took",
 									"damage.",
 									"",
 									"Press [enter] to continue...",
-								};
+								];
 								Character.Health--;
 								pendingConfirmation = true;
 							}

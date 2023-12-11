@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using static Website.Games.Rock_Paper_Scissors.Rock_Paper_Scissors.Move;
 
 namespace Website.Games.Rock_Paper_Scissors;
 
@@ -9,7 +10,6 @@ public class Rock_Paper_Scissors
 
 	public async Task Run()
 	{
-		Random random = new();
 		int wins = 0;
 		int draws = 0;
 		int losses = 0;
@@ -21,31 +21,27 @@ public class Rock_Paper_Scissors
 		GetInput:
 			await Console.Write("Choose [r]ock, [p]aper, [s]cissors, or [e]xit:");
 			Move playerMove;
-			switch ((await Console.ReadLine()).ToLower())
+			switch ((await Console.ReadLine() ?? "").Trim().ToLower())
 			{
-				case "rock" or "r": playerMove = Move.Rock; break;
-				case "paper" or "p": playerMove = Move.Paper; break;
-				case "scissors" or "s": playerMove = Move.Scissors; break;
-				case "exit" or "e":
+				case "r" or "rock": playerMove = Rock; break;
+				case "p" or "paper": playerMove = Paper; break;
+				case "s" or "scissors": playerMove = Scissors; break;
+				case "e" or "exit":
 					await Console.Clear();
 					await Console.WriteLine("Rock, Paper, Scissors was closed.");
 					await Console.Refresh();
 					return;
 				default: await Console.WriteLine("Invalid Input. Try Again..."); goto GetInput;
 			}
-			Move computerMove = (Move)random.Next(3);
+			Move computerMove = (Move)Random.Shared.Next(3);
 			await Console.WriteLine($"The computer chose {computerMove}.");
 			switch (playerMove, computerMove)
 			{
-				case (Move.Rock, Move.Paper):
-				case (Move.Paper, Move.Scissors):
-				case (Move.Scissors, Move.Rock):
+				case (Rock, Paper) or (Paper, Scissors) or (Scissors, Rock):
 					await Console.WriteLine("You lose.");
 					losses++;
 					break;
-				case (Move.Rock, Move.Scissors):
-				case (Move.Paper, Move.Rock):
-				case (Move.Scissors, Move.Paper):
+				case (Rock, Scissors) or (Paper, Rock) or (Scissors, Paper):
 					await Console.WriteLine("You win.");
 					wins++;
 					break;
@@ -55,12 +51,12 @@ public class Rock_Paper_Scissors
 					break;
 			}
 			await Console.WriteLine($"Score: {wins} wins, {losses} losses, {draws} draws");
-			await Console.WriteLine($"Press Enter To Continue...");
+			await Console.WriteLine("Press Enter To Continue...");
 			await Console.ReadLine();
 		}
 	}
 
-	enum Move
+	public enum Move
 	{
 		Rock = 0,
 		Paper = 1,

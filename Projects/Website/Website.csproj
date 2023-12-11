@@ -1,29 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>disable</ImplicitUsings>
 	</PropertyGroup>
 	<ItemGroup>
-	  <Content Remove="Company.json" />
-	  <Content Remove="Event.json" />
-	</ItemGroup>
-	<ItemGroup>
-		<None Remove="FiveLetterWords.txt" />
-		<None Remove="Words.txt" />
-	</ItemGroup>
-	<ItemGroup>
-		<EmbeddedResource Include="Company.json" />
-		<EmbeddedResource Include="Event.json" />
-		<EmbeddedResource Include="FiveLetterWords.txt" />
-		<EmbeddedResource Include="Words.txt" />
+		<EmbeddedResource Include="..\Oligopoly\Company.json" />
+		<EmbeddedResource Include="..\Oligopoly\Event.json" />
+		<EmbeddedResource Include="..\Shared\FiveLetterWords.txt" />
+		<EmbeddedResource Include="..\Shared\Words.txt" />
 	</ItemGroup>
 	<ItemGroup>
 		<AdditionalFiles Include="BannedSymbols.txt" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.5" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.5" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0" PrivateAssets="all" />
 		<PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="3.3.4">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

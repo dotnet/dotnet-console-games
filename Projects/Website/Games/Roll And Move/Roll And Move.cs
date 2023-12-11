@@ -75,23 +75,22 @@ public class Roll_And_Move
 
 		ConsoleColor color_a = ConsoleColor.Blue;
 		(int Top, int Left)[] spots_a =
-		{
+		[
 			/* top    */ (02, 04), (02, 10), (02, 14), (02, 18), (02, 22), (02, 26), (02, 30), (02, 34), (02, 38),
 			/* right  */ (02, 44), (05, 44), (07, 44), (09, 44), (11, 44), (13, 44), (15, 44), (17, 44),
 			/* bottom */ (20, 44), (20, 38), (20, 34), (20, 30), (20, 26), (20, 22), (20, 18), (20, 14), (20, 10),
 			/* left   */ (20, 04), (17, 04), (15, 04), (13, 04), (11, 04), (09, 04), (07, 04), (05, 04), (02, 04),
-		};
+		];
 
 		ConsoleColor color_b = ConsoleColor.Red;
 		(int Top, int Left)[] spots_b =
-		{
+		[
 			/* top    */ (03, 06), (03, 10), (03, 14), (03, 18), (03, 22), (03, 26), (03, 30), (03, 34), (03, 38),
 			/* right  */ (03, 42), (05, 42), (07, 42), (09, 42), (11, 42), (13, 42), (15, 42), (17, 42),
 			/* bottom */ (19, 42), (19, 38), (19, 34), (19, 30), (19, 26), (19, 22), (19, 18), (19, 14), (19, 10),
 			/* left   */ (19, 06), (17, 06), (15, 06), (13, 06), (11, 06), (09, 06), (07, 06), (05, 06), (03, 06),
-		};
+		];
 
-		Random random = new();
 		bool escape = false;
 		while (!escape)
 		{
@@ -110,7 +109,7 @@ public class Roll_And_Move
 				if (escape) break;
 				{
 					await RenderPixel(' ', spots_a[player_a], ConsoleColor.White);
-					int roll = random.Next(6) + 1;
+					int roll = Random.Shared.Next(6) + 1;
 					player_a = Math.Min(spots_a.Length - 1, player_a + roll);
 					await RenderPixel('■', spots_a[player_a], color_a);
 					string move_a = roll.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -121,7 +120,7 @@ public class Roll_And_Move
 				if (escape) break;
 				{
 					await RenderPixel(' ', spots_b[player_b], ConsoleColor.White);
-					int roll = random.Next(6) + 1;
+					int roll = Random.Shared.Next(6) + 1;
 					player_b = Math.Min(spots_b.Length - 1, player_b + roll);
 					await RenderPixel('■', spots_b[player_b], color_b);
 					string move_b = roll.ToString(System.Globalization.CultureInfo.InvariantCulture);

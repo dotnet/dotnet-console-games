@@ -9,8 +9,8 @@ public class Hurdles
 
 	public async Task Run()
 	{
-		string[] runningAnimation = new string[]
-		{
+		string[] runningAnimation =
+		[
 			#region Frames
 			// 0
 			@"       " + '\n' +
@@ -62,10 +62,10 @@ public class Hurdles
 			@"   /-- " + '\n' +
 			@"  /   |",
 			#endregion
-		};
+		];
 
-		string[] jumpingAnimation = new string[]
-		{
+		string[] jumpingAnimation =
+		[
 			#region Frames
 			// 0
 			@"       " + '\n' +
@@ -130,7 +130,7 @@ public class Hurdles
 			@"   |_  " + '\n' +
 			@"  /  | ",
 			#endregion
-		};
+		];
 
 		string hurdleFrame =
 			#region Frame
@@ -171,7 +171,7 @@ public class Hurdles
 				}
 			}
 			if (position >= 100 &&
-				position % 50 == 0 &&
+				position % 50 is 0 &&
 				(!jumpingFrame.HasValue ||
 				!(2 <= jumpingFrame && jumpingFrame <= 7)))
 			{
@@ -186,7 +186,7 @@ public class Hurdles
 			await Console.SetCursorPosition(4, 10);
 			await Render(playerFrame, true);
 			await RenderHurdles(true);
-			if (position % 50 == 5)
+			if (position % 50 is 5)
 			{
 				await Console.SetCursorPosition(0, 13);
 				await Render(
@@ -238,7 +238,7 @@ public class Hurdles
 		{
 			for (int i = 5; i < Console.WindowWidth - 5; i++)
 			{
-				if (position + i >= 100 && (position + i - 7) % 50 == 0)
+				if (position + i >= 100 && (position + i - 7) % 50 is 0)
 				{
 					await Console.SetCursorPosition(i - 3, 13);
 					await Render(hurdleFrame, renderSpace);

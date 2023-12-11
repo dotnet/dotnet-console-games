@@ -6,11 +6,11 @@ public class Camper : CharacterBase
 	{
 		Sprite = IdleFront;
 
-		Dialogue = new string[]
-		{
+		Dialogue =
+		[
 			"Camper:",
 			"Nothing better than warming up by a fire.",
-		};
+		];
 	}
 
 	public override string? Name => "Camper";

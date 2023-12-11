@@ -10,14 +10,13 @@ public class Simon
 
 	public async Task Run()
 	{
-		Random random = new();
 		TimeSpan buttonPress = TimeSpan.FromMilliseconds(500);
 		TimeSpan animationDelay = TimeSpan.FromMilliseconds(200);
 		int score = 0;
 		List<Direction> pattern = new();
 
-		string[] Renders = new string[]
-		{
+		string[] Renders =
+		[
 			#region Frames
 			// 0
 			@"           ╔══════╗        " + '\n' +
@@ -80,7 +79,7 @@ public class Simon
 			@"           ║      ║        " + '\n' +
 			@"           ╚══════╝        ",
 			#endregion
-		};
+		];
 
 		try
 		{
@@ -91,7 +90,7 @@ public class Simon
 			while (true)
 			{
 				await Console.RefreshAndDelay(buttonPress);
-				pattern.Add((Direction)random.Next(1, 5));
+				pattern.Add((Direction)Random.Shared.Next(1, 5));
 				await AnimateCurrentPattern();
 				for (int i = 0; i < pattern.Count; i++)
 				{

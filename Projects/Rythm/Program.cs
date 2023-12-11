@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Threading;
 
-string[] frames = { "▌", "▐", };
-string[] deathFrames = { "X", "X", "X", "X", "X", };
+string[] frames = ["▌", "▐",];
+string[] deathFrames = ["X", "X", "X", "X", "X",];
 List<Note> notes;
 List<Note> deadNotes;
 TimeSpan delayTime = TimeSpan.FromMilliseconds(34);
@@ -12,16 +12,15 @@ TimeSpan spawnTimeMax = TimeSpan.FromMilliseconds(2000);
 int targetLeft = 5;
 int remainingMisses = 5;
 (int Top, ConsoleKey Key)[] tracks =
-{
+[
 	(4, ConsoleKey.UpArrow),
 	(7, ConsoleKey.LeftArrow),
 	(10, ConsoleKey.DownArrow),
 	(13, ConsoleKey.RightArrow),
-};
+];
 
 try
 {
-	Random random = new();
 	int bufferwidth = Console.BufferWidth;
 	Console.CursorVisible = false;
 	DateTime lastSpawn;
@@ -33,12 +32,12 @@ try
 	{
 		notes.Add(new Note()
 		{
-			Top = tracks[random.Next(tracks.Length)].Top,
+			Top = tracks[Random.Shared.Next(tracks.Length)].Top,
 			Frame = 0,
 			Left = Console.BufferWidth - 1,
 		});
 		lastSpawn = DateTime.Now;
-		spawnTime = TimeSpan.FromMilliseconds(random.Next((int)spawnTimeMin.TotalMilliseconds, (int)spawnTimeMax.TotalMilliseconds));
+		spawnTime = TimeSpan.FromMilliseconds(Random.Shared.Next((int)spawnTimeMin.TotalMilliseconds, (int)spawnTimeMax.TotalMilliseconds));
 	}
 
 	void RenderMisses()

@@ -9,6 +9,7 @@ on:
     - '**.csproj'
     - '**.cs'
     - '!**.md'
+    - '!Projects/Website/**'
   workflow_dispatch:
 jobs:
   deployment:
@@ -19,13 +20,13 @@ jobs:
     - uses: actions/checkout@v3
     - uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 8.0.x
     - name: dotnet publish win-x64
-      run: dotnet publish dotnet-console-games.slnf --output bin/win-x64 --configuration Release -p:PublishSingleFile=true --runtime win-x64 --self-contained -p:DebugType=embedded -p:PublishTrimmed=true -p:EnableTrimAnalyzer=false
+      run: dotnet publish dotnet-console-games.slnf --output bin/win-x64 --configuration Release -p:PublishSingleFile=true --runtime win-x64 --self-contained -p:DebugType=embedded -p:PublishTrimmed=true
     - name: dotnet publish osx-x64
-      run: dotnet publish dotnet-console-games.slnf --output bin/osx-x64 --configuration Release -p:PublishSingleFile=true --runtime osx-x64 --self-contained -p:DebugType=embedded -p:PublishTrimmed=true -p:EnableTrimAnalyzer=false
+      run: dotnet publish dotnet-console-games.slnf --output bin/osx-x64 --configuration Release -p:PublishSingleFile=true --runtime osx-x64 --self-contained -p:DebugType=embedded -p:PublishTrimmed=true
     - name: dotnet publish linux-x64
-      run: dotnet publish dotnet-console-games.slnf --output bin/linux-x64 --configuration Release -p:PublishSingleFile=true --runtime linux-x64 --self-contained -p:DebugType=embedded -p:PublishTrimmed=true -p:EnableTrimAnalyzer=false
+      run: dotnet publish dotnet-console-games.slnf --output bin/linux-x64 --configuration Release -p:PublishSingleFile=true --runtime linux-x64 --self-contained -p:DebugType=embedded -p:PublishTrimmed=true
     - name: CODEOWNERS
       run: echo "* @ZacharyPatten" > bin/CODEOWNERS
     - name: push to binaries branch

@@ -14,7 +14,6 @@ public class Wordle
 
 		try
 		{
-			Random random = new();
 			if (Resources.FiveLetterWords is null || Resources.FiveLetterWords.Length is 0)
 			{
 				await Console.WriteLine("Error: Missing \"FiveLetterWords.txt\" embedded resource.");
@@ -48,8 +47,8 @@ public class Wordle
  - escape: exit");
 			int guess = 0;
 			int cursor = 0;
-			string word = Resources.FiveLetterWords[random.Next(Resources.FiveLetterWords.Length)].ToUpperInvariant();
-			char[] letters = { ' ', ' ', ' ', ' ', ' ' };
+			string word = Resources.FiveLetterWords[Random.Shared.Next(Resources.FiveLetterWords.Length)].ToUpperInvariant();
+			char[] letters = [' ', ' ', ' ', ' ', ' '];
 		GetInput:
 			await Console.SetCursorPosition(3 + cursor * 4, 2 + guess * 2);
 			ConsoleKey key = (await Console.ReadKey(true)).Key;
@@ -114,7 +113,7 @@ public class Wordle
 					}
 					else
 					{
-						letters = new char[] { ' ', ' ', ' ', ' ', ' ' };
+						letters = [' ', ' ', ' ', ' ', ' '];
 						guess++;
 						cursor = 0;
 					}

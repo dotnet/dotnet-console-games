@@ -10,8 +10,8 @@ public class Tanks
 
 	public async Task Run()
 	{
-		string[] Tank = new string[]
-		{
+		string[] Tank =
+		[
 			#region Frames
 			null!,
 			// Up
@@ -31,10 +31,10 @@ public class Tanks
 			@"|__|=" + "\n" +
 			@"[ooo]" + "\n",
 			#endregion
-		};
+		];
 
-		string[] TankShooting = new string[]
-		{
+		string[] TankShooting =
+		[
 			#region Frames
 			null!,
 			// Up
@@ -54,10 +54,10 @@ public class Tanks
 			@"|__|█" + "\n" +
 			@"[ooo]" + "\n",
 			#endregion
-		};
+		];
 
-		string[] TankExploding = new string[]
-		{
+		string[] TankExploding =
+		[
 			#region Frames
 			// Ka...
 			@" ___ " + "\n" +
@@ -72,10 +72,10 @@ public class Tanks
 			@"     " + "\n" +
 			@"     " + "\n",
 			#endregion
-		};
+		];
 
-		char[] Bullet = new char[]
-		{
+		char[] Bullet =
+		[
 			#region Frames
 			default,
 			'^', // Up
@@ -83,7 +83,7 @@ public class Tanks
 			'<', // Left
 			'>', // Right
 			#endregion
-		};
+		];
 
 		string Map =
 			#region Frames
@@ -120,7 +120,6 @@ public class Tanks
 		var Tanks = new List<Tank>();
 		var AllTanks = new List<Tank>();
 		var Player = new Tank() { X = 08, Y = 05, IsPlayer = true };
-		var random = new Random();
 
 		Tanks.Add(Player);
 		Tanks.Add(new Tank() { X = 08, Y = 21, });
@@ -358,7 +357,7 @@ public class Tanks
 				{
 					#region Computer Controled
 
-					int randomIndex = random.Next(0, 6);
+					int randomIndex = Random.Shared.Next(0, 6);
 					if (randomIndex < 4)
 						await TryMove((Direction)randomIndex + 1);
 
@@ -406,19 +405,19 @@ public class Tanks
 				{
 					return true;
 				}
-				if (5 < bullet.X && bullet.X < 11 && bullet.Y == 13)
+				if (5 < bullet.X && bullet.X < 11 && bullet.Y is 13)
 				{
 					return true; // collision with left blockade
 				}
-				if (bullet.X == 37 && 3 < bullet.Y && bullet.Y < 7)
+				if (bullet.X is 37 && 3 < bullet.Y && bullet.Y < 7)
 				{
 					return true; // collision with top blockade
 				}
-				if (bullet.X == 37 && 20 < bullet.Y && bullet.Y < 24)
+				if (bullet.X is 37 && 20 < bullet.Y && bullet.Y < 24)
 				{
 					return true; // collision with bottom blockade
 				}
-				if (63 < bullet.X && bullet.X < 69 && bullet.Y == 13)
+				if (63 < bullet.X && bullet.X < 69 && bullet.Y is 13)
 				{
 					return true; // collision with right blockade
 				}

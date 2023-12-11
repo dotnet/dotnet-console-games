@@ -10,10 +10,8 @@ public class Hangman
 
 	public async Task Run()
 	{
-		Random Random = new();
-
 		string[] Renders =
-		{
+		[
 			#region Frames
 			// 0
 			@"      ╔═══╗   " + '\n' +
@@ -72,10 +70,10 @@ public class Hangman
 			@"     ███  ║   " + '\n' +
 			@"    ══════╩═══",
 			#endregion
-		};
+		];
 
 		string[] DeathAnimation =
-		{
+		[
 			#region Frames
 			//
 			@"      ╔═══╗   " + '\n' +
@@ -366,7 +364,7 @@ public class Hangman
 			@"      _   ║   " + '\n' +
 			@" __/══════╩═══",
 			#endregion
-		};
+		];
 
 		if (Resources.Words is null || Resources.Words.Length is 0)
 		{
@@ -382,7 +380,7 @@ public class Hangman
 		await Console.WriteLine("    Hangman");
 		await Console.WriteLine();
 		int incorrectGuesses = 0;
-		string randomWord = GetRandomWord().ToLower();
+		string randomWord = Resources.Words[Random.Shared.Next(Resources.Words.Length)].ToLower();
 		char[] revealedChars = new string('_', randomWord.Length).ToCharArray();
 		while (incorrectGuesses < Renders.Length && revealedChars.Contains('_'))
 		{
@@ -447,10 +445,6 @@ public class Hangman
 			default: goto GetPlayAgainInput;
 		}
 		await Console.Clear();
-
-		string GetRandomWord() => Choose(Random, Resources.Words!);
-
-		T Choose<T>(Random random, params T[] values) => values[random.Next(values.Length)];
 
 		async Task RenderGameState()
 		{

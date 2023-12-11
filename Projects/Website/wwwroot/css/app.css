@@ -207,3 +207,7 @@ pre.console {
 code {
     font-family: SourceCodePro, var(--bs-font-monospace), monospace;
 }
+
+* {
+    touch-action: manipulation;
+}

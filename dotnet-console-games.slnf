@@ -8,6 +8,7 @@
       "Projects\\Bound\\Bound.csproj",
       "Projects\\Blackjack\\Blackjack.csproj",
       "Projects\\Checkers\\Checkers.csproj",
+      "Projects\\Clicker\\Clicker.csproj",
       "Projects\\Connect 4\\Connect 4.csproj",
       "Projects\\Console Monsters\\Console Monsters.csproj",
       "Projects\\Darts\\Darts.csproj",
@@ -18,6 +19,7 @@
       "Projects\\Fighter\\Fighter.csproj",
       "Projects\\First Person Shooter\\First Person Shooter.csproj",
       "Projects\\Flappy Bird\\Flappy Bird.csproj",
+      "Projects\\Flash Cards\\Flash Cards.csproj",
       "Projects\\Guess A Number\\Guess A Number.csproj",
       "Projects\\Gravity\\Gravity.csproj",
       "Projects\\Hangman\\Hangman.csproj",
@@ -35,11 +37,13 @@
       "Projects\\Role Playing Game\\Role Playing Game.csproj",
       "Projects\\Roll And Move\\Roll And Move.csproj",
       "Projects\\Rythm\\Rythm.csproj",
+      "Projects\\Shmup\\Shmup.csproj",
       "Projects\\Simon\\Simon.csproj",
       "Projects\\Sliding Puzzle\\Sliding Puzzle.csproj",
       "Projects\\Snake\\Snake.csproj",
       "Projects\\Sudoku\\Sudoku.csproj",
       "Projects\\Tanks\\Tanks.csproj",
+      "Projects\\Tetris\\Tetris.csproj",
       "Projects\\Tic Tac Toe\\Tic Tac Toe.csproj",
       "Projects\\Tents\\Tents.csproj",
       "Projects\\Tower Of Hanoi\\Tower Of Hanoi.csproj",
@@ -48,7 +52,7 @@
       "Projects\\Whack A Mole\\Whack A Mole.csproj",
       "Projects\\Wordle\\Wordle.csproj",
       "Projects\\Wumpus World\\Wumpus World.csproj",
-      "Projects\\Yahtzee\\Yahtzee.csproj"
+      "Projects\\Yahtzee\\Yahtzee.csproj",
     ]
   }
 }

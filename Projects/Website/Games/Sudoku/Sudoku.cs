@@ -161,13 +161,13 @@ public class Sudoku
 						await Console.Write((board[i, j].HasValue ? board[i, j].ToString() : "■") + " ");
 						Console.ForegroundColor = ConsoleColor.DarkGray;
 					}
-					if (j == 2 || j == 5)
+					if (j is 2 || j is 5)
 					{
 						await Console.Write("║ ");
 					}
 				}
 				await Console.WriteLine("║");
-				if (i == 2 || i == 5)
+				if (i is 2 || i is 5)
 				{
 					await Console.WriteLine("╠═══════╬═══════╬═══════╣");
 				}
@@ -183,7 +183,7 @@ public class Sudoku
 			Random? random = null,
 			int? blanks = null)
 		{
-			random ??= new Random();
+			random ??= Random.Shared;
 			if (blanks.HasValue && blanks < 0 || 81 < blanks)
 			{
 				throw new ArgumentOutOfRangeException(nameof(blanks), blanks.Value, $"{nameof(blanks)} < 0 || 81 < {nameof(blanks)}");
@@ -266,11 +266,11 @@ public class Sudoku
 				for (int j = 0; j < 9; j++)
 				{
 					GetValidValues(i, j);
-					while (valids[i, j].Count == 0)
+					while (valids[i, j].Count is 0)
 					{
 						board[i, j] = null;
-						i = j == 0 ? i - 1 : i;
-						j = j == 0 ? 8 : j - 1;
+						i = j is 0 ? i - 1 : i;
+						j = j is 0 ? 8 : j - 1;
 	#if DebugAlgorithm
 						Console.SetCursorPosition(0, 0);
 						Program.ConsoleWrite(board, null);

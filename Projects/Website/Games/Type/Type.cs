@@ -29,7 +29,6 @@ public class Type
 		}
 
 		int Score = 0;
-		Random Random = new();
 		QueueArray<(string String, int Left, int Top)> Words = new();
 		int position = 0;
 		TimeSpan TimePerCharacter = TimeSpan.FromMilliseconds(2000);
@@ -39,11 +38,11 @@ public class Type
 		DateTime WordStart;
 
 		ConsoleColor[] Colors =
-		{
+		[
 			ConsoleColor.White,
 			ConsoleColor.Gray,
 			ConsoleColor.DarkGray,
-		};
+		];
 
 		try
 		{
@@ -118,7 +117,7 @@ public class Type
 
 		void GetWord()
 		{
-			string w = Random.Choose(Resources.Words!);
+			string w = Random.Shared.Choose(Resources.Words!);
 			int width = Math.Min(Console.BufferWidth, Console.WindowWidth) - w.Length;
 			int height = Math.Min(Console.BufferHeight, Console.WindowHeight);
 			var set = SetHashLinked.New<(int Left, int Top)>();
@@ -148,7 +147,7 @@ public class Type
 					continue;
 				}
 			}
-			var (Left, Top) = list[Random.Next(list.Count)];
+			var (Left, Top) = list[Random.Shared.Next(list.Count)];
 			Words.Enqueue((w, Left, Top));
 		}
 

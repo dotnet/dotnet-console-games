@@ -4,15 +4,15 @@ public class House1SecondFloor : MapBase
 {
 	public override string? AudioFile => AudioController.CoDA_Lullaby;
 
-	private static readonly char[][] spriteSheet = new char[][]
-		{
+	private static readonly char[][] spriteSheet =
+		[
 			"afffffffffffffffb".ToCharArray(),
 			"hpq! uv   -     g".ToCharArray(),
 			"hno          kemg".ToCharArray(),
 			"h      yy   xkemg".ToCharArray(),
 			"hrrr       wzkijg".ToCharArray(),
 			"cllllllllllllllld".ToCharArray(),
-		};
+		];
 
 	public override char[][] SpriteSheet => spriteSheet;
 
@@ -85,26 +85,26 @@ public class House1SecondFloor : MapBase
 			switch (SpriteSheet[j][i])
 			{
 				case 'r':
-					PromptText = new string[]
-					{
+					PromptText =
+					[
 						"Mozin0:",
 						"ZzzZzzZzz...",
 						"MonsterBox...",
 						"ZzzZzzZzz...",
-					};
+					];
 					break;
 				case 'w':
-					PromptText = new string[]
-					{
+					PromptText =
+					[
 						"Penguin:",
 						"BrrrRRRrrr!",
-					};
+					];
 					break;
 				case '!':
-					PromptText = new string[]
-					{
+					PromptText =
+					[
 						"You picked up a MonsterBox",
-					};
+					];
 					PlayerInventory.TryAdd(MonsterBox.Instance);
 					spriteSheet[j][i] = ' ';
 					break;

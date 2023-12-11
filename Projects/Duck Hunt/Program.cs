@@ -702,7 +702,7 @@ static class Sprites
 	public static class Bird
 	{
 		public static char[][] LeftSprites =
-		{ ( @"  _(nn)_  " + NEWLINE_CHAR +
+		[ ( @"  _(nn)_  " + NEWLINE_CHAR +
 			@"<(o----_)=" + NEWLINE_CHAR +
 			@"   (UU)   ").ToCharArray(),
 
@@ -723,9 +723,9 @@ static class Sprites
 			@"(--(-)--)" + NEWLINE_CHAR +
 			@"(__(_)__)" + NEWLINE_CHAR +
 			@"  _/ \_  " ).ToCharArray()
-		};
+		];
 		public static char[][] RightSprites =
-		{ ( @"  _(nn)_  " + NEWLINE_CHAR +
+		[ ( @"  _(nn)_  " + NEWLINE_CHAR +
 			@"=(_----o)>" + NEWLINE_CHAR +
 			@"   (UU)   ").ToCharArray(),
 
@@ -746,7 +746,7 @@ static class Sprites
 			@"(--(-)--)" + NEWLINE_CHAR +
 			@"(__(_)__)" + NEWLINE_CHAR +
 			@"  _/ \_  " ).ToCharArray()
-		};
+		];
 		public static int Height = 3;
 		public static int Width = 10;
 		#endregion

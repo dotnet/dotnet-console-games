@@ -1,36 +1,22 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using static Website.Games.Console_Monsters.Statics;
+﻿using static Website.Games.Console_Monsters.Statics;
 //using Website.Games.Console_Monsters.Screens;
-using Website.Games.Console_Monsters.Items;
-using Website.Games.Console_Monsters.Maps;
-using Website.Games.Console_Monsters.Monsters;
 using Website.Games.Console_Monsters.Bases;
 using Website.Games.Console_Monsters.Characters;
-using Website.Games.Console_Monsters.Screens;
-using Website.Games.Console_Monsters.Screens.Menus;
-using Website.Games.Console_Monsters.Enums;
-using Website.Games.Console_Monsters.Utilities;
-using System.Collections.Generic;
-using Towel;
-using static Towel.Statics;
 using System.Threading.Tasks;
 
 namespace Website.Games.Console_Monsters.Maps;
 
 public class Center1 : MapBase
 {
-	private readonly char[][] spriteSheet = new char[][]
-		{
+	private readonly char[][] spriteSheet =
+		[
 			"affffifffffjffffb".ToCharArray(),
 			"go   gttktth   oh".ToCharArray(),
 			"g    mplllrnq   h".ToCharArray(),
 			"g               h".ToCharArray(),
 			"go             oh".ToCharArray(),
 			"ceeeeee000eeeeeed".ToCharArray(),
-		};
+		];
 
 	public override char[][] SpriteSheet => spriteSheet;
 
@@ -89,11 +75,11 @@ public class Center1 : MapBase
 		{
 			if (SpriteSheet[j][i] is 'k')
 			{
-				promptText = new string[]
-				{
+				promptText =
+				[
 					" Hello and welcome to the monster center.",
 					" I will heal all your monsters.",
-				};
+				];
 				for(int p = 0; p < partyMonsters.Count; p++)
 				{
 					partyMonsters[p].CurrentHP = partyMonsters[p].MaximumHP;
@@ -131,8 +117,8 @@ public class Center1 : MapBase
 		switch (SpriteSheet[j][i])
 		{
 			case '0':
-				map = new PaletTown();
-				map.SpawnCharacterOn('0');
+				Map = new PaletTown();
+				Map.SpawnCharacterOn('0');
 				break;
 		}
 	}

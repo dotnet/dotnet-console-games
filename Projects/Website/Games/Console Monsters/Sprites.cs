@@ -1,22 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
-using System.Threading;
-using static Website.Games.Console_Monsters.Statics;
 //using Website.Games.Console_Monsters.Screens;
-using Website.Games.Console_Monsters.Items;
-using Website.Games.Console_Monsters.Maps;
-using Website.Games.Console_Monsters.Monsters;
-using Website.Games.Console_Monsters.Bases;
-using Website.Games.Console_Monsters.Characters;
-using Website.Games.Console_Monsters.Screens;
-using Website.Games.Console_Monsters.Screens.Menus;
-using Website.Games.Console_Monsters.Enums;
-using Website.Games.Console_Monsters.Utilities;
-using System.Collections.Generic;
 using Towel;
 using static Towel.Statics;
-using System.Threading.Tasks;
 
 namespace Website.Games.Console_Monsters;
 
@@ -842,77 +829,77 @@ public static class Sprites
 
 	//WASD
 	public static readonly string[] W =
-	{
+	[
 		"▄   ▄",
 		"█ ▄ █",
 		"█▀ ▀█"
-	};
+	];
 	public static readonly string[] A = 
-	{
+	[
 		" ▄▄▄ ",
 		"█▄▄▄█",
 		"█   █"
-	};
+	];
 	public static readonly string[] S =
-	{
+	[
 		"▄▄▄▄▄",
 		"█▄▄▄▄",
 		"▄▄▄▄█"
-	};
+	];
 	public static readonly string[] D =
-	{
+	[
 		"▄▄▄▄ ",
 		"█   █",
 		"█▄▄▄▀"
-	};
+	];
 	//ARROWS
 	public static readonly string[] UpArrow =
-	{
+	[
 		" ▄█▄ ",
 		"▀ █ ▀",
 		"  █  "
-	};
+	];
 	public static readonly string[] LeftArrow =
-	{
+	[
 		"  ▄  ",
 		"■█■■■",
 		"  ▀  "
-	};
+	];
 	public static readonly string[] DownArrow =
-	{
+	[
 		"  █  ",
 		"▄ █ ▄",
 		" ▀█▀ "
-	};
+	];
 	public static readonly string[] RightArrow =
-	{
+	[
 		"  ▄  ",
 		"■■■█■",
 		"  ▀  "
-	};
+	];
 	//INTERACT
 	public static readonly string[] E =
-	{
+	[
 		"▄▄▄▄▄",
 		"█▄▄▄ ",
 		"█▄▄▄▄"
-	};
+	];
 	public static readonly string[] Enter =
-	{
+	[
 		"  ▄ ▄",
 		"▄█▄▄█",
 		" ▀▄  "
 		//"    ",
 		//"◄──┘",
 		//"    "
-	};
+	];
 	//Status
 	public static readonly string[] B =
-	{
+	[
 		"▄▄▄▄ ",
 		"█▄▄▄▀",
 		"█▄▄▄▀"
-	};
+	];
 	#endregion
 
 	public const string FullBlock =

@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="105" height="20" role="img" aria-label="target: net7.0" text-rendering="geometricPrecision" shape-rendering="geometricPrecision">
-	<title>target: net7.0</title>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="105" height="20" role="img" aria-label="target: net8.0" text-rendering="geometricPrecision" shape-rendering="geometricPrecision">
+	<title>target: net8.0</title>
 	<linearGradient id="s" x2="0" y2="100%">
 		<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
 		<stop offset="1" stop-opacity=".1"/>
@@ -18,7 +18,7 @@
 		</svg>
 		<text aria-hidden="true" x="395" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="330">target</text>
 		<text x="395" y="140" transform="scale(.1)" fill="#fff" textLength="330">target</text>
-		<text aria-hidden="true" x="815" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="350">net7.0</text>
-		<text x="815" y="140" transform="scale(.1)" fill="#fff" textLength="350">net7.0</text>
+		<text aria-hidden="true" x="815" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="350">net8.0</text>
+		<text x="815" y="140" transform="scale(.1)" fill="#fff" textLength="350">net8.0</text>
 	</g>
 </svg>

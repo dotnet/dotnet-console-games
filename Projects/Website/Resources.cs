@@ -26,7 +26,7 @@ public static class Resources
 					string word = streamReader.ReadLine()!;
 					words.Add(word);
 				}
-				Words = words.ToArray();
+				Words = [.. words];
 			}
 		}
 		{
@@ -42,7 +42,7 @@ public static class Resources
 					string word = streamReader.ReadLine()!;
 					words.Add(word);
 				}
-				FiveLetterWords = words.ToArray();
+				FiveLetterWords = [.. words];
 			}
 		}
 		{

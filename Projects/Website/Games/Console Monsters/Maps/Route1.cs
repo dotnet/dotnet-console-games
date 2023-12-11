@@ -1,29 +1,17 @@
 ﻿using System;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using static Website.Games.Console_Monsters.Statics;
 //using Website.Games.Console_Monsters.Screens;
-using Website.Games.Console_Monsters.Items;
-using Website.Games.Console_Monsters.Maps;
-using Website.Games.Console_Monsters.Monsters;
 using Website.Games.Console_Monsters.Bases;
-using Website.Games.Console_Monsters.Characters;
 using Website.Games.Console_Monsters.Screens;
 using Website.Games.Console_Monsters.Screens.Menus;
-using Website.Games.Console_Monsters.Enums;
-using Website.Games.Console_Monsters.Utilities;
-using System.Collections.Generic;
-using Towel;
-using static Towel.Statics;
 using System.Threading.Tasks;
 
 namespace Website.Games.Console_Monsters.Maps;
 
 class Route1 : MapBase
 {
-	private readonly char[][] spriteSheet = new char[][]
-		{
+	private readonly char[][] spriteSheet =
+		[
 			"ggggggggggggfgggggf11fgggggfgggggggggg".ToCharArray(),
 			"ggggggggggggfgggggf  fgggggfgggggggggg".ToCharArray(),
 			"ggggggggggggfgggggf  fgggggfgggggggggg".ToCharArray(),
@@ -65,7 +53,7 @@ class Route1 : MapBase
 			"ggggggggggggTgggggfGGfgggggTgggggggggg".ToCharArray(),
 			"ggggggggggggfgggggf00fgggggfgggggggggg".ToCharArray(),
 
-		};
+		];
 
 	public override char[][] SpriteSheet => spriteSheet;
 
@@ -116,11 +104,11 @@ class Route1 : MapBase
 			switch (SpriteSheet[j][i])
 			{
 				case 's':
-					promptText = new string[]
-					{
+					promptText =
+					[
 						"Sign Says:",
 						"Hello! I am a sign. :P",
-					};
+					];
 					break;
 			}
 		}
@@ -154,12 +142,12 @@ class Route1 : MapBase
 		switch (SpriteSheet[j][i])
 		{
 			case '0':
-				map = new PaletTown();
-				map.SpawnCharacterOn('1');
+				Map = new PaletTown();
+				Map.SpawnCharacterOn('1');
 				break;
 			case '1':
-				map = new Route2();
-				map.SpawnCharacterOn('0');
+				Map = new Route2();
+				Map.SpawnCharacterOn('0');
 				break;
 			case 'G':
 				if (!DisableBattle && Random.Shared.Next(2) is 0) // BATTLE CHANCE

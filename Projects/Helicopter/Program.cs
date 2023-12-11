@@ -15,7 +15,6 @@ Stopwatch stopwatchGame = new();
 Stopwatch stopwatchUFOSpawn = new();
 Stopwatch stopwatchHelicopter = new();
 Stopwatch stopwatchUFO = new();
-Random random = new();
 
 int score = 0;
 bool bulletFrame = default;
@@ -23,16 +22,16 @@ bool helicopterRender = default;
 
 #region Ascii Renders
 
-string[] bulletRenders = new string[]
-{
+string[] bulletRenders =
+[
 	" ", // 0
 	"-", // 1
 	"~", // 2
 	"█", // 3
-};
+];
 
-string[] helicopterRenders = new string[]
-{
+string[] helicopterRenders =
+[
 	// 0
 	@"             " + '\n' +
 	@"             " + '\n' +
@@ -45,10 +44,10 @@ string[] helicopterRenders = new string[]
 	@"  -----+-----" + '\n' +
 	@"*\===<[_]L)  " + '\n' +
 	@"     -'-`-   ",
-};
+];
 
-string[] ufoRenders = new string[]
-{
+string[] ufoRenders =
+[
 	// 0
 	@"   __O__   " + '\n' +
 	@"-=<_‗_‗_>=-",
@@ -68,10 +67,10 @@ string[] ufoRenders = new string[]
 	@" _!_ " + '\n' +
 	@"(_o_)" + '\n' +
 	@" ^^^ ",
-};
+];
 
-string[] explosionRenders = new string[]
-{
+string[] explosionRenders =
+[
 	// 0
 	@"           " + '\n' +
 	@"   █████   " + '\n' +
@@ -120,7 +119,7 @@ string[] explosionRenders = new string[]
 	@"*         *" + '\n' +
 	@" *       * " + '\n' +
 	@"   *   *   ",
-};
+];
 
 #endregion
 
@@ -160,8 +159,8 @@ while (true)
 		ufos.Add(new UFO
 		{
 			Health = 4,
-			Frame = random.Next(5),
-			Top = random.Next(height - 3),
+			Frame = Random.Shared.Next(5),
+			Top = Random.Shared.Next(height - 3),
 			Left = width,
 		});
 		stopwatchUFOSpawn.Restart();

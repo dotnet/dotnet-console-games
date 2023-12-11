@@ -4,15 +4,15 @@ public static class ColorsScreen
 {
 	public static void Show()
 	{
-		string[] bigHeader = new[]
-		{
+		string[] bigHeader =
+		[
 			" ██████╗ ██████╗ ██╗      ██████╗ ██████╗     ███████╗ ██████╗██╗  ██╗███████╗███╗   ███╗███████╗",
 			"██╔════╝██╔═══██╗██║     ██╔═══██╗██╔══██╗    ██╔════╝██╔════╝██║  ██║██╔════╝████╗ ████║██╔════╝",
 			"██║     ██║   ██║██║     ██║   ██║██████╔╝    ███████╗██║     ███████║█████╗  ██╔████╔██║█████╗  ",
 			"██║     ██║   ██║██║     ██║   ██║██╔══██╗    ╚════██║██║     ██╔══██║██╔══╝  ██║╚██╔╝██║██╔══╝  ",
 			"╚██████╗╚██████╔╝███████╗╚██████╔╝██║  ██║    ███████║╚██████╗██║  ██║███████╗██║ ╚═╝ ██║███████╗",
 			" ╚═════╝ ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝    ╚══════╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚══════╝",
-		};
+		];
 		int bigHeaderWidth = bigHeader.Max(line => line.Length);
 		const int bigHeaderPadding = 2;
 		const int optionPadding = 1;
@@ -33,8 +33,8 @@ public static class ColorsScreen
 				StringBuilder? buffer = null;
 				if (consoleWidth - 1 >= bigHeaderWidth)
 				{
-					string[][] options = new[]
-					{
+					string[][] options =
+					[
 						AsciiGenerator.ToAscii((selectedOption is 0 ? "■" : "□") + " black"),
 						AsciiGenerator.ToAscii((selectedOption is 1 ? "■" : "□") + " green"),
 						AsciiGenerator.ToAscii((selectedOption is 2 ? "■" : "□") + " red"),
@@ -43,7 +43,7 @@ public static class ColorsScreen
 						AsciiGenerator.ToAscii((selectedOption is 5 ? "■" : "□") + " invert"),
 						AsciiGenerator.ToAscii((selectedOption is 6 ? "■" : "□") + " reset"),
 						AsciiGenerator.ToAscii((selectedOption is 7 ? "■" : "□") + " back"),
-					};
+					];
 					int optionsWidth = options.Max(o => o.Max(l => l.Length));
 					int bigRenderHeight = bigHeader.Length + options.Sum(o => o.Length) + bigHeaderPadding + optionPadding * options.Length;
 					if (consoleHeight - 1 >= bigRenderHeight && consoleWidth - 1 >= optionsWidth)
@@ -70,8 +70,8 @@ public static class ColorsScreen
 				}
 				if (buffer is null)
 				{
-					string[] render = new[]
-					{
+					string[] render =
+					[
 						$@"Color Scheme",
 						$@"{(selectedOption is 0 ? ">" : " ")} Black",
 						$@"{(selectedOption is 1 ? ">" : " ")} Green",
@@ -81,7 +81,7 @@ public static class ColorsScreen
 						$@"{(selectedOption is 5 ? ">" : " ")} Invert",
 						$@"{(selectedOption is 6 ? ">" : " ")} Reset",
 						$@"{(selectedOption is 7 ? ">" : " ")} Back",
-					};
+					];
 					buffer = ScreenHelpers.Center(render, (consoleHeight - 1, consoleWidth - 1));
 				}
 				Console.SetCursorPosition(0, 0);

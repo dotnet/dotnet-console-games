@@ -24,16 +24,16 @@ public class BlazorConsole
 
 		public static bool operator !=(Pixel a, Pixel b) => !(a == b);
 
-		public override bool Equals(object? obj) => obj is Pixel pixel && this == pixel;
+		public override readonly bool Equals(object? obj) => obj is Pixel pixel && this == pixel;
 
-		public override int GetHashCode() => HashCode.Combine(Char, ForegroundColor, BackgroundColor);
+		public override readonly int GetHashCode() => HashCode.Combine(Char, ForegroundColor, BackgroundColor);
 	}
 
 #pragma warning disable CA2211 // Non-constant fields should not be visible
 	public static BlazorConsole? ActiveConsole;
 #pragma warning restore CA2211 // Non-constant fields should not be visible
 
-	public const int Delay = 1; // miliseconds
+	public const int Delay = 1; // milliseconds
 	public const int InactiveDelay = 1000; // milliseconds
 	public readonly Queue<ConsoleKeyInfo> InputBuffer = new();
 	public Action? TriggerRefresh;
@@ -44,20 +44,50 @@ public class BlazorConsole
 	public string? Title;
 	public ConsoleColor BackgroundColor = ConsoleColor.Black;
 	public ConsoleColor ForegroundColor = ConsoleColor.White;
-	public bool CursorVisible = true;
+	public bool _cursorVisible = true;
 	public int LargestWindowWidth = 120;
 	public int LargestWindowHeight = 51;
-	public int CursorLeft = 0;
-	public int CursorTop = 0;
 
 	public int _windowHeight = 35;
 	public int _windowWidth = 80;
+	public int _cursorLeft = 0;
+	public int _cursorTop = 0;
 
 	public Encoding? OutputEncoding;
 
+	public bool CursorVisible
+	{
+		get => _cursorVisible;
+		set
+		{
+			_cursorVisible = value;
+			StateHasChanged = true;
+		}
+	}
+
+	public int CursorLeft
+	{
+		get => _cursorLeft;
+		set
+		{
+			_cursorLeft = value;
+			StateHasChanged = true;
+		}
+	}
+
+	public int CursorTop
+	{
+		get => _cursorTop;
+		set
+		{
+			_cursorTop = value;
+			StateHasChanged = true;
+		}
+	}
+
 	public int WindowHeight
 	{
-		get =>  _windowHeight;
+		get => _windowHeight;
 		set
 		{
 			_windowHeight = value;
@@ -115,6 +145,7 @@ public class BlazorConsole
 			ConsoleKey.Enter => '\n',
 			ConsoleKey.Backspace => '\b',
 			ConsoleKey.OemPeriod => '.',
+			ConsoleKey.OemMinus => '-',
 			_ => '\0',
 		};
 		InputBuffer.Enqueue(new(shift ? char.ToUpper(c) : c, key, shift, alt, control));
@@ -136,6 +167,7 @@ public class BlazorConsole
 			case "ArrowUp":    EnqueueInput(ConsoleKey.UpArrow); break;
 			case "ArrowDown":  EnqueueInput(ConsoleKey.DownArrow); break;
 			case ".":          EnqueueInput(ConsoleKey.OemPeriod); break;
+			case "-":          EnqueueInput(ConsoleKey.OemMinus); break;
 			default:
 				if (e.Key.Length is 1)
 				{
@@ -337,7 +369,7 @@ public class BlazorConsole
 			for (int row = 0; row < View.GetLength(0) - 1; row++)
 			{
 				for (int column = 0; column < View.GetLength(1); column++)
-{
+				{
 					StateHasChanged = StateHasChanged || View[row, column] != View[row + 1, column];
 					View[row, column] = View[row + 1, column];
 				}
@@ -456,7 +488,7 @@ public class BlazorConsole
 		{
 			while (!KeyAvailableNoRefresh())
 			{
-					await Refresh();
+				await Refresh();
 			}
 			var keyInfo = InputBuffer.Dequeue();
 			switch (keyInfo.Key)

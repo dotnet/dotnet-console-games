@@ -1,19 +1,9 @@
 ﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using static Website.Games.Console_Monsters.Statics;
 //using Website.Games.Console_Monsters.Screens;
-using Website.Games.Console_Monsters.Items;
-using Website.Games.Console_Monsters.Maps;
-using Website.Games.Console_Monsters.Monsters;
 using Website.Games.Console_Monsters.Bases;
-using Website.Games.Console_Monsters.Characters;
-using Website.Games.Console_Monsters.Screens;
-using Website.Games.Console_Monsters.Screens.Menus;
-using Website.Games.Console_Monsters.Enums;
 using Website.Games.Console_Monsters.Utilities;
-using System.Collections.Generic;
 using Towel;
 using static Towel.Statics;
 using System.Threading.Tasks;
@@ -22,15 +12,15 @@ namespace Website.Games.Console_Monsters.Maps;
 
 public class House1 : MapBase
 {
-	private readonly char[][] spriteSheet = new char[][]
-		{
+	private readonly char[][] spriteSheet =
+		[
 			"afffffffffffffffb".ToCharArray(),
 			"hpmn      wvwkijg".ToCharArray(),
 			"hmq          kijg".ToCharArray(),
 			"h            k12g".ToCharArray(),
 			"hssss  uuu      g".ToCharArray(),
 			"cllllll000lllllld".ToCharArray(),
-		};
+		];
 
 	public override char[][] SpriteSheet => spriteSheet;
 
@@ -94,12 +84,12 @@ public class House1 : MapBase
 			switch (SpriteSheet[j][i])
 			{
 				case 'q':
-					promptText = new string[]
-					{
+					promptText =
+					[
 						"Mozin0's Mum:",
 						"Welcome to my house, My son always gifts guests.",
 						"He's Upstairs, go talk to him to recieve your gift.",
-					};
+					];
 					break;
 			}
 		}
@@ -136,16 +126,16 @@ public class House1 : MapBase
 		switch (SpriteSheet[j][i])
 		{
 			case '0':
-				map = new PaletTown();
-				map.SpawnCharacterOn('2');
+				Map = new PaletTown();
+				Map.SpawnCharacterOn('2');
 				break;
 			case 'i':
-				map = new House1SecondFloor();
-				map.SpawnCharacterOn('i');
+				Map = new House1SecondFloor();
+				Map.SpawnCharacterOn('i');
 				break;
 			case 'j':
-				map = new House1SecondFloor();
-				map.SpawnCharacterOn('j');
+				Map = new House1SecondFloor();
+				Map.SpawnCharacterOn('j');
 				break;
 
 		}

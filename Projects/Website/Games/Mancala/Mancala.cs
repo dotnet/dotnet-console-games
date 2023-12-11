@@ -18,18 +18,16 @@ public class Mancala
 		bool closeRequested;
 		State state;
 		int selection;
-		Random random;
 
 		try
 		{
 			closeRequested = false;
-			random = new Random();
 			Console.BackgroundColor = ConsoleColor.Black;
 			Console.ForegroundColor = ConsoleColor.White;
 			await Console.Clear();
 			Initialize();
 		GetInput:
-			if (state is State.OutOfMovesConfimation)
+			if (state is State.OutOfMovesConfirmation)
 			{
 				MoveAllSeedsToStores();
 			}
@@ -77,7 +75,7 @@ public class Mancala
 								changes[i] = 0;
 							}
 							state = IsGameOver()
-								? State.OutOfMovesConfimation
+								? State.OutOfMovesConfirmation
 								: State.MoveSelection;
 							goto GetInput;
 						case State.MoveConfirmation or State.OpponentMoveConfirmationMoveAgain:
@@ -86,7 +84,7 @@ public class Mancala
 								changes[i] = 0;
 							}
 							state =
-								IsGameOver() ? State.OutOfMovesConfimation :
+								IsGameOver() ? State.OutOfMovesConfirmation :
 								OpponentMove() 
 									? State.OpponentMoveConfirmationMoveAgain
 									: State.OpponentMoveConfirmation;
@@ -97,10 +95,10 @@ public class Mancala
 								changes[i] = 0;
 							}
 							state = IsGameOver()
-								? State.OutOfMovesConfimation
+								? State.OutOfMovesConfirmation
 								: State.MoveSelection;
 							goto GetInput;
-						case State.OutOfMovesConfimation:
+						case State.OutOfMovesConfirmation:
 							for (int i = 0; i < changes.Length; i++)
 							{
 								changes[i] = 0;
@@ -224,7 +222,7 @@ public class Mancala
 					possibleMoves.Add(i);
 				}
 			}
-			int move = possibleMoves[random.Next(possibleMoves.Count)];
+			int move = possibleMoves[Random.Shared.Next(possibleMoves.Count)];
 			return Move(move);
 		}
 
@@ -354,7 +352,7 @@ public class Mancala
 					await Console.WriteLine("  Invalid move.                              ");
 					await Console.WriteLine("  You must select a non-empty pit.           ");
 					break;
-				case State.OutOfMovesConfimation:
+				case State.OutOfMovesConfirmation:
 					if (changes[13] > 0)
 					{
 						await Console.WriteLine("  You are out of seeds. Remaining seeds are  ");
@@ -448,7 +446,7 @@ public class Mancala
 		MoveConfirmationAndMoveAgain,
 		OpponentMoveConfirmation,
 		OpponentMoveConfirmationMoveAgain,
-		OutOfMovesConfimation,
+		OutOfMovesConfirmation,
 		GameOverConfirmation,
 	}
 }

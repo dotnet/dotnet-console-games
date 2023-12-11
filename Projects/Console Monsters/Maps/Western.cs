@@ -2,8 +2,8 @@ namespace Console_Monsters.Maps;
 
 class Western : MapBase
 {
-	private static readonly char[][] spriteSheet = new char[][]
-		{
+	private static readonly char[][] spriteSheet =
+		[
 			"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb".ToCharArray(),
 			"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb".ToCharArray(),
 			"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb".ToCharArray(),
@@ -12,7 +12,7 @@ class Western : MapBase
 			"0aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!".ToCharArray(),
 			"0aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!".ToCharArray(),
 			"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa".ToCharArray(),
-		};
+		];
 
 	public override char[][] SpriteSheet => spriteSheet;
 
