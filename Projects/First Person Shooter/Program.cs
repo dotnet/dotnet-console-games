@@ -23,9 +23,7 @@ char[,] screen = new char[screenWidth, screenHeight];
 float[,] depthBuffer = new float[screenWidth, screenHeight];
 List<(float X, float Y)> enemies = new()
 {
-	(20.5f, 04.5f),
-	(20.5f, 11.5f),
-	(24.5f, 13.5f),
+	(13.5f, 09.5f),
 };
 
 string[] map =
@@ -47,7 +45,7 @@ string[] map =
 	"███                      ███",
 	"████                    ████",
 	"█████                  █████",
-	"██████       v        ██████",
+	"██████       ^        ██████",
 	"███████              ███████",
 	"████████████████████████████",
 	// (0,+)              (+,+)
@@ -536,13 +534,13 @@ void Render()
 
 		string[] enemySprite = distance switch
 		{
-			<= 05f => enemySprite8,
-			<= 06f => enemySprite7,
-			<= 07f => enemySprite6,
-			<= 08f => enemySprite5,
-			<= 09f => enemySprite4,
-			<= 10f => enemySprite3,
-			<= 11f => enemySprite2,
+			<= 01f => enemySprite8,
+			<= 02f => enemySprite7,
+			<= 03f => enemySprite6,
+			<= 04f => enemySprite5,
+			<= 05f => enemySprite4,
+			<= 06f => enemySprite3,
+			<= 07f => enemySprite2,
 			_ => enemySprite1
 		};
 
