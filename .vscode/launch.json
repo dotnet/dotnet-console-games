@@ -263,6 +263,16 @@
 			"stopAtEntry": false,
 		},
 		{
+			"name": "Word Search",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build Word Search",
+			"program": "${workspaceFolder}/Projects/Word Search/bin/Debug/Word Search.dll",
+			"cwd": "${workspaceFolder}/Projects/Word Search/bin/Debug",
+			"console": "externalTerminal",
+			"stopAtEntry": false,
+		},
+		{
 			"name": "Pong",
 			"type": "coreclr",
 			"request": "launch",
