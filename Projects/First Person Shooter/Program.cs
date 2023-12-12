@@ -9,9 +9,6 @@ bool closeRequested = false;
 bool screenLargeEnough = true;
 int screenWidth = 120;
 int screenHeight = 40;
-float playerX = 4f;
-float playerY = 4f;
-float playerA = 0.0f;
 float fov = 3.14159f / 4.0f;
 float depth = 16.0f;
 float speed = 5.0f;
@@ -31,29 +28,56 @@ List<(float X, float Y)> enemies = new()
 	(24.5f, 13.5f),
 };
 
-string[] map = new string[]
-{
-// (0,0)                     (+,0)
-	"███████████████████████████",
-	"█                         █",
-	"█                         █",
-	"█         █               █",
-	"█         █               █",
-	"█  ████████               █",
-	"█                         █",
-	"█                         █",
-	"█               ██        █",
-	"█                         █",
-	"█                         █",
-	"█                         █",
-	"█   ███████████████████████",
-	"█                         █",
-	"███████████████████████████",
-// (0,+)                     (+,+)
-};
+string[] map =
+[
+	// (0,0)              (+,0)
+	"████████████████████████████",
+	"█              ███         █",
+	"█               █          █",
+	"█   ███                 ██ █",
+	"█          █               █",
+	"█                          █",
+	"█                  ███     █",
+	"█    ██                    █",
+	"█           ███            █",
+	"█                          █",
+	"█                          █",
+	"█                          █",
+	"██                        ██",
+	"███                      ███",
+	"████                    ████",
+	"█████                  █████",
+	"██████       v        ██████",
+	"███████              ███████",
+	"████████████████████████████",
+	// (0,+)              (+,+)
+];
 
-string[] enemySprite1 = new string[]
+float playerA = default;
+float playerX = default;
+float playerY = default;
+for (int i = 0; i < map.Length; i++)
 {
+	for (int j = 0; j < map[i].Length; j++)
+	{
+		if (map[i][j] is '^' or '<' or '>' or 'v')
+		{
+			playerY = i + .5f;
+			playerX = j + .5f;
+			playerA = map[i][j] switch
+			{
+				'^' => 4.71f,
+				'>' => 0.00f,
+				'<' => 3.14f,
+				'v' => 1.57f,
+				_ => throw new NotImplementedException(),
+			};
+		}
+	}
+}
+
+string[] enemySprite1 =
+[
 	"!!!!╭─────╮!!!!",
 	"!(O)│ ‾o‾ │(O)!",
 	"╭─╨─╯╔═══╗╰─╨─╮",
@@ -63,10 +87,10 @@ string[] enemySprite1 = new string[]
 	"!!╭╯╚╗   ╔╝╰╮!!",
 	"!!│ ╭╚═══╝╮ │!!",
 	"!!╰─╯!!!!!╰─╯!!",
-};
+];
 
-string[] enemySprite2 = new string[]
-{
+string[] enemySprite2 =
+[
 	"!!!!╭───────╮!!!!",
 	"!(O)│  ‾o‾  │(O)!",
 	"╭─╨─╯ ╔═══╗ ╰─╨─╮",
@@ -77,10 +101,10 @@ string[] enemySprite2 = new string[]
 	"!!!╭╯╚╗   ╔╝╰╮!!!",
 	"!!!│ ╭╚═══╝╮ │!!!",
 	"!!!╰─╯!!!!!╰─╯!!!",
-};
+];
 
-string[] enemySprite3 = new string[]
-{
+string[] enemySprite3 =
+[
 	"!!╔═╗╭─────────╮╔═╗!!",
 	"!!║O║│   - -   │║O║!!",
 	"!!╚╦╝│    O    │╚╦╝!!",
@@ -94,10 +118,10 @@ string[] enemySprite3 = new string[]
 	"!!!│  ╭╚═════╝╮  │!!!",
 	"!!!│  │!!!!!!!│  │!!!",
 	"!!!╰──╯!!!!!!!╰──╯!!!",
-};
+];
 
-string[] enemySprite4 = new string[]
-{
+string[] enemySprite4 =
+[
 	"!!╔═╗!╭──────────╮!╔═╗!!",
 	"!!║O║!│    - -   │!║O║!!",
 	"!!╚╦╝!│     O    │!╚╦╝!!",
@@ -112,12 +136,12 @@ string[] enemySprite4 = new string[]
 	"!!!│   ╭╚══════╝╮   │!!!",
 	"!!!│   │!!!!!!!!│   │!!!",
 	"!!!╰───╯!!!!!!!!╰───╯!!!",
-};
+];
 
-string[] enemySprite5 = new string[]
-{
+string[] enemySprite5 =
+[
 	"!╔═══╗╭────────────╮╔═══╗!",
-	"!║ O ║│    -- --   │║ O ║!",
+	"!║ O ║│    ── ──   │║ O ║!",
 	"!╚═╦═╝│      O     │╚═╦═╝!",
 	"╭──╨──╯ ╔════════╗ ╰──╨──╮",
 	"│      ╔╝        ╚╗      │",
@@ -133,12 +157,12 @@ string[] enemySprite5 = new string[]
 	"!!│    │!!!!!!!!!!│    │!!",
 	"!!│    │!!!!!!!!!!│    │!!",
 	"!!╰────╯!!!!!!!!!!╰────╯!!",
-};
+];
 
-string[] enemySprite6 = new string[]
-{
+string[] enemySprite6 =
+[
 	"!╔═══╗ ╭─────────────╮ ╔═══╗!",
-	"!║ O ║ │    -- --    │ ║ O ║!",
+	"!║ O ║ │    ── ──    │ ║ O ║!",
 	"!╚═╦═╝ │      O      │ ╚═╦═╝!",
 	"╭──╨───╯ ╔═════════╗ ╰───╨──╮",
 	"│       ╔╝         ╚╗       │",
@@ -155,12 +179,12 @@ string[] enemySprite6 = new string[]
 	"!!│     │!!!!!!!!!!!│     │!!",
 	"!!│     │!!!!!!!!!!!│     │!!",
 	"!!╰─────╯!!!!!!!!!!!╰─────╯!!",
-};
+];
 
-string[] enemySprite7 = new string[]
-{
+string[] enemySprite7 =
+[
 	"!!╔═══╗!╭───────────────╮!╔═══╗!!",
-	"!!║ O ║!│     -- --     │!║ O ║!!",
+	"!!║ O ║!│     ── ──     │!║ O ║!!",
 	"!!╚═╦═╝!│       O       │!╚═╦═╝!!",
 	"╭───╨───╯ ╔═══════════╗ ╰───╨───╮",
 	"│        ╔╝           ╚╗        │",
@@ -179,12 +203,12 @@ string[] enemySprite7 = new string[]
 	"!!!│     │!!!!!!!!!!!!!│     │!!!",
 	"!!!│     │!!!!!!!!!!!!!│     │!!!",
 	"!!!╰─────╯!!!!!!!!!!!!!╰─────╯!!!",
-};
+];
 
-string[] enemySprite8 = new string[]
-{
+string[] enemySprite8 =
+[
 	"!!!!!!!!!!╭───────────────────╮!!!!!!!!!!",
-	"!!╔═══╗!!!│       -- --       │!!!╔═══╗!!",
+	"!!╔═══╗!!!│       ── ──       │!!!╔═══╗!!",
 	"!!║ O ║!!!│         O         │!!!║ O ║!!",
 	"!!╚═╦═╝!!!│                   │!!!╚═╦═╝!!",
 	"╭───╨─────╯ ╔═══════════════╗ ╰─────╨───╮",
@@ -209,10 +233,10 @@ string[] enemySprite8 = new string[]
 	"!!!!│      │!!!!!!!!!!!!!!!!!│      │!!!",
 	"!!!!│      │!!!!!!!!!!!!!!!!!│      │!!!",
 	"!!!!╰──────╯!!!!!!!!!!!!!!!!!╰──────╯!!!",
-};
+];
 
-string[] playerPistol = new string[]
-{
+string[] playerPistol =
+[
 	"!!!╔═╗!!!",
 	"!!!║ ║!!!",
 	"╭─╮║ ║!!!",
@@ -221,10 +245,10 @@ string[] playerPistol = new string[]
 	"│    ───╯",
 	"│    ───╯",
 	"╰╮  ╭──╯!",
-};
+];
 
-string[] playerPistolShoot = new string[]
-{
+string[] playerPistolShoot =
+[
 	@"!!!\V/!!!",
 	@"!!!╔═╗!!!",
 	@"!!!║ ║!!!",
@@ -233,10 +257,10 @@ string[] playerPistolShoot = new string[]
 	@"│ ╰───╯ │",
 	@"│    ───╯",
 	@"│    ───╯",
-};
+];
 
-string[] playerShotgun = new string[]
-{
+string[] playerShotgun =
+[
 	"!!!!!╔═╦═╗!!",
 	"!!!!!║ ║ ║!!",
 	"!!!!!║ ║ ║!!",
@@ -247,10 +271,10 @@ string[] playerShotgun = new string[]
 	"!!╱  ╭─╮ ║ │",
 	"!╱  ╱│ ├─╯ │",
 	"╱  ╱!╰╮  ╭─╯",
-};
+];
 
-string[] playerShotgunShoot = new string[]
-{
+string[] playerShotgunShoot =
+[
 	@"!!!!\\V|V//!",
 	@"!!!!\\V|V//!",
 	@"!!!!!╔═╦═╗!!",
@@ -262,7 +286,7 @@ string[] playerShotgunShoot = new string[]
 	@"!!!╱ ║ ║ ║─╮",
 	@"!!╱  ╭─╮ ║ │",
 	@"!╱  ╱│ ├─╯ │",
-};
+];
 
 int consoleWidth = Console.WindowWidth;
 int consoleHeight = Console.WindowHeight;
@@ -545,13 +569,13 @@ void Render()
 
 	if (statsVisible)
 	{
-		string[] stats = new string[]
-		{
+		string[] stats =
+		[
 			$"x={playerX:0.00}",
 			$"y={playerY:0.00}",
 			$"a={playerA:0.00}",
 			$"fps={fps:0.}",
-		};
+		];
 		for (int i = 0; i < stats.Length; i++)
 		{
 			for (int j = 0; j < stats[i].Length; j++)
@@ -567,7 +591,7 @@ void Render()
 		{
 			for (int x = 0; x < map[y].Length; x++)
 			{
-				screen[x, y] = map[y][x];
+				screen[x, y] = map[y][x] is '^' or '<' or '>' or 'v' ? ' ' : map[y][x];
 			}
 		}
 		foreach (var enemy in enemies)
@@ -625,10 +649,10 @@ bool PlayerIsNotBusy() =>
 		_ => throw new NotImplementedException(),
 	};
 
-class User32_dll
+partial class User32_dll
 {
-	[DllImport("user32.dll")]
-	internal static extern short GetAsyncKeyState(int vKey);
+	[LibraryImport("user32.dll")]
+	internal static partial short GetAsyncKeyState(int vKey);
 }
 
 enum Weapon
