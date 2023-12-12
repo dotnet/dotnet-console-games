@@ -74,12 +74,13 @@ public class Word_Search
 					if (!selections.Remove(cursor))
 					{
 						selections.Add(cursor);
-						selections.Sort();
-						if (UserFoundTheWord())
-						{
-							await Console.Clear();
-							await RenderBoard();
-							await Console.Write($"""
+					}
+					selections.Sort();
+					if (UserFoundTheWord())
+					{
+						await Console.Clear();
+						await RenderBoard();
+						await Console.Write($"""
 
 								You found "{currentWord}"! You win!
 
@@ -87,13 +88,12 @@ public class Word_Search
 								- enter/home: play again
 								- escape: close game
 								""");
-							while (true)
+						while (true)
+						{
+							switch ((await Console.ReadKey(true)).Key)
 							{
-								switch ((await Console.ReadKey(true)).Key)
-								{
-									case ConsoleKey.Enter or ConsoleKey.Home: goto PlayAgain;
-									case ConsoleKey.Escape: goto Close;
-								}
+								case ConsoleKey.Enter or ConsoleKey.Home: goto PlayAgain;
+								case ConsoleKey.Escape: goto Close;
 							}
 						}
 					}
@@ -107,7 +107,7 @@ public class Word_Search
 
 		void InitializeWords()
 		{
-			wordArray = Resources.Words!.Select(word => word.ToUpper()).ToArray();
+			wordArray = Resources.Words!.Where(word => word.Length < board.GetLength(1) && word.Length < board.GetLength(0)).Select(word => word.ToUpper()).ToArray();
 		}
 
 		void InitializeBoard()

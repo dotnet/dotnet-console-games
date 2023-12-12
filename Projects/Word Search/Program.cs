@@ -67,12 +67,13 @@ while (true)
 			if (!selections.Remove(cursor))
 			{
 				selections.Add(cursor);
-				selections.Sort();
-				if (UserFoundTheWord())
-				{
-					Console.Clear();
-					RenderBoard();
-					Console.Write($"""
+			}
+			selections.Sort();
+			if (UserFoundTheWord())
+			{
+				Console.Clear();
+				RenderBoard();
+				Console.Write($"""
 
 						You found "{currentWord}"! You win!
 
@@ -80,13 +81,12 @@ while (true)
 						- enter/home: play again
 						- escape: close game
 						""");
-					while (true)
+				while (true)
+				{
+					switch (Console.ReadKey(true).Key)
 					{
-						switch (Console.ReadKey(true).Key)
-						{
-							case ConsoleKey.Enter or ConsoleKey.Home: goto PlayAgain;
-							case ConsoleKey.Escape: goto Close;
-						}
+						case ConsoleKey.Enter or ConsoleKey.Home: goto PlayAgain;
+						case ConsoleKey.Escape: goto Close;
 					}
 				}
 			}
