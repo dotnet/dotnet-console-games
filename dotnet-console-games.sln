@@ -107,7 +107,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tetris", "Projects\Tetris\T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Word Search", "Projects\Word Search\Word Search.csproj", "{A1536214-8984-4528-90DF-F465EB491685}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lights Out", "Projects\Lights Out\Lights Out.csproj", "{31AE3F64-98FC-40E8-9A10-7276B0F8E726}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lights Out", "Projects\Lights Out\Lights Out.csproj", "{31AE3F64-98FC-40E8-9A10-7276B0F8E726}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reversi", "Projects\Reversi\Reversi.csproj", "{8D5244E1-C54E-4909-A9DE-0DE7E683D911}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -327,6 +329,10 @@ Global
 		{31AE3F64-98FC-40E8-9A10-7276B0F8E726}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31AE3F64-98FC-40E8-9A10-7276B0F8E726}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31AE3F64-98FC-40E8-9A10-7276B0F8E726}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D5244E1-C54E-4909-A9DE-0DE7E683D911}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D5244E1-C54E-4909-A9DE-0DE7E683D911}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D5244E1-C54E-4909-A9DE-0DE7E683D911}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D5244E1-C54E-4909-A9DE-0DE7E683D911}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
