@@ -1,0 +1,20 @@
+name: Reversi Build
+on:
+  push:
+    paths:
+    - 'Projects/Reversi/**'
+    - '!**.md'
+  pull_request:
+    paths:
+    - 'Projects/Reversi/**'
+    - '!**.md'
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+    - run: dotnet build "Projects\Reversi\Reversi.csproj" --configuration Release
