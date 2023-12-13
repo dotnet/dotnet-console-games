@@ -9,69 +9,86 @@ public class Roll_And_Move
 
 	public async Task Run()
 	{
-		string board = @"
-  ╔═════╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═════╗
-  ║     │   │   │   │   │   │   │   │   │     ║
-  ║     │   │   │   │   │   │   │   │   │     ║
-  ╟─────┼───┴───┴───┴───┴───┴───┴───┴───┼─────╢
-  ║     │                               │     ║
-  ╟─────┤                               ├─────╢
-  ║     │                               │     ║
-  ╟─────┤                               ├─────╢
-  ║     │     *   ────────────>   │     │     ║
-  ╟─────┤     │                   │     ├─────╢
-  ║     │     │   Roll And Move   │     │     ║
-  ╟─────┤     │                   │     ├─────╢
-  ║     │     │   <────────────   v     │     ║
-  ╟─────┤                               ├─────╢
-  ║     │                               │     ║
-  ╟─────┤                               ├─────╢
-  ║     │                               │     ║
-  ╟─────┼───┬───┬───┬───┬───┬───┬───┬───┼─────╢
-  ║     │   │   │   │   │   │   │   │   │     ║
-  ║     │   │   │   │   │   │   │   │   │     ║
-  ╚═════╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═════╝
-";
+		string board = """
 
-		string newGame = @"
-  ***************** New  Game *****************
-  Be the first player to circle the board.     
-  Press [enter] to begin...                    ";
+			  ╔═════╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═════╗
+			  ║     │   │   │   │   │   │   │   │   │     ║
+			  ║     │   │   │   │   │   │   │   │   │     ║
+			  ╟─────┼───┴───┴───┴───┴───┴───┴───┴───┼─────╢
+			  ║     │                               │     ║
+			  ╟─────┤                               ├─────╢
+			  ║     │                               │     ║
+			  ╟─────┤                               ├─────╢
+			  ║     │     *   ────────────>   │     │     ║
+			  ╟─────┤     │                   │     ├─────╢
+			  ║     │     │   Roll And Move   │     │     ║
+			  ╟─────┤     │                   │     ├─────╢
+			  ║     │     │   <────────────   v     │     ║
+			  ╟─────┤                               ├─────╢
+			  ║     │                               │     ║
+			  ╟─────┤                               ├─────╢
+			  ║     │                               │     ║
+			  ╟─────┼───┬───┬───┬───┬───┬───┬───┬───┼─────╢
+			  ║     │   │   │   │   │   │   │   │   │     ║
+			  ║     │   │   │   │   │   │   │   │   │     ║
+			  ╚═════╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═════╝
+			""";
 
-		string turn_a = @"
-  It is your turn. Press [enter] to roll your  
-  dice...                                      
-                                               ";
+		string newGame = """
 
-		string roll_a = @"
-  ╔═══╗  You roll a {0} and move your pawn {0}     
-  ║ {0} ║  spaces. Press [enter] to continue...  
-  ╚═══╝                                        ";
+			  ***************** New  Game *****************
+			  Be the first player to circle the board.     
+			  Press [enter] to begin...                    
+			""";
 
-		string roll_b = @"
-  ╔═══╗  Your opponent rolls a {0} and moves his 
-  ║ {0} ║  pawn {0} spaces. Press [enter] to       
-  ╚═══╝  continue...                           ";
+		string turn_a = """
 
-		string last_turn_b = @"
-  You reach the goal, but your opponent gets   
-  one more move to try for a tie game. Press   
-  [enter] to continue...                       ";
+			  It is your turn. Press [enter] to roll your  
+			  dice...                                      
+			                                               
+			""";
 
-		string tie = @"
-  ================= Tie Game! =================
-  You and your opponent circled the board. Play
-  again [enter] or quit [escape]?              ";
+		string roll_a = """
 
-		string win = @"
-  ================= You  Win! =================
-  You circled the board before your opponent.  
-  Play again [enter] or quit [escape]?         ";
+			  ╔═══╗  You roll a {0} and move your pawn {0}     
+			  ║ {0} ║  spaces. Press [enter] to continue...  
+			  ╚═══╝                                        
+			""";
 
-		string lose = @"
-  ================= You Lose! =================
-  Your opponent circled the board before you.  
-  Play again [enter] or quit [escape]?         ";
+		string roll_b = """
+
+			  ╔═══╗  Your opponent rolls a {0} and moves his 
+			  ║ {0} ║  pawn {0} spaces. Press [enter] to       
+			  ╚═══╝  continue...                           
+			""";
+
+		string last_turn_b = """
+
+			  You reach the goal, but your opponent gets   
+			  one more move to try for a tie game. Press   
+			  [enter] to continue...                       
+			""";
+
+		string tie = """
+
+			  ================= Tie Game! =================
+			  You and your opponent circled the board. Play
+			  again [enter] or quit [escape]?              
+			""";
+
+		string win = """
+
+			  ================= You  Win! =================
+			  You circled the board before your opponent.  
+			  Play again [enter] or quit [escape]?         
+			""";
+
+		string lose = """
+
+			  ================= You Lose! =================
+			  Your opponent circled the board before you.  
+			  Play again [enter] or quit [escape]?         
+			""";
 
 		ConsoleColor color_a = ConsoleColor.Blue;
 		(int Top, int Left)[] spots_a =

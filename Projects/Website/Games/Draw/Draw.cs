@@ -37,10 +37,12 @@ public class Draw
 					previousConsoleSize = currentConsoleSize;
 				}
 				await Render();
-				await Console.WriteLine(@"
-  Make the left drawing match the right drawing.
-  Use the arrow keys or WASD to draw.           
-  Use [end] or [home] to generate a new drawing.");
+				await Console.WriteLine("""
+
+					  Make the left drawing match the right drawing.
+					  Use the arrow keys or WASD to draw.           
+					  Use [end] or [home] to generate a new drawing.
+					""");
 				await Console.SetCursorPosition(cursor.Item2 + 3, cursor.Item1 + 4);
 			GetInput:
 				Console.CursorVisible = true;
@@ -66,10 +68,12 @@ public class Draw
 				}
 			}
 			await Render();
-			await Console.WriteLine(@"
-  **********************************************
-           You matched the drawings!!!          
-       Play again [enter] or quit [escape]?     ");
+			await Console.WriteLine("""
+
+				  **********************************************
+				           You matched the drawings!!!          
+				       Play again [enter] or quit [escape]?     
+				""");
 		GetEnterOrEscape:
 			Console.CursorVisible = false;
 			switch ((await Console.ReadKey(true)).Key)

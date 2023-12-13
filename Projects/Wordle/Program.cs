@@ -32,25 +32,27 @@ PlayAgain:
 	Console.ForegroundColor = ConsoleColor.White;
 	Console.BackgroundColor = ConsoleColor.Black;
 	Console.Clear();
-	Console.WriteLine(@" Wordle
- ╔═══╦═══╦═══╦═══╦═══╗
- ║   ║   ║   ║   ║   ║
- ╠═══╬═══╬═══╬═══╬═══╣
- ║   ║   ║   ║   ║   ║
- ╠═══╬═══╬═══╬═══╬═══╣
- ║   ║   ║   ║   ║   ║
- ╠═══╬═══╬═══╬═══╬═══╣
- ║   ║   ║   ║   ║   ║
- ╠═══╬═══╬═══╬═══╬═══╣
- ║   ║   ║   ║   ║   ║
- ╠═══╬═══╬═══╬═══╬═══╣
- ║   ║   ║   ║   ║   ║
- ╚═══╩═══╩═══╩═══╩═══╝
- Controls:
- - a b, c, ... y, z: input letters
- - left/right arrow: move cursor
- - enter: submit or confirm
- - escape: exit");
+	Console.WriteLine("""
+		 Wordle
+		 ╔═══╦═══╦═══╦═══╦═══╗
+		 ║   ║   ║   ║   ║   ║
+		 ╠═══╬═══╬═══╬═══╬═══╣
+		 ║   ║   ║   ║   ║   ║
+		 ╠═══╬═══╬═══╬═══╬═══╣
+		 ║   ║   ║   ║   ║   ║
+		 ╠═══╬═══╬═══╬═══╬═══╣
+		 ║   ║   ║   ║   ║   ║
+		 ╠═══╬═══╬═══╬═══╬═══╣
+		 ║   ║   ║   ║   ║   ║
+		 ╠═══╬═══╬═══╬═══╬═══╣
+		 ║   ║   ║   ║   ║   ║
+		 ╚═══╩═══╩═══╩═══╩═══╝
+		 Controls:
+		 - a b, c, ... y, z: input letters
+		 - left/right arrow: move cursor
+		 - enter: submit or confirm
+		 - escape: exit
+		""");
 	int guess = 0;
 	int cursor = 0;
 	string word = words[Random.Shared.Next(words.Count)].ToUpperInvariant();
