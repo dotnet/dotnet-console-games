@@ -553,11 +553,9 @@ void Render()
 		};
 
 		float diff = angle < fovAngleA && fovAngleA - 2f * (float)Math.PI + fov > angle ? angle + 2f * (float)Math.PI - fovAngleA : angle - fovAngleA;
-		//float diff = angle - fovAngleA;
-
 		float ratio = diff / fov;
 		int enemyScreenX = (int)(screenWidth * ratio);
-		int enemyScreenY = Math.Min(floor + enemySprite.Length / 2 - 1, screenHeight);
+		int enemyScreenY = floor;
 
 		a = (nameof(angle), angle);
 		b = (nameof(ratio), ratio);
