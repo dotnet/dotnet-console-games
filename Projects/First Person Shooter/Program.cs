@@ -5,6 +5,8 @@ using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text;
 
+object? a = null, b = null, c = null;
+
 bool closeRequested = false;
 bool screenLargeEnough = true;
 int screenWidth = 120;
@@ -24,6 +26,8 @@ float[,] depthBuffer = new float[screenWidth, screenHeight];
 List<(float X, float Y)> enemies = new()
 {
 	(13.5f, 09.5f),
+	//(4.5f, 09.5f),
+	//(16.5f, 09.5f),
 };
 
 string[] map =
@@ -524,10 +528,12 @@ void Render()
 
 	float fovAngleA = playerA - fov / 2;
 	float fovAngleB = playerA + fov / 2;
+	if (fovAngleA < 0) fovAngleA += 2 * (float)Math.PI;
+
 	foreach (var enemy in enemies)
 	{
 		float angle = (float)Math.Atan2(enemy.Y - playerY, enemy.X - playerX);
-		if (angle < 0) angle += 2 * (float)Math.PI;
+		if (angle < 0) angle += 2f * (float)Math.PI;
 		
 		float distance = Vector2.Distance(new(playerX, playerY), new(enemy.X, enemy.Y));
 
@@ -546,13 +552,16 @@ void Render()
 			_ => enemySprite1
 		};
 
+		float diff = angle < fovAngleA && fovAngleA - 2f * (float)Math.PI + fov > angle ? angle + 2f * (float)Math.PI - fovAngleA : angle - fovAngleA;
+		//float diff = angle - fovAngleA;
 
-		float ratio = angle - fovAngleA;
-		if (ratio < 0) ratio += 2 * (float)Math.PI;
-
-		int enemyScreenX = (int)(screenWidth * (Math.Abs(angle - fovAngleA) / fov));
-
+		float ratio = diff / fov;
+		int enemyScreenX = (int)(screenWidth * ratio);
 		int enemyScreenY = Math.Min(floor + enemySprite.Length / 2 - 1, screenHeight);
+
+		a = (nameof(angle), angle);
+		b = (nameof(ratio), ratio);
+		c = (nameof(fovAngleA), fovAngleA);
 
 		for (int y = 0; y < enemySprite.Length; y++)
 		{
@@ -580,6 +589,9 @@ void Render()
 			$"y={playerY:0.00}",
 			$"a={playerA:0.00}",
 			$"fps={fps:0.}",
+			$"{a}",
+			$"{b}",
+			$"{c}",
 		];
 		for (int i = 0; i < stats.Length; i++)
 		{
