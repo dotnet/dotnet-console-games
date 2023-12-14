@@ -12,7 +12,7 @@ int screenHeight = 40;
 float fov = 3.14159f / 4.0f;
 float depth = 16.0f;
 float speed = 5.0f;
-float rotationSpeed = 0.40f;
+float rotationSpeed = 0.20f;
 float fps = default;
 bool mapVisible = true;
 bool statsVisible = true;
@@ -29,25 +29,25 @@ List<(float X, float Y)> enemies = new()
 string[] map =
 [
 	// (0,0)              (+,0)
-	"████████████████████████████",
-	"█              ███         █",
-	"█               █          █",
-	"█   ███                 ██ █",
-	"█          █               █",
-	"█                          █",
-	"█                  ███     █",
-	"█    ██                    █",
-	"█           ███            █",
-	"█                          █",
-	"█                          █",
-	"█                          █",
-	"██                        ██",
-	"███                      ███",
-	"████                    ████",
-	"█████                  █████",
-	"██████       ^        ██████",
-	"███████              ███████",
-	"████████████████████████████",
+	"███████████████████████████",
+	"█              ███        █",
+	"█               █         █",
+	"█   ███                ██ █",
+	"█          █              █",
+	"█                         █",
+	"█                 ███     █",
+	"█    ██                   █",
+	"█           ███           █",
+	"█                         █",
+	"█                         █",
+	"█                         █",
+	"██                       ██",
+	"███                     ███",
+	"████                   ████",
+	"█████                 █████",
+	"██████       ^       ██████",
+	"███████             ███████",
+	"███████████████████████████",
 	// (0,+)              (+,+)
 ];
 
@@ -527,6 +527,8 @@ void Render()
 	foreach (var enemy in enemies)
 	{
 		float angle = (float)Math.Atan2(enemy.Y - playerY, enemy.X - playerX);
+		if (angle < 0) angle += 2 * (float)Math.PI;
+		
 		float distance = Vector2.Distance(new(playerX, playerY), new(enemy.X, enemy.Y));
 
 		int ceiling = (int)((float)(screenHeight / 2.0f) - screenHeight / ((float)distance));
@@ -544,7 +546,12 @@ void Render()
 			_ => enemySprite1
 		};
 
-		int enemyScreenX = (int)(screenWidth * ((angle - fovAngleA) / (fovAngleB - fovAngleA)));
+
+		float ratio = angle - fovAngleA;
+		if (ratio < 0) ratio += 2 * (float)Math.PI;
+
+		int enemyScreenX = (int)(screenWidth * (Math.Abs(angle - fovAngleA) / fov));
+
 		int enemyScreenY = Math.Min(floor + enemySprite.Length / 2 - 1, screenHeight);
 
 		for (int y = 0; y < enemySprite.Length; y++)
