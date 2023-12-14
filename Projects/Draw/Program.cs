@@ -29,6 +29,7 @@ Reset:
 		}
 		Render();
 		Console.WriteLine("""
+
 			  Make the left drawing match the right drawing.
 			  Use the arrow keys or WASD to draw.           
 			  Use [end] or [home] to generate a new drawing.
@@ -59,6 +60,7 @@ Reset:
 	}
 	Render();
 	Console.WriteLine("""
+
 		  **********************************************
 		           You matched the drawings!!!          
 		       Play again [enter] or quit [escape]?     

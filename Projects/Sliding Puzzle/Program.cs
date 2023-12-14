@@ -4,28 +4,34 @@ using static Towel.Statics;
 
 Exception? exception = null;
 
-const string menu = @"
-  Sliding Puzzle
+const string menu = """
+	
+	  Sliding Puzzle
+	
+	  Choose Puzzle Size:
+	  [1] 3 x 3
+	  [2] 4 x 4
+	  [3] 5 x 5
+	  [escape] close
+	""";
 
-  Choose Puzzle Size:
-  [1] 3 x 3
-  [2] 4 x 4
-  [3] 5 x 5
-  [escape] close";
+const string info = """
 
-string info = @"
-  Solve the puzzle by getting the tiles in   
-  least-to-greatest order with the space in  
-  the lower right. Use the arrow keys or WASD
-  to slide the tiles into the space. Press   
-  [escape] to return to the menu.            ";
+	  Solve the puzzle by getting the tiles in   
+	  least-to-greatest order with the space in  
+	  the lower right. Use the arrow keys or WASD
+	  to slide the tiles into the space. Press   
+	  [escape] to return to the menu.            
+	""";
 
-string youWon = @"
-  *************** You Won! ***************   
-  Press [enter] to return to the menu...     
-                                             
-                                             
-                                             ";
+const string youWon = """
+
+	  *************** You Won! ***************   
+	  Press [enter] to return to the menu...     
+	                                             
+	                                             
+	                                             
+	""";
 
 try
 {

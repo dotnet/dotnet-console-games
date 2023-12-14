@@ -26,25 +26,27 @@ public class Wordle
 			Console.ForegroundColor = ConsoleColor.White;
 			Console.BackgroundColor = ConsoleColor.Black;
 			await Console.Clear();
-			await Console.WriteLine(@" Wordle
- ╔═══╦═══╦═══╦═══╦═══╗
- ║   ║   ║   ║   ║   ║
- ╠═══╬═══╬═══╬═══╬═══╣
- ║   ║   ║   ║   ║   ║
- ╠═══╬═══╬═══╬═══╬═══╣
- ║   ║   ║   ║   ║   ║
- ╠═══╬═══╬═══╬═══╬═══╣
- ║   ║   ║   ║   ║   ║
- ╠═══╬═══╬═══╬═══╬═══╣
- ║   ║   ║   ║   ║   ║
- ╠═══╬═══╬═══╬═══╬═══╣
- ║   ║   ║   ║   ║   ║
- ╚═══╩═══╩═══╩═══╩═══╝
- Controls:
- - a b, c, ... y, z: input letters
- - left/right arrow: move cursor
- - enter: submit or confirm
- - escape: exit");
+			await Console.WriteLine("""
+				 Wordle
+				 ╔═══╦═══╦═══╦═══╦═══╗
+				 ║   ║   ║   ║   ║   ║
+				 ╠═══╬═══╬═══╬═══╬═══╣
+				 ║   ║   ║   ║   ║   ║
+				 ╠═══╬═══╬═══╬═══╬═══╣
+				 ║   ║   ║   ║   ║   ║
+				 ╠═══╬═══╬═══╬═══╬═══╣
+				 ║   ║   ║   ║   ║   ║
+				 ╠═══╬═══╬═══╬═══╬═══╣
+				 ║   ║   ║   ║   ║   ║
+				 ╠═══╬═══╬═══╬═══╬═══╣
+				 ║   ║   ║   ║   ║   ║
+				 ╚═══╩═══╩═══╩═══╩═══╝
+				 Controls:
+				 - a b, c, ... y, z: input letters
+				 - left/right arrow: move cursor
+				 - enter: submit or confirm
+				 - escape: exit
+				""");
 			int guess = 0;
 			int cursor = 0;
 			string word = Resources.FiveLetterWords[Random.Shared.Next(Resources.FiveLetterWords.Length)].ToUpperInvariant();

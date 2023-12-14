@@ -1,269 +1,284 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">dotnet-console-games</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
+	<div class="container-fluid">
+		<a class="navbar-brand" href="">dotnet-console-games</a>
+		<button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+	</div>
 </div>
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Guess A Number">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Guess A Number
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Rock Paper Scissors">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Rock Paper Scissors
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Dice Game">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Dice Game
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Flash Cards">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Flash Cards
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Quick Draw">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Quick Draw
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Tug Of War">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Tug Of War
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Whack A Mole">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Whack A Mole
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Tic Tac Toe">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Tic Tac Toe
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Simon">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Simon
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Roll And Move">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Roll And Move
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Draw">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Draw
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Tower Of Hanoi">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Tower Of Hanoi
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Clicker">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Clicker
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Hangman">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Hangman
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Wordle">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Wordle
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Memory">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Memory
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Connect 4">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Connect 4
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Minesweeper">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Minesweeper
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Wumpus World">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Wumpus World
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Rythm">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Rythm
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Type">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Type
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Drive">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Drive
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Sliding Puzzle">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Sliding Puzzle
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Snake">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Snake
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Hurdles">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Hurdles
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Pong">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Pong
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Flappy Bird">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Flappy Bird
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Oligopoly">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Oligopoly
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Darts">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Darts
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Yahtzee">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Yahtzee
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Tanks">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Tanks
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Helicopter">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Helicopter
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="2048">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> 2048
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Sudoku">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Sudoku
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Mancala">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Mancala
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Bound">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Bound
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Tents">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Tents
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Battleship">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Battleship
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Checkers">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Checkers
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Duck Hunt">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Duck Hunt
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Blackjack">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Blackjack
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Fighter">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Fighter
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Maze">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Maze
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="PacMan">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> PacMan
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Gravity">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Gravity
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Tetris">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Tetris
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Role Playing Game">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Role Playing Game
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Console Monsters">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Console Monsters
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Shmup">
-                <span class="oi oi-play-circle" aria-hidden="true"></span> Shmup
-            </NavLink>
-        </div>
-    </nav>
+	<nav class="flex-column">
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Guess A Number">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Guess A Number
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Rock Paper Scissors">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Rock Paper Scissors
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Dice Game">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Dice Game
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Flash Cards">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Flash Cards
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Quick Draw">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Quick Draw
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Tug Of War">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Tug Of War
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Whack A Mole">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Whack A Mole
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Tic Tac Toe">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Tic Tac Toe
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Simon">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Simon
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Roll And Move">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Roll And Move
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Draw">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Draw
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Tower Of Hanoi">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Tower Of Hanoi
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Clicker">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Clicker
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Hangman">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Hangman
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Lights Out">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Lights Out
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Wordle">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Wordle
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Memory">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Memory
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Connect 4">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Connect 4
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Minesweeper">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Minesweeper
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Wumpus World">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Wumpus World
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Rythm">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Rythm
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Type">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Type
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Drive">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Drive
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Sliding Puzzle">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Sliding Puzzle
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Snake">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Snake
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Word Search">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Word Search
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Hurdles">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Hurdles
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Pong">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Pong
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Flappy Bird">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Flappy Bird
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Oligopoly">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Oligopoly
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Reversi">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Reversi
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Darts">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Darts
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Yahtzee">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Yahtzee
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Tanks">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Tanks
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Helicopter">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Helicopter
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="2048">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> 2048
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Sudoku">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Sudoku
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Mancala">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Mancala
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Bound">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Bound
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Tents">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Tents
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Battleship">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Battleship
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Checkers">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Checkers
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Duck Hunt">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Duck Hunt
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Blackjack">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Blackjack
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Fighter">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Fighter
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Maze">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Maze
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="PacMan">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> PacMan
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Gravity">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Gravity
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Tetris">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Tetris
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Role Playing Game">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Role Playing Game
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Console Monsters">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Console Monsters
+			</NavLink>
+		</div>
+		<div class="nav-item px-3">
+			<NavLink class="nav-link" href="Shmup">
+				<span class="oi oi-play-circle" aria-hidden="true"></span> Shmup
+			</NavLink>
+		</div>
+	</nav>
 </div>
 
 @code
 {
-    private bool collapseNavMenu = true;
+	private bool collapseNavMenu = true;
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+	private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
+	private void ToggleNavMenu()
+	{
+		collapseNavMenu = !collapseNavMenu;
+	}
 }
