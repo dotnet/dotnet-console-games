@@ -1,0 +1,81 @@
+﻿@using System
+
+@page "/First Person Shooter"
+
+<PageTitle>First Person Shooter</PageTitle>
+
+<h1>First&nbsp;Person&nbsp;Shooter</h1>
+
+<a href="https://github.com/dotnet/dotnet-console-games/tree/main/Projects/First%20Person%20Shooter" alt="Go To Readme">
+	<img title="Go To Readme" alt="Go To Readme" src="https://raw.githubusercontent.com/dotnet/dotnet-console-games/main/.github/resources/readme-black.svg">
+</a>
+
+<div class="console-window text-center my-3" @onkeydown="@OnKeyDown" @onkeyup="@OnKeyUp" tabindex="0">
+	<div class="d-inline-block bg-dark text-light border p-2 text-start shadow padding-0">
+		<pre class="console">
+			<code>@Console.State</code>
+		</pre>
+	</div>
+	<div>
+
+		<button class="btn btn-primary" @ontouchstart="() => Games.First_Person_Shooter.First_Person_Shooter.ui_w_down = true" @ontouchend="() => Games.First_Person_Shooter.First_Person_Shooter.ui_w_down = false" @onmousedown="() => Games.First_Person_Shooter.First_Person_Shooter.ui_w_down = true" @onmouseup="() => Games.First_Person_Shooter.First_Person_Shooter.ui_w_down = false">w</button>
+		<button class="btn btn-primary" @ontouchstart="() => Games.First_Person_Shooter.First_Person_Shooter.ui_s_down = true" @ontouchend="() => Games.First_Person_Shooter.First_Person_Shooter.ui_s_down = false" @onmousedown="() => Games.First_Person_Shooter.First_Person_Shooter.ui_s_down = true" @onmouseup="() => Games.First_Person_Shooter.First_Person_Shooter.ui_s_down = false">s</button>
+		<button class="btn btn-primary" @ontouchstart="() => Games.First_Person_Shooter.First_Person_Shooter.ui_a_down = true" @ontouchend="() => Games.First_Person_Shooter.First_Person_Shooter.ui_a_down = false" @onmousedown="() => Games.First_Person_Shooter.First_Person_Shooter.ui_a_down = true" @onmouseup="() => Games.First_Person_Shooter.First_Person_Shooter.ui_a_down = false">a</button>
+		<button class="btn btn-primary" @ontouchstart="() => Games.First_Person_Shooter.First_Person_Shooter.ui_d_down = true" @ontouchend="() => Games.First_Person_Shooter.First_Person_Shooter.ui_d_down = false" @onmousedown="() => Games.First_Person_Shooter.First_Person_Shooter.ui_d_down = true" @onmouseup="() => Games.First_Person_Shooter.First_Person_Shooter.ui_d_down = false">d</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Spacebar)">spacebar</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.D1)">1</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.D2)">2</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.M)">m</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Tab)">tab</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Enter)">enter</button>
+		<button class="btn btn-primary" @onclick="() => Console.EnqueueInput(ConsoleKey.Escape)">escape</button>
+	</div>
+</div>
+
+<div class="alert alert-secondary" role="alert">
+	&#9000; Keyboard input is supported if you <strong>click</strong> on the game.
+</div>
+
+<div class="alert alert-secondary" role="alert">
+	&#8635; You can restart the game by <strong>refreshing</strong> the page.
+</div>
+
+@code
+{
+	Games.First_Person_Shooter.First_Person_Shooter Game;
+	BlazorConsole Console;
+
+	public First_Person_Shooter()
+	{
+		Game = new();
+		Console = Game.Console;
+		Console.WindowWidth = 121;
+		Console.WindowHeight = 41;
+		Console.TriggerRefresh = StateHasChanged;
+	}
+
+	public void OnKeyDown(KeyboardEventArgs e)
+	{
+		Console.OnKeyDown(e);
+		switch (e.Key)
+		{
+			case "w": Games.First_Person_Shooter.First_Person_Shooter.w_down = true; break;
+			case "a": Games.First_Person_Shooter.First_Person_Shooter.a_down = true; break;
+			case "s": Games.First_Person_Shooter.First_Person_Shooter.s_down = true; break;
+			case "d": Games.First_Person_Shooter.First_Person_Shooter.d_down = true; break;
+		}
+	}
+
+	public void OnKeyUp(KeyboardEventArgs e)
+	{
+		switch (e.Key)
+		{
+			case "w": Games.First_Person_Shooter.First_Person_Shooter.w_down = false; break;
+			case "a": Games.First_Person_Shooter.First_Person_Shooter.a_down = false; break;
+			case "s": Games.First_Person_Shooter.First_Person_Shooter.s_down = false; break;
+			case "d": Games.First_Person_Shooter.First_Person_Shooter.d_down = false; break;
+		}
+	}
+
+	protected override void OnInitialized() => InvokeAsync(Game.Run);
+}

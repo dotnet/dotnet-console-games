@@ -111,6 +111,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lights Out", "Projects\Ligh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reversi", "Projects\Reversi\Reversi.csproj", "{8D5244E1-C54E-4909-A9DE-0DE7E683D911}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "First Person Shooter", "Projects\First Person Shooter\First Person Shooter.csproj", "{5A18DEF8-A8C3-4B5B-B127-9BA0A0767287}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -333,6 +335,10 @@ Global
 		{8D5244E1-C54E-4909-A9DE-0DE7E683D911}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D5244E1-C54E-4909-A9DE-0DE7E683D911}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D5244E1-C54E-4909-A9DE-0DE7E683D911}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A18DEF8-A8C3-4B5B-B127-9BA0A0767287}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A18DEF8-A8C3-4B5B-B127-9BA0A0767287}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A18DEF8-A8C3-4B5B-B127-9BA0A0767287}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A18DEF8-A8C3-4B5B-B127-9BA0A0767287}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

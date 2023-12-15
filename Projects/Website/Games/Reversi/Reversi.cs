@@ -206,6 +206,7 @@ public class Reversi
 		await Console.Clear();
 		await Console.WriteLine("Reversi was closed.");
 		Console.CursorVisible = true;
+		await Console.Refresh();
 
 		void InitializeBoard()
 		{
