@@ -21,8 +21,6 @@
 	<sup>Hosted On GitHub Pages</sup>
 </p>
 
-> NOTE: This code was originally forked from https://github.com/OneLoneCoder/CommandLineFPS.
-
 Play from the first person perspective and shoot some baddies. This is a target range where you have 60 seconds to shoot as many targets as you can. Every time you shoot a target, a new one will spawn somewhere in the arena. Good Luck!
 
 ```
@@ -78,9 +76,9 @@ Play from the first person perspective and shoot some baddies. This is a target 
 - `Tab`: toggle stats
 - `Escape`: exit
 
-## Credits
+## Credit
 
-This game was built off of this implementation by Javidx9 (aka "One Lone Coder"):
+This game was originally forked from Javidx9's (aka "One Lone Coder") implementation here:
 https://github.com/OneLoneCoder/CommandLineFPS/blob/master/CommandLineFPS.cpp
 
 ## Downloads
