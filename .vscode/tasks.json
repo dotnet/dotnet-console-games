@@ -692,6 +692,19 @@
             "problemMatcher": "$msCompile",
         },
         {
+            "label": "Build First Person Shooter",
+            "command": "dotnet",
+            "type": "process",
+            "args":
+            [
+                "build",
+                "${workspaceFolder}/Projects/First Person Shooter/First Person Shooter.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile",
+        },
+        {
             "label": "Build Solution",
             "command": "dotnet",
             "type": "process",

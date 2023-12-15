@@ -5,8 +5,7 @@ using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text;
 
-object? a = null, b = null, c = null;
-
+PlayAgain:
 bool closeRequested = false;
 bool screenLargeEnough = true;
 int screenWidth = 120;
@@ -14,43 +13,40 @@ int screenHeight = 40;
 float fov = 3.14159f / 4.0f;
 float depth = 16.0f;
 float speed = 5.0f;
-float rotationSpeed = 0.20f;
+float rotationSpeed = 0.28f;
+int score = 0;
 float fps = default;
 bool mapVisible = true;
 bool statsVisible = true;
 Weapon equippedWeapon = Weapon.Pistol;
 TimeSpan pistolShootAnimationTime = TimeSpan.FromSeconds(0.2f);
 TimeSpan shotgunShootAnimationTime = TimeSpan.FromSeconds(0.5f);
+TimeSpan gameTime = TimeSpan.FromSeconds(60);
 char[,] screen = new char[screenWidth, screenHeight];
 float[,] depthBuffer = new float[screenWidth, screenHeight];
 List<(float X, float Y)> enemies = new()
 {
 	(13.5f, 09.5f),
-	//(4.5f, 09.5f),
-	//(16.5f, 09.5f),
 };
+bool gameOver = false;
+bool backToMenu = false;
 
 string[] map =
 [
 	// (0,0)              (+,0)
 	"███████████████████████████",
 	"█              ███        █",
-	"█               █         █",
-	"█   ███                ██ █",
-	"█          █              █",
+	"█     █         █         █",
+	"█     █                ██ █",
+	"█ █████    █              █",
 	"█                         █",
 	"█                 ███     █",
 	"█    ██                   █",
 	"█           ███           █",
 	"█                         █",
+	"█                    ██████",
+	"█    ███     ^            █",
 	"█                         █",
-	"█                         █",
-	"██                       ██",
-	"███                     ███",
-	"████                   ████",
-	"█████                 █████",
-	"██████       ^       ██████",
-	"███████             ███████",
 	"███████████████████████████",
 	// (0,+)              (+,+)
 ];
@@ -269,10 +265,10 @@ string[] playerShotgun =
 	"!!!!╭║ ║ ║╮!",
 	"!!!!|║ ║ ║╮!",
 	"!!!!|║ ║ ║╮!",
-	"!!!╱ ║ ║ ║─╮",
-	"!!╱  ╭─╮ ║ │",
-	"!╱  ╱│ ├─╯ │",
-	"╱  ╱!╰╮  ╭─╯",
+	"!!!/ ║ ║ ║─╮",
+	"!!/  ╭─╮ ║ │",
+	"!/  /│ ├─╯ │",
+	"/  /!╰╮  ╭─╯",
 ];
 
 string[] playerShotgunShoot =
@@ -285,36 +281,50 @@ string[] playerShotgunShoot =
 	@"!!!!╭║ ║ ║╮!",
 	@"!!!!|║ ║ ║╮!",
 	@"!!!!|║ ║ ║╮!",
-	@"!!!╱ ║ ║ ║─╮",
-	@"!!╱  ╭─╮ ║ │",
-	@"!╱  ╱│ ├─╯ │",
+	@"!!!/ ║ ║ ║─╮",
+	@"!!/  ╭─╮ ║ │",
+	@"!/  /│ ├─╯ │",
 ];
 
 int consoleWidth = Console.WindowWidth;
 int consoleHeight = Console.WindowHeight;
+Stopwatch gameTimeStopwatch;
 Stopwatch stopwatch = Stopwatch.StartNew();
 Stopwatch? stopwatchShoot = null;
 Console.OutputEncoding = Encoding.UTF8;
 Console.Clear();
-Console.WriteLine("First Person Shooter");
-Console.WriteLine();
-Console.WriteLine("Controls");
-Console.WriteLine("- W, A, S, D: move/look");
-Console.WriteLine("- Spacebar: shoot");
-Console.WriteLine("- 1: equip pistol");
-Console.WriteLine("- 2: equip shotgun");
-Console.WriteLine("- M: toggle map");
-Console.WriteLine("- Tab: toggle stats");
-Console.WriteLine("- Escape: exit");
-Console.WriteLine();
-Console.WriteLine("Press any key to begin...");
+Console.WriteLine("""
+	First Person Shooter
+
+	This is a first person shooter target range. You have
+	60 seconds to shoot as many targets as you can. Every
+	time you shoot a target a new one will spawn somewhere
+	in the arena. Good Luck!
+
+	Controls
+	- W, A, S, D: move/look
+	- Spacebar: shoot
+	- 1: equip pistol
+	- 2: equip shotgun
+	- M: toggle map
+	- Tab: toggle stats
+	- Escape: exit
+
+	Press any key to begin...
+	""");
 if (Console.ReadKey(true).Key is not ConsoleKey.Escape)
 {
+	gameTimeStopwatch = Stopwatch.StartNew();
 	Console.Clear();
 	stopwatch = Stopwatch.StartNew();
 	while (!closeRequested)
 	{
 		Update();
+		if (backToMenu)
+		{
+			backToMenu = false;
+			goto PlayAgain;
+		}
 		Render();
 	}
 }
@@ -323,6 +333,12 @@ Console.Write("First Person Shooter was closed.");
 
 void Update()
 {
+	if (gameTimeStopwatch.Elapsed > gameTime)
+	{
+		gameOver = true;
+		gameTimeStopwatch.Stop();
+	}
+
 	bool u = false;
 	bool d = false;
 	bool l = false;
@@ -332,31 +348,125 @@ void Update()
 	{
 		switch (Console.ReadKey(true).Key)
 		{
+			case ConsoleKey.Enter:
+				backToMenu = true;
+				break;
 			case ConsoleKey.Escape: closeRequested = true; return;
-			case ConsoleKey.M: mapVisible = !mapVisible; break;
-			case ConsoleKey.Tab: statsVisible = !statsVisible; break;
+			case ConsoleKey.M:
+				if (!gameOver)
+				{
+					mapVisible = !mapVisible;
+				}
+				break;
+			case ConsoleKey.Tab:
+				if (!gameOver)
+				{
+					statsVisible = !statsVisible;
+				}
+				break;
 			case ConsoleKey.D1 or ConsoleKey.NumPad1:
-				if (PlayerIsNotBusy())
+				if (!gameOver && PlayerIsNotBusy())
 				{
 					equippedWeapon = Weapon.Pistol;
 				}
 				break;
 			case ConsoleKey.D2 or ConsoleKey.NumPad2:
-				if (PlayerIsNotBusy())
+				if (!gameOver && PlayerIsNotBusy())
 				{
 					equippedWeapon = Weapon.Shotgun;
 				}
 				break;
 			case ConsoleKey.Spacebar:
-				if (PlayerIsNotBusy())
+				if (!gameOver && PlayerIsNotBusy())
 				{
+					List<(float X, float Y)> defeatedEnemies = [];
+					bool spawnEnemy = false;
+					foreach (var enemy in enemies)
+					{
+						float angle = (float)Math.Atan2(enemy.Y - playerY, enemy.X - playerX);
+						if (angle < 0) angle += 2f * (float)Math.PI;
+						float distance = Vector2.Distance(new(playerX, playerY), new(enemy.X, enemy.Y));
+
+						float fovAngleA = playerA - fov / 2;
+						if (fovAngleA < 0) fovAngleA += 2 * (float)Math.PI;
+
+						float diff = angle < fovAngleA && fovAngleA - 2f * (float)Math.PI + fov > angle ? angle + 2f * (float)Math.PI - fovAngleA : angle - fovAngleA;
+						float ratio = diff / fov;
+						int enemyScreenX = (int)(screenWidth * ratio);
+
+						string[] enemySprite = distance switch
+						{
+							<= 01f => enemySprite8,
+							<= 02f => enemySprite7,
+							<= 03f => enemySprite6,
+							<= 04f => enemySprite5,
+							<= 05f => enemySprite4,
+							<= 06f => enemySprite3,
+							<= 07f => enemySprite2,
+							_ => enemySprite1
+						};
+
+						int halfEnemyWidth = enemySprite[0].Length / 2;
+						int enemyMinScreenX = enemyScreenX - halfEnemyWidth;
+						int enemyMaxScreenX = enemyScreenX + halfEnemyWidth;
+						int screenWidthMid = screenWidth / 2;
+
+						switch (equippedWeapon)
+						{
+							case Weapon.Pistol:
+								if (enemyMinScreenX <= screenWidthMid && screenWidthMid <= enemyMaxScreenX)
+								{
+									defeatedEnemies.Add(enemy);
+									spawnEnemy = true;
+								}
+								break;
+							case Weapon.Shotgun:
+								if (enemyMinScreenX <= screenWidthMid && screenWidthMid <= enemyMaxScreenX)
+								{
+									defeatedEnemies.Add(enemy);
+									spawnEnemy = true;
+								}
+								break;
+							default:
+								throw new NotImplementedException();
+						}
+					}
+					foreach (var enemy in defeatedEnemies)
+					{
+						enemies.Remove(enemy);
+						score++;
+					}
+					if (spawnEnemy)
+					{
+						SpawnTarget();
+					}
 					stopwatchShoot = Stopwatch.StartNew();
 				}
 				break;
-			case ConsoleKey.W: u = true; break;
-			case ConsoleKey.A: l = true; break;
-			case ConsoleKey.S: d = true; break;
-			case ConsoleKey.D: r = true; break;
+			case ConsoleKey.W:
+				if (!gameOver)
+				{
+					u = true;
+				}
+				break;
+			case ConsoleKey.A:
+				if (!gameOver)
+				{
+					l = true;
+				}
+				break;
+			case ConsoleKey.S:
+				if (!gameOver)
+				{
+					d = true;
+				}
+				break;
+			case ConsoleKey.D:
+				if (!gameOver)
+				{
+					r = true;
+				}
+				break;
 		}
 	}
 
@@ -379,10 +489,10 @@ void Update()
 
 	if (OperatingSystem.IsWindows())
 	{
-		u = u || User32_dll.GetAsyncKeyState('W') is not 0;
-		l = l || User32_dll.GetAsyncKeyState('A') is not 0;
-		d = d || User32_dll.GetAsyncKeyState('S') is not 0;
-		r = r || User32_dll.GetAsyncKeyState('D') is not 0;
+		u = u || User32_dll.GetAsyncKeyState('W') is not 0 && !gameOver;
+		l = l || User32_dll.GetAsyncKeyState('A') is not 0 && !gameOver;
+		d = d || User32_dll.GetAsyncKeyState('S') is not 0 && !gameOver;
+		r = r || User32_dll.GetAsyncKeyState('D') is not 0 && !gameOver;
 	}
 
 	if (l && !r)
@@ -555,11 +665,7 @@ void Render()
 		float diff = angle < fovAngleA && fovAngleA - 2f * (float)Math.PI + fov > angle ? angle + 2f * (float)Math.PI - fovAngleA : angle - fovAngleA;
 		float ratio = diff / fov;
 		int enemyScreenX = (int)(screenWidth * ratio);
-		int enemyScreenY = floor;
-
-		a = (nameof(angle), angle);
-		b = (nameof(ratio), ratio);
-		c = (nameof(fovAngleA), fovAngleA);
+		int enemyScreenY = Math.Min(floor, screen.GetLength(1));
 
 		for (int y = 0; y < enemySprite.Length; y++)
 		{
@@ -587,9 +693,8 @@ void Render()
 			$"y={playerY:0.00}",
 			$"a={playerA:0.00}",
 			$"fps={fps:0.}",
-			$"{a}",
-			$"{b}",
-			$"{c}",
+			$"score={score}",
+			$"time={(int)gameTimeStopwatch.Elapsed.TotalSeconds}/{(int)gameTime.TotalSeconds}",
 		];
 		for (int i = 0; i < stats.Length; i++)
 		{
@@ -639,6 +744,29 @@ void Render()
 		}
 	}
 
+	if (gameOver)
+	{
+		string[] gameOverMessage =
+		[
+			$"                                        ",
+			$"               GAME OVER!               ",
+			$"                Score: {score}                ",
+			$"   Press [enter] to return to menu...   ",
+			$"                                        ",
+		];
+		int gameOverMessageY = screenHeight / 2 - gameOverMessage.Length / 2;
+		foreach (string line in gameOverMessage)
+		{
+			int gameOverMessageX = screenWidth / 2 - line.Length / 2;
+			foreach (char c in line)
+			{
+				screen[gameOverMessageX, gameOverMessageY] = c;
+				gameOverMessageX++;
+			}
+			gameOverMessageY++;
+		}
+	}
+
 	StringBuilder render = new();
 	for (int y = 0; y < screen.GetLength(1); y++)
 	{
@@ -654,6 +782,24 @@ void Render()
 	Console.CursorVisible = false;
 	Console.SetCursorPosition(0, 0);
 	Console.Write(render);
+}
+
+void SpawnTarget()
+{
+	List<(float X, float Y)> possibleSpawnPoints = [];
+	for (int y = 0; y < map.Length; y++)
+	{
+		for (int x = 0; x < map[y].Length; x++)
+		{
+			if (map[y][x] is ' ')
+			{
+				possibleSpawnPoints.Add((x + .5f, y + .5f));
+			}
+		}
+	}
+	(float X, float Y) location = possibleSpawnPoints[Random.Shared.Next(possibleSpawnPoints.Count)];
+	enemies.Add(location);
+
 }
 
 bool PlayerIsNotBusy() =>

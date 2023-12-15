@@ -1,0 +1,20 @@
+name: First Person Shooter Build
+on:
+  push:
+    paths:
+    - 'Projects/First Person Shooter/**'
+    - '!**.md'
+  pull_request:
+    paths:
+    - 'Projects/First Person Shooter/**'
+    - '!**.md'
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+    - run: dotnet build "Projects\First Person Shooter\First Person Shooter.csproj" --configuration Release
